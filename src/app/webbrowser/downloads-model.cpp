@@ -223,33 +223,16 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
 
 void DownloadsModel::setPath(const QString& downloadId, const QString& path)
 {
-    QString mimetype;
     QSqlQuery query(m_database);
 
-    // Check if we already have a mimetype for this
-    static QString mimeStatement = QLatin1String("SELECT mimetype WHERE downloadId = ?");
-    query.prepare(mimeStatement);
-    query.addBindValue(downloadId);
-    query.exec();
-    if (query.next()) {
-        mimetype = query.value(0).toString();
-    }
+    // Override reported mimetype from server with detected mimetype from file once downloaded
+    QMimeDatabase mimeDatabase;
+    QString mimetype = mimeDatabase.mimeTypeForFile(path).name();
 
-    // If not determine the mimetype from the downloaded file
-    if (mimetype.isEmpty() || mimetype == "image/*") {
-        QMimeDatabase mimeDatabase;
-        mimetype = mimeDatabase.mimeTypeForFile(path).name();
-        static QString updateMimeStatement = QLatin1String("UPDATE downloads SET mimetype = ? "
-                                                           "WHERE downloadId = ?");
-        query.prepare(updateMimeStatement);
-        query.addBindValue(mimetype);
-        query.addBindValue(downloadId);
-        query.exec();
-    }
-
-    static QString updateStatement = QLatin1String("UPDATE downloads SET path = ? "
-                                                   "WHERE downloadId = ?");
+    static QString updateStatement = QLatin1String("UPDATE downloads SET mimetype = ?, "
+                                                   "path = ? WHERE downloadId = ?");
     query.prepare(updateStatement);
+    query.addBindValue(mimetype);
     query.addBindValue(path);
     query.addBindValue(downloadId);
     query.exec();
