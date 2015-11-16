@@ -40,6 +40,7 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+    visible: false
 
     Connections {
         target: PreviewManager
