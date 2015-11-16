@@ -46,7 +46,6 @@ public:
         Path,
         Filename,
         Mimetype,
-        Progress,
         Complete,
         Error,
         Created
@@ -65,7 +64,6 @@ public:
     Q_INVOKABLE void add(const QString &downloadId, const QUrl& url, const QString& mimetype);
     Q_INVOKABLE void moveToDownloads(const QString& downloadId, const QString& path);
     Q_INVOKABLE void setPath(const QString& downloadId, const QString& path);
-    Q_INVOKABLE void setProgress(const QString& downloadId, const int progress);
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);
     Q_INVOKABLE void deleteDownload(const QString& path);
@@ -75,7 +73,6 @@ Q_SIGNALS:
     void databasePathChanged() const;
     void added(const QString& downloadId, const QUrl& url, const QString& mimetype) const;
     void pathChanged(const QString& downloadId, const QString& path) const;
-    void progressChanged(const QString& downloadId, const int progress) const;
     void completeChanged(const QString& downloadId, const bool complete) const;
     void errorChanged(const QString& downloadId, const QString& error) const;
     void deleted(const QString& path) const;
@@ -93,7 +90,6 @@ private:
         QString path;
         QString filename;
         QString mimetype;
-        int progress;
         bool complete;
         QString error;
         QDateTime created;

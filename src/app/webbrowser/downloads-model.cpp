@@ -85,7 +85,7 @@ void DownloadsModel::createOrAlterDatabaseSchema()
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS downloads "
                                   "(downloadId VARCHAR, url VARCHAR, path VARCHAR, "
-                                  "mimetype VARCHAR, progress INT, complete BOOL, "
+                                  "mimetype VARCHAR, complete BOOL, "
                                   "error VARCHAR, created DATETIME DEFAULT "
                                   "CURRENT_TIMESTAMP);");
     createQuery.prepare(query);
@@ -96,7 +96,7 @@ void DownloadsModel::fetchMore(const QModelIndex &parent)
 {
     QSqlQuery populateQuery(m_database);
     QString query = QLatin1String("SELECT downloadId, url, path, mimetype, "
-                                  "progress, complete, error, created "
+                                  "complete, error, created "
                                   "FROM downloads ORDER BY created DESC LIMIT 100 OFFSET ?;");
     populateQuery.prepare(query);
     populateQuery.addBindValue(m_fetchedCount);
@@ -108,10 +108,9 @@ void DownloadsModel::fetchMore(const QModelIndex &parent)
         entry.url = populateQuery.value(1).toUrl();
         entry.path = populateQuery.value(2).toString();
         entry.mimetype = populateQuery.value(3).toString();
-        entry.progress = populateQuery.value(4).toInt();
-        entry.complete = populateQuery.value(5).toBool();
-        entry.error = populateQuery.value(6).toString();
-        entry.created = QDateTime::fromTime_t(populateQuery.value(7).toInt());
+        entry.complete = populateQuery.value(4).toBool();
+        entry.error = populateQuery.value(5).toString();
+        entry.created = QDateTime::fromTime_t(populateQuery.value(6).toInt());
         QFileInfo fileInfo(entry.path);
         if (fileInfo.exists()) {
             entry.filename = fileInfo.fileName();
@@ -143,7 +142,6 @@ QHash<int, QByteArray> DownloadsModel::roleNames() const
         roles[Path] = "path";
         roles[Filename] = "filename";
         roles[Mimetype] = "mimetype";
-        roles[Progress] = "progress";
         roles[Complete] = "complete";
         roles[Error] = "error";
         roles[Created] = "created";
@@ -174,8 +172,6 @@ QVariant DownloadsModel::data(const QModelIndex& index, int role) const
         return entry.filename;
     case Mimetype:
         return entry.mimetype;
-    case Progress:
-        return entry.progress;
     case Complete:
         return entry.complete;
     case Error:
@@ -206,7 +202,7 @@ void DownloadsModel::setDatabasePath(const QString& path)
 
 /*!
     Add a download to the database. This should happen as soon as the download
-    is started, it's progress will then be updated as the download happens.
+    is started.
 */
 void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& mimetype)
 {
@@ -258,18 +254,6 @@ void DownloadsModel::setPath(const QString& downloadId, const QString& path)
     query.addBindValue(downloadId);
     query.exec();
     Q_EMIT pathChanged(downloadId, path);
-}
-
-void DownloadsModel::setProgress(const QString& downloadId, const int progress)
-{
-    QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE downloads SET progress = ? "
-                                                   "WHERE downloadId = ?");
-    query.prepare(updateStatement);
-    query.addBindValue(progress);
-    query.addBindValue(downloadId);
-    query.exec();
-    Q_EMIT progressChanged(downloadId, progress);
 }
 
 void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
