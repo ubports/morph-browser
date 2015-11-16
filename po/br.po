@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-23 15:10+0200\n"
-"PO-Revision-Date: 2015-10-05 06:33+0000\n"
+"PO-Revision-Date: 2015-11-03 07:08+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-10-24 05:56+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-05 05:43+0000\n"
+"X-Generator: Launchpad (build 17838)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -128,6 +128,7 @@ msgstr "War a seblant ez oc'h lakaet diaes evit gwelet : %1."
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Gwiriit arventennoù ho reizhiad ha klaskit freskaat ar bajenn, mar plij."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -400,7 +401,7 @@ msgstr "Troc'hañ"
 msgid "Erase"
 msgstr "Diverkañ"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:429
 msgid "Find in page"
 msgstr "Kavout er bajenn"
 
@@ -485,7 +486,7 @@ msgstr "enrollañ al liamm"
 msgid "Select all"
 msgstr "Diuzañ pep tra"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:393
 msgid "Share"
 msgstr "Rannañ"
 
@@ -494,16 +495,16 @@ msgid "Undo"
 msgstr "Dizober"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
 msgstr "kavout er bajenn"
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "klask pe ebarzhiñ ur chomlec'h"
 
@@ -550,7 +551,7 @@ msgstr "Degemer"
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/Browser.qml:400 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Sinedoù"
@@ -564,18 +565,18 @@ msgstr "Graet eo"
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/Browser.qml:422 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Ivinell nevez"
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:406
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Istor"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:412
 msgid "Open tabs"
 msgstr "Ivinelloù digor"
 
@@ -601,11 +602,11 @@ msgstr "Arventennoù"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1258
+#: src/app/webbrowser/Browser.qml:1259
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Riklañ d'an nec'h evit kuitaat ar skramm leun"
 
-#: src/app/webbrowser/Browser.qml:1259
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pouezañ war ESC evit kuitatt ar skramm leun"
 
@@ -662,21 +663,21 @@ msgstr "Ma'z it d'ar mod e vo serret an holl ivinelloù prevez"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Aotren an domani-mañ da vont d'ho kamera ha d'ho mikro ?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Aotren an domani-mañ da vont d'ho kamera ?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Aotren an domani-mañ da vont d'ho mikro ?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (e-barzh %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -806,7 +807,7 @@ msgstr "Aotren digeriñ ivinelloù nevez en drekleur"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Buhez prevez & aotreoù"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -815,7 +816,7 @@ msgstr "Adderaouekaat arventennoù ar merdeer"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Kamera & mikro"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -839,11 +840,11 @@ msgstr "Naetaat"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Mikro"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
@@ -855,7 +856,7 @@ msgstr "Serriñ an ivinell"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "Lemel"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
