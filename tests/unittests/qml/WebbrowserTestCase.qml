@@ -47,8 +47,8 @@ UbuntuTestCase {
         return items
     }
 
-    function swipeToDeleteAndConfirm(listitem, x, dx) {
-        flick(listitem, x, listitem.height / 2, dx, 0)
+    function swipeToDeleteAndConfirm(listitem) {
+        flick(listitem, listitem.width / 10, listitem.height / 2, listitem.width / 2, 0)
         var confirm = findChild(listitem, "actionbutton_leadingAction.delete")
         clickItem(confirm)
     }

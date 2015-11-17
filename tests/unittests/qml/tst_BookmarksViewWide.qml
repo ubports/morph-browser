@@ -104,7 +104,7 @@ Item {
 
         function test_delete_bookmark() {
             var bookmark = getListItems(findChild(view, "bookmarksList"), "bookmarkItem")[1]
-            swipeToDeleteAndConfirm(bookmark, 50, 150)
+            swipeToDeleteAndConfirm(bookmark)
             tryCompare(BookmarksModel, "count", 2)
         }
     }

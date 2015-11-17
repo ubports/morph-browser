@@ -107,7 +107,7 @@ Item {
             var items = getListItems(findChild(view, "bookmarksFolderListView"),
                                      "bookmarkFolderDelegateLoader")
             var bookmark = findChild(items[0], "urlDelegate_1")
-            swipeToDeleteAndConfirm(bookmark, 50, 100)
+            swipeToDeleteAndConfirm(bookmark)
             tryCompare(BookmarksModel, "count", 2)
         }
     }
