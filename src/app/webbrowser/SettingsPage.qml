@@ -414,10 +414,10 @@ Item {
                         visible: devicesCount > 0
                         enabled: devicesCount > 1
 
-                        defaultDevice: settings.defaultAudioDevice
+                        defaultDevice: settingsObject.defaultAudioDevice
                         onDeviceSelected: {
                             SharedWebContext.sharedContext.defaultAudioCaptureDeviceId = id
-                            settings.defaultAudioDevice = id
+                            settingsObject.defaultAudioDevice = id
                         }
                     }
 
@@ -433,10 +433,10 @@ Item {
                         visible: devicesCount > 0
                         enabled: devicesCount > 1
 
-                        defaultDevice: settings.defaultVideoDevice
+                        defaultDevice: settingsObject.defaultVideoDevice
                         onDeviceSelected: {
-                          SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = id
-                          settings.defaultVideoDevice = id
+                            SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = id
+                            settingsObject.defaultVideoDevice = id
                         }
                     }
                 }
