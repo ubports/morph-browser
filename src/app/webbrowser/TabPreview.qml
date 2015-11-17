@@ -27,7 +27,6 @@ Column {
     property alias incognito: chrome.incognito
     property var tab
     readonly property url url: tab ? tab.url : ""
-    property alias chromeHeight: chrome.height
 
     // The first preview in the tabs list is a special case.
     // Since it’s the current tab, instead of displaying a

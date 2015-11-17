@@ -23,7 +23,7 @@ Item {
     id: tabslist
 
     property real delegateHeight
-    property real chromeOffset
+    property real chromeHeight
     property alias model: repeater.model
     readonly property int count: repeater.count
     property bool incognito
@@ -38,14 +38,18 @@ Item {
 
     readonly property bool animating: selectedAnimation.running
 
+    TabChrome {
+        id: invisibleTabChrome
+        visible: false
+    }
+
     Rectangle {
-        id: firstItemChromeBackground
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
         }
-        height: units.gu(4)
+        height: invisibleTabChrome.height
         color: "#fbfbfb"
     }
 
@@ -104,9 +108,18 @@ Item {
                     icon: delegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
-                    chromeHeight: firstItemChromeBackground.height
                     showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
                                  !(tab.webview && tab.webview.visible)
+
+                    Binding {
+                        // Change the height of the location bar controller
+                        // for the first webview only, and only while the tabs
+                        // list view is visible.
+                        when: tabslist.visible && (index == 0)
+                        target: tab.webview ? tab.webview.locationBarController : null
+                        property: "height"
+                        value: invisibleTabChrome.height
+                    }
 
                     onSelected: tabslist.selectAndAnimateTab(index)
                     onClosed: tabslist.tabClosed(index)
@@ -119,9 +132,20 @@ Item {
             property int index: 0
             target: flickable
             property: "contentY"
-            to: index * delegateHeight - chromeOffset
+            to: index * delegateHeight - chromeHeight + invisibleTabChrome.height
             duration: UbuntuAnimation.FastDuration
-            onStopped: tabslist.tabSelected(index)
+            onStopped: {
+                // Delay switching the tab until after the animation has completed.
+                delayedTabSelection.index = index
+                delayedTabSelection.start()
+            }
+        }
+
+        Timer {
+            id: delayedTabSelection
+            interval: 1
+            property int index: 0
+            onTriggered: tabslist.tabSelected(index)
         }
     }
 

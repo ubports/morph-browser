@@ -170,23 +170,6 @@ BrowserView {
         anchors.fill: parent
         visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
 
-        TabChrome {
-            id: invisibleTabChrome
-            visible: false
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-        }
-
-        Rectangle {
-            // Background for the recent view
-            anchors.fill: invisibleTabChrome
-            visible: recentView.visible
-            color: "#312f2c"
-        }
-
         FocusScope {
             id: tabContainer
             anchors {
@@ -625,8 +608,8 @@ BrowserView {
         }
 
         function closeAndSwitchToTab(index) {
-            internal.switchToTab(index, false)
             recentView.reset()
+            internal.switchToTab(index, false)
         }
 
         Keys.onEscapePressed: closeAndSwitchToTab(0)
@@ -649,7 +632,7 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
-            chromeOffset: chrome.height - invisibleTabChrome.height
+            chromeHeight: chrome.height
             onScheduleTabSwitch: internal.nextTabIndex = index
             onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: internal.closeTab(index)
@@ -998,7 +981,7 @@ BrowserView {
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
-                    height: recentView.visible ? invisibleTabChrome.height : chrome.height
+                    height: chrome.height
                     mode: chromeController.defaultMode
                 }
 
