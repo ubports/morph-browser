@@ -135,9 +135,11 @@ FocusScope {
     onCurrentChanged: {
         if (current) {
             internal.hiding = false
+            z = 1
             opacity = 1
             visible = true
         } else if (visible && !internal.hiding) {
+            z = -1
             if (!webview || webview.incognito) {
                 // XXX: Do not grab a capture in incognito mode, as we don’t
                 // want to write anything to disk. This means tab previews won’t
@@ -169,6 +171,7 @@ FocusScope {
     onAboutToShow: {
         if (!current) {
             opacity = 0
+            z = 1
             visible = true
             load()
         }
