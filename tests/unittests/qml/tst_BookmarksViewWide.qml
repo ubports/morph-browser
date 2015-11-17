@@ -104,9 +104,7 @@ Item {
 
         function test_delete_bookmark() {
             var bookmark = getListItems(findChild(view, "bookmarksList"), "bookmarkItem")[1]
-            flick(bookmark, 50, bookmark.height / 2, 150, 0)
-            var confirm = findChild(bookmark, "actionbutton_leadingAction.delete")
-            clickItem(confirm)
+            swipeToDeleteAndConfirm(bookmark, 50, 150)
             tryCompare(BookmarksModel, "count", 2)
         }
     }

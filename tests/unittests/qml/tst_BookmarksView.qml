@@ -107,9 +107,7 @@ Item {
             var items = getListItems(findChild(view, "bookmarksFolderListView"),
                                      "bookmarkFolderDelegateLoader")
             var bookmark = findChild(items[0], "urlDelegate_1")
-            flick(bookmark, 50, bookmark.height / 2, 100, 0)
-            var confirm = findChild(bookmark, "actionbutton_leadingAction.delete")
-            clickItem(confirm)
+            swipeToDeleteAndConfirm(bookmark, 50, 100)
             tryCompare(BookmarksModel, "count", 2)
         }
     }
