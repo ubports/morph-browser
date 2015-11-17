@@ -20,7 +20,6 @@ import QtQuick 2.4
 import QtTest 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
-import Ubuntu.Test 1.0
 import webbrowserapp.private 0.1
 import webbrowsertest.private 0.1
 import "../../../src/app/webbrowser"
@@ -67,14 +66,9 @@ Item {
         signalName: "historyEntryClicked"
     }
 
-    UbuntuTestCase {
+    CustomTestCase {
         name: "HistoryViewWide"
         when: windowShown
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
 
         function longPressItem(item) {
             var center = centerOf(item)

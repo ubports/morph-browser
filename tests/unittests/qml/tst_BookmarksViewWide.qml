@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import QtTest 1.0
-import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 import webbrowserapp.private 0.1
 
@@ -52,7 +51,7 @@ Item {
         signalName: "newTabClicked"
     }
 
-    UbuntuTestCase {
+    CustomTestCase {
         name: "BookmarksViewWide"
         when: windowShown
 
@@ -77,11 +76,6 @@ Item {
             bookmarkEntryClickedSpy.clear()
             doneSpy.clear()
             newTabClickedSpy.clear()
-        }
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
         }
 
         function getListItems(name, itemName) {

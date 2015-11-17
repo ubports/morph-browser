@@ -17,8 +17,6 @@
  */
 
 import QtQuick 2.4
-import QtTest 1.0
-import Ubuntu.Test 1.0
 import webbrowserapp.private 0.1
 import webbrowsertest.private 0.1
 import "../../../src/app/webbrowser"
@@ -50,14 +48,9 @@ Item {
         }
     }
 
-    UbuntuTestCase {
+    CustomTestCase {
         name: "TestSettingsPage"
         when: windowShown
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
 
         function swipeItemRight(item) {
             var center = centerOf(item)
@@ -105,7 +98,7 @@ Item {
             return page
         }
 
-        function goToMediaAccessPage() {
+        function test_goToMediaAccessPage() {
             activateSettingsItem("privacy", "privacySettings")
             return activateSettingsItem("privacy.mediaAccess", "mediaAccessSettings")
         }
