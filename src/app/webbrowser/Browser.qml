@@ -625,8 +625,8 @@ BrowserView {
         }
 
         function closeAndSwitchToTab(index) {
-            recentView.reset()
             internal.switchToTab(index, false)
+            recentView.reset()
         }
 
         Keys.onEscapePressed: closeAndSwitchToTab(0)
