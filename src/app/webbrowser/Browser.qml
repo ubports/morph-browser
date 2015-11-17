@@ -23,7 +23,7 @@ import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Content 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.DownloadManager 0.1
+import Ubuntu.DownloadManager 1.2
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
