@@ -32,6 +32,7 @@ Item {
 
     property bool incognito: false
 
+    signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
 
     MouseArea {
@@ -39,9 +40,9 @@ Item {
         onWheel: {
             var angle = (wheel.angleDelta.x != 0) ? wheel.angleDelta.x : wheel.angleDelta.y
             if ((angle < 0) && (root.model.currentIndex < (root.model.count - 1))) {
-                root.model.currentIndex++
+                switchToTab(root.model.currentIndex + 1)
             } else if ((angle > 0) && (root.model.currentIndex > 0)) {
-                root.model.currentIndex--
+                switchToTab(root.model.currentIndex - 1)
             }
         }
     }
@@ -151,7 +152,7 @@ Item {
                     rightMargin: tabDelegate.rightMargin
 
                     onClosed: internal.closeTab(index)
-                    onSelected: root.model.currentIndex = index
+                    onSelected: switchToTab(index)
                     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                 }
 

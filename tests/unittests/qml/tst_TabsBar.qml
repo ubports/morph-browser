@@ -57,6 +57,7 @@ Item {
         height: 50
 
         model: tabsModel
+        onSwitchToTab: model.currentIndex = index
         onRequestNewTab: insertTab("", "", "", index)
         function appendTab(url, title, icon) {
             insertTab(url, title, icon, model.count)

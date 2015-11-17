@@ -40,6 +40,11 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+
+    // Used as a workaround for https://launchpad.net/bugs/1502675 :
+    // invoke this on a tab shortly before it is set current.
+    signal aboutToShow()
+
     visible: false
 
     Connections {
@@ -133,6 +138,7 @@ FocusScope {
     onCurrentChanged: {
         if (current) {
             internal.hiding = false
+            opacity = 1
             visible = true
         } else if (visible && !internal.hiding) {
             if (!webview || webview.incognito) {
@@ -160,6 +166,13 @@ FocusScope {
 
                 PreviewManager.saveToDisk(result, url)
             })
+        }
+    }
+
+    onAboutToShow: {
+        if (!current) {
+            opacity = 0
+            visible = true
         }
     }
 

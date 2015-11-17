@@ -375,6 +375,7 @@ BrowserView {
                 onCountChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
 
+            onSwitchToTab: internal.switchToTab(index, true)
             onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
 
             onFindInPageModeChanged: {
@@ -625,7 +626,7 @@ BrowserView {
 
         function closeAndSwitchToTab(index) {
             recentView.reset()
-            internal.switchToTab(index)
+            internal.switchToTab(index, index > 0)
         }
 
         Keys.onEscapePressed: closeAndSwitchToTab(0)
@@ -1287,6 +1288,16 @@ BrowserView {
     QtObject {
         id: internal
 
+        property int nextTabIndex: -1
+        onNextTabIndexChanged: {
+            if (nextTabIndex > -1) {
+                var nextTab = tabsModel.get(nextTabIndex)
+                if (nextTab) {
+                    nextTab.aboutToShow()
+                }
+            }
+        }
+
         function getOpenPages() {
             var urls = [];
             for (var i = 0; i < tabsModel.count; i++) {
@@ -1320,8 +1331,8 @@ BrowserView {
             if (index === undefined) index = tabsModel.add(tab)
             else index = tabsModel.insert(tab, index)
             if (setCurrent) {
-                tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
+                switchToTab(index, true)
             }
         }
 
@@ -1344,31 +1355,37 @@ BrowserView {
 
         function switchToPreviousTab() {
             if (browser.wide) {
-                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
+                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count, true)
             } else {
-                internal.switchToTab(tabsModel.count - 1)
+                internal.switchToTab(tabsModel.count - 1, true)
             }
             if (recentView.visible) recentView.focus = true
         }
 
         function switchToNextTab() {
             if (browser.wide) {
-                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
+                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count, true)
             } else {
-                internal.switchToTab(tabsModel.count - 1)
+                internal.switchToTab(tabsModel.count - 1, true)
             }
             if (recentView.visible) recentView.focus = true
         }
 
-        function switchToTab(index) {
-            tabsModel.currentIndex = index
-            var tab = tabsModel.currentTab
-            if (tab) {
-                if (!tab.url.toString() && !tab.initialUrl.toString() &&
-                    (formFactor == "desktop")) {
-                    focusAddressBar()
-                } else {
-                    tabContainer.forceActiveFocus()
+        function switchToTab(index, delayed) {
+            if (delayed) {
+                nextTabIndex = index
+                delayedTabSwitcher.restart()
+            } else {
+                tabsModel.currentIndex = index
+                nextTabIndex = -1
+                var tab = tabsModel.currentTab
+                if (tab) {
+                    if (!tab.url.toString() && !tab.initialUrl.toString() &&
+                        (formFactor == "desktop")) {
+                        focusAddressBar()
+                    } else {
+                        tabContainer.forceActiveFocus()
+                    }
                 }
             }
         }
@@ -1439,6 +1456,14 @@ BrowserView {
         }
     }
 
+    // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
+    // the next tab for a fraction of a second to avoid a black flash.
+    Timer {
+        id: delayedTabSwitcher
+        interval: 50
+        onTriggered: internal.switchToTab(internal.nextTabIndex, false)
+    }
+
     function openUrlInNewTab(url, setCurrent, load, index) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
@@ -1487,7 +1512,7 @@ BrowserView {
                     }
                 }
                 if ('currentIndex' in state) {
-                    publicTabsModel.currentIndex = state.currentIndex
+                    internal.switchToTab(state.currentIndex, true)
                 }
             }
         }
