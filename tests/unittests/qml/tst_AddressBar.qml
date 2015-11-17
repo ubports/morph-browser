@@ -67,7 +67,7 @@ Item {
         signalName: "validated"
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "AddressBar"
         when: windowShown
 

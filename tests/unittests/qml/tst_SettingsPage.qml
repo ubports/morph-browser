@@ -48,7 +48,7 @@ Item {
         }
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "TestSettingsPage"
         when: windowShown
 

@@ -62,7 +62,7 @@ Item {
         signalName: "bookmarkRemoved"
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "NewTabViewWide"
         when: windowShown
 

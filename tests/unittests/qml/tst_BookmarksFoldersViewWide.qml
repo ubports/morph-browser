@@ -48,7 +48,7 @@ Item {
         signalName: "bookmarkRemoved"
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "BookmarksFoldersViewWide"
         when: windowShown
 

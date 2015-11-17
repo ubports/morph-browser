@@ -51,7 +51,7 @@ Item {
         signalName: "newTabClicked"
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "BookmarksViewWide"
         when: windowShown
 

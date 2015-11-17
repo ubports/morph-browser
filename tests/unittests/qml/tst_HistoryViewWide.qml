@@ -66,7 +66,7 @@ Item {
         signalName: "historyEntryClicked"
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "HistoryViewWide"
         when: windowShown
 

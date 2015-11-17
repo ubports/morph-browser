@@ -79,7 +79,7 @@ Item {
         signalName: "reload"
     }
 
-    CustomTestCase {
+    WebbrowserTestCase {
         name: "TabsBar"
         when: windowShown
 
