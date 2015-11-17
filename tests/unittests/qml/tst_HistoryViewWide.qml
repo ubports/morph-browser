@@ -76,12 +76,6 @@ Item {
             mouseRelease(item, center.x, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
-        function swipeItemRight(item) {
-            var center = centerOf(item)
-            mousePress(item, center.x, center.y)
-            mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
-        }
-
         function initTestCase() {
             HistoryModel.databasePath = ":memory:"
         }

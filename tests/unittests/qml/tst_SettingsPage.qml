@@ -52,14 +52,6 @@ Item {
         name: "TestSettingsPage"
         when: windowShown
 
-        function swipeItemRight(item) {
-            var center = centerOf(item)
-            var dx = item.width * 0.5
-            mousePress(item, center.x, center.y)
-            mouseMoveSlowly(item, center.x, center.y, dx, 0, 10, 0.01)
-            mouseRelease(item, center.x + dx, center.y)
-        }
-
         function init() {
             settingsPageLoader.active = true
             waitForRendering(settingsPageLoader.item)
