@@ -25,4 +25,25 @@ UbuntuTestCase {
         var center = centerOf(item)
         mouseClick(item, center.x, center.y, button)
     }
+
+    function getListItems(listview, itemName) {
+        waitForRendering(listview)
+        var items = []
+        if (listview) {
+            // ensure all the delegates are created
+            listview.cacheBuffer = listview.count * 1000
+
+            // In some cases the ListView might add other children to the
+            // contentItem, so we filter the list of children to include
+            // only actual delegates (names for delegates in this case
+            // follow the pattern "name_index")
+            var children = listview.contentItem.children
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].objectName.indexOf(itemName) == 0) {
+                    items.push(children[i])
+                }
+            }
+        }
+        return items
+    }
 }

@@ -80,28 +80,8 @@ Item {
             view = null
         }
 
-        function getListItems(name, itemName) {
-            var list = findChild(view, name)
-            var items = []
-            if (list) {
-                // ensure all the delegates are created
-                list.cacheBuffer = list.count * 1000
-
-                // In some cases the ListView might add other children to the
-                // contentItem, so we filter the list of children to include
-                // only actual delegates
-                var children = list.contentItem.children
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].objectName === itemName) {
-                        items.push(children[i])
-                    }
-                }
-            }
-            return items
-        }
-
         function test_folder_list() {
-            var items = getListItems("foldersList", "folderItem")
+            var items = getListItems(findChild(view, "foldersList"), "folderItem")
             compare(items.length, 3)
             verify(items[0].isAllBookmarksFolder)
             compare(items[0].model.folder, "")
@@ -111,15 +91,14 @@ Item {
         }
 
         function test_all_bookmarks_list() {
-            var items = getListItems("bookmarksList", "bookmarkItem")
+            var items = getListItems(findChild(view, "bookmarksList"), "bookmarkItem")
             compare(items.length, 2)
             compare(items[0].url, homepage)
             compare(items[1].title, "Example Com")
         }
 
         function test_navigate_folders_by_keyboard() {
-            var foldersList = getListItems(view, "foldersList")
-            var folders = getListItems("foldersList", "folderItem")
+            var folders = getListItems(findChild(view, "foldersList"), "folderItem")
             verify(folders[0].isActiveFolder)
 
             keyClick(Qt.Key_Down)
@@ -127,14 +106,15 @@ Item {
             verify(folders[1].isActiveFolder)
 
             // bookmarks within a folder are sorted with the first bookmarked appearing last
-            var items = getListItems("bookmarksList", "bookmarkItem")
+            var bookmarksListView = findChild(view, "bookmarksList")
+            var items = getListItems(bookmarksListView, "bookmarkItem")
             compare(items[0].title, "Example Net B")
             compare(items[1].title, "Example Net A")
             compare(items.length, 2)
 
             keyClick(Qt.Key_Down)
             verify(folders[2].isActiveFolder)
-            items = getListItems("bookmarksList", "bookmarkItem")
+            items = getListItems(bookmarksListView, "bookmarkItem")
             compare(items[0].title, "Example Org Foo")
             compare(items[1].title, "Example Org Bar")
             compare(items.length, 2)
@@ -154,7 +134,7 @@ Item {
         function test_switch_between_folder_and_bookmarks_by_keyboard() {
             var foldersList = findChild(view, "foldersList")
             var bookmarks = findChild(view, "bookmarksList")
-            var folders = getListItems("foldersList", "folderItem")
+            var folders = getListItems(foldersList, "folderItem")
 
             verify(folders[0].isActiveFolder)
 
@@ -186,7 +166,7 @@ Item {
         function test_activate_bookmarks_by_keyboard() {
             keyClick(Qt.Key_Right)
 
-            var items = getListItems("bookmarksList", "bookmarkItem")
+            var items = getListItems(findChild(view, "bookmarksList"), "bookmarkItem")
             keyClick(Qt.Key_Return)
             compare(bookmarkClickedSpy.count, 1)
             compare(bookmarkClickedSpy.signalArguments[0][0], homepage)
@@ -198,7 +178,7 @@ Item {
         }
 
         function test_activate_bookmarks_by_mouse() {
-            var items = getListItems("bookmarksList", "bookmarkItem")
+            var items = getListItems(findChild(view, "bookmarksList"), "bookmarkItem")
             clickItem(items[0])
             compare(bookmarkClickedSpy.count, 1)
             compare(bookmarkClickedSpy.signalArguments[0][0], homepage)
@@ -209,16 +189,17 @@ Item {
         }
 
         function test_switch_folders_by_mouse() {
-            var folders = getListItems("foldersList", "folderItem")
+            var folders = getListItems(findChild(view, "foldersList"), "folderItem")
 
             clickItem(folders[1])
-            var items = getListItems("bookmarksList", "bookmarkItem")
+            var bookmarksListView = findChild(view, "bookmarksList")
+            var items = getListItems(bookmarksListView, "bookmarkItem")
             compare(items[0].title, "Example Net B")
             compare(items[1].title, "Example Net A")
             compare(items.length, 2)
 
             clickItem(folders[0])
-            items = getListItems("bookmarksList", "bookmarkItem")
+            items = getListItems(bookmarksListView, "bookmarkItem")
             compare(items[0].url, homepage)
             compare(items[1].title, "Example Com")
             compare(items.length, 2)
@@ -226,7 +207,7 @@ Item {
 
         function test_remove_bookmarks_by_keyboard() {
             keyClick(Qt.Key_Right)
-            var items = getListItems("bookmarksList", "bookmarkItem")
+            var items = getListItems(findChild(view, "bookmarksList"), "bookmarkItem")
 
             // verify that trying to delete the homepage bookmark does not work
             keyClick(Qt.Key_Delete)

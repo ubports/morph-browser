@@ -61,27 +61,6 @@ Item {
             settingsPageLoader.active = false
         }
 
-        function getListItems(name, itemName) {
-            var list = findChild(settingsPage, name)
-            var items = []
-            if (list) {
-                // ensure all the delegates are created
-                list.cacheBuffer = list.count * 1000
-
-                // In some cases the ListView might add other children to the
-                // contentItem, so we filter the list of children to include
-                // only actual delegates (names for delegates in this case
-                // follow the pattern "name_index")
-                var children = list.contentItem.children
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].objectName.indexOf(itemName) == 0) {
-                        items.push(children[i])
-                    }
-                }
-            }
-            return items
-        }
-
         function activateSettingsItem(itemName, pageName) {
             var item = findChild(settingsPage, itemName)
             clickItem(item)

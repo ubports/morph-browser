@@ -78,27 +78,6 @@ Item {
             newTabClickedSpy.clear()
         }
 
-        function getListItems(name, itemName) {
-            waitForRendering(view)
-            var list = findChild(view, name)
-            var items = []
-            if (list) {
-                // ensure all the delegates are created
-                list.cacheBuffer = list.count * 1000
-
-                // In some cases the ListView might add other children to the
-                // contentItem, so we filter the list of children to include
-                // only actual delegates
-                var children = list.contentItem.children
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].objectName === itemName) {
-                        items.push(children[i])
-                    }
-                }
-            }
-            return items
-        }
-
         function test_done() {
             var button = findChild(view, "doneButton")
             clickItem(button)
@@ -112,7 +91,8 @@ Item {
         }
 
         function test_click_bookmark() {
-            var items = getListItems("bookmarksFolderListView", "bookmarkFolderDelegateLoader")
+            var items = getListItems(findChild(view, "bookmarksFolderListView"),
+                                     "bookmarkFolderDelegateLoader")
 
             clickItem(findChild(items[0], "urlDelegate_0"))
             compare(bookmarkEntryClickedSpy.count, 1)
@@ -124,7 +104,8 @@ Item {
         }
 
         function test_delete_bookmark() {
-            var items = getListItems("bookmarksFolderListView", "bookmarkFolderDelegateLoader")
+            var items = getListItems(findChild(view, "bookmarksFolderListView"),
+                                     "bookmarkFolderDelegateLoader")
             var bookmark = findChild(items[0], "urlDelegate_1")
             flick(bookmark, 50, bookmark.height / 2, 100, 0)
             var confirm = findChild(bookmark, "actionbutton_leadingAction.delete")
