@@ -68,7 +68,7 @@ FocusScope {
     }
 
     function load() {
-        if (!webview) {
+        if (!webview && !internal.incubator) {
             var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
                 properties['restoreState'] = restoreState
@@ -76,26 +76,23 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
-
-            if (internal.incubator === null) {
-                var incubator = webviewComponent.incubateObject(webviewContainer, properties)
-                if (incubator === null) {
-                    console.warn("Webview incubator failed to initialize")
-                    return
-                }
-                if (incubator.status === Component.Ready) {
+            var incubator = webviewComponent.incubateObject(webviewContainer, properties)
+            if (incubator === null) {
+                console.warn("Webview incubator failed to initialize")
+                return
+            }
+            if (incubator.status === Component.Ready) {
+                webviewContainer.webview = incubator.object
+                return
+            }
+            internal.incubator = incubator
+            incubator.onStatusChanged = function(status) {
+                if (status === Component.Ready) {
                     webviewContainer.webview = incubator.object
-                    return
+                } else if (status === Component.Error) {
+                    console.warn("Webview failed to incubate")
                 }
-                internal.incubator = incubator
-                incubator.onStatusChanged = function(status) {
-                    if (status === Component.Ready) {
-                        webviewContainer.webview = incubator.object
-                    } else if (status === Component.Error) {
-                        console.warn("Webview failed to incubate")
-                    }
-                    internal.incubator = null
-                }
+                internal.incubator = null
             }
         }
     }
@@ -173,6 +170,7 @@ FocusScope {
         if (!current) {
             opacity = 0
             visible = true
+            load()
         }
     }
 

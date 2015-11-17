@@ -626,7 +626,7 @@ BrowserView {
 
         function closeAndSwitchToTab(index) {
             recentView.reset()
-            internal.switchToTab(index, index > 0)
+            internal.switchToTab(index, false)
         }
 
         Keys.onEscapePressed: closeAndSwitchToTab(0)
@@ -650,6 +650,7 @@ BrowserView {
                 }
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
+            onScheduleTabSwitch: internal.nextTabIndex = index
             onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: internal.closeTab(index)
         }

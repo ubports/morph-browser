@@ -28,6 +28,7 @@ Item {
     readonly property int count: repeater.count
     property bool incognito
 
+    signal scheduleTabSwitch(int index)
     signal tabSelected(int index)
     signal tabClosed(int index)
 
@@ -130,6 +131,7 @@ Item {
             tabSelected(0)
         } else {
             selectedAnimation.index = index
+            scheduleTabSwitch(index)
             selectedAnimation.start()
         }
     }
