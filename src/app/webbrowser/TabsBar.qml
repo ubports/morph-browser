@@ -34,6 +34,7 @@ Item {
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
+    signal tabClosed(int index)
 
     MouseArea {
         anchors.fill: parent
@@ -95,7 +96,7 @@ Item {
                 Action {
                     objectName: "tab_action_close_tab"
                     text: i18n.tr("Close Tab")
-                    onTriggered: internal.closeTab(menu.targetIndex)
+                    onTriggered: root.tabClosed(menu.targetIndex)
                 }
             }
         }
@@ -151,8 +152,8 @@ Item {
 
                     rightMargin: tabDelegate.rightMargin
 
-                    onClosed: internal.closeTab(index)
-                    onSelected: switchToTab(index)
+                    onClosed: root.tabClosed(index)
+                    onSelected: root.switchToTab(index)
                     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                 }
 
@@ -180,15 +181,6 @@ Item {
 
                 z: (root.model.currentIndex == index) ? 3 : 1 - index / root.model.count
             }
-        }
-    }
-
-    QtObject {
-        id: internal
-
-        function closeTab(index) {
-            var tab = root.model.remove(index)
-            if (tab) tab.close()
         }
     }
 }

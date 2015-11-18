@@ -360,6 +360,7 @@ BrowserView {
 
             onSwitchToTab: internal.switchToTab(index, true)
             onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
+            onTabClosed: internal.closeTab(index)
 
             onFindInPageModeChanged: {
                 if (!chrome.findInPageMode) internal.resetFocus()
@@ -1271,6 +1272,7 @@ BrowserView {
 
     QtObject {
         id: internal
+        property var closedTabHistory: []
 
         property int nextTabIndex: -1
         onNextTabIndexChanged: {
@@ -1321,8 +1323,19 @@ BrowserView {
         }
 
         function closeTab(index) {
+            // Save the incognito state before removing the tab, because
+            // removing the last tab in the model will switch out incognito
+            // mode, thus causing the check below to fail and save the tab
+            // into the undo stack when it should be forgotten instead.
+            var wasIncognito = incognito
             var tab = tabsModel.remove(index)
             if (tab) {
+                if (!wasIncognito && tab.url.toString().length > 0) {
+                    closedTabHistory.push({
+                        state: session.serializeTabState(tab),
+                        index: index
+                    })
+                }
                 tab.close()
             }
             if (tabsModel.count === 0) {
@@ -1334,6 +1347,14 @@ BrowserView {
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
                 closeTab(tabsModel.currentIndex)
+            }
+        }
+
+        function undoCloseTab() {
+            if (!incognito && closedTabHistory.length > 0) {
+                var tabInfo = closedTabHistory.pop()
+                var tab = session.createTabFromState(tabInfo.state)
+                internal.addTab(tab, true, tabInfo.index)
             }
         }
 
@@ -1721,6 +1742,21 @@ BrowserView {
             key: Qt.Key_PageUp
             enabled: chrome.visible || recentView.visible
             onTriggered: internal.switchToPreviousTab()
+        }
+
+        // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_W
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
+        }
+
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_T
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
         }
 
         // Ctrl+W or Ctrl+F4: Close the current tab

@@ -41,6 +41,7 @@ ChromeBase {
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
+    signal tabClosed(int index)
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : "#bcbcbc"
 
@@ -70,6 +71,7 @@ ChromeBase {
                 incognito: chrome.incognito
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
+                onTabClosed: chrome.tabClosed(index)
             }
 
             anchors {

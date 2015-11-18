@@ -40,12 +40,11 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+    visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
     // invoke this on a tab shortly before it is set current.
     signal aboutToShow()
-
-    visible: false
 
     Connections {
         target: PreviewManager
