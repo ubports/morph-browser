@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-10-24 05:57+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -103,11 +103,11 @@ msgstr "ការ​បញ្ជាក់ JavaScript"
 #: src/app/ContentDownloadDialog.qml:79
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
-msgstr ""
+msgstr "ជ្រើស​កម្មវិធី​ដើម្បី​បើក​ឯកសារ​នេះ ឬ​បន្ថែម​វា​ទៅកាន់​ថត​ទាញ​យក។"
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "ជ្រើស​កម្មវិធី"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
@@ -401,15 +401,15 @@ msgstr "​កាត់"
 msgid "Erase"
 msgstr "លុប"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
 msgid "Find in page"
-msgstr ""
+msgstr "រក​មើល​ក្នុង​ទំព័រ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "ស្វែងរក​ក្នុង​ទំព័រ"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -431,8 +431,8 @@ msgstr "ទៅ​កាន់"
 msgid "Address;URL;www"
 msgstr "អាសយដ្ឋាន;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
-#: src/app/webbrowser/TabsBar.qml:85
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
+#: src/app/webbrowser/TabsBar.qml:86
 msgid "New Tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
@@ -463,7 +463,7 @@ msgid "Redo"
 msgstr "ធ្វើ​វិញ"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "ផ្ទុក​ឡើង​វិញ"
 
@@ -479,14 +479,14 @@ msgstr "រក្សាទុក​រូបភាព"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "រក្សាទុក​តំណ"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "ជ្រើស​ទាំងអស់"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
 msgid "Share"
 msgstr "ចែករំលែក"
 
@@ -495,22 +495,22 @@ msgid "Undo"
 msgstr "​មិន​ធ្វើ​វិញ"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr ""
+msgstr "រក​មើល​ក្នុង​ទំព័រ"
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋាន"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "បាន​បន្ថែម​ចំណាំ"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
@@ -520,13 +520,13 @@ msgstr "ឈ្មោះ"
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "រក្សាទុក​ក្នុង"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:119
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr ""
+msgstr "ចំណាំ​ទាំងអស់"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
@@ -551,32 +551,32 @@ msgstr "គេហទំព័រ"
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "ចំណាំ"
 
 #: src/app/webbrowser/BookmarksView.qml:112
 #: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "ធ្វើរួច"
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:407
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "ប្រវត្តិ"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:413
 msgid "Open tabs"
 msgstr "បើក​ផ្ទាំង"
 
@@ -584,35 +584,35 @@ msgstr "បើក​ផ្ទាំង"
 msgid "Downloads"
 msgstr "ការ​ទាញយក"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "បិទ​របៀប​ឯកជន"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Private Mode"
-msgstr ""
+msgstr "របៀប​ឯកជន"
 
-#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "ការ​កំណត់"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:787
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1258
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "រុញ​ឡើង​លើ​ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
-#: src/app/webbrowser/Browser.qml:1259
+#: src/app/webbrowser/Browser.qml:1261
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "បញ្ជាក់​ជម្រើស"
 
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
@@ -621,7 +621,7 @@ msgstr "​លុប​"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "មិន​មាន​ការ​ទាញ​យក"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -645,7 +645,7 @@ msgstr "ម្សិល​មិញ"
 
 #: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
-msgstr ""
+msgstr "ប្រវត្តិ​ទាំងអស់"
 
 #: src/app/webbrowser/HistoryViewWide.qml:213
 #: src/app/webbrowser/HistoryViewWide.qml:282
@@ -654,11 +654,11 @@ msgstr "ថ្ងៃនេះ"
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr ""
+msgstr "ប្រវត្តិ​ស្វែងរក"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "ការ​ទៅកាន់​របៀប​សាធារណៈ វា​នឹង​បិទ​ផ្ទាំង​ឯកជន​ទាំងអស់"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
@@ -688,13 +688,16 @@ msgstr "ទេ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "នេះ​ជា​ផ្ទាំង​ឯកជន"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"ទំព័រ​ដែល​អ្នក​មើល​នៅ​ក្នុង​ផ្ទាំង​នេះ "
+"នឹង​មិន​លេចឡើង​នៅ​ក្នុង​ប្រវត្តិ​កម្មវិធី​អ៊ីនធឺណិត​របស់​អ្នក​ឡើយ។\n"
+"ទោះ​យ៉ាងណា ចំណាំ​ដែល​អ្នក​បង្កើត​នឹង​ត្រូវ​បាន​រក្សាទុក។"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
@@ -707,23 +710,25 @@ msgstr "តំបន់បណ្ដាញ​ពេញនិយម"
 
 #: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "អ្នក​មិនទាន់​បាន​ទស្សនា​វេបសាយ​ណាមួយ​នៅ​ឡើយ​ទេ"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "បាន​បិទ​ដំណើរការ​បង្ហាញ​សម្រាប់​ផ្ទាំង​នេះ។"
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "មាន​បញ្ហា​ពេល​កំពុង​បង្ហាញ %1 ។"
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"ប្រព័ន្ធ​មាន​អង្គ​ចងចាំ​ទាប ហើយ​មិន​អាច​បង្ហាញ​ទំព័រ​វេប​នេះ​បាន។ "
+"សាកល្បង​បិទ​ផ្ទាំង​ដែល​មិន​ចាំបាច់ រួច​ផ្ទុក​ឡើងវិញ។"
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
@@ -817,7 +822,7 @@ msgstr "ជម្រះ​ប្រវត្តិ​ការរុករក"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "សម្អាត​ប្រវត្តិ​ស្វែងរក?"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
@@ -825,7 +830,7 @@ msgstr "ជម្រះ​ឃ្លាំង​សម្ងាត់"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "សម្អាត​ឃ្លាំង​សម្ងាត់?"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
@@ -843,7 +848,7 @@ msgstr ""
 msgid "Tap to view"
 msgstr "ប៉ះ​ដើម្បី​មើល"
 
-#: src/app/webbrowser/TabsBar.qml:96
+#: src/app/webbrowser/TabsBar.qml:97
 msgid "Close Tab"
 msgstr "បិទ​ផ្ទាំង"
 
@@ -868,6 +873,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"មិន​មាន​គណនី​ដែល​បាន​ភ្ជាប់​ទៅកាន់​កម្មវិធី​វេប​នេះ​ទេ "
+"ចុច​ធាតុ​ខាងក្រោម​ដើម្បី​បន្ថែម​គណនី។"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -875,11 +882,11 @@ msgstr "បន្ថែម​គណនី"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "កុំ​ប្រើ​គណនី"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "គណនី​មាន​បញ្ហា"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -890,27 +897,31 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"មិន​អាច​បើក​បង្អួច​គណនី។ អ្នក​អាច​បង្កើត​គណនី​ម្ដង​បានតែ​មួយ​ប៉ុណ្ណោះ "
+"សូម​ព្យាយាម​ម្ដងទៀត​បន្ទាប់ពី​បាន​បិទ​ផ្ទាំង​គណនី​ផ្សេងទៀត​ទាំងអស់។"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> ត្រូវការ​ចូល​ប្រើ​គណនី​អនឡាញ %2 របស់​អ្នក។"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> ចង់​ចូល​ប្រើ​គណនី​អនឡាញ %2 របស់​អ្នក។"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"ជ្រើស​គណនី​មួយ​ឥឡូវនេះ ឬ​រំលង​ជំហាន​នេះ "
+"រួច​ជ្រើស​គណនី​អនឡាញ​មួយ​នៅ​ពេល​ក្រោយ។"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "ជ្រើស​កម្មវិធី"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
@@ -918,7 +929,7 @@ msgstr "រំលង"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "ជ្រើស​គណនី"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."

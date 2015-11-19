@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-24 05:57+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
 msgid "Find in page"
 msgstr ""
 
@@ -427,8 +427,8 @@ msgstr "ਜਾਓ"
 msgid "Address;URL;www"
 msgstr "ਸਿਰਨਾਵਾਂ;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
-#: src/app/webbrowser/TabsBar.qml:85
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
+#: src/app/webbrowser/TabsBar.qml:86
 msgid "New Tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
@@ -459,7 +459,7 @@ msgid "Redo"
 msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "ਮੁੜ-ਲੋਡ"
 
@@ -482,7 +482,7 @@ msgstr ""
 msgid "Select all"
 msgstr "ਸਾਰੇ ਚੁਣੋ"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
 msgid "Share"
 msgstr "ਸਾਂਝਾ ਕਰੋ"
 
@@ -491,16 +491,16 @@ msgid "Undo"
 msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "ਖੋਜੋ ਜਾਂ ਸਿਰਨਾਵਾਂ ਦਿਓ"
 
@@ -547,32 +547,32 @@ msgstr "ਮੁੱਖ ਸਫਾ"
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "ਬੁੱਕਮਾਰਕ"
 
 #: src/app/webbrowser/BookmarksView.qml:112
 #: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "ਮੁਕੰਮਲ"
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:407
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "ਅਤੀਤ"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:413
 msgid "Open tabs"
 msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
 
@@ -580,29 +580,29 @@ msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Leave Private Mode"
 msgstr "ਨਿੱਜੀ ਮੋਡ ਤੋਂ ਵਿਦਾ ਲਓ"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Private Mode"
 msgstr "ਨਿੱਜੀ ਮੋਡ"
 
-#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "ਸੈਟਿੰਗ"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:787
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1258
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Swipe Up To Exit Full Screen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ ਉੱਪਰ ਖਿੱਚੋ"
 
-#: src/app/webbrowser/Browser.qml:1259
+#: src/app/webbrowser/Browser.qml:1261
 msgid "Press ESC To Exit Full Screen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ ESC ਦੱਬੋ"
 
@@ -841,7 +841,7 @@ msgstr ""
 msgid "Tap to view"
 msgstr "ਵੇਖਣ ਲਈ ਛੂਹੋ"
 
-#: src/app/webbrowser/TabsBar.qml:96
+#: src/app/webbrowser/TabsBar.qml:97
 msgid "Close Tab"
 msgstr ""
 

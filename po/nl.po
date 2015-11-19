@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-24 05:56+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -128,6 +128,7 @@ msgstr "Het lijkt erop dat u problemen ondervindt bij het bekijken van: %1."
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Gelieve uw netwerkinstellingen te controleren en de pagina te verversen."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -402,7 +403,7 @@ msgstr "Knippen"
 msgid "Erase"
 msgstr "Wissen"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
 msgid "Find in page"
 msgstr "In pagina zoeken"
 
@@ -432,8 +433,8 @@ msgstr "Ga naar"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;Adres"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
-#: src/app/webbrowser/TabsBar.qml:85
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
+#: src/app/webbrowser/TabsBar.qml:86
 msgid "New Tab"
 msgstr "Nieuw tabblad"
 
@@ -464,7 +465,7 @@ msgid "Redo"
 msgstr "Opnieuw doen"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Herladen"
 
@@ -487,7 +488,7 @@ msgstr "Koppeling opslaan"
 msgid "Select all"
 msgstr "Alles selecteren"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
 msgid "Share"
 msgstr "Delen"
 
@@ -496,16 +497,16 @@ msgid "Undo"
 msgstr "Ongedaan maken"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
 msgstr "in pagina zoeken"
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "Voer zoekterm of adres in"
 
@@ -552,32 +553,32 @@ msgstr "Startpagina"
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
 #: src/app/webbrowser/BookmarksView.qml:112
 #: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Klaar"
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Nieuw tabblad"
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:407
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Geschiedenis"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:413
 msgid "Open tabs"
 msgstr "Tabbladen openen"
 
@@ -585,29 +586,29 @@ msgstr "Tabbladen openen"
 msgid "Downloads"
 msgstr "Binnengehaalde bestanden"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Leave Private Mode"
 msgstr "Privémodus verlaten"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Private Mode"
 msgstr "Privémodus"
 
-#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Instellingen"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:787
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1258
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Veeg omhoog om de modus Schermvullend te sluiten"
 
-#: src/app/webbrowser/Browser.qml:1259
+#: src/app/webbrowser/Browser.qml:1261
 msgid "Press ESC To Exit Full Screen"
 msgstr "Druk op ESC om de modus Schermvullend te sluiten"
 
@@ -667,20 +668,22 @@ msgstr ""
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
+"Dit domein toestemming geven om toegang te krijgen tot uw camera en "
+"microfoon?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Dit domein toestemming geven om toegang te krijgen tot uw camera?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Dit domein toestemming geven om toegang te krijgen tot uw microfoon?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (ingebed in %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -809,7 +812,7 @@ msgstr "Openen nieuwe tabbladen op de achtergrond toestaan"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Privacy en machtigingen"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -818,7 +821,7 @@ msgstr "Browserinstellingen herstellen"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Camera & microfoon"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -842,17 +845,17 @@ msgstr "Wissen"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Microfoon"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Camera"
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Tik om te bekijken"
 
-#: src/app/webbrowser/TabsBar.qml:96
+#: src/app/webbrowser/TabsBar.qml:97
 msgid "Close Tab"
 msgstr "Tabblad sluiten"
 

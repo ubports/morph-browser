@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-24 05:57+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -105,14 +105,15 @@ msgstr "JavaScript-bekräftelse"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Välj ett program för att öppna filen eller lägg den i mappen för hämtningar."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "Välj ett program"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Hämta"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -394,7 +395,7 @@ msgstr "Klipp ut"
 msgid "Erase"
 msgstr "Radera"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
 msgid "Find in page"
 msgstr "Hitta på sida"
 
@@ -424,8 +425,8 @@ msgstr "Gå till"
 msgid "Address;URL;www"
 msgstr "Adress;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
-#: src/app/webbrowser/TabsBar.qml:85
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
+#: src/app/webbrowser/TabsBar.qml:86
 msgid "New Tab"
 msgstr "Ny flik"
 
@@ -456,7 +457,7 @@ msgid "Redo"
 msgstr "Gör om"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Läs om sidan"
 
@@ -479,7 +480,7 @@ msgstr "Spara länk"
 msgid "Select all"
 msgstr "Markera alla"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
 msgid "Share"
 msgstr "Dela"
 
@@ -488,16 +489,16 @@ msgid "Undo"
 msgstr "Ångra"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
 msgstr "hitta på sida"
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "sök eller ange en adress"
 
@@ -544,32 +545,32 @@ msgstr "Hemsida"
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
 #: src/app/webbrowser/BookmarksView.qml:112
 #: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Klar"
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Ny flik"
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:407
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:413
 msgid "Open tabs"
 msgstr "Öppna flikar"
 
@@ -577,35 +578,35 @@ msgstr "Öppna flikar"
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Leave Private Mode"
 msgstr "Lämna privat läge"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:437
 msgid "Private Mode"
 msgstr "Privat läge"
 
-#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Inställningar"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:787
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1258
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Svep uppåt för att lämna helskärm"
 
-#: src/app/webbrowser/Browser.qml:1259
+#: src/app/webbrowser/Browser.qml:1261
 msgid "Press ESC To Exit Full Screen"
 msgstr "Tryck Esc för att lämna helskärm"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Bekräfta val"
 
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
@@ -648,7 +649,7 @@ msgstr "Idag"
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr ""
+msgstr "sökhistorik"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -842,9 +843,9 @@ msgstr ""
 msgid "Tap to view"
 msgstr "Tryck för att visa"
 
-#: src/app/webbrowser/TabsBar.qml:96
+#: src/app/webbrowser/TabsBar.qml:97
 msgid "Close Tab"
-msgstr ""
+msgstr "Stäng flik"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
