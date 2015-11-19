@@ -1475,7 +1475,7 @@ BrowserView {
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent, index)
         if (load) {
-            tabsModel.currentTab.load()
+            tab.load()
         }
         if (!url.toString() && (formFactor == "desktop")) {
             internal.focusAddressBar()
