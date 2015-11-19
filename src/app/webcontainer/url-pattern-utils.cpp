@@ -63,7 +63,9 @@ bool isValidWebappUrlPattern(const QString& pattern)
  * <url-pattern> := <scheme>://<host><path>
  * <scheme> := 'http' | 'https'
  * <host> := <any char except '/', '*', '?' and '.'>+ '.google' <hostpart>
- * <hostpart> := '.' <any char except '/', '?' and '.'>+
+ * <hostpart> := '.' ( <restricted-sld-part> | <tld-part> )
+ * <restricted-sld-part> := ('com' | 'co') '.' <tld-part>
+ * <tld-part> := <any char except '/', '?' and '.'>+
  * <path> := '/' <any chars>
  *
  * So for example we allow 'https://accounts.google.* /' but not 'https://*.google.* /'
@@ -72,12 +74,16 @@ bool isValidWebappUrlPattern(const QString& pattern)
  * IMPORTAN NOTE: the '*' wildcard in the TLD position is not a REAL wildcard in the
  * sense that it corresponds to [^\\./], so it wont match ('google.com.evildomain') as usual.
  *
+ * The <restricted-sld-part> non-terminal in the grammar above comes from:
+ *
+ * https://en.wikipedia.org/wiki/List_of_Google_domains
+ *
  * @param pattern pattern that is to be tested for validity
  * @return true if the url is valid, false otherwise
  */
 bool isValidGoogleUrlPattern(const QString& pattern)
 {
-    static QRegularExpression grammar("^http(s|s\\?)?://[^\\.\\?\\*]+\\.google\\.[^\\.\\?]+/.*$");
+    static QRegularExpression grammar("^http(s|s\\?)?://[^\\.\\?\\*]+\\.google\\.((com|co)\\.)?[^\\.\\?]+/.*$");
     return grammar.match(pattern).hasMatch();
 }
 
