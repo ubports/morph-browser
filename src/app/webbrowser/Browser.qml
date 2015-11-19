@@ -973,6 +973,7 @@ BrowserView {
                 id: webviewimpl
 
                 property BrowserTab tab
+                readonly property bool current: tab.current
 
                 currentWebview: browser.currentWebview
 

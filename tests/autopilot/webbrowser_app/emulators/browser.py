@@ -41,8 +41,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.address_bar.go_to_url(url)
 
     def wait_until_page_loaded(self, url):
-        webview = self.get_current_webview()
-        webview.url.wait_for(url)
+        webview = self.wait_select_single("WebViewImpl", current=True, url=url)
         # loadProgress == 100 ensures that a page has actually loaded
         webview.loadProgress.wait_for(100, timeout=20)
         webview.loading.wait_for(False)
@@ -100,7 +99,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_parent()
 
     def get_current_webview(self):
-        return self.select_single("WebViewImpl", visible=True)
+        return self.select_single("WebViewImpl", current=True)
 
     def get_webviews(self):
         return self.select_many("WebViewImpl", incognito=False)
