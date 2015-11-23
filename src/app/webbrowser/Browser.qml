@@ -325,6 +325,7 @@ BrowserView {
 
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
+        onVisibleChanged: chrome.hidden = visible
 
         states: State {
             name: "shown"
@@ -356,7 +357,10 @@ BrowserView {
                 }
             }
             chromeHeight: chrome.height
-            onScheduleTabSwitch: internal.nextTabIndex = index
+            onScheduleTabSwitch: {
+                chrome.hidden = false
+                internal.nextTabIndex = index
+            }
             onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: internal.closeTab(index)
         }
@@ -435,8 +439,6 @@ BrowserView {
     Chrome {
         id: chrome
 
-        visible: !recentView.visible
-
         webview: browser.currentWebview
         tabsModel: browser.tabsModel
         searchUrl: currentSearchEngine.urlTemplate
@@ -446,7 +448,14 @@ BrowserView {
         showTabsBar: browser.wide
         showFaviconInAddressBar: !browser.wide
 
-        y: webview ? webview.locationBarController.offset : 0
+        property bool hidden: false
+        y: hidden ? -height : webview ? webview.locationBarController.offset : 0
+        Behavior on y {
+            enabled: recentView.visible
+            NumberAnimation {
+                duration: UbuntuAnimation.FastDuration
+            }
+        }
 
         function isCurrentUrlBookmarked() {
             return webview ? BookmarksModel.contains(webview.url) : false
