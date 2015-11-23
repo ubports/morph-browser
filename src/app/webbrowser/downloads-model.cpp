@@ -85,7 +85,7 @@ void DownloadsModel::createOrAlterDatabaseSchema()
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS downloads "
                                   "(downloadId VARCHAR, url VARCHAR, path VARCHAR, "
-                                  "mimetype VARCHAR, complete BOOL, "
+                                  "mimetype VARCHAR, complete BOOL, paused BOOL, "
                                   "error VARCHAR, created DATETIME DEFAULT "
                                   "CURRENT_TIMESTAMP);");
     createQuery.prepare(query);
@@ -96,7 +96,7 @@ void DownloadsModel::fetchMore(const QModelIndex &parent)
 {
     QSqlQuery populateQuery(m_database);
     QString query = QLatin1String("SELECT downloadId, url, path, mimetype, "
-                                  "complete, error, created "
+                                  "complete, error, created, paused "
                                   "FROM downloads ORDER BY created DESC LIMIT 100 OFFSET ?;");
     populateQuery.prepare(query);
     populateQuery.addBindValue(m_fetchedCount);
@@ -111,6 +111,7 @@ void DownloadsModel::fetchMore(const QModelIndex &parent)
         entry.complete = populateQuery.value(4).toBool();
         entry.error = populateQuery.value(5).toString();
         entry.created = QDateTime::fromTime_t(populateQuery.value(6).toInt());
+        entry.paused = populateQuery.value(7).toBool();
         QFileInfo fileInfo(entry.path);
         if (fileInfo.exists()) {
             entry.filename = fileInfo.fileName();
@@ -143,6 +144,7 @@ QHash<int, QByteArray> DownloadsModel::roleNames() const
         roles[Filename] = "filename";
         roles[Mimetype] = "mimetype";
         roles[Complete] = "complete";
+        roles[Paused] = "paused";
         roles[Error] = "error";
         roles[Created] = "created";
     }
@@ -174,6 +176,8 @@ QVariant DownloadsModel::data(const QModelIndex& index, int role) const
         return entry.mimetype;
     case Complete:
         return entry.complete;
+    case Paused:
+        return entry.paused;
     case Error:
         return entry.error;
     case Created:
@@ -210,6 +214,7 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
     DownloadEntry entry;
     entry.downloadId = downloadId;
     entry.complete = false;
+    entry.paused = false;
     entry.url = url;
     entry.mimetype = mimetype;
     m_orderedEntries.prepend(entry);
@@ -356,6 +361,26 @@ void DownloadsModel::cancelDownload(const QString& downloadId)
             index++;
         }
     }
+}
+
+void DownloadsModel::pauseDownload(const QString& downloadId)
+{
+    QSqlQuery query(m_database);
+    static QString pauseStatement = QLatin1String("UPDATE downloads SET paused=1 WHERE downloadId=?;");
+    query.prepare(pauseStatement);
+    query.addBindValue(downloadId);
+    query.exec();
+    reload();
+}
+
+void DownloadsModel::resumeDownload(const QString& downloadId)
+{
+    QSqlQuery query(m_database);
+    static QString resumeStatement = QLatin1String("UPDATE downloads SET paused=0 WHERE downloadId=?;");
+    query.prepare(resumeStatement);
+    query.addBindValue(downloadId);
+    query.exec();
+    reload();
 }
 
 void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)

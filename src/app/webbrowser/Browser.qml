@@ -179,6 +179,18 @@ BrowserView {
             downloadsModel.setComplete(download.downloadId, true)
         }
 
+        onDownloadPaused: {
+            downloadsModel.pauseDownload(download.downloadId)
+        }
+
+        onDownloadResumed: {
+            downloadsModel.resumeDownload(download.downloadId)
+        }
+
+        onDownloadCanceled: {
+            downloadsModel.cancelDownload(download.downloadId)
+        }
+
         onErrorFound: {
             downloadsModel.setError(download.downloadId, download.errorMessage)
         }

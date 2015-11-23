@@ -47,6 +47,7 @@ public:
         Filename,
         Mimetype,
         Complete,
+        Paused,
         Error,
         Created
     };
@@ -68,6 +69,8 @@ public:
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);
     Q_INVOKABLE void deleteDownload(const QString& path);
     Q_INVOKABLE void cancelDownload(const QString& downloadId);
+    Q_INVOKABLE void pauseDownload(const QString& downloadId);
+    Q_INVOKABLE void resumeDownload(const QString& downloadId);
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -91,6 +94,7 @@ private:
         QString filename;
         QString mimetype;
         bool complete;
+        bool paused;
         QString error;
         QDateTime created;
     };

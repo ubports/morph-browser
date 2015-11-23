@@ -32,13 +32,14 @@ ListItem {
     property string downloadId
     property var download
     property int progress: download ? download.progress : 0
+    property bool paused
 
     divider.visible: false
 
     signal removed()
     signal cancelled()
 
-    height: visible ? (incomplete ? units.gu(10) : units.gu(7)) : 0
+    height: visible ? (incomplete ? (paused ? units.gu(13) : units.gu(10)) : units.gu(7)) : 0
 
     Component.onCompleted: {
         if (incomplete) {
@@ -182,13 +183,24 @@ ListItem {
 
                 Label {
                     visible: !progressBar.indeterminateProgress && downloadDelegate.incomplete
-                                                                && !error.visible
+                                                                && !error.visible 
+                                                                && !downloadDelegate.paused
                     width: cancelButton.width
                     horizontalAlignment: Text.AlignHCenter
                     fontSize: "x-small"
                     text: progressBar.progress + "%"
                 }
 
+                Button {
+                    visible: downloadDelegate.paused
+                    text: i18n.tr("Resume")
+                    width: cancelButton.width
+                    onClicked: {
+                        if (download) {
+                            download.resume()
+                        }
+                    }
+                }
             }
 
         }

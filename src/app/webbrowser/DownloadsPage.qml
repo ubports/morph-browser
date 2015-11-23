@@ -168,6 +168,7 @@ Item {
             incomplete: !model.complete
             selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
             errorMessage: model.error
+            paused: model.paused
             // Work around bug #1493880
             property bool lastSelected
 
