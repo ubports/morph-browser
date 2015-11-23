@@ -73,6 +73,7 @@ Item {
 
     Item {
         id: header
+        objectName: "header"
 
         anchors {
             top: parent.top
@@ -80,6 +81,12 @@ Item {
             right: parent.right
         }
         height: units.gu(8)
+
+        MouseArea {
+            // Prevent click events from propagating through to the view below
+            anchors.fill: parent
+            acceptedButtons: Qt.AllButtons
+        }
 
         Rectangle {
             anchors {
