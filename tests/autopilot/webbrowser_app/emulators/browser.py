@@ -123,6 +123,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_http_auth_dialog(self):
         return self.wait_select_single(HttpAuthenticationDialog)
 
+    def get_media_access_dialog(self):
+        return self.wait_select_single(MediaAccessDialog)
+
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -161,6 +164,17 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_new_bookmarks_folder_dialog(self):
         return self.wait_select_single("Dialog",
                                        objectName="newFolderDialog")
+
+    # The bookmarks view is dynamically created, so it might or might not be
+    # available
+    def get_bookmarks_view(self):
+        try:
+            if self.wide:
+                return self.select_single("BookmarksViewWide")
+            else:
+                return self.select_single("BookmarksView")
+        except exceptions.StateNotFoundError:
+            return None
 
     # The history view is dynamically created, so it might or might not be
     # available
@@ -402,6 +416,21 @@ class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("TextField", objectName="password")
 
 
+class MediaAccessDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_deny_button(self):
+        button = self.select_single("Button",
+                                    objectName="mediaAccessDialog.denyButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_allow_button(self):
+        button = self.select_single("Button",
+                                    objectName="mediaAccessDialog.allowButton")
+        self.pointing_device.click_object(button)
+
+
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
@@ -540,7 +569,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFolderListView)
+        return self.wait_select_single(BookmarksFoldersView)
 
     def get_bookmarks(self, folder_name):
         # assumes that the "more" button has been clicked
@@ -667,7 +696,7 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
 
-class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
         return sorted(self.select_many("QQuickItem",

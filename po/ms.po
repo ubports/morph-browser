@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-02 23:28+0200\n"
+"POT-Creation-Date: 2015-10-23 15:10+0200\n"
 "PO-Revision-Date: 2013-12-14 06:00+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
-"X-Generator: Launchpad (build 17783)\n"
+"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -51,11 +51,11 @@ msgstr "Kata laluan"
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:374
+#: src/app/webbrowser/HistoryView.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:289
-#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Batal"
@@ -104,14 +104,16 @@ msgstr "Pengesahan Skrip Java"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Pilih satu aplikasi untuk membuka fail ini atau tambah ia ke dalam folder "
+"muat turun."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "Pilih satu aplikasi"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Muat Turun"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -124,11 +126,8 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "Kelihatan anda menghadapi masalah pemaparan: %1."
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
+msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu mencadangkan anda periksa tetapan rangkaian dan segar semula halaman "
-"tersebut."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -392,21 +391,21 @@ msgstr "Salin pautan"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Potong"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Padam"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
 msgid "Find in page"
-msgstr ""
+msgstr "Cari dalam halaman"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Gelintar dalam Halaman"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -428,8 +427,8 @@ msgstr "Pergi ke"
 msgid "Address;URL;www"
 msgstr "Alamat;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
-#: src/app/webbrowser/TabsBar.qml:85
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
+#: src/app/webbrowser/TabsBar.qml:86
 msgid "New Tab"
 msgstr "Tab Baharu"
 
@@ -453,14 +452,14 @@ msgstr "Buka pautan dalam tab baharu"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Tampal"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Buat Semula"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Muat Semula"
 
@@ -476,131 +475,149 @@ msgstr "Simpan imej"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Simpan pautan"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:399
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "Pilih semua"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
 msgid "Share"
 msgstr "Kongsi"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Buat Asal"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr ""
+msgstr "cari dalam halaman"
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "gelintar atau masukkan alamat"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Tanda Buku Ditambah"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Simpan dalam"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:122
+#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Semua Tanda Buku"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Folder Baharu"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Cipta folder baharu"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:353
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "Simpan"
 
-#: src/app/webbrowser/Browser.qml:375
-#: src/app/webbrowser/HistoryViewWide.qml:357
-msgid "History"
-msgstr "Sejarah"
+#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:322
+msgid "Homepage"
+msgstr "Laman Rumah"
 
-#: src/app/webbrowser/Browser.qml:382
-msgid "Open tabs"
-msgstr "Buka tab"
+#: src/app/webbrowser/BookmarksView.qml:80
+#: src/app/webbrowser/BookmarksViewWide.qml:78
+#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:154
+msgid "Bookmarks"
+msgstr "Tanda Buku"
 
-#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:508
-#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
-msgid "New tab"
-msgstr "Tab baharu"
-
-#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
-msgid "Downloads"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:409
-msgid "Leave Private Mode"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:409
-msgid "Private Mode"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr "Tetapan"
-
-#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:494
+#: src/app/webbrowser/BookmarksView.qml:112
+#: src/app/webbrowser/BookmarksViewWide.qml:110
+#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Selesai"
 
+#: src/app/webbrowser/BookmarksView.qml:125
+#: src/app/webbrowser/BookmarksViewWide.qml:123
+#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryViewWide.qml:518
+#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
+msgid "New tab"
+msgstr "Tab baharu"
+
+#: src/app/webbrowser/Browser.qml:407
+#: src/app/webbrowser/HistoryViewWide.qml:368
+msgid "History"
+msgstr "Sejarah"
+
+#: src/app/webbrowser/Browser.qml:413
+msgid "Open tabs"
+msgstr "Buka tab"
+
+#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+msgid "Downloads"
+msgstr "Muat Turun"
+
+#: src/app/webbrowser/Browser.qml:437
+msgid "Leave Private Mode"
+msgstr "Tinggalkan Mod Persendirian"
+
+#: src/app/webbrowser/Browser.qml:437
+msgid "Private Mode"
+msgstr "Mod Persendirian"
+
+#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
+msgid "Settings"
+msgstr "Tetapan"
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:761
+#: src/app/webbrowser/Browser.qml:787
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1200
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Leret Ke Atas Untuk Keluar Dari Skrin Penuh"
 
-#: src/app/webbrowser/Browser.qml:1201
+#: src/app/webbrowser/Browser.qml:1261
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Tekan ESC Untuk Keluar Dari Skrin Penuh"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Sahkan pemilihan"
 
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/HistoryView.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
 msgstr "Hapus"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "Tiada muat turun tersedia"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -619,80 +636,99 @@ msgid "Last Visited"
 msgstr "Terakhir Dilawati"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:205
+#: src/app/webbrowser/HistoryViewWide.qml:215
 msgid "Yesterday"
 msgstr "Semalam"
 
-#: src/app/webbrowser/HistoryViewWide.qml:189
+#: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
-msgstr ""
+msgstr "Semua Sejarah"
 
-#: src/app/webbrowser/HistoryViewWide.qml:203
-#: src/app/webbrowser/HistoryViewWide.qml:272
+#: src/app/webbrowser/HistoryViewWide.qml:213
+#: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
-msgstr ""
+msgstr "Hari Ini"
 
-#: src/app/webbrowser/HistoryViewWide.qml:439
+#: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr ""
+msgstr "gelintar sejarah"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
+msgstr "Pergi ke mod awam akan menutup semua tab persendirian"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Ya"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Tidak"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Ini adalah tab persendirian"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-
-#: src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:313
-msgid "Bookmarks"
-msgstr "Tanda Buku"
+"Halaman yang anda lihat dalam tab ini tidak akan muncul dalam sejarah\n"
+"pelayar anda. Sebaliknya, tanda buku yang anda cipta akan dikekalkan."
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Lagi"
 
-#: src/app/webbrowser/NewTabView.qml:226
-#: src/app/webbrowser/NewTabViewWide.qml:312
+#: src/app/webbrowser/NewTabView.qml:227
+#: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
 msgstr "Laman terbaik"
 
-#: src/app/webbrowser/NewTabView.qml:257
+#: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
-msgstr ""
-
-#: src/app/webbrowser/NewTabViewWide.qml:160
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
-msgid "Homepage"
-msgstr "Laman Rumah"
+msgstr "Anda tidak melawat mana-mana laman lagi"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Proses penerapan telah ditutup untuk tab ini."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Ada masalah ketika memaparkan %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Sistem menghadapi ingatan rendah dan tidak dapat papar laman sesawang ini. "
+"Cuba tutup tab yang tidak diperlukan dan muat semula."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Tutup tab"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -748,54 +784,71 @@ msgstr "Anda bersambung dengan"
 msgid "Which is run by"
 msgstr "Yang dijalankan oleh"
 
-#: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:176
+#: src/app/webbrowser/SettingsPage.qml:80
+#: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
 msgstr "Enjin gelintar"
 
-#: src/app/webbrowser/SettingsPage.qml:101
+#: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
 msgstr "Pulih sesi terdahulu ketika permulaan"
 
-#: src/app/webbrowser/SettingsPage.qml:119
+#: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
 msgstr "Benarkan pembukaan tab baharu di sebalik tabir"
 
-#: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:228
-msgid "Privacy"
-msgstr "Kerahsiaan"
+#: src/app/webbrowser/SettingsPage.qml:137
+#: src/app/webbrowser/SettingsPage.qml:227
+msgid "Privacy & permissions"
+msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:146
+#: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Tetap semula tetapan pelayar"
 
-#: src/app/webbrowser/SettingsPage.qml:249
+#: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Kosongkan Sejarah Pelayaran"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Kosongkan Sejarah Pelayaran?"
 
-#: src/app/webbrowser/SettingsPage.qml:259
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "Kosongkan Cache"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Kosongkan Cache?"
 
-#: src/app/webbrowser/SettingsPage.qml:296
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
 msgstr "Kosongkan"
+
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Ketuk untuk lihat"
 
-#: src/app/webbrowser/TabsBar.qml:96
+#: src/app/webbrowser/TabsBar.qml:97
 msgid "Close Tab"
+msgstr "Tutup Tab"
+
+#: src/app/webbrowser/UrlPreviewDelegate.qml:124
+msgid "Remove"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
@@ -815,6 +868,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Tiada akaun telah dipaut ke apl sesawang ini; tekan item di bawah untuk "
+"tambah akaun."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -822,50 +877,54 @@ msgstr "Tambah akaun"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Jangan guna akaun"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Ralat akaun"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Tutup"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Tetingkap akaun tidak dapat dibuka. Anda hanya boleh cipta satu akaun pada "
+"satu masa; sila cuba lagi sekali selepas menutup semua tetingkap akaun lain."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> perlu capai akaun atas-talian %2 anda."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> mahu mencapai akaun atas-talian %2 anda."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Pilih satu akaun sekarang, atau langkau langkah ini dan pilih akaun atas-"
+"talian kemudian."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Tutup apl"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Langkau"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Pilih akaun"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
@@ -886,6 +945,12 @@ msgstr "Layari Dunia Internet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Pelayar;Sesawang;Explorer"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr ""
+#~ "Ubuntu mencadangkan anda periksa tetapan rangkaian dan segar semula halaman "
+#~ "tersebut."
 
 #~ msgid "Share…"
 #~ msgstr "Kongsi..."
@@ -908,11 +973,8 @@ msgstr "Internet;WWW;Pelayar;Sesawang;Explorer"
 #~ msgid "Add"
 #~ msgstr "Tambah"
 
-#~ msgid "No"
-#~ msgstr "Tidak"
-
-#~ msgid "Yes"
-#~ msgstr "Ya"
-
 #~ msgid "Delete all history?"
 #~ msgstr "Padam semua sejarah?"
+
+#~ msgid "Privacy"
+#~ msgstr "Kerahsiaan"

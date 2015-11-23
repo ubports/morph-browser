@@ -56,6 +56,7 @@ GridView {
         previewWidth: grid.previewWidth
 
         onClicked: grid.activated(model.url)
+        onSetCurrent: grid.currentIndex = index
         onRemoved: grid.removed(model.url)
     }
 

@@ -40,6 +40,7 @@ ChromeBase {
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
 
     signal requestNewTab(int index, bool makeCurrent)
+    signal tabClosed(int index)
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : "#bcbcbc"
 
@@ -68,6 +69,7 @@ ChromeBase {
                 model: tabsModel
                 incognito: chrome.incognito
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
+                onTabClosed: chrome.tabClosed(index)
             }
 
             anchors {

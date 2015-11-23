@@ -37,8 +37,6 @@ BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
-
     property bool newSession: false
 
     property bool incognito: false
@@ -75,6 +73,30 @@ BrowserView {
         }
     }
 
+    Connections {
+        target: currentWebview
+
+        /* Note that we are connecting the mediaAccessPermissionRequested signal
+           on the current webview only because we want all the tabs that are not
+           visible to automatically deny the request but emit the signal again
+           if the same origin requests permissions (which is the default
+           behavior in oxide if we don't connect a signal handler), so that we
+           can pop-up a dialog asking the user for permission.
+
+           Design is working on a new component that allows per-tab non-modal
+           dialogs that will allow asking permission to the user without blocking
+           interaction with the rest of the page or the window. When ready all
+           tabs will have their mediaAccessPermissionRequested signal handled by
+           creating one of these new dialogs.
+        */
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
+
+    Component {
+        id: mediaAccessDialogComponent
+        MediaAccessDialog { }
+    }
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -92,7 +114,7 @@ BrowserView {
             onTriggered: currentWebview.reload()
         },
         Actions.Bookmark {
-            enabled: currentWebview && browser.bookmarksModel
+            enabled: currentWebview
             onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
@@ -118,6 +140,8 @@ BrowserView {
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
         property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
+        property string defaultAudioDevice
+        property string defaultVideoDevice
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
@@ -125,6 +149,8 @@ BrowserView {
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
             newTabDefaultSection = settingsDefaults.newTabDefaultSection
+            defaultAudioDevice = settingsDefaults.defaultAudioDevice
+            defaultVideoDevice = settingsDefaults.defaultVideoDevice
         }
     }
 
@@ -136,11 +162,13 @@ BrowserView {
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
         readonly property int newTabDefaultSection: 0
+        readonly property string defaultAudioDevice: ""
+        readonly property string defaultVideoDevice: ""
     }
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewLoader.active
+        visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -241,7 +269,6 @@ BrowserView {
 
                 NewTabView {
                     anchors.fill: parent
-                    bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
                     onBookmarkClicked: {
@@ -249,7 +276,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onBookmarkRemoved: BookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -263,7 +290,6 @@ BrowserView {
 
                 NewTabViewWide {
                     anchors.fill: parent
-                    bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
                     onBookmarkClicked: {
@@ -271,7 +297,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onBookmarkRemoved: BookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -332,11 +358,11 @@ BrowserView {
             y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
-                return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
+                return webview ? BookmarksModel.contains(webview.url) : false
             }
             bookmarked: isCurrentUrlBookmarked()
             onToggleBookmark: {
-                if (isCurrentUrlBookmarked()) browser.bookmarksModel.remove(webview.url)
+                if (isCurrentUrlBookmarked()) BookmarksModel.remove(webview.url)
                 else internal.addBookmark(webview.url, webview.title, webview.icon)
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
@@ -345,14 +371,17 @@ BrowserView {
                 onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
             Connections {
-                target: browser.bookmarksModel
-                onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
-                onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
+                target: BookmarksModel
+                onCountChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
 
             onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
+            onTabClosed: internal.closeTab(index)
 
-            onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
+            onFindInPageModeChanged: {
+                if (!chrome.findInPageMode) internal.resetFocus()
+                else chrome.forceActiveFocus()
+            }
 
             anchors {
                 left: parent.left
@@ -366,6 +395,12 @@ BrowserView {
                     iconName: "share"
                     enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
+                },
+                Action {
+                    objectName: "bookmarks"
+                    text: i18n.tr("Bookmarks")
+                    iconName: "bookmark"
+                    onTriggered: bookmarksViewLoader.active = true
                 },
                 Action {
                     objectName: "history"
@@ -395,10 +430,7 @@ BrowserView {
                     text: i18n.tr("Find in page")
                     iconName: "search"
                     enabled: !chrome.findInPageMode && !newTabViewLoader.active
-                    onTriggered: {
-                        chrome.findInPageMode = true
-                        chrome.focus = true
-                    }
+                    onTriggered: chrome.findInPageMode = true
                 },
                 Action {
                     objectName: "privatemode"
@@ -500,7 +532,7 @@ BrowserView {
                 readonly property string icon: "non-starred"
                 readonly property bool displayUrl: true
                 sourceModel: TextSearchFilterModel {
-                    sourceModel: browser.bookmarksModel
+                    sourceModel: BookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
                 }
@@ -533,7 +565,7 @@ BrowserView {
             id: bookmarkOptionsComponent
             BookmarkOptions {
                 folderModel: BookmarksFolderListModel {
-                    sourceModel: bookmarksModel
+                    sourceModel: BookmarksModel
                 }
 
                 Component.onCompleted: {
@@ -541,10 +573,8 @@ BrowserView {
                 }
 
                 Component.onDestruction: {
-                    if (browser.bookmarksModel.contains(bookmarkUrl)) {
-                        browser.bookmarksModel.update(bookmarkUrl,
-                                                      bookmarkTitle,
-                                                      bookmarkFolder)
+                    if (BookmarksModel.contains(bookmarkUrl)) {
+                        BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
                     }
                 }
 
@@ -564,7 +594,7 @@ BrowserView {
                     KeyboardShortcut {
                         key: Qt.Key_Escape
                         onTriggered: {
-                            browser.bookmarksModel.remove(bookmarkUrl)
+                            BookmarksModel.remove(bookmarkUrl)
                             hide()
                         }
                     }
@@ -573,7 +603,7 @@ BrowserView {
                         modifiers: Qt.ControlModifier
                         key: Qt.Key_D
                         onTriggered: {
-                            browser.bookmarksModel.remove(bookmarkUrl)
+                            BookmarksModel.remove(bookmarkUrl)
                             hide()
                         }
                     }
@@ -759,6 +789,58 @@ BrowserView {
     }
 
     Loader {
+        id: bookmarksViewLoader
+
+        anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? bookmarksViewWideComponent : bookmarksViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                bookmarksViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: bookmarksViewLoader.active = false
+
+        Connections {
+            target: bookmarksViewLoader.item
+
+            onBookmarkEntryClicked: {
+                browser.openUrlInNewTab(url, true)
+                bookmarksViewLoader.active = false
+            }
+            onDone: bookmarksViewLoader.active = false
+            onNewTabClicked: {
+                browser.openUrlInNewTab("", true)
+                bookmarksViewLoader.active = false
+            }
+        }
+
+        Component {
+            id: bookmarksViewComponent
+
+            BookmarksView {
+                anchors.fill: parent
+
+                homepageUrl: settings.homepage
+            }
+        }
+
+        Component {
+            id: bookmarksViewWideComponent
+
+            BookmarksViewWide {
+                anchors.fill: parent
+
+                homepageUrl: settings.homepage
+            }
+        }
+    }
+
+    Loader {
         id: historyViewLoader
 
         anchors.fill: parent
@@ -888,12 +970,6 @@ BrowserView {
         }
     }
 
-    Loader {
-        id: bookmarksModelLoader
-        source: "BookmarksModel.qml"
-        asynchronous: true
-    }
-
     Component {
         id: tabComponent
 
@@ -945,8 +1021,8 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         objectName: "BookmarkLinkContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString() &&
-                                 browser.bookmarksModel && !bookmarksModel.contains(contextModel.linkUrl)
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                                 && !BookmarksModel.contains(contextModel.linkUrl)
                         onTriggered: {
                             // position the menu target with a one-off assignement instead of a binding
                             // since the contents of the contextModel have meaning only while the context
@@ -1081,6 +1157,7 @@ BrowserView {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
+                    if (setCurrent) tabContainer.forceActiveFocus()
                 }
 
                 onCloseRequested: prepareToClose()
@@ -1209,6 +1286,7 @@ BrowserView {
 
     QtObject {
         id: internal
+        property var closedTabHistory: []
 
         function getOpenPages() {
             var urls = [];
@@ -1249,8 +1327,19 @@ BrowserView {
         }
 
         function closeTab(index) {
+            // Save the incognito state before removing the tab, because
+            // removing the last tab in the model will switch out incognito
+            // mode, thus causing the check below to fail and save the tab
+            // into the undo stack when it should be forgotten instead.
+            var wasIncognito = incognito
             var tab = tabsModel.remove(index)
             if (tab) {
+                if (!wasIncognito && tab.url.toString().length > 0) {
+                    closedTabHistory.push({
+                        state: session.serializeTabState(tab),
+                        index: index
+                    })
+                }
                 tab.close()
             }
             if (tabsModel.count === 0) {
@@ -1262,6 +1351,14 @@ BrowserView {
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
                 closeTab(tabsModel.currentIndex)
+            }
+        }
+
+        function undoCloseTab() {
+            if (!incognito && closedTabHistory.length > 0) {
+                var tabInfo = closedTabHistory.pop()
+                var tab = session.createTabFromState(tabInfo.state)
+                internal.addTab(tab, true, tabInfo.index)
             }
         }
 
@@ -1353,7 +1450,7 @@ BrowserView {
 
         function addBookmark(url, title, icon, location) {
             if (title == "") title = UrlUtils.removeScheme(url)
-            bookmarksModel.add(url, title, icon, "")
+            BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
                             location,
@@ -1510,7 +1607,7 @@ BrowserView {
     // The tasks are:
     // - creating the webviews for all initial tabs. This should ideally be done
     //   asynchronously via object incubation, but http://pad.lv/1359911 prevents it
-    // - loading the HistoryModel from the database
+    // - loading the HistoryModel and BookmarksModel from the database
     // - deleting any page screenshots that are no longer needed
     Timer {
         running: true
@@ -1534,7 +1631,9 @@ BrowserView {
                 internal.focusAddressBar()
             }
 
+            BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
             HistoryModel.databasePath = dataLocation + "/history.sqlite"
+
             // Note that the property setter for databasePath won't return until
             // the entire model has been loaded, so it is safe to call this here
             PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
@@ -1635,6 +1734,21 @@ BrowserView {
             onTriggered: internal.switchToPreviousTab()
         }
 
+        // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_W
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
+        }
+
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_T
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
+        }
+
         // Ctrl+W or Ctrl+F4: Close the current tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
@@ -1653,10 +1767,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible
+            enabled: chrome.visible || recentView.visible || bookmarksViewLoader.active || historyViewLoader.active
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
+
+                bookmarksViewLoader.active = false
+                historyViewLoader.active = false
             }
         }
 
@@ -1686,8 +1803,8 @@ BrowserView {
             enabled: chrome.visible
             onTriggered: {
                 if (currentWebview) {
-                    if (bookmarksModel.contains(currentWebview.url)) {
-                        bookmarksModel.remove(currentWebview.url)
+                    if (BookmarksModel.contains(currentWebview.url)) {
+                        BookmarksModel.remove(currentWebview.url)
                     } else {
                         internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
                     }
@@ -1701,6 +1818,14 @@ BrowserView {
             key: Qt.Key_H
             enabled: chrome.visible
             onTriggered: historyViewLoader.active = true
+        }
+
+        // Ctrl+Shift+O: Show Bookmarks
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_O
+            enabled: chrome.visible
+            onTriggered: bookmarksViewLoader.active = true
         }
 
         // Alt+← or Backspace: Goes to the previous page in history
@@ -1747,11 +1872,8 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
-            enabled: !newTabViewLoader.active
-            onTriggered: {
-                chrome.findInPageMode = true
-                chrome.focus = true
-            }
+            enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
+            onTriggered: chrome.findInPageMode = true
         }
     }
 }

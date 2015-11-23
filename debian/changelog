@@ -1,3 +1,99 @@
+webbrowser-app (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add missing unit test cleanup.
+  * Ship empty apparmor hardware profile directories to avoid adding a
+    runtime dependency on apparmor-easyprof-ubuntu. (LP: #1511439)
+
+  [ Ugo Riboni ]
+  * Add keyboard shortcuts to undo closing tabs (Ctrl+Shift+T and
+    Ctrl+Shift+W). (LP: #1499767)
+  * Create the webview in a safer way, by keeping the incubator around
+    and monitoring the progress, and by using sync creation if there is
+    a pending request. (LP: #1514701)
+  * Hide webviews created via onNewViewRequested until the tab they
+    belong to becomes current. (LP: #1464436)
+  * Use lowercase letters for keyboard shortcut invokation in autopilot
+    tests.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 11 Nov 2015 16:04:11 +0000
+
+webbrowser-app (0.23+16.04.20151103-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix a bug preventing in some cases the address bar from getting
+    focus when entering find in page mode. Also correctly hide the left
+    hand side icons when in find in page mode. (LP: #1508130)
+  * Focus the page when opening links with target="_blank". (LP:
+    #1505724)
+  * Prevent the address bar from being cleared when the actual url
+    changes and the user has already started typing. (LP: #1487713)
+  * Update the user script to remove the Facebook app banner. (LP:
+    #1352783)
+  * Use AbstractButton to handle some tab interactions so that haptics
+    are used on touch. (LP: #1505725)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 03 Nov 2015 11:56:19 +0000
+
+webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add an exception to the generated apparmor profile to allow reading
+    HERE’s TOS in the browser. (LP: #1507667)
+  * Modify the generated apparmor profile to allow rw access to
+    /dev/shm/.org.chromium.Chromium.* too. (LP: #1508054)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix inability to drag the map to pan in Google maps, on desktop.
+    (LP: #1503506)
+  * Implement support for allowing or denying access to media input
+    devices and for setting default media input devices. (LP: #1410996)
+  * Refactor the BookmarksModel to be a singleton.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 22 Oct 2015 15:07:49 +0000
+
+webbrowser-app (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Add bookmarks view to top level menu
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Ensure that the default context menu cannot be dismissed several
+    times, causing a crash in oxide. The issue in oxide remains, it
+    should have a safeguard against this kind of behaviour. (LP:
+    #1501330)
+  * Fix a couple of autopilot failures on desktop in narrow mode. (LP:
+    #1506879)
+  * Fixes for minor UX issues with the preview grid: Make the highlight
+    follow the item selected for deletion in the preview grid. Do not
+    show a highlight in the narrow version of the new tab view, as it
+    doesn’t support keyboard navigation. Grab dismiss area events so
+    that they are not propagated to the view below when dismissing a
+    context menu. (LP: #1506579)
+  * Update a localized error string, per design. (LP: #1493466)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 16 Oct 2015 15:29:07 +0000
+
 webbrowser-app (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

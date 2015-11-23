@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-02 23:28+0200\n"
-"PO-Revision-Date: 2015-04-20 06:55+0000\n"
+"POT-Creation-Date: 2015-10-23 15:10+0200\n"
+"PO-Revision-Date: 2015-11-22 19:13+0000\n"
 "Last-Translator: Rūdolfs Mazurs <Unknown>\n"
-"Language-Team: Latvian <lv@li.org>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
-"X-Generator: Launchpad (build 17783)\n"
+"X-Launchpad-Export-Date: 2015-11-23 05:27+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 "Language: lv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -50,14 +50,15 @@ msgid "Password"
 msgstr "Parole"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:374
+#: src/app/webbrowser/HistoryView.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:289
-#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Atcelt"
@@ -106,14 +107,16 @@ msgstr "JavaScript apstiprinājums"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Izvēlieties lietotni, lai atvērtu šo datni vai pievienojiet to lejupielāžu "
+"mapei."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "Izvēlieties lietotni"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Lejupielādēt"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -126,9 +129,8 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "Radās problēmas atverot: %1."
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr "Ubuntu iesaka pārbaudīt tīkla iestatījums un mēģināt pārlādēt lapu."
+msgid "Please check your network settings and try refreshing the page."
+msgstr "Pārbaudiet tīkla iestatījums un mēģināt atsvaidzināt lapu."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -394,21 +396,21 @@ msgstr "Kopēt saiti"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Izgriezt"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Dzēst"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
 msgid "Find in page"
-msgstr ""
+msgstr "Meklēt lapā"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Meklēt lapā"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -430,7 +432,7 @@ msgstr "Iet uz"
 msgid "Address;URL;www"
 msgstr "Adrese;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Jauna cilne"
@@ -455,11 +457,11 @@ msgstr "Atvērt saiti jaunā cilnē"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Ielīmēt"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Atatsaukt"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
@@ -478,30 +480,31 @@ msgstr "Saglabāt attēlu"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Saglabāt saiti"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:399
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "Izvēlēties visu"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
 msgid "Share"
 msgstr "Dalīties"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Atsaukt"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
-msgstr ""
+msgstr "meklēt lapā"
 
 #: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
@@ -509,100 +512,119 @@ msgstr "meklējiet vai ievadiet adresi"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Grāmatzīme pievienota"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Nosaukums"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Saglabāt mapē"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:122
+#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Visas grāmatzīmes"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Jauna mape"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Izveidot jaunu mapi"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:353
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "Saglabāt"
 
-#: src/app/webbrowser/Browser.qml:375
-#: src/app/webbrowser/HistoryViewWide.qml:357
-msgid "History"
-msgstr "Vēsture"
+#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:322
+msgid "Homepage"
+msgstr "Mājas lapa"
 
-#: src/app/webbrowser/Browser.qml:382
-msgid "Open tabs"
-msgstr "Atvērt cilnes"
+#: src/app/webbrowser/BookmarksView.qml:80
+#: src/app/webbrowser/BookmarksViewWide.qml:78
+#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:154
+msgid "Bookmarks"
+msgstr "Grāmatzīmes"
 
-#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/BookmarksView.qml:112
+#: src/app/webbrowser/BookmarksViewWide.qml:110
+#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryViewWide.qml:504
+msgid "Done"
+msgstr "Pabeigts"
+
+#: src/app/webbrowser/BookmarksView.qml:125
+#: src/app/webbrowser/BookmarksViewWide.qml:123
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Jauna cilne"
 
+#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/HistoryViewWide.qml:368
+msgid "History"
+msgstr "Vēsture"
+
+#: src/app/webbrowser/Browser.qml:409
+msgid "Open tabs"
+msgstr "Atvērt cilnes"
+
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Lejupielādes"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:436
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Pamest privāto režīmu"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:436
 msgid "Private Mode"
-msgstr ""
+msgstr "Privātais režīms"
 
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Iestatījumi"
 
-#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:494
-msgid "Done"
-msgstr "Pabeigts"
-
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:761
+#: src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1200
+#: src/app/webbrowser/Browser.qml:1258
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Velciet uz augšu, lai izietu no pilnekrāna"
 
-#: src/app/webbrowser/Browser.qml:1201
+#: src/app/webbrowser/Browser.qml:1259
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Spiediet ESC, lai izietu no pilnekrāna"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Apstiprināt izvēli"
 
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/DownloadsPage.qml:99
+#: src/app/webbrowser/HistoryView.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
 msgstr "Dzēst"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "Nav pieejamu lejupielāžu"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -622,80 +644,99 @@ msgid "Last Visited"
 msgstr "Pēdējās apmeklētās"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:205
+#: src/app/webbrowser/HistoryViewWide.qml:215
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: src/app/webbrowser/HistoryViewWide.qml:189
+#: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
-msgstr ""
+msgstr "Visa vēsture"
 
-#: src/app/webbrowser/HistoryViewWide.qml:203
-#: src/app/webbrowser/HistoryViewWide.qml:272
+#: src/app/webbrowser/HistoryViewWide.qml:213
+#: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
-msgstr ""
+msgstr "Šodien"
 
-#: src/app/webbrowser/HistoryViewWide.qml:439
+#: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr ""
+msgstr "meklēt vēsturē"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Pāreja uz publisko režīmu aizvērs visas privātās cilnes"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Ļaut šim domēnam piekļūt jūsu kamerai un mikrofonam?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Ļaut šim domēnam piekļūt jūsu kamerai?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Ļaut šim domēnam piekļūt jūsu mikrofonam?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (iegults iekš %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Jā"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Nē"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Šī ir privāta cilne"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-
-#: src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:313
-msgid "Bookmarks"
-msgstr "Grāmatzīmes"
+"Lapas, ko apmeklējat šajā cilnē, neparādīsies jūsu pārlūka vēsturē.\n"
+"Bet tiks saglabātas šeit veidotās grāmatzīmes."
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Vairāk"
 
-#: src/app/webbrowser/NewTabView.qml:226
-#: src/app/webbrowser/NewTabViewWide.qml:312
+#: src/app/webbrowser/NewTabView.qml:227
+#: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
 msgstr "Labākās vietnes"
 
-#: src/app/webbrowser/NewTabView.qml:257
+#: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
-msgstr ""
-
-#: src/app/webbrowser/NewTabViewWide.qml:160
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
-msgid "Homepage"
-msgstr "Mājas lapa"
+msgstr "Jūs vēl neesat apmeklējuši nevienu vietni"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Šīs cilnes attēlošanas process tika aizvērts."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Kaut kas nogāja greizi, attēlojot %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Sistēmai ir maz brīvās atmiņas un tā nevar attēlot šo tīmekļa lapu. Mēģiniet "
+"aizvērt nevajadzīgās cilnes un pārlādējiet."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Aizvērt cilni"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -750,47 +791,60 @@ msgstr "Jūs esat savienots ar"
 msgid "Which is run by"
 msgstr "Ko darbina"
 
-#: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:176
+#: src/app/webbrowser/SettingsPage.qml:80
+#: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
 msgstr "Meklēšanas dzinis"
 
-#: src/app/webbrowser/SettingsPage.qml:101
+#: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
 msgstr "Palaižot atjaunot iepriekšējo sesiju"
 
-#: src/app/webbrowser/SettingsPage.qml:119
+#: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
 msgstr "Atļaut fonā atvērt jaunas cilnes"
 
-#: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:228
-msgid "Privacy"
-msgstr "Privātums"
+#: src/app/webbrowser/SettingsPage.qml:137
+#: src/app/webbrowser/SettingsPage.qml:227
+msgid "Privacy & permissions"
+msgstr "Privātums un atļaujas"
 
-#: src/app/webbrowser/SettingsPage.qml:146
+#: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Atstatīt pārlūka iestatījumus"
 
-#: src/app/webbrowser/SettingsPage.qml:249
+#: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr "Kamera un mikrofons"
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Attīrīt pārlūka vēsturi"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Attīrīt pārlūka vēsturi?"
 
-#: src/app/webbrowser/SettingsPage.qml:259
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "Attīrīt kešatmiņu"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Attīrīt kešatmiņu?"
 
-#: src/app/webbrowser/SettingsPage.qml:296
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
-msgstr "Notīrīt"
+msgstr "Attīrīt"
+
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr "Mikrofons"
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
@@ -798,7 +852,11 @@ msgstr "Uzsitiet, lai skatītu"
 
 #: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
-msgstr ""
+msgstr "Aizvērt cilni"
+
+#: src/app/webbrowser/UrlPreviewDelegate.qml:124
+msgid "Remove"
+msgstr "Izņemt"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -817,6 +875,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Neviens konts nav saistīts ar šo tīmekļa lapu. Spiediet uz zemāk esošo "
+"vienumu, lai pievienotu kontu."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -824,54 +884,58 @@ msgstr "Pievienot kontu"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Nelietot kontu"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Konta kļūda"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Aizvērt"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Nevarēja atvērt konta logu. Vienlaicīgi var izveidot tikai vienu kontu. "
+"Mēģiniet atkal pēc visu pārējo logu aizvēršanas."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> vajag piekļūt jūsu %2 tiešsaistes kontam."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> vēlas piekļūt jūsu %2 tiešsaistes kontam."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Izvēlieties kontu tagad, vai izlaidiet šo soli un izvēlieties tiešsaistes "
+"kontu vēlāk."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Aizvērt lietotni"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Izlaist"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Izvēlieties kontu"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Ak vai! Kaut kas nogāja greizi."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -901,14 +965,12 @@ msgstr "Internets;WWW;pārlūks;tīmeklis;"
 #~ msgid "Add"
 #~ msgstr "Pievienot"
 
-#~ msgid "No"
-#~ msgstr "Nē"
-
-#~ msgid "Yes"
-#~ msgstr "Jā"
-
 #~ msgid "Delete all history?"
 #~ msgstr "Dzēst visu vēsturi?"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr "Ubuntu iesaka pārbaudīt tīkla iestatījums un mēģināt pārlādēt lapu."
 
 #~ msgid "Share…"
 #~ msgstr "Dalīties…"
@@ -918,3 +980,6 @@ msgstr "Internets;WWW;pārlūks;tīmeklis;"
 
 #~ msgid "Skip account creation step"
 #~ msgstr "Izlaist konta veidošanas soli"
+
+#~ msgid "Privacy"
+#~ msgstr "Privātums"

@@ -25,7 +25,6 @@ import "."
 Item {
     id: newTabView
 
-    property QtObject bookmarksModel
     property Settings settingsObject
 
     signal bookmarkClicked(url url)
@@ -42,7 +41,7 @@ Item {
 
         property bool seeMoreBookmarksView: false
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
-        property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
+        property int numberOfBookmarks: BookmarksModel.count
 
         // Force the topsites section to reappear when remove a bookmark while
         // the bookmarks list is expanded and there aren't anymore > 5
@@ -144,8 +143,9 @@ Item {
                 height: status == Loader.Ready ? item.height : 0
 
                 active: internal.seeMoreBookmarksView
-                sourceComponent: BookmarksFolderListView {
-                    model: newTabView.bookmarksModel
+
+                sourceComponent: BookmarksFoldersView {
+                    homeBookmarkUrl: newTabView.settingsObject.homepage
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
@@ -194,7 +194,7 @@ Item {
                     spacing: 0
                     limit: internal.bookmarksCountLimit
 
-                    model: newTabView.bookmarksModel
+                    model: BookmarksModel
 
                     onUrlClicked: newTabView.bookmarkClicked(url)
                     onUrlRemoved: newTabView.bookmarkRemoved(url)
@@ -296,6 +296,9 @@ Item {
                     Behavior on opacity { UbuntuNumberAnimation {} }
                     visible: opacity > 0
                     interactive: false
+
+                    // No highlight as this view doesn’t support keyboard navigation
+                    highlight: null
 
                     model: LimitProxyModel {
                         limit: 10
