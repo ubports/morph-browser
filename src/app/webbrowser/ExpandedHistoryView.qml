@@ -30,6 +30,12 @@ Item {
     signal historyEntryRemoved(url url)
     signal done()
 
+    MouseArea {
+        // Prevent click events from propagating through to the view below
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "#f6f6f6"
@@ -81,12 +87,6 @@ Item {
             right: parent.right
         }
         height: units.gu(8)
-
-        MouseArea {
-            // Prevent click events from propagating through to the view below
-            anchors.fill: parent
-            acceptedButtons: Qt.AllButtons
-        }
 
         Rectangle {
             anchors {
