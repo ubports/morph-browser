@@ -439,7 +439,8 @@ BrowserView {
     Chrome {
         id: chrome
 
-        webview: browser.currentWebview
+        tab: internal.nextTab || tabsModel.currentTab
+        webview: tab ? tab.webview : null
         tabsModel: browser.tabsModel
         searchUrl: currentSearchEngine.urlTemplate
 
@@ -458,16 +459,16 @@ BrowserView {
         }
 
         function isCurrentUrlBookmarked() {
-            return webview ? BookmarksModel.contains(webview.url) : false
+            return tab ? BookmarksModel.contains(tab.url) : false
         }
         bookmarked: isCurrentUrlBookmarked()
         onToggleBookmark: {
-            if (isCurrentUrlBookmarked()) BookmarksModel.remove(webview.url)
-            else internal.addBookmark(webview.url, webview.title, webview.icon)
+            if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
+            else internal.addBookmark(tab.url, tab.title, tab.icon)
         }
         onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
         Connections {
-            target: chrome.webview
+            target: chrome.tab
             onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
         }
         Connections {
@@ -494,8 +495,8 @@ BrowserView {
                 objectName: "share"
                 text: i18n.tr("Share")
                 iconName: "share"
-                enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
-                onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
+                enabled: (formFactor == "mobile") && tab && tab.url.toString()
+                onTriggered: internal.shareLink(tab.url, tab.title)
             },
             Action {
                 objectName: "bookmarks"
@@ -1285,12 +1286,10 @@ BrowserView {
         property var closedTabHistory: []
 
         property int nextTabIndex: -1
-        onNextTabIndexChanged: {
-            if (nextTabIndex > -1) {
-                var nextTab = tabsModel.get(nextTabIndex)
-                if (nextTab) {
-                    nextTab.aboutToShow()
-                }
+        readonly property var nextTab: (nextTabIndex > -1) ? tabsModel.get(nextTabIndex) : null
+        onNextTabChanged: {
+            if (nextTab) {
+                nextTab.aboutToShow()
             }
         }
 

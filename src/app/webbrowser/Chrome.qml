@@ -24,6 +24,7 @@ ChromeBase {
     id: chrome
 
     property var tabsModel
+    property alias tab: navigationBar.tab
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
@@ -86,8 +87,6 @@ ChromeBase {
             id: navigationBar
 
             iconColor: (incognito && !showTabsBar) ? "white" : UbuntuColors.darkGrey
-
-            webview: chrome.webview
 
             focus: true
 
