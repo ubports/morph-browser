@@ -42,6 +42,10 @@ FocusScope {
     property bool incognito
     visible: false
 
+    // Used as a workaround for https://launchpad.net/bugs/1502675 :
+    // invoke this on a tab shortly before it is set current.
+    signal aboutToShow()
+
     Connections {
         target: PreviewManager
         onPreviewSaved: {
@@ -63,7 +67,7 @@ FocusScope {
     }
 
     function load() {
-        if (!webview) {
+        if (!webview && !internal.incubator) {
             var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
                 properties['restoreState'] = restoreState
@@ -71,26 +75,23 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
-
-            if (internal.incubator === null) {
-                var incubator = webviewComponent.incubateObject(webviewContainer, properties)
-                if (incubator === null) {
-                    console.warn("Webview incubator failed to initialize")
-                    return
-                }
-                if (incubator.status === Component.Ready) {
+            var incubator = webviewComponent.incubateObject(webviewContainer, properties)
+            if (incubator === null) {
+                console.warn("Webview incubator failed to initialize")
+                return
+            }
+            if (incubator.status === Component.Ready) {
+                webviewContainer.webview = incubator.object
+                return
+            }
+            internal.incubator = incubator
+            incubator.onStatusChanged = function(status) {
+                if (status === Component.Ready) {
                     webviewContainer.webview = incubator.object
-                    return
+                } else if (status === Component.Error) {
+                    console.warn("Webview failed to incubate")
                 }
-                internal.incubator = incubator
-                incubator.onStatusChanged = function(status) {
-                    if (status === Component.Ready) {
-                        webviewContainer.webview = incubator.object
-                    } else if (status === Component.Error) {
-                        console.warn("Webview failed to incubate")
-                    }
-                    internal.incubator = null
-                }
+                internal.incubator = null
             }
         }
     }
@@ -133,8 +134,11 @@ FocusScope {
     onCurrentChanged: {
         if (current) {
             internal.hiding = false
+            z = 1
+            opacity = 1
             visible = true
         } else if (visible && !internal.hiding) {
+            z = -1
             if (!webview || webview.incognito) {
                 // XXX: Do not grab a capture in incognito mode, as we don’t
                 // want to write anything to disk. This means tab previews won’t
@@ -160,6 +164,15 @@ FocusScope {
 
                 PreviewManager.saveToDisk(result, url)
             })
+        }
+    }
+
+    onAboutToShow: {
+        if (!current) {
+            opacity = 0
+            z = 1
+            visible = true
+            load()
         }
     }
 

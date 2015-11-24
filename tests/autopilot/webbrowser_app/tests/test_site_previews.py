@@ -36,7 +36,7 @@ class TestSitePreviewsBase(StartOpenRemotePageTestCaseBase):
         return path.exists(path.join(dir, file))
 
     def capture_file(self, url):
-        return hashlib.md5(url.encode()).hexdigest() + ".jpg"
+        return hashlib.md5(url.encode()).hexdigest() + ".png"
 
 
 class TestSitePreviewsNoLaunch(TestSitePreviewsBase):
