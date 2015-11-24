@@ -1,3 +1,11 @@
+webbrowser-app (0.23+16.04.20151124-0ubuntu1) xenial; urgency=medium
+
+  * Multiple changes to improve the tab switching animation. The biggest
+    remaining issue is bug #1502675, which is worked around here until
+    it is properly addressed in oxide. (LP: #1502675)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 24 Nov 2015 12:03:50 +0000
+
 webbrowser-app (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
