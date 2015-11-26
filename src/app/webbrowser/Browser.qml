@@ -449,6 +449,8 @@ BrowserView {
         showTabsBar: browser.wide
         showFaviconInAddressBar: !browser.wide
 
+        availableHeight: tabContainer.height - height - y
+
         property bool hidden: false
         y: hidden ? -height : webview ? webview.locationBarController.offset : 0
         Behavior on y {

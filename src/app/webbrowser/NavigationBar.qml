@@ -38,6 +38,7 @@ FocusScope {
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
     property color iconColor: UbuntuColors.darkGrey
+    property real availableHeight
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
     onIncognitoChanged: findInPageMode = false
@@ -246,8 +247,8 @@ FocusScope {
                 right: parent.right
             }
             width: units.gu(22)
-            height: actionsColumn.height
-            clip: actionsColumn.y != 0
+            height: actionsListView.height
+            clip: actionsListView.y != 0
 
             InverseMouseArea {
                 enabled: drawer.opened
@@ -255,7 +256,7 @@ FocusScope {
             }
 
             Rectangle {
-                anchors.fill: actionsColumn
+                anchors.fill: actionsListView
                 color: Theme.palette.normal.background
 
                 Rectangle {
@@ -279,13 +280,17 @@ FocusScope {
                 }
             }
 
-            Column {
-                id: actionsColumn
+            ListView {
+                id: actionsListView
 
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
+                height: Math.min(_contentHeight, availableHeight)
+                // avoid a binding loop
+                property real _contentHeight: 0
+                onContentHeightChanged: _contentHeight = contentHeight
 
                 y: drawer.opened ? 0 : -height
                 Behavior on y { UbuntuNumberAnimation {} }
@@ -295,57 +300,58 @@ FocusScope {
                     }
                 }
 
-                Repeater {
-                    model: drawerActions
-                    delegate: AbstractButton {
-                        objectName: action.objectName
+                clip: true
+
+                model: drawerActions
+
+                delegate: AbstractButton {
+                    objectName: action.objectName
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: visible ? units.gu(6) : 0
+                    visible: action.enabled
+
+                    action: modelData
+                    onClicked: drawer.opened = false
+
+                    Rectangle {
+                        anchors.fill: parent
+                        color: Theme.palette.selected.background
+                        visible: parent.pressed
+                    }
+
+                    Icon {
+                        id: actionIcon
                         anchors {
                             left: parent.left
+                            leftMargin: units.gu(2)
+                            verticalCenter: parent.verticalCenter
+                        }
+                        width: units.gu(2)
+                        height: width
+
+                        name: model.iconName
+                        Binding on source {
+                            when: model.iconSource.toString()
+                            value: model.iconSource
+                        }
+                        color: UbuntuColors.darkGrey
+                    }
+
+                    Label {
+                        anchors {
+                            left: actionIcon.right
+                            leftMargin: units.gu(2)
+                            verticalCenter: parent.verticalCenter
                             right: parent.right
+                            rightMargin: units.gu(1)
                         }
-                        height: units.gu(6)
-                        visible: action.enabled
-
-                        action: modelData
-                        onClicked: drawer.opened = false
-
-                        Rectangle {
-                            anchors.fill: parent
-                            color: Theme.palette.selected.background
-                            visible: parent.pressed
-                        }
-
-                        Icon {
-                            id: actionIcon
-                            anchors {
-                                left: parent.left
-                                leftMargin: units.gu(2)
-                                verticalCenter: parent.verticalCenter
-                            }
-                            width: units.gu(2)
-                            height: width
-
-                            name: model.iconName
-                            Binding on source {
-                                when: model.iconSource.toString()
-                                value: model.iconSource
-                            }
-                            color: UbuntuColors.darkGrey
-                        }
-
-                        Label {
-                            anchors {
-                                left: actionIcon.right
-                                leftMargin: units.gu(2)
-                                verticalCenter: parent.verticalCenter
-                                right: parent.right
-                                rightMargin: units.gu(1)
-                            }
-                            text: model.text
-                            fontSize: "small"
-                            color: UbuntuColors.darkGrey
-                            elide: Text.ElideRight
-                        }
+                        text: model.text
+                        fontSize: "small"
+                        color: UbuntuColors.darkGrey
+                        elide: Text.ElideRight
                     }
                 }
             }
