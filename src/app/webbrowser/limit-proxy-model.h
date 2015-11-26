@@ -22,8 +22,6 @@
 // Qt
 #include <QtCore/QIdentityProxyModel>
 
-class QSortFilterProxyModel;
-
 class LimitProxyModel : public QIdentityProxyModel
 {
     Q_OBJECT
