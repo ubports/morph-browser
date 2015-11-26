@@ -30,6 +30,12 @@ Item {
     signal historyEntryRemoved(url url)
     signal done()
 
+    MouseArea {
+        // Prevent click events from propagating through to the view below
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "#f6f6f6"
@@ -73,6 +79,7 @@ Item {
 
     Item {
         id: header
+        objectName: "header"
 
         anchors {
             top: parent.top

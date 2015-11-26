@@ -526,6 +526,9 @@ class HistoryViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
+    def get_header(self):
+        return self.select_single(objectName="header")
+
     def get_entries(self):
         return sorted(self.select_many("UrlDelegate",
                                        objectName="entriesDelegate"),
