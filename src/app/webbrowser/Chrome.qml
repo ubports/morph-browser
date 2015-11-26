@@ -38,6 +38,7 @@ ChromeBase {
     property alias incognito: navigationBar.incognito
     property alias showTabsBar: tabsBar.active
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
+    property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
 
     signal switchToTab(int index)
