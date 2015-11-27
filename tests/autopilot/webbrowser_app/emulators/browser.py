@@ -162,6 +162,25 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single(ContentDownloadDialog,
                                        objectName="downloadDialog")
 
+    def get_download_options_dialog(self):
+        return self.wait_select_single("Dialog", 
+                                       objectName="downloadOptionsDialog")
+
+    def click_cancel_download_button(self):
+        button = self.select_single("Button",
+                                    objectName="cancelDownloadButton")
+        self.pointing_device.click_object(button)
+
+    def click_choose_app_button(self):
+        button = self.select_single("Button",
+                                    objectName="chooseAppButton")
+        self.pointing_device.click_object(button)
+
+    def click_download_file_button(self):
+        button = self.select_single("Button",
+                                    objectName="downloadFileButton")
+        self.pointing_device.click_object(button)
+
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
@@ -518,18 +537,9 @@ class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class ContentDownloadDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def click_choose_app_button(self):
-        button = self.select_single("Button", objectName="chooseAppButton")
-        self.pointing_device.click_object(button)
-
-    def click_download_button(self):
-        button = self.select_single("Button", objectName="downloadFileButton")
-        self.pointing_device.click_object(button)
-
-    def click_cancel_button(self):
-        button = self.select_single("Button",
-                                    objectName="cancelDownloadButton")
-        self.pointing_device.click_object(button)
+    def get_picker(self):
+        return self.wait_select_single("ContentPeerPicker10",
+                                       objectName="contentPeerPicker")
 
 
 class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):

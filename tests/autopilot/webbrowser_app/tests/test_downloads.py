@@ -20,7 +20,6 @@ from autopilot.matchers import Eventually
 
 from testtools.matchers import Equals
 
-
 class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_open_close_downloads_page(self):
@@ -31,24 +30,43 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
     def test_mimetype_download(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
         dialog = self.main_window.get_download_dialog()
-        self.assertThat(dialog.visible, Eventually(Equals(True)))
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.assertThat(dialog.mimeType, Eventually(Equals("application/pdf")))
 
     def test_generic_mimetype_download(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdfgenericmime")
         dialog = self.main_window.get_download_dialog()
-        self.assertThat(dialog.visible, Eventually(Equals(True)))
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.assertThat(dialog.mimeType, Eventually(Equals("application/pdf")))
+
+    def test_filename(self):
+        self.main_window.go_to_url(self.base_url + "/downloadpdf")
+        dialog = self.main_window.get_download_dialog()
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.assertThat(dialog.filename, Eventually(Equals("test.pdf")))
 
     def test_close_dialog(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
-        dialog = self.main_window.get_download_dialog()
-        self.assertThat(dialog.visible, Eventually(Equals(True)))
-        dialog.click_cancel_button()
-        self.assertThat(dialog.visible, Eventually(Equals(False)))
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.main_window.click_cancel_download_button()
 
     def test_picker(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
         dialog = self.main_window.get_download_dialog()
-        self.assertThat(dialog.visible, Eventually(Equals(True)))
-        dialog.click_choose_app_button()
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.main_window.click_choose_app_button()
+        picker = dialog.get_picker()
+        self.assertThat(picker.visible, Eventually(Equals(True)))
+
+    def test_download(self):
+        self.main_window.go_to_url(self.base_url + "/downloadpdf")
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.main_window.click_download_file_button()
+        downloads_page = self.main_window.get_downloads_page()
+        self.assertThat(downloads_page.visible, Eventually(Equals(True)))

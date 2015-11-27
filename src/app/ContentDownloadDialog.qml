@@ -37,6 +37,7 @@ PopupBase {
         id: downloadOptionsComponent
         Dialog {
             id: downloadOptionsDialog
+            objectName: "downloadOptionsDialog"
             Column {
                 spacing: units.gu(2)
 
@@ -131,6 +132,7 @@ PopupBase {
         ContentPeerPicker {
             id: peerPicker
             handler: ContentHandler.Destination
+            objectName: "contentPeerPicker"
             visible: parent.visible
 
             onPeerSelected: {
