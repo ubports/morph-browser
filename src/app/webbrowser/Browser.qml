@@ -23,7 +23,6 @@ import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Content 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.DownloadManager 1.2
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -41,6 +40,7 @@ BrowserView {
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var downloadsModel: (downloadsModelLoader.status == Loader.Ready) ? downloadsModelLoader.item : null
+    property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
 
     property bool newSession: false
 
@@ -169,31 +169,6 @@ BrowserView {
         readonly property int newTabDefaultSection: 0
         readonly property string defaultAudioDevice: ""
         readonly property string defaultVideoDevice: ""
-    }
-
-    DownloadManager {
-        id: downloadManager
-
-        onDownloadFinished: {
-            downloadsModel.moveToDownloads(download.downloadId, path)
-            downloadsModel.setComplete(download.downloadId, true)
-        }
-
-        onDownloadPaused: {
-            downloadsModel.pauseDownload(download.downloadId)
-        }
-
-        onDownloadResumed: {
-            downloadsModel.resumeDownload(download.downloadId)
-        }
-
-        onDownloadCanceled: {
-            downloadsModel.cancelDownload(download.downloadId)
-        }
-
-        onErrorFound: {
-            downloadsModel.setError(download.downloadId, download.errorMessage)
-        }
     }
 
     FocusScope {
@@ -465,6 +440,7 @@ BrowserView {
                     objectName: "downloads"
                     text: i18n.tr("Downloads")
                     iconName: "save"
+                    visible: formFactor != "desktop"
                     onTriggered: {
                         showDownloadsPage()
                     }
@@ -1033,6 +1009,11 @@ BrowserView {
         id: downloadsModelLoader
         source: "DownloadsModel.qml"
         asynchronous: true
+    }
+
+    Loader {
+        id: downloadHandlerLoader
+        source: formFactor != "desktop" ? "DownloadHandler.qml" : ""
     }
 
     Component {
@@ -1910,11 +1891,13 @@ BrowserView {
     Connections {
         target: ContentHub
         onExportRequested: {
-            var downloadPage = showDownloadsPage()
-            downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
-            downloadPage.activeTransfer = transfer
-            downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple
-            downloadPage.pickingMode = true
+            if (formFactor != "desktop") {
+                var downloadPage = showDownloadsPage()
+                downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
+                downloadPage.activeTransfer = transfer
+                downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple
+                downloadPage.pickingMode = true
+            }
         }
     }
 
