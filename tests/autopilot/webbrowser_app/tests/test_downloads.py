@@ -20,6 +20,7 @@ from autopilot.matchers import Eventually
 
 from testtools.matchers import Equals
 
+
 class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_open_close_downloads_page(self):

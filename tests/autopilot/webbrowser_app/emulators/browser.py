@@ -163,7 +163,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        objectName="downloadDialog")
 
     def get_download_options_dialog(self):
-        return self.wait_select_single("Dialog", 
+        return self.wait_select_single("Dialog",
                                        objectName="downloadOptionsDialog")
 
     def click_cancel_download_button(self):
