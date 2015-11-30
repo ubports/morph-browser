@@ -95,10 +95,7 @@ WebView {
 
     Loader {
         id: downloadLoader
-        // TODO: Use the ubuntu download manager on desktop as well
-        //  (https://launchpad.net/bugs/1477310). This will require to have
-        //  ubuntu-download-manager in main (https://launchpad.net/bugs/1488425).
-        source: formFactor == "desktop" ? "" : "Downloader.qml"
+        source: "Downloader.qml"
         asynchronous: true
     }
 

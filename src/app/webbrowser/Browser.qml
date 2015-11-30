@@ -440,7 +440,7 @@ BrowserView {
                     objectName: "downloads"
                     text: i18n.tr("Downloads")
                     iconName: "save"
-                    visible: formFactor != "desktop"
+                    visible: downloadHandlerLoader.status == Loader.Ready
                     onTriggered: {
                         showDownloadsPage()
                     }
@@ -1013,7 +1013,7 @@ BrowserView {
 
     Loader {
         id: downloadHandlerLoader
-        source: formFactor != "desktop" ? "DownloadHandler.qml" : ""
+        source: "DownloadHandler.qml"
     }
 
     Component {
@@ -1891,7 +1891,7 @@ BrowserView {
     Connections {
         target: ContentHub
         onExportRequested: {
-            if (formFactor != "desktop") {
+            if (downloadHandlerLoader.status == Loader.Ready) {
                 var downloadPage = showDownloadsPage()
                 downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
                 downloadPage.activeTransfer = transfer
