@@ -545,7 +545,7 @@ BrowserView {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
                 iconName: "save"
-                visible: downloadHandlerLoader.status == Loader.Ready
+                enabled: downloadHandlerLoader.status == Loader.Ready
                 onTriggered: {
                     showDownloadsPage()
                 }
