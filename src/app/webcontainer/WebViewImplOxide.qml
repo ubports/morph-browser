@@ -45,6 +45,7 @@ WebViewImpl {
     property bool blockOpenExternalUrls: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
+    signal themeColorMetaInformationDetected(string theme_color)
 
     // Those signals are used for testing purposes to externally
     //  track down the various internal logic & steps of a popup lifecycle.
@@ -57,7 +58,25 @@ WebViewImpl {
     context: WebContext {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
+
+        userScripts: [
+            Oxide.UserScript {
+                context: "oxide://webapp-specific-page-metadata-collector/"
+                url: Qt.resolvedUrl("webapp-specific-page-metadata-collector.js")
+                incognitoEnabled: false
+                matchAllFrames: false
+            }
+        ]
     }
+    messageHandlers: [
+        Oxide.ScriptMessageHandler {
+            msgId: "webapp-specific-page-metadata-detected"
+            contexts: ["oxide://webapp-specific-page-metadata-collector/"]
+            callback: function(msg, frame) {
+                handlePageMetadata(msg.args)
+            }
+        }
+    ]
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
@@ -252,5 +271,49 @@ WebViewImpl {
             // store, so we don’t need a custom prompt.
             request.accept()
         }
+    }
+
+    function handlePageMetadata(metadata) {
+        if (metadata.type === 'manifest') {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    try {
+                        var manifest = JSON.parse(doc.responseText);
+                        if (manifest['theme_color']
+                                && manifest['theme_color'].length !== 0) {
+                            themeColorMetaInformationDetected(manifest['theme_color'])
+                        }
+                    } catch(e) {}
+                }
+            }
+            doc.open("GET", metadata.manifest);
+            doc.send();
+        } else if (metadata.type === 'theme-color') {
+            if (metadata['theme_color']
+                    && metadata['theme_color'].length !== 0) {
+                themeColorMetaInformationDetected(metadata['theme_color'])
+            }
+        }
+    }
+
+    property var pageMetadataCollectorUserScript: Oxide.UserScript {
+        context: "oxide://webapp-specific-page-metadata-collector/"
+        url: Qt.resolvedUrl("webapp-specific-page-metadata-collector.js")
+        incognitoEnabled: false
+        matchAllFrames: false
+    }
+
+    property var pageMetadataCollectorMessageHandler: Oxide.ScriptMessageHandler {
+        msgId: "webapp-specific-page-metadata-detected"
+        contexts: ["oxide://webapp-specific-page-metadata-collector/"]
+        callback: function(msg, frame) {
+            handlePageMetadata(msg.args)
+        }
+    }
+
+    Component.onCompleted: {
+        // TODO make sure that there is no race here between this and the url changed
+//        webview.context.addUserScript(pageMetadataCollectorUserScript)
     }
 }

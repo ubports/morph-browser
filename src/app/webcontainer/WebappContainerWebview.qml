@@ -41,6 +41,7 @@ Item {
     property bool runningLocalApplication: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
+    signal themeColorMetaInformationDetected(string theme_color)
 
     PopupWindowController {
         id: popupController
@@ -54,6 +55,13 @@ Item {
         target: webappContainerWebViewLoader.item
         onSamlRequestUrlPatternReceived: {
             samlRequestUrlPatternReceived(urlPattern)
+        }
+    }
+
+    Connections {
+        target: webappContainerWebViewLoader.item
+        onThemeColorMetaInformationDetected: {
+            themeColorMetaInformationDetected(theme_color)
         }
     }
 

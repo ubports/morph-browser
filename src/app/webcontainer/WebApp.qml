@@ -132,6 +132,12 @@ BrowserView {
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
 
+            onThemeColorMetaInformationDetected: {
+                // TODO handle chromeless ?
+                if (!webapp.chromeless && chromeLoader.item) {
+                    chromeLoader.item.backgroundColor = theme_color
+                }
+            }
             onSamlRequestUrlPatternReceived: {
                 addGeneratedUrlPattern(urlPattern)
             }
