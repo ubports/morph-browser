@@ -1,3 +1,14 @@
+webbrowser-app (0.23+16.04.20151130-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Rebuild against Qt 5.5.1.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 30 Nov 2015 14:50:57 +0000
+
 webbrowser-app (0.23+16.04.20151126-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
