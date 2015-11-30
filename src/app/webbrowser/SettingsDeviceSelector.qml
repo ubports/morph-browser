@@ -39,7 +39,9 @@ Item {
         containerHeight: itemHeight * model.length
 
         model: internal.devices
-        delegate: OptionSelectorDelegate { text: modelData.id }
+        delegate: OptionSelectorDelegate {
+            text: modelData.displayName || i18n.tr("Default")
+        }
         onDelegateClicked: deviceSelected(model[index].id)
     }
 

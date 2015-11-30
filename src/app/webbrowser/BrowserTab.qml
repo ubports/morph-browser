@@ -40,6 +40,11 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+    visible: false
+
+    // Used as a workaround for https://launchpad.net/bugs/1502675 :
+    // invoke this on a tab shortly before it is set current.
+    signal aboutToShow()
 
     Connections {
         target: PreviewManager
@@ -58,11 +63,11 @@ FocusScope {
         id: webviewContainer
         anchors.fill: parent
         focus: true
-        readonly property var webview: (children.length == 1) ? children[0] : null
+        property var webview: null
     }
 
     function load() {
-        if (!webview) {
+        if (!webview && !internal.incubator) {
             var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
                 properties['restoreState'] = restoreState
@@ -70,7 +75,24 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
-            webviewComponent.incubateObject(webviewContainer, properties)
+            var incubator = webviewComponent.incubateObject(webviewContainer, properties)
+            if (incubator === null) {
+                console.warn("Webview incubator failed to initialize")
+                return
+            }
+            if (incubator.status === Component.Ready) {
+                webviewContainer.webview = incubator.object
+                return
+            }
+            internal.incubator = incubator
+            incubator.onStatusChanged = function(status) {
+                if (status === Component.Ready) {
+                    webviewContainer.webview = incubator.object
+                } else if (status === Component.Error) {
+                    console.warn("Webview failed to incubate")
+                }
+                internal.incubator = null
+            }
         }
     }
 
@@ -102,6 +124,7 @@ FocusScope {
     QtObject {
         id: internal
         property bool hiding: false
+        property var incubator: null
     }
 
     // When current is set to false, delay hiding the tab contents to give it
@@ -111,8 +134,11 @@ FocusScope {
     onCurrentChanged: {
         if (current) {
             internal.hiding = false
+            z = 1
+            opacity = 1
             visible = true
         } else if (visible && !internal.hiding) {
+            z = -1
             if (!webview || webview.incognito) {
                 // XXX: Do not grab a capture in incognito mode, as we don’t
                 // want to write anything to disk. This means tab previews won’t
@@ -141,11 +167,21 @@ FocusScope {
         }
     }
 
+    onAboutToShow: {
+        if (!current) {
+            opacity = 0
+            z = 1
+            visible = true
+            load()
+        }
+    }
+
     Component.onCompleted: {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request, 'incognito': incognito})
+            var properties = {"tab": tab, "request": request, 'incognito': incognito}
+            webviewContainer.webview = webviewComponent.createObject(webviewContainer, properties)
         }
     }
 }

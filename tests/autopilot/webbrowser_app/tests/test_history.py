@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
+
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -61,3 +63,18 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
             delegates = expanded_history.get_entries()
             self.assertThat(sorted([delegate.url for delegate in delegates]),
                             Equals(sorted([self.url, url])))
+
+    def test_expanded_history_view_header_swallows_clicks(self):
+        # Regression test for https://launchpad.net/bugs/1518904
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
+        history = self.open_history()
+        self.pointing_device.click_object(history.get_domain_entries()[0])
+        expanded_history = self.main_window.get_expanded_history_view()
+        hr = expanded_history.get_header().globalRect
+        self.pointing_device.move(hr.x + hr.width // 2, hr.y + hr.height - 5)
+        self.pointing_device.click()
+        time.sleep(1)
+        # There should be only one instance on the expanded history view.
+        # If there’s more, the following call will raise an exception.
+        self.main_window.get_expanded_history_view()

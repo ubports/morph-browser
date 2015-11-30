@@ -23,7 +23,7 @@ import ".."
 FocusScope {
     id: root
 
-    property var webview: null
+    property var tab
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
@@ -38,6 +38,7 @@ FocusScope {
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
     property color iconColor: UbuntuColors.darkGrey
+    property real availableHeight
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
     onIncognitoChanged: findInPageMode = false
@@ -70,8 +71,8 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: findInPageMode || (webview ? webview.canGoBack : false)
-            onTriggered: findInPageMode ? (findInPageMode = false) : webview.goBack()
+            enabled: findInPageMode || (internal.webview ? internal.webview.canGoBack : false)
+            onTriggered: findInPageMode ? (findInPageMode = false) : internal.webview.goBack()
         }
 
         ChromeButton {
@@ -92,8 +93,8 @@ FocusScope {
             }
 
             enabled: findInPageMode ? false :
-                     (webview ? webview.canGoForward : false)
-            onTriggered: webview.goForward()
+                     (internal.webview ? internal.webview.canGoForward : false)
+            onTriggered: internal.webview.goForward()
         }
 
         AddressBar {
@@ -102,7 +103,7 @@ FocusScope {
             focus: true
 
             findInPageMode: findInPageMode
-            findController: webview ? webview.findController : null
+            findController: internal.webview ? internal.webview.findController : null
 
             anchors {
                 left: forwardButton.right
@@ -112,32 +113,32 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            icon: (webview && !webview.certificateError) ? webview.icon : ""
+            icon: (internal.webview && internal.webview.certificateError) ? "" : tab ? tab.icon : ""
 
-            loading: webview ? webview.loading : false
+            loading: internal.webview ? internal.webview.loading : false
 
             onValidated: {
                 if (!findInPageMode) {
-                    webview.forceActiveFocus()
-                    webview.url = requestedUrl
+                    internal.webview.forceActiveFocus()
+                    internal.webview.url = requestedUrl
                 }
             }
             onRequestReload: {
-                webview.forceActiveFocus()
-                webview.reload()
+                internal.webview.forceActiveFocus()
+                internal.webview.reload()
             }
-            onRequestStop: webview.stop()
+            onRequestStop: internal.webview.stop()
             onToggleBookmark: root.toggleBookmark()
 
             Connections {
-                target: webview
+                target: internal.webview
                 onUrlChanged: {
                     // ensure that the URL actually changes so that the
                     // address bar is updated in case the user has entered a
                     // new address that redirects to where she previously was
                     // (https://launchpad.net/bugs/1306615)
                     addressbar.actualUrl = ""
-                    addressbar.actualUrl = webview.url
+                    addressbar.actualUrl = internal.webview.url
                 }
             }
         }
@@ -164,8 +165,9 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: webview && webview.findController && webview.findController.count > 1
-                onTriggered: webview.findController.previous()
+                enabled: internal.webview && internal.webview.findController &&
+                         internal.webview.findController.count > 1
+                onTriggered: internal.webview.findController.previous()
             }
 
             ChromeButton {
@@ -181,8 +183,9 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: webview && webview.findController && webview.findController.count > 1
-                onTriggered: webview.findController.next()
+                enabled: internal.webview && internal.webview.findController &&
+                         internal.webview.findController.count > 1
+                onTriggered: internal.webview.findController.next()
             }
 
             ChromeButton {
@@ -211,15 +214,16 @@ FocusScope {
     QtObject {
         id: internal
         property var openDrawer: null
-    }
+        readonly property var webview: tab ? tab.webview : null
 
-    onWebviewChanged: {
-        if (webview) {
-            addressbar.actualUrl = webview.url
-            addressbar.securityStatus = webview.securityStatus
-        } else {
-            addressbar.actualUrl = ""
-            addressbar.securityStatus = null
+        onWebviewChanged: {
+            if (webview) {
+                addressbar.actualUrl = webview.url
+                addressbar.securityStatus = webview.securityStatus
+            } else {
+                addressbar.actualUrl = ""
+                addressbar.securityStatus = null
+            }
         }
     }
 
@@ -243,8 +247,8 @@ FocusScope {
                 right: parent.right
             }
             width: units.gu(22)
-            height: actionsColumn.height
-            clip: actionsColumn.y != 0
+            height: actionsListView.height
+            clip: actionsListView.y != 0
 
             InverseMouseArea {
                 enabled: drawer.opened
@@ -252,7 +256,7 @@ FocusScope {
             }
 
             Rectangle {
-                anchors.fill: actionsColumn
+                anchors.fill: actionsListView
                 color: Theme.palette.normal.background
 
                 Rectangle {
@@ -276,13 +280,17 @@ FocusScope {
                 }
             }
 
-            Column {
-                id: actionsColumn
+            ListView {
+                id: actionsListView
 
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
+                height: Math.min(_contentHeight, availableHeight)
+                // avoid a binding loop
+                property real _contentHeight: 0
+                onContentHeightChanged: _contentHeight = contentHeight
 
                 y: drawer.opened ? 0 : -height
                 Behavior on y { UbuntuNumberAnimation {} }
@@ -292,57 +300,58 @@ FocusScope {
                     }
                 }
 
-                Repeater {
-                    model: drawerActions
-                    delegate: AbstractButton {
-                        objectName: action.objectName
+                clip: true
+
+                model: drawerActions
+
+                delegate: AbstractButton {
+                    objectName: action.objectName
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: visible ? units.gu(6) : 0
+                    visible: action.enabled
+
+                    action: modelData
+                    onClicked: drawer.opened = false
+
+                    Rectangle {
+                        anchors.fill: parent
+                        color: Theme.palette.selected.background
+                        visible: parent.pressed
+                    }
+
+                    Icon {
+                        id: actionIcon
                         anchors {
                             left: parent.left
+                            leftMargin: units.gu(2)
+                            verticalCenter: parent.verticalCenter
+                        }
+                        width: units.gu(2)
+                        height: width
+
+                        name: model.iconName
+                        Binding on source {
+                            when: model.iconSource.toString()
+                            value: model.iconSource
+                        }
+                        color: UbuntuColors.darkGrey
+                    }
+
+                    Label {
+                        anchors {
+                            left: actionIcon.right
+                            leftMargin: units.gu(2)
+                            verticalCenter: parent.verticalCenter
                             right: parent.right
+                            rightMargin: units.gu(1)
                         }
-                        height: units.gu(6)
-                        visible: action.enabled
-
-                        action: modelData
-                        onClicked: drawer.opened = false
-
-                        Rectangle {
-                            anchors.fill: parent
-                            color: Theme.palette.selected.background
-                            visible: parent.pressed
-                        }
-
-                        Icon {
-                            id: actionIcon
-                            anchors {
-                                left: parent.left
-                                leftMargin: units.gu(2)
-                                verticalCenter: parent.verticalCenter
-                            }
-                            width: units.gu(2)
-                            height: width
-
-                            name: model.iconName
-                            Binding on source {
-                                when: model.iconSource.toString()
-                                value: model.iconSource
-                            }
-                            color: UbuntuColors.darkGrey
-                        }
-
-                        Label {
-                            anchors {
-                                left: actionIcon.right
-                                leftMargin: units.gu(2)
-                                verticalCenter: parent.verticalCenter
-                                right: parent.right
-                                rightMargin: units.gu(1)
-                            }
-                            text: model.text
-                            fontSize: "small"
-                            color: UbuntuColors.darkGrey
-                            elide: Text.ElideRight
-                        }
+                        text: model.text
+                        fontSize: "small"
+                        color: UbuntuColors.darkGrey
+                        elide: Text.ElideRight
                     }
                 }
             }

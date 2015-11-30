@@ -49,7 +49,7 @@ Item {
     }
 
     function previewPathFromUrl(url) {
-        return "%1/%2.jpg".arg(capturesDir).arg(Qt.md5(url))
+        return "%1/%2.png".arg(capturesDir).arg(Qt.md5(url))
     }
 
     function saveToDisk(data, url) {
@@ -75,15 +75,14 @@ Item {
     // Remove all previews stored on disk that are not part of the top sites
     // and that are not for URLs in the doNotCleanUrls list
     function cleanUnusedPreviews(doNotCleanUrls) {
-        var dir = Qt.resolvedUrl(capturesDir);
-        var previews = FileOperations.filesInDirectory(dir, ["*.jpg"])
+        var dir = Qt.resolvedUrl(capturesDir)
+        var previews = FileOperations.filesInDirectory(dir, ["*.png", "*.jpg"])
         var doNotCleanHashes = doNotCleanUrls.map(function(url) { return Qt.md5(url) })
-
-        for (var i = 0; i < previews.length; i++) {
-            var hash = previews[i].replace('.jpg', '')
-            if (!topSites.containsHash(hash) &&
-                doNotCleanHashes.indexOf(hash) === -1) {
-                var file = Qt.resolvedUrl("%1/%2.jpg".arg(capturesDir).arg(hash))
+        for (var i in previews) {
+            var preview = previews[i]
+            var hash = preview.split('.')[0]
+            if (!topSites.containsHash(hash) && (doNotCleanHashes.indexOf(hash) === -1)) {
+                var file = Qt.resolvedUrl("%1/%2".arg(capturesDir).arg(preview))
                 FileOperations.remove(file)
             }
         }

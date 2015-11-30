@@ -21,8 +21,6 @@
 
 #include "browserapplication.h"
 
-#include "webapp-container-helper.h"
-
 // Qt
 #include <QString>
 #include <QStringList>
@@ -30,6 +28,7 @@
 
 class SchemeFilter;
 class QQmlContext;
+class WebappContainerHelper;
 
 class WebappContainer : public BrowserApplication
 {

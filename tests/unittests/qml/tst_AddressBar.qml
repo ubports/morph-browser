@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import QtTest 1.0
-import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 
 Item {
@@ -68,14 +67,9 @@ Item {
         signalName: "validated"
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "AddressBar"
         when: windowShown
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
 
         function init() {
             addressBar.actualUrl = ""
