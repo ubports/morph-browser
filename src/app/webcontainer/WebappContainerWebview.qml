@@ -48,6 +48,16 @@ Item {
         webappUrlPatterns: containerWebview.webappUrlPatterns
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+        onInitializeOverlayViewsWithUrls: {
+            if (webappContainerWebViewLoader.item) {
+                for (var i in urls) {
+                    webappContainerWebViewLoader
+                        .item
+                        .openOverlayForUrl(urls[i])
+                }
+            }
+        }
+
     }
 
     Connections {

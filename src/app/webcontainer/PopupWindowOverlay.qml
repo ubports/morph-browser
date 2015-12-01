@@ -31,6 +31,8 @@ Item {
     property alias request: popupWebview.request
     property alias url: popupWebview.url
     
+    signal webviewUrlChanged(url webviewUrl)
+
     Rectangle {
         color: "#F2F1F0"
         anchors.fill: parent
@@ -161,6 +163,8 @@ Item {
 
         context: webContext
 
+        onUrlChanged: webviewUrlChanged(popupWebview.url)
+
         anchors {
             bottom: parent.bottom
             left: parent.left
@@ -170,7 +174,7 @@ Item {
 
         onNewViewRequested: {
             if (popupWindowController) {
-                popupWindowController.createPopupView(
+                popupWindowController.createPopupViewForRequest(
                             popup.parent, request, false, context)
             }
         }

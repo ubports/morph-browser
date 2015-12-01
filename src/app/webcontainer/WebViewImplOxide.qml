@@ -52,6 +52,16 @@ WebViewImpl {
     signal gotRedirectionUrl(string url)
     property bool runningLocalApplication: false
 
+    function openOverlayForUrl(overlayUrl) {
+        if (popupController) {
+            popupController.createPopupViewForUrl(
+                        overlayViewsParent,
+                        overlayUrl,
+                        true,
+                        context)
+        }
+    }
+
     currentWebview: webview
 
     context: WebContext {
@@ -64,7 +74,7 @@ WebViewImpl {
     preferences.localStorageEnabled: true
     preferences.appCacheEnabled: true
 
-    onNewViewRequested: popupController.createPopupView(overlayViewsParent, request, true, context)
+    onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
 
     contextualActions: ActionList {
         Actions.CopyLink {
