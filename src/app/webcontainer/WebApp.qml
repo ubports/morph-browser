@@ -133,7 +133,6 @@ BrowserView {
             developerExtrasEnabled: webapp.developerExtrasEnabled
 
             onThemeColorMetaInformationDetected: {
-                // TODO handle chromeless ?
                 if (!webapp.chromeless && chromeLoader.item) {
                     chromeLoader.item.backgroundColor = theme_color
                 }
