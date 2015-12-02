@@ -14,14 +14,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import signal
-import time
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
 from testtools.matchers import Equals, Contains, GreaterThan
 from autopilot.matchers import Eventually
-
-import ubuntuuitoolkit as uitk
 
 
 class TestOverlayRecovery(WebappContainerTestCaseWithLocalContentBase):
