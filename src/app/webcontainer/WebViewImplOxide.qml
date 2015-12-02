@@ -279,7 +279,7 @@ WebViewImpl {
             request.onreadystatechange = function() {
                 if (request.readyState === XMLHttpRequest.DONE) {
                     try {
-                        var manifest = JSON.parse(doc.responseText);
+                        var manifest = JSON.parse(request.responseText);
                         if (manifest['theme_color']
                                 && manifest['theme_color'].length !== 0) {
                             themeColorMetaInformationDetected(manifest['theme_color'])
@@ -287,8 +287,8 @@ WebViewImpl {
                     } catch(e) {}
                 }
             }
-            doc.open("GET", metadata.manifest);
-            doc.send();
+            request.open("GET", metadata.manifest);
+            request.send();
         } else if (metadata.type === 'theme-color') {
             if (metadata['theme_color']
                     && metadata['theme_color'].length !== 0) {
