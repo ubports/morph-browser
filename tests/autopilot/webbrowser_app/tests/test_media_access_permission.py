@@ -63,6 +63,8 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(self.allowed_url)
 
+    @testtools.skip("Skipping due to the lack of HTTPS support in the "
+                    "test suite, see https://launchpad.net/bugs/1505995")
     def test_deny(self):
         # verify that trying to access any media raises an authorization dialog
         # and we get redirected to the denial page in case we refuse to give
