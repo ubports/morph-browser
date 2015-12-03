@@ -1365,7 +1365,7 @@ BrowserView {
             if (!incognito && closedTabHistory.length > 0) {
                 var tabInfo = closedTabHistory.pop()
                 var tab = session.createTabFromState(tabInfo.state)
-                internal.addTab(tab, true, tabInfo.index)
+                addTab(tab, true, tabInfo.index)
             }
         }
 
