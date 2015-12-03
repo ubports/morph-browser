@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-23 15:10+0200\n"
+"POT-Creation-Date: 2015-11-27 19:20+0100\n"
 "PO-Revision-Date: 2015-07-03 18:15+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
 "X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -129,6 +129,8 @@ msgstr "Здається, з переглядом %1 виникли пробле
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Перевірте, чи правильно налаштовано мережу, і спробуйте перезавантажити "
+"сторінку."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -400,7 +402,7 @@ msgstr "Вирізати"
 msgid "Erase"
 msgstr "Витерти"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
 msgstr "Знайти на сторінці"
 
@@ -430,8 +432,8 @@ msgstr "Перейти"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;адрес;інтернет"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
-#: src/app/webbrowser/TabsBar.qml:86
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Нова вкладка"
 
@@ -462,7 +464,7 @@ msgid "Redo"
 msgstr "Повторити"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Перезавантажити"
 
@@ -485,7 +487,7 @@ msgstr "Зберегти посилання"
 msgid "Select all"
 msgstr "Позначити все"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
 msgid "Share"
 msgstr "Поділитися"
 
@@ -522,7 +524,7 @@ msgid "Save in"
 msgstr "Зберегти до"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "Усі закладки"
@@ -541,41 +543,41 @@ msgstr "Створити нову теку"
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersView.qml:160
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "Домашня сторінка"
 
-#: src/app/webbrowser/BookmarksView.qml:80
-#: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/app/webbrowser/BookmarksView.qml:112
-#: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Завершено"
 
-#: src/app/webbrowser/BookmarksView.qml:125
-#: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:125
+#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Нова вкладка"
 
-#: src/app/webbrowser/Browser.qml:407
+#: src/app/webbrowser/Browser.qml:511
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Журнал"
 
-#: src/app/webbrowser/Browser.qml:413
+#: src/app/webbrowser/Browser.qml:517
 msgid "Open tabs"
 msgstr "Відкриті вкладки"
 
@@ -583,29 +585,29 @@ msgstr "Відкриті вкладки"
 msgid "Downloads"
 msgstr "Отримані"
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Leave Private Mode"
 msgstr "Вийти з конфіденційного режиму"
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Private Mode"
 msgstr "Конфіденційний режим"
 
-#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Параметри"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:787
+#: src/app/webbrowser/Browser.qml:735
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1260
+#: src/app/webbrowser/Browser.qml:1209
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Проведіть пальцем вгору, щоб вийти з повноекранного режиму"
 
-#: src/app/webbrowser/Browser.qml:1261
+#: src/app/webbrowser/Browser.qml:1210
 msgid "Press ESC To Exit Full Screen"
 msgstr "Натисніть клавішу Esc, щоб вийти з повноекранного режиму"
 
@@ -622,7 +624,7 @@ msgstr "Вилучити"
 msgid "No downloads available"
 msgstr "Немає доступних завантажень"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:104
+#: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -630,7 +632,7 @@ msgstr[0] "%1 сторінка"
 msgstr[1] "%1 сторінки"
 msgstr[2] "%1 сторінок"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:126
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Менше"
@@ -665,20 +667,21 @@ msgstr ""
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
+"Дозволити цьому домену доступ до відеокамери і мікрофона цього комп’ютера?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Дозволити цьому домену доступ до відеокамери комп’ютера?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Дозволити цьому домену доступ до мікрофона комп’ютера?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (вбудовано до %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -789,6 +792,10 @@ msgstr "Вас з’єднано з"
 msgid "Which is run by"
 msgstr "Що працює під керуванням"
 
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
@@ -805,7 +812,7 @@ msgstr "Дозволити відкриття нових вкладок у тл�
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Конфіденційність і права доступу"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -814,7 +821,7 @@ msgstr "Скинути налаштування веб-переглядача"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Відеокамера і мікрофон"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -838,23 +845,23 @@ msgstr "Спорожнити"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Мікрофон"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Відеокамера"
 
-#: src/app/webbrowser/TabPreview.qml:81
+#: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
 msgstr "Натисніть, щоб переглянути"
 
-#: src/app/webbrowser/TabsBar.qml:97
+#: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
 msgstr "Закрити вкладку"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "Вилучити"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -936,7 +943,7 @@ msgstr "Вибір облікового запису"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "На жаль, сталася помилка."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

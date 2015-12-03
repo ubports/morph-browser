@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-23 15:10+0200\n"
+"POT-Creation-Date: 2015-11-27 19:20+0100\n"
 "PO-Revision-Date: 2014-07-15 14:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (Canada) <fr_CA@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
 "X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
 msgstr ""
 
@@ -427,8 +427,8 @@ msgstr "Aller sur"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
-#: src/app/webbrowser/TabsBar.qml:86
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Nouvel onglet"
 
@@ -459,7 +459,7 @@ msgid "Redo"
 msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Recharger"
 
@@ -482,7 +482,7 @@ msgstr ""
 msgid "Select all"
 msgstr "Tout sélectionner"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
 msgid "Share"
 msgstr "Partager"
 
@@ -519,7 +519,7 @@ msgid "Save in"
 msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr ""
@@ -538,41 +538,41 @@ msgstr ""
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersView.qml:160
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "Page d’accueil"
 
-#: src/app/webbrowser/BookmarksView.qml:80
-#: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Marque-pages"
 
-#: src/app/webbrowser/BookmarksView.qml:112
-#: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Terminé"
 
-#: src/app/webbrowser/BookmarksView.qml:125
-#: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:125
+#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nouvel onglet"
 
-#: src/app/webbrowser/Browser.qml:407
+#: src/app/webbrowser/Browser.qml:511
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Historique"
 
-#: src/app/webbrowser/Browser.qml:413
+#: src/app/webbrowser/Browser.qml:517
 msgid "Open tabs"
 msgstr "Ouvrir les onglets"
 
@@ -580,29 +580,29 @@ msgstr "Ouvrir les onglets"
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Paramètres"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:787
+#: src/app/webbrowser/Browser.qml:735
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1260
+#: src/app/webbrowser/Browser.qml:1209
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1261
+#: src/app/webbrowser/Browser.qml:1210
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -619,14 +619,14 @@ msgstr "Supprimer"
 msgid "No downloads available"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:104
+#: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 page"
 msgstr[1] "%1 pages"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:126
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Moins"
@@ -782,6 +782,10 @@ msgstr "Vous êtes connecté à"
 msgid "Which is run by"
 msgstr "Qui est exploité par"
 
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
@@ -837,11 +841,11 @@ msgstr ""
 msgid "Camera"
 msgstr ""
 
-#: src/app/webbrowser/TabPreview.qml:81
+#: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
 msgstr "Toucher pour voir"
 
-#: src/app/webbrowser/TabsBar.qml:97
+#: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
 msgstr ""
 

@@ -17,8 +17,6 @@
  */
 
 import QtQuick 2.4
-import QtTest 1.0
-import Ubuntu.Test 1.0
 import webbrowserapp.private 0.1
 import webbrowsertest.private 0.1
 import "../../../src/app/webbrowser"
@@ -50,22 +48,9 @@ Item {
         }
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "TestSettingsPage"
         when: windowShown
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
-
-        function swipeItemRight(item) {
-            var center = centerOf(item)
-            var dx = item.width * 0.5
-            mousePress(item, center.x, center.y)
-            mouseMoveSlowly(item, center.x, center.y, dx, 0, 10, 0.01)
-            mouseRelease(item, center.x + dx, center.y)
-        }
 
         function init() {
             settingsPageLoader.active = true
@@ -76,27 +61,6 @@ Item {
             settingsPageLoader.active = false
         }
 
-        function getListItems(name, itemName) {
-            var list = findChild(settingsPage, name)
-            var items = []
-            if (list) {
-                // ensure all the delegates are created
-                list.cacheBuffer = list.count * 1000
-
-                // In some cases the ListView might add other children to the
-                // contentItem, so we filter the list of children to include
-                // only actual delegates (names for delegates in this case
-                // follow the pattern "name_index")
-                var children = list.contentItem.children
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].objectName.indexOf(itemName) == 0) {
-                        items.push(children[i])
-                    }
-                }
-            }
-            return items
-        }
-
         function activateSettingsItem(itemName, pageName) {
             var item = findChild(settingsPage, itemName)
             clickItem(item)
@@ -105,7 +69,7 @@ Item {
             return page
         }
 
-        function goToMediaAccessPage() {
+        function test_goToMediaAccessPage() {
             activateSettingsItem("privacy", "privacySettings")
             return activateSettingsItem("privacy.mediaAccess", "mediaAccessSettings")
         }

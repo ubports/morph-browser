@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import QtTest 1.0
 import Ubuntu.Components 1.3
-import Ubuntu.Test 1.0
 import webbrowserapp.private 0.1
 import webbrowsertest.private 0.1
 import "../../../src/app/webbrowser"
@@ -66,25 +65,14 @@ Item {
         signalName: "historyEntryClicked"
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "HistoryViewWide"
         when: windowShown
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
 
         function longPressItem(item) {
             var center = centerOf(item)
             mousePress(item, center.x, center.y)
             mouseRelease(item, center.x, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
-        }
-
-        function swipeItemRight(item) {
-            var center = centerOf(item)
-            mousePress(item, center.x, center.y)
-            mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
         function initTestCase() {
@@ -108,26 +96,6 @@ Item {
             HistoryModel.clearAll()
             historyViewWideLoader.active = false
             ctrlFCaptured = 0
-        }
-
-        function getListItems(name, itemName) {
-            var list = findChild(historyViewWide, name)
-            var items = []
-            if (list) {
-                // ensure all the delegates are created
-                list.cacheBuffer = list.count * 1000
-
-                // In some cases the ListView might add other children to the
-                // contentItem, so we filter the list of children to include
-                // only actual delegates
-                var children = list.contentItem.children
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].objectName === itemName) {
-                        items.push(children[i])
-                    }
-                }
-            }
-            return items
         }
 
         function test_done_button() {
@@ -342,7 +310,7 @@ Item {
 
             var term = "2"
             typeString(term)
-            var items = getListItems("urlsListView", "historyDelegate")
+            var items = getListItems(urlsList, "historyDelegate")
             compare(items.length, 1)
             compare(items[0].title, wraphtml("Example Domain " + highlight(term)))
 
@@ -352,7 +320,7 @@ Item {
 
             var terms = ["1", "Example"]
             typeString(terms.join(" "))
-            items = getListItems("urlsListView", "historyDelegate")
+            items = getListItems(urlsList, "historyDelegate")
             compare(items.length, 1)
             compare(items[0].title, wraphtml("%1 Domain %0"
                                              .arg(highlight(terms[0]))
@@ -361,7 +329,8 @@ Item {
 
         function test_search_updates_dates_list() {
             function getDateItem(date) {
-                var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
+                var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+                var dates = getListItems(lastVisitDateList, "lastVisitDateDelegate")
                 var items = dates.filter(function(item) {
                     return item.lastVisitDate.valueOf() === date.valueOf()
                 })
@@ -382,8 +351,9 @@ Item {
             model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14))
 
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
-            var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
-            var urls = getListItems("urlsListView", "historyDelegate")
+            var dates = getListItems(lastVisitDateList, "lastVisitDateDelegate")
+            var urlsListView = findChild(historyViewWide, "urlsListView")
+            var urls = getListItems(urlsListView, "historyDelegate")
             compare(dates.length, 4)
             compare(urls.length, 5)
 
@@ -394,7 +364,7 @@ Item {
             verify(testItem.activeFocus)
             keyClick(Qt.Key_F, Qt.ControlModifier)
             typeString("Alan")
-            urls = getListItems("urlsListView", "historyDelegate")
+            urls = getListItems(urlsListView, "historyDelegate")
             compare(urls.length, 1)
             returnToDatesList()
             verify(testItem.activeFocus)
@@ -407,7 +377,7 @@ Item {
             compare(searchQuery.text, "Al")
             returnToDatesList()
             verify(testItem.activeFocus)
-            urls = getListItems("urlsListView", "historyDelegate")
+            urls = getListItems(urlsListView, "historyDelegate")
             compare(urls.length, 1)
 
             // change the search terms so that the current date will not be
@@ -418,7 +388,7 @@ Item {
             returnToDatesList()
             testItem = getDateItem(youngest)
             compare(testItem, null)
-            urls = getListItems("urlsListView", "historyDelegate")
+            urls = getListItems(urlsListView, "historyDelegate")
             compare(urls.length, 1)
 
             // verify that the current item has reverted to the first in the
@@ -432,7 +402,7 @@ Item {
             keyClick(Qt.Key_Backspace)
             keyClick(Qt.Key_Backspace)
             compare(searchQuery.text, "Al")
-            urls = getListItems("urlsListView", "historyDelegate")
+            urls = getListItems(urlsListView, "historyDelegate")
             compare(urls.length, 2)
         }
 

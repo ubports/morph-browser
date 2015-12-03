@@ -1,3 +1,32 @@
+webbrowser-app (0.23+16.04.20151126-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add missing import statements, and add missing unit tests for
+    BookmarksView.qml and BookmarksViewWide.qml. (LP: #1515631)
+  * Code cleanup: remove unused include statements and forward
+    declarations, and convert unnecessary include statements to forward
+    declarations.
+  * Make the drawer menu flickable so that all its actions can be
+    accessed even on a small mobile screen in landscape orientation.
+    (LP: #1513348)
+  * Prevent click events from propagating through the expanded history
+    view to the view below. (LP: #1518904)
+  * Use the capture device display names instead of their unique ID.
+    (LP: #1518931)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 26 Nov 2015 13:42:25 +0000
+
+webbrowser-app (0.23+16.04.20151124-0ubuntu1) xenial; urgency=medium
+
+  * Multiple changes to improve the tab switching animation. The biggest
+    remaining issue is bug #1502675, which is worked around here until
+    it is properly addressed in oxide. (LP: #1502675)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 24 Nov 2015 12:03:50 +0000
+
 webbrowser-app (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import QtTest 1.0
-import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 import webbrowserapp.private 0.1
 
@@ -63,7 +62,7 @@ Item {
         signalName: "bookmarkRemoved"
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "NewTabViewWide"
         when: windowShown
 
@@ -107,31 +106,6 @@ Item {
             view = null
         }
 
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
-
-        function getListItems(name, itemName) {
-            var list = findChild(view, name)
-            var items = []
-            if (list) {
-                // ensure all the delegates are created
-                list.cacheBuffer = list.count * 1000
-
-                // In some cases the ListView might add other children to the
-                // contentItem, so we filter the list of children to include
-                // only actual delegates
-                var children = list.contentItem.children
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].objectName === itemName) {
-                        items.push(children[i])
-                    }
-                }
-            }
-            return items
-        }
-
         function goToBookmarks() {
             findChild(view, "sections").selectedIndex = 1
         }
@@ -142,7 +116,7 @@ Item {
                 HistoryModel.add("http://example.com/" + i, "Example Com " + i, "")
             }
 
-            var items = getListItems("topSitesList", "topSiteItem")
+            var items = getListItems(findChild(view, "topSitesList"), "topSiteItem")
             compare(items.length, 10)
             compare(items[0].title, "Example Com")
             compare(items[1].title, "Example Org")
@@ -174,7 +148,7 @@ Item {
         }
 
         function test_navigate_topsites_by_keyboard() {
-            var items = getListItems("topSitesList", "topSiteItem")
+            var items = getListItems(findChild(view, "topSitesList"), "topSiteItem")
             var list = findChild(view, "topSitesList")
             list.currentIndex = 0
             keyClick(Qt.Key_Right)
@@ -196,7 +170,7 @@ Item {
         }
 
         function test_activate_topsites_by_keyboard() {
-            var items = getListItems("topSitesList", "topSiteItem")
+            var items = getListItems(findChild(view, "topSitesList"), "topSiteItem")
             keyClick(Qt.Key_Return)
             compare(historyEntryClickedSpy.count, 1)
             compare(historyEntryClickedSpy.signalArguments[0][0], "http://example.com")
@@ -207,7 +181,7 @@ Item {
         }
 
         function test_activate_topsites_by_mouse() {
-            var items = getListItems("topSitesList", "topSiteItem")
+            var items = getListItems(findChild(view, "topSitesList"), "topSiteItem")
             clickItem(items[0])
             compare(historyEntryClickedSpy.count, 1)
             compare(historyEntryClickedSpy.signalArguments[0][0], "http://example.com")
@@ -219,9 +193,10 @@ Item {
         }
 
         function test_remove_top_sites_by_keyboard() {
-            var previous = getListItems("topSitesList", "topSiteItem")
+            var topSitesListView = findChild(view, "topSitesList")
+            var previous = getListItems(topSitesListView, "topSiteItem")
             keyClick(Qt.Key_Delete)
-            var items = getListItems("topSitesList", "topSiteItem")
+            var items = getListItems(topSitesListView, "topSiteItem")
             compare(previous.length - 1, items.length)
         }
     }

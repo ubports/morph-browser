@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-23 15:10+0200\n"
+"POT-Creation-Date: 2015-11-27 19:20+0100\n"
 "PO-Revision-Date: 2014-09-18 06:34+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
 "X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -378,7 +378,7 @@ msgstr "切り取り"
 msgid "Erase"
 msgstr "削除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
 msgstr "ページ内検索"
 
@@ -408,8 +408,8 @@ msgstr "移動"
 msgid "Address;URL;www"
 msgstr "アドレス;Address;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
-#: src/app/webbrowser/TabsBar.qml:86
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "新しいタブ"
 
@@ -440,7 +440,7 @@ msgid "Redo"
 msgstr "やり直す"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "再読み込み"
 
@@ -463,7 +463,7 @@ msgstr "リンクを保存"
 msgid "Select all"
 msgstr "すべて選択"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
 msgid "Share"
 msgstr "共有"
 
@@ -500,7 +500,7 @@ msgid "Save in"
 msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "すべてのブックマーク"
@@ -519,41 +519,41 @@ msgstr "新しいフォルダーを作成"
 msgid "Save"
 msgstr "保存"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersView.qml:160
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "ホームページ"
 
-#: src/app/webbrowser/BookmarksView.qml:80
-#: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "ブックマーク"
 
-#: src/app/webbrowser/BookmarksView.qml:112
-#: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "完了"
 
-#: src/app/webbrowser/BookmarksView.qml:125
-#: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:125
+#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "新しいタブ"
 
-#: src/app/webbrowser/Browser.qml:407
+#: src/app/webbrowser/Browser.qml:511
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "履歴"
 
-#: src/app/webbrowser/Browser.qml:413
+#: src/app/webbrowser/Browser.qml:517
 msgid "Open tabs"
 msgstr "タブを表示"
 
@@ -561,29 +561,29 @@ msgstr "タブを表示"
 msgid "Downloads"
 msgstr "ダウンロード"
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Leave Private Mode"
 msgstr "プライベートモードを離れる"
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Private Mode"
 msgstr "プライベートモード"
 
-#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "設定"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:787
+#: src/app/webbrowser/Browser.qml:735
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1260
+#: src/app/webbrowser/Browser.qml:1209
 msgid "Swipe Up To Exit Full Screen"
 msgstr "フルスクリーン表示を終了するには上にスワイプしてください"
 
-#: src/app/webbrowser/Browser.qml:1261
+#: src/app/webbrowser/Browser.qml:1210
 msgid "Press ESC To Exit Full Screen"
 msgstr "フルスクリーン表示を終了するにはESCキーを押してください"
 
@@ -600,13 +600,13 @@ msgstr "削除"
 msgid "No downloads available"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:104
+#: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1ページ"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:126
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "隠す"
@@ -758,6 +758,10 @@ msgstr "接続先:"
 msgid "Which is run by"
 msgstr ""
 
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
@@ -813,11 +817,11 @@ msgstr ""
 msgid "Camera"
 msgstr ""
 
-#: src/app/webbrowser/TabPreview.qml:81
+#: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
 msgstr "表示するにはタップ"
 
-#: src/app/webbrowser/TabsBar.qml:97
+#: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
 msgstr "タブを閉じる"
 

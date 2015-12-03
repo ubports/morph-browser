@@ -170,31 +170,14 @@ BrowserView {
         anchors.fill: parent
         visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
 
-        TabChrome {
-            id: invisibleTabChrome
-            visible: false
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-        }
-
-        Rectangle {
-            // Background for the recent view
-            anchors.fill: invisibleTabChrome
-            visible: recentView.visible
-            color: "#312f2c"
-        }
-
         FocusScope {
             id: tabContainer
             anchors {
                 left: parent.left
                 right: parent.right
-                top: recentView.visible ? invisibleTabChrome.bottom : parent.top
+                top: parent.top
             }
-            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
+            height: parent.height - osk.height
         }
 
         Loader {
@@ -334,282 +317,6 @@ BrowserView {
 
             asynchronous: true
         }
-
-        SearchEngine {
-            id: currentSearchEngine
-            searchPaths: searchEnginesSearchPaths
-            filename: settings.searchEngine
-        }
-
-        Chrome {
-            id: chrome
-
-            visible: !recentView.visible
-
-            webview: browser.currentWebview
-            tabsModel: browser.tabsModel
-            searchUrl: currentSearchEngine.urlTemplate
-
-            incognito: browser.incognito
-
-            showTabsBar: browser.wide
-            showFaviconInAddressBar: !browser.wide
-
-            y: webview ? webview.locationBarController.offset : 0
-
-            function isCurrentUrlBookmarked() {
-                return webview ? BookmarksModel.contains(webview.url) : false
-            }
-            bookmarked: isCurrentUrlBookmarked()
-            onToggleBookmark: {
-                if (isCurrentUrlBookmarked()) BookmarksModel.remove(webview.url)
-                else internal.addBookmark(webview.url, webview.title, webview.icon)
-            }
-            onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
-            Connections {
-                target: chrome.webview
-                onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
-            }
-            Connections {
-                target: BookmarksModel
-                onCountChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
-            }
-
-            onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
-            onTabClosed: internal.closeTab(index)
-
-            onFindInPageModeChanged: {
-                if (!chrome.findInPageMode) internal.resetFocus()
-                else chrome.forceActiveFocus()
-            }
-
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            drawerActions: [
-                Action {
-                    objectName: "share"
-                    text: i18n.tr("Share")
-                    iconName: "share"
-                    enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
-                    onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
-                },
-                Action {
-                    objectName: "bookmarks"
-                    text: i18n.tr("Bookmarks")
-                    iconName: "bookmark"
-                    onTriggered: bookmarksViewLoader.active = true
-                },
-                Action {
-                    objectName: "history"
-                    text: i18n.tr("History")
-                    iconName: "history"
-                    onTriggered: historyViewLoader.active = true
-                },
-                Action {
-                    objectName: "tabs"
-                    text: i18n.tr("Open tabs")
-                    iconName: "browser-tabs"
-                    enabled: (formFactor != "mobile") && !browser.wide
-                    onTriggered: {
-                        recentView.state = "shown"
-                        recentToolbar.state = "shown"
-                    }
-                },
-                Action {
-                    objectName: "newtab"
-                    text: i18n.tr("New tab")
-                    iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    enabled: (formFactor != "mobile") && !browser.wide
-                    onTriggered: browser.openUrlInNewTab("", true)
-                },
-                Action {
-                    objectName: "findinpage"
-                    text: i18n.tr("Find in page")
-                    iconName: "search"
-                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
-                    onTriggered: chrome.findInPageMode = true
-                },
-                Action {
-                    objectName: "privatemode"
-                    text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
-                    iconName: "private-browsing"
-                    iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
-                    onTriggered: {
-                        if (browser.incognito) {
-                            if (tabsModel.count > 1) {
-                                PopupUtils.open(leavePrivateModeDialog)
-                            } else {
-                                browser.incognito = false
-                                internal.resetFocus()
-                            }
-                        } else {
-                            browser.incognito = true
-                        }
-                    }
-                },
-                Action {
-                    objectName: "settings"
-                    text: i18n.tr("Settings")
-                    iconName: "settings"
-                    onTriggered: {
-                        settingsComponent.createObject(settingsContainer)
-                        settingsContainer.focus = true
-                        chrome.findInPageMode = false
-                    }
-                }
-            ]
-
-            canSimplifyText: !browser.wide
-            editing: activeFocus || suggestionsList.activeFocus
-
-            Keys.onDownPressed: {
-                if (suggestionsList.count) suggestionsList.focus = true
-                else if (newTabViewLoader.status == Loader.Ready) {
-                    newTabViewLoader.focus = true
-                }
-            }
-
-            Keys.onEscapePressed: {
-                if (chrome.findInPageMode) {
-                    chrome.findInPageMode = false
-                } else {
-                    internal.resetFocus()
-                }
-            }
-        }
-
-        ChromeController {
-            id: chromeController
-            webview: browser.currentWebview
-            forceHide: recentView.visible || browser.fullscreen
-            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
-                                                   : Oxide.LocationBarController.ModeAuto
-        }
-
-        Suggestions {
-            id: suggestionsList
-            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
-                      (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
-            Behavior on opacity {
-                UbuntuNumberAnimation {}
-            }
-            enabled: opacity > 0
-            anchors {
-                top: chrome.bottom
-                horizontalCenter: parent.horizontalCenter
-            }
-            width: chrome.width - units.gu(5)
-            height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
-
-            searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
-
-            Keys.onUpPressed: chrome.focus = true
-            Keys.onEscapePressed: internal.resetFocus()
-
-            models: searchTerms && searchTerms.length > 0 ?
-                    [historySuggestions,
-                     bookmarksSuggestions,
-                     searchSuggestions.limit(4)] : []
-
-            LimitProxyModel {
-                id: historySuggestions
-                limit: 2
-                readonly property string icon: "history"
-                readonly property bool displayUrl: true
-                sourceModel: TextSearchFilterModel {
-                    sourceModel: HistoryModel
-                    terms: suggestionsList.searchTerms
-                    searchFields: ["url", "title"]
-                }
-            }
-
-            LimitProxyModel {
-                id: bookmarksSuggestions
-                limit: 2
-                readonly property string icon: "non-starred"
-                readonly property bool displayUrl: true
-                sourceModel: TextSearchFilterModel {
-                    sourceModel: BookmarksModel
-                    terms: suggestionsList.searchTerms
-                    searchFields: ["url", "title"]
-                }
-            }
-
-            SearchSuggestions {
-                id: searchSuggestions
-                terms: suggestionsList.searchTerms
-                searchEngine: currentSearchEngine
-                active: (chrome.activeFocus || suggestionsList.activeFocus) &&
-                         !browser.incognito && !chrome.findInPageMode &&
-                         !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
-
-                function limit(number) {
-                    var slice = results.slice(0, number)
-                    slice.icon = 'search'
-                    slice.displayUrl = false
-                    return slice
-                }
-            }
-
-            onActivated: {
-                browser.currentWebview.url = url
-                tabContainer.forceActiveFocus()
-                chrome.requestedUrl = url
-            }
-        }
-
-        Component {
-            id: bookmarkOptionsComponent
-            BookmarkOptions {
-                folderModel: BookmarksFolderListModel {
-                    sourceModel: BookmarksModel
-                }
-
-                Component.onCompleted: {
-                    forceActiveFocus()
-                }
-
-                Component.onDestruction: {
-                    if (BookmarksModel.contains(bookmarkUrl)) {
-                        BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
-                    }
-                }
-
-                Keys.onPressed: {
-                    if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
-                        event.accepted = true
-                    }
-                }
-
-                KeyboardShortcuts {
-                    id: bookmarkOptionsShortcuts
-                    KeyboardShortcut {
-                        key: Qt.Key_Return
-                        onTriggered: hide()
-                    }
-
-                    KeyboardShortcut {
-                        key: Qt.Key_Escape
-                        onTriggered: {
-                            BookmarksModel.remove(bookmarkUrl)
-                            hide()
-                        }
-                    }
-
-                    KeyboardShortcut {
-                        modifiers: Qt.ControlModifier
-                        key: Qt.Key_D
-                        onTriggered: {
-                            BookmarksModel.remove(bookmarkUrl)
-                            hide()
-                        }
-                    }
-                }
-            }
-        }
     }
 
     FocusScope {
@@ -618,6 +325,7 @@ BrowserView {
 
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
+        onVisibleChanged: chrome.hidden = visible
 
         states: State {
             name: "shown"
@@ -625,7 +333,7 @@ BrowserView {
 
         function closeAndSwitchToTab(index) {
             recentView.reset()
-            internal.switchToTab(index)
+            internal.switchToTab(index, false)
         }
 
         Keys.onEscapePressed: closeAndSwitchToTab(0)
@@ -648,7 +356,11 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
-            chromeOffset: chrome.height - invisibleTabChrome.height
+            chromeHeight: chrome.height
+            onScheduleTabSwitch: {
+                chrome.hidden = false
+                internal.nextTabIndex = index
+            }
             onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: internal.closeTab(index)
         }
@@ -706,6 +418,242 @@ BrowserView {
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
+        }
+    }
+
+    SearchEngine {
+        id: currentSearchEngine
+        searchPaths: searchEnginesSearchPaths
+        filename: settings.searchEngine
+    }
+
+    ChromeController {
+        id: chromeController
+        webview: browser.currentWebview
+        forceHide: browser.fullscreen
+        forceShow: recentView.visible
+        defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
+                                               : Oxide.LocationBarController.ModeAuto
+    }
+
+    Chrome {
+        id: chrome
+
+        tab: internal.nextTab || tabsModel.currentTab
+        webview: tab ? tab.webview : null
+        tabsModel: browser.tabsModel
+        searchUrl: currentSearchEngine.urlTemplate
+
+        incognito: browser.incognito
+
+        showTabsBar: browser.wide
+        showFaviconInAddressBar: !browser.wide
+
+        availableHeight: tabContainer.height - height - y
+
+        property bool hidden: false
+        y: hidden ? -height : webview ? webview.locationBarController.offset : 0
+        Behavior on y {
+            enabled: recentView.visible
+            NumberAnimation {
+                duration: UbuntuAnimation.FastDuration
+            }
+        }
+
+        function isCurrentUrlBookmarked() {
+            return tab ? BookmarksModel.contains(tab.url) : false
+        }
+        bookmarked: isCurrentUrlBookmarked()
+        onToggleBookmark: {
+            if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
+            else internal.addBookmark(tab.url, tab.title, tab.icon)
+        }
+        onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
+        Connections {
+            target: chrome.tab
+            onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
+        }
+        Connections {
+            target: BookmarksModel
+            onCountChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
+        }
+
+        onSwitchToTab: internal.switchToTab(index, true)
+        onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
+        onTabClosed: internal.closeTab(index)
+
+        onFindInPageModeChanged: {
+            if (!chrome.findInPageMode) internal.resetFocus()
+            else chrome.forceActiveFocus()
+        }
+
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+
+        drawerActions: [
+            Action {
+                objectName: "share"
+                text: i18n.tr("Share")
+                iconName: "share"
+                enabled: (formFactor == "mobile") && chrome.tab && chrome.tab.url.toString()
+                onTriggered: internal.shareLink(chrome.tab.url, chrome.tab.title)
+            },
+            Action {
+                objectName: "bookmarks"
+                text: i18n.tr("Bookmarks")
+                iconName: "bookmark"
+                onTriggered: bookmarksViewLoader.active = true
+            },
+            Action {
+                objectName: "history"
+                text: i18n.tr("History")
+                iconName: "history"
+                onTriggered: historyViewLoader.active = true
+            },
+            Action {
+                objectName: "tabs"
+                text: i18n.tr("Open tabs")
+                iconName: "browser-tabs"
+                enabled: (formFactor != "mobile") && !browser.wide
+                onTriggered: {
+                    recentView.state = "shown"
+                    recentToolbar.state = "shown"
+                }
+            },
+            Action {
+                objectName: "newtab"
+                text: i18n.tr("New tab")
+                iconName: browser.incognito ? "private-tab-new" : "tab-new"
+                enabled: (formFactor != "mobile") && !browser.wide
+                onTriggered: browser.openUrlInNewTab("", true)
+            },
+            Action {
+                objectName: "findinpage"
+                text: i18n.tr("Find in page")
+                iconName: "search"
+                enabled: !chrome.findInPageMode && !newTabViewLoader.active
+                onTriggered: chrome.findInPageMode = true
+            },
+            Action {
+                objectName: "privatemode"
+                text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
+                iconName: "private-browsing"
+                iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
+                onTriggered: {
+                    if (browser.incognito) {
+                        if (tabsModel.count > 1) {
+                            PopupUtils.open(leavePrivateModeDialog)
+                        } else {
+                            browser.incognito = false
+                            internal.resetFocus()
+                        }
+                    } else {
+                        browser.incognito = true
+                    }
+                }
+            },
+            Action {
+                objectName: "settings"
+                text: i18n.tr("Settings")
+                iconName: "settings"
+                onTriggered: {
+                    settingsComponent.createObject(settingsContainer)
+                    settingsContainer.focus = true
+                    chrome.findInPageMode = false
+                }
+            }
+        ]
+
+        canSimplifyText: !browser.wide
+        editing: activeFocus || suggestionsList.activeFocus
+
+        Keys.onDownPressed: {
+            if (suggestionsList.count) suggestionsList.focus = true
+            else if (newTabViewLoader.status == Loader.Ready) {
+                newTabViewLoader.focus = true
+            }
+        }
+
+        Keys.onEscapePressed: {
+            if (chrome.findInPageMode) {
+                chrome.findInPageMode = false
+            } else {
+                internal.resetFocus()
+            }
+        }
+    }
+
+    Suggestions {
+        id: suggestionsList
+        opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
+                  (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
+        Behavior on opacity {
+            UbuntuNumberAnimation {}
+        }
+        enabled: opacity > 0
+        anchors {
+            top: chrome.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+        width: chrome.width - units.gu(5)
+        height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
+
+        searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+        Keys.onUpPressed: chrome.focus = true
+        Keys.onEscapePressed: internal.resetFocus()
+
+        models: searchTerms && searchTerms.length > 0 ?
+                [historySuggestions,
+                 bookmarksSuggestions,
+                 searchSuggestions.limit(4)] : []
+
+        LimitProxyModel {
+            id: historySuggestions
+            limit: 2
+            readonly property string icon: "history"
+            readonly property bool displayUrl: true
+            sourceModel: TextSearchFilterModel {
+                sourceModel: HistoryModel
+                terms: suggestionsList.searchTerms
+                searchFields: ["url", "title"]
+            }
+        }
+
+        LimitProxyModel {
+            id: bookmarksSuggestions
+            limit: 2
+            readonly property string icon: "non-starred"
+            readonly property bool displayUrl: true
+            sourceModel: TextSearchFilterModel {
+                sourceModel: BookmarksModel
+                terms: suggestionsList.searchTerms
+                searchFields: ["url", "title"]
+            }
+        }
+
+        SearchSuggestions {
+            id: searchSuggestions
+            terms: suggestionsList.searchTerms
+            searchEngine: currentSearchEngine
+            active: (chrome.activeFocus || suggestionsList.activeFocus) &&
+                     !browser.incognito && !chrome.findInPageMode &&
+                     !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+
+            function limit(number) {
+                var slice = results.slice(0, number)
+                slice.icon = 'search'
+                slice.displayUrl = false
+                return slice
+            }
+        }
+
+        onActivated: {
+            browser.currentWebview.url = url
+            tabContainer.forceActiveFocus()
+            chrome.requestedUrl = url
         }
     }
 
@@ -987,6 +935,7 @@ BrowserView {
                 id: webviewimpl
 
                 property BrowserTab tab
+                readonly property bool current: tab.current
 
                 currentWebview: browser.currentWebview
 
@@ -996,7 +945,7 @@ BrowserView {
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
-                    height: webviewimpl.visible ? chrome.height : 0
+                    height: chrome.height
                     mode: chromeController.defaultMode
                 }
 
@@ -1284,9 +1233,67 @@ BrowserView {
         }
     }
 
+    Component {
+        id: bookmarkOptionsComponent
+        BookmarkOptions {
+            folderModel: BookmarksFolderListModel {
+                sourceModel: BookmarksModel
+            }
+
+            Component.onCompleted: {
+                forceActiveFocus()
+            }
+
+            Component.onDestruction: {
+                if (BookmarksModel.contains(bookmarkUrl)) {
+                    BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
+                }
+            }
+
+            Keys.onPressed: {
+                if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
+                    event.accepted = true
+                }
+            }
+
+            KeyboardShortcuts {
+                id: bookmarkOptionsShortcuts
+                KeyboardShortcut {
+                    key: Qt.Key_Return
+                    onTriggered: hide()
+                }
+
+                KeyboardShortcut {
+                    key: Qt.Key_Escape
+                    onTriggered: {
+                        BookmarksModel.remove(bookmarkUrl)
+                        hide()
+                    }
+                }
+
+                KeyboardShortcut {
+                    modifiers: Qt.ControlModifier
+                    key: Qt.Key_D
+                    onTriggered: {
+                        BookmarksModel.remove(bookmarkUrl)
+                        hide()
+                    }
+                }
+            }
+        }
+    }
+
     QtObject {
         id: internal
         property var closedTabHistory: []
+
+        property int nextTabIndex: -1
+        readonly property var nextTab: (nextTabIndex > -1) ? tabsModel.get(nextTabIndex) : null
+        onNextTabChanged: {
+            if (nextTab) {
+                nextTab.aboutToShow()
+            }
+        }
 
         function getOpenPages() {
             var urls = [];
@@ -1321,8 +1328,8 @@ BrowserView {
             if (index === undefined) index = tabsModel.add(tab)
             else index = tabsModel.insert(tab, index)
             if (setCurrent) {
-                tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
+                switchToTab(index, true)
             }
         }
 
@@ -1364,31 +1371,37 @@ BrowserView {
 
         function switchToPreviousTab() {
             if (browser.wide) {
-                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
+                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count, true)
             } else {
-                internal.switchToTab(tabsModel.count - 1)
+                internal.switchToTab(tabsModel.count - 1, true)
             }
             if (recentView.visible) recentView.focus = true
         }
 
         function switchToNextTab() {
             if (browser.wide) {
-                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
+                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count, true)
             } else {
-                internal.switchToTab(tabsModel.count - 1)
+                internal.switchToTab(tabsModel.count - 1, true)
             }
             if (recentView.visible) recentView.focus = true
         }
 
-        function switchToTab(index) {
-            tabsModel.currentIndex = index
-            var tab = tabsModel.currentTab
-            if (tab) {
-                if (!tab.url.toString() && !tab.initialUrl.toString() &&
-                    (formFactor == "desktop")) {
-                    focusAddressBar()
-                } else {
-                    tabContainer.forceActiveFocus()
+        function switchToTab(index, delayed) {
+            if (delayed) {
+                nextTabIndex = index
+                delayedTabSwitcher.restart()
+            } else {
+                tabsModel.currentIndex = index
+                nextTabIndex = -1
+                var tab = tabsModel.currentTab
+                if (tab) {
+                    if (!tab.url.toString() && !tab.initialUrl.toString() &&
+                        (formFactor == "desktop")) {
+                        focusAddressBar()
+                    } else {
+                        tabContainer.forceActiveFocus()
+                    }
                 }
             }
         }
@@ -1459,12 +1472,20 @@ BrowserView {
         }
     }
 
+    // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
+    // the next tab for a fraction of a second to avoid a black flash.
+    Timer {
+        id: delayedTabSwitcher
+        interval: 50
+        onTriggered: internal.switchToTab(internal.nextTabIndex, false)
+    }
+
     function openUrlInNewTab(url, setCurrent, load, index) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent, index)
         if (load) {
-            tabsModel.currentTab.load()
+            tab.load()
         }
         if (!url.toString() && (formFactor == "desktop")) {
             internal.focusAddressBar()
@@ -1507,7 +1528,7 @@ BrowserView {
                     }
                 }
                 if ('currentIndex' in state) {
-                    publicTabsModel.currentIndex = state.currentIndex
+                    internal.switchToTab(state.currentIndex, true)
                 }
             }
         }

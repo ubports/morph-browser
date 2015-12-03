@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import QtTest 1.0
-import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 import webbrowserapp.private 0.1
 
@@ -57,6 +56,7 @@ Item {
         height: 50
 
         model: tabsModel
+        onSwitchToTab: model.currentIndex = index
         onRequestNewTab: insertTab("", "", "", index)
         function appendTab(url, title, icon) {
             insertTab(url, title, icon, model.count)
@@ -86,18 +86,12 @@ Item {
         signalName: "reload"
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "TabsBar"
         when: windowShown
 
         function getMenuItemForAction(menu, actionName) {
             return findChild(menu, "tab_action_" + actionName + "_button")
-        }
-
-        function clickItem(item, button) {
-            if (button === undefined) button = Qt.LeftButton
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y, button)
         }
 
         function getTabDelegate(index) {

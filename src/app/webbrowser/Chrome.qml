@@ -24,6 +24,7 @@ ChromeBase {
     id: chrome
 
     property var tabsModel
+    property alias tab: navigationBar.tab
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
@@ -37,8 +38,10 @@ ChromeBase {
     property alias incognito: navigationBar.incognito
     property alias showTabsBar: tabsBar.active
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
+    property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
 
+    signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index)
 
@@ -68,6 +71,7 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
+                onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
             }
@@ -84,8 +88,6 @@ ChromeBase {
             id: navigationBar
 
             iconColor: (incognito && !showTabsBar) ? "white" : UbuntuColors.darkGrey
-
-            webview: chrome.webview
 
             focus: true
 

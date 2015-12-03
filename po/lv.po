@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-23 15:10+0200\n"
+"POT-Creation-Date: 2015-11-27 19:20+0100\n"
 "PO-Revision-Date: 2015-11-22 19:13+0000\n"
 "Last-Translator: Rūdolfs Mazurs <Unknown>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-11-23 05:27+0000\n"
+"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
 "X-Generator: Launchpad (build 17850)\n"
 "Language: lv\n"
 
@@ -50,7 +50,6 @@ msgid "Password"
 msgstr "Parole"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -402,7 +401,7 @@ msgstr "Izgriezt"
 msgid "Erase"
 msgstr "Dzēst"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
 msgstr "Meklēt lapā"
 
@@ -432,8 +431,8 @@ msgstr "Iet uz"
 msgid "Address;URL;www"
 msgstr "Adrese;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
-#: src/app/webbrowser/TabsBar.qml:85
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Jauna cilne"
 
@@ -464,7 +463,7 @@ msgid "Redo"
 msgstr "Atatsaukt"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Pārlādēt"
 
@@ -482,13 +481,12 @@ msgstr "Saglabāt attēlu"
 msgid "Save link"
 msgstr "Saglabāt saiti"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:173
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "Izvēlēties visu"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
 msgid "Share"
 msgstr "Dalīties"
 
@@ -497,16 +495,16 @@ msgid "Undo"
 msgstr "Atsaukt"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
 msgstr "meklēt lapā"
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
 msgstr "meklējiet vai ievadiet adresi"
 
@@ -525,7 +523,7 @@ msgid "Save in"
 msgstr "Saglabāt mapē"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "Visas grāmatzīmes"
@@ -544,41 +542,41 @@ msgstr "Izveidot jaunu mapi"
 msgid "Save"
 msgstr "Saglabāt"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersView.qml:160
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "Mājas lapa"
 
-#: src/app/webbrowser/BookmarksView.qml:80
-#: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Grāmatzīmes"
 
-#: src/app/webbrowser/BookmarksView.qml:112
-#: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Pabeigts"
 
-#: src/app/webbrowser/BookmarksView.qml:125
-#: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:125
+#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Jauna cilne"
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:511
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Vēsture"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:517
 msgid "Open tabs"
 msgstr "Atvērt cilnes"
 
@@ -586,29 +584,29 @@ msgstr "Atvērt cilnes"
 msgid "Downloads"
 msgstr "Lejupielādes"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:541
 msgid "Leave Private Mode"
 msgstr "Pamest privāto režīmu"
 
-#: src/app/webbrowser/Browser.qml:436
+#: src/app/webbrowser/Browser.qml:541
 msgid "Private Mode"
 msgstr "Privātais režīms"
 
-#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Iestatījumi"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:735
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1258
+#: src/app/webbrowser/Browser.qml:1209
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Velciet uz augšu, lai izietu no pilnekrāna"
 
-#: src/app/webbrowser/Browser.qml:1259
+#: src/app/webbrowser/Browser.qml:1210
 msgid "Press ESC To Exit Full Screen"
 msgstr "Spiediet ESC, lai izietu no pilnekrāna"
 
@@ -616,7 +614,6 @@ msgstr "Spiediet ESC, lai izietu no pilnekrāna"
 msgid "Confirm selection"
 msgstr "Apstiprināt izvēli"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
@@ -626,7 +623,7 @@ msgstr "Dzēst"
 msgid "No downloads available"
 msgstr "Nav pieejamu lejupielāžu"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:104
+#: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -634,7 +631,7 @@ msgstr[0] "%1 lapa"
 msgstr[1] "%1 lapas"
 msgstr[2] "%1 lapu"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:126
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Mazāk"
@@ -791,6 +788,10 @@ msgstr "Jūs esat savienots ar"
 msgid "Which is run by"
 msgstr "Ko darbina"
 
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
@@ -846,11 +847,11 @@ msgstr "Mikrofons"
 msgid "Camera"
 msgstr "Kamera"
 
-#: src/app/webbrowser/TabPreview.qml:81
+#: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
 msgstr "Uzsitiet, lai skatītu"
 
-#: src/app/webbrowser/TabsBar.qml:96
+#: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
 msgstr "Aizvērt cilni"
 

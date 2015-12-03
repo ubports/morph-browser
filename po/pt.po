@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-23 15:10+0200\n"
-"PO-Revision-Date: 2015-10-26 09:59+0000\n"
+"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"PO-Revision-Date: 2015-11-28 11:29+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-11-19 05:31+0000\n"
+"X-Launchpad-Export-Date: 2015-11-29 05:27+0000\n"
 "X-Generator: Launchpad (build 17850)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -131,7 +131,7 @@ msgstr "Verifique as suas definições de rede e atualize a página."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Recarregar página"
+msgstr "Atualizar página"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
@@ -397,9 +397,9 @@ msgstr "Cortar"
 msgid "Erase"
 msgstr "Apagar"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:430
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
-msgstr "Encontrar na página"
+msgstr "Procurar na página"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -427,8 +427,8 @@ msgstr "Ir para"
 msgid "Address;URL;www"
 msgstr "Endereço;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:693
-#: src/app/webbrowser/TabsBar.qml:86
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Novo separador"
 
@@ -459,7 +459,7 @@ msgid "Redo"
 msgstr "Refazer"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:91 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Recarregar"
 
@@ -482,7 +482,7 @@ msgstr "Guardar link"
 msgid "Select all"
 msgstr "Marcar todos"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:394
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
 msgid "Share"
 msgstr "Partilhar"
 
@@ -519,7 +519,7 @@ msgid "Save in"
 msgstr "Guardar em"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "Todos os marcadores"
@@ -538,41 +538,41 @@ msgstr "Criar nova pasta"
 msgid "Save"
 msgstr "Gravar"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersView.qml:160
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "Página inicial"
 
-#: src/app/webbrowser/BookmarksView.qml:80
-#: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:401 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Marcadores"
 
-#: src/app/webbrowser/BookmarksView.qml:112
-#: src/app/webbrowser/BookmarksViewWide.qml:110
-#: src/app/webbrowser/Browser.qml:679 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Concluído"
 
-#: src/app/webbrowser/BookmarksView.qml:125
-#: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:125
+#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
-#: src/app/webbrowser/TabsBar.qml:149 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Novo separador"
 
-#: src/app/webbrowser/Browser.qml:407
+#: src/app/webbrowser/Browser.qml:511
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Histórico"
 
-#: src/app/webbrowser/Browser.qml:413
+#: src/app/webbrowser/Browser.qml:517
 msgid "Open tabs"
 msgstr "Separadores abertos"
 
@@ -580,29 +580,29 @@ msgstr "Separadores abertos"
 msgid "Downloads"
 msgstr "Transferências"
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Leave Private Mode"
 msgstr "Sair de modo privado"
 
-#: src/app/webbrowser/Browser.qml:437
+#: src/app/webbrowser/Browser.qml:541
 msgid "Private Mode"
 msgstr "Modo privado"
 
-#: src/app/webbrowser/Browser.qml:455 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Definições"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:787
+#: src/app/webbrowser/Browser.qml:735
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1260
+#: src/app/webbrowser/Browser.qml:1209
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Deslize para cima para sair do ecrã inteiro"
 
-#: src/app/webbrowser/Browser.qml:1261
+#: src/app/webbrowser/Browser.qml:1210
 msgid "Press ESC To Exit Full Screen"
 msgstr "Carregue no ESC para sair do ecrã inteiro"
 
@@ -619,14 +619,14 @@ msgstr "Eliminar"
 msgid "No downloads available"
 msgstr "Sem transferências disponíveis"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:104
+#: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 página"
 msgstr[1] "%1 páginas"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:126
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Menos"
@@ -706,7 +706,7 @@ msgstr "Top sites"
 
 #: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
-msgstr "Ainda não visitou nenhuma página"
+msgstr "Sem páginas visitadas"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -785,6 +785,10 @@ msgstr "Está ligado a"
 msgid "Which is run by"
 msgstr "Que é dirigido por"
 
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr "Padrão"
+
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
@@ -822,7 +826,7 @@ msgstr "Limpar histórico?"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
-msgstr "Limpar a Cache"
+msgstr "Limpar cache"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
@@ -840,11 +844,11 @@ msgstr "Microfone"
 msgid "Camera"
 msgstr "Câmara"
 
-#: src/app/webbrowser/TabPreview.qml:81
+#: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
 msgstr "Toque para ver"
 
-#: src/app/webbrowser/TabsBar.qml:97
+#: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
 msgstr "Fechar separador"
 
