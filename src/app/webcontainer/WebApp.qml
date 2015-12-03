@@ -78,15 +78,22 @@ BrowserView {
     }
 
     function addGeneratedUrlPattern(urlPattern) {
-        var patterns
-        try {
-            patterns = JSON.parse(urlPatternSettings.generatedUrlPatterns)
-        } catch(e) {
-            console.error("Invalid JSON content found in url patterns file")
+        if (urlPattern.trim().length === 0) {
+            return;
         }
-        if (! (patterns instanceof Array)) {
-            console.error("Invalid JSON content type found in url patterns file (not an array)")
-            patterns = []
+
+        var patterns = []
+        if (urlPatternSettings.generatedUrlPatterns
+                && urlPatternSettings.generatedUrlPatterns.trim().length !== 0) {
+            try {
+                patterns = JSON.parse(urlPatternSettings.generatedUrlPatterns)
+            } catch(e) {
+                console.error("Invalid JSON content found in url patterns file")
+            }
+            if (! (patterns instanceof Array)) {
+                console.error("Invalid JSON content type found in url patterns file (not an array)")
+                patterns = []
+            }
         }
         if (patterns.indexOf(urlPattern) < 0) {
             patterns.push(urlPattern)
