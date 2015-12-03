@@ -45,10 +45,18 @@ public:
         bool shouldDeleteCookiesOnUninstall;
     };
 
+    enum ClickLifeCyclePhase {
+        CLICK_LIFECYCLE_PHASE_INSTALL,
+        CLICK_LIFECYCLE_PHASE_UNINSTALL,
+        CLICK_LIFECYCLE_PHASE_UPDATE
+    };
+
 public:
-    Data parseContent(const QString& filename);
+    Data parseContent(const QString& filename,
+                      ClickLifeCyclePhase clickLifeCyclePhase);
 private:
-    Data parseDocument(const QJsonArray& array);
+    Data parseDocument(const QJsonArray& array,
+                       ClickLifeCyclePhase clickLifeCyclePhase);
 };
 
 /**
