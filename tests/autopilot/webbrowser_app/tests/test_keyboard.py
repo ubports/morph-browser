@@ -419,3 +419,21 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.open_new_tab()
         self.main_window.press_key('Ctrl+f')
         self.assertThat(address_bar.findInPageMode, Equals(False))
+
+    def test_navigate_between_address_bar_and_new_tab_view(self):
+        if not self.main_window.wide:
+            self.skipTest("Only on wide form factors")
+
+        address_bar = self.main_window.chrome.address_bar
+
+        self.main_window.press_key('Ctrl+t')
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Down')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        self.assertThat(new_tab_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Up')
+        self.assertThat(new_tab_view.activeFocus, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))

@@ -572,7 +572,7 @@ BrowserView {
         Keys.onDownPressed: {
             if (suggestionsList.count) suggestionsList.focus = true
             else if (newTabViewLoader.status == Loader.Ready) {
-                newTabViewLoader.focus = true
+                newTabViewLoader.forceActiveFocus()
             }
         }
 
