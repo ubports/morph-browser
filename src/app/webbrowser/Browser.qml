@@ -572,7 +572,7 @@ BrowserView {
         Keys.onDownPressed: {
             if (suggestionsList.count) suggestionsList.focus = true
             else if (newTabViewLoader.status == Loader.Ready) {
-                newTabViewLoader.focus = true
+                newTabViewLoader.forceActiveFocus()
             }
         }
 
@@ -753,6 +753,13 @@ BrowserView {
 
         Keys.onEscapePressed: bookmarksViewLoader.active = false
 
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
         Connections {
             target: bookmarksViewLoader.item
 
@@ -806,7 +813,12 @@ BrowserView {
 
         Keys.onEscapePressed: historyViewLoader.active = false
 
-        onActiveChanged: if (active) chrome.findInPageMode = false
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
 
         Component {
             id: historyViewComponent
