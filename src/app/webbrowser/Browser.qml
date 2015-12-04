@@ -1365,7 +1365,7 @@ BrowserView {
             if (!incognito && closedTabHistory.length > 0) {
                 var tabInfo = closedTabHistory.pop()
                 var tab = session.createTabFromState(tabInfo.state)
-                internal.addTab(tab, true, tabInfo.index)
+                addTab(tab, true, tabInfo.index)
             }
         }
 
@@ -1375,7 +1375,6 @@ BrowserView {
             } else {
                 internal.switchToTab(tabsModel.count - 1, true)
             }
-            if (recentView.visible) recentView.focus = true
         }
 
         function switchToNextTab() {
@@ -1384,7 +1383,6 @@ BrowserView {
             } else {
                 internal.switchToTab(tabsModel.count - 1, true)
             }
-            if (recentView.visible) recentView.focus = true
         }
 
         function switchToTab(index, delayed) {
@@ -1395,7 +1393,9 @@ BrowserView {
                 tabsModel.currentIndex = index
                 nextTabIndex = -1
                 var tab = tabsModel.currentTab
-                if (tab) {
+                if (recentView.visible) {
+                    recentView.focus = true
+                } else if (tab) {
                     if (!tab.url.toString() && !tab.initialUrl.toString() &&
                         (formFactor == "desktop")) {
                         focusAddressBar()
