@@ -54,18 +54,22 @@ QString stringFromClickLifeCyclePhase(
     return QString();
 }
 
-void executeHookDirectives(const QString& hookFilename) {
+void executeHookDirectives(const QString& hookFilename
+                           , HookUtils::WebappHookParser::ClickLifeCyclePhase phase) {
     QFileInfo fileInfo(hookFilename);
     if (!fileInfo.exists() || !fileInfo.isFile())
     {
+        qDebug() << "Cannot execute directives for" << hookFilename;
         return;
     }
+
+    qDebug() << "Handling" << hookFilename;
 
     HookUtils::WebappHookParser webappHookParser;
     HookUtils::WebappHookParser::Data data =
             webappHookParser.parseContent(
                 hookFilename,
-                HookUtils::WebappHookParser::CLICK_LIFECYCLE_PHASE_UNINSTALL);
+                phase);
 
     QString appIdNoVersion = fileInfo.fileName();
 
@@ -74,12 +78,16 @@ void executeHookDirectives(const QString& hookFilename) {
         QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
                  + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
         dir.removeRecursively();
+
+        qDebug() << "Removing cache from" << dir.absolutePath();
     }
     if (data.shouldDeleteCookiesOnUninstall)
     {
         QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
                  + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
         dir.removeRecursively();
+
+        qDebug() << "Removing cookies from" << dir.absolutePath();
     }
 }
 
@@ -246,7 +254,8 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
                 installedClickHooks.parentFolder + "/"
                 + installedClickHooks.hookFiles[webappClickHook];
 
-        executeHookDirectives(hookFilename);
+        executeHookDirectives(hookFilename
+                              , WebappHookParser::CLICK_LIFECYCLE_PHASE_INSTALL);
 
         QFileInfo hookFileInfo(hookFilename);
         QString appIdNoVersion = removeVersionFrom(hookFileInfo.completeBaseName());
@@ -279,7 +288,8 @@ void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedCl
         QString hookFilename =
                 alreadyProcessedClickHooks.parentFolder + "/" + webappClickHook;
 
-        executeHookDirectives(hookFilename);
+        executeHookDirectives(hookFilename
+                              , WebappHookParser::CLICK_LIFECYCLE_PHASE_UNINSTALL);
 
         qDebug() << "Uninstalling: " << hookFilename;
 
@@ -317,7 +327,8 @@ void handleUpdates(const WebappClickHookInstallDescription& alreadyProcessedClic
             continue;
         }
 
-        executeHookDirectives(hookFilename);
+        executeHookDirectives(hookFilename
+                              , WebappHookParser::CLICK_LIFECYCLE_PHASE_UPDATE);
 
         qDebug() << "Updating " << destination;
 
