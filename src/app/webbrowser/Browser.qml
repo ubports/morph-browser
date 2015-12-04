@@ -753,6 +753,13 @@ BrowserView {
 
         Keys.onEscapePressed: bookmarksViewLoader.active = false
 
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
         Connections {
             target: bookmarksViewLoader.item
 

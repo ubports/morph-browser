@@ -384,6 +384,22 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
 
+    def test_open_bookmarks_exits_findinpage(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+Shift+o')
+        self.assertThat(lambda: self.main_window.get_bookmarks_view(),
+                        Eventually(NotEquals(None)))
+        bookmarks_view = self.main_window.get_bookmarks_view()
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
