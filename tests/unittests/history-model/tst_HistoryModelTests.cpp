@@ -184,7 +184,7 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Icon).toUrl(), QUrl("image://webicon/123"));
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Visits).toInt(), 1);
         QVERIFY(model->data(model->index(0, 0), HistoryModel::LastVisit).toDateTime() >= now);
-        QVERIFY(!model->data(model->index(0, 0), HistoryModel::LastVisit + 3).isValid());
+        QVERIFY(!model->data(model->index(0, 0), HistoryModel::LastVisit + 4).isValid());
     }
 
     void shouldReturnDatabasePath()
