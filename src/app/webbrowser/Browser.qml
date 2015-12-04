@@ -806,7 +806,12 @@ BrowserView {
 
         Keys.onEscapePressed: historyViewLoader.active = false
 
-        onActiveChanged: if (active) chrome.findInPageMode = false
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
 
         Component {
             id: historyViewComponent
