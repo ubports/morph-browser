@@ -155,7 +155,7 @@ private Q_SLOTS:
         QString installedHookFilename =
                 "com.ubuntu.blabla_blabla_0.2.webapp";
         QString installedHookFileContent =
-                "[{\"uninstall\": { \"delete-cookies\": false, \"delete-cache\": false } }]";
+                "[{\"uninstall\": { \"delete-cookies\": true, \"delete-cache\": true } }]";
 
         QTemporaryDir processedHookFiledTmpDir;
         QTemporaryDir installedHookFiledTmpDir;

@@ -54,8 +54,8 @@ QString stringFromClickLifeCyclePhase(
     return QString();
 }
 
-void executeHookDirectives(const QString& hookFilename
-                           , HookUtils::WebappHookParser::ClickLifeCyclePhase phase) {
+void executeHookDirectives(const QString& hookFilename,
+                           HookUtils::WebappHookParser::ClickLifeCyclePhase phase) {
     QFileInfo fileInfo(hookFilename);
     if (!fileInfo.exists() || !fileInfo.isFile())
     {
@@ -73,7 +73,7 @@ void executeHookDirectives(const QString& hookFilename
 
     QString appIdNoVersion = fileInfo.fileName();
 
-    if (data.shouldDeleteCacheOnUninstall)
+    if (data.shouldDeleteCache)
     {
         QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
                  + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
@@ -81,7 +81,7 @@ void executeHookDirectives(const QString& hookFilename
 
         qDebug() << "Removing cache from" << dir.absolutePath();
     }
-    if (data.shouldDeleteCookiesOnUninstall)
+    if (data.shouldDeleteCookies)
     {
         QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
                  + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
@@ -143,21 +143,21 @@ WebappHookParser::parseDocument(const QJsonArray& array,
     QString phase = stringFromClickLifeCyclePhase(clickLifeCyclePhase);
     if (JSON_OBJECT_VALIDATE(rootObject,phase,isObject))
     {
-        const QString UNINSTALL_DELETE_COOKIES = "delete-cookies";
-        const QString UNINSTALL_DELETE_CACHE = "delete-cache";
+        const QString DELETE_COOKIES = "delete-cookies";
+        const QString DELETE_CACHE = "delete-cache";
 
-        QJsonObject uninstallObject =
+        QJsonObject directiveObject =
                 rootObject.value(phase).toObject();
-        if (JSON_OBJECT_VALIDATE(uninstallObject,UNINSTALL_DELETE_COOKIES,isBool))
+        if (JSON_OBJECT_VALIDATE(directiveObject,DELETE_COOKIES,isBool))
         {
-            result.shouldDeleteCookiesOnUninstall =
-                    uninstallObject.value(UNINSTALL_DELETE_COOKIES).toBool();
+            result.shouldDeleteCookies =
+                    directiveObject.value(DELETE_COOKIES).toBool();
         }
 
-        if (JSON_OBJECT_VALIDATE(uninstallObject,UNINSTALL_DELETE_CACHE,isBool))
+        if (JSON_OBJECT_VALIDATE(directiveObject,DELETE_CACHE,isBool))
         {
-            result.shouldDeleteCacheOnUninstall =
-                    uninstallObject.value(UNINSTALL_DELETE_CACHE).toBool();
+            result.shouldDeleteCache =
+                    directiveObject.value(DELETE_CACHE).toBool();
         }
     }
 #undef JSON_OBJECT_VALIDATE
@@ -254,8 +254,8 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
                 installedClickHooks.parentFolder + "/"
                 + installedClickHooks.hookFiles[webappClickHook];
 
-        executeHookDirectives(hookFilename
-                              , WebappHookParser::CLICK_LIFECYCLE_PHASE_INSTALL);
+        executeHookDirectives(hookFilename,
+                              WebappHookParser::CLICK_LIFECYCLE_PHASE_INSTALL);
 
         QFileInfo hookFileInfo(hookFilename);
         QString appIdNoVersion = removeVersionFrom(hookFileInfo.completeBaseName());
@@ -288,8 +288,8 @@ void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedCl
         QString hookFilename =
                 alreadyProcessedClickHooks.parentFolder + "/" + webappClickHook;
 
-        executeHookDirectives(hookFilename
-                              , WebappHookParser::CLICK_LIFECYCLE_PHASE_UNINSTALL);
+        executeHookDirectives(hookFilename,
+                              WebappHookParser::CLICK_LIFECYCLE_PHASE_UNINSTALL);
 
         qDebug() << "Uninstalling: " << hookFilename;
 
@@ -327,8 +327,8 @@ void handleUpdates(const WebappClickHookInstallDescription& alreadyProcessedClic
             continue;
         }
 
-        executeHookDirectives(hookFilename
-                              , WebappHookParser::CLICK_LIFECYCLE_PHASE_UPDATE);
+        executeHookDirectives(hookFilename,
+                              WebappHookParser::CLICK_LIFECYCLE_PHASE_UPDATE);
 
         qDebug() << "Updating " << destination;
 

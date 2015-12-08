@@ -39,10 +39,10 @@ public:
     struct Data
     {
         Data ()
-            : shouldDeleteCacheOnUninstall(false)
-              , shouldDeleteCookiesOnUninstall(false) {}
-        bool shouldDeleteCacheOnUninstall;
-        bool shouldDeleteCookiesOnUninstall;
+            : shouldDeleteCache(false)
+              , shouldDeleteCookies(false) {}
+        bool shouldDeleteCache;
+        bool shouldDeleteCookies;
     };
 
     enum ClickLifeCyclePhase {
@@ -109,7 +109,7 @@ QString getClickHooksInstallFolder();
 QString removeVersionFrom(const QString& appId);
 
 /**
- * @brief handleInstalls Detects click package uninstalls and handled what's needed
+ * @brief handleInstalls Detects click package installs and handled what's needed
  * @param alreadyProcessedClickHooks
  * @param currentClickHooks
  */
