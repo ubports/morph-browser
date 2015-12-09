@@ -1790,13 +1790,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.switchToNextTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_PageDown
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.switchToNextTab()
         }
 
@@ -1804,13 +1804,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.switchToPreviousTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_PageUp
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.switchToPreviousTab()
         }
 
@@ -1818,14 +1818,14 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_W
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.undoCloseTab()
         }
 
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.undoCloseTab()
         }
 
@@ -1833,13 +1833,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.closeCurrentTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F4
-            enabled: chrome.visible || recentView.visible
+            enabled: (chrome.visible || recentView.visible) && !downloadsContainer.visible
             onTriggered: internal.closeCurrentTab()
         }
 
@@ -1847,7 +1847,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible || bookmarksViewLoader.active || historyViewLoader.active
+            enabled: (chrome.visible || recentView.visible || bookmarksViewLoader.active || historyViewLoader.active) && !downloadsContainer.visible
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
@@ -1861,18 +1861,18 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             key: Qt.Key_F6
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
 
@@ -1880,7 +1880,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: {
                 if (currentWebview) {
                     if (BookmarksModel.contains(currentWebview.url)) {
@@ -1896,7 +1896,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: historyViewLoader.active = true
         }
 
@@ -1904,7 +1904,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_O
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: bookmarksViewLoader.active = true
         }
 
@@ -1912,12 +1912,12 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.historyGoBack()
         }
         KeyboardShortcut {
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.historyGoBack()
         }
 
@@ -1925,26 +1925,26 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.historyGoForward()
         }
         KeyboardShortcut {
             modifiers: Qt.ShiftModifier
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: internal.historyGoForward()
         }
 
         // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_R
-            enabled: chrome.visible
+            enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
@@ -1952,8 +1952,16 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
-            enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
+            enabled: !newTabViewLoader.active && !bookmarksViewLoader.active && !downloadsContainer.visible
             onTriggered: chrome.findInPageMode = true
+        }
+
+        // Ctrl + J: Show downloads page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_J
+            enabled: chrome.visible && !downloadsContainer.visible
+            onTriggered: showDownloadsPage()
         }
     }
 
