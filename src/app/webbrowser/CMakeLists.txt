@@ -16,16 +16,12 @@ set(WEBBROWSER_APP_MODELS_SRC
     downloads-model.cpp
     downloads-mimetype-model.cpp
     history-domain-model.cpp
-    history-domainlist-chronological-model.cpp
     history-domainlist-model.cpp
-    history-lastvisitdate-model.cpp
     history-lastvisitdatelist-model.cpp
     history-model.cpp
-    history-timeframe-model.cpp
     limit-proxy-model.cpp
     tabs-model.cpp
     text-search-filter-model.cpp
-    top-sites-model.cpp
 )
 
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)

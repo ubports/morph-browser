@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-11-27 19:20+0100\n"
-"PO-Revision-Date: 2015-11-07 09:38+0000\n"
-"Last-Translator: Krzysztof Tataradziński <Unknown>\n"
+"PO-Revision-Date: 2015-12-01 08:12+0000\n"
+"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2015-12-02 05:40+0000\n"
+"X-Generator: Launchpad (build 17856)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -49,6 +49,7 @@ msgid "Password"
 msgstr "Hasło"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -105,11 +106,11 @@ msgstr "Potwierdzenie JavaScriptu"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"Wybierz aplikację do otwarcia tego pliku albo umieścić go w folderze Pobrane."
+"Wybierz program do otwarcia tego pliku albo umieścić go w katalogu Pobrane."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr "Wybierz aplikację"
+msgstr "Wybierz program"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
@@ -477,9 +478,10 @@ msgstr "Zapisz obraz"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr "Zapisz link"
+msgstr "Zapisz odnośnik"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "Zaznacz wszystko"
@@ -612,10 +614,11 @@ msgstr "Naciśnij ESC, by opuścić tryb pełnoekranowy"
 msgid "Confirm selection"
 msgstr "Potwierdź zaznaczenie"
 
+#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
-msgstr "Kasuj"
+msgstr "Usuń"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
@@ -792,7 +795,7 @@ msgstr "Która just uruchomiona przez"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Domyślny"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -924,7 +927,7 @@ msgstr "Wybierz konto lub pomiń ten krok, by zrobić to później."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr "Zamknij aplikację"
+msgstr "Zamknij program"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"

@@ -336,6 +336,42 @@ private Q_SLOTS:
         QCOMPARE(model->currentTab(), tab1);
     }
 
+    void shouldUpdateCurrentTabWhenInsertingAtCurrentIndex()
+    {
+        QQuickItem* tab1 = createTab();
+        model->insert(tab1, 0);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(model->currentTab(), tab1);
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+
+        QQuickItem* tab2 = createTab();
+        model->insert(tab2, 0);
+
+        QVERIFY(spyindex.isEmpty());
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(model->currentTab(), tab2);
+    }
+
+    void shouldUpdateCurrentIndexWhenInsertingBeforeCurrentIndex()
+    {
+        model->insert(createTab(), 0);
+        model->insert(createTab(), 0);
+        model->setCurrentIndex(1);
+        QObject* current = model->currentTab();
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+
+        model->insert(createTab(), 0);
+
+        QVERIFY(spytab.isEmpty());
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentTab(), current);
+        QCOMPARE(model->currentIndex(), 2);
+    }
+
     void shouldSetInvalidIndexWhenRemovingLastTab()
     {
         // Removing the last item should also set the current index to -1

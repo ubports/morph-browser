@@ -45,10 +45,8 @@ FocusScope {
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F) {
             if (searchMode) searchQuery.focus = true
-            else {
-                if (!selectMode) searchMode = true
-                else event.accepted = true
-            }
+            else if (!selectMode) searchMode = true
+            event.accepted = true
         }
     }
     Keys.onDeletePressed: {
@@ -123,7 +121,7 @@ FocusScope {
                 currentIndex: 0
                 onCurrentIndexChanged: {
                     if (currentItem) {
-                        historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
+                        historyLastVisitDateModel.lastVisitDate = currentItem.lastVisitDate
                     }
                     urlsListView.ViewItems.selectedIndices = []
                 }
@@ -163,7 +161,7 @@ FocusScope {
                 }
 
                 model: HistoryLastVisitDateListModel {
-                    sourceModel: historyLastVisitDateModel.sourceModel
+                    sourceModel: historyLastVisitDateModel.model
                 }
 
                 delegate: ListItem {
@@ -244,13 +242,18 @@ FocusScope {
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
 
-                model: HistoryLastVisitDateModel {
+                model: SortFilterModel {
                     id: historyLastVisitDateModel
+                    property date lastVisitDate
+                    filter {
+                        property: "lastVisitDateString"
+                        pattern: new RegExp(lastVisitDate.isValid() ? "^%1$".arg(Qt.formatDate(lastVisitDate, "yyyy-MM-dd")) : "")
+                    }
                     // Until a valid HistoryModel is assigned the TextSearchFilterModel
-                    // will not report role names, and the HistoryLastVisit*Models will emit warnings
-                    // since they need a dateLastVisit role to be present.
-                    // We avoid this by delaying assigning the source model until it is ready.
-                    sourceModel: historySearchModel.sourceModel ? historySearchModel : undefined
+                    // will not report role names, and the HistoryLastVisitDateListModel
+                    // will emit warnings since it needs a dateLastVisit role to be
+                    // present.
+                    model: historySearchModel.sourceModel ? historySearchModel : null
                 }
 
                 clip: true

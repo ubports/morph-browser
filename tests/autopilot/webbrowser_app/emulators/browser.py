@@ -562,6 +562,9 @@ class HistoryViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return sorted(self.select_many("UrlDelegate"),
                       key=lambda item: item.globalRect.y)
 
+    def get_search_field(self):
+        return self.select_single(objectName="searchQuery")
+
 
 class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 

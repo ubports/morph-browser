@@ -586,7 +586,7 @@ BrowserView {
         Keys.onDownPressed: {
             if (suggestionsList.count) suggestionsList.focus = true
             else if (newTabViewLoader.status == Loader.Ready) {
-                newTabViewLoader.focus = true
+                newTabViewLoader.forceActiveFocus()
             }
         }
 
@@ -767,6 +767,13 @@ BrowserView {
 
         Keys.onEscapePressed: bookmarksViewLoader.active = false
 
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
         Connections {
             target: bookmarksViewLoader.item
 
@@ -820,7 +827,12 @@ BrowserView {
 
         Keys.onEscapePressed: historyViewLoader.active = false
 
-        onActiveChanged: if (active) chrome.findInPageMode = false
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
 
         Component {
             id: historyViewComponent
@@ -1412,7 +1424,7 @@ BrowserView {
             if (!incognito && closedTabHistory.length > 0) {
                 var tabInfo = closedTabHistory.pop()
                 var tab = session.createTabFromState(tabInfo.state)
-                internal.addTab(tab, true, tabInfo.index)
+                addTab(tab, true, tabInfo.index)
             }
         }
 
@@ -1422,7 +1434,6 @@ BrowserView {
             } else {
                 internal.switchToTab(tabsModel.count - 1, true)
             }
-            if (recentView.visible) recentView.focus = true
         }
 
         function switchToNextTab() {
@@ -1431,7 +1442,6 @@ BrowserView {
             } else {
                 internal.switchToTab(tabsModel.count - 1, true)
             }
-            if (recentView.visible) recentView.focus = true
         }
 
         function switchToTab(index, delayed) {
@@ -1442,7 +1452,9 @@ BrowserView {
                 tabsModel.currentIndex = index
                 nextTabIndex = -1
                 var tab = tabsModel.currentTab
-                if (tab) {
+                if (recentView.visible) {
+                    recentView.focus = true
+                } else if (tab) {
                     if (!tab.url.toString() && !tab.initialUrl.toString() &&
                         (formFactor == "desktop")) {
                         focusAddressBar()
