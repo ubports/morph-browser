@@ -168,7 +168,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
+        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active
 
         FocusScope {
             id: tabContainer
@@ -558,11 +558,7 @@ BrowserView {
                 objectName: "settings"
                 text: i18n.tr("Settings")
                 iconName: "settings"
-                onTriggered: {
-                    settingsComponent.createObject(settingsContainer)
-                    settingsContainer.focus = true
-                    chrome.findInPageMode = false
-                }
+                onTriggered: settingsViewLoader.active = true
             }
         ]
 
@@ -883,25 +879,34 @@ BrowserView {
         }
     }
 
-    FocusScope {
-        id: settingsContainer
+    Loader {
+        id: settingsViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
 
-        Component {
-            id: settingsComponent
-
-            SettingsPage {
-                anchors.fill: parent
-                focus: true
-                settingsObject: settings
-                onDone: destroy()
-                Keys.onEscapePressed: {
-                    destroy()
-                    internal.resetFocus()
-                }
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                settingsViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
             }
+        }
+
+        Keys.onEscapePressed: settingsViewLoader.active = false
+
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
+        sourceComponent: SettingsPage {
+            anchors.fill: parent
+            focus: true
+            settingsObject: settings
+            onDone: settingsViewLoader.active = false
         }
     }
 
