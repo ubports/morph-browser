@@ -19,7 +19,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-Column {
+Item {
     id: tabPreview
 
     property alias title: chrome.title
@@ -36,11 +36,11 @@ Column {
     signal selected()
     signal closed()
 
-
     TabChrome {
         id: chrome
 
         anchors {
+            top: parent.top
             left: parent.left
             right: parent.right
         }
@@ -52,10 +52,11 @@ Column {
 
     Item {
         anchors {
+            top: chrome.bottom
             left: parent.left
             right: parent.right
         }
-        height: parent.height - chrome.height
+        height: parent.height
 
         Rectangle {
             anchors.fill: parent
