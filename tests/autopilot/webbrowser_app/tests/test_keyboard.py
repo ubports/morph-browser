@@ -420,6 +420,24 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+f')
         self.assertThat(address_bar.findInPageMode, Equals(False))
 
+    def test_find_previous_and_next(self):
+        url = self.base_url + "/findinpage"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        address_bar.write("e")
+        counter = address_bar.get_find_in_page_counter()
+        self.assertThat(counter.count, Eventually(Equals(4)))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        for i in [2, 3, 4, 1, 2, 3, 4, 1, 2]:
+            self.main_window.press_key('Ctrl+g')
+            self.assertThat(counter.current, Eventually(Equals(i)))
+        for i in [1, 4, 3, 2, 1, 4, 3, 2]:
+            self.main_window.press_key('Ctrl+Shift+g')
+            self.assertThat(counter.current, Eventually(Equals(i)))
+
     def test_navigate_between_address_bar_and_new_tab_view(self):
         if not self.main_window.wide:
             self.skipTest("Only on wide form factors")

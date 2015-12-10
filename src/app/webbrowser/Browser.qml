@@ -1901,12 +1901,28 @@ BrowserView {
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
-        // Ctrl + F: Find in Page
+        // Ctrl+F: Find in Page
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
             enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
             onTriggered: chrome.findInPageMode = true
+        }
+
+        // Ctrl+Shift+G: Find previous
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.previous()
+        }
+
+        // Ctrl+G: Find next
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.next()
         }
     }
 }
