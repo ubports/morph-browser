@@ -67,6 +67,7 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void onFocusWindowChanged(QWindow* window);
+    void updateScreen();
 
 private:
     qreal m_screenDiagonal; // in millimeters
@@ -75,8 +76,6 @@ private:
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
     bool m_hostMappingRulesQueried;
-
-    void updateScreen(QScreen* screen);
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
@@ -88,18 +87,22 @@ UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheLocationChanged()));
     connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(dataLocationChanged()));
     connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheSizeHintChanged()));
-    updateScreen(qApp->focusWindow() ? qApp->focusWindow()->screen() : nullptr);
+    updateScreen();
     connect(qApp, SIGNAL(focusWindowChanged(QWindow*)), SLOT(onFocusWindowChanged(QWindow*)));
 }
 
-void UbuntuWebPluginContext::updateScreen(QScreen* screen)
+void UbuntuWebPluginContext::updateScreen()
 {
-    if (screen) {
-        QSizeF size = screen->physicalSize();
-        qreal diagonal = qSqrt(size.width() * size.width() + size.height() * size.height());
-        if (diagonal != m_screenDiagonal) {
-            m_screenDiagonal = diagonal;
-            Q_EMIT screenDiagonalChanged();
+    QWindow* window = qApp->focusWindow();
+    if (window) {
+        QScreen* screen = window->screen();
+        if (screen) {
+            QSizeF size = screen->physicalSize();
+            qreal diagonal = qSqrt(size.width() * size.width() + size.height() * size.height());
+            if (diagonal != m_screenDiagonal) {
+                m_screenDiagonal = diagonal;
+                Q_EMIT screenDiagonalChanged();
+            }
         }
     }
 }
@@ -241,7 +244,10 @@ int UbuntuWebPluginContext::devtoolsPort()
 
 void UbuntuWebPluginContext::onFocusWindowChanged(QWindow* window)
 {
-    updateScreen(window ? window->screen() : nullptr);
+    updateScreen();
+    if (window) {
+        connect(window, SIGNAL(screenChanged(QScreen*)), SLOT(updateScreen()));
+    }
 }
 
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
