@@ -52,11 +52,11 @@ function mimeTypeRegexForContentType(contentType) {
         case ContentType.Videos:
             return /video\/.*/;
         case ContentType.Contacts:
-            return /text\/x-vcard/;
+            return /text\/(x-vcard|vcard)/;
         case ContentType.EBooks:
             return /application\/(epub.*|vnd.amazon.ebook|x-mobipocket-ebook|x-fictionbook+xml|x-ms-reader)/;
         case ContentType.Documents:
-            return /(text\/.*|application\/pdf|application\/x-pdf|application\/vnd.pdf)/;
+            return /(text\/.*|application\/pdf|application\/x-pdf|application\/vnd\.pdf|application\/vnd\.oasis\.opendocument.*|application\/msword|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document|application\/vnd\.openxmlformats-officedocument\.spreadsheetml\.sheet|application\/vnd\.openxmlformats-officedocument\.presentationml\.presentation|application\/vnd\.ms-excel|application\/vnd\.ms-powerpoint)/;
         case ContentType.Unknown:
         case ContentType.All:
             return /.*/;
