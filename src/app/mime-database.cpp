@@ -39,8 +39,7 @@ QString MimeDatabase::filenameToMimeType(const QString& filename) const
 */
 QString MimeDatabase::iconForMimetype(const QString& mimetypeString) const
 {
-    QMimeDatabase mimedb;
-    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
+    QMimeType mimetype = m_database.mimeTypeForName(mimetypeString);
     if (mimetype.iconName().isEmpty() || !QIcon::hasThemeIcon(mimetype.iconName())) {
         if (QIcon::hasThemeIcon(mimetype.genericIconName())) {
             return mimetype.genericIconName();
@@ -57,8 +56,7 @@ QString MimeDatabase::iconForMimetype(const QString& mimetypeString) const
 */
 QString MimeDatabase::nameForMimetype(const QString& mimetypeString) const
 {
-    QMimeDatabase mimedb;
-    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
+    QMimeType mimetype = m_database.mimeTypeForName(mimetypeString);
     return mimetype.comment();
 }
 
