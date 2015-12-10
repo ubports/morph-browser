@@ -51,8 +51,11 @@ Column {
     }
 
     Item {
-        width: parent.width
-        height: parent.height
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+        height: parent.height - chrome.height
 
         Rectangle {
             anchors.fill: parent
