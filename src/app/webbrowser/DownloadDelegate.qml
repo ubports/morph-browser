@@ -81,7 +81,7 @@ ListItem {
                 asynchronous: true
                 anchors.fill: parent
                 anchors.margins: units.gu(0.2)
-                source: "image://theme/%1".arg(name)
+                source: "image://theme/%1".arg(name != "" ? name : "save")
                 visible: thumbimage.status !== Image.Ready
                 cache: true
                 property string name

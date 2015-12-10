@@ -44,7 +44,7 @@ QString MimeDatabase::iconForMimetype(const QString& mimetypeString) const
         if (QIcon::hasThemeIcon(mimetype.genericIconName())) {
             return mimetype.genericIconName();
         } else {
-            return "save";
+            return "";
         }
     } else {
         return mimetype.iconName();

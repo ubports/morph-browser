@@ -31,6 +31,7 @@ PopupBase {
     property var singleDownload
     property var mimeType
     property var filename
+    property var icon: MimeDatabase.iconForMimetype(mimeType)
     property alias contentType: peerPicker.contentType
 
     Component {
@@ -47,7 +48,7 @@ PopupBase {
 
                     Icon {
                         id: mimetypeIcon
-                        name: MimeDatabase.iconForMimetype(downloadDialog.mimeType)
+                        name: icon != "" ? icon : "save"
                         height: units.gu(4.5)
                         width: height
                     }
