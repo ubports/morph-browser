@@ -20,14 +20,12 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.8 as Oxide
-import Ubuntu.Content 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
-import "../MimeTypeMapper.js" as MimeTypeMapper
 import ".."
 import "."
 
@@ -1965,14 +1963,19 @@ BrowserView {
         }
     }
 
+    Loader {
+        id: contentHandlerLoader
+        source: "ContentHandler.qml"
+    }
+
     Connections {
-        target: ContentHub
-        onExportRequested: {
+        target: contentHandlerLoader.item
+        onExportFromDownloads: {
             if (downloadHandlerLoader.status == Loader.Ready) {
                 var downloadPage = showDownloadsPage()
-                downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
+                downloadPage.mimetypeFilter = mimetypeFilter
                 downloadPage.activeTransfer = transfer
-                downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple
+                downloadPage.multiSelect = multiSelect
                 downloadPage.pickingMode = true
             }
         }
