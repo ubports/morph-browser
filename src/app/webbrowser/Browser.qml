@@ -1308,12 +1308,12 @@ BrowserView {
         }
 
         function getOpenPages() {
-            var urls = [];
+            var urls = []
             for (var i = 0; i < tabsModel.count; i++) {
                 var url = tabsModel.get(i).url
-                if (url.length > 0) urls.push(url) // exclude "new tab" tabs
+                if (url.toString()) urls.push(url) // exclude "new tab" tabs
             }
-            return urls;
+            return urls
         }
 
         function instantiateShareComponent() {
