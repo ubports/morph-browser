@@ -27,7 +27,10 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QtGlobal>
+#include <QtCore/QtMath>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QScreen>
+#include <QtGui/QWindow>
 #include <QtQml>
 #include <QtQml/QQmlInfo>
 
@@ -38,6 +41,7 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
+    Q_PROPERTY(qreal screenDiagonal READ screenDiagonal NOTIFY screenDiagonalChanged)
     Q_PROPERTY(int cacheSizeHint READ cacheSizeHint NOTIFY cacheSizeHintChanged)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
@@ -49,6 +53,7 @@ public:
     QString cacheLocation() const;
     QString dataLocation() const;
     QString formFactor();
+    qreal screenDiagonal() const;
     int cacheSizeHint() const;
     QString devtoolsHost();
     int devtoolsPort();
@@ -57,27 +62,46 @@ public:
 Q_SIGNALS:
     void cacheLocationChanged() const;
     void dataLocationChanged() const;
+    void screenDiagonalChanged() const;
     void cacheSizeHintChanged() const;
 
+private Q_SLOTS:
+    void onFocusWindowChanged(QWindow* window);
+
 private:
+    qreal m_screenDiagonal; // in millimeters
     QString m_formFactor;
     QString m_devtoolsHost;
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
     bool m_hostMappingRulesQueried;
+
+    void updateScreen(QScreen* screen);
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     : QObject(parent)
+    , m_screenDiagonal(0)
     , m_devtoolsPort(-2)
     , m_hostMappingRulesQueried(false)
 {
-    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
-            this, SIGNAL(cacheLocationChanged()));
-    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
-            this, SIGNAL(dataLocationChanged()));
-    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
-            this, SIGNAL(cacheSizeHintChanged()));
+    connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheLocationChanged()));
+    connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(dataLocationChanged()));
+    connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheSizeHintChanged()));
+    updateScreen(qApp->focusWindow() ? qApp->focusWindow()->screen() : nullptr);
+    connect(qApp, SIGNAL(focusWindowChanged(QWindow*)), SLOT(onFocusWindowChanged(QWindow*)));
+}
+
+void UbuntuWebPluginContext::updateScreen(QScreen* screen)
+{
+    if (screen) {
+        QSizeF size = screen->physicalSize();
+        qreal diagonal = qSqrt(size.width() * size.width() + size.height() * size.height());
+        if (diagonal != m_screenDiagonal) {
+            m_screenDiagonal = diagonal;
+            Q_EMIT screenDiagonalChanged();
+        }
+    }
 }
 
 QString UbuntuWebPluginContext::cacheLocation() const
@@ -134,6 +158,11 @@ QString UbuntuWebPluginContext::formFactor()
         }
     }
     return m_formFactor;
+}
+
+qreal UbuntuWebPluginContext::screenDiagonal() const
+{
+    return m_screenDiagonal;
 }
 
 int UbuntuWebPluginContext::cacheSizeHint() const
@@ -208,6 +237,11 @@ int UbuntuWebPluginContext::devtoolsPort()
         }
     }
     return m_devtoolsPort;
+}
+
+void UbuntuWebPluginContext::onFocusWindowChanged(QWindow* window)
+{
+    updateScreen(window ? window->screen() : nullptr);
 }
 
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
