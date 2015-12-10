@@ -53,6 +53,7 @@ Item {
     Item {
         anchors {
             top: chrome.bottom
+            topMargin: units.dp(-1)
             left: parent.left
             right: parent.right
         }
