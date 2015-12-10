@@ -116,8 +116,9 @@ FocusScope {
     }
 
     function close() {
+        var _url = url
         unload()
-        PreviewManager.checkDelete(url)
+        PreviewManager.checkDelete(_url)
         destroy()
     }
 
