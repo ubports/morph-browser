@@ -42,7 +42,7 @@ Item {
     property bool selectMode
     property bool pickingMode
     property bool multiSelect
-    property alias mimetypeFilter: downloadsMimetypeModel.mimetype
+    property alias mimetypeFilter: downloadModelFilter.pattern
 
     signal done()
 
@@ -154,9 +154,12 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        model: DownloadsMimetypeModel {
-            id: downloadsMimetypeModel
-            sourceModel: downloadsModel
+        model: SortFilterModel {
+            model: downloadsModel
+            filter { 
+                id: downloadModelFilter
+                property: "mimetype"
+            }
         }
 
         delegate: DownloadDelegate {

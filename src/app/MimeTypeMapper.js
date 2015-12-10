@@ -46,19 +46,19 @@ function mimeTypeToContentType(mimeType) {
 function mimeTypeRegexForContentType(contentType) {
     switch (contentType) {
         case ContentType.Pictures:
-            return "image/.*";
+            return /image\/.*/;
         case ContentType.Music:
-            return "audio/.*";
+            return /audio\/.*/;
         case ContentType.Videos:
-            return "video/.*";
+            return /video\/.*/;
         case ContentType.Contacts:
-            return "text/x-vcard";
+            return /text\/x-vcard/;
         case ContentType.EBooks:
-            return "application/(epub.*|vnd.amazon.ebook|x-mobipocket-ebook|x-fictionbook+xml|x-ms-reader)";
+            return /application\/(epub.*|vnd.amazon.ebook|x-mobipocket-ebook|x-fictionbook+xml|x-ms-reader)/;
         case ContentType.Documents:
-            return "(text/.*|application/pdf|application/x-pdf|application/vnd.pdf)";
+            return /(text\/.*|application\/pdf|application\/x-pdf|application\/vnd.pdf)/;
         case ContentType.Unknown:
         case ContentType.All:
-            return ".*";
+            return /.*/;
     }
 }
