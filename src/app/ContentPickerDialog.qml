@@ -57,7 +57,7 @@ Component {
                         var downloadPage = browser.showDownloadsPage()
                         downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
                         downloadPage.multiSelect = model.allowMultipleFiles
-                        downloadPage.selectMode = true
+                        downloadPage.pickingMode = true
                         downloadPage.internalFilePicker = model
                         Popups.PopupUtils.close(picker)
                     } else {
