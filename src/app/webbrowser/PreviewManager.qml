@@ -30,9 +30,7 @@ Item {
         id: topSites
         limit: 10
         sourceModel: TopSitesModel {
-            sourceModel: HistoryTimeframeModel {
-                sourceModel: HistoryModel
-            }
+            model: HistoryModel
         }
         function contains(url) {
             for (var i = 0; i < topSites.count; i++) {

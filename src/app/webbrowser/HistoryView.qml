@@ -37,7 +37,7 @@ Item {
         // the view is displayed as early as possible.
         id: loadModelTimer
         interval: 1
-        onTriggered: historyTimeframeModel.sourceModel = HistoryModel
+        onTriggered: historyDomainListModel.sourceModel = HistoryModel
     }
 
     function loadModel() { loadModelTimer.restart() }
@@ -53,12 +53,12 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        model: HistoryDomainListChronologicalModel {
-            sourceModel: HistoryDomainListModel {
-                sourceModel: HistoryTimeframeModel {
-                    id: historyTimeframeModel
-                }
+        model: SortFilterModel {
+            model: HistoryDomainListModel {
+                id: historyDomainListModel
             }
+            sort.property: "lastVisit"
+            sort.order: Qt.DescendingOrder
         }
 
         section.property: "lastVisitDate"

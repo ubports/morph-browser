@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,7 +19,6 @@
 #include "history-domain-model.h"
 #include "history-domainlist-model.h"
 #include "history-model.h"
-#include "history-timeframe-model.h"
 
 // Qt
 #include <QtCore/QStringList>
@@ -29,7 +28,7 @@
     \brief List model that exposes history entries grouped by domain name
 
     HistoryDomainListModel is a list model that exposes history entries from a
-    HistoryTimeframeModel grouped by domain name. Each item in the list has
+    HistoryModel grouped by domain name. Each item in the list has
     three roles: 'domain' for the domain name, 'lastVisit' for the timestamp
     of the last page visited in this domain, and 'entries' for the corresponding
     HistoryDomainModel that contains all entries in this group.
@@ -91,12 +90,12 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     }
 }
 
-HistoryTimeframeModel* HistoryDomainListModel::sourceModel() const
+HistoryModel* HistoryDomainListModel::sourceModel() const
 {
     return m_sourceModel;
 }
 
-void HistoryDomainListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryDomainListModel::setSourceModel(HistoryModel* sourceModel)
 {
     if (sourceModel != m_sourceModel) {
         beginResetModel();

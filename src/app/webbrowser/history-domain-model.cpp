@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,7 +18,6 @@
 
 #include "history-domain-model.h"
 #include "history-model.h"
-#include "history-timeframe-model.h"
 
 // Qt
 #include <QtCore/QUrl>
@@ -46,12 +45,12 @@ HistoryDomainModel::HistoryDomainModel(QObject* parent)
     connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), SLOT(onModelChanged()));
 }
 
-HistoryTimeframeModel* HistoryDomainModel::sourceModel() const
+HistoryModel* HistoryDomainModel::sourceModel() const
 {
-    return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
+    return qobject_cast<HistoryModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryDomainModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryDomainModel::setSourceModel(HistoryModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);

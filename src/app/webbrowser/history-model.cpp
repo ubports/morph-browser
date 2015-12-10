@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -150,6 +150,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
         roles[Visits] = "visits";
         roles[LastVisit] = "lastVisit";
         roles[LastVisitDate] = "lastVisitDate";
+        roles[LastVisitDateString] = "lastVisitDateString";
         roles[Hidden] = "hidden";
     }
     return roles;
@@ -182,6 +183,8 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
         return entry.lastVisit;
     case LastVisitDate:
         return entry.lastVisit.toLocalTime().date();
+    case LastVisitDateString:
+        return entry.lastVisit.toLocalTime().date().toString(Qt::ISODate);
     case Hidden:
         return entry.hidden;
     default:
@@ -261,6 +264,10 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
             }
             count = ++entry.visits;
             if (now != entry.lastVisit) {
+                if (now.date() != entry.lastVisit.date()) {
+                    roles << LastVisitDate;
+                    roles << LastVisitDateString;
+                }
                 entry.lastVisit = now;
                 roles << LastVisit;
             }
@@ -279,6 +286,7 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
             if (now != entry.lastVisit) {
                 if (now.date() != entry.lastVisit.date()) {
                     roles << LastVisitDate;
+                    roles << LastVisitDateString;
                 }
                 entry.lastVisit = now;
                 roles << LastVisit;

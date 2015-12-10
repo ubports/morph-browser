@@ -148,7 +148,9 @@ int TabsModel::insert(QObject* tab, int index)
         m_currentIndex = 0;
         Q_EMIT currentIndexChanged();
         Q_EMIT currentTabChanged();
-    } else if (index <= m_currentIndex) {
+    } else if (index == m_currentIndex) {
+        Q_EMIT currentTabChanged();
+    } else if (index < m_currentIndex) {
         // Increment the index if we are inserting items before the current index.
         m_currentIndex++;
         Q_EMIT currentIndexChanged();

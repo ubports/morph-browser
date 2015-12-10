@@ -1,3 +1,24 @@
+webbrowser-app (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Fix 3 autopilot test failures on desktop in narrow mode. (LP:
+    #1522344)
+  * Fix multiple keyboard focus/shortcut issues. (LP: #1522776,
+    #1522783, #1522757, #1522767)
+  * Replace custom models (HistoryDomainListChronologicalModel,
+    HistoryLastVisitDateModel and TopSitesModel) with simple, pure QML
+    SortFilterModel instances. Remove entirely HistoryTimeframeModel
+    which was not needed any longer. (LP: #1480947)
+  * Skip a test that requires HTTPS support in the test suite, which is
+    lacking for now.
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 04 Dec 2015 11:06:50 +0000
+
 webbrowser-app (0.23+16.04.20151130-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

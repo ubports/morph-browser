@@ -345,6 +345,61 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         new_tab_view = self.main_window.get_new_tab_view()
         self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
 
+    def test_search_in_history(self):
+        if not self.main_window.wide:
+            self.skipTest("Only on wide form factors")
+
+        self.assertThat(self.main_window.get_history_view(), Equals(None))
+        self.main_window.press_key('Ctrl+h')
+        self.assertThat(lambda: self.main_window.get_history_view(),
+                        Eventually(NotEquals(None)))
+        history_view = self.main_window.get_history_view()
+
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(history_view.searchMode, Eventually(Equals(True)))
+        search_field = history_view.get_search_field()
+        self.assertThat(search_field.visible, Equals(True))
+        self.assertThat(search_field.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Escape')
+        self.assertThat(history_view.searchMode, Eventually(Equals(False)))
+        self.assertThat(search_field.visible, Equals(False))
+
+        self.main_window.press_key('Escape')
+        history_view.wait_until_destroyed()
+
+    def test_open_history_exits_findinpage(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+h')
+        self.assertThat(lambda: self.main_window.get_history_view(),
+                        Eventually(NotEquals(None)))
+        history_view = self.main_window.get_history_view()
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        history_view.wait_until_destroyed()
+
+    def test_open_bookmarks_exits_findinpage(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+Shift+o')
+        self.assertThat(lambda: self.main_window.get_bookmarks_view(),
+                        Eventually(NotEquals(None)))
+        bookmarks_view = self.main_window.get_bookmarks_view()
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
@@ -364,3 +419,21 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.open_new_tab()
         self.main_window.press_key('Ctrl+f')
         self.assertThat(address_bar.findInPageMode, Equals(False))
+
+    def test_navigate_between_address_bar_and_new_tab_view(self):
+        if not self.main_window.wide:
+            self.skipTest("Only on wide form factors")
+
+        address_bar = self.main_window.chrome.address_bar
+
+        self.main_window.press_key('Ctrl+t')
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Down')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        self.assertThat(new_tab_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Up')
+        self.assertThat(new_tab_view.activeFocus, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))

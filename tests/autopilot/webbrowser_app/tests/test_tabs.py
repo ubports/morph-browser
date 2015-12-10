@@ -282,10 +282,9 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_undo_close_tab(self):
-        tabs = self.main_window.chrome.get_tabs_bar()
         url0 = self.main_window.get_current_webview().url
 
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
         url1 = self.base_url + "/tab/1"
         self.main_window.go_to_url(url1)
         self.main_window.wait_until_page_loaded(url1)
@@ -293,19 +292,19 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
         # Insert a "new tab view" page in the middle, without any page loaded
         # so that we can verify that it will not be restored
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
 
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
         url2 = self.base_url + "/tab/2"
         self.main_window.go_to_url(url2)
         self.main_window.wait_until_page_loaded(url2)
         self.assert_number_webviews_eventually(4)
 
-        tabs.close_tab(3)
+        self.main_window.press_key('Ctrl+w')
         self.assert_number_webviews_eventually(3)
-        tabs.close_tab(2)
+        self.main_window.press_key('Ctrl+w')
         self.assert_number_webviews_eventually(2)
-        tabs.close_tab(1)
+        self.main_window.press_key('Ctrl+w')
         self.assert_number_webviews_eventually(1)
         self.check_current_tab(url0)
 
@@ -325,7 +324,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_undo_close_tab_incognito(self):
         start_url = self.main_window.get_current_webview().url
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
         url = self.base_url + "/tab/1"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
@@ -341,7 +340,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.main_window.go_to_url(incognito_url)
         self.main_window.wait_until_page_loaded(incognito_url)
 
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
         self.main_window.go_to_url(incognito_url)
         self.main_window.wait_until_page_loaded(incognito_url)
         self.main_window.press_key('Ctrl+w')
