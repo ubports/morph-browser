@@ -96,6 +96,7 @@ Item {
                 top: parent.top
                 topMargin: -chrome.height
             }
+            clip: true
             height: sourceSize.height
             fillMode: Image.Pad
             source: tabPreview.tab ? tabPreview.tab.preview : ""
