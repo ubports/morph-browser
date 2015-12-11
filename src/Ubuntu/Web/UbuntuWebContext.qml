@@ -73,8 +73,12 @@ Oxide.WebContext {
         onSmallScreenChanged: reloadOverrides()
         Component.onCompleted: reloadOverrides()
 
+        property string _target: ""
+
         function reloadOverrides() {
             var target = smallScreen ? "mobile" : "desktop"
+            if (target == _target) return
+            _target = target
             var script = "ua-overrides-%1.js".arg(target)
             var temp = null
             try {
