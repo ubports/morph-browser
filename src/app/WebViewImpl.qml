@@ -36,6 +36,8 @@ WebView {
     beforeUnloadDialog: BeforeUnloadDialog {}
     filePicker: filePickerLoader.item
 
+    signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
+
     QtObject {
         id: internal
 
@@ -97,6 +99,13 @@ WebView {
         id: downloadLoader
         source: "Downloader.qml"
         asynchronous: true
+    }
+
+    Connections {
+        target: downloadLoader.item
+        onShowDownloadDialog: {
+            showDownloadDialog(downloadId, contentType, downloader, filename, mimeType)
+        }
     }
 
     function requestGeolocationPermission(request) {

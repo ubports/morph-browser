@@ -30,10 +30,7 @@ Item {
     property string filename
     property string mimeType
 
-    Component {
-        id: downloadDialog
-        ContentDownloadDialog { }
-    }
+    signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
     Component {
         id: metadataComponent
@@ -49,28 +46,12 @@ Item {
             autoStart: false
             property var contentType
             property string url
-            property bool browserDownload: false
-            // DownloadId gets cleared when finished, but we still need a
-            // copy to identify the download we've just finished in the database
-            property string currentDownloadId
-            onDownloadIdChanged: {
-                currentDownloadId = downloadId
-                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType,
-                                                               "downloadId" : downloadId,
-                                                               "singleDownload" : downloader,
-                                                               "filename" : downloadItem.filename,
-                                                               "mimeType" : downloadItem.mimeType})
-            }
 
-            function startBrowserDownload() {
-                browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
-                browserDownload = true
-                start()
-                browser.showDownloadsPage()
+            onDownloadIdChanged: {
+                showDownloadDialog(downloadId, contentType, downloader, downloadItem.filename, downloadItem.mimeType)
             }
 
             onFinished: {
-                metadata.destroy()
                 destroy()
             }
         }

@@ -1286,6 +1286,24 @@ BrowserView {
                         Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
+
+                onShowDownloadDialog: {
+                    if (downloadDialogLoader.status === Loader.Ready) {
+                        var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
+                                                                                                  "downloadId" : downloadId,
+                                                                                                  "singleDownload" : downloader,
+                                                                                                  "filename" : filename,
+                                                                                                  "mimeType" : mimeType})
+                        downloadDialog.startDownload.connect(startDownload)
+                    }
+                }
+
+                function startDownload(downloadId, download, mimeType) {
+                    downloadsModel.add(downloadId, download.url, mimeType)
+                    download.start()
+                    showDownloadsPage()
+                }
+
             }
         }
     }
@@ -1979,6 +1997,12 @@ BrowserView {
                 downloadPage.pickingMode = true
             }
         }
+    }
+
+    Loader {
+        id: downloadDialogLoader
+        source: "ContentDownloadDialog.qml"
+        asynchronous: true
     }
 
     function showDownloadsPage() {
