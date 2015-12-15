@@ -40,24 +40,14 @@ Item {
         }
         function containsHash(hash) {
             for (var i = 0; i < topSites.count; i++) {
-                if (internal.urlHash(topSites.get(i).url) == hash) return true
+                if (Qt.md5(topSites.get(i).url) == hash) return true
             }
             return false
         }
     }
 
-    QtObject {
-        id: internal
-
-        function urlHash(url) {
-            // remove the fragment (consider equal two URLs
-            // that differ only by their fragments)
-            return Qt.md5(url.toString().split('#', 1)[0])
-        }
-    }
-
     function previewPathFromUrl(url) {
-        return "%1/%2.png".arg(capturesDir).arg(internal.urlHash(url))
+        return "%1/%2.png".arg(capturesDir).arg(Qt.md5(url))
     }
 
     function saveToDisk(data, url) {
@@ -85,7 +75,7 @@ Item {
     function cleanUnusedPreviews(doNotCleanUrls) {
         var dir = Qt.resolvedUrl(capturesDir)
         var previews = FileOperations.filesInDirectory(dir, ["*.png", "*.jpg"])
-        var doNotCleanHashes = doNotCleanUrls.map(internal.urlHash)
+        var doNotCleanHashes = doNotCleanUrls.map(function(url) { return Qt.md5(url) })
         for (var i in previews) {
             var preview = previews[i]
             var hash = preview.split('.')[0]
