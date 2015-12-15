@@ -170,7 +170,7 @@ Item {
             icon: MimeDatabase.iconForMimetype(model.mimetype)
             incomplete: !model.complete
             selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
-            visible: !((downloadsItem.selectMode || downloadsItem.pickingMode) && incomplete)
+            visible: !(selectMode && incomplete)
             errorMessage: model.error
             paused: model.paused
             // Work around bug #1493880
