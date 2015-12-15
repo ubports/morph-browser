@@ -73,7 +73,7 @@ Component {
                 }
 
                 onCancelPressed: {
-                    webview.focus = true
+                    model.reject()
                 }
             }
         }
