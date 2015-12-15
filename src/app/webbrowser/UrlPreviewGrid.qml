@@ -40,8 +40,6 @@ GridView {
     cellWidth: previewWidth + horizontalMargin * 2
     cellHeight: previewHeight + verticalMargin * 2 + units.gu(4) // height of text + favicon + margins in delegate
 
-    implicitHeight: contentItem.childrenRect.height
-
     delegate: UrlPreviewDelegate {
         objectName: "topSiteItem"
         width: grid.cellWidth

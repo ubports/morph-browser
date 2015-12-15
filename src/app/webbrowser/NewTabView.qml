@@ -275,7 +275,7 @@ Item {
                     // reassigning it to all Column children except this one.
                     rightMargin: - contentColumn.anchors.rightMargin
                 }
-                height: childrenRect.height
+                height: grid.contentHeight + units.gu(1)
                 clip: true
 
                 UrlPreviewGrid {
@@ -287,6 +287,7 @@ Item {
                         right: parent.right
                         top: parent.top
                         topMargin: units.gu(2)
+                        bottom: parent.bottom
                     }
 
                     horizontalMargin: units.gu(1)
