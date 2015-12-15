@@ -545,7 +545,7 @@ BrowserView {
                 iconName: "save"
                 enabled: downloadHandlerLoader.status == Loader.Ready
                 onTriggered: {
-                    showDownloadsPage()
+                    currentWebview.showDownloadsPage()
                 }
             },
             Action {
@@ -1299,6 +1299,11 @@ BrowserView {
                     }
                 }
 
+                function showDownloadsPage() {
+                    downloadsContainer.focus = true
+                    return downloadsComponent.createObject(downloadsContainer)
+                }
+
                 function startDownload(downloadId, download, mimeType) {
                     downloadsModel.add(downloadId, download.url, mimeType)
                     download.start()
@@ -1978,7 +1983,7 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_J
             enabled: chrome.visible && !downloadsContainer.visible
-            onTriggered: showDownloadsPage()
+            onTriggered: currentWebview.showDownloadsPage()
         }
     }
 
@@ -1991,7 +1996,8 @@ BrowserView {
         target: contentHandlerLoader.item
         onExportFromDownloads: {
             if (downloadHandlerLoader.status == Loader.Ready) {
-                var downloadPage = showDownloadsPage()
+                downloadsContainer.focus = true
+                var downloadPage = downloadsComponent.createObject(downloadsContainer)
                 downloadPage.mimetypeFilter = mimetypeFilter
                 downloadPage.activeTransfer = transfer
                 downloadPage.multiSelect = multiSelect
@@ -2004,11 +2010,6 @@ BrowserView {
         id: downloadDialogLoader
         source: "ContentDownloadDialog.qml"
         asynchronous: true
-    }
-
-    function showDownloadsPage() {
-        downloadsContainer.focus = true
-        return downloadsComponent.createObject(downloadsContainer)
     }
 
     Loader {

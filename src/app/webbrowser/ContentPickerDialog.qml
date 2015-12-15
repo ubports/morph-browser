@@ -54,7 +54,7 @@ Component {
                         // If we're inside the browser and the user has
                         // requested content from the browser then we
                         // need to handle the transfer internally
-                        var downloadPage = browser.showDownloadsPage()
+                        var downloadPage = WebView.view.showDownloadsPage()
                         downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
                         downloadPage.multiSelect = model.allowMultipleFiles
                         downloadPage.selectMode = false
