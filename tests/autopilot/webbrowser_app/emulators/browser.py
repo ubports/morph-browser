@@ -158,8 +158,12 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        objectName="contentPickerDialog")
 
     def get_download_dialog(self):
-        return self.wait_select_single(ContentDownloadDialog,
+        return self.wait_select_single("PopupBase",
                                        objectName="downloadDialog")
+
+    def get_peer_picker(self):
+        return self.wait_select_single("ContentPeerPicker10",
+                                       objectName="contentPeerPicker")
 
     def get_download_options_dialog(self):
         return self.wait_select_single("Dialog",
@@ -532,13 +536,6 @@ class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_header(self):
         return self.select_single(BrowserPageHeader)
-
-
-class ContentDownloadDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_picker(self):
-        return self.wait_select_single("ContentPeerPicker10",
-                                       objectName="contentPeerPicker")
 
 
 class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):

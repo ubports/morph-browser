@@ -65,7 +65,7 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         options_dialog = self.main_window.get_download_options_dialog()
         self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.main_window.click_choose_app_button()
-        picker = dialog.get_picker()
+        picker = self.main_window.get_peer_picker()
         self.assertThat(picker.visible, Eventually(Equals(True)))
 
     def test_download(self):
