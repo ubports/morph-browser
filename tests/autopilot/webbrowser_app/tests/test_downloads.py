@@ -24,7 +24,8 @@ from testtools.matchers import Equals
 import testtools
 
 
-@testtools.skipIf(model() == "Desktop", "Don't run on desktop, as dependencies aren't guaranteed")
+@testtools.skipIf(model() == "Desktop", "Don't run on desktop, as "
+                                        "dependencies aren't guaranteed")
 class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_open_close_downloads_page(self):
@@ -61,7 +62,6 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_picker(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
-        dialog = self.main_window.get_download_dialog()
         options_dialog = self.main_window.get_download_options_dialog()
         self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.main_window.click_choose_app_button()
