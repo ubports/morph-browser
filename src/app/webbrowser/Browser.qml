@@ -995,6 +995,7 @@ BrowserView {
                 readonly property bool current: tab.current
 
                 currentWebview: browser.currentWebview
+                filePicker: filePickerLoader.item
 
                 anchors.fill: parent
                 focus: true
@@ -2009,4 +2010,11 @@ BrowserView {
         downloadsContainer.focus = true
         return downloadsComponent.createObject(downloadsContainer)
     }
+
+    Loader {
+        id: filePickerLoader
+        source: "ContentPickerDialog.qml"
+        asynchronous: true
+    }
+
 }

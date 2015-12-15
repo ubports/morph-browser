@@ -53,6 +53,7 @@ WebViewImpl {
     property bool runningLocalApplication: false
 
     currentWebview: webview
+    filePicker: filePickerLoader.item
 
     context: WebContext {
         dataPath: webview.dataPath
@@ -268,6 +269,12 @@ WebViewImpl {
     Loader {
         id: downloadDialogLoader
         source: "ContentDownloadDialog.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: filePickerLoader
+        source: "ContentPickerDialog.qml"
         asynchronous: true
     }
 

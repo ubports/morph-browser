@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3 as Popups
 import Ubuntu.Content 1.0
-import "MimeTypeMapper.js" as MimeTypeMapper
+import "../MimeTypeMapper.js" as MimeTypeMapper
 
 Component {
     Popups.PopupBase {
@@ -50,13 +50,14 @@ Component {
                 handler: ContentHandler.Source
 
                 onPeerSelected: {
-                    if (typeof(webapp) == "undefined" && peer.appId == "webbrowser-app") {
+                    if (peer.appId == "webbrowser-app") {
                         // If we're inside the browser and the user has
                         // requested content from the browser then we
                         // need to handle the transfer internally
                         var downloadPage = browser.showDownloadsPage()
                         downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
                         downloadPage.multiSelect = model.allowMultipleFiles
+                        downloadPage.selectMode = false
                         downloadPage.pickingMode = true
                         downloadPage.internalFilePicker = model
                         Popups.PopupUtils.close(picker)
@@ -73,7 +74,6 @@ Component {
 
                 onCancelPressed: {
                     webview.focus = true
-                    model.reject()
                 }
             }
         }

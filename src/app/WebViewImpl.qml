@@ -34,7 +34,6 @@ WebView {
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
-    filePicker: filePickerLoader.item
 
     signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
@@ -87,12 +86,6 @@ WebView {
     onHttpAuthenticationRequested: {
         PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"),
                         webview.currentWebview, {"request": request})
-    }
-
-    Loader {
-        id: filePickerLoader
-        source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
-        asynchronous: true
     }
 
     Loader {
