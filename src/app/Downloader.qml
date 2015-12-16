@@ -50,10 +50,6 @@ Item {
             onDownloadIdChanged: {
                 showDownloadDialog(downloadId, contentType, downloader, downloadItem.filename, downloadItem.mimeType)
             }
-
-            onFinished: {
-                destroy()
-            }
         }
     }
 
