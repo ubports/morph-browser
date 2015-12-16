@@ -29,14 +29,14 @@ import Ubuntu.Components.ListItems 1.3 as ListItem
  * displays action icons on the right of header.
  */
 
-Column {
+Item {
     id: root
     signal back()
     property string text
     property alias actions: actionBar.actions
     property alias color: title.color
 
-    height: childrenRect.height
+    height: title.height + divider.height
 
     anchors {
         left: parent.left
