@@ -21,7 +21,7 @@ import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Thumbnailer 0.1
-import Ubuntu.Content 1.0
+import Ubuntu.Content 1.3
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
