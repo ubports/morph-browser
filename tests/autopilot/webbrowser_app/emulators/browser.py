@@ -162,8 +162,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        objectName="downloadDialog")
 
     def get_peer_picker(self):
-        return self.wait_select_single("ContentPeerPicker10",
-                                       objectName="contentPeerPicker")
+        return self.wait_select_single(objectName="contentPeerPicker")
 
     def get_download_options_dialog(self):
         return self.wait_select_single("Dialog",
