@@ -136,4 +136,13 @@ Popups.Popover {
             contextModel.close()
         }
     }
+
+    Binding {
+        // Ensure the context menu doesn’t steal focus from
+        // the webview when one of its actions is activated
+        // (https://launchpad.net/bugs/1526884).
+        target: __foreground
+        property: "activeFocusOnPress"
+        value: false
+    }
 }
