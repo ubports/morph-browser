@@ -71,6 +71,9 @@ ListItem {
             Image {
                 id: thumbimage
                 asynchronous: true
+                width: parent.width
+                height: parent.height
+                fillMode: Image.PreserveAspectFit
                 sourceSize.width: parent.width
                 sourceSize.height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
