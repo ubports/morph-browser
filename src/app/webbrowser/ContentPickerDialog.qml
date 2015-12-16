@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3 as Popups
 import Ubuntu.Content 1.0
+import com.canonical.Oxide 1.8
 import "../MimeTypeMapper.js" as MimeTypeMapper
 
 Component {
@@ -54,7 +55,7 @@ Component {
                         // If we're inside the browser and the user has
                         // requested content from the browser then we
                         // need to handle the transfer internally
-                        var downloadPage = WebView.view.showDownloadsPage()
+                        var downloadPage = picker.WebView.view.showDownloadsPage()
                         downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
                         downloadPage.multiSelect = model.allowMultipleFiles
                         downloadPage.selectMode = false
