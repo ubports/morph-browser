@@ -26,6 +26,13 @@ UbuntuTestCase {
         mouseClick(item, center.x, center.y, button)
     }
 
+    function longPressItem(item, button) {
+        if (button === undefined) button = Qt.LeftButton
+        var center = centerOf(item)
+        mouseLongPress(item, center.x, center.y, button)
+        mouseRelease(item, center.x, center.y, button)
+    }
+
     function getListItems(listview, itemName) {
         waitForRendering(listview)
         var items = []

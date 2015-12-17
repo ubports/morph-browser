@@ -29,6 +29,8 @@
 #include "bookmarks-folderlist-model.h"
 #include "favicon-fetcher.h"
 #include "file-operations.h"
+#include "history-domain-model.h"
+#include "history-domainlist-model.h"
 #include "history-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "limit-proxy-model.h"
@@ -190,6 +192,8 @@ int main(int argc, char** argv)
     qmlRegisterSingletonType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel", BookmarksModel_singleton_factory);
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterSingletonType<HistoryModel>(browserUri, 0, 1, "HistoryModel", HistoryModel_singleton_factory);
+    qmlRegisterType<HistoryDomainModel>(browserUri, 0, 1, "HistoryDomainModel");
+    qmlRegisterType<HistoryDomainListModel>(browserUri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
     qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
