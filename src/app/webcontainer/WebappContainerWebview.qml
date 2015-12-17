@@ -43,6 +43,8 @@ Item {
 
     signal samlRequestUrlPatternReceived(string urlPattern)
 
+    onWideChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.wide = wide
+
     PopupWindowController {
         id: popupController
         objectName: "popupController"

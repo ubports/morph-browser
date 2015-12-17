@@ -127,11 +127,6 @@ class TestContextMenuLink(TestContextMenuBase):
     def test_copy_link(self):
         self.menu.click_action("CopyLinkContextualAction")
 
-    @testtools.skipIf(model() == "Desktop", "on devices only")
-    def test_share_link(self):
-        self.menu.click_action("ShareContextualAction")
-        self.main_window.wait_select_single("ContentShareDialog")
-
 
 class TestContextMenuImage(TestContextMenuBase):
 
@@ -168,11 +163,6 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
         self.menu.click_action("CopyLinkContextualAction")
-
-    @testtools.skipIf(model() == "Desktop", "on devices only")
-    def test_share_link(self):
-        self.menu.click_action("ShareContextualAction")
-        self.main_window.wait_select_single("ContentShareDialog")
 
     def test_copy_image(self):
         # There is no easy way to test the contents of the clipboard,
