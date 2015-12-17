@@ -39,6 +39,7 @@ Item {
     property url webviewOverrideFile: ""
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
+    property bool wide: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
 
@@ -87,7 +88,8 @@ Item {
                     , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
                     , runningLocalApplication: containerWebview.runningLocalApplication
                     , popupController: popupController
-                    , overlayViewsParent: containerWebview.parent})
+                    , overlayViewsParent: containerWebview.parent
+                    , wide: containerWebview.wide})
     }
 }
 

@@ -26,6 +26,8 @@ Popups.Dialog {
     property QtObject contextModel: model
     property ActionList actions: null
 
+    objectName: "contextMenuMobile"
+
     QtObject {
         id: internal
         readonly property bool isImage: (contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
@@ -43,6 +45,22 @@ Popups.Dialog {
         }
         height: units.gu(2 * title.lineCount + 3)
         visible: title.text
+
+        Icon {
+            width: units.gu(2)
+            height: units.gu(2)
+            anchors {
+                top: parent.top
+                topMargin: units.gu(2)
+            }
+            name: internal.isImage ? "stock_image" : ""
+            // work around the lack of a standard stock_link symbolic icon in the theme
+            Component.onCompleted: {
+                if (!name) {
+                    source = "assets/stock_link.svg"
+                }
+            }
+        }
 
         Label {
             id: title

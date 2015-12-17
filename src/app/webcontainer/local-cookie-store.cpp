@@ -26,7 +26,6 @@
 #include <QStandardPaths>
 
 static int connectionCounter = 0;
-
 static qint64 dateTimeToChrome(const QDateTime &time)
 {
     /* Chrome uses Mon Jan 01 00:00:00 UTC 1601 as the epoch, hence the

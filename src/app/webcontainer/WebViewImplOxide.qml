@@ -37,6 +37,7 @@ WebViewImpl {
     property url dataPath
     property var popupController
     property var overlayViewsParent: webview.parent
+    property bool wide: false
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -68,6 +69,11 @@ WebViewImpl {
 
     property QtObject contextModel: null
     contextualActions: ActionList {
+        Actions.OpenLinkInWebBrowser {
+            objectName: "OpenLinkInWebBrowser"
+            enabled: contextModel && contextModel.linkUrl.toString()
+            onTriggered: openUrlExternally(contextModel.linkUrl)
+        }
         Actions.CopyLink {
             enabled: webview.contextModel && webview.contextModel.linkUrl.toString()
             onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
@@ -124,14 +130,21 @@ WebViewImpl {
         }
     }
     function contextMenuOnCompleted(menu) {
+        if (!menu || !menu.contextModel) {
+            return
+        }
         contextModel = menu.contextModel
+
+        var isImageMediaType =
+                ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                 (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas))
+             && contextModel.hasImageContents;
+
         if (contextModel.linkUrl.toString() ||
             contextModel.srcUrl.toString() ||
             contextModel.selectionText ||
             (contextModel.isEditable && contextModel.editFlags) ||
-            (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
-              (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
-             contextModel.hasImageContents)) {
+            isImageMediaType) {
             menu.show()
         } else {
             contextModel.close()
@@ -144,7 +157,16 @@ WebViewImpl {
             Component.onCompleted: webview.contextMenuOnCompleted(this)
         }
     }
-    contextMenu: contextMenuNarrowComponent
+    Component {
+        id: contextMenuWideComponent
+        ContextMenuWide {
+            associatedWebview: webview
+            parent: browser
+            actions: contextualActions
+            Component.onCompleted: webview.contextMenuOnCompleted(this)
+        }
+    }
+    contextMenu: webview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication

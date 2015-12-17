@@ -124,6 +124,7 @@ BrowserView {
             id: containerWebView
             objectName: "webview"
 
+            wide: webapp.wide
             anchors {
                 left: parent.left
                 right: parent.right
