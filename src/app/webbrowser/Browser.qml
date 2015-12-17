@@ -28,6 +28,7 @@ import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
 import ".."
 import "."
+import "." as Local
 
 BrowserView {
     id: browser
@@ -365,7 +366,7 @@ BrowserView {
             onTabClosed: internal.closeTab(index)
         }
 
-        Toolbar {
+        Local.Toolbar {
             id: recentToolbar
             objectName: "recentToolbar"
 
