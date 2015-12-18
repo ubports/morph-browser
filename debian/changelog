@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Work around what appears to be a regression in the UITK by
+    specifying a non-null delay when swiping a list item to delete it in
+    unit tests. (LP: #1526940)
+
+  [ Zsombor Egri ]
+  * Fix local Toolbar collision with UITK 1.3 Toolbar.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Fri, 18 Dec 2015 04:08:15 +0000
+
 webbrowser-app (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
