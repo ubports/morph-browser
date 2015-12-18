@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "Highlight.js" as Highlight
+import "." as Local
 
 FocusScope {
     id: historyViewWide
@@ -345,7 +346,7 @@ FocusScope {
         }
     }
 
-    Toolbar {
+    Local.Toolbar {
         id: topBar
 
         height: units.gu(7)
@@ -484,7 +485,7 @@ FocusScope {
         }
     }
 
-    Toolbar {
+    Local.Toolbar {
         id: bottomToolbar
         height: units.gu(7)
 
