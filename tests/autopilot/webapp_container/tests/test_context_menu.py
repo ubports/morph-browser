@@ -18,7 +18,6 @@ import time
 
 from autopilot.platform import model
 from autopilot.matchers import Eventually
-import testtools
 from testtools.matchers import Equals, StartsWith
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
