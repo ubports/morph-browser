@@ -1,3 +1,11 @@
+webbrowser-app (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
+
+  [ Michael Sheldon ]
+  * Add support for handling downloads internally within the browser.
+    (LP: #1354391)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 21 Dec 2015 20:39:36 +0000
+
 webbrowser-app (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
 
   [ Olivier Tilloy ]
