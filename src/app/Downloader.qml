@@ -19,18 +19,18 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.DownloadManager 0.1
-import Ubuntu.Content 0.1
+import Ubuntu.DownloadManager 1.2
+import Ubuntu.Content 1.3
 import "MimeTypeMapper.js" as MimeTypeMapper
 import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
     id: downloadItem
 
-    Component {
-        id: downloadDialog
-        ContentDownloadDialog { }
-    }
+    property string filename
+    property string mimeType
+
+    signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
     Component {
         id: metadataComponent
@@ -42,15 +42,13 @@ Item {
     Component {
         id: downloadComponent
         SingleDownload {
+            id: downloader
             autoStart: false
             property var contentType
-            onDownloadIdChanged: {
-                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType, "downloadId" : downloadId})
-            }
+            property string url
 
-            onFinished: {
-                metadata.destroy()
-                destroy()
+            onDownloadIdChanged: {
+                showDownloadDialog(downloadId, contentType, downloader, downloadItem.filename, downloadItem.mimeType)
             }
         }
     }
@@ -62,11 +60,13 @@ Item {
             singleDownload.headers = headers
         }
         singleDownload.metadata = metadata
+        singleDownload.url = url
         singleDownload.download(url)
     }
 
     function downloadPicture(url, headers) {
         var metadata = metadataComponent.createObject(downloadItem)
+        downloadItem.mimeType = "image/*"
         download(url, ContentType.Pictures, headers, metadata)
     }
 
@@ -86,7 +86,12 @@ Item {
             contentType = ContentType.Music
             metadata.extract = true
         }
+        if (!filename) {
+            filename = url.toString().split("/").pop()
+        }
         metadata.title = filename
+        downloadItem.filename = filename
+        downloadItem.mimeType = mimeType
         download(url, contentType, headers, metadata)
     }
 

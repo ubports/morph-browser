@@ -20,6 +20,7 @@
 #include "bookmarks-folderlist-model.h"
 #include "cache-deleter.h"
 #include "config.h"
+#include "downloads-model.h"
 #include "file-operations.h"
 #include "history-domainlist-model.h"
 #include "history-lastvisitdatelist-model.h"
@@ -87,6 +88,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
+    qmlRegisterType<DownloadsModel>(uri, 0, 1, "DownloadsModel");
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {

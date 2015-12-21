@@ -16,27 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __MIME_DATABASE_H__
-#define __MIME_DATABASE_H__
+import QtQuick 2.4
+import Ubuntu.DownloadManager 1.2
 
-#include <QtCore/QMimeDatabase>
-#include <QtCore/QObject>
-#include <QtCore/QString>
+DownloadManager {
+    id: downloadManager
 
-class MimeDatabase : public QObject
-{
-    Q_OBJECT
+    onDownloadFinished: {
+        downloadsModel.moveToDownloads(download.downloadId, path)
+        downloadsModel.setComplete(download.downloadId, true)
+    }
 
-public:
-    explicit MimeDatabase(QObject* parent=0);
+    onDownloadPaused: {
+        downloadsModel.pauseDownload(download.downloadId)
+    }
 
-    Q_INVOKABLE QString filenameToMimeType(const QString& filename) const;
-    Q_INVOKABLE QString iconForMimetype(const QString& mimetypeString) const;
-    Q_INVOKABLE QString nameForMimetype(const QString& mimetypeString) const;
+    onDownloadResumed: {
+        downloadsModel.resumeDownload(download.downloadId)
+    }
 
+    onDownloadCanceled: {
+        downloadsModel.cancelDownload(download.downloadId)
+    }
 
-private:
-    QMimeDatabase m_database;
-};
-
-#endif // __MIME_DATABASE_H__
+    onErrorFound: {
+        downloadsModel.setError(download.downloadId, download.errorMessage)
+    }
+}

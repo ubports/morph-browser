@@ -16,27 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __MIME_DATABASE_H__
-#define __MIME_DATABASE_H__
+import QtQuick 2.0
+import webbrowserapp.private 0.1
 
-#include <QtCore/QMimeDatabase>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-
-class MimeDatabase : public QObject
-{
-    Q_OBJECT
-
-public:
-    explicit MimeDatabase(QObject* parent=0);
-
-    Q_INVOKABLE QString filenameToMimeType(const QString& filename) const;
-    Q_INVOKABLE QString iconForMimetype(const QString& mimetypeString) const;
-    Q_INVOKABLE QString nameForMimetype(const QString& mimetypeString) const;
-
-
-private:
-    QMimeDatabase m_database;
-};
-
-#endif // __MIME_DATABASE_H__
+DownloadsModel {
+    databasePath: dataLocation + "/downloads.sqlite"
+}

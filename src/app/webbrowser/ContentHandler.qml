@@ -16,27 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __MIME_DATABASE_H__
-#define __MIME_DATABASE_H__
+import QtQuick 2.4
+import Ubuntu.Content 1.3
+import "../MimeTypeMapper.js" as MimeTypeMapper
 
-#include <QtCore/QMimeDatabase>
-#include <QtCore/QObject>
-#include <QtCore/QString>
+Item {
+    signal exportFromDownloads(var transfer, var mimetypeFilter, bool multiSelect)
 
-class MimeDatabase : public QObject
-{
-    Q_OBJECT
-
-public:
-    explicit MimeDatabase(QObject* parent=0);
-
-    Q_INVOKABLE QString filenameToMimeType(const QString& filename) const;
-    Q_INVOKABLE QString iconForMimetype(const QString& mimetypeString) const;
-    Q_INVOKABLE QString nameForMimetype(const QString& mimetypeString) const;
-
-
-private:
-    QMimeDatabase m_database;
-};
-
-#endif // __MIME_DATABASE_H__
+    Connections {
+        target: ContentHub
+        onExportRequested: {
+            exportFromDownloads(transfer,
+                                MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType),
+                                transfer.selectionType === ContentTransfer.Multiple)
+            
+        }
+    }
+}
