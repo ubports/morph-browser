@@ -28,6 +28,7 @@ import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
 import ".."
 import "."
+import "." as Local
 
 BrowserView {
     id: browser
@@ -36,6 +37,9 @@ BrowserView {
     property bool fullscreen: false
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
+
+    property var downloadsModel: (downloadsModelLoader.status == Loader.Ready) ? downloadsModelLoader.item : null
+    property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
 
     property bool newSession: false
 
@@ -168,7 +172,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active
+        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsContainer.visible
 
         FocusScope {
             id: tabContainer
@@ -365,7 +369,7 @@ BrowserView {
             onTabClosed: internal.closeTab(index)
         }
 
-        Toolbar {
+        Local.Toolbar {
             id: recentToolbar
             objectName: "recentToolbar"
 
@@ -535,6 +539,15 @@ BrowserView {
                 iconName: "search"
                 enabled: !chrome.findInPageMode && !newTabViewLoader.active
                 onTriggered: chrome.findInPageMode = true
+            },
+            Action {
+                objectName: "downloads"
+                text: i18n.tr("Downloads")
+                iconName: "save"
+                enabled: downloadHandlerLoader.status == Loader.Ready
+                onTriggered: {
+                    currentWebview.showDownloadsPage()
+                }
             },
             Action {
                 objectName: "privatemode"
@@ -910,6 +923,28 @@ BrowserView {
         }
     }
 
+    FocusScope {
+        id: downloadsContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: downloadsComponent
+
+            DownloadsPage {
+                anchors.fill: parent
+                focus: true
+                downloadsModel: browser.downloadsModel
+                onDone: destroy()
+                Keys.onEscapePressed: {
+                    destroy()
+                    internal.resetFocus()
+                }
+            }
+        }
+    }
+
     TabsModel {
         id: publicTabsModel
     }
@@ -935,6 +970,17 @@ BrowserView {
         }
     }
 
+    Loader {
+        id: downloadsModelLoader
+        source: "DownloadsModel.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: downloadHandlerLoader
+        source: "DownloadHandler.qml"
+    }
+
     Component {
         id: tabComponent
 
@@ -955,6 +1001,7 @@ BrowserView {
                 readonly property bool current: tab.current
 
                 currentWebview: browser.currentWebview
+                filePicker: filePickerLoader.item
 
                 anchors.fill: parent
                 focus: true
@@ -1246,6 +1293,29 @@ BrowserView {
                         Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
+
+                onShowDownloadDialog: {
+                    if (downloadDialogLoader.status === Loader.Ready) {
+                        var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
+                                                                                                  "downloadId" : downloadId,
+                                                                                                  "singleDownload" : downloader,
+                                                                                                  "filename" : filename,
+                                                                                                  "mimeType" : mimeType})
+                        downloadDialog.startDownload.connect(startDownload)
+                    }
+                }
+
+                function showDownloadsPage() {
+                    downloadsContainer.focus = true
+                    return downloadsComponent.createObject(downloadsContainer)
+                }
+
+                function startDownload(downloadId, download, mimeType) {
+                    downloadsModel.add(downloadId, download.url, mimeType)
+                    download.start()
+                    showDownloadsPage()
+                }
+
             }
         }
     }
@@ -1913,5 +1983,45 @@ BrowserView {
             enabled: tabContainer.visible && !newTabViewLoader.active
             onTriggered: chrome.findInPageMode = true
         }
+
+        // Ctrl + J: Show downloads page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_J
+            enabled: chrome.visible && !downloadsContainer.visible
+            onTriggered: currentWebview.showDownloadsPage()
+        }
     }
+
+    Loader {
+        id: contentHandlerLoader
+        source: "ContentHandler.qml"
+    }
+
+    Connections {
+        target: contentHandlerLoader.item
+        onExportFromDownloads: {
+            if (downloadHandlerLoader.status == Loader.Ready) {
+                downloadsContainer.focus = true
+                var downloadPage = downloadsComponent.createObject(downloadsContainer)
+                downloadPage.mimetypeFilter = mimetypeFilter
+                downloadPage.activeTransfer = transfer
+                downloadPage.multiSelect = multiSelect
+                downloadPage.pickingMode = true
+            }
+        }
+    }
+
+    Loader {
+        id: downloadDialogLoader
+        source: "ContentDownloadDialog.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: filePickerLoader
+        source: "ContentPickerDialog.qml"
+        asynchronous: true
+    }
+
 }

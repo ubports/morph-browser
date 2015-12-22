@@ -21,18 +21,22 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 
 /*
- * Component to use as page header in settings page and subpages
+ * Component to use as page header in settings page, download page and 
+ * subpages
  *
- * It has a back() signal fired when back button is pressed and a text
- * property to set the page title
+ * It has a back() signal fired when back button is pressed, a text
+ * property to set the page title and an actions property which
+ * displays action icons on the right of header.
  */
 
-Column {
+Item {
     id: root
     signal back()
     property string text
+    property alias actions: actionBar.actions
+    property alias color: title.color
 
-    height: childrenRect.height
+    height: title.height + divider.height
 
     anchors {
         left: parent.left
@@ -42,13 +46,9 @@ Column {
     Rectangle {
         id: title
 
-        height: units.gu(7) - divider.height
+        height: units.gu(6) - divider.height
         anchors { left: parent.left; right: parent.right }
-
-        Rectangle {
-            anchors.fill: parent
-            color: "#f6f6f6"
-        }
+        color: "#f6f6f6"
 
         AbstractButton {
             id: backButton
@@ -89,9 +89,24 @@ Column {
             text: root.text
             fontSize: 'x-large'
         }
+
+        ActionBar {
+            id: actionBar
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        
     }
 
-    ListItem.Divider {
+    Rectangle {
         id: divider
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: units.dp(1)
+        color: Qt.darker(title.color, 1.1)
     }
 }

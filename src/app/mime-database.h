@@ -31,6 +31,9 @@ public:
     explicit MimeDatabase(QObject* parent=0);
 
     Q_INVOKABLE QString filenameToMimeType(const QString& filename) const;
+    Q_INVOKABLE QString iconForMimetype(const QString& mimetypeString) const;
+    Q_INVOKABLE QString nameForMimetype(const QString& mimetypeString) const;
+
 
 private:
     QMimeDatabase m_database;

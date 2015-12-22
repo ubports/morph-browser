@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
+import "." as Local
 
 FocusScope {
     id: bookmarksView
@@ -58,7 +59,7 @@ FocusScope {
         }
     }
 
-    Toolbar {
+    Local.Toolbar {
         id: topBar
 
         height: units.gu(7)
@@ -90,7 +91,7 @@ FocusScope {
         }
     }
 
-    Toolbar {
+    Local.Toolbar {
         id: toolbar
         height: units.gu(7)
 
