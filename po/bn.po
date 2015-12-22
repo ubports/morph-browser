@@ -8,26 +8,26 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-11-27 19:20+0100\n"
-"PO-Revision-Date: 2015-10-05 14:35+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-12-11 17:03+0000\n"
+"Last-Translator: Pavak Paul <pavakatubuntu@gmail.com>\n"
 "Language-Team: Bengali <bn@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2015-12-12 05:42+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "জাভাস্ক্রিপ্ট সতর্কতা"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
-msgstr ""
+msgstr "ঠিক আছে"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -41,13 +41,14 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr ""
+msgstr "ব্যবহারকারীর নাম"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
-msgstr ""
+msgstr "পাসওয়ার্ড"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -58,7 +59,7 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
-msgstr ""
+msgstr "বাতিল"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
@@ -66,11 +67,11 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "প্রস্থান করুন"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "থাকুন"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -440,7 +441,8 @@ msgstr ""
 msgid "Save link"
 msgstr ""
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr ""
@@ -573,6 +575,7 @@ msgstr ""
 msgid "Confirm selection"
 msgstr ""
 
+#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"

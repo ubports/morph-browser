@@ -149,10 +149,39 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
 
+    def get_downloads_page(self):
+        return self.wait_select_single(DownloadsPage, visible=True)
+
     def get_content_picker_dialog(self):
         # only on devices
         return self.wait_select_single("PopupBase",
                                        objectName="contentPickerDialog")
+
+    def get_download_dialog(self):
+        return self.wait_select_single("PopupBase",
+                                       objectName="downloadDialog")
+
+    def get_peer_picker(self):
+        return self.wait_select_single(objectName="contentPeerPicker")
+
+    def get_download_options_dialog(self):
+        return self.wait_select_single("Dialog",
+                                       objectName="downloadOptionsDialog")
+
+    def click_cancel_download_button(self):
+        button = self.select_single("Button",
+                                    objectName="cancelDownloadButton")
+        self.pointing_device.click_object(button)
+
+    def click_choose_app_button(self):
+        button = self.select_single("Button",
+                                    objectName="chooseAppButton")
+        self.pointing_device.click_object(button)
+
+    def click_download_file_button(self):
+        button = self.select_single("Button",
+                                    objectName="downloadFileButton")
+        self.pointing_device.click_object(button)
 
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
@@ -473,7 +502,7 @@ class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_header(self):
-        return self.select_single(SettingsPageHeader)
+        return self.select_single(BrowserPageHeader)
 
     def get_searchengine_entry(self):
         return self.select_single("Subtitled", objectName="searchengine")
@@ -502,7 +531,13 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Standard", objectName="reset")
 
 
-class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_header(self):
+        return self.select_single(BrowserPageHeader)
+
+
+class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):

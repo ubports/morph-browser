@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,6 +48,7 @@ msgid "Password"
 msgstr "密碼"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -101,7 +102,7 @@ msgstr "JavaScript 確認"
 #: src/app/ContentDownloadDialog.qml:79
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
-msgstr ""
+msgstr "選擇要開啟此檔案的應用程式，或將之放入「下載」資料夾"
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
@@ -458,7 +459,8 @@ msgstr "儲存影像"
 msgid "Save link"
 msgstr "儲存連結"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "全選"
@@ -487,7 +489,7 @@ msgstr "搜尋或輸入位址"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "已加入書籤"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
@@ -589,8 +591,9 @@ msgstr "按 ESC 以結束全螢幕"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "確認選擇"
 
+#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
@@ -631,7 +634,7 @@ msgstr "今天"
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr ""
+msgstr "搜尋歷史"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -639,21 +642,21 @@ msgstr "前往公開模式，會關閉所有私密分頁"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "是否允許此網域存取您的攝影機及麥克風？"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "是否允許此網域存取您的攝影機？"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "是否允許此網域存取您的麥克風？"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (內嵌於 %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -787,7 +790,7 @@ msgstr "重設瀏覽器設定"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "攝影機及麥克風"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -795,7 +798,7 @@ msgstr "清除瀏覽歷史"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "是否清除瀏覽歷史？"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
@@ -803,7 +806,7 @@ msgstr "清除快取"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "是否清除網頁快取？"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
@@ -811,11 +814,11 @@ msgstr "清除"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "麥克風"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "攝影機"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -827,7 +830,7 @@ msgstr "關閉分頁"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -888,7 +891,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "關閉程式"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"

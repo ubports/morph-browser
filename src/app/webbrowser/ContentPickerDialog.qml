@@ -19,8 +19,9 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3 as Popups
-import Ubuntu.Content 0.1
-import "MimeTypeMapper.js" as MimeTypeMapper
+import Ubuntu.Content 1.3
+import com.canonical.Oxide 1.8
+import "../MimeTypeMapper.js" as MimeTypeMapper
 
 Component {
     Popups.PopupBase {
@@ -50,17 +51,29 @@ Component {
                 handler: ContentHandler.Source
 
                 onPeerSelected: {
-                    if (model.allowMultipleFiles) {
-                        peer.selectionType = ContentTransfer.Multiple
+                    if (peer.appId == "webbrowser-app") {
+                        // If we're inside the browser and the user has
+                        // requested content from the browser then we
+                        // need to handle the transfer internally
+                        var downloadPage = picker.WebView.view.showDownloadsPage()
+                        downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
+                        downloadPage.multiSelect = model.allowMultipleFiles
+                        downloadPage.selectMode = false
+                        downloadPage.pickingMode = true
+                        downloadPage.internalFilePicker = model
+                        Popups.PopupUtils.close(picker)
                     } else {
-                        peer.selectionType = ContentTransfer.Single
+                        if (model.allowMultipleFiles) {
+                            peer.selectionType = ContentTransfer.Multiple
+                        } else {
+                            peer.selectionType = ContentTransfer.Single
+                        }
+                        picker.activeTransfer = peer.request()
+                        stateChangeConnection.target = picker.activeTransfer
                     }
-                    picker.activeTransfer = peer.request()
-                    stateChangeConnection.target = picker.activeTransfer
                 }
 
                 onCancelPressed: {
-                    webview.focus = true
                     model.reject()
                 }
             }

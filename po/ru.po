@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -38,7 +38,7 @@ msgstr "Требуется авторизация."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Сайт %1 требует авторизироваться."
+msgstr "Для сайта %1 требуется авторизация."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
@@ -49,6 +49,7 @@ msgid "Password"
 msgstr "Пароль"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -124,7 +125,7 @@ msgstr "Ошибка сети"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Похоже на то, что возникли проблемы с просмотром: %1."
+msgstr "Похоже, возникли проблемы с просмотром: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
@@ -479,7 +480,8 @@ msgstr "Сохранить изображение"
 msgid "Save link"
 msgstr "Сохранить ссылку"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "Выделить всё"
@@ -612,6 +614,7 @@ msgstr "Нажмите ESC для выхода из полноэкранного
 msgid "Confirm selection"
 msgstr "Подтвердить выбор"
 
+#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
@@ -791,7 +794,7 @@ msgstr "Обслуживается"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175

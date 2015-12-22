@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-11-28 04:58+0000\n"
-"X-Generator: Launchpad (build 17850)\n"
+"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,6 +48,7 @@ msgid "Password"
 msgstr "密码"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -123,7 +124,7 @@ msgstr "浏览时可能遇到麻烦：%1。"
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "请检查你的网络设置，并试着刷新本页面。"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -372,21 +373,21 @@ msgstr "复制链接"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "剪切"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "清除"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
-msgstr ""
+msgstr "在页面中查找"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "在页面中搜索"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -433,11 +434,11 @@ msgstr "在新标签打开链接"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "重做"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
@@ -456,9 +457,10 @@ msgstr "保存图像"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "保存链接"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "全选"
@@ -469,17 +471,17 @@ msgstr "分享"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "撤消"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr ""
+msgstr "在页面中查找"
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
@@ -591,6 +593,7 @@ msgstr "按ESC退出全屏"
 msgid "Confirm selection"
 msgstr ""
 
+#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
@@ -622,16 +625,16 @@ msgstr "昨天"
 
 #: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
-msgstr ""
+msgstr "全部历史"
 
 #: src/app/webbrowser/HistoryViewWide.qml:213
 #: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr ""
+msgstr "搜索历史"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -639,21 +642,21 @@ msgstr "使用公开模式将关闭所有匿名标签"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "是否允许这个网域使用本机的相机和麦克风？"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "是否允许这个网域使用本机的相机？"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "是否允许这个网域使用本机的麦克风？"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (嵌入在 %2 中)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -690,23 +693,23 @@ msgstr "您尚未访问任何站点"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "该标签的渲染过程已被关闭。"
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "在显示 %1 时发生错误。"
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
-msgstr ""
+msgstr "系统内存不足不能显示网页。尝试关闭不需要的标签页并重新载入。"
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "关闭标签页"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -762,7 +765,7 @@ msgstr "运营方："
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "默认"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -780,7 +783,7 @@ msgstr "允许在后台打开新标签页"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "隐私与许可"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -789,7 +792,7 @@ msgstr "重置浏览器设置"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "相机与麦克风"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -797,7 +800,7 @@ msgstr "清除浏览历史"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "清除浏览历史？"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
@@ -805,7 +808,7 @@ msgstr "清除缓存"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "清除缓存？"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
@@ -813,11 +816,11 @@ msgstr "清除"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "麦克风"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "相机"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -825,11 +828,11 @@ msgstr "点击查看"
 
 #: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
-msgstr ""
+msgstr "关闭标签页"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -902,7 +905,7 @@ msgstr "选择一个帐号"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "糟糕，出了点问题。"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
