@@ -1976,7 +1976,7 @@ BrowserView {
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
-        // Ctrl + F: Find in Page
+        // Ctrl+F: Find in Page
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
@@ -1990,6 +1990,22 @@ BrowserView {
             key: Qt.Key_J
             enabled: chrome.visible && !downloadsContainer.visible
             onTriggered: currentWebview.showDownloadsPage()
+        }
+
+        // Ctrl+Shift+G: Find previous
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.previous()
+        }
+
+        // Ctrl+G: Find next
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.next()
         }
     }
 
@@ -2023,5 +2039,4 @@ BrowserView {
         source: "ContentPickerDialog.qml"
         asynchronous: true
     }
-
 }
