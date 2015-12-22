@@ -29,12 +29,6 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
     def setUp(self, path):
         super(TestContextMenuBase, self).setUp(path)
         self.menu = self.main_window.open_context_menu()
-        # The context menu should never steal active focus from the webview,
-        # but because it’s currently implemented as a dialog on narrow screens,
-        # it does (see https://launchpad.net/bugs/1526884).
-        if self.main_window.wide:
-            webview = self.main_window.get_current_webview()
-            self.assertThat(webview.activeFocus, Equals(True))
 
     def verify_link_opened_in_a_new_tab(self):
         self.assert_number_webviews_eventually(2)
