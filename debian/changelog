@@ -1,3 +1,29 @@
+webbrowser-app (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
+
+  * Add keyboard shorcuts for 'next' (Ctrl+G) and 'previous'
+    (Ctrl+Shift+G) while in find-in-page mode. (LP: #1522152)
+  * Do not allow interacting with tabs and the chrome while the settings
+    page is shown. (LP: #1524353)
+  * Fix a crash when clearing the navigation history while the new tab
+    view is open. (LP: #1525937)
+  * Fix deleting multiple domains from the history view. Add unit tests
+    for the HistoryView component. (LP: #1527144)
+  * Fix some obvious issues in PreviewManager. (LP: #1519019)
+  * Fix the tab preview sometimes covering the tab chrome, in the tabs
+    view. Offset tab previews by 1px to cover the semi-transparent
+    horizontal line at the bottom of the tab chrome asset. (LP:
+    #1520624)
+  * Recognize openoffice and MS-office file formats as documents, now
+    that the document viewer app knows how to render them. (LP:
+    #1523452)
+  * Update translation template.
+  * Use the screen size (diagonal in millimeters) to determine which
+    default UA string and which UA overrides to use. An empirical
+    threshold of 19cm is being used, it is subject to further
+    adjustments. (LP: #1504084)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Dec 2015 18:15:54 +0000
+
 webbrowser-app (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
 
   [ Michael Sheldon ]
