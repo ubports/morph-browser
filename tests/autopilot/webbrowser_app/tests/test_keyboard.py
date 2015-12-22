@@ -87,7 +87,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
     def test_new_tab(self):
         self.main_window.press_key('Ctrl+t')
-
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
         new_tab_view = self.main_window.get_new_tab_view()
@@ -400,6 +399,19 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         bookmarks_view.wait_until_destroyed()
 
+    def test_open_settings_exits_findinpage(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        settings = self.open_settings()
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        settings.wait_until_destroyed()
+
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
@@ -437,3 +449,31 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Up')
         self.assertThat(new_tab_view.activeFocus, Eventually(Equals(False)))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+    def test_ctrl_w_closes_tabs_only_from_main_view(self):
+        # Verify that Ctrl+w doesn’t work when either the history
+        # view, the bookmarks view or the settings view are shown
+        # (https://launchpad.net/bugs/1524353).
+        self.main_window.press_key('Ctrl+t')
+        self.assert_number_webviews_eventually(2)
+
+        history_view = self.open_history()
+        self.main_window.press_key('Ctrl+w')
+        self.main_window.press_key('Escape')
+        history_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(2)
+
+        bookmarks_view = self.open_bookmarks()
+        self.main_window.press_key('Ctrl+w')
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(2)
+
+        settings_view = self.open_settings()
+        self.main_window.press_key('Ctrl+w')
+        self.main_window.press_key('Escape')
+        settings_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(2)
+
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(1)
