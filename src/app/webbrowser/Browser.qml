@@ -839,6 +839,7 @@ BrowserView {
                     var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(done)
                 }
+                onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
 
                 FocusScope {

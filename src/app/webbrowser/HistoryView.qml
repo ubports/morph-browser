@@ -26,6 +26,7 @@ Item {
     id: historyView
 
     signal seeMoreEntriesClicked(var model)
+    signal newTabRequested()
     signal done()
 
     Rectangle {
@@ -45,6 +46,7 @@ Item {
 
     ListView {
         id: domainsListView
+        objectName: "domainsListView"
 
         anchors {
             top: topBar.bottom
@@ -71,6 +73,7 @@ Item {
 
         delegate: UrlDelegate {
             id: urlDelegate
+            objectName: "historyViewDomainDelegate"
             width: parent.width
             height: units.gu(5)
 
@@ -121,6 +124,7 @@ Item {
         }
 
         ToolbarAction {
+            objectName: "newTabAction"
             anchors {
                 right: parent.right
                 rightMargin: units.gu(2)
@@ -132,7 +136,7 @@ Item {
             iconName: "tab-new"
 
             onClicked: {
-                browser.openUrlInNewTab("", true)
+                historyView.newTabRequested()
                 historyView.done()
             }
         }
@@ -157,6 +161,7 @@ Item {
 
         ToolbarAction {
             iconName: "close"
+            objectName: "closeButton"
             text: i18n.tr("Cancel")
 
             onClicked: domainsListView.ViewItems.selectMode = false
@@ -171,6 +176,7 @@ Item {
 
         ToolbarAction {
             iconName: "select"
+            objectName: "selectAllButton"
             text: i18n.tr("Select all")
 
             onClicked: {
@@ -195,6 +201,7 @@ Item {
 
         ToolbarAction {
             id: deleteButton
+            objectName: "deleteButton"
 
             iconName: "delete"
             text: i18n.tr("Delete")
@@ -204,7 +211,7 @@ Item {
                 var indices = domainsListView.ViewItems.selectedIndices
                 var domains = []
                 for (var i in indices) {
-                    domains.push(domainsListView.model.get(indices[i]))
+                    domains.push(domainsListView.model.get(indices[i]).domain)
                 }
                 domainsListView.ViewItems.selectMode = false
                 for (var j in domains) {
