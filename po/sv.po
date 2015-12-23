@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-08-05 08:32+0000\n"
 "Last-Translator: Josef Andersson <Unknown>\n"
 "Language-Team: Swedish\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 "Language: sv\n"
 
@@ -102,20 +102,6 @@ msgstr "Tillbaka till säker webbplats"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript-bekräftelse"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Välj ett program för att öppna filen eller lägg den i mappen för hämtningar."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Välj ett program"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Hämta"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Nätverksfel"
@@ -134,10 +120,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Ladda om sidan"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Välj en fil"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -607,6 +589,28 @@ msgstr "Svep uppåt för att lämna helskärm"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Tryck Esc för att lämna helskärm"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Välj ett program för att öppna filen eller lägg den i mappen för hämtningar."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Välj ett program"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Hämta"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Bekräfta val"
@@ -790,7 +794,7 @@ msgstr "Som drivs av"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Förval"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -958,6 +962,9 @@ msgstr "Internet;WWW;Webbläsare;Webb;Explorer"
 #~ msgstr ""
 #~ "Ubuntu föreslår att du kontrollerar dina nätverksinställningar och laddar om "
 #~ "sidan igen."
+
+#~ msgid "Please choose a file"
+#~ msgstr "Välj en fil"
 
 #~ msgid "see more"
 #~ msgstr "se mer"

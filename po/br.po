@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-11-03 07:08+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,21 +101,6 @@ msgstr "Distro d'ar surentez"
 msgid "JavaScript Confirmation"
 msgstr "Kadarnadur JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Choazit un arload da zigeriñ ar restr-mañ pe lakait anezhi er renkell "
-"pellgargañ."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Choaz un arload"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Pellgargañ"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Fazi gant ar rouedad"
@@ -134,10 +119,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Freskaat ar bajenn"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Dibabit ur restr, mar plij"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -612,6 +593,29 @@ msgstr "Riklañ d'an nec'h evit kuitaat ar skramm leun"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pouezañ war ESC evit kuitatt ar skramm leun"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Choazit un arload da zigeriñ ar restr-mañ pe lakait anezhi er renkell "
+"pellgargañ."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Choaz un arload"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Pellgargañ"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Kadarnaat an diuzadenn"
@@ -975,6 +979,9 @@ msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
 
 #~ msgid "Skip account creation step"
 #~ msgstr "Mont dreist ar bazenn krouiñ ur gont"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Dibabit ur restr, mar plij"
 
 #~ msgid "Share…"
 #~ msgstr "Rannañ..."

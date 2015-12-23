@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-08-19 17:11+0000\n"
 "Last-Translator: Sasa Batistic <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -102,20 +102,6 @@ msgstr "Nazaj na varnost"
 msgid "JavaScript Confirmation"
 msgstr "Potrditev JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Izberite program za odpiranje te datoteka ali jo dodajte v mapo prejemov."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Izberite program"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Prejem"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Napaka omrežja"
@@ -133,10 +119,6 @@ msgstr "Preverite nastavitve omrežje in nato poskusite osvežiti stran."
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Osveži stran"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Izberite datoteko"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -611,6 +593,28 @@ msgstr "Potegnite navzgor za izhod iz celozaslonskega načina"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pritisnite ESC za izhod iz celozaslonskega načina"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Izberite program za odpiranje te datoteka ali jo dodajte v mapo prejemov."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Izberite program"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Prejem"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Potrdite izbiro"
@@ -975,6 +979,9 @@ msgstr "Internet;WWW;Brskalnik;Splet;Explorer"
 
 #~ msgid "see more"
 #~ msgstr "oglejte si več"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Izberite datoteko"
 
 #~ msgid "No local account found for "
 #~ msgstr "Ni najdenih krajevnih računov za "

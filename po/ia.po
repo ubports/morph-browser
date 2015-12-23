@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-05-04 16:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Interlingua <ia@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,19 +101,6 @@ msgstr "Retro al securitate"
 msgid "JavaScript Confirmation"
 msgstr "Confirmation JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr ""
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Error de rete"
@@ -131,10 +118,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Renovar le pagina"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Per favor selige un file"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -393,21 +376,21 @@ msgstr "Copiar le ligamine"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Secar"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Cancellar"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
 msgid "Find in page"
-msgstr ""
+msgstr "Cercar un pagina"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Cercar in Pagina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -454,11 +437,11 @@ msgstr "Aperir le ligamine in un nove scheda"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Collar"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Refacer"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
@@ -477,7 +460,7 @@ msgstr "Salvar le imagine"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Salvar le ligamine"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 #: src/app/webbrowser/HistoryView.qml:173
@@ -491,17 +474,17 @@ msgstr "Compartir"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Disfacer"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr ""
+msgstr "cercar in un pagina"
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
@@ -509,32 +492,32 @@ msgstr "cercar o introducer un adress"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Signalibro addite"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Nomine"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Savar in"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Tote le signalibros"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Nove plica"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Crear un nove plica"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:358
@@ -581,15 +564,15 @@ msgstr "Aperir le schedas"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Discargas"
 
 #: src/app/webbrowser/Browser.qml:541
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Lassar le modo private"
 
 #: src/app/webbrowser/Browser.qml:541
 msgid "Private Mode"
-msgstr ""
+msgstr "Modo private"
 
 #: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
@@ -599,7 +582,7 @@ msgstr "Configurationes"
 #: src/app/webbrowser/Browser.qml:735
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1209
 msgid "Swipe Up To Exit Full Screen"
@@ -609,9 +592,31 @@ msgstr ""
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Eliger un application pro aperir iste file o adder lo al plica del discargas."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Eliger un application"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Discargar"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Confirmar le selection"
 
 #: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:199
@@ -651,7 +656,7 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:213
 #: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
-msgstr ""
+msgstr "Hodie"
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
@@ -677,15 +682,15 @@ msgstr ""
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (incastrate in %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:60
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -699,7 +704,7 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Plus"
 
 #: src/app/webbrowser/NewTabView.qml:227
 #: src/app/webbrowser/NewTabViewWide.qml:153
@@ -728,7 +733,7 @@ msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Clauder le scheda"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -788,7 +793,7 @@ msgstr "Que es facite fluer per"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Predefinite"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -815,7 +820,7 @@ msgstr "Restaurar al configurationes base le navigator"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Camera & microphono"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -835,15 +840,15 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
-msgstr ""
+msgstr "Nettar"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Microphono"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Camera"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -851,11 +856,11 @@ msgstr "Toccar pro vider"
 
 #: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
-msgstr ""
+msgstr "Clauder scheda"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -885,11 +890,11 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Error del conto"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Clauder"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -916,11 +921,11 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Clauder le application"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
@@ -951,6 +956,9 @@ msgstr "Internet;WWW;Navigator;Web;Explorer"
 #~ msgstr ""
 #~ "Ubuntu suggere tu verifica tu configurationes  de rete e prova a renovar le "
 #~ "pagina."
+
+#~ msgid "Please choose a file"
+#~ msgstr "Per favor selige un file"
 
 #~ msgid "Select an account"
 #~ msgstr "Seliger un conto"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-10-31 13:39+0000\n"
 "Last-Translator: Tobias Bannert <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,20 +101,6 @@ msgstr "Zurück zu sicherer Internetseite"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript-Bestätigung"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Anwendung zum Öffnen der Datei auswählen oder im Download-Ordner speichern."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Eine Anwendung auswählen"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Herunterladen"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Netzwerkfehler"
@@ -134,10 +120,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Seite neu laden"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Bitte eine Datei auswählen"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -613,6 +595,28 @@ msgstr "Nach oben wischen, um das Vollbild zu beenden"
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC drücken, um das Vollbild zu beenden"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Anwendung zum Öffnen der Datei auswählen oder im Download-Ordner speichern."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Eine Anwendung auswählen"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Herunterladen"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Auswahl bestätigen"
@@ -990,6 +994,9 @@ msgstr "Internet;WWW;Browser;Netz;Web;Webbrowser;Navigator;Explorer"
 
 #~ msgid "Add"
 #~ msgstr "Neu"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Bitte eine Datei auswählen"
 
 #~ msgid "No local account found for "
 #~ msgstr "Keine lokales Konto gefunden für "

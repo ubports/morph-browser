@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-02-22 15:22+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,19 +101,6 @@ msgstr "Torna a la seguretat"
 msgid "JavaScript Confirmation"
 msgstr "Confirmació del JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr ""
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Error de xarxa"
@@ -131,10 +118,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Actualitza la pàgina"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Trieu un fitxer"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -609,6 +592,27 @@ msgstr ""
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr ""
@@ -949,6 +953,9 @@ msgstr "Internet;WWW;Navegador;Web;Explorer"
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr "Comproveu els paràmetres de la xarxa i actualitzeu la pàgina."
+
+#~ msgid "Please choose a file"
+#~ msgstr "Trieu un fitxer"
 
 #~ msgid "Share…"
 #~ msgstr "Comparteix..."
