@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-12-22 16:35+0100\n"
-"PO-Revision-Date: 2015-10-31 13:39+0000\n"
-"Last-Translator: Tobias Bannert <Unknown>\n"
+"PO-Revision-Date: 2015-12-26 18:21+0000\n"
+"Last-Translator: Torsten Franz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
+"X-Launchpad-Export-Date: 2015-12-27 05:27+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -611,11 +611,11 @@ msgstr "Herunterladen"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "Herunterladen ist fehlgeschlagen"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Fortsetzen"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
