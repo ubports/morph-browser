@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,19 +101,6 @@ msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
 msgid "JavaScript Confirmation"
 msgstr "ការ​បញ្ជាក់ JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr "ជ្រើស​កម្មវិធី​ដើម្បី​បើក​ឯកសារ​នេះ ឬ​បន្ថែម​វា​ទៅកាន់​ថត​ទាញ​យក។"
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "ជ្រើស​កម្មវិធី"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "ទាញ​យក"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "កំហុស​បណ្ដាញ"
@@ -131,10 +118,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "ផ្ទុក​ទំព័រ​ឡើងវិញ"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "សូម​ជ្រើស​ឯកសារ"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -612,6 +595,27 @@ msgstr "រុញ​ឡើង​លើ​ដើម្បី​បិទ​រប
 msgid "Press ESC To Exit Full Screen"
 msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr "ជ្រើស​កម្មវិធី​ដើម្បី​បើក​ឯកសារ​នេះ ឬ​បន្ថែម​វា​ទៅកាន់​ថត​ទាញ​យក។"
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "ជ្រើស​កម្មវិធី"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "ទាញ​យក"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "បញ្ជាក់​ជម្រើស"
@@ -963,6 +967,9 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 #~ msgstr ""
 #~ "Ubuntu ស្នើ​ឲ្យ​អ្នក​ពិនិត្យ​ការ​កំណត់​បណ្ដាញ​របស់​អ្នក "
 #~ "និង​ព្យាយាម​ផ្ទុក​ទំព័រ​ឡើងវិញ។"
+
+#~ msgid "Please choose a file"
+#~ msgstr "សូម​ជ្រើស​ឯកសារ"
 
 #~ msgid "Select an account"
 #~ msgstr "ជ្រើស​គណនី"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2014-09-18 06:34+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -99,19 +99,6 @@ msgstr "セキュリティで保護されたページに戻る"
 msgid "JavaScript Confirmation"
 msgstr "JavaScriptの確認"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr "このファイルを開くアプリケーションを選択するか、downloadsフォルダーに追加してください。"
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "アプリケーションを選択"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "ダウンロード"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "ネットワークエラー"
@@ -129,10 +116,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "ページを更新"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "ファイルを選択してください"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -589,6 +572,27 @@ msgstr "フルスクリーン表示を終了するには上にスワイプして
 msgid "Press ESC To Exit Full Screen"
 msgstr "フルスクリーン表示を終了するにはESCキーを押してください"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr "このファイルを開くアプリケーションを選択するか、downloadsフォルダーに追加してください。"
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "アプリケーションを選択"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "ダウンロード"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "選択を確認"
@@ -924,6 +928,9 @@ msgstr "Internet;WWW;Browser;Web;Explorer;インターネット;ブラウザー;
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr "ネットワーク設定を確認してページを更新してみてください"
+
+#~ msgid "Please choose a file"
+#~ msgstr "ファイルを選択してください"
 
 #~ msgid "Delete all history?"
 #~ msgstr "履歴をすべて削除しますか？"

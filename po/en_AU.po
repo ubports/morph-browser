@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-10-24 13:07+0000\n"
 "Last-Translator: Jared Norris <jarednorris@ubuntu.com>\n"
 "Language-Team: English (Australia) <en_AU@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,20 +101,6 @@ msgstr "Back to safety"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript Confirmation"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Choose an application to open this file or add it to the downloads folder."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Choose an application"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Download"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Network Error"
@@ -132,10 +118,6 @@ msgstr "Please check your network settings and try refreshing the page."
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Refresh page"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Please choose a file"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -609,6 +591,28 @@ msgstr "Swipe Up To Exit Full Screen"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Press ESC To Exit Full Screen"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Choose an application to open this file or add it to the downloads folder."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Choose an application"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Download"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Confirm selection"
@@ -958,6 +962,9 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "Share…"
 #~ msgstr "Share…"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Please choose a file"
 
 #~ msgid "see more"
 #~ msgstr "see more"

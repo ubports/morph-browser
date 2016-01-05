@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-12-11 17:03+0000\n"
 "Last-Translator: Pavak Paul <pavakatubuntu@gmail.com>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-12 05:42+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -75,7 +75,7 @@ msgstr "থাকুন"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "সংযোগটি নির্ভরযোগ্য নয়"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -84,43 +84,32 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"আপনি নিরাপদে %1 এ সংযুক্ত হতে চাচ্ছেন, কিন্তু ওয়েবসাইটটির নিরাপত্তা "
+"সার্টিফিকেট নির্ভরযোগ্য নয়"
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr ""
+msgstr "এগিয়ে যান"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr ""
+msgstr "নিরাপদে ফিরুন"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr ""
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr ""
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "নেটওয়ার্কে সমস্যা"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "সম্ভবত %1 দেখতে আপনার সমস্যা হচ্ছে।"
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
@@ -128,35 +117,31 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr ""
+msgstr "পেজ রিফ্রেশ করুন"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "অনুমতির অনুরোধ"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "পেজটি আপনার ডিভাইসের অবস্থান জানতে চাচ্ছে।"
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr ""
+msgstr "জানাব না"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
-msgstr ""
+msgstr "জানাবো"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "এই সাইটটির সিকিউরিটি সার্টিফিকেট নির্ভরযোগ্য নয়।\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "আরো জানুন"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -165,6 +150,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"সিরিয়াল নংঃ\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -571,6 +558,27 @@ msgstr ""
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr ""
@@ -903,3 +911,10 @@ msgstr ""
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr "অনুগ্রহ করে আপনাকে নেটওয়ার্ক সেটিংস পরীক্ষা করে পেজটি রিফ্রেশ করুন"
+
+#~ msgid "Please choose a file"
+#~ msgstr "অনুগ্রহ করে একটি ফাইল পছন্দ করুন"

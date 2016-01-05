@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-12-07 12:09+0000\n"
 "Last-Translator: sarojdhakal <Unknown>\n"
 "Language-Team: Nepali <ne@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,21 +101,6 @@ msgstr "सुरक्षित ठाउँमा फर्कने"
 msgid "JavaScript Confirmation"
 msgstr "जाबास्क्रिप्ट निश्चित"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
-"थप्नुहोस।"
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "अनुप्रयोग छान्नुहोस्"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "डाउनलोड"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "नेटवर्क त्रुटि"
@@ -135,10 +120,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "पाना पुनःलोड गर्नुहोस्"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "एक फाइल छान्नुहोस्"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -269,6 +250,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले समाप्त भैसकेको एक सुरक्षा "
+"प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -277,6 +260,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले अमान्य मिति समावेश भएको एक "
+"सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -285,6 +270,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले विश्वसनीय छैन भनेर एक इकाइ "
+"द्वारा जारी एक सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -293,6 +280,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले खारेज भैसकेको सुरक्षा "
+"प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -301,6 +290,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक अमान्य सुरक्षा प्रमाणपत्र "
+"प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -309,6 +300,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक असुरक्षित सुरक्षा प्रमाणपत्र "
+"प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -318,6 +311,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"यो साइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन\n"
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक सुरक्षा प्रमाणपत्र प्रस्तुत "
+"गर्यो जस्ले अज्ञात कारणले हाम्रो सुरक्षा जाँच असफल भएको छ​।"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -597,6 +593,29 @@ msgstr "पुरा स्क्रिन छोड्न माथि स्�
 msgid "Press ESC To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न ESC थिच्नुहोस्"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
+"थप्नुहोस।"
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "अनुप्रयोग छान्नुहोस्"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "डाउनलोड"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "चयन निश्चित गर्नुहोस्"
@@ -684,6 +703,8 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"यस ट्याबमा हेर्नु भएको पृष्ठ आफ्नो ब्राउजर इतिहासमा देखा पर्दैन।\n"
+"बनाउनु भएको बुक्मर्क​ तथापि, संरक्षित हुनेछ।"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
@@ -882,23 +903,28 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"खाता विन्डो खोल्न सकिएन। मात्र एक समयमा एउटा खाता सिर्जना गर्न सक्नुहुन्छ; "
+"सबै अन्य खाता विन्डोज् बन्द गरिसके पछि फेरि प्रयास गर्नुहोस्।"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> लाई तपाईँको  %2 अनलाइन खाता पहुँच आवश्यक छ"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
 msgstr ""
+"Copy text \t\r\n"
+"<b>%1</b>तपाईँको  %2 अनलाइन खाता पहुँच गर्न चाहन्छ"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"अहिले खाता छान्नुहोस् या यो भाग छोडेर पछि अनलाइन खाता छान्न पनि सक्नुहुनेछ ।"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
@@ -931,6 +957,9 @@ msgstr "वर्ल्ड वाइड वेब ब्राउज गर्�
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "इन्टरनेट;WWW; ब्राउजर; वेब; एक्सप्लोरर"
+
+#~ msgid "Please choose a file"
+#~ msgstr "एक फाइल छान्नुहोस्"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-07-06 09:31+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -102,21 +102,6 @@ msgstr "Уйти отсюда!"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript подтверждение"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Выберите приложение, чтобы открыть данный файл или добавить его в папку "
-"загрузок."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Выберите приложение"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Загрузка"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Ошибка сети"
@@ -134,10 +119,6 @@ msgstr "Проверьте настройки сети и обновите ст�
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Обновить страницу"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Выберите файл"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -610,6 +591,29 @@ msgstr "Смахните вверх для выхода из полноэкра�
 msgid "Press ESC To Exit Full Screen"
 msgstr "Нажмите ESC для выхода из полноэкранного режима"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Выберите приложение, чтобы открыть данный файл или добавить его в папку "
+"загрузок."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Выберите приложение"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Загрузка"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Подтвердить выбор"
@@ -971,6 +975,9 @@ msgstr "Интернет;WWW;Браузер;Веб;Обозреватель"
 
 #~ msgid "Skip account creation step"
 #~ msgstr "Пропустить процедуру создания учётной записи"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Выберите файл"
 
 #~ msgid "Share…"
 #~ msgstr "Поделиться..."

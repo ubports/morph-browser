@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-11-22 19:13+0000\n"
 "Last-Translator: Rūdolfs Mazurs <Unknown>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 "Language: lv\n"
 
@@ -103,21 +103,6 @@ msgstr "Atpakaļ drošībā"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript apstiprinājums"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Izvēlieties lietotni, lai atvērtu šo datni vai pievienojiet to lejupielāžu "
-"mapei."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Izvēlieties lietotni"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Lejupielādēt"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Tīkla kļūda"
@@ -135,10 +120,6 @@ msgstr "Pārbaudiet tīkla iestatījums un mēģināt atsvaidzināt lapu."
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Atsvaidzināt lapu"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Ludzu, izvēlieties datni"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -612,6 +593,29 @@ msgstr "Velciet uz augšu, lai izietu no pilnekrāna"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Spiediet ESC, lai izietu no pilnekrāna"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Izvēlieties lietotni, lai atvērtu šo datni vai pievienojiet to lejupielāžu "
+"mapei."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Izvēlieties lietotni"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Lejupielādēt"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Apstiprināt izvēli"
@@ -975,6 +979,9 @@ msgstr "Internets;WWW;pārlūks;tīmeklis;"
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr "Ubuntu iesaka pārbaudīt tīkla iestatījums un mēģināt pārlādēt lapu."
+
+#~ msgid "Please choose a file"
+#~ msgstr "Ludzu, izvēlieties datni"
 
 #~ msgid "Share…"
 #~ msgstr "Dalīties…"

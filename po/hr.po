@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2014-12-07 23:33+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -102,21 +102,6 @@ msgstr "Povratak na sigurno"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript potvrda"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Odaberite aplikaciju za otvaranje ove datoteke ili ju dodajte u mapu "
-"preuzimanja."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Odaberite aplikaciju"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Preuzimanje"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Mrežna greška"
@@ -134,10 +119,6 @@ msgstr "Provjerite svoje mrežne postavke i pokušajte osvježiti stranicu."
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Osvježi stranicu"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Odaberite datoteku"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -611,6 +592,29 @@ msgstr "Klizni za izlazak i cjelozaslonskog prikaza"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pritisni ESC za izlazak i cjelozaslonskog prikaza"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Odaberite aplikaciju za otvaranje ove datoteke ili ju dodajte u mapu "
+"preuzimanja."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Odaberite aplikaciju"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Preuzimanje"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Potvrdi odabir"
@@ -962,6 +966,9 @@ msgstr "Internet;WWW;Preglednik;Web;Istraživač"
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr ""
 #~ "Ubuntu preporuča da provjerite mrežne postavke i probate osvježiti stranicu."
+
+#~ msgid "Please choose a file"
+#~ msgstr "Odaberite datoteku"
 
 #~ msgid "Share…"
 #~ msgstr "Dijeli..."

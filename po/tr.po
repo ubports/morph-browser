@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-03-22 15:37+0000\n"
 "Last-Translator: Arda Ünlü <aarda.uunlu@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,20 +101,6 @@ msgstr "Güvenliğe geri dön"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript Doğrulaması"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Bu dosyayı açmak için bir uygulama seçin ya da indirilenler dizinine ekleyin."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Bir uygulama seçin"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "İndir"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Ağ Hatası"
@@ -132,10 +118,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Sayfayı yenile"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Lütfen bir dosya seçin"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -609,6 +591,28 @@ msgstr "Tam Ekrandan Çıkmak İçin Yukarı Sürükleyin"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Tam Ekrandan Çıkmak İçin ESC tuşuna Basınız"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Bu dosyayı açmak için bir uygulama seçin ya da indirilenler dizinine ekleyin."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Bir uygulama seçin"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "İndir"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Seçimi doğrula"
@@ -970,6 +974,9 @@ msgstr "İnternet;WWW;Tarayıcı;Web;Explorer;Gezgin;internet;Ağ"
 
 #~ msgid "see less"
 #~ msgstr "daha az göster"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Lütfen bir dosya seçin"
 
 #~ msgid "Skip account creation step"
 #~ msgstr "Hesap oluşturma adımını atla"

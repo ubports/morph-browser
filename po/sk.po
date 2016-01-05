@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-10-14 00:45+0000\n"
 "Last-Translator: Ján Dráb <jan@drab.name>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -101,21 +101,6 @@ msgstr "Späť do bezpečia"
 msgid "JavaScript Confirmation"
 msgstr "Potvrdenie JavaScriptu"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Vyberte aplikáciu na otvorenie súboru alebo ho pridajte do priečinka na "
-"stiahnutie."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Vyberte aplikáciu"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Stiahnuť"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Chyba siete"
@@ -133,10 +118,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Obnoviť stránku"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Prosím vyberte súbor"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -610,6 +591,29 @@ msgstr "Prejdite prstom hore pre ukončenie režimu celej obrazovky"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Stlačte ESC pre ukončenie režimu celej obrazovky"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Vyberte aplikáciu na otvorenie súboru alebo ho pridajte do priečinka na "
+"stiahnutie."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Vyberte aplikáciu"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Stiahnuť"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Potvrdiť výber"
@@ -953,6 +957,9 @@ msgstr "Prehliadanie internetu"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Browser;Web;Explorer"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Prosím vyberte súbor"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-12-01 08:12+0000\n"
 "Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -102,20 +102,6 @@ msgstr "Powrót do trybu bezpiecznego"
 msgid "JavaScript Confirmation"
 msgstr "Potwierdzenie JavaScriptu"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Wybierz program do otwarcia tego pliku albo umieścić go w katalogu Pobrane."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Wybierz program"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Pobierz"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Brak połączenia"
@@ -133,10 +119,6 @@ msgstr "Sprawdź swoje ustawienia sieciowe i spróbuj odświeżyć stronę."
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Odśwież stronę"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Proszę wybrać plik"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -610,6 +592,28 @@ msgstr "Przeciągnij w górę, aby opuścić tryb pełnoekranowy"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Naciśnij ESC, by opuścić tryb pełnoekranowy"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Wybierz program do otwarcia tego pliku albo umieścić go w katalogu Pobrane."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Wybierz program"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Pobierz"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Potwierdź zaznaczenie"
@@ -977,6 +981,9 @@ msgstr "Internet;WWW;Przeglądarka;Sieć"
 
 #~ msgid "Delete all history?"
 #~ msgstr "Wyczyścić historię?"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Proszę wybrać plik"
 
 #~ msgid "Privacy"
 #~ msgstr "Prywatność"

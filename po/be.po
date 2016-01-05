@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-10-25 21:53+0000\n"
 "Last-Translator: XiveZ <kyrsant2008@list.ru>\n"
 "Language-Team: Belarusian <be@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-12-23 05:15+0000\n"
 "X-Generator: Launchpad (build 17865)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -102,21 +102,6 @@ msgstr "Вярнуцца да бяспечнага рэжыму"
 msgid "JavaScript Confirmation"
 msgstr "Пацверджанне дзеянняў JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Абярыце праграму для адкрыцця гэтага файла або дадайце яго ў тэчку атрыманых "
-"файлаў."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Абраць праграму"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Атрымаць"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Памылка сеткі"
@@ -136,10 +121,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Абнавіць старонку"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Калі ласка, абярыце файл"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -611,6 +592,29 @@ msgstr "Правядзіце пальцам уверх, каб выйсці з �
 msgid "Press ESC To Exit Full Screen"
 msgstr "Націсніце клавішу Esc, каб выйсці з поўнаэкраннага рэжыму"
 
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Абярыце праграму для адкрыцця гэтага файла або дадайце яго ў тэчку атрыманых "
+"файлаў."
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr "Абраць праграму"
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr "Атрымаць"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Пацвердзіце выбар"
@@ -959,6 +963,9 @@ msgstr "Прагляд сеткі Інтэрнэт"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Інтэрнэт;WWW;Браўзер;Веб;Праваднік"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Калі ласка, абярыце файл"
 
 #~ msgid "see more"
 #~ msgstr "гл. больш"
