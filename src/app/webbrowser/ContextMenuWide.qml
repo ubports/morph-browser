@@ -137,8 +137,19 @@ Popups.Popover {
         }
     }
 
-    // We can’t prevent the popover from stealing the focus from
-    // the webview, but we can at least restore it when the
-    // popover is closed (https://launchpad.net/bugs/1526884).
-    Component.onDestruction: Oxide.WebView.view.forceActiveFocus()
+    // Override default implementation to prevent context menu from stealing
+    // active focus when shown (https://launchpad.net/bugs/1526884).
+    function show() {
+        visible = true
+        __foreground.show()
+    }
+
+    Binding {
+        // Ensure the context menu doesn’t steal focus from
+        // the webview when one of its actions is activated
+        // (https://launchpad.net/bugs/1526884).
+        target: __foreground
+        property: "activeFocusOnPress"
+        value: false
+    }
 }
