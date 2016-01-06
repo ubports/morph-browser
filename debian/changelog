@@ -1,3 +1,21 @@
+webbrowser-app (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle application crashes or OOM interventions & save opened
+    overlays (LP: #1508969)
+  * Handle empty url pattern in configuration file and invalid url
+    pattern being specified. (LP: #1522585)
+  * Limited handling of custom context menu for the container
+  * Make the webapp-container click hook more flexible. Instead of being
+    able to delete cache & resource folders as the click is being
+    uninstalled, one can also act on them as the click is being upgraded
+    & installed. (LP: #1522562)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 06 Jan 2016 19:43:28 +0000
+
 webbrowser-app (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
 
   * Add keyboard shorcuts for 'next' (Ctrl+G) and 'previous'
