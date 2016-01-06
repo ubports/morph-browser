@@ -544,7 +544,7 @@ BrowserView {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
                 iconName: "save"
-                enabled: downloadHandlerLoader.status == Loader.Ready
+                enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
                 onTriggered: {
                     currentWebview.showDownloadsPage()
                 }
@@ -932,15 +932,17 @@ BrowserView {
 
         Component {
             id: downloadsComponent
-
-            DownloadsPage {
-                anchors.fill: parent
+            Loader {
+                id: downloadsLoader
                 focus: true
-                downloadsModel: browser.downloadsModel
-                onDone: destroy()
-                Keys.onEscapePressed: {
-                    destroy()
-                    internal.resetFocus()
+                source: "DownloadsPage.qml"
+                anchors.fill: parent
+            
+                onLoaded: {
+                    downloadsLoader.item.focus = true
+                    downloadsLoader.item.downloadsModel = browser.downloadsModel
+                    downloadsLoader.item.done.connect(function() { destroy(); })
+                    downloadsLoader.item.Keys.escapePressed.connect(function() { destroy(); internal.resetFocus(); })
                 }
             }
         }
