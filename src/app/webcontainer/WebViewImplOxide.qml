@@ -37,6 +37,7 @@ WebViewImpl {
     property url dataPath
     property var popupController
     property var overlayViewsParent: webview.parent
+    property bool wide: false
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -77,53 +78,106 @@ WebViewImpl {
 
     onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
 
+    property QtObject contextModel: null
     contextualActions: ActionList {
+        Actions.OpenLinkInWebBrowser {
+            objectName: "OpenLinkInWebBrowser"
+            enabled: contextModel && contextModel.linkUrl.toString()
+            onTriggered: openUrlExternally(contextModel.linkUrl)
+        }
         Actions.CopyLink {
             enabled: webview.contextModel && webview.contextModel.linkUrl.toString()
             onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
+            objectName: "CopyLinkContextualAction"
         }
         Actions.CopyImage {
             enabled: webview.contextModel &&
                      (webview.contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                      webview.contextModel.srcUrl.toString()
             onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
+            objectName: "CopyImageContextualAction"
         }
         Actions.Undo {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.UndoCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+            objectName: "UndoContextualAction"
         }
         Actions.Redo {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.RedoCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+            objectName: "RedoContextualAction"
         }
         Actions.Cut {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.CutCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+            objectName: "CutContextualAction"
         }
         Actions.Copy {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.CopyCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+            objectName: "CopyContextualAction"
         }
         Actions.Paste {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.PasteCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+            objectName: "PasteContextualAction"
         }
         Actions.Erase {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.EraseCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+            objectName: "EraseContextualAction"
         }
         Actions.SelectAll {
             enabled: webview.contextModel && webview.contextModel.isEditable &&
                      (webview.contextModel.editFlags & Oxide.WebView.SelectAllCapability)
             onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
+            objectName: "SelectAllContextualAction"
         }
     }
+    function contextMenuOnCompleted(menu) {
+        if (!menu || !menu.contextModel) {
+            return
+        }
+        contextModel = menu.contextModel
+
+        var isImageMediaType =
+                ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                 (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas))
+             && contextModel.hasImageContents;
+
+        if (contextModel.linkUrl.toString() ||
+            contextModel.srcUrl.toString() ||
+            contextModel.selectionText ||
+            (contextModel.isEditable && contextModel.editFlags) ||
+            isImageMediaType) {
+            menu.show()
+        } else {
+            contextModel.close()
+        }
+    }
+    Component {
+        id: contextMenuNarrowComponent
+        ContextMenuMobile {
+            actions: contextualActions
+            Component.onCompleted: webview.contextMenuOnCompleted(this)
+        }
+    }
+    Component {
+        id: contextMenuWideComponent
+        ContextMenuWide {
+            associatedWebview: webview
+            parent: browser
+            actions: contextualActions
+            Component.onCompleted: webview.contextMenuOnCompleted(this)
+        }
+    }
+    contextMenu: webview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication

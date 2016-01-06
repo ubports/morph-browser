@@ -138,6 +138,11 @@ window.onload = function() {{
 </html>
         """
 
+    base64_png_data = \
+        "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwE" \
+        "AmpwYAAAAOUlEQVRYw+3OAQ0AAAgDoGv/zlpDN0hATS7qaGlpaWlpaWlpaWlpaWlpaW" \
+        "lpaWlpaWlpaWlpab1qLUGqAWNyFWTYAAAAAElFTkSuQmCC"
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -151,6 +156,28 @@ window.onload = function() {{
         elif self.path == '/with-external-link':
             self.send_response(200)
             self.serve_content(self.external_click_content())
+        elif self.path == "/image":
+            self.send_response(200)
+            html = '<html><body>'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</body></html>'
+            self.serve_content(html)
+        elif self.path == "/imagelink":
+            self.send_response(200)
+            html = '<html><body><a href="http://www.ubuntu.com">'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</a></body></html>'
+            self.serve_content(html)
+        elif self.path == "/textarea":
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<textarea style="width: 100%; height: 100%">some text'
+            html += '</textarea></body></html>'
+            self.serve_content(html)
         elif self.path == '/with-targetted-link':
             self.send_response(200)
             self.serve_content(self.targetted_click_content())
