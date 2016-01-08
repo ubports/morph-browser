@@ -42,6 +42,7 @@ Item {
     property bool wide: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
+    signal themeColorMetaInformationDetected(string theme_color)
 
     onWideChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.wide = wide
 
@@ -67,6 +68,13 @@ Item {
         target: webappContainerWebViewLoader.item
         onSamlRequestUrlPatternReceived: {
             samlRequestUrlPatternReceived(urlPattern)
+        }
+    }
+
+    Connections {
+        target: webappContainerWebViewLoader.item
+        onThemeColorMetaInformationDetected: {
+            themeColorMetaInformationDetected(theme_color)
         }
     }
 

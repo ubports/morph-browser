@@ -117,6 +117,39 @@ window.onload = function() {{
     </html>
         """.format(loopcount)
 
+    def manifest_json_content(self):
+        return """
+{
+  "name": "Theme Color",
+  "short_name": "Theme Color",
+  "icons": [],
+  "theme_color": "#FF0000"
+}        """
+
+    def theme_color_content(self, color, with_manifest=False):
+        color_content = ''
+        if color:
+            color_content = """
+<meta name=\"theme-color\" content=\"{}\"></meta>
+""".format(color)
+        manifest_content = ''
+        if with_manifest:
+            manifest_content = "<link rel=\"manifest\" href=\"manifest.json\">"
+
+        return """
+<html>
+<head>
+{}
+{}
+<title>theme-color</title>
+<script>
+</script>
+</head>
+<body>
+</body>
+</html>
+        """.format(color_content, manifest_content)
+
     def open_close_content(self):
         return """
 <html>
@@ -187,6 +220,20 @@ window.onload = function() {{
         elif self.path == '/open-close-content':
             self.send_response(200)
             self.serve_content(self.open_close_content())
+        elif self.path == '/theme-color/manifest.json':
+            self.send_response(200)
+            self.serve_content(self.manifest_json_content())
+        elif self.path.startswith('/theme-color/'):
+            args = self.path[len('/theme-color/'):]
+            self.send_response(200)
+            color = ''
+            if args.startswith('?color='):
+                color = args[len('?color='):]
+            with_manifest = False
+            if args.startswith('?manifest='):
+                with_manifest = True
+            self.send_response(200)
+            self.serve_content(self.theme_color_content(color, with_manifest))
         elif self.path.startswith('/saml/'):
             args = self.path[len('/saml/'):]
             loopCount = 0
