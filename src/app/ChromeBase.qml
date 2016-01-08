@@ -23,6 +23,8 @@ import Ubuntu.Components 1.3
 StyledItem {
     id: chrome
 
+    objectName: "chromeBase"
+
     property var webview
     property alias backgroundColor: backgroundRect.color
 

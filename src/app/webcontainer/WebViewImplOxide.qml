@@ -46,6 +46,7 @@ WebViewImpl {
     property bool blockOpenExternalUrls: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
+    signal themeColorMetaInformationDetected(string theme_color)
 
     // Those signals are used for testing purposes to externally
     //  track down the various internal logic & steps of a popup lifecycle.
@@ -69,7 +70,25 @@ WebViewImpl {
     context: WebContext {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
+
+        userScripts: [
+            Oxide.UserScript {
+                context: "oxide://webapp-specific-page-metadata-collector/"
+                url: Qt.resolvedUrl("webapp-specific-page-metadata-collector.js")
+                incognitoEnabled: false
+                matchAllFrames: false
+            }
+        ]
     }
+    messageHandlers: [
+        Oxide.ScriptMessageHandler {
+            msgId: "webapp-specific-page-metadata-detected"
+            contexts: ["oxide://webapp-specific-page-metadata-collector/"]
+            callback: function(msg, frame) {
+                handlePageMetadata(msg.args)
+            }
+        }
+    ]
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
@@ -319,6 +338,30 @@ WebViewImpl {
         }
     }
 
+    function handlePageMetadata(metadata) {
+        if (metadata.type === 'manifest') {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    try {
+                        var manifest = JSON.parse(request.responseText);
+                        if (manifest['theme_color']
+                                && manifest['theme_color'].length !== 0) {
+                            themeColorMetaInformationDetected(manifest['theme_color'])
+                        }
+                    } catch(e) {}
+                }
+            }
+            request.open("GET", metadata.manifest);
+            request.send();
+        } else if (metadata.type === 'theme-color') {
+            if (metadata['theme_color']
+                    && metadata['theme_color'].length !== 0) {
+                themeColorMetaInformationDetected(metadata['theme_color'])
+            }
+        }
+    }
+
     onShowDownloadDialog: {
        if (downloadDialogLoader.status === Loader.Ready) {
            var downloadDialog = PopupUtils.open(downloadDialogLoader.item, webview, {"contentType" : contentType,
@@ -341,5 +384,4 @@ WebViewImpl {
         source: "ContentPickerDialog.qml"
         asynchronous: true
     }
-
 }
