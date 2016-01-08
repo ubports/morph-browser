@@ -40,7 +40,7 @@ target_link_libraries(${WEBAPP_CONTAINER}
 install(TARGETS ${WEBAPP_CONTAINER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-file(GLOB QML_FILES *.qml)
+file(GLOB QML_FILES *.qml *.js)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer)
 install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
         FILES_MATCHING PATTERN *.qml)
