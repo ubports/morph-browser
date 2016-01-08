@@ -1,3 +1,9 @@
+webbrowser-app (0.23+16.04.20160108.1-0ubuntu1) xenial; urgency=medium
+
+  * Handle theme_color page metainformation. (LP: #1477674)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 08 Jan 2016 19:33:34 +0000
+
 webbrowser-app (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
