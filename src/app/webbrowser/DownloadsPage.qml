@@ -120,6 +120,7 @@ Item {
             Action {
                 iconName: "edit" 
                 visible: !selectMode && !pickingMode
+                enabled: downloadsListView.count > 0
                 onTriggered: {
                     selectMode = true
                     multiSelect = true
