@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -1995,11 +1995,14 @@ BrowserView {
             onTriggered: chrome.findInPageMode = true
         }
 
-        // Ctrl + J: Show downloads page
+        // Ctrl+J: Show downloads page
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_J
-            enabled: chrome.visible && !downloadsViewLoader.active
+            enabled: chrome.visible &&
+                     downloadHandlerLoader.status == Loader.Ready &&
+                     contentHandlerLoader.status == Loader.Ready &&
+                     !downloadsViewLoader.active
             onTriggered: currentWebview.showDownloadsPage()
         }
 
