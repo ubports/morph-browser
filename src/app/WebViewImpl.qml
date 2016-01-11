@@ -34,7 +34,8 @@ WebView {
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
-    filePicker: filePickerLoader.item
+
+    signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
     QtObject {
         id: internal
@@ -62,9 +63,10 @@ WebView {
             }
             headers["User-Agent"] = webview.context.userAgent
             // Work around https://launchpad.net/bugs/1487090 by guessing the mime type
-            // from the suggested filename or URL if oxide hasn’t provided one.
+            // from the suggested filename or URL if oxide hasn’t provided one, or if
+            // the server has provided the generic application/octet-stream mime type.
             var mimeType = request.mimeType
-            if (!mimeType) {
+            if (!mimeType || mimeType == "application/octet-stream") {
                 mimeType = MimeDatabase.filenameToMimeType(request.suggestedFilename)
             }
             if (!mimeType) {
@@ -87,18 +89,16 @@ WebView {
     }
 
     Loader {
-        id: filePickerLoader
-        source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
+        id: downloadLoader
+        source: "Downloader.qml"
         asynchronous: true
     }
 
-    Loader {
-        id: downloadLoader
-        // TODO: Use the ubuntu download manager on desktop as well
-        //  (https://launchpad.net/bugs/1477310). This will require to have
-        //  ubuntu-download-manager in main (https://launchpad.net/bugs/1488425).
-        source: formFactor == "desktop" ? "" : "Downloader.qml"
-        asynchronous: true
+    Connections {
+        target: downloadLoader.item
+        onShowDownloadDialog: {
+            showDownloadDialog(downloadId, contentType, downloader, filename, mimeType)
+        }
     }
 
     function requestGeolocationPermission(request) {

@@ -148,7 +148,7 @@ private Q_SLOTS:
         }
     }
 
-    void testClickHookInstall()
+    void testClickHookInstallProcessing()
     {
         QString processedHookFilename =
                 "com.ubuntu.blabla_blabla";

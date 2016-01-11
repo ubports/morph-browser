@@ -26,6 +26,13 @@ UbuntuTestCase {
         mouseClick(item, center.x, center.y, button)
     }
 
+    function longPressItem(item, button) {
+        if (button === undefined) button = Qt.LeftButton
+        var center = centerOf(item)
+        mouseLongPress(item, center.x, center.y, button)
+        mouseRelease(item, center.x, center.y, button)
+    }
+
     function getListItems(listview, itemName) {
         waitForRendering(listview)
         var items = []
@@ -48,7 +55,10 @@ UbuntuTestCase {
     }
 
     function swipeToDeleteAndConfirm(listitem) {
-        flick(listitem, listitem.width / 10, listitem.height / 2, listitem.width / 2, 0)
+        flick(listitem,
+              listitem.width / 10, listitem.height / 2, listitem.width / 2, 0,
+              // work around https://launchpad.net/bugs/1526940 by specifying a non-null delay
+              -1, -1, Qt.LeftButton, Qt.NoModifiers, 1)
         var confirm = findChild(listitem, "actionbutton_leadingAction.delete")
         clickItem(confirm)
     }

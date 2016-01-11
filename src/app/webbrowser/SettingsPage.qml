@@ -43,7 +43,7 @@ Item {
         searchPaths: searchEnginesSearchPaths
     }
 
-    SettingsPageHeader {
+    BrowserPageHeader {
         id: title
 
         onBack: settingsItem.done()
@@ -168,7 +168,7 @@ Item {
                     color: "#f6f6f6"
                 }
 
-                SettingsPageHeader {
+                BrowserPageHeader {
                     id: searchEngineTitle
 
                     onBack: searchEngineItem.destroy()
@@ -221,7 +221,7 @@ Item {
                     color: "#f6f6f6"
                 }
 
-                SettingsPageHeader {
+                BrowserPageHeader {
                     id: privacyTitle
                     onBack: privacyItem.destroy()
                     text: i18n.tr("Privacy & permissions")
@@ -379,7 +379,7 @@ Item {
                 color: "#f6f6f6"
             }
 
-            SettingsPageHeader {
+            BrowserPageHeader {
                 id: mediaAccessTitle
 
                 onBack: mediaAccessItem.destroy()

@@ -122,6 +122,9 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         webview.url = url
         self.assert_page_eventually_loaded(url)
 
+    def kill_app(self, signal=signal.SIGKILL):
+        os.kill(self.app.pid, signal)
+
     def kill_web_processes(self, signal=signal.SIGKILL):
         children = psutil.Process(self.app.pid).children(True)
         for child in children:

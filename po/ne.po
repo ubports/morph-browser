@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-12-07 12:09+0000\n"
 "Last-Translator: sarojdhakal <Unknown>\n"
 "Language-Team: Nepali <ne@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-01-06 05:43+0000\n"
+"X-Generator: Launchpad (build 17876)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,12 +48,13 @@ msgid "Password"
 msgstr "पासवर्ड"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:159
-#: src/app/webbrowser/HistoryViewWide.qml:384
+#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/HistoryView.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:388
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
@@ -101,21 +102,6 @@ msgstr "सुरक्षित ठाउँमा फर्कने"
 msgid "JavaScript Confirmation"
 msgstr "जाबास्क्रिप्ट निश्चित"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
-"थप्नुहोस।"
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "अनुप्रयोग छान्नुहोस्"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "डाउनलोड"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "नेटवर्क त्रुटि"
@@ -135,10 +121,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "पाना पुनःलोड गर्नुहोस्"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "एक फाइल छान्नुहोस्"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -269,6 +251,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले समाप्त भैसकेको एक सुरक्षा "
+"प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -277,6 +261,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले अमान्य मिति समावेश भएको एक "
+"सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -285,6 +271,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले विश्वसनीय छैन भनेर एक इकाइ "
+"द्वारा जारी एक सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -293,6 +281,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले खारेज भैसकेको सुरक्षा "
+"प्रमाणपत्र प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -301,6 +291,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक अमान्य सुरक्षा प्रमाणपत्र "
+"प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -309,6 +301,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक असुरक्षित सुरक्षा प्रमाणपत्र "
+"प्रस्तुत गरेको छ​।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -318,6 +312,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"यो साइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन\n"
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक सुरक्षा प्रमाणपत्र प्रस्तुत "
+"गर्यो जस्ले अज्ञात कारणले हाम्रो सुरक्षा जाँच असफल भएको छ​।"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -387,7 +384,7 @@ msgstr "काट्नुहोस्"
 msgid "Erase"
 msgstr "मेटनुहोस्"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
 msgid "Find in page"
 msgstr "पानामा खोज्नुहोस्"
 
@@ -417,7 +414,7 @@ msgstr "जानुहोस्"
 msgid "Address;URL;www"
 msgstr "ठेगाना; URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
 #: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "नयाँ ट्याब"
@@ -467,13 +464,13 @@ msgstr "तस्विर सङ्ग्रह गर्नुहोस्"
 msgid "Save link"
 msgstr "लिङ्क सङ्ग्रह गर्नुहोस्"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/webbrowser/HistoryView.qml:174
+#: src/app/webbrowser/HistoryViewWide.qml:413
 msgid "Select all"
 msgstr "सबै चयन गर्नुहोस्"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
 msgid "Share"
 msgstr "सेयर गर्नुहोस्"
 
@@ -536,78 +533,101 @@ msgstr "सङ्ग्रह गर्नुहोस्"
 msgid "Homepage"
 msgstr "गृह पृष्ठ"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
+#: src/app/webbrowser/NewTabViewWide.qml:149
 msgid "Bookmarks"
 msgstr "पुस्तकचिनोहरू"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
-#: src/app/webbrowser/HistoryViewWide.qml:504
+#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
+#: src/app/webbrowser/HistoryViewWide.qml:508
 msgid "Done"
 msgstr "सम्पन्न भयो"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:125
-#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryViewWide.qml:518
+#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:522
 #: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "नयाँ ट्याब"
 
-#: src/app/webbrowser/Browser.qml:511
-#: src/app/webbrowser/HistoryViewWide.qml:368
+#: src/app/webbrowser/Browser.qml:515
+#: src/app/webbrowser/HistoryViewWide.qml:372
 msgid "History"
 msgstr "इतिहास"
 
-#: src/app/webbrowser/Browser.qml:517
+#: src/app/webbrowser/Browser.qml:521
 msgid "Open tabs"
 msgstr "खुल्ला ट्याबहरू"
 
-#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr "डाउनलोडहरू"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
 msgstr "निजी मोड छोड्नुहोस्"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Private Mode"
 msgstr "निजी मोड"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "सेटिङ्"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735
+#: src/app/webbrowser/Browser.qml:748
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1209
+#: src/app/webbrowser/Browser.qml:1268
 msgid "Swipe Up To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न माथि स्वाइप गर्नुहोस्"
 
-#: src/app/webbrowser/Browser.qml:1210
+#: src/app/webbrowser/Browser.qml:1269
 msgid "Press ESC To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न ESC थिच्नुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
+"थप्नुहोस।"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "अनुप्रयोग छान्नुहोस्"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "डाउनलोड"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
+#: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "चयन निश्चित गर्नुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
-#: src/app/webbrowser/HistoryView.qml:199
-#: src/app/webbrowser/HistoryViewWide.qml:428
+#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/HistoryView.qml:200
+#: src/app/webbrowser/HistoryViewWide.qml:432
 msgid "Delete"
 msgstr "मेट्नुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:207
+#: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
 msgstr "डाउनलोड उपलब्ध छैन"
 
@@ -619,7 +639,7 @@ msgstr[0] "%1 पाना"
 msgstr[1] "%1 पाना"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "Less"
 msgstr "कम"
 
@@ -628,20 +648,20 @@ msgid "Last Visited"
 msgstr "पछिल्लो पटक भ्रमण गरिएको"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:215
+#: src/app/webbrowser/HistoryViewWide.qml:214
 msgid "Yesterday"
 msgstr "हिजो"
 
-#: src/app/webbrowser/HistoryViewWide.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
 msgstr "सबै इतिहास"
 
-#: src/app/webbrowser/HistoryViewWide.qml:213
-#: src/app/webbrowser/HistoryViewWide.qml:282
+#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:286
 msgid "Today"
 msgstr "आज"
 
-#: src/app/webbrowser/HistoryViewWide.qml:449
+#: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
 msgstr "खोज इतिहास"
 
@@ -684,17 +704,19 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"यस ट्याबमा हेर्नु भएको पृष्ठ आफ्नो ब्राउजर इतिहासमा देखा पर्दैन।\n"
+"बनाउनु भएको बुक्मर्क​ तथापि, संरक्षित हुनेछ।"
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
 msgstr "बढि"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:153
+#: src/app/webbrowser/NewTabView.qml:223
+#: src/app/webbrowser/NewTabViewWide.qml:148
 msgid "Top sites"
 msgstr "शिर्ष साइटहरू"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
 msgstr "तपाईँले अहिलेसम्म कुनै साइट भ्रमण गर्नुभएको छैन"
 
@@ -882,23 +904,28 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"खाता विन्डो खोल्न सकिएन। मात्र एक समयमा एउटा खाता सिर्जना गर्न सक्नुहुन्छ; "
+"सबै अन्य खाता विन्डोज् बन्द गरिसके पछि फेरि प्रयास गर्नुहोस्।"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> लाई तपाईँको  %2 अनलाइन खाता पहुँच आवश्यक छ"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
 msgstr ""
+"Copy text \t\r\n"
+"<b>%1</b>तपाईँको  %2 अनलाइन खाता पहुँच गर्न चाहन्छ"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"अहिले खाता छान्नुहोस् या यो भाग छोडेर पछि अनलाइन खाता छान्न पनि सक्नुहुनेछ ।"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
@@ -931,6 +958,9 @@ msgstr "वर्ल्ड वाइड वेब ब्राउज गर्�
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "इन्टरनेट;WWW; ब्राउजर; वेब; एक्सप्लोरर"
+
+#~ msgid "Please choose a file"
+#~ msgstr "एक फाइल छान्नुहोस्"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."

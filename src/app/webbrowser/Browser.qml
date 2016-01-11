@@ -28,6 +28,7 @@ import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
 import ".."
 import "."
+import "." as Local
 
 BrowserView {
     id: browser
@@ -36,6 +37,9 @@ BrowserView {
     property bool fullscreen: false
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
+
+    property var downloadsModel: (downloadsModelLoader.status == Loader.Ready) ? downloadsModelLoader.item : null
+    property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
 
     property bool newSession: false
 
@@ -168,7 +172,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
+        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsContainer.visible
 
         FocusScope {
             id: tabContainer
@@ -219,7 +223,7 @@ BrowserView {
 
             anchors {
                 fill: tabContainer
-                topMargin: (chrome.state == "shown" && chrome.visible) ? chrome.height : 0
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
 
             // Avoid loading the new tab view if the webview is about to load
@@ -365,7 +369,7 @@ BrowserView {
             onTabClosed: internal.closeTab(index)
         }
 
-        Toolbar {
+        Local.Toolbar {
             id: recentToolbar
             objectName: "recentToolbar"
 
@@ -537,6 +541,15 @@ BrowserView {
                 onTriggered: chrome.findInPageMode = true
             },
             Action {
+                objectName: "downloads"
+                text: i18n.tr("Downloads")
+                iconName: "save"
+                enabled: downloadHandlerLoader.status == Loader.Ready
+                onTriggered: {
+                    currentWebview.showDownloadsPage()
+                }
+            },
+            Action {
                 objectName: "privatemode"
                 text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
                 iconName: "private-browsing"
@@ -558,11 +571,7 @@ BrowserView {
                 objectName: "settings"
                 text: i18n.tr("Settings")
                 iconName: "settings"
-                onTriggered: {
-                    settingsComponent.createObject(settingsContainer)
-                    settingsContainer.focus = true
-                    chrome.findInPageMode = false
-                }
+                onTriggered: settingsViewLoader.active = true
             }
         ]
 
@@ -830,6 +839,7 @@ BrowserView {
                     var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(done)
                 }
+                onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
 
                 FocusScope {
@@ -883,19 +893,50 @@ BrowserView {
         }
     }
 
+    Loader {
+        id: settingsViewLoader
+
+        anchors.fill: parent
+        active: false
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                settingsViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: settingsViewLoader.active = false
+
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
+        sourceComponent: SettingsPage {
+            anchors.fill: parent
+            focus: true
+            settingsObject: settings
+            onDone: settingsViewLoader.active = false
+        }
+    }
+
     FocusScope {
-        id: settingsContainer
+        id: downloadsContainer
 
         visible: children.length > 0
         anchors.fill: parent
 
         Component {
-            id: settingsComponent
+            id: downloadsComponent
 
-            SettingsPage {
+            DownloadsPage {
                 anchors.fill: parent
                 focus: true
-                settingsObject: settings
+                downloadsModel: browser.downloadsModel
                 onDone: destroy()
                 Keys.onEscapePressed: {
                     destroy()
@@ -930,6 +971,17 @@ BrowserView {
         }
     }
 
+    Loader {
+        id: downloadsModelLoader
+        source: "DownloadsModel.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: downloadHandlerLoader
+        source: "DownloadHandler.qml"
+    }
+
     Component {
         id: tabComponent
 
@@ -950,6 +1002,7 @@ BrowserView {
                 readonly property bool current: tab.current
 
                 currentWebview: browser.currentWebview
+                filePicker: filePickerLoader.item
 
                 anchors.fill: parent
                 focus: true
@@ -1241,6 +1294,29 @@ BrowserView {
                         Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
+
+                onShowDownloadDialog: {
+                    if (downloadDialogLoader.status === Loader.Ready) {
+                        var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
+                                                                                                  "downloadId" : downloadId,
+                                                                                                  "singleDownload" : downloader,
+                                                                                                  "filename" : filename,
+                                                                                                  "mimeType" : mimeType})
+                        downloadDialog.startDownload.connect(startDownload)
+                    }
+                }
+
+                function showDownloadsPage() {
+                    downloadsContainer.focus = true
+                    return downloadsComponent.createObject(downloadsContainer)
+                }
+
+                function startDownload(downloadId, download, mimeType) {
+                    downloadsModel.add(downloadId, download.url, mimeType)
+                    download.start()
+                    showDownloadsPage()
+                }
+
             }
         }
     }
@@ -1308,12 +1384,12 @@ BrowserView {
         }
 
         function getOpenPages() {
-            var urls = [];
+            var urls = []
             for (var i = 0; i < tabsModel.count; i++) {
                 var url = tabsModel.get(i).url
-                if (url.length > 0) urls.push(url) // exclude "new tab" tabs
+                if (url.toString()) urls.push(url) // exclude "new tab" tabs
             }
-            return urls;
+            return urls
         }
 
         function instantiateShareComponent() {
@@ -1743,13 +1819,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.switchToNextTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_PageDown
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.switchToNextTab()
         }
 
@@ -1757,13 +1833,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.switchToPreviousTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_PageUp
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.switchToPreviousTab()
         }
 
@@ -1771,14 +1847,14 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_W
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.undoCloseTab()
         }
 
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.undoCloseTab()
         }
 
@@ -1786,13 +1862,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.closeCurrentTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F4
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.closeCurrentTab()
         }
 
@@ -1800,11 +1876,11 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible || bookmarksViewLoader.active || historyViewLoader.active
+            enabled: tabContainer.visible || recentView.visible ||
+                     bookmarksViewLoader.active || historyViewLoader.active
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
-
                 bookmarksViewLoader.active = false
                 historyViewLoader.active = false
             }
@@ -1814,18 +1890,18 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             key: Qt.Key_F6
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
 
@@ -1833,7 +1909,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: {
                 if (currentWebview) {
                     if (BookmarksModel.contains(currentWebview.url)) {
@@ -1849,7 +1925,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: historyViewLoader.active = true
         }
 
@@ -1857,7 +1933,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_O
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: bookmarksViewLoader.active = true
         }
 
@@ -1865,12 +1941,12 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoBack()
         }
         KeyboardShortcut {
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoBack()
         }
 
@@ -1878,35 +1954,90 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoForward()
         }
         KeyboardShortcut {
             modifiers: Qt.ShiftModifier
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoForward()
         }
 
         // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_R
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
-        // Ctrl + F: Find in Page
+        // Ctrl+F: Find in Page
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
-            enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
+            enabled: tabContainer.visible && !newTabViewLoader.active
             onTriggered: chrome.findInPageMode = true
         }
+
+        // Ctrl + J: Show downloads page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_J
+            enabled: chrome.visible && !downloadsContainer.visible
+            onTriggered: currentWebview.showDownloadsPage()
+        }
+
+        // Ctrl+Shift+G: Find previous
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.previous()
+        }
+
+        // Ctrl+G: Find next
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.next()
+        }
+    }
+
+    Loader {
+        id: contentHandlerLoader
+        source: "ContentHandler.qml"
+    }
+
+    Connections {
+        target: contentHandlerLoader.item
+        onExportFromDownloads: {
+            if (downloadHandlerLoader.status == Loader.Ready) {
+                downloadsContainer.focus = true
+                var downloadPage = downloadsComponent.createObject(downloadsContainer)
+                downloadPage.mimetypeFilter = mimetypeFilter
+                downloadPage.activeTransfer = transfer
+                downloadPage.multiSelect = multiSelect
+                downloadPage.pickingMode = true
+            }
+        }
+    }
+
+    Loader {
+        id: downloadDialogLoader
+        source: "ContentDownloadDialog.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: filePickerLoader
+        source: "ContentPickerDialog.qml"
+        asynchronous: true
     }
 }

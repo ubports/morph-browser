@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-07-23 03:56+0000\n"
 "Last-Translator: Ian Li <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-01-06 05:43+0000\n"
+"X-Generator: Launchpad (build 17876)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,12 +48,13 @@ msgid "Password"
 msgstr "密码"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:159
-#: src/app/webbrowser/HistoryViewWide.qml:384
+#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/HistoryView.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:388
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
@@ -99,19 +100,6 @@ msgstr "返回安全连接"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript 确认"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr ""
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "网络错误"
@@ -129,10 +117,6 @@ msgstr "请检查你的网络设置，并试着刷新本页面。"
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "刷新页面"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "请选择文件"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -379,7 +363,7 @@ msgstr "剪切"
 msgid "Erase"
 msgstr "清除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
 msgid "Find in page"
 msgstr "在页面中查找"
 
@@ -409,7 +393,7 @@ msgstr "转到"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;地址"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
 #: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "新标签"
@@ -459,13 +443,13 @@ msgstr "保存图像"
 msgid "Save link"
 msgstr "保存链接"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/webbrowser/HistoryView.qml:174
+#: src/app/webbrowser/HistoryViewWide.qml:413
 msgid "Select all"
 msgstr "全选"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
 msgid "Share"
 msgstr "分享"
 
@@ -528,80 +512,101 @@ msgstr "保存"
 msgid "Homepage"
 msgstr "主页"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
+#: src/app/webbrowser/NewTabViewWide.qml:149
 msgid "Bookmarks"
 msgstr "书签"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
-#: src/app/webbrowser/HistoryViewWide.qml:504
+#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
+#: src/app/webbrowser/HistoryViewWide.qml:508
 msgid "Done"
 msgstr "完成"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:125
-#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryViewWide.qml:518
+#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:522
 #: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "新建标签"
 
-#: src/app/webbrowser/Browser.qml:511
-#: src/app/webbrowser/HistoryViewWide.qml:368
+#: src/app/webbrowser/Browser.qml:515
+#: src/app/webbrowser/HistoryViewWide.qml:372
 msgid "History"
 msgstr "历史"
 
-#: src/app/webbrowser/Browser.qml:517
+#: src/app/webbrowser/Browser.qml:521
 msgid "Open tabs"
 msgstr "打开的标签"
 
-#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "下载"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
 msgstr "退出匿名模式"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Private Mode"
 msgstr "匿名模式"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "设置"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735
+#: src/app/webbrowser/Browser.qml:748
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1209
+#: src/app/webbrowser/Browser.qml:1268
 msgid "Swipe Up To Exit Full Screen"
 msgstr "上划以退出全屏"
 
-#: src/app/webbrowser/Browser.qml:1210
+#: src/app/webbrowser/Browser.qml:1269
 msgid "Press ESC To Exit Full Screen"
 msgstr "按ESC退出全屏"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
-msgid "Confirm selection"
-msgstr ""
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr "选择一个应用来打开这个文件或者将它添加到下载文件夹中。"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
-#: src/app/webbrowser/HistoryView.qml:199
-#: src/app/webbrowser/HistoryViewWide.qml:428
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "选择一个应用程序"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "下载"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr "下载失败"
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr "继续"
+
+#: src/app/webbrowser/DownloadsPage.qml:60
+msgid "Confirm selection"
+msgstr "确定选择"
+
+#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/HistoryView.qml:200
+#: src/app/webbrowser/HistoryViewWide.qml:432
 msgid "Delete"
 msgstr "删除"
 
-#: src/app/webbrowser/DownloadsPage.qml:207
+#: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
-msgstr ""
+msgstr "没有可用的下载"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
@@ -610,7 +615,7 @@ msgid_plural "%1 pages"
 msgstr[0] "第 %1 页"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "Less"
 msgstr "收起"
 
@@ -619,20 +624,20 @@ msgid "Last Visited"
 msgstr "最近访问"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:215
+#: src/app/webbrowser/HistoryViewWide.qml:214
 msgid "Yesterday"
 msgstr "昨天"
 
-#: src/app/webbrowser/HistoryViewWide.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
 msgstr "全部历史"
 
-#: src/app/webbrowser/HistoryViewWide.qml:213
-#: src/app/webbrowser/HistoryViewWide.qml:282
+#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:286
 msgid "Today"
 msgstr "今天"
 
-#: src/app/webbrowser/HistoryViewWide.qml:449
+#: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
 msgstr "搜索历史"
 
@@ -678,16 +683,16 @@ msgstr ""
 "您在本标签内访问的页面将不会出现在浏览器历史中。\n"
 "但在这里创建的书签将会被保留。"
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
 msgstr "更多"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:153
+#: src/app/webbrowser/NewTabView.qml:223
+#: src/app/webbrowser/NewTabViewWide.qml:148
 msgid "Top sites"
 msgstr "热门网站"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
 msgstr "您尚未访问任何站点"
 
@@ -926,6 +931,9 @@ msgstr "互联网；WWW；浏览器；"
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr "Ubuntu 建议您检查下网络设置并尝试刷新该页面。"
+
+#~ msgid "Please choose a file"
+#~ msgstr "请选择文件"
 
 #~ msgid "Select an account"
 #~ msgstr "选择一个帐户"

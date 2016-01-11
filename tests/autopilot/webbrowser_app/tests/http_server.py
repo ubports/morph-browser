@@ -180,6 +180,18 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_response(200)
             name = self.path[len("/tab/"):]
             self.send_html('<html><body>' + name + '</body></html>')
+        elif self.path.startswith("/downloadpdfgenericmime"):
+            self.send_response(200)
+            self.send_header("Content-Type", "application/octet-stream")
+            self.send_header("Content-Disposition",
+                             "attachment; filename='test.pdf'")
+            self.end_headers()
+        elif self.path.startswith("/downloadpdf"):
+            self.send_response(200)
+            self.send_header("Content-Type", "application/pdf")
+            self.send_header("Content-Disposition",
+                             "attachment; filename='test.pdf'")
+            self.end_headers()
         elif self.path.startswith("/basicauth"):
             login = "user"
             password = "pass"

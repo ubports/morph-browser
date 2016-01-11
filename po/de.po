@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
-"PO-Revision-Date: 2015-10-31 13:39+0000\n"
-"Last-Translator: Tobias Bannert <Unknown>\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
+"PO-Revision-Date: 2015-12-26 18:21+0000\n"
+"Last-Translator: Torsten Franz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-01-06 05:42+0000\n"
+"X-Generator: Launchpad (build 17876)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,12 +48,13 @@ msgid "Password"
 msgstr "Passwort"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:159
-#: src/app/webbrowser/HistoryViewWide.qml:384
+#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/HistoryView.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:388
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
@@ -101,20 +102,6 @@ msgstr "Zurück zu sicherer Internetseite"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript-Bestätigung"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Anwendung zum Öffnen der Datei auswählen oder im Download-Ordner speichern."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Eine Anwendung auswählen"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Herunterladen"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Netzwerkfehler"
@@ -134,10 +121,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Seite neu laden"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Bitte eine Datei auswählen"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -403,7 +386,7 @@ msgstr "Ausschneiden"
 msgid "Erase"
 msgstr "Löschen"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
 msgid "Find in page"
 msgstr "Suche in Seite"
 
@@ -433,7 +416,7 @@ msgstr "Wechseln zu"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
 #: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Neuer Reiter"
@@ -483,13 +466,13 @@ msgstr "Bild speichern"
 msgid "Save link"
 msgstr "Verweis speichern"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/webbrowser/HistoryView.qml:174
+#: src/app/webbrowser/HistoryViewWide.qml:413
 msgid "Select all"
 msgstr "Alle auswählen"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
 msgid "Share"
 msgstr "Teilen"
 
@@ -552,78 +535,100 @@ msgstr "Speichern"
 msgid "Homepage"
 msgstr "Startseite"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
+#: src/app/webbrowser/NewTabViewWide.qml:149
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
-#: src/app/webbrowser/HistoryViewWide.qml:504
+#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
+#: src/app/webbrowser/HistoryViewWide.qml:508
 msgid "Done"
 msgstr "Fertig"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:125
-#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryViewWide.qml:518
+#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:522
 #: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Neuer Reiter"
 
-#: src/app/webbrowser/Browser.qml:511
-#: src/app/webbrowser/HistoryViewWide.qml:368
+#: src/app/webbrowser/Browser.qml:515
+#: src/app/webbrowser/HistoryViewWide.qml:372
 msgid "History"
 msgstr "Verlauf"
 
-#: src/app/webbrowser/Browser.qml:517
+#: src/app/webbrowser/Browser.qml:521
 msgid "Open tabs"
 msgstr "Offene Reiter"
 
-#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr "Übertragungen"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
 msgstr "Privaten Modus verlassen"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Private Mode"
 msgstr "Privater Modus"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Einstellungen"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735
+#: src/app/webbrowser/Browser.qml:748
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1209
+#: src/app/webbrowser/Browser.qml:1268
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Nach oben wischen, um das Vollbild zu beenden"
 
-#: src/app/webbrowser/Browser.qml:1210
+#: src/app/webbrowser/Browser.qml:1269
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC drücken, um das Vollbild zu beenden"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Anwendung zum Öffnen der Datei auswählen oder im Download-Ordner speichern."
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "Eine Anwendung auswählen"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "Herunterladen"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr "Herunterladen ist fehlgeschlagen"
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr "Fortsetzen"
+
+#: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Auswahl bestätigen"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
-#: src/app/webbrowser/HistoryView.qml:199
-#: src/app/webbrowser/HistoryViewWide.qml:428
+#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/HistoryView.qml:200
+#: src/app/webbrowser/HistoryViewWide.qml:432
 msgid "Delete"
 msgstr "Entfernen"
 
-#: src/app/webbrowser/DownloadsPage.qml:207
+#: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
 msgstr "Keine Downloads verfügbar"
 
@@ -635,7 +640,7 @@ msgstr[0] "%1 Seite"
 msgstr[1] "%1 Seiten"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "Less"
 msgstr "Weniger"
 
@@ -644,20 +649,20 @@ msgid "Last Visited"
 msgstr "Zuletzt besucht"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:215
+#: src/app/webbrowser/HistoryViewWide.qml:214
 msgid "Yesterday"
 msgstr "Gestern"
 
-#: src/app/webbrowser/HistoryViewWide.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
 msgstr "Vollständiger Verlauf"
 
-#: src/app/webbrowser/HistoryViewWide.qml:213
-#: src/app/webbrowser/HistoryViewWide.qml:282
+#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:286
 msgid "Today"
 msgstr "Heute"
 
-#: src/app/webbrowser/HistoryViewWide.qml:449
+#: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
 msgstr "Verlauf durchsuchen"
 
@@ -704,16 +709,16 @@ msgstr ""
 "Verlauf.\n"
 "Lesezeichen, die Sie anlegen, werden jedoch beibehalten."
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
 msgstr "Mehr"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:153
+#: src/app/webbrowser/NewTabView.qml:223
+#: src/app/webbrowser/NewTabViewWide.qml:148
 msgid "Top sites"
 msgstr "Beliebte Seiten"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
 msgstr "Sie haben bisher noch keine Seite besucht."
 
@@ -990,6 +995,9 @@ msgstr "Internet;WWW;Browser;Netz;Web;Webbrowser;Navigator;Explorer"
 
 #~ msgid "Add"
 #~ msgstr "Neu"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Bitte eine Datei auswählen"
 
 #~ msgid "No local account found for "
 #~ msgstr "Keine lokales Konto gefunden für "

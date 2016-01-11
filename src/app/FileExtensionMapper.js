@@ -160,6 +160,8 @@ function filenameToContentType(filename) {
         case "cxx":
         case "d":
         case "diff":
+        case "doc":
+        case "docx":
         case "etx":
         case "gcd":
         case "h":
@@ -180,6 +182,9 @@ function filenameToContentType(filename) {
         case "ly":
         case "mml":
         case "moc":
+        case "odp":
+        case "ods":
+        case "odt":
         case "p":
         case "pas":
         case "patch":
@@ -187,6 +192,8 @@ function filenameToContentType(filename) {
         case "pl":
         case "pm":
         case "pot":
+        case "ppt":
+        case "pptx":
         case "py":
         case "rtx":
         case "scala":
@@ -209,6 +216,8 @@ function filenameToContentType(filename) {
         case "wml":
         case "wmls":
         case "wsc":
+        case "xls":
+        case "xlsx":
             return ContentType.Documents;
         case "epub":
         case "mobi":

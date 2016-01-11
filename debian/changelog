@@ -1,3 +1,67 @@
+webbrowser-app (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle application crashes or OOM interventions & save opened
+    overlays (LP: #1508969)
+  * Handle empty url pattern in configuration file and invalid url
+    pattern being specified. (LP: #1522585)
+  * Limited handling of custom context menu for the container
+  * Make the webapp-container click hook more flexible. Instead of being
+    able to delete cache & resource folders as the click is being
+    uninstalled, one can also act on them as the click is being upgraded
+    & installed. (LP: #1522562)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 06 Jan 2016 19:43:28 +0000
+
+webbrowser-app (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
+
+  * Add keyboard shorcuts for 'next' (Ctrl+G) and 'previous'
+    (Ctrl+Shift+G) while in find-in-page mode. (LP: #1522152)
+  * Do not allow interacting with tabs and the chrome while the settings
+    page is shown. (LP: #1524353)
+  * Fix a crash when clearing the navigation history while the new tab
+    view is open. (LP: #1525937)
+  * Fix deleting multiple domains from the history view. Add unit tests
+    for the HistoryView component. (LP: #1527144)
+  * Fix some obvious issues in PreviewManager. (LP: #1519019)
+  * Fix the tab preview sometimes covering the tab chrome, in the tabs
+    view. Offset tab previews by 1px to cover the semi-transparent
+    horizontal line at the bottom of the tab chrome asset. (LP:
+    #1520624)
+  * Recognize openoffice and MS-office file formats as documents, now
+    that the document viewer app knows how to render them. (LP:
+    #1523452)
+  * Update translation template.
+  * Use the screen size (diagonal in millimeters) to determine which
+    default UA string and which UA overrides to use. An empirical
+    threshold of 19cm is being used, it is subject to further
+    adjustments. (LP: #1504084)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Dec 2015 18:15:54 +0000
+
+webbrowser-app (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
+
+  [ Michael Sheldon ]
+  * Add support for handling downloads internally within the browser.
+    (LP: #1354391)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 21 Dec 2015 20:39:36 +0000
+
+webbrowser-app (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Work around what appears to be a regression in the UITK by
+    specifying a non-null delay when swiping a list item to delete it in
+    unit tests. (LP: #1526940)
+
+  [ Zsombor Egri ]
+  * Fix local Toolbar collision with UITK 1.3 Toolbar.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Fri, 18 Dec 2015 04:08:15 +0000
+
 webbrowser-app (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

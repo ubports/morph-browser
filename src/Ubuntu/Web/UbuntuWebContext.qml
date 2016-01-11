@@ -20,6 +20,8 @@ import QtQuick 2.4
 import com.canonical.Oxide 1.9 as Oxide
 
 Oxide.WebContext {
+    id: oxideContext
+
     readonly property string defaultUserAgent: __ua.defaultUA
 
     dataPath: dataLocation
@@ -67,26 +69,34 @@ Oxide.WebContext {
         }
     ]
 
-    property QtObject __ua: UserAgent02 {}
+    property QtObject __ua: UserAgent02 {
+        onSmallScreenChanged: reloadOverrides()
+        Component.onCompleted: reloadOverrides()
+
+        property string _target: ""
+
+        function reloadOverrides() {
+            var target = smallScreen ? "mobile" : "desktop"
+            if (target == _target) return
+            _target = target
+            var script = "ua-overrides-%1.js".arg(target)
+            var temp = null
+            try {
+                temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), oxideContext)
+            } catch (e) {
+                console.error("No overrides found for", target)
+            }
+            if (temp !== null) {
+                console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
+                userAgentOverrides = temp.overrides
+                temp.destroy()
+            }
+        }
+    }
 
     devtoolsEnabled: webviewDevtoolsDebugPort !== -1
     devtoolsPort: webviewDevtoolsDebugPort
     devtoolsIp: webviewDevtoolsDebugHost
 
     hostMappingRules: webviewHostMappingRules
-
-    Component.onCompleted: {
-        var script = "ua-overrides-%1.js".arg(formFactor)
-        var temp = null
-        try {
-            temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), this)
-        } catch (e) {
-            console.error("No overrides found for", formFactor)
-        }
-        if (temp !== null) {
-            console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-            userAgentOverrides = temp.overrides
-            temp.destroy()
-        }
-    }
 }

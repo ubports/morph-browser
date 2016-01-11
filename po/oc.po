@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2014-09-20 11:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-01-06 05:43+0000\n"
+"X-Generator: Launchpad (build 17876)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,12 +48,13 @@ msgid "Password"
 msgstr "Senhal"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:159
-#: src/app/webbrowser/HistoryViewWide.qml:384
+#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/HistoryView.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:388
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
@@ -101,19 +102,6 @@ msgstr "Retorn a la seguretat"
 msgid "JavaScript Confirmation"
 msgstr "Confirmacion JavaScript"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr ""
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr ""
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Error Ret"
@@ -131,10 +119,6 @@ msgstr ""
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Actualizar la pagina"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Causissètz un fichièr"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -393,21 +377,21 @@ msgstr "Copiar lo ligam"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Talhar"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Escafar"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
 msgid "Find in page"
-msgstr ""
+msgstr "Trobar dins la pagina"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Recercar dins la pagina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -429,7 +413,7 @@ msgstr "Anar a"
 msgid "Address;URL;www"
 msgstr "Adreça;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
 #: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Onglet novèl"
@@ -454,11 +438,11 @@ msgstr "Dobrir lo ligam dins un onglet novèl"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Pegar"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Restablir"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
@@ -477,31 +461,31 @@ msgstr "Enregistrar l'imatge"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Enregistrar lo ligam"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/webbrowser/HistoryView.qml:174
+#: src/app/webbrowser/HistoryViewWide.qml:413
 msgid "Select all"
 msgstr "Seleccionar tot"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
 msgid "Share"
 msgstr "Partejar"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Anullar"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr ""
+msgstr "trobar dins la pagina"
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
@@ -509,32 +493,32 @@ msgstr "recercar o picar una adreça"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Marcapagina creat"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Salvar dins"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:121
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Totes los marcapaginas"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Dorsièr novèl"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Crear un dorsièr novèl"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:358
@@ -548,80 +532,101 @@ msgstr "Enregistrar"
 msgid "Homepage"
 msgstr "Pagina d'acuèlh"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
+#: src/app/webbrowser/NewTabViewWide.qml:149
 msgid "Bookmarks"
 msgstr "Marcapaginas"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
-#: src/app/webbrowser/HistoryViewWide.qml:504
+#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
+#: src/app/webbrowser/HistoryViewWide.qml:508
 msgid "Done"
 msgstr "Acabat"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:125
-#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryViewWide.qml:518
+#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:522
 #: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Onglet novèl"
 
-#: src/app/webbrowser/Browser.qml:511
-#: src/app/webbrowser/HistoryViewWide.qml:368
+#: src/app/webbrowser/Browser.qml:515
+#: src/app/webbrowser/HistoryViewWide.qml:372
 msgid "History"
 msgstr "Istoric"
 
-#: src/app/webbrowser/Browser.qml:517
+#: src/app/webbrowser/Browser.qml:521
 msgid "Open tabs"
 msgstr "Onglets dobèrts"
 
-#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Telecargaments"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Quitar lo mòde privat"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Private Mode"
-msgstr ""
+msgstr "Mòde privat"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Reglatges"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735
+#: src/app/webbrowser/Browser.qml:748
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1209
+#: src/app/webbrowser/Browser.qml:1268
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1210
+#: src/app/webbrowser/Browser.qml:1269
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/DownloadsPage.qml:59
-msgid "Confirm selection"
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
 msgstr ""
 
-#: src/app/webbrowser/DownloadsPage.qml:99
-#: src/app/webbrowser/HistoryView.qml:199
-#: src/app/webbrowser/HistoryViewWide.qml:428
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "Causissètz una aplicacion"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "Telecargar"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr ""
+
+#: src/app/webbrowser/DownloadsPage.qml:60
+msgid "Confirm selection"
+msgstr "Confirmar la seleccion"
+
+#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/HistoryView.qml:200
+#: src/app/webbrowser/HistoryViewWide.qml:432
 msgid "Delete"
 msgstr "Suprimir"
 
-#: src/app/webbrowser/DownloadsPage.qml:207
+#: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
-msgstr ""
+msgstr "Cap de telecargament pas disponible"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
@@ -631,7 +636,7 @@ msgstr[0] "%1 pagina"
 msgstr[1] "%1 paginas"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "Less"
 msgstr "Mens"
 
@@ -640,26 +645,26 @@ msgid "Last Visited"
 msgstr "Visitats recentament"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:215
+#: src/app/webbrowser/HistoryViewWide.qml:214
 msgid "Yesterday"
 msgstr "Ièr"
 
-#: src/app/webbrowser/HistoryViewWide.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
-msgstr ""
+msgstr "Tot l'istoric"
 
-#: src/app/webbrowser/HistoryViewWide.qml:213
-#: src/app/webbrowser/HistoryViewWide.qml:282
+#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:286
 msgid "Today"
-msgstr ""
+msgstr "Uèi"
 
-#: src/app/webbrowser/HistoryViewWide.qml:449
+#: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
-msgstr ""
+msgstr "cercar dins l'istoric"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Bascular en mòde public tamparà totes los onglets privats"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
@@ -667,7 +672,7 @@ msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Autorizar aqueste domeni a accedir a vòstra camèra ?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
@@ -677,7 +682,7 @@ msgstr ""
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (integrat dins %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -689,7 +694,7 @@ msgstr "Non"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Aquò es un onglet privat"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -697,16 +702,16 @@ msgid ""
 "Bookmarks you create will be preserved, however."
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
-msgstr ""
+msgstr "Mai"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:153
+#: src/app/webbrowser/NewTabView.qml:223
+#: src/app/webbrowser/NewTabViewWide.qml:148
 msgid "Top sites"
 msgstr "Sites populars"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
 msgstr ""
 
@@ -728,7 +733,7 @@ msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Tampar l'onglet"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -788,7 +793,7 @@ msgstr "Qu'es gerit per"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Per defaut"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -806,7 +811,7 @@ msgstr "Autorizar la dobertura d'onglets novèls en rèire plan"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Vida privada & permissions"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -815,7 +820,7 @@ msgstr "Reïnicializar los paramètres del navigador"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Camèra & microfòn"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -823,7 +828,7 @@ msgstr "Suprimir l’istoric de navigacion"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Escafar l'istoric de navigacion ?"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
@@ -831,7 +836,7 @@ msgstr "Voidar l'escondedor"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Escafar l'escondedor ?"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
@@ -839,11 +844,11 @@ msgstr "Escafar"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Microfòn"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Camèra"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -851,11 +856,11 @@ msgstr "Quichatz per veire"
 
 #: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
-msgstr ""
+msgstr "Tampar l'onglet"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "Levar"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -885,11 +890,11 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Error de compte"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Tampar"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -901,13 +906,13 @@ msgstr ""
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> a besonh d’accedir a vòstre compte %2."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> vòl accedir a vòstre compte %2."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
@@ -916,19 +921,19 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Tampar l’aplicacion"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Ignorar"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Causissètz un compte"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Ops, una error s'es produsida."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -945,6 +950,9 @@ msgstr "Navigar sul Web"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Navigador;Web;Explorador"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Causissètz un fichièr"
 
 #~ msgid "Share…"
 #~ msgstr "Partejar..."

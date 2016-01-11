@@ -87,7 +87,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
     def test_new_tab(self):
         self.main_window.press_key('Ctrl+t')
-
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
         new_tab_view = self.main_window.get_new_tab_view()
@@ -400,6 +399,19 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         bookmarks_view.wait_until_destroyed()
 
+    def test_open_settings_exits_findinpage(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        settings = self.open_settings()
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        settings.wait_until_destroyed()
+
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
@@ -420,6 +432,24 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+f')
         self.assertThat(address_bar.findInPageMode, Equals(False))
 
+    def test_find_previous_and_next(self):
+        url = self.base_url + "/findinpage"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        address_bar = self.main_window.chrome.address_bar
+        self.main_window.press_key('Ctrl+f')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        address_bar.write("e")
+        counter = address_bar.get_find_in_page_counter()
+        self.assertThat(counter.count, Eventually(Equals(4)))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        for i in [2, 3, 4, 1, 2, 3, 4, 1, 2]:
+            self.main_window.press_key('Ctrl+g')
+            self.assertThat(counter.current, Eventually(Equals(i)))
+        for i in [1, 4, 3, 2, 1, 4, 3, 2]:
+            self.main_window.press_key('Ctrl+Shift+g')
+            self.assertThat(counter.current, Eventually(Equals(i)))
+
     def test_navigate_between_address_bar_and_new_tab_view(self):
         if not self.main_window.wide:
             self.skipTest("Only on wide form factors")
@@ -437,3 +467,31 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Up')
         self.assertThat(new_tab_view.activeFocus, Eventually(Equals(False)))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+    def test_ctrl_w_closes_tabs_only_from_main_view(self):
+        # Verify that Ctrl+w doesn’t work when either the history
+        # view, the bookmarks view or the settings view are shown
+        # (https://launchpad.net/bugs/1524353).
+        self.main_window.press_key('Ctrl+t')
+        self.assert_number_webviews_eventually(2)
+
+        history_view = self.open_history()
+        self.main_window.press_key('Ctrl+w')
+        self.main_window.press_key('Escape')
+        history_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(2)
+
+        bookmarks_view = self.open_bookmarks()
+        self.main_window.press_key('Ctrl+w')
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(2)
+
+        settings_view = self.open_settings()
+        self.main_window.press_key('Ctrl+w')
+        self.main_window.press_key('Escape')
+        settings_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(2)
+
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(1)

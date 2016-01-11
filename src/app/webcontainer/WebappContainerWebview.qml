@@ -39,8 +39,11 @@ Item {
     property url webviewOverrideFile: ""
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
+    property bool wide: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
+
+    onWideChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.wide = wide
 
     PopupWindowController {
         id: popupController
@@ -48,6 +51,16 @@ Item {
         webappUrlPatterns: containerWebview.webappUrlPatterns
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+        onInitializeOverlayViewsWithUrls: {
+            if (webappContainerWebViewLoader.item) {
+                for (var i in urls) {
+                    webappContainerWebViewLoader
+                        .item
+                        .openOverlayForUrl(urls[i])
+                }
+            }
+        }
+
     }
 
     Connections {
@@ -87,7 +100,8 @@ Item {
                     , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
                     , runningLocalApplication: containerWebview.runningLocalApplication
                     , popupController: popupController
-                    , overlayViewsParent: containerWebview.parent})
+                    , overlayViewsParent: containerWebview.parent
+                    , wide: containerWebview.wide})
     }
 }
 

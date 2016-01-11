@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-11-27 19:20+0100\n"
+"POT-Creation-Date: 2015-12-22 16:35+0100\n"
 "PO-Revision-Date: 2015-10-26 13:50+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-11 05:54+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-01-06 05:43+0000\n"
+"X-Generator: Launchpad (build 17876)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,12 +48,13 @@ msgid "Password"
 msgstr "Passord"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:159
-#: src/app/webbrowser/HistoryViewWide.qml:384
+#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/HistoryView.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:388
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
@@ -101,20 +102,6 @@ msgstr "Tilbake til sikkerhet"
 msgid "JavaScript Confirmation"
 msgstr "JavaScript-bekreftelse"
 
-#: src/app/ContentDownloadDialog.qml:79
-msgid ""
-"Choose an application to open this file or add it to the downloads folder."
-msgstr ""
-"Velg et program som fila skal åpnes i, eller lagre den i nedlastingsmappa."
-
-#: src/app/ContentDownloadDialog.qml:84
-msgid "Choose an application"
-msgstr "Velg et program"
-
-#: src/app/ContentDownloadDialog.qml:97
-msgid "Download"
-msgstr "Last ned"
-
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Nettverksfeil"
@@ -132,10 +119,6 @@ msgstr "Kontroller nettverksinnstillinger og last inn siden på nytt."
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Oppdater side"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Velg en fil"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -398,7 +381,7 @@ msgstr "Klipp ut"
 msgid "Erase"
 msgstr "Slett"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:534
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
 msgid "Find in page"
 msgstr "Søk på siden"
 
@@ -428,7 +411,7 @@ msgstr "Gå til"
 msgid "Address;URL;www"
 msgstr "Adresse;Nettadresse;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:405
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
 #: src/app/webbrowser/TabsBar.qml:87
 msgid "New Tab"
 msgstr "Ny fane"
@@ -478,13 +461,13 @@ msgstr "Lagre bilde"
 msgid "Save link"
 msgstr "Lagre lenke"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/webbrowser/HistoryView.qml:174
+#: src/app/webbrowser/HistoryViewWide.qml:413
 msgid "Select all"
 msgstr "Velg alle"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:498
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
 msgid "Share"
 msgstr "Del"
 
@@ -547,78 +530,100 @@ msgstr "Lagre"
 msgid "Homepage"
 msgstr "Hjemmeside"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:505 src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
+#: src/app/webbrowser/NewTabViewWide.qml:149
 msgid "Bookmarks"
 msgstr "Bokmerker"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:391 src/app/webbrowser/HistoryView.qml:117
-#: src/app/webbrowser/HistoryViewWide.qml:504
+#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
+#: src/app/webbrowser/HistoryViewWide.qml:508
 msgid "Done"
 msgstr "Ferdig"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:125
-#: src/app/webbrowser/Browser.qml:527 src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryViewWide.qml:518
+#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:522
 #: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Ny fane"
 
-#: src/app/webbrowser/Browser.qml:511
-#: src/app/webbrowser/HistoryViewWide.qml:368
+#: src/app/webbrowser/Browser.qml:515
+#: src/app/webbrowser/HistoryViewWide.qml:372
 msgid "History"
 msgstr "Historikk"
 
-#: src/app/webbrowser/Browser.qml:517
+#: src/app/webbrowser/Browser.qml:521
 msgid "Open tabs"
 msgstr "Åpne faner"
 
-#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr "Nedlastinger"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
 msgstr "Gå ut av privatmodus"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:554
 msgid "Private Mode"
 msgstr "Privatmodus"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Innstillinger"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735
+#: src/app/webbrowser/Browser.qml:748
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1209
+#: src/app/webbrowser/Browser.qml:1268
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Dra opp for å gå ut av fullskjerm"
 
-#: src/app/webbrowser/Browser.qml:1210
+#: src/app/webbrowser/Browser.qml:1269
 msgid "Press ESC To Exit Full Screen"
 msgstr "Trykk ESC for å gå ut av fullskjerm"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Velg et program som fila skal åpnes i, eller lagre den i nedlastingsmappa."
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "Velg et program"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "Last ned"
+
+#: src/app/webbrowser/DownloadDelegate.qml:150
+msgid "Download failed"
+msgstr "Nedlasting mislyktes"
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
+msgid "Resume"
+msgstr "Fortsett"
+
+#: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Bekreft valg"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
-#: src/app/webbrowser/HistoryView.qml:199
-#: src/app/webbrowser/HistoryViewWide.qml:428
+#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/HistoryView.qml:200
+#: src/app/webbrowser/HistoryViewWide.qml:432
 msgid "Delete"
 msgstr "Slett"
 
-#: src/app/webbrowser/DownloadsPage.qml:207
+#: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
 msgstr "Ingen nedlastinger tilgjengelig"
 
@@ -630,7 +635,7 @@ msgstr[0] "%1 side"
 msgstr[1] "%1 sider"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "Less"
 msgstr "Færre"
 
@@ -639,20 +644,20 @@ msgid "Last Visited"
 msgstr "Sist besøkt"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:215
+#: src/app/webbrowser/HistoryViewWide.qml:214
 msgid "Yesterday"
 msgstr "I går"
 
-#: src/app/webbrowser/HistoryViewWide.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
 msgstr "All historikk"
 
-#: src/app/webbrowser/HistoryViewWide.qml:213
-#: src/app/webbrowser/HistoryViewWide.qml:282
+#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:286
 msgid "Today"
 msgstr "I dag"
 
-#: src/app/webbrowser/HistoryViewWide.qml:449
+#: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
 msgstr "søkehistorikk"
 
@@ -698,16 +703,16 @@ msgstr ""
 "Sider du ser på i denne fanen, lagres ikke i nettleser-historikken.\n"
 "Bokmerker du lager, blir imidlertid lagret."
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
 msgstr "Mer"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:153
+#: src/app/webbrowser/NewTabView.qml:223
+#: src/app/webbrowser/NewTabViewWide.qml:148
 msgid "Top sites"
 msgstr "Mest populære sider"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
 msgstr "Du har ikke besøkt noen sider ennå"
 
@@ -950,6 +955,9 @@ msgstr "Surf på nettet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internett;WWW;Nettleser;Web;Utforsker"
+
+#~ msgid "Please choose a file"
+#~ msgstr "Velg en fil"
 
 #~ msgid "Select an account"
 #~ msgstr "Velg en konto"
