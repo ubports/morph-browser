@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -154,4 +154,9 @@ Popups.Dialog {
         property: "itemSpacing"
         value: 0
     }
+
+    // We can’t prevent the dialog from stealing the focus from
+    // the webview, but we can at least restore it when the
+    // dialog is closed (https://launchpad.net/bugs/1526884).
+    Component.onDestruction: Oxide.WebView.view.forceActiveFocus()
 }
