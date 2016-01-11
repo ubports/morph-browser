@@ -104,6 +104,7 @@ Item {
                 text: i18n.tr("Delete")
                 iconName: "delete"
                 visible: selectMode
+                enabled: downloadsListView.ViewItems.selectedIndices.length > 0
                 onTriggered: {
                     var toDelete = []
                     for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
