@@ -20,7 +20,6 @@ import QtQuick 2.0
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.0
-import Ubuntu.Thumbnailer 0.1
 import Ubuntu.Content 1.3
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
@@ -45,6 +44,11 @@ Item {
     property alias mimetypeFilter: downloadModelFilter.pattern
 
     signal done()
+
+    Loader {
+        id: thumbnailLoader
+        source: "Thumbnailer.qml"
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -166,7 +170,10 @@ Item {
             downloadId: model.downloadId
             title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
             url: model.url
-            image: model.complete && (model.mimetype.indexOf("image") === 0 || model.mimetype.indexOf("video") === 0) ? "image://thumbnailer/file://" + model.path : ""
+            image: model.complete && thumbnailLoader.status == Loader.Ready 
+                                  && (model.mimetype.indexOf("image") === 0 
+                                      || model.mimetype.indexOf("video") === 0)
+                                  ? "image://thumbnailer/file://" + model.path : ""
             icon: MimeDatabase.iconForMimetype(model.mimetype)
             incomplete: !model.complete
             selectMode: downloadsItem.selectMode || downloadsItem.pickingMode

@@ -172,7 +172,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsContainer.visible
+        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsViewLoader.active
 
         FocusScope {
             id: tabContainer
@@ -544,7 +544,7 @@ BrowserView {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
                 iconName: "save"
-                enabled: downloadHandlerLoader.status == Loader.Ready
+                enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
                 onTriggered: {
                     currentWebview.showDownloadsPage()
                 }
@@ -924,26 +924,36 @@ BrowserView {
         }
     }
 
-    FocusScope {
-        id: downloadsContainer
+    Loader {
+        id: downloadsViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
+        source: "DownloadsPage.qml"
 
-        Component {
-            id: downloadsComponent
-
-            DownloadsPage {
-                anchors.fill: parent
-                focus: true
-                downloadsModel: browser.downloadsModel
-                onDone: destroy()
-                Keys.onEscapePressed: {
-                    destroy()
-                    internal.resetFocus()
-                }
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                item.downloadsModel = browser.downloadsModel
+                item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
             }
         }
+
+        Keys.onEscapePressed: active = false
+
+        onActiveChanged: {
+            if (active) {
+                forceActiveFocus()
+            }
+        }
+
+        Connections {
+            target: downloadsViewLoader.item
+
+            onDone: downloadsViewLoader.active = false
+        }
+
     }
 
     TabsModel {
@@ -1307,8 +1317,8 @@ BrowserView {
                 }
 
                 function showDownloadsPage() {
-                    downloadsContainer.focus = true
-                    return downloadsComponent.createObject(downloadsContainer)
+                    downloadsViewLoader.active = true
+                    return downloadsViewLoader.item
                 }
 
                 function startDownload(downloadId, download, mimeType) {
@@ -1989,7 +1999,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_J
-            enabled: chrome.visible && !downloadsContainer.visible
+            enabled: chrome.visible && !downloadsViewLoader.active
             onTriggered: currentWebview.showDownloadsPage()
         }
 
@@ -2019,12 +2029,11 @@ BrowserView {
         target: contentHandlerLoader.item
         onExportFromDownloads: {
             if (downloadHandlerLoader.status == Loader.Ready) {
-                downloadsContainer.focus = true
-                var downloadPage = downloadsComponent.createObject(downloadsContainer)
-                downloadPage.mimetypeFilter = mimetypeFilter
-                downloadPage.activeTransfer = transfer
-                downloadPage.multiSelect = multiSelect
-                downloadPage.pickingMode = true
+                downloadsViewLoader.active = true
+                downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
+                downloadsViewLoader.item.activeTransfer = transfer
+                downloadsViewLoader.item.multiSelect = multiSelect
+                downloadsViewLoader.item.pickingMode = true
             }
         }
     }
