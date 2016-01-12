@@ -1,3 +1,20 @@
+webbrowser-app (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/et.po
+
+  [ Michael Sheldon ]
+  * Dynamically load the thumbnailer image provider if it's available,
+    otherwise fallback to mimetype images (LP: #1531179)
+
+  [ Olivier Tilloy ]
+  * Address a number of minor functional and code issues in the new
+    downloads-in-browser functionality. (LP: #1528651)
+  * Restore active focus on the webview after closing the context menu.
+    (LP: #1526884)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 12 Jan 2016 17:44:22 +0000
+
 webbrowser-app (0.23+16.04.20160108.1-0ubuntu1) xenial; urgency=medium
 
   * Handle theme_color page metainformation. (LP: #1477674)
