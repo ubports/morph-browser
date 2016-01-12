@@ -21,8 +21,6 @@ import Ubuntu.DownloadManager 1.2
 import webbrowserapp.private 0.1
 
 DownloadManager {
-    id: downloadManager
-
     onDownloadFinished: {
         if (DownloadsModel.contains(download.downloadId)) {
             DownloadsModel.moveToDownloads(download.downloadId, path)
