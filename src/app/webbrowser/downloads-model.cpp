@@ -20,12 +20,12 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
-#include <QtSql/QSqlQuery>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
 #include <QtCore/QMimeDatabase>
 #include <QtCore/QMimeType>
+#include <QtCore/QStandardPaths>
+#include <QtSql/QSqlQuery>
 
 #define CONNECTION_NAME "webbrowser-app-downloads"
 
