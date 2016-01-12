@@ -83,6 +83,14 @@ Oxide.WebView {
         objectName: "contextMenu"
         actions: contextualActions
         caller: contextualRectangle
+
+        // Override default implementation to prevent context menu from stealing
+        // active focus when shown (https://launchpad.net/bugs/1526884).
+        function show() {
+            visible = true
+            __foreground.show()
+        }
+
         Component.onCompleted: {
             internal.dismissCurrentContextualMenu()
             internal.contextModel = model
@@ -111,6 +119,15 @@ Oxide.WebView {
             if (!visible) {
                 internal.dismissCurrentContextualMenu()
             }
+        }
+
+        Binding {
+            // Ensure the context menu doesn’t steal focus from
+            // the webview when one of its actions is activated
+            // (https://launchpad.net/bugs/1526884).
+            target: __foreground
+            property: "activeFocusOnPress"
+            value: false
         }
     }
     readonly property QtObject contextModel: internal.contextModel
