@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -62,7 +62,8 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
-    Q_INVOKABLE void add(const QString &downloadId, const QUrl& url, const QString& mimetype);
+    Q_INVOKABLE bool contains(const QString& downloadId) const;
+    Q_INVOKABLE void add(const QString& downloadId, const QUrl& url, const QString& mimetype);
     Q_INVOKABLE void moveToDownloads(const QString& downloadId, const QString& path);
     Q_INVOKABLE void setPath(const QString& downloadId, const QString& path);
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);

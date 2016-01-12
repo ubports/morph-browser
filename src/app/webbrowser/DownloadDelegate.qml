@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,12 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import Ubuntu.Components 1.3
 import ".."
 
 ListItem {
     id: downloadDelegate
+
+    property var downloadManager
 
     property alias icon: mimeicon.name
     property alias image: thumbimage.source
@@ -41,16 +43,22 @@ ListItem {
 
     height: visible ? (incomplete ? (paused ? units.gu(13) : units.gu(10)) : units.gu(7)) : 0
 
-    Component.onCompleted: {
-        if (incomplete) {
-            // Connect to download object
-            for(var i = 0; i < downloadManager.downloads.length; i++) {
-                if (downloadManager.downloads[i].downloadId == downloadId) {
-                    download = downloadManager.downloads[i]
+    QtObject {
+        id: internal
+
+        function connectToDownloadObject() {
+            if (incomplete && !download && downloadManager) {
+                for(var i = 0; i < downloadManager.downloads.length; i++) {
+                    if (downloadManager.downloads[i].downloadId == downloadId) {
+                        download = downloadManager.downloads[i]
+                    }
                 }
             }
         }
     }
+
+    Component.onCompleted: internal.connectToDownloadObject()
+    onDownloadManagerChanged: internal.connectToDownloadObject()
 
     Item {
         

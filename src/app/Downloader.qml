@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -54,13 +54,11 @@ Item {
     }
 
     function download(url, contentType, headers, metadata) {
-        var singleDownload = downloadComponent.createObject(downloadItem)
-        singleDownload.contentType = contentType
-        if (headers) { 
-            singleDownload.headers = headers
+        var properties = {'contentType': contentType, 'metadata': metadata, 'url': url}
+        if (headers) {
+            properties['headers'] = headers
         }
-        singleDownload.metadata = metadata
-        singleDownload.url = url
+        var singleDownload = downloadComponent.createObject(downloadItem, properties)
         singleDownload.download(url)
     }
 
@@ -98,5 +96,4 @@ Item {
     function is7digital(url) {
         return url.toString().search(/[^\/]+:\/\/[^\/]*7digital.com\//) !== -1
     }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,12 +20,12 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
-#include <QtSql/QSqlQuery>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
 #include <QtCore/QMimeDatabase>
 #include <QtCore/QMimeType>
+#include <QtCore/QStandardPaths>
+#include <QtSql/QSqlQuery>
 
 #define CONNECTION_NAME "webbrowser-app-downloads"
 
@@ -204,6 +204,16 @@ void DownloadsModel::setDatabasePath(const QString& path)
     }
 }
 
+bool DownloadsModel::contains(const QString& downloadId) const
+{
+    Q_FOREACH(const DownloadEntry& entry, m_orderedEntries) {
+        if (entry.downloadId == downloadId) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*!
     Add a download to the database. This should happen as soon as the download
     is started.
@@ -282,20 +292,18 @@ void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& p
         QString destination = dir + QDir::separator() + filenameWithoutSuffix + suffix;
         // Avoid filename collision by automatically inserting an incremented
         // number into the filename if the original name already exists.
-        if (QFile::exists(destination)) {
-            int append = 1;
-            do {
-                destination = QString("%1%2.%3").arg(dir + QDir::separator() + filenameWithoutSuffix, QString::number(append), suffix);
-                append++;
-            } while (QFile::exists(destination));
+        int append = 1;
+        while (QFile::exists(destination)) {
+            destination = QString("%1%2.%3").arg(dir + QDir::separator() + filenameWithoutSuffix, QString::number(append), suffix);
+            ++append;
         }
         if (file.rename(destination)) {
             setPath(downloadId, destination);
         } else {
-            qWarning() << "Failed moving file from " << path << " to " << destination;
+            qWarning() << "Failed moving file from" << path << "to" << destination;
         }
     } else {
-        qWarning() << "Download not found: " << path;
+        qWarning() << "Download not found:" << path;
     }
 }
 

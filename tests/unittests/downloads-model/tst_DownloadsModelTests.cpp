@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -58,6 +58,13 @@ private Q_SLOTS:
         QVERIFY(roleNames.contains("paused"));
         QVERIFY(roleNames.contains("error"));
         QVERIFY(roleNames.contains("created"));
+    }
+
+    void shouldContainAddedEntries()
+    {
+        QVERIFY(!model->contains(QStringLiteral("testid")));
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/html"));
+        QVERIFY(model->contains(QStringLiteral("testid")));
     }
 
     void shouldAddNewEntries()

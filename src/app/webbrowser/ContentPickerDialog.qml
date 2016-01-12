@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -55,12 +55,12 @@ Component {
                         // If we're inside the browser and the user has
                         // requested content from the browser then we
                         // need to handle the transfer internally
-                        var downloadPage = picker.WebView.view.showDownloadsPage()
-                        downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
-                        downloadPage.multiSelect = model.allowMultipleFiles
-                        downloadPage.selectMode = false
-                        downloadPage.pickingMode = true
-                        downloadPage.internalFilePicker = model
+                        var downloadsPage = picker.WebView.view.showDownloadsPage()
+                        downloadsPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
+                        downloadsPage.multiSelect = model.allowMultipleFiles
+                        downloadsPage.selectMode = false
+                        downloadsPage.pickingMode = true
+                        downloadsPage.internalFilePicker = model
                         Popups.PopupUtils.close(picker)
                     } else {
                         if (model.allowMultipleFiles) {

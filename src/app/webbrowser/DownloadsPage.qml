@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
@@ -30,7 +30,7 @@ import "../MimeTypeMapper.js" as MimeTypeMapper
 Item {
     id: downloadsItem
 
-    property QtObject downloadsModel
+    property var downloadManager
 
     // We can get file picking requests either via content-hub (activeTransfer)
     // Or via the internal oxide file picker (internalFilePicker) in the case
@@ -104,6 +104,7 @@ Item {
                 text: i18n.tr("Delete")
                 iconName: "delete"
                 visible: selectMode
+                enabled: downloadsListView.ViewItems.selectedIndices.length > 0
                 onTriggered: {
                     var toDelete = []
                     for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
@@ -111,7 +112,7 @@ Item {
                         toDelete.push(selectedDownload.path)
                     }
                     for (var i = 0; i < toDelete.length; i++) {
-                        downloadsModel.deleteDownload(toDelete[i])
+                        DownloadsModel.deleteDownload(toDelete[i])
                     }
                     downloadsListView.ViewItems.selectedIndices = []
                     downloadsItem.selectMode = false
@@ -120,6 +121,7 @@ Item {
             Action {
                 iconName: "edit" 
                 visible: !selectMode && !pickingMode
+                enabled: downloadsListView.count > 0
                 onTriggered: {
                     selectMode = true
                     multiSelect = true
@@ -159,7 +161,7 @@ Item {
         }
 
         model: SortFilterModel {
-            model: downloadsModel
+            model: DownloadsModel
             filter { 
                 id: downloadModelFilter
                 property: "mimetype"
@@ -167,6 +169,7 @@ Item {
         }
 
         delegate: DownloadDelegate {
+            downloadManager: downloadsItem.downloadManager
             downloadId: model.downloadId
             title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
             url: model.url
@@ -212,12 +215,12 @@ Item {
 
             onRemoved: {
                 if (model.complete) {
-                    downloadsModel.deleteDownload(model.path)
+                    DownloadsModel.deleteDownload(model.path)
                 }
             }
 
             onCancelled: {
-                downloadsModel.cancelDownload(model.downloadId)
+                DownloadsModel.cancelDownload(model.downloadId)
             }
         }
 

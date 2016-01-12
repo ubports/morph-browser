@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,28 +18,29 @@
 
 import QtQuick 2.4
 import Ubuntu.DownloadManager 1.2
+import webbrowserapp.private 0.1
 
 DownloadManager {
-    id: downloadManager
-
     onDownloadFinished: {
-        downloadsModel.moveToDownloads(download.downloadId, path)
-        downloadsModel.setComplete(download.downloadId, true)
+        if (DownloadsModel.contains(download.downloadId)) {
+            DownloadsModel.moveToDownloads(download.downloadId, path)
+        }
+        DownloadsModel.setComplete(download.downloadId, true)
     }
 
     onDownloadPaused: {
-        downloadsModel.pauseDownload(download.downloadId)
+        DownloadsModel.pauseDownload(download.downloadId)
     }
 
     onDownloadResumed: {
-        downloadsModel.resumeDownload(download.downloadId)
+        DownloadsModel.resumeDownload(download.downloadId)
     }
 
     onDownloadCanceled: {
-        downloadsModel.cancelDownload(download.downloadId)
+        DownloadsModel.cancelDownload(download.downloadId)
     }
 
     onErrorFound: {
-        downloadsModel.setError(download.downloadId, download.errorMessage)
+        DownloadsModel.setError(download.downloadId, download.errorMessage)
     }
 }

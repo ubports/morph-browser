@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -47,33 +47,18 @@ WebbrowserApp::WebbrowserApp(int& argc, char** argv)
 {
 }
 
-static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new FileOperations();
-}
+#define MAKE_SINGLETON_FACTORY(type) \
+    static QObject* type##_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine) { \
+        Q_UNUSED(engine); \
+        Q_UNUSED(scriptEngine); \
+        return new type(); \
+    }
 
-static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new CacheDeleter();
-}
-
-static QObject* BookmarksModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new BookmarksModel();
-}
-
-static QObject* HistoryModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new HistoryModel();
-}
+MAKE_SINGLETON_FACTORY(FileOperations)
+MAKE_SINGLETON_FACTORY(CacheDeleter)
+MAKE_SINGLETON_FACTORY(BookmarksModel)
+MAKE_SINGLETON_FACTORY(HistoryModel)
+MAKE_SINGLETON_FACTORY(DownloadsModel)
 
 bool WebbrowserApp::initialize()
 {
@@ -88,7 +73,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
-    qmlRegisterType<DownloadsModel>(uri, 0, 1, "DownloadsModel");
+    qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {

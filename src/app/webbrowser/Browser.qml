@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,8 +38,7 @@ BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var downloadsModel: (downloadsModelLoader.status == Loader.Ready) ? downloadsModelLoader.item : null
-    property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
+    readonly property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
 
     property bool newSession: false
 
@@ -545,9 +544,7 @@ BrowserView {
                 text: i18n.tr("Downloads")
                 iconName: "save"
                 enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
-                onTriggered: {
-                    currentWebview.showDownloadsPage()
-                }
+                onTriggered: downloadsViewLoader.active = true
             },
             Action {
                 objectName: "privatemode"
@@ -933,7 +930,6 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                item.downloadsModel = browser.downloadsModel
                 item.forceActiveFocus()
             } else {
                 internal.resetFocus()
@@ -948,12 +944,16 @@ BrowserView {
             }
         }
 
-        Connections {
+        Binding {
             target: downloadsViewLoader.item
-
-            onDone: downloadsViewLoader.active = false
+            property: "downloadManager"
+            value: browser.downloadManager
         }
 
+        Connections {
+            target: downloadsViewLoader.item
+            onDone: downloadsViewLoader.active = false
+        }
     }
 
     TabsModel {
@@ -982,14 +982,9 @@ BrowserView {
     }
 
     Loader {
-        id: downloadsModelLoader
-        source: "DownloadsModel.qml"
-        asynchronous: true
-    }
-
-    Loader {
         id: downloadHandlerLoader
         source: "DownloadHandler.qml"
+        asynchronous: true
     }
 
     Component {
@@ -1322,9 +1317,9 @@ BrowserView {
                 }
 
                 function startDownload(downloadId, download, mimeType) {
-                    downloadsModel.add(downloadId, download.url, mimeType)
+                    DownloadsModel.add(downloadId, download.url, mimeType)
                     download.start()
-                    showDownloadsPage()
+                    downloadsViewLoader.active = true
                 }
 
             }
@@ -1752,6 +1747,7 @@ BrowserView {
 
             BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
             HistoryModel.databasePath = dataLocation + "/history.sqlite"
+            DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
 
             // Note that the property setter for databasePath won't return until
             // the entire model has been loaded, so it is safe to call this here
@@ -1995,12 +1991,15 @@ BrowserView {
             onTriggered: chrome.findInPageMode = true
         }
 
-        // Ctrl + J: Show downloads page
+        // Ctrl+J: Show downloads page
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_J
-            enabled: chrome.visible && !downloadsViewLoader.active
-            onTriggered: currentWebview.showDownloadsPage()
+            enabled: chrome.visible &&
+                     downloadHandlerLoader.status == Loader.Ready &&
+                     contentHandlerLoader.status == Loader.Ready &&
+                     !downloadsViewLoader.active
+            onTriggered: downloadsViewLoader.active = true
         }
 
         // Ctrl+Shift+G: Find previous
@@ -2023,6 +2022,7 @@ BrowserView {
     Loader {
         id: contentHandlerLoader
         source: "ContentHandler.qml"
+        asynchronous: true
     }
 
     Connections {
