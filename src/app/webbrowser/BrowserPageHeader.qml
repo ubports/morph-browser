@@ -43,6 +43,12 @@ Item {
         right: parent.right
     }
 
+    MouseArea {
+        // Prevent click events from propagating through to the view below
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+    }
+
     Rectangle {
         id: title
 
