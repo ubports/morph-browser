@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,6 +23,8 @@ import ".."
 ListItem {
     id: downloadDelegate
 
+    property var downloadManager
+
     property alias icon: mimeicon.name
     property alias image: thumbimage.source
     property alias title: title.text
@@ -41,16 +43,22 @@ ListItem {
 
     height: visible ? (incomplete ? (paused ? units.gu(13) : units.gu(10)) : units.gu(7)) : 0
 
-    Component.onCompleted: {
-        if (incomplete) {
-            // Connect to download object
-            for(var i = 0; i < downloadManager.downloads.length; i++) {
-                if (downloadManager.downloads[i].downloadId == downloadId) {
-                    download = downloadManager.downloads[i]
+    QtObject {
+        id: internal
+
+        function connectToDownloadObject() {
+            if (incomplete && !download && downloadManager) {
+                for(var i = 0; i < downloadManager.downloads.length; i++) {
+                    if (downloadManager.downloads[i].downloadId == downloadId) {
+                        download = downloadManager.downloads[i]
+                    }
                 }
             }
         }
     }
+
+    Component.onCompleted: internal.connectToDownloadObject()
+    onDownloadManagerChanged: internal.connectToDownloadObject()
 
     Item {
         

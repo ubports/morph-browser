@@ -30,6 +30,8 @@ import "../MimeTypeMapper.js" as MimeTypeMapper
 Item {
     id: downloadsItem
 
+    property var downloadManager
+
     // We can get file picking requests either via content-hub (activeTransfer)
     // Or via the internal oxide file picker (internalFilePicker) in the case
     // where the user wishes to upload a file from their previous downloads.
@@ -167,6 +169,7 @@ Item {
         }
 
         delegate: DownloadDelegate {
+            downloadManager: downloadsItem.downloadManager
             downloadId: model.downloadId
             title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
             url: model.url

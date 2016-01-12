@@ -946,12 +946,16 @@ BrowserView {
             }
         }
 
-        Connections {
+        Binding {
             target: downloadsViewLoader.item
-
-            onDone: downloadsViewLoader.active = false
+            property: "downloadManager"
+            value: browser.downloadManager
         }
 
+        Connections {
+            target: downloadsViewLoader.item
+            onDone: downloadsViewLoader.active = false
+        }
     }
 
     TabsModel {
