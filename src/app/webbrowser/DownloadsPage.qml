@@ -30,8 +30,6 @@ import "../MimeTypeMapper.js" as MimeTypeMapper
 Item {
     id: downloadsItem
 
-    property QtObject downloadsModel
-
     // We can get file picking requests either via content-hub (activeTransfer)
     // Or via the internal oxide file picker (internalFilePicker) in the case
     // where the user wishes to upload a file from their previous downloads.
@@ -112,7 +110,7 @@ Item {
                         toDelete.push(selectedDownload.path)
                     }
                     for (var i = 0; i < toDelete.length; i++) {
-                        downloadsModel.deleteDownload(toDelete[i])
+                        DownloadsModel.deleteDownload(toDelete[i])
                     }
                     downloadsListView.ViewItems.selectedIndices = []
                     downloadsItem.selectMode = false
@@ -161,7 +159,7 @@ Item {
         }
 
         model: SortFilterModel {
-            model: downloadsModel
+            model: DownloadsModel
             filter { 
                 id: downloadModelFilter
                 property: "mimetype"
@@ -214,12 +212,12 @@ Item {
 
             onRemoved: {
                 if (model.complete) {
-                    downloadsModel.deleteDownload(model.path)
+                    DownloadsModel.deleteDownload(model.path)
                 }
             }
 
             onCancelled: {
-                downloadsModel.cancelDownload(model.downloadId)
+                DownloadsModel.cancelDownload(model.downloadId)
             }
         }
 

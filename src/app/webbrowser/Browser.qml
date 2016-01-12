@@ -38,7 +38,6 @@ BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var downloadsModel: (downloadsModelLoader.status == Loader.Ready) ? downloadsModelLoader.item : null
     property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
 
     property bool newSession: false
@@ -933,7 +932,6 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                item.downloadsModel = browser.downloadsModel
                 item.forceActiveFocus()
             } else {
                 internal.resetFocus()
@@ -979,12 +977,6 @@ BrowserView {
                 }
             }
         }
-    }
-
-    Loader {
-        id: downloadsModelLoader
-        source: "DownloadsModel.qml"
-        asynchronous: true
     }
 
     Loader {
@@ -1322,7 +1314,7 @@ BrowserView {
                 }
 
                 function startDownload(downloadId, download, mimeType) {
-                    downloadsModel.add(downloadId, download.url, mimeType)
+                    DownloadsModel.add(downloadId, download.url, mimeType)
                     download.start()
                     showDownloadsPage()
                 }
@@ -1752,6 +1744,7 @@ BrowserView {
 
             BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
             HistoryModel.databasePath = dataLocation + "/history.sqlite"
+            DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
 
             // Note that the property setter for databasePath won't return until
             // the entire model has been loaded, so it is safe to call this here
