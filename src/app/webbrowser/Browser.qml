@@ -984,6 +984,7 @@ BrowserView {
     Loader {
         id: downloadHandlerLoader
         source: "DownloadHandler.qml"
+        asynchronous: true
     }
 
     Component {
@@ -2021,6 +2022,7 @@ BrowserView {
     Loader {
         id: contentHandlerLoader
         source: "ContentHandler.qml"
+        asynchronous: true
     }
 
     Connections {
