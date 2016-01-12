@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,7 +23,9 @@ DownloadManager {
     id: downloadManager
 
     onDownloadFinished: {
-        downloadsModel.moveToDownloads(download.downloadId, path)
+        if (downloadsModel.contains(download.downloadId)) {
+            downloadsModel.moveToDownloads(download.downloadId, path)
+        }
         downloadsModel.setComplete(download.downloadId, true)
     }
 

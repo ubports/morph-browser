@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -204,6 +204,16 @@ void DownloadsModel::setDatabasePath(const QString& path)
     }
 }
 
+bool DownloadsModel::contains(const QString& downloadId) const
+{
+    Q_FOREACH(const DownloadEntry& entry, m_orderedEntries) {
+        if (entry.downloadId == downloadId) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*!
     Add a download to the database. This should happen as soon as the download
     is started.
@@ -292,10 +302,10 @@ void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& p
         if (file.rename(destination)) {
             setPath(downloadId, destination);
         } else {
-            qWarning() << "Failed moving file from " << path << " to " << destination;
+            qWarning() << "Failed moving file from" << path << "to" << destination;
         }
     } else {
-        qWarning() << "Download not found: " << path;
+        qWarning() << "Download not found:" << path;
     }
 }
 
