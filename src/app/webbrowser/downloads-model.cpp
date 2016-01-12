@@ -292,12 +292,10 @@ void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& p
         QString destination = dir + QDir::separator() + filenameWithoutSuffix + suffix;
         // Avoid filename collision by automatically inserting an incremented
         // number into the filename if the original name already exists.
-        if (QFile::exists(destination)) {
-            int append = 1;
-            do {
-                destination = QString("%1%2.%3").arg(dir + QDir::separator() + filenameWithoutSuffix, QString::number(append), suffix);
-                append++;
-            } while (QFile::exists(destination));
+        int append = 1;
+        while (QFile::exists(destination)) {
+            destination = QString("%1%2.%3").arg(dir + QDir::separator() + filenameWithoutSuffix, QString::number(append), suffix);
+            ++append;
         }
         if (file.rename(destination)) {
             setPath(downloadId, destination);
