@@ -544,9 +544,7 @@ BrowserView {
                 text: i18n.tr("Downloads")
                 iconName: "save"
                 enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
-                onTriggered: {
-                    currentWebview.showDownloadsPage()
-                }
+                onTriggered: downloadsViewLoader.active = true
             },
             Action {
                 objectName: "privatemode"
@@ -1320,7 +1318,7 @@ BrowserView {
                 function startDownload(downloadId, download, mimeType) {
                     DownloadsModel.add(downloadId, download.url, mimeType)
                     download.start()
-                    showDownloadsPage()
+                    downloadsViewLoader.active = true
                 }
 
             }
@@ -2000,7 +1998,7 @@ BrowserView {
                      downloadHandlerLoader.status == Loader.Ready &&
                      contentHandlerLoader.status == Loader.Ready &&
                      !downloadsViewLoader.active
-            onTriggered: currentWebview.showDownloadsPage()
+            onTriggered: downloadsViewLoader.active = true
         }
 
         // Ctrl+Shift+G: Find previous
