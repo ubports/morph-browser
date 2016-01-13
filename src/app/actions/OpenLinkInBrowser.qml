@@ -19,5 +19,5 @@
 import Ubuntu.Components 1.3
 
 Action {
-    text: i18n.tr("Open link in WebBrowser")
+    text: i18n.tr("Open link in default browser")
 }

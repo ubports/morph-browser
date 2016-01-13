@@ -99,8 +99,8 @@ WebViewImpl {
 
     property QtObject contextModel: null
     contextualActions: ActionList {
-        Actions.OpenLinkInWebBrowser {
-            objectName: "OpenLinkInWebBrowser"
+        Actions.OpenLinkInBrowser {
+            objectName: "OpenLinkInBrowser"
             enabled: contextModel && contextModel.linkUrl.toString()
             onTriggered: openUrlExternally(contextModel.linkUrl)
         }
