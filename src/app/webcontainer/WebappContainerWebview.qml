@@ -44,7 +44,12 @@ Item {
     signal samlRequestUrlPatternReceived(string urlPattern)
     signal themeColorMetaInformationDetected(string theme_color)
 
-    onWideChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.wide = wide
+    onWideChanged: {
+        if (webappContainerWebViewLoader.item) {
+            webappContainerWebViewLoader.item.wide = wide
+            popupController.wide = wide
+        }
+    }
 
     PopupWindowController {
         id: popupController
@@ -52,6 +57,7 @@ Item {
         webappUrlPatterns: containerWebview.webappUrlPatterns
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+        wide: wide
         onInitializeOverlayViewsWithUrls: {
             if (webappContainerWebViewLoader.item) {
                 for (var i in urls) {

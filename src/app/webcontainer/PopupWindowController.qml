@@ -29,6 +29,7 @@ Item {
     property var mainWebappView
     property var views: []
     property bool blockOpenExternalUrls: false
+    property bool wide: false
 
     // Used to access runtime behavior during tests
     signal openExternalUrlTriggered(string url)
@@ -215,6 +216,8 @@ Item {
 
             height: parent.height
             width: parent.width
+
+            wide: controller.wide
 
             y: overlay.parent.height
 
