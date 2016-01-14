@@ -29,6 +29,8 @@ BrowserWindow {
 
     currentWebview: browser.currentWebview
 
+    signal openUrls(var urls)
+
     title: {
         if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
@@ -62,6 +64,15 @@ BrowserWindow {
             // by the page or toggled on by the user.
             window.setFullscreen(false)
             currentWebview.fullscreen = false
+        }
+        Connections {
+            target: window
+            onOpenUrls: {
+                for (var i = 0; i < urls.length; ++i) {
+                    var setCurrent = (i == urls.length - 1)
+                    browser.openUrlInNewTab(urls[i], setCurrent, setCurrent)
+                }
+            }
         }
     }
 

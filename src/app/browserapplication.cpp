@@ -197,8 +197,8 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 
 void BrowserApplication::onNewInstanceLaunched(const QStringList& arguments) const
 {
-    // TODO: open the URLs in existing window, and raise it
-    qDebug() << Q_FUNC_INFO << arguments;
+    Q_UNUSED(arguments);
+    m_window->requestActivate();
 }
 
 void BrowserApplication::qmlEngineCreated(QQmlEngine*)

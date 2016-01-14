@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -32,6 +32,9 @@ public:
 
 private:
     virtual void printUsage() const;
+
+private Q_SLOTS:
+    void onNewInstanceLaunched(const QStringList& arguments) const final;
 };
 
 #endif // __WEBBROWSER_APP_H__
