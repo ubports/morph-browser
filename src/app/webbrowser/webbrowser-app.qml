@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -65,15 +65,6 @@ BrowserWindow {
             window.setFullscreen(false)
             currentWebview.fullscreen = false
         }
-        Connections {
-            target: window
-            onOpenUrls: {
-                for (var i = 0; i < urls.length; ++i) {
-                    var setCurrent = (i == urls.length - 1)
-                    browser.openUrlInNewTab(urls[i], setCurrent, setCurrent)
-                }
-            }
-        }
     }
 
     // Handle runtime requests to open urls as defined
@@ -84,11 +75,13 @@ BrowserWindow {
     // url-dispatcher/upstart level.
     Connections {
         target: UriHandler
-        onOpened: {
-            for (var i = 0; i < uris.length; ++i) {
-                var setCurrent = (i == uris.length - 1)
-                browser.openUrlInNewTab(uris[i], setCurrent, setCurrent)
-            }
+        onOpened: window.openUrls(uris)
+    }
+
+    onOpenUrls: {
+        for (var i = 0; i < urls.length; ++i) {
+            var setCurrent = (i == urls.length - 1)
+            browser.openUrlInNewTab(urls[i], setCurrent, setCurrent)
         }
     }
 }
