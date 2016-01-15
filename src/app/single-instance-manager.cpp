@@ -20,6 +20,8 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QStandardPaths>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtNetwork/QLocalSocket>
@@ -49,10 +51,21 @@ bool SingleInstanceManager::listen(const QString& name)
     return false;
 }
 
-bool SingleInstanceManager::run(const QString& name, const QStringList& arguments)
+bool SingleInstanceManager::run(const QStringList& arguments)
 {
-    // FIXME: having the socket in /tmp means two different users cannot run
-    // the app concurrently, put the socket in the user’s profile directory.
+    // FIXME: create the socket in a temporary directory and create a symlink
+    // to it in the user’s profile directory, to cater for networked filesystem
+    // implementations that do not support unix domain sockets.
+    // See https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/process_singleton_posix.cc.
+    QDir profile(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!profile.exists()) {
+        if (!QDir::root().mkpath(profile.absolutePath())) {
+            qCritical() << "Failed to create profile directory,"
+                           "unable to ensure a single instance of the application";
+            return false;
+        }
+    }
+    QString name = profile.absoluteFilePath(QStringLiteral("SingletonSocket"));
 
     if (listen(name)) {
         return true;

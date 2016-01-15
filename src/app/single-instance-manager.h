@@ -33,7 +33,7 @@ class SingleInstanceManager : public QObject
 public:
     SingleInstanceManager(QObject* parent=nullptr);
 
-    bool run(const QString& name, const QStringList& arguments);
+    bool run(const QStringList& arguments);
 
 Q_SIGNALS:
     void newInstanceLaunched(const QStringList& arguments) const;

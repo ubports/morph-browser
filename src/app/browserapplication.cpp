@@ -141,7 +141,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
     // Ensure only one instance of the app is running.
-    if (m_singleton.run(unversionedAppId, m_arguments)) {
+    if (m_singleton.run(m_arguments)) {
         connect(&m_singleton, SIGNAL(newInstanceLaunched(const QStringList&)),
                 SLOT(onNewInstanceLaunched(const QStringList&)));
     } else {
