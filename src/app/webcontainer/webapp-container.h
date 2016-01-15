@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -54,6 +54,9 @@ private:
     bool shouldNotValidateCommandLineUrls() const;
     bool isValidLocalIntentFilterFile(const QString& filename) const;
     void setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath);
+
+private Q_SLOTS:
+    void onNewInstanceLaunched(const QStringList& arguments) const final;
 
 private:
     QString m_webappName;

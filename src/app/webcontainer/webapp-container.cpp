@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -33,17 +33,17 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QtGlobal>
+#include <QtCore/QMetaObject>
 #include <QtCore/QRegularExpression>
+#include <QtCore/QSettings>
+#include <QtCore/QStandardPaths>
 #include <QtCore/QTextStream>
+#include <QtCore/QtGlobal>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
 #include <QtQml>
 #include <QtQuick/QQuickWindow>
-
-#include <QStandardPaths>
-#include <QSettings>
 
 static const char privateModuleUri[] = "webcontainer.private";
 
@@ -405,6 +405,21 @@ bool WebappContainer::shouldNotValidateCommandLineUrls() const
 {
     return qEnvironmentVariableIsSet("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")
             && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")) == "1";
+}
+
+void WebappContainer::onNewInstanceLaunched(const QStringList& arguments) const
+{
+    QVariantList urls;
+    Q_FOREACH(const QString& argument, arguments) {
+        if (!argument.startsWith(QStringLiteral("-"))) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    QMetaObject::invokeMethod(m_window, "openUrls", Q_ARG(QVariant, QVariant(urls)));
+    BrowserApplication::onNewInstanceLaunched(arguments);
 }
 
 QList<QUrl> WebappContainer::urls() const

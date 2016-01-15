@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -54,6 +54,8 @@ BrowserWindow {
 
     // Used for testing
     signal schemeUriHandleFilterResult(string uri)
+
+    signal openUrls(var urls)
 
     function getWindowTitle() {
         var webappViewTitle =
@@ -293,29 +295,31 @@ BrowserWindow {
     // url-dispatcher/upstart level.
     Connections {
         target: UriHandler
-        onOpened: {
-            // only consider the first one (if multiple)
-            if (uris.length === 0 || !root.currentWebview) {
-                return;
-            }
-            var requestedUrl = uris[0].toString();
+        onOpened: root.openUrls(uris)
+    }
 
-            if (popupRedirectionUrlPrefixPattern.length !== 0
-                    && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
-                return;
-            }
-
-            requestedUrl = translateHandlerUri(requestedUrl);
-
-            // Add a small guard to prevent browsing to invalid urls
-            if (currentWebview
-                    && currentWebview.shouldAllowNavigationTo
-                    && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
-                return;
-            }
-
-            root.url = requestedUrl
-            root.currentWebview.url = requestedUrl
+    onOpenUrls: {
+        // only consider the first one (if multiple)
+        if (urls.length === 0 || !root.currentWebview) {
+            return;
         }
+        var requestedUrl = urls[0].toString();
+
+        if (popupRedirectionUrlPrefixPattern.length !== 0
+                && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
+            return;
+        }
+
+        requestedUrl = translateHandlerUri(requestedUrl);
+
+        // Add a small guard to prevent browsing to invalid urls
+        if (currentWebview
+                && currentWebview.shouldAllowNavigationTo
+                && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
+            return;
+        }
+
+        root.url = requestedUrl
+        root.currentWebview.url = requestedUrl
     }
 }
