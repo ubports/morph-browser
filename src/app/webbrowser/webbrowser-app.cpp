@@ -132,7 +132,7 @@ void WebbrowserApp::onNewInstanceLaunched(const QStringList& arguments) const
 {
     QVariantList urls;
     Q_FOREACH(const QString& argument, arguments) {
-        if (!argument.startsWith("-")) {
+        if (!argument.startsWith(QStringLiteral("-"))) {
             QUrl url = QUrl::fromUserInput(argument);
             if (url.isValid()) {
                 urls.append(url);
