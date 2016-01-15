@@ -59,8 +59,8 @@ protected:
     QQuickWindow* m_window;
     QQmlComponent* m_component;
 
-protected Q_SLOTS:
-    virtual void onNewInstanceLaunched(const QStringList& arguments) const;
+private Q_SLOTS:
+    void onNewInstanceLaunched(const QStringList& arguments) const;
 
 private:
     QString appId() const;

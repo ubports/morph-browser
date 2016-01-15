@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -27,6 +27,8 @@ Window {
     property bool forceFullscreen: false
     property var currentWebview: null
 
+    signal openUrls(var urls)
+
     contentOrientation: Screen.orientation
 
     width: units.gu(100)
@@ -51,5 +53,16 @@ Window {
                 window.visibility = internal.currentWindowState
             }
         }
+    }
+
+    // Handle runtime requests to open urls as defined
+    // by the freedesktop application dbus interface's open
+    // method for DBUS application activation:
+    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
+    // The dispatch on the org.freedesktop.Application if is done per appId at the
+    // url-dispatcher/upstart level.
+    Connections {
+        target: UriHandler
+        onOpened: window.openUrls(uris)
     }
 }

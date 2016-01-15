@@ -35,7 +35,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
-#include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QtGlobal>
@@ -126,21 +125,6 @@ void WebbrowserApp::printUsage() const
     out << "  --inspector[=PORT] run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID    run the application with a specific APP_ID" << endl;
     out << "  --new-session      do not restore open tabs from the last session" << endl;
-}
-
-void WebbrowserApp::onNewInstanceLaunched(const QStringList& arguments) const
-{
-    QVariantList urls;
-    Q_FOREACH(const QString& argument, arguments) {
-        if (!argument.startsWith(QStringLiteral("-"))) {
-            QUrl url = QUrl::fromUserInput(argument);
-            if (url.isValid()) {
-                urls.append(url);
-            }
-        }
-    }
-    QMetaObject::invokeMethod(m_window, "openUrls", Q_ARG(QVariant, QVariant(urls)));
-    BrowserApplication::onNewInstanceLaunched(arguments);
 }
 
 int main(int argc, char** argv)

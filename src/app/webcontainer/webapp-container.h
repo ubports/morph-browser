@@ -55,9 +55,6 @@ private:
     bool isValidLocalIntentFilterFile(const QString& filename) const;
     void setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath);
 
-private Q_SLOTS:
-    void onNewInstanceLaunched(const QStringList& arguments) const final;
-
 private:
     QString m_webappName;
     QString m_webappIcon;

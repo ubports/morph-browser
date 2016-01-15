@@ -33,7 +33,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QMetaObject>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QSettings>
 #include <QtCore/QStandardPaths>
@@ -405,21 +404,6 @@ bool WebappContainer::shouldNotValidateCommandLineUrls() const
 {
     return qEnvironmentVariableIsSet("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")
             && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")) == "1";
-}
-
-void WebappContainer::onNewInstanceLaunched(const QStringList& arguments) const
-{
-    QVariantList urls;
-    Q_FOREACH(const QString& argument, arguments) {
-        if (!argument.startsWith(QStringLiteral("-"))) {
-            QUrl url = QUrl::fromUserInput(argument);
-            if (url.isValid()) {
-                urls.append(url);
-            }
-        }
-    }
-    QMetaObject::invokeMethod(m_window, "openUrls", Q_ARG(QVariant, QVariant(urls)));
-    BrowserApplication::onNewInstanceLaunched(arguments);
 }
 
 QList<QUrl> WebappContainer::urls() const

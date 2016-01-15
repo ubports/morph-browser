@@ -32,9 +32,6 @@ public:
 
 private:
     virtual void printUsage() const;
-
-private Q_SLOTS:
-    void onNewInstanceLaunched(const QStringList& arguments) const final;
 };
 
 #endif // __WEBBROWSER_APP_H__
