@@ -39,14 +39,22 @@ SingleInstanceManager::SingleInstanceManager(QObject* parent)
     : QObject(parent)
 {}
 
+bool SingleInstanceManager::listen(const QString& name)
+{
+    if (m_server.listen(name)) {
+        connect(&m_server, SIGNAL(newConnection()),
+                SLOT(onNewInstanceConnected()));
+        return true;
+    }
+    return false;
+}
+
 bool SingleInstanceManager::run(const QString& name, const QStringList& arguments)
 {
     // FIXME: having the socket in /tmp means two different users cannot run
     // the app concurrently, put the socket in the user’s profile directory.
 
-    if (m_server.listen(name)) {
-        connect(&m_server, SIGNAL(newConnection()),
-                SLOT(onNewInstanceConnected()));
+    if (listen(name)) {
         return true;
     }
 
@@ -80,9 +88,7 @@ bool SingleInstanceManager::run(const QString& name, const QStringList& argument
     } else {
         // Failed to talk to already running instance, assume it crashed.
         if (QLocalServer::removeServer(name)) {
-            if (m_server.listen(name)) {
-                connect(&m_server, SIGNAL(newConnection()),
-                        SLOT(onNewInstanceConnected()));
+            if (listen(name)) {
                 return true;
             } else {
                 qCritical() << "Failed to launch single instance:"

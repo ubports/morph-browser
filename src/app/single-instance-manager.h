@@ -23,6 +23,7 @@
 #include <QtCore/QObject>
 #include <QtNetwork/QLocalServer>
 
+class QString;
 class QStringList;
 
 class SingleInstanceManager : public QObject
@@ -44,6 +45,7 @@ private Q_SLOTS:
 
 private:
     QLocalServer m_server;
+    bool listen(const QString& name);
 };
 
 #endif // __SINGLE_INSTANCE_MANAGER__
