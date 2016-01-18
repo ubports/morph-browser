@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Implementation loosely based on Chromium’s ProcessSingleton
+// (https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/process_singleton_posix.cc).
+
 // Qt
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>
@@ -53,10 +56,6 @@ bool SingleInstanceManager::listen(const QString& name)
 
 bool SingleInstanceManager::run(const QStringList& arguments)
 {
-    // FIXME: create the socket in a temporary directory and create a symlink
-    // to it in the user’s profile directory, to cater for networked filesystem
-    // implementations that do not support unix domain sockets.
-    // See https://code.google.com/p/chromium/codesearch#chromium/src/chrome/browser/process_singleton_posix.cc.
     QDir profile(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!profile.exists()) {
         if (!QDir::root().mkpath(profile.absolutePath())) {
