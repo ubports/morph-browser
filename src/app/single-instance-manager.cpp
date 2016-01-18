@@ -56,6 +56,10 @@ bool SingleInstanceManager::listen(const QString& name)
 
 bool SingleInstanceManager::run(const QStringList& arguments)
 {
+    if (m_server.isListening()) {
+        return false;
+    }
+
     QDir profile(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!profile.exists()) {
         if (!QDir::root().mkpath(profile.absolutePath())) {
