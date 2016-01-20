@@ -81,7 +81,6 @@ BrowserWindow {
             accountSwitcher: root.accountSwitcher
 
             dataPath: webappDataLocation
-            webappName: root.webappName
             chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
@@ -217,6 +216,9 @@ BrowserWindow {
 
     function startBrowsing() {
         console.log("Start browsing")
+        // This will activate the UnityWebApp element used in WebApp.qml
+        webappViewLoader.item.webappName = root.webappName
+
         // As we use StateSaver to restore the URL, we need to check first if
         // it has not been set previously before setting the URL to the default property 
         // homepage.
