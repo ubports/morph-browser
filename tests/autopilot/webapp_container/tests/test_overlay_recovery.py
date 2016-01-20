@@ -90,6 +90,39 @@ class TestOverlayRecovery(WebappContainerTestCaseWithLocalContentBase):
                 objectName="overlayWebview").url,
             Eventually(Contains('/open-close-content')))
 
+    def test_crash_app_closed_overlay_not_reloaded(self):
+        args = []
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            '/open-close-content')
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        self._click_overlay()
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(1)))
+
+        views = self.get_popup_overlay_views()
+        overlay = views[0]
+        closeButton = overlay.select_single(
+            objectName='overlayCloseButton')
+        self.pointing_device.click_object(closeButton)
+
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(0)))
+
+        self.kill_app(signal.SIGABRT)
+
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            '/open-close-content')
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(0)))
+
     def test_closed_app_overlay_not_reloaded(self):
         args = []
         self.launch_webcontainer_app_with_local_http_server(

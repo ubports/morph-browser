@@ -46,22 +46,25 @@ Item {
 
     QtObject {
         id: internal
-        property var urlPerOverlap
+        property var urlPerOverlayView
     }
 
-    function onUrlUpdatedForOverlay(overlayView, url) {
-        if (!internal.urlPerOverlap) {
-            internal.urlPerOverlap = {}
-        }
-
-        internal.urlPerOverlap[overlayView] = url
-
+    function updateOverlayUrlsSettings() {
         var urls = []
         webviewOverlayUrlsSettings.overlayUrls = "[]"
-        for (var i in internal.urlPerOverlap) {
-            urls.push(internal.urlPerOverlap[i].toString())
+        for (var i in internal.urlPerOverlayView) {
+            urls.push(internal.urlPerOverlayView[i].toString())
         }
         webviewOverlayUrlsSettings.overlayUrls = JSON.stringify(urls)
+    }
+    function onUrlUpdatedForOverlay(overlayView, url) {
+        if (!internal.urlPerOverlayView) {
+            internal.urlPerOverlayView = {}
+        }
+
+        internal.urlPerOverlayView[overlayView] = url
+
+        updateOverlayUrlsSettings()
     }
 
     Connections {
@@ -137,8 +140,9 @@ Item {
             return
         }
         views.pop()
-        if (internal.urlPerOverlap) {
-            delete internal.urlPerOverlap[topMostView]
+        if (internal.urlPerOverlayView) {
+            delete internal.urlPerOverlayView[topMostView]
+            updateOverlayUrlsSettings()
         }
 
         var parentHeight = topMostView.parent.height
