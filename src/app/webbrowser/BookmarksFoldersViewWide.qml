@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -195,8 +195,7 @@ FocusScope {
                 bookmarksList.interactive = true
 
                 if (dragAndDrop.target && dragAndDrop.target.folderName !== folder) {
-                    bookmarksFoldersViewWideItem.model.update(entry.url, entry.title,
-                                                                 dragAndDrop.target.folderName)
+                    BookmarksModel.update(entry.url, entry.title, dragAndDrop.target.folderName)
                     dragAndDrop.success = true
                 }
             }
