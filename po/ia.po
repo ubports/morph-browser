@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-01-06 05:43+0000\n"
-"X-Generator: Launchpad (build 17876)\n"
+"X-Launchpad-Export-Date: 2016-01-21 05:51+0000\n"
+"X-Generator: Launchpad (build 17886)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -591,7 +591,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:1269
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Pulsar ESC pro exir de schermo plen"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:82
 msgid ""
@@ -609,11 +609,11 @@ msgstr "Discargar"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "Discargamento fallite"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Resumer"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
@@ -627,7 +627,7 @@ msgstr "Deler"
 
 #: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
-msgstr ""
+msgstr "Nulle discargamentos dispodible"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
@@ -652,7 +652,7 @@ msgstr "Heri"
 
 #: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
-msgstr ""
+msgstr "Tote le chronologia"
 
 #: src/app/webbrowser/HistoryViewWide.qml:212
 #: src/app/webbrowser/HistoryViewWide.qml:286
@@ -661,7 +661,7 @@ msgstr "Hodie"
 
 #: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
-msgstr ""
+msgstr "cercar le chronologia"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -695,7 +695,7 @@ msgstr "No"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Iste es un scheda private"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -714,7 +714,7 @@ msgstr "Sitos maxime"
 
 #: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Tu non ha ancora visitate ulle sito"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -829,7 +829,7 @@ msgstr "Cancellar le historia del navigator"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Clarar le chronologia del navigator?"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
@@ -837,7 +837,7 @@ msgstr "Cancellar le memoria tampon"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Clarar le memoria tampon?"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
@@ -887,7 +887,7 @@ msgstr "Adder un conto"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Non usar un conto"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
@@ -930,7 +930,7 @@ msgstr "Saltar"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Eliger le conto"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
