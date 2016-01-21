@@ -682,8 +682,8 @@ BrowserView {
         }
         height: units.gu(2)
 
-        enabled: (formFactor == "mobile") && !browser.wide &&
-                 (recentView.state == "") && browser.currentWebview &&
+        enabled: !browser.wide && (recentView.state == "") &&
+                 browser.currentWebview &&
                  (Screen.orientation == Screen.primaryOrientation)
 
         onDraggingChanged: {
@@ -713,7 +713,7 @@ BrowserView {
     Image {
         id: bottomEdgeHint
         objectName: "bottomEdgeHint"
-        source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
+        source: "assets/bottom_edge_hint.png"
         property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
