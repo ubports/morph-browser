@@ -519,7 +519,7 @@ BrowserView {
                 objectName: "tabs"
                 text: i18n.tr("Open tabs")
                 iconName: "browser-tabs"
-                enabled: (formFactor != "mobile") && !browser.wide
+                enabled: !browser.wide
                 onTriggered: {
                     recentView.state = "shown"
                     recentToolbar.state = "shown"
@@ -529,7 +529,7 @@ BrowserView {
                 objectName: "newtab"
                 text: i18n.tr("New tab")
                 iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                enabled: (formFactor != "mobile") && !browser.wide
+                enabled: !browser.wide
                 onTriggered: browser.openUrlInNewTab("", true)
             },
             Action {
