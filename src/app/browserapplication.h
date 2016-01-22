@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,6 +25,9 @@
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
 #include <QtWidgets/QApplication>
+
+// local
+#include "single-instance-manager.h"
 
 class QQmlComponent;
 class QQmlEngine;
@@ -56,12 +59,17 @@ protected:
     QQuickWindow* m_window;
     QQmlComponent* m_component;
 
+private Q_SLOTS:
+    void onNewInstanceLaunched(const QStringList& arguments) const;
+
 private:
     QString appId() const;
     QString inspectorPort() const;
     QString inspectorHost() const;
 
     WebBrowserWindow *m_webbrowserWindowProxy;
+
+    SingleInstanceManager m_singleton;
 };
 
 #endif // __BROWSER_APPLICATION_H__

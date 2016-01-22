@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,22 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+#ifndef __SINGLE_INSTANCE_MANAGER_H__
+#define __SINGLE_INSTANCE_MANAGER_H__
 
-#include "browserapplication.h"
+// Qt
+#include <QtCore/QObject>
+#include <QtNetwork/QLocalServer>
 
-class WebbrowserApp : public BrowserApplication
+class QString;
+class QStringList;
+
+class SingleInstanceManager : public QObject
 {
     Q_OBJECT
 
 public:
-    WebbrowserApp(int& argc, char** argv);
+    SingleInstanceManager(QObject* parent=nullptr);
 
-    bool initialize();
+    bool run(const QStringList& arguments);
+
+Q_SIGNALS:
+    void newInstanceLaunched(const QStringList& arguments) const;
+
+private Q_SLOTS:
+    void onNewInstanceConnected();
+    void onReadyRead();
+    void onDisconnected();
 
 private:
-    virtual void printUsage() const;
+    QLocalServer m_server;
+    bool listen(const QString& name);
 };
 
-#endif // __WEBBROWSER_APP_H__
+#endif // __SINGLE_INSTANCE_MANAGER__
