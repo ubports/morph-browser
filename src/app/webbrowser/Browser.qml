@@ -514,7 +514,8 @@ BrowserView {
                 objectName: "share"
                 text: i18n.tr("Share")
                 iconName: "share"
-                enabled: (formFactor == "mobile") && chrome.tab && chrome.tab.url.toString()
+                enabled: (contentHandlerLoader.status == Loader.Ready) &&
+                         chrome.tab && chrome.tab.url.toString()
                 onTriggered: internal.shareLink(chrome.tab.url, chrome.tab.title)
             },
             Action {
