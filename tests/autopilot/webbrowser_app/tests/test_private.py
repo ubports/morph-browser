@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -16,7 +16,6 @@
 
 from testtools.matchers import Equals, NotEquals
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -31,7 +30,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assert_number_incognito_webviews_eventually(1)
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.assertThat(address_bar.activeFocus,
-                        Eventually(Equals(model() == 'Desktop')))
+                        Eventually(Equals(self.main_window.wide)))
         self.assertThat(address_bar.text, Eventually(Equals("")))
 
         self.main_window.leave_private_mode()
