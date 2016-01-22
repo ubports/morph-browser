@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-12-22 16:35+0100\n"
-"PO-Revision-Date: 2015-12-09 20:00+0000\n"
+"PO-Revision-Date: 2016-01-21 22:24+0000\n"
 "Last-Translator: Bojan Bogdanović <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-01-21 05:51+0000\n"
-"X-Generator: Launchpad (build 17886)\n"
+"X-Launchpad-Export-Date: 2016-01-22 05:56+0000\n"
+"X-Generator: Launchpad (build 17902)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -611,11 +611,11 @@ msgstr "Преузми"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "Преузимање није успело"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Настави"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
