@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.9 as Oxide
+import com.canonical.Oxide 1.12 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
@@ -136,6 +136,128 @@ Oxide.WebView {
     onSelectionActionsChanged: console.warn("WARNING: the 'selectionActions' property is deprecated and ignored.")
     function copy() {
         console.warn("WARNING: the copy() function is deprecated and does nothing.")
+    }
+
+    touchSelectionController {
+        handle: Item {
+            width: units.gu(1.5)
+            height: units.gu(1.5)
+            Image {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+                height: units.gu(6)
+                fillMode: Image.PreserveAspectFit
+                verticalAlignment: Image.AlignBottom
+                source: "handle.png"
+            }
+            Component.onCompleted: horizontalPaddingRatio = 0.5
+        }
+    }
+
+    UbuntuShape {
+        // FIXME: hide contextual actions while resizing the
+        // selection (needs an additional API in oxide?)
+        visible: _webview.touchSelectionController.active
+        aspect: UbuntuShape.DropShadow
+        backgroundColor: "white"
+        width: childrenRect.width + units.gu(2)
+        height: units.gu(6)
+
+        readonly property rect bounds: _webview.touchSelectionController.bounds
+        readonly property real handleHeight: units.gu(1.5)
+        readonly property real spacing: units.gu(1)
+        readonly property bool fitsBelow: (bounds.y + bounds.height + handleHeight + spacing + height) <= _webview.height
+        readonly property bool fitsAbove: (bounds.y - spacing - height) >= (_webview.locationBarController.height + _webview.locationBarController.offset)
+        x: bounds.x + (bounds.width - width) / 2
+        y: fitsBelow ? (bounds.y + bounds.height + handleHeight + spacing)
+                     : fitsAbove ? (bounds.y - spacing - height)
+                                 : bounds.y + (bounds.height - height) / 2
+
+        Row {
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                left: parent.left
+                margins: units.gu(1)
+            }
+            spacing: units.gu(1)
+            width: {
+                // work around what seems to be a bug in Row’s childrenRect.width
+                var w = 0
+                for (var i in visibleChildren) {
+                    w += visibleChildren[i].width + spacing
+                }
+                return w - spacing
+            }
+            AbstractButton {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: visible ? height : 0
+                Icon {
+                    anchors.fill: parent
+                    name: "edit-cut"
+                }
+                visible: _webview.editingCapabilities & Oxide.WebView.CutCapability
+                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+            }
+            AbstractButton {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: visible ? height : 0
+                Icon {
+                    anchors.fill: parent
+                    name: "edit-copy"
+                }
+                visible: _webview.editingCapabilities & Oxide.WebView.CopyCapability
+                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+            }
+            AbstractButton {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: visible ? height : 0
+                Icon {
+                    anchors.fill: parent
+                    name: "edit-paste"
+                }
+                visible: _webview.editingCapabilities & Oxide.WebView.PasteCapability
+                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+            }
+            AbstractButton {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: visible ? height : 0
+                Icon {
+                    anchors.fill: parent
+                    name: "edit-delete"
+                }
+                visible: _webview.editingCapabilities & Oxide.WebView.EraseCapability
+                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+            }
+            AbstractButton {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: visible ? height : 0
+                Icon {
+                    anchors.fill: parent
+                    name: "edit-select-all"
+                }
+                visible: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
+                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
+            }
+        }
     }
 
     QtObject {
