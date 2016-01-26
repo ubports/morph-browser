@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -55,6 +55,7 @@ Item {
 
     Connections {
         target: webview
+
         onFullscreenChanged: {
             if (webview.fullscreen) {
                 webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
@@ -65,16 +66,17 @@ Item {
                 }
             }
         }
-        onLoadingChanged: {
-            if (webview.loading && !webview.fullscreen && !forceHide && !forceShow &&
+
+        onLoadEvent: {
+            if (forceHide || forceShow) return
+
+            if (webview.loading && !webview.fullscreen &&
                 (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto)) {
                 webview.locationBarController.show(true)
             }
-        }
-        onLoadEvent: {
+
             // When loading, force ModeShown until the load is committed or stopped,
             // to work around https://launchpad.net/bugs/1453908.
-            if (forceHide || forceShow) return
             if (event.type == Oxide.LoadEvent.TypeStarted) {
                 webview.locationBarController.mode = Oxide.LocationBarController.ModeShown
             } else if ((event.type == Oxide.LoadEvent.TypeCommitted) ||
