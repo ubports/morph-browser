@@ -71,6 +71,7 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
+                fgColor: navigationBar.fgColor
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
@@ -87,7 +88,8 @@ ChromeBase {
         NavigationBar {
             id: navigationBar
 
-            iconColor: (incognito && !showTabsBar) ? "white" : UbuntuColors.darkGrey
+            fgColor: "#111111"
+            iconColor: (incognito && !showTabsBar) ? "white" : fgColor
 
             focus: true
 

@@ -35,6 +35,8 @@ Item {
     property real dragMax: 0
     readonly property bool dragging: mouseArea.drag.active
 
+    property color fgColor: Theme.palette.normal.baseText
+
     signal selected()
     signal closed()
     signal contextMenu()
@@ -69,7 +71,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 clip: true
                 fontSize: "small"
-                color: "#111111"
+                color: tabItem.fgColor
             }
 
             Rectangle {
@@ -146,7 +148,7 @@ Item {
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
             name: "close"
-            color: "#111111"
+            color: tabItem.fgColor
         }
     }
 }

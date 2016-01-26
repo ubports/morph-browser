@@ -32,6 +32,8 @@ Item {
 
     property bool incognito: false
 
+    property color fgColor: Theme.palette.normal.baseText
+
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index)
@@ -67,7 +69,7 @@ Item {
             height: units.gu(2)
             anchors.centerIn: parent
             name: "add"
-            color: incognito ? "white" : UbuntuColors.darkGrey
+            color: incognito ? "white" : root.fgColor
         }
 
         onClicked: root.requestNewTab(root.model.count, true)
@@ -149,6 +151,7 @@ Item {
                     incognito: root.incognito
                     title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
                     icon: model.icon
+                    fgColor: root.fgColor
 
                     rightMargin: tabDelegate.rightMargin
 
