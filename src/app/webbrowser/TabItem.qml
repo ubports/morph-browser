@@ -69,6 +69,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 clip: true
                 fontSize: "small"
+                color: "#111111"
             }
 
             Rectangle {
@@ -145,6 +146,7 @@ Item {
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
             name: "close"
+            color: "#111111"
         }
     }
 }
