@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -181,6 +181,17 @@ Item {
 
                 z: (root.model.currentIndex == index) ? 3 : 1 - index / root.model.count
             }
+        }
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+            }
+            width: root.width
+            height: units.dp(1)
+            color: "#cacaca"
+            z: 2
         }
     }
 }
