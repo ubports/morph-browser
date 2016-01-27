@@ -25,7 +25,7 @@ Item {
     property var webview
     property bool forceHide: false
     property bool forceShow: false
-    property int defaultMode: Oxide.LocationBarController.ModeAuto
+    property int defaultMode: internal.modeAuto
 
     onWebviewChanged: internal.updateVisibility()
     onForceHideChanged: internal.updateVisibility()
@@ -34,18 +34,22 @@ Item {
     QtObject {
         id: internal
 
+        readonly property int modeAuto: Oxide.LocationBarController.ModeAuto
+        readonly property int modeShown: Oxide.LocationBarController.ModeShown
+        readonly property int modeHidden: Oxide.LocationBarController.ModeHidden
+
         function updateVisibility() {
             if (!webview) {
                 return
             }
             webview.locationBarController.animated = false
             if (forceHide) {
-                webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
+                webview.locationBarController.mode = internal.modeHidden
             } else if (forceShow) {
-                webview.locationBarController.mode = Oxide.LocationBarController.ModeShown
+                webview.locationBarController.mode = internal.modeShown
             } else if (!webview.fullscreen) {
                 webview.locationBarController.mode = defaultMode
-                if (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto) {
+                if (webview.locationBarController.mode == internal.modeAuto) {
                     webview.locationBarController.show(false)
                 }
             }
@@ -58,18 +62,20 @@ Item {
 
         onFullscreenChanged: {
             if (webview.fullscreen) {
-                webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
+                webview.locationBarController.mode = internal.modeHidden
             } else if (!forceHide && !forceShow) {
                 webview.locationBarController.mode = defaultMode
-                if (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto) {
+                if (webview.locationBarController.mode == internal.modeAuto) {
                     webview.locationBarController.show(true)
                 }
+            } else if (!forceHide && forceShow) {
+                webview.locationBarController.mode = internal.modeShown
             }
         }
 
         onLoadingStateChanged: {
             if (webview.loading && !webview.fullscreen && !forceHide && !forceShow &&
-                (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto)) {
+                (webview.locationBarController.mode == internal.modeAuto)) {
                 webview.locationBarController.show(true)
             }
         }
@@ -79,7 +85,7 @@ Item {
             // to work around https://launchpad.net/bugs/1453908.
             if (forceHide || forceShow) return
             if (event.type == Oxide.LoadEvent.TypeStarted) {
-                webview.locationBarController.mode = Oxide.LocationBarController.ModeShown
+                webview.locationBarController.mode = internal.modeShown
             } else if ((event.type == Oxide.LoadEvent.TypeCommitted) ||
                        (event.type == Oxide.LoadEvent.TypeStopped)) {
                 webview.locationBarController.mode = defaultMode
