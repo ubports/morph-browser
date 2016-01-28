@@ -151,11 +151,8 @@ FocusScope {
         focus: true
 
         anchors {
-            top: title.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            rightMargin: units.gu(2)
+            fill: parent
+            topMargin: title.height
         }
 
         model: SortFilterModel {
