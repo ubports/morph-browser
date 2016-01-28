@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -59,16 +59,9 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_close_last_open_tab(self):
         tabs_view = self.main_window.get_tabs_view()
         tabs_view.get_previews()[0].close()
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
-            self.app.process.wait()
-            return
         tabs_view.visible.wait_for(False)
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
-        if model() == 'Desktop':
-            address_bar = self.main_window.address_bar
-            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
@@ -140,6 +133,9 @@ class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         """Test that switching between tabs correctly resets focus to the
            webview if a page is loaded, and to the address bar if we are in
            the new page view"""
+        if not self.main_window.wide:
+            self.skipTest("only on wide form factors")
+
         address_bar = self.main_window.address_bar
 
         self.main_window.press_key('Ctrl+t')
@@ -174,7 +170,8 @@ class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.main_window.press_key('Ctrl+t')
 
         self.main_window.press_key('Ctrl+w')
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        if self.main_window.wide:
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
         self.main_window.press_key('Ctrl+w')
         webview = self.main_window.get_current_webview()
@@ -185,7 +182,8 @@ class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
         self.main_window.press_key('Ctrl+w')
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        if self.main_window.wide:
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
 
 class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
@@ -271,9 +269,10 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
             toolbar.click_button("doneButton")
             tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
+        wide = self.main_window.wide
         self.pointing_device.click_object(webview)
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
+        if wide:
+            # closing the last open tab exits the application
             self.app.process.wait()
             return
         webview.wait_until_destroyed()

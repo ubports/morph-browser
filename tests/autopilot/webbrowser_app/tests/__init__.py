@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -174,10 +174,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.assert_number_webviews_eventually(new_count)
             new_tab_view = self.main_window.get_new_tab_view()
 
-        if model() == 'Desktop':
-            self.assertThat(
-                self.main_window.address_bar.activeFocus,
-                Eventually(Equals(True)))
+        if self.main_window.wide:
+            self.assertThat(self.main_window.address_bar.activeFocus,
+                            Eventually(Equals(True)))
 
         if not self.main_window.wide and expand_view:
             more_button = new_tab_view.get_bookmarks_more_button()

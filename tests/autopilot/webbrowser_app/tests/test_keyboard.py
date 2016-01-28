@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -147,26 +147,28 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(0)
 
     def test_close_tabs_ctrl_f4(self):
+        wide = self.main_window.wide
         self.open_tabs(1)
         self.check_tab_number(1)
         self.main_window.press_key('Ctrl+F4')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
+        if wide:
+            # closing the last open tab exits the application
             self.app.process.wait()
         else:
             webview = self.main_window.get_current_webview()
             self.assertThat(webview.url, Equals(""))
 
     def test_close_tabs_ctrl_w(self):
+        wide = self.main_window.wide
         self.open_tabs(1)
         self.check_tab_number(1)
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+w')
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
+        if wide:
+            # closing the last open tab exits the application
             self.app.process.wait()
         else:
             webview = self.main_window.get_current_webview()
@@ -181,12 +183,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
-            self.app.process.wait()
-        else:
-            webview = self.main_window.get_current_webview()
-            self.assertThat(webview.url, Equals(""))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Equals(""))
 
     def test_select_address_bar_ctrl_l(self):
         self.main_window.press_key('Ctrl+l')

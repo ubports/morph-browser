@@ -67,7 +67,7 @@ BrowserView {
         onCurrentIndexChanged: {
             // Remove focus from the address bar when the current tab
             // changes to ensure that its contents are updated.
-            tabContainer.forceActiveFocus()
+            contentsContainer.forceActiveFocus()
 
             // In narrow mode, the tabslist is a stack:
             // the current tab is always at the top.
@@ -176,6 +176,7 @@ BrowserView {
     }
 
     FocusScope {
+        id: contentsContainer
         anchors.fill: parent
         visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsViewLoader.active
 
@@ -187,9 +188,15 @@ BrowserView {
                 top: parent.top
             }
             height: parent.height - osk.height - bottomEdgeBar.height
+
+            focus: !errorSheetLoader.focus &&
+                   !invalidCertificateErrorSheetLoader.focus &&
+                   !newTabViewLoader.focus &&
+                   !sadTabLoader.focus
         }
 
         Loader {
+            id: errorSheetLoader
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -199,10 +206,12 @@ BrowserView {
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }
+            focus: item.visible
             asynchronous: true
         }
 
         Loader {
+            id: invalidCertificateErrorSheetLoader
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -220,6 +229,7 @@ BrowserView {
                     currentWebview.resetCertificateError()
                 }
             }
+            focus: item.visible
             asynchronous: true
         }
 
@@ -241,6 +251,7 @@ BrowserView {
                 }
             }
             active: false
+            focus: active
             asynchronous: true
 
             Connections {
@@ -307,12 +318,14 @@ BrowserView {
         }
 
         Loader {
+            id: sadTabLoader
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
 
             active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
+            focus: active
 
             sourceComponent: SadTab {
                 webview: currentWebview
@@ -427,6 +440,7 @@ BrowserView {
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
+            internal.resetFocus()
         }
     }
 
@@ -506,7 +520,8 @@ BrowserView {
                 objectName: "share"
                 text: i18n.tr("Share")
                 iconName: "share"
-                enabled: (formFactor == "mobile") && chrome.tab && chrome.tab.url.toString()
+                enabled: (contentHandlerLoader.status == Loader.Ready) &&
+                         chrome.tab && chrome.tab.url.toString()
                 onTriggered: internal.shareLink(chrome.tab.url, chrome.tab.title)
             },
             Action {
@@ -1531,9 +1546,8 @@ BrowserView {
                 if (recentView.visible) {
                     recentView.focus = true
                 } else if (tab) {
-                    if (!tab.url.toString() && !tab.initialUrl.toString() &&
-                        (formFactor == "desktop")) {
-                        focusAddressBar()
+                    if (!tab.url.toString() && !tab.initialUrl.toString()) {
+                        maybeFocusAddressBar()
                     } else {
                         tabContainer.forceActiveFocus()
                     }
@@ -1549,11 +1563,28 @@ BrowserView {
 
         function resetFocus() {
             if (browser.currentWebview) {
-                if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
-                    internal.focusAddressBar()
+                if (!browser.currentWebview.url.toString()) {
+                    internal.maybeFocusAddressBar()
                 } else {
-                    tabContainer.forceActiveFocus()
+                    contentsContainer.forceActiveFocus()
                 }
+            }
+        }
+
+        function maybeFocusAddressBar() {
+            // XXX: this is not the right condition, but it is better than
+            // inferring a "desktop" form factor from various heuristics.
+            // The real fix is to detect whether there is a physical keyboard
+            // connected, for which there is currently no API yet (there will
+            // be a QInputInfo API in a future version of Qt).
+            // Wide mode might be in use on a device without a physical
+            // keyboard (e.g. a 10" tablet), and conversely the browser window
+            // might be shrinked to a narrow layout on a desktop setup with a
+            // physical keyboard and no OSK.
+            if (browser.wide) {
+                focusAddressBar()
+            } else {
+                contentsContainer.forceActiveFocus()
             }
         }
 
@@ -1622,8 +1653,8 @@ BrowserView {
         if (load) {
             tab.load()
         }
-        if (!url.toString() && (formFactor == "desktop")) {
-            internal.focusAddressBar()
+        if (!url.toString()) {
+            internal.maybeFocusAddressBar()
         }
     }
 
@@ -1783,8 +1814,8 @@ BrowserView {
                 browser.openUrlInNewTab(settings.homepage, true, false)
             }
             tabsModel.currentTab.load()
-            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
-                internal.focusAddressBar()
+            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
+                internal.maybeFocusAddressBar()
             }
 
             BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
@@ -1826,7 +1857,7 @@ BrowserView {
                 if (browser.incognito) {
                     browser.incognito = false
                     internal.resetFocus()
-                } else if ((formFactor == "desktop") || browser.wide) {
+                } else if (browser.wide) {
                     Qt.quit()
                 }
             }

@@ -1,3 +1,19 @@
+webbrowser-app (0.23+16.04.20160122-0ubuntu1) xenial; urgency=medium
+
+  * Automatically focus the address bar when opening a new tab in wide
+    mode (instead of inferring a "desktop" form factor). This is not
+    exactly the correct fix (which would require the QInputInfo API),
+    but is better than the current situation anyway. (LP: #1533317)
+  * Ensure that only one instance of the app is running. (LP: #1535199)
+  * Fix failing autopilot test. With recent changes in the UITK, swiping
+    a non-swipeable item to the right activates it. (LP: #1534139)
+  * Fix undefined reference when dragging a bookmark from one folder to
+    another one.
+  * Show the share action if Ubuntu.Content is available, regardless of
+    the form factor.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 22 Jan 2016 10:23:33 +0000
+
 webbrowser-app (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtCore/QMetaObject>
 #include <QtCore/QtGlobal>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
@@ -127,7 +128,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     if (qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
-            id = QString(APP_ID);
+            id = QStringLiteral(APP_ID);
         }
         qputenv("APP_ID", id.toUtf8());
     }
@@ -139,6 +140,14 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     // Get also the the first two components of the app ID: <package>_<app>,
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
+
+    // Ensure only one instance of the app is running.
+    if (m_singleton.run(m_arguments)) {
+        connect(&m_singleton, SIGNAL(newInstanceLaunched(const QStringList&)),
+                SLOT(onNewInstanceLaunched(const QStringList&)));
+    } else {
+        return false;
+    }
 
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();
@@ -190,6 +199,21 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
 
     return true;
+}
+
+void BrowserApplication::onNewInstanceLaunched(const QStringList& arguments) const
+{
+    QVariantList urls;
+    Q_FOREACH(const QString& argument, arguments) {
+        if (!argument.startsWith(QStringLiteral("-"))) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    QMetaObject::invokeMethod(m_window, "openUrls", Q_ARG(QVariant, QVariant(urls)));
+    m_window->requestActivate();
 }
 
 void BrowserApplication::qmlEngineCreated(QQmlEngine*)

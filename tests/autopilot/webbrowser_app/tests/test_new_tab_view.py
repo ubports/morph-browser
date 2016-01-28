@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -25,8 +25,6 @@ from autopilot.matchers import Eventually
 from testtools.matchers import Equals, NotEquals
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
-
-from ubuntuuitoolkit import ToolkitException
 
 
 class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
@@ -453,25 +451,15 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         if not self.main_window.wide:
             self.skipTest("Only on wide form factors")
 
-    def test_remove_bookmarks(self):
+    def test_remove_bookmark(self):
         view = self.new_tab_view
         bookmarks = view.get_bookmarks_list()
         previous_count = len(bookmarks)
-        bookmarks[1].trigger_leading_action("leadingAction.delete",
-                                            bookmarks[1].wait_until_destroyed)
+        bookmark = bookmarks[1]
+        bookmark.trigger_leading_action("leadingAction.delete",
+                                        bookmark.wait_until_destroyed)
         bookmarks = view.get_bookmarks_list()
         self.assertThat(len(bookmarks), Equals(previous_count - 1))
-        previous_count = len(bookmarks)
-
-        # verify that trying to delete the homepage bookmark is not going to
-        # do anything because there is no delete action on the delegate
-        no_delete_action = False
-        try:
-            bookmarks[0].trigger_leading_action("leadingAction.delete")
-        except ToolkitException:
-            no_delete_action = True
-        self.assertThat(no_delete_action, Equals(True))
-        self.assertThat(len(view.get_bookmarks_list()), Equals(previous_count))
 
     def test_remove_top_sites(self):
         view = self.new_tab_view
