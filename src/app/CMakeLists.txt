@@ -36,6 +36,7 @@ target_link_libraries(${COMMONLIB}
     Qt5::Quick
     Qt5::Widgets
     UbuntuGesturesQml
+    InputInfo
 )
 
 file(GLOB QML_FILES *.qml)

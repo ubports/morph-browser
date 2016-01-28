@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -36,6 +36,7 @@
 #include "TouchRegistry.h"
 #include "Ubuntu/Gestures/Direction.h"
 #include "Ubuntu/Gestures/DirectionalDragArea.h"
+#include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
@@ -155,6 +156,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     const char* gesturesUri = "Ubuntu.Gestures";
     qmlRegisterSingletonType<Direction>(gesturesUri, 0, 1, "Direction", Direction_singleton_factory);
     qmlRegisterType<DirectionalDragArea>(gesturesUri, 0, 1, "DirectionalDragArea");
+
+    const char* inputInfoUri = "Unity.InputInfo";
+    qmlRegisterType<QDeclarativeInputDeviceModel>(inputInfoUri, 0, 1, "InputDeviceModel");
+    qmlRegisterType<QInputDevice>(inputInfoUri, 0, 1, "InputInfo");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));

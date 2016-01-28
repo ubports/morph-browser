@@ -22,6 +22,7 @@ import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -93,6 +94,11 @@ BrowserView {
            creating one of these new dialogs.
         */
         onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
+
+    InputDeviceModel {
+        id: miceModel
+        deviceFilter: InputInfo.Mouse
     }
 
     Component {
@@ -723,7 +729,7 @@ BrowserView {
                 UbuntuNumberAnimation {}
             }
         }
-        visible: bottomEdgeHandle.enabled
+        visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
         Behavior on opacity {
             UbuntuNumberAnimation {}
@@ -1387,6 +1393,8 @@ BrowserView {
                 nextTab.aboutToShow()
             }
         }
+
+        readonly property bool hasMouse: miceModel.count > 0
 
         function getOpenPages() {
             var urls = []
