@@ -218,6 +218,15 @@ FocusScope {
                         color: (!lastVisitDateListView.activeFocus && (lastVisitDateListView.currentIndex == index)) ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
 
+                    divider {
+                        // Hide the divider so that the highlight doesn’t overlap it
+                        // Do not set visible to false, otherwise the content item is resized.
+                        opacity: (!ListView.view.activeFocus ||
+                                  (index > ListView.view.currentIndex) ||
+                                  (index < (ListView.view.currentIndex - 1))) ? 1 : 0
+                        Behavior on opacity { UbuntuNumberAnimation {} }
+                    }
+
                     onClicked: ListView.view.explicitlyChangeCurrentIndex(function() { ListView.view.currentIndex = index })
                 }
 
