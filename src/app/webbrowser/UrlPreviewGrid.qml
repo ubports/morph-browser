@@ -62,12 +62,13 @@ GridView {
         visible: GridView.view && GridView.view.activeFocus
         ListViewHighlight {
             visible: true
+            width: previewWidth + units.gu(2)
+            height: previewHeight + units.gu(5)
             anchors {
-                fill: parent
-                leftMargin: - grid.horizontalMargin
-                rightMargin: grid.horizontalMargin
-                topMargin: - grid.verticalMargin
-                bottomMargin: grid.verticalMargin
+                top: parent.top
+                left: parent.left
+                topMargin: (grid.cellHeight - height) / 2 - grid.verticalMargin - units.gu(0.5)
+                leftMargin: (grid.cellWidth - width) / 2 - grid.horizontalMargin
             }
         }
     }
