@@ -17,17 +17,14 @@
  */
 
 import QtQuick 2.4
-import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
-import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 
 import "../MimeTypeMapper.js" as MimeTypeMapper
 
-Item {
+FocusScope {
     id: downloadsItem
 
     property var downloadManager
@@ -151,6 +148,7 @@ Item {
     ListView {
         id: downloadsListView
         clip: true
+        focus: true
 
         anchors {
             top: title.bottom
@@ -224,6 +222,10 @@ Item {
             }
         }
 
+        highlight: ListViewHighlight {}
+
+        Keys.onEnterPressed: currentItem.clicked()
+        Keys.onReturnPressed: currentItem.clicked()
     }
 
     Label {
