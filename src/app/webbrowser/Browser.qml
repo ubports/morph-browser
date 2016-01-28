@@ -537,23 +537,6 @@ BrowserView {
                 onTriggered: historyViewLoader.active = true
             },
             Action {
-                objectName: "tabs"
-                text: i18n.tr("Open tabs")
-                iconName: "browser-tabs"
-                enabled: !browser.wide && !bottomEdgeBar.visible
-                onTriggered: {
-                    recentView.state = "shown"
-                    recentToolbar.state = "shown"
-                }
-            },
-            Action {
-                objectName: "newtab"
-                text: i18n.tr("New tab")
-                iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                enabled: !browser.wide && !bottomEdgeBar.visible
-                onTriggered: browser.openUrlInNewTab("", true)
-            },
-            Action {
                 objectName: "findinpage"
                 text: i18n.tr("Find in page")
                 iconName: "search"
