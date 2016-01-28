@@ -101,6 +101,11 @@ BrowserView {
         deviceFilter: InputInfo.Mouse
     }
 
+    InputDeviceModel {
+        id: touchPadModel
+        deviceFilter: InputInfo.TouchPad
+    }
+
     Component {
         id: mediaAccessDialogComponent
         MediaAccessDialog { }
@@ -1426,7 +1431,7 @@ BrowserView {
             }
         }
 
-        readonly property bool hasMouse: miceModel.count > 0
+        readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
 
         function getOpenPages() {
             var urls = []
