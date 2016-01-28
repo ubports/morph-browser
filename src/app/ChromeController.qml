@@ -63,13 +63,15 @@ Item {
         onFullscreenChanged: {
             if (webview.fullscreen) {
                 webview.locationBarController.mode = internal.modeHidden
-            } else if (!forceHide && !forceShow) {
-                webview.locationBarController.mode = defaultMode
-                if (webview.locationBarController.mode == internal.modeAuto) {
-                    webview.locationBarController.show(true)
+            } else if (!forceHide) {
+                if (forceShow) {
+                    webview.locationBarController.mode = internal.modeShown
+                } else {
+                    webview.locationBarController.mode = defaultMode
+                    if (webview.locationBarController.mode == internal.modeAuto) {
+                        webview.locationBarController.show(true)
+                    }
                 }
-            } else if (!forceHide && forceShow) {
-                webview.locationBarController.mode = internal.modeShown
             }
         }
 
