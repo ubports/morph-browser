@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -26,10 +26,7 @@ ListItem {
     property alias icon: icon.source
     property alias title: title.text
     property alias url: url.text
-    property bool highlighted: false
     property bool removable: true
-
-    color: highlighted ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
 
     divider.visible: false
     height: units.gu(5)
@@ -57,7 +54,7 @@ ListItem {
             id: title
 
             fontSize: "x-small"
-            color: highlighted ? UbuntuColors.orange : UbuntuColors.darkGrey
+            color: UbuntuColors.darkGrey
             wrapMode: Text.Wrap
             elide: Text.ElideRight
             maximumLineCount: 1
@@ -67,7 +64,7 @@ ListItem {
             id: url
 
             fontSize: "xx-small"
-            color: highlighted ? UbuntuColors.orange : UbuntuColors.darkGrey
+            color: UbuntuColors.darkGrey
             wrapMode: Text.Wrap
             elide: Text.ElideRight
             maximumLineCount: 1

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -58,17 +58,16 @@ GridView {
         onRemoved: grid.removed(model.url)
     }
 
-    highlight: Component {
-        Item {
-            visible: grid.activeFocus
-            UbuntuShape {
-                anchors.fill: parent
-                anchors.leftMargin: - grid.horizontalMargin
-                anchors.rightMargin: grid.horizontalMargin
-                anchors.topMargin: - grid.verticalMargin
-                anchors.bottomMargin: grid.verticalMargin
-                aspect: UbuntuShape.Flat
-                backgroundColor: Qt.rgba(0, 0, 0, 0.05)
+    highlight: Item {
+        visible: GridView.view && GridView.view.activeFocus
+        ListViewHighlight {
+            visible: true
+            anchors {
+                fill: parent
+                leftMargin: - grid.horizontalMargin
+                rightMargin: grid.horizontalMargin
+                topMargin: - grid.verticalMargin
+                bottomMargin: grid.verticalMargin
             }
         }
     }

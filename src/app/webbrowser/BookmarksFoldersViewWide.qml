@@ -95,8 +95,7 @@ FocusScope {
             readonly property bool isAllBookmarksFolder: folder.length === 0
             readonly property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
 
-            color: isCurrentDropTarget ? "green" :
-                   ((folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent")
+            color: isCurrentDropTarget ? "green" : "transparent"
 
             Label {
                 anchors {
@@ -109,7 +108,7 @@ FocusScope {
 
                 fontSize: "small"
                 text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folderItem.name
-                color: isActiveFolder ? UbuntuColors.orange : UbuntuColors.darkGrey
+                color: (isActiveFolder && !folders.activeFocus) ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
 
             onClicked: folders.currentIndex = index
@@ -121,6 +120,8 @@ FocusScope {
                 anchors.fill: parent
             }
         }
+
+        highlight: ListViewHighlight {}
     }
 
     Scrollbar {
@@ -176,7 +177,6 @@ FocusScope {
 
             removable: !isHomeBookmark
             draggable: !isHomeBookmark && contentItem.x === 0
-            highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
             onClicked: bookmarksFoldersViewWideItem.bookmarkClicked(url)
             onRemoved: bookmarksFoldersViewWideItem.bookmarkRemoved(url)
@@ -200,6 +200,8 @@ FocusScope {
                 }
             }
         }
+
+        highlight: ListViewHighlight {}
 
         Keys.onReturnPressed: bookmarksFoldersViewWideItem.bookmarkClicked(currentItem.url)
         Keys.onDeletePressed: {
