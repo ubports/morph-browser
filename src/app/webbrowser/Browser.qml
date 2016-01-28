@@ -186,7 +186,7 @@ BrowserView {
                 right: parent.right
                 top: parent.top
             }
-            height: parent.height - osk.height
+            height: parent.height - osk.height - bottomEdgeBar.height
         }
 
         Loader {
@@ -525,7 +525,7 @@ BrowserView {
                 objectName: "tabs"
                 text: i18n.tr("Open tabs")
                 iconName: "browser-tabs"
-                enabled: !browser.wide
+                enabled: !browser.wide && !bottomEdgeBar.visible
                 onTriggered: {
                     recentView.state = "shown"
                     recentToolbar.state = "shown"
@@ -535,7 +535,7 @@ BrowserView {
                 objectName: "newtab"
                 text: i18n.tr("New tab")
                 iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                enabled: !browser.wide
+                enabled: !browser.wide && !bottomEdgeBar.visible
                 onTriggered: browser.openUrlInNewTab("", true)
             },
             Action {
@@ -743,6 +743,40 @@ BrowserView {
             }
 
             fontSize: "small"
+            // TRANSLATORS: %1 refers to the current number of tabs opened
+            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        }
+    }
+
+    MouseArea {
+        id: bottomEdgeBar
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        enabled: !browser.wide && internal.hasMouse &&
+                 (osk.state == "hidden") && (recentView.state == "")
+        visible: enabled
+        height: visible ? units.gu(4) : 0
+
+        onClicked: {
+            recentView.state = "shown"
+            recentToolbar.state = "shown"
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#f7f7f7"
+            border {
+                width: units.dp(1)
+                color: "#cdcdcd"
+            }
+        }
+
+        Label {
+            anchors.centerIn: parent
+            color: "#5d5d5d"
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
