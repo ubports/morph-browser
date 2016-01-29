@@ -22,6 +22,7 @@ import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -93,6 +94,16 @@ BrowserView {
            creating one of these new dialogs.
         */
         onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
+
+    InputDeviceModel {
+        id: miceModel
+        deviceFilter: InputInfo.Mouse
+    }
+
+    InputDeviceModel {
+        id: touchPadModel
+        deviceFilter: InputInfo.TouchPad
     }
 
     Component {
@@ -181,7 +192,7 @@ BrowserView {
                 right: parent.right
                 top: parent.top
             }
-            height: parent.height - osk.height
+            height: parent.height - osk.height - bottomEdgeBar.height
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
@@ -531,23 +542,6 @@ BrowserView {
                 onTriggered: historyViewLoader.active = true
             },
             Action {
-                objectName: "tabs"
-                text: i18n.tr("Open tabs")
-                iconName: "browser-tabs"
-                enabled: (formFactor != "mobile") && !browser.wide
-                onTriggered: {
-                    recentView.state = "shown"
-                    recentToolbar.state = "shown"
-                }
-            },
-            Action {
-                objectName: "newtab"
-                text: i18n.tr("New tab")
-                iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                enabled: (formFactor != "mobile") && !browser.wide
-                onTriggered: browser.openUrlInNewTab("", true)
-            },
-            Action {
                 objectName: "findinpage"
                 text: i18n.tr("Find in page")
                 iconName: "search"
@@ -697,8 +691,8 @@ BrowserView {
         }
         height: units.gu(2)
 
-        enabled: (formFactor == "mobile") && !browser.wide &&
-                 (recentView.state == "") && browser.currentWebview &&
+        enabled: !browser.wide && (recentView.state == "") &&
+                 browser.currentWebview &&
                  (Screen.orientation == Screen.primaryOrientation)
 
         onDraggingChanged: {
@@ -728,7 +722,7 @@ BrowserView {
     Image {
         id: bottomEdgeHint
         objectName: "bottomEdgeHint"
-        source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
+        source: "assets/bottom_edge_hint.png"
         property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -738,7 +732,7 @@ BrowserView {
                 UbuntuNumberAnimation {}
             }
         }
-        visible: bottomEdgeHandle.enabled
+        visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
         Behavior on opacity {
             UbuntuNumberAnimation {}
@@ -752,6 +746,40 @@ BrowserView {
             }
 
             fontSize: "small"
+            // TRANSLATORS: %1 refers to the current number of tabs opened
+            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        }
+    }
+
+    MouseArea {
+        id: bottomEdgeBar
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        enabled: !browser.wide && internal.hasMouse &&
+                 (osk.state == "hidden") && (recentView.state == "")
+        visible: enabled
+        height: visible ? units.gu(4) : 0
+
+        onClicked: {
+            recentView.state = "shown"
+            recentToolbar.state = "shown"
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#f7f7f7"
+            border {
+                width: units.dp(1)
+                color: "#cdcdcd"
+            }
+        }
+
+        Label {
+            anchors.centerIn: parent
+            color: "#5d5d5d"
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
@@ -1402,6 +1430,8 @@ BrowserView {
                 nextTab.aboutToShow()
             }
         }
+
+        readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
 
         function getOpenPages() {
             var urls = []
