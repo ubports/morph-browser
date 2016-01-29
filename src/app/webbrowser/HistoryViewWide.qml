@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -179,8 +179,6 @@ FocusScope {
                     width: parent.width
                     height: units.gu(4)
 
-                    color: lastVisitDateListView.currentIndex == index ? highlightColor : "transparent"
-
                     Label {
                         objectName: "lastVisitDateDelegateLabel"
 
@@ -217,11 +215,22 @@ FocusScope {
                         }
 
                         fontSize: "small"
-                        color: lastVisitDateListView.currentIndex == index ? UbuntuColors.orange : UbuntuColors.darkGrey
+                        color: (!lastVisitDateListView.activeFocus && (lastVisitDateListView.currentIndex == index)) ? UbuntuColors.orange : UbuntuColors.darkGrey
+                    }
+
+                    divider {
+                        // Hide the divider so that the highlight doesn’t overlap it
+                        // Do not set visible to false, otherwise the content item is resized.
+                        opacity: (!ListView.view.activeFocus ||
+                                  (index > ListView.view.currentIndex) ||
+                                  (index < (ListView.view.currentIndex - 1))) ? 1 : 0
+                        Behavior on opacity { UbuntuNumberAnimation {} }
                     }
 
                     onClicked: ListView.view.explicitlyChangeCurrentIndex(function() { ListView.view.currentIndex = index })
-               }
+                }
+
+                highlight: ListViewHighlight {}
             }
 
             Scrollbar {
@@ -291,8 +300,6 @@ FocusScope {
                     width: parent.width - units.gu(1)
                     height: units.gu(5)
 
-                    color: urlsListView.currentIndex == index ? highlightColor : "transparent"
-
                     property url siteUrl: model.url
 
                     icon: model.icon
@@ -337,6 +344,8 @@ FocusScope {
                         }
                     }
                 }
+
+                highlight: ListViewHighlight {}
             }
 
             Scrollbar {
