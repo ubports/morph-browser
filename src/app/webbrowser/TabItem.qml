@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -35,6 +35,8 @@ Item {
     property real dragMax: 0
     readonly property bool dragging: mouseArea.drag.active
 
+    property color fgColor: Theme.palette.normal.baseText
+
     signal selected()
     signal closed()
     signal contextMenu()
@@ -69,6 +71,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 clip: true
                 fontSize: "small"
+                color: tabItem.fgColor
             }
 
             Rectangle {
@@ -79,8 +82,8 @@ Item {
                 gradient: Gradient {
                     GradientStop {
                         position: 0.0;
-                        color: active ? "#f8f8f8" :
-                               (hoverArea.containsMouse ? "#cecece" : "#dedede")
+                        color: active ? "#ffffff" :
+                               (hoverArea.containsMouse ? "#c5c5c5" : "#d2d2d2")
                     }
                     GradientStop { position: 0.33; color: "transparent" }
                 }
@@ -145,6 +148,7 @@ Item {
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
             name: "close"
+            color: tabItem.fgColor
         }
     }
 }
