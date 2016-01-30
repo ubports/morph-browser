@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2016-01-21 05:51+0000\n"
-"X-Generator: Launchpad (build 17886)\n"
+"X-Launchpad-Export-Date: 2016-01-30 05:42+0000\n"
+"X-Generator: Launchpad (build 17908)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -117,6 +117,8 @@ msgstr "Tha coltas gu bheil duilgheadas agad coimhead air: %1"
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Thoir sùil air roghainnean an lìonraidh is feuch ath-nuadhachadh na "
+"duilleige."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -568,7 +570,7 @@ msgstr "Tabaichean fosgailte"
 
 #: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Luchdaidhean a-nuas"
 
 #: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
@@ -600,26 +602,28 @@ msgstr "Brùth air ESC gus am modh làn-sgrìn fhàgail"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Tagh aplacaid a dh’fhosglas am faidhle seo no cuir e ri pasgan nan rudan a "
+"chaidh a luchdadh a-nuas."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:88
 msgid "Choose an application"
-msgstr ""
+msgstr "Tagh aplacaid"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:101
 msgid "Download"
-msgstr ""
+msgstr "Luchdaich a-nuas"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "Dh’fhàillig an luchdadh a-nuas"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Lean air"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
-msgstr ""
+msgstr "Dearbh an taghadh"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 #: src/app/webbrowser/HistoryView.qml:200
@@ -629,7 +633,7 @@ msgstr "Sguab às"
 
 #: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
-msgstr ""
+msgstr "Chan eil dad ri luchdadh a-nuas"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
@@ -665,7 +669,7 @@ msgstr "An-diugh"
 
 #: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
-msgstr ""
+msgstr "an eachdraidh luirg"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -675,20 +679,24 @@ msgstr ""
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
+"A bheil thu airson cothrom a thoirt dhan àrainn seo air a’ chamara ’s "
+"micreofon agad?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
 msgstr ""
+"A bheil thu airson cothrom a thoirt dhan àrainn seo air a’ chamara agad?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
 msgstr ""
+"A bheil thu airson cothrom a thoirt dhan àrainn seo air a’ mhicreofon agad?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (leabaichte ann an %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -725,23 +733,26 @@ msgstr "Cha do thadhail thu air làrach sam bith fhathast"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Chaidh am pròiseas reandaraidh airson an taba seo a dhùnadh."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Chaidh rudeigin cearr nuair a dh’fheuch sinn ri %1 a thaisbeanadh."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Tha a’ chuimhne aig an t-siostam gann is chan urrainn dha an duilleag-lìn "
+"seo a thaisbeanadh. Feuch is dùin tabaichean nach eil feum agad air is ath-"
+"luchdaich e."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Dùin an taba"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -803,7 +814,7 @@ msgstr "A tha 'ga ruith le"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Bun-roghainn"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -821,7 +832,7 @@ msgstr "Ceadaich fosgladh thabaichean ùra sa chùlaibh"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Prìobhaideachd ⁊ ceadan"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -830,7 +841,7 @@ msgstr "Ath-shuidhich roghainnean a' bhrabhsair"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Camara ⁊ micreofon"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"

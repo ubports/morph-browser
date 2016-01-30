@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-01-21 05:51+0000\n"
-"X-Generator: Launchpad (build 17886)\n"
+"X-Launchpad-Export-Date: 2016-01-30 05:43+0000\n"
+"X-Generator: Launchpad (build 17908)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -609,11 +609,11 @@ msgstr "بارگیری"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "بارگیری شکست خورد"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "از سر گیری"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
