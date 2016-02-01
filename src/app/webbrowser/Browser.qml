@@ -1092,7 +1092,7 @@ BrowserView {
                     Actions.OpenImageInNewTab {
                         objectName: "OpenImageInNewTabContextualAction"
                         enabled: contextModel &&
-                                 (contextModel.mediaType == Oxide.WebView.MediaTypeImage) &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                                  contextModel.srcUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
@@ -1109,6 +1109,13 @@ BrowserView {
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
                                  contextModel.hasImageContents
+                        onTriggered: contextModel.saveMedia()
+                    }
+                    Actions.SaveVideo {
+                        objectName: "SaveVideoContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
+                                 contextModel.srcUrl.toString()
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
