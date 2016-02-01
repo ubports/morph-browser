@@ -1111,6 +1111,13 @@ BrowserView {
                                  contextModel.hasImageContents
                         onTriggered: contextModel.saveMedia()
                     }
+                    Actions.OpenVideoInNewTab {
+                        objectName: "OpenVideoInNewTabContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
+                    }
                     Actions.SaveVideo {
                         objectName: "SaveVideoContextualAction"
                         enabled: contextModel &&
