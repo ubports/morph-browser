@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -44,7 +44,6 @@ FocusScope {
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            rightMargin: units.gu(2)
         }
 
         interactive: true
