@@ -1091,7 +1091,9 @@ BrowserView {
                     }
                     Actions.OpenImageInNewTab {
                         objectName: "OpenImageInNewTabContextualAction"
-                        enabled: contextModel && contextModel.srcUrl.toString()
+                        enabled: contextModel &&
+                                 (contextModel.mediaType == Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
