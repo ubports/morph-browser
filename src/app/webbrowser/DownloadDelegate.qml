@@ -67,6 +67,7 @@ ListItem {
             left: parent.left
             leftMargin: units.gu(2)
             right: parent.right
+            rightMargin: units.gu(2)
         }
 
         Item {
