@@ -844,40 +844,43 @@ BrowserView {
         Component {
             id: historyViewComponent
 
-            HistoryView {
-                anchors.fill: parent
+            FocusScope {
+                signal loadModel()
+                onLoadModel: children[0].loadModel()
 
-                onSeeMoreEntriesClicked: {
-                    var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
-                    view.onHistoryEntryClicked.connect(done)
-                }
-                onNewTabRequested: browser.openUrlInNewTab("", true)
-                onDone: historyViewLoader.active = false
-
-                FocusScope {
-                    id: expandedHistoryViewContainer
-
-                    visible: children.length > 0
+                HistoryView {
                     anchors.fill: parent
+                    focus: !expandedHistoryViewLoader.focus
+                    visible: focus
+                    onSeeMoreEntriesClicked: {
+                        expandedHistoryViewLoader.model = model
+                        expandedHistoryViewLoader.active = true
+                    }
+                    onNewTabRequested: browser.openUrlInNewTab("", true)
+                    onDone: historyViewLoader.active = false
+                }
 
-                    Component {
-                        id: expandedHistoryViewComponent
-
-                        ExpandedHistoryView {
-                            anchors.fill: parent
-
-                            onHistoryEntryClicked: {
-                                browser.openUrlInNewTab(url, true)
+                Loader {
+                    id: expandedHistoryViewLoader
+                    asynchronous: true
+                    anchors.fill: parent
+                    active: false
+                    focus: active
+                    property var model: null
+                    sourceComponent: ExpandedHistoryView {
+                        focus: true
+                        model: expandedHistoryViewLoader.model
+                        onHistoryEntryClicked: {
+                            browser.openUrlInNewTab(url, true)
+                            historyViewLoader.active = false
+                        }
+                        onHistoryEntryRemoved: {
+                            if (count == 1) {
                                 done()
                             }
-                            onHistoryEntryRemoved: {
-                                if (count == 1) {
-                                    done()
-                                }
-                                HistoryModel.removeEntryByUrl(url)
-                            }
-                            onDone: destroy()
+                            HistoryModel.removeEntryByUrl(url)
                         }
+                        onDone: expandedHistoryViewLoader.active = false
                     }
                 }
             }
