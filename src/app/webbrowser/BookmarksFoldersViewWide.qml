@@ -95,8 +95,7 @@ FocusScope {
             readonly property bool isAllBookmarksFolder: folder.length === 0
             readonly property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
 
-            color: isCurrentDropTarget ? "green" :
-                   ((folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent")
+            color: isCurrentDropTarget ? "green" : "transparent"
 
             Label {
                 anchors {
@@ -109,7 +108,16 @@ FocusScope {
 
                 fontSize: "small"
                 text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folderItem.name
-                color: isActiveFolder ? UbuntuColors.orange : UbuntuColors.darkGrey
+                color: (isActiveFolder && !folders.activeFocus) ? UbuntuColors.orange : UbuntuColors.darkGrey
+            }
+
+            divider {
+                // Hide the divider so that the highlight doesn’t overlap it
+                // Do not set visible to false, otherwise the content item is resized.
+                opacity: (!ListView.view.activeFocus ||
+                          (index > ListView.view.currentIndex) ||
+                          (index < (ListView.view.currentIndex - 1))) ? 1 : 0
+                Behavior on opacity { UbuntuNumberAnimation {} }
             }
 
             onClicked: folders.currentIndex = index
@@ -121,6 +129,8 @@ FocusScope {
                 anchors.fill: parent
             }
         }
+
+        highlight: ListViewHighlight {}
     }
 
     Scrollbar {
@@ -176,7 +186,6 @@ FocusScope {
 
             removable: !isHomeBookmark
             draggable: !isHomeBookmark && contentItem.x === 0
-            highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
             onClicked: bookmarksFoldersViewWideItem.bookmarkClicked(url)
             onRemoved: bookmarksFoldersViewWideItem.bookmarkRemoved(url)
@@ -200,6 +209,8 @@ FocusScope {
                 }
             }
         }
+
+        highlight: ListViewHighlight {}
 
         Keys.onReturnPressed: bookmarksFoldersViewWideItem.bookmarkClicked(currentItem.url)
         Keys.onDeletePressed: {
