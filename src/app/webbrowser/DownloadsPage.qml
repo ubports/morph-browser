@@ -148,7 +148,7 @@ FocusScope {
     ListView {
         id: downloadsListView
         clip: true
-        focus: true
+        focus: !exportPeerPicker.focus
 
         anchors {
             fill: parent
@@ -243,6 +243,7 @@ FocusScope {
     ContentPeerPicker {
         id: exportPeerPicker
         visible: false
+        focus: visible
         anchors.fill: parent
         handler: ContentHandler.Destination
         property string path
@@ -254,9 +255,8 @@ FocusScope {
             }
             visible = false
         }
-        onCancelPressed: {
-            visible = false
-        }
+        onCancelPressed: visible = false
+        Keys.onEscapePressed: visible = false
     }
 
 }
