@@ -17,10 +17,7 @@
  */
 
 import QtQuick 2.4
-import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
-import webbrowserapp.private 0.1
-import ".."
 
 GridView {
     id: grid
@@ -33,9 +30,6 @@ GridView {
 
     signal activated(url url)
     signal removed(url url)
-    signal releasingKeyboardFocus()
-
-    currentIndex: 0
 
     cellWidth: previewWidth + horizontalMargin * 2
     cellHeight: previewHeight + verticalMargin * 2 + units.gu(4) // height of text + favicon + margins in delegate
@@ -75,15 +69,18 @@ GridView {
 
     Keys.onDeletePressed: removed(currentItem.url)
 
-    Keys.onLeftPressed: {
-        var i = grid.currentIndex
-        grid.moveCurrentIndexLeft()
-        if (i === grid.currentIndex) grid.releasingKeyboardFocus()
-    }
-
     Keys.onUpPressed: {
-        var i = grid.currentIndex
-        grid.moveCurrentIndexUp()
-        if (i === grid.currentIndex) grid.releasingKeyboardFocus()
+        var current = currentIndex
+        moveCurrentIndexUp()
+        if (current == currentIndex) {
+            event.accepted = false
+        }
+    }
+    Keys.onDownPressed: {
+        var current = currentIndex
+        moveCurrentIndexDown()
+        if (currentIndex == current) {
+            event.accepted = false
+        }
     }
 }

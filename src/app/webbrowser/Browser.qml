@@ -290,6 +290,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
+                    Keys.onUpPressed: chrome.focus = true
                 }
             }
 
@@ -311,7 +312,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
-                    onReleasingKeyboardFocus: chrome.focus = true
+                    Keys.onUpPressed: chrome.focus = true
                 }
             }
 

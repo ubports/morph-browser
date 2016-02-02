@@ -243,6 +243,7 @@ FocusScope {
             }
             if (!currentItem) {
                 currentIndex = current
+                event.accepted = false
             }
         }
         Keys.onDownPressed: {
@@ -253,6 +254,7 @@ FocusScope {
             }
             if (!currentItem) {
                 currentIndex = current
+                event.accepted = false
             }
         }
     }

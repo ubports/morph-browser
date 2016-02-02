@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,10 +19,11 @@
 import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "."
 
-Item {
+FocusScope {
     id: newTabView
 
     property Settings settingsObject
@@ -58,26 +59,32 @@ Item {
         color: "#f6f6f6"
     }
 
+    // FIXME: when the current focus item changes, update contentY to center it on screen
     Flickable {
         anchors.fill: parent
-        contentHeight: internal.seeMoreBookmarksView ?
-                                          bookmarksFolderListViewLoader.height + units.gu(6) :
-                                          contentColumn.height
+        contentHeight: contentScope.height
+        focus: true
 
-        Column {
-            id: contentColumn
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                contentScope.forceActiveFocus()
+            }
+        }
+
+        FocusScope {
+            id: contentScope
             anchors {
                 left: parent.left
                 right: parent.right
-                rightMargin: units.gu(1.5)
             }
             height: childrenRect.height
 
             Row {
+                id: bookmarkListHeader
                 height: units.gu(6)
                 anchors {
+                    top: parent.top
                     left: parent.left
-                    leftMargin: units.gu(1.5)
                     right: parent.right
                 }
                 spacing: units.gu(1.5)
@@ -109,105 +116,150 @@ Item {
                     id: moreButton
                     objectName: "bookmarks.moreButton"
                     height: parent.height - units.gu(2)
-
                     anchors { top: parent.top; topMargin: units.gu(1) }
 
                     strokeColor: UbuntuColors.darkGrey
-
                     visible: internal.numberOfBookmarks > 4
-
                     text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
 
                     onClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
                 }
+
+                Keys.onEnterPressed: moreButton.clicked()
+                Keys.onReturnPressed: moreButton.clicked()
+                Keys.onSpacePressed: moreButton.clicked()
+
+                Keys.onDownPressed: {
+                    if (internal.seeMoreBookmarksView) {
+                        bookmarksFolderListViewLoader.focus = true
+                    } else {
+                        bookmarkList.focus = true
+                    }
+                }
             }
 
-            Rectangle {
-                height: units.gu(0.1)
+            ListViewHighlight {
+                anchors.fill: bookmarkListHeader
+                visible: bookmarkListHeader.activeFocus
+            }
+
+            ListItems.ThinDivider {
+                id: bookmarkListDivider
                 anchors {
+                    top: bookmarkListHeader.bottom
                     left: parent.left
-                    leftMargin: units.gu(1.5)
                     right: parent.right
                 }
-                color: "#d3d3d3"
             }
 
             Loader {
                 id: bookmarksFolderListViewLoader
-
                 anchors {
+                    top: bookmarkListDivider.bottom
                     left: parent.left
                     right: parent.right
                 }
-
-                height: status == Loader.Ready ? item.height : 0
-
                 active: internal.seeMoreBookmarksView
+                height: active ? item.height : 0
 
                 sourceComponent: BookmarksFoldersView {
+                    focus: true
+
                     homeBookmarkUrl: newTabView.settingsObject.homepage
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
                 }
+
+                Keys.onUpPressed: bookmarkListHeader.focus = true
             }
 
-            Column {
-                id: bookmarksColumn
+            Loader {
+                id: bookmarkList
                 anchors {
+                    top: bookmarkListDivider.bottom
                     left: parent.left
                     right: parent.right
                 }
+                active: !internal.seeMoreBookmarksView
+                height: active ? item.height : 0
+                focus: true
 
-                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-                Behavior on opacity { UbuntuNumberAnimation {} }
-                visible: opacity > 0
-
-                // Force the height to be updated when bookmarks are removed
-                // in another new tab
-                height: units.gu(5) * (Math.min(internal.bookmarksCountLimit, internal.numberOfBookmarks) + 1)
-                spacing: 0
-
-                UrlDelegate {
-                    objectName: "homepageBookmark"
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: units.gu(5)
-
-                    title: i18n.tr('Homepage')
-
-                    leadingActions: null
-
-                    url: newTabView.settingsObject.homepage
-                    onClicked: newTabView.bookmarkClicked(url)
+                LimitProxyModel {
+                    id: limitedBookmarksModel
+                    sourceModel: BookmarksModel
+                    limit: internal.bookmarksCountLimit
                 }
 
-                UrlsList {
-                    objectName: "bookmarksList"
-                    anchors {
-                        left: parent.left
-                        right: parent.right
+                sourceComponent: ListView {
+                    focus: true
+                    interactive: false
+                    readonly property real delegateHeight: units.gu(5)
+                    height: count * delegateHeight
+
+                    model: limitedBookmarksModel.count + 1
+
+                    delegate: UrlDelegate {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: delegateHeight
+                        removable: index > 0
+
+                        // FIXME: not updated when removing e.g. the last item in the list
+                        readonly property var data: limitedBookmarksModel.get(index - 1)
+                        icon: (index > 0) ? data.icon : ""
+                        title: (index > 0) ? data.title : i18n.tr("Homepage")
+                        url: (index > 0) ? data.url : newTabView.settingsObject.homepage
+
+                        onClicked: newTabView.bookmarkClicked(url)
+                        onRemoved: newTabView.bookmarkRemoved(url)
                     }
 
-                    spacing: 0
-                    limit: internal.bookmarksCountLimit
+                    highlight: ListViewHighlight {}
 
-                    model: BookmarksModel
+                    Keys.onEnterPressed: currentItem.clicked()
+                    Keys.onReturnPressed: currentItem.clicked()
+                    Keys.onDeletePressed: currentItem.removed()
 
-                    onUrlClicked: newTabView.bookmarkClicked(url)
-                    onUrlRemoved: newTabView.bookmarkRemoved(url)
+                    // Setting 'interactive' to false to prevent flicks also disables
+                    // keyboard navigation, so it needs to be manually implemented.
+                    Keys.onUpPressed: {
+                        var current = currentIndex
+                        decrementCurrentIndex()
+                        if (currentIndex == current) {
+                            event.accepted = false
+                        }
+                    }
+                    Keys.onDownPressed: {
+                        var current = currentIndex
+                        incrementCurrentIndex()
+                        if (currentIndex == current) {
+                            event.accepted = false
+                        }
+                    }
+                }
+
+                Keys.onUpPressed: bookmarkListHeader.focus = true
+                Keys.onDownPressed: {
+                    if (topSitesGrid.visible) {
+                        topSitesGrid.focus = true
+                    } else {
+                        event.accepted = false
+                    }
                 }
             }
 
             Item {
-                height: units.gu(6)
+                id: topSitesHeader
                 anchors {
+                    top: bookmarkList.bottom
                     left: parent.left
-                    leftMargin: units.gu(1.5)
                     right: parent.right
                 }
+                visible: !internal.seeMoreBookmarksView
+                height: visible ? units.gu(6) : 0
 
                 Label {
                     anchors {
@@ -225,28 +277,26 @@ Item {
                 }
             }
 
-            Rectangle {
-                height: units.gu(0.1)
+            ListItems.ThinDivider {
+                id: topSitesDivider
                 anchors {
+                    top: topSitesHeader.bottom
                     left: parent.left
-                    leftMargin: units.gu(2)
                     right: parent.right
                 }
-                color: "#d3d3d3"
-
-                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-                Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: topSitesHeader.visible
             }
 
             Label {
                 objectName: "notopsites"
 
-                height: units.gu(11)
                 anchors {
+                    top: topSitesDivider.bottom
                     left: parent.left
                     right: parent.right
                 }
-                visible: topSitesModel.count == 0
+                visible: !internal.seeMoreBookmarksView && (topSitesModel.count == 0)
+                height: visible ? units.gu(11) : 0
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -255,32 +305,21 @@ Item {
                 color: UbuntuColors.darkGrey
             }
 
-            Item {
+            FocusScope {
+                id: topSitesGrid
                 anchors {
+                    top: topSitesDivider.bottom
                     left: parent.left
                     right: parent.right
-
-                    // The UrlPreviewGrid's highlight extends to the left of the
-                    // grid itself by a margin.
-                    // Since we are clipping the parent we need to prevent the
-                    // highlight from being clipped away at the left edge.
-                    // We do this by shifting the parent left and the contents right
-                    // by an amount equal to the highlight's margin.
-                    leftMargin: units.gu(2) - grid.horizontalMargin
-
-                    // The right margin should be 2gu, which is set on all cells
-                    // of the UrlPreviewGrid already. However the parent Column
-                    // has 1.5gu right margin, so we are compensating for that
-                    // here instead of removing it from the Column itself and
-                    // reassigning it to all Column children except this one.
-                    rightMargin: - contentColumn.anchors.rightMargin
                 }
-                height: grid.contentHeight + units.gu(1)
+                visible: !internal.seeMoreBookmarksView && (topSitesModel.count > 0)
+                height: visible ? grid.contentHeight + units.gu(1) : 0
                 clip: true
 
                 UrlPreviewGrid {
                     id: grid
                     objectName: "topSitesList"
+                    focus: true
                     anchors {
                         left: parent.left
                         leftMargin: grid.horizontalMargin
@@ -290,6 +329,9 @@ Item {
                         bottom: parent.bottom
                     }
 
+                    // FIXME: currentIndex not initially 0 if new tab view already open ?
+                    onCurrentIndexChanged: console.log("CURRENT INDEX:", currentIndex)
+
                     horizontalMargin: units.gu(1)
                     verticalMargin: units.gu(1)
 
@@ -297,9 +339,6 @@ Item {
                     Behavior on opacity { UbuntuNumberAnimation {} }
                     visible: opacity > 0
                     interactive: false
-
-                    // No highlight as this view doesn’t support keyboard navigation
-                    highlight: null
 
                     model: LimitProxyModel {
                         limit: 10
@@ -312,7 +351,14 @@ Item {
                         HistoryModel.hide(url)
                         PreviewManager.checkDelete(url)
                     }
+
+                    // Setting 'interactive' to false to prevent flicks also disables
+                    // keyboard navigation, so it needs to be manually implemented.
+                    Keys.onLeftPressed: moveCurrentIndexLeft()
+                    Keys.onRightPressed: moveCurrentIndexRight()
                 }
+
+                Keys.onUpPressed: bookmarkList.focus = true
             }
         }
     }
