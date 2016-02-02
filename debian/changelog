@@ -1,3 +1,17 @@
+webbrowser-app (0.23+16.04.20160202-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Enhance google.com specific patterns to enable co.* & com.* patterns
+    (LP: #1517527)
+  * Make sure that the overlay views closed by the user are not part of
+    the list of recovered overlays opened after the oom closed the app.
+    (LP: #1535154)
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/sco.po
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 02 Feb 2016 15:33:33 +0000
+
 webbrowser-app (0.23+16.04.20160129.1-0ubuntu1) xenial; urgency=medium
 
   * Add a UA override for desktop gmail to get rid of a misleading
