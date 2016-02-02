@@ -221,8 +221,7 @@ FocusScope {
                         height: delegateHeight
                         removable: index > 0
 
-                        // FIXME: not updated when removing e.g. the last item in the list
-                        readonly property var data: limitedBookmarksModel.get(index - 1)
+                        readonly property var data: BookmarksModel.count ? limitedBookmarksModel.get(index - 1) : null
                         icon: (index > 0) ? data.icon : ""
                         title: (index > 0) ? data.title : i18n.tr("Homepage")
                         url: (index > 0) ? data.url : newTabView.settingsObject.homepage
