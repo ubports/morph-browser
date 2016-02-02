@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -45,7 +45,7 @@ ChromeBase {
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index)
 
-    backgroundColor: incognito ? UbuntuColors.darkGrey : "#bcbcbc"
+    backgroundColor: incognito ? UbuntuColors.darkGrey : "#ffffff"
 
     implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
@@ -62,7 +62,7 @@ ChromeBase {
 
         Rectangle {
             anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? "#f8f8f8" : UbuntuColors.darkGrey
+            color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
         }
 
         Loader {
@@ -71,6 +71,7 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
+                fgColor: navigationBar.fgColor
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
@@ -87,7 +88,8 @@ ChromeBase {
         NavigationBar {
             id: navigationBar
 
-            iconColor: (incognito && !showTabsBar) ? "white" : UbuntuColors.darkGrey
+            fgColor: "#111111"
+            iconColor: (incognito && !showTabsBar) ? "white" : fgColor
 
             focus: true
 

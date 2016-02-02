@@ -32,7 +32,8 @@
         "/usr/share/applications/",
         "/custom/vendor/here/location-provider/consent/*.html",
         "@{HOME}/.local/share/applications/",
-        "@{HOME}/Downloads/"
+        "@{HOME}/Downloads/",
+        "/sys/devices/**/input*/"
       ],
       "write_path": [
         "@{HOME}/Downloads/"

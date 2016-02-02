@@ -14,7 +14,9 @@ apparmor:
 	aa-easyprof -m ./debian/webbrowser-app-apparmor.manifest --no-verify | \
 	egrep -v '(# Click packages|CLICK_DIR)' | \
 	sed 's/@{APP_PKGNAME}_@{APP_APPNAME}_@{APP_VERSION}/@{APP_PKGNAME}/g' | \
-	sed 's#/run/shm/\.org\.chromium\.Chromium\.\*#/{dev,run}/shm/.org.chromium.Chromium.*#g' \
+	sed 's#/run/shm/\.org\.chromium\.Chromium\.\*#/{dev,run}/shm/.org.chromium.Chromium.*#g' | \
+	egrep -v 'deny /run/udev/data/\*\* r,' | \
+	sed 's#^}$$#\n  /sys/class/ r,\n  /sys/class/input/ r,\n  /run/udev/data/** r,\n}#g' \
 	> ./debian/usr.bin.webbrowser-app
 	apparmor_parser -QTK ./debian/usr.bin.webbrowser-app
 
