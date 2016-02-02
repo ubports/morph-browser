@@ -79,7 +79,7 @@ FocusScope {
             }
             height: childrenRect.height
 
-            Row {
+            Item {
                 id: bookmarkListHeader
                 height: units.gu(6)
                 anchors {
@@ -87,42 +87,53 @@ FocusScope {
                     left: parent.left
                     right: parent.right
                 }
-                spacing: units.gu(1.5)
 
-                Icon {
-                    id: starredIcon
-                    color: "#dd4814"
-                    name: "starred"
-
-                    height: units.gu(2)
-                    width: height
-
+                Row {
                     anchors {
-                        leftMargin: units.gu(1)
-                        topMargin: units.gu(1)
-                        verticalCenter: moreButton.verticalCenter
+                        fill: parent
+                        leftMargin: units.gu(2)
+                        rightMargin: units.gu(2)
                     }
-                }
+                    spacing: units.gu(1.5)
 
-                Label {
-                    width: parent.width - starredIcon.width - moreButton.width - units.gu(3)
-                    anchors.verticalCenter: moreButton.verticalCenter
+                    Icon {
+                        id: starredIcon
+                        color: "#dd4814"
+                        name: "starred"
 
-                    text: i18n.tr("Bookmarks")
-                    fontSize: "small"
-                }
+                        height: units.gu(2)
+                        width: height
 
-                Button {
-                    id: moreButton
-                    objectName: "bookmarks.moreButton"
-                    height: parent.height - units.gu(2)
-                    anchors { top: parent.top; topMargin: units.gu(1) }
+                        anchors {
+                            leftMargin: units.gu(1)
+                            topMargin: units.gu(1)
+                            verticalCenter: moreButton.verticalCenter
+                        }
+                    }
 
-                    strokeColor: UbuntuColors.darkGrey
-                    visible: internal.numberOfBookmarks > 4
-                    text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
+                    Label {
+                        width: parent.width - starredIcon.width - moreButton.width - units.gu(3)
+                        anchors.verticalCenter: moreButton.verticalCenter
 
-                    onClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
+                        text: i18n.tr("Bookmarks")
+                        fontSize: "small"
+                    }
+
+                    Button {
+                        id: moreButton
+                        objectName: "bookmarks.moreButton"
+                        height: parent.height - units.gu(2)
+                        anchors { top: parent.top; topMargin: units.gu(1) }
+
+                        strokeColor: UbuntuColors.darkGrey
+                        visible: internal.numberOfBookmarks > 4
+                        text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
+
+                        onClicked: {
+                            internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
+                            bookmarkListHeader.focus = true
+                        }
+                    }
                 }
 
                 Keys.onEnterPressed: moreButton.clicked()
@@ -148,8 +159,11 @@ FocusScope {
                 anchors {
                     top: bookmarkListHeader.bottom
                     left: parent.left
+                    leftMargin: units.gu(2)
                     right: parent.right
+                    rightMargin: units.gu(2)
                 }
+                opacity: bookmarkListHeader.activeFocus ? 0 : 1
             }
 
             Loader {
@@ -264,7 +278,9 @@ FocusScope {
                 Label {
                     anchors {
                         left: parent.left
+                        leftMargin: units.gu(2)
                         right: parent.right
+                        rightMargin: units.gu(2)
                         bottom: parent.bottom
                         bottomMargin: units.gu(1)
                     }
@@ -282,7 +298,9 @@ FocusScope {
                 anchors {
                     top: topSitesHeader.bottom
                     left: parent.left
+                    leftMargin: units.gu(2)
                     right: parent.right
+                    rightMargin: units.gu(2)
                 }
                 visible: topSitesHeader.visible
             }
@@ -322,8 +340,9 @@ FocusScope {
                     focus: true
                     anchors {
                         left: parent.left
-                        leftMargin: grid.horizontalMargin
+                        leftMargin: units.gu(2)
                         right: parent.right
+                        rightMargin: units.gu(2)
                         top: parent.top
                         topMargin: units.gu(2)
                         bottom: parent.bottom
