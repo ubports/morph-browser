@@ -52,6 +52,18 @@ FocusScope {
                 seeMoreBookmarksView = false
             }
         }
+
+        function ensureCurrentItemVisible(container, currentItem) {
+            if (container.activeFocus && currentItem) {
+                var top = container.y + currentItem.mapToItem(container, 0, 0).y
+                var height = currentItem.height
+                if (top < flickable.contentY) {
+                    flickable.contentY = top
+                } else if ((flickable.contentY + flickable.height) < (top + height)) {
+                    flickable.contentY = top + height - flickable.height
+                }
+            }
+        }
     }
 
     Rectangle {
@@ -59,8 +71,8 @@ FocusScope {
         color: "#f6f6f6"
     }
 
-    // FIXME: when the current focus item changes, update contentY to center it on screen
     Flickable {
+        id: flickable
         anchors.fill: parent
         contentHeight: contentScope.height
         focus: true
@@ -69,6 +81,10 @@ FocusScope {
             if (activeFocus) {
                 contentScope.forceActiveFocus()
             }
+        }
+
+        Behavior on contentY {
+            UbuntuNumberAnimation {}
         }
 
         FocusScope {
@@ -147,6 +163,8 @@ FocusScope {
                         bookmarkList.focus = true
                     }
                 }
+
+                onActiveFocusChanged: internal.ensureCurrentItemVisible(this, this)
             }
 
             ListViewHighlight {
@@ -178,11 +196,15 @@ FocusScope {
 
                 sourceComponent: BookmarksFoldersView {
                     focus: true
+                    interactive: false
 
                     homeBookmarkUrl: newTabView.settingsObject.homepage
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+
+                    onCurrentItemChanged: internal.ensureCurrentItemVisible(bookmarksFolderListViewLoader, currentItem)
+                    onActiveFocusChanged: internal.ensureCurrentItemVisible(bookmarksFolderListViewLoader, currentItem)
                 }
 
                 Keys.onUpPressed: {
@@ -258,6 +280,9 @@ FocusScope {
                             event.accepted = false
                         }
                     }
+
+                    onCurrentItemChanged: internal.ensureCurrentItemVisible(bookmarkList, currentItem)
+                    onActiveFocusChanged: internal.ensureCurrentItemVisible(bookmarkList, currentItem)
                 }
 
                 Keys.onUpPressed: {
@@ -359,9 +384,6 @@ FocusScope {
                         bottom: parent.bottom
                     }
 
-                    // FIXME: currentIndex not initially 0 if new tab view already open ?
-                    onCurrentIndexChanged: console.log("CURRENT INDEX:", currentIndex)
-
                     horizontalMargin: units.gu(1)
                     verticalMargin: units.gu(1)
 
@@ -386,6 +408,9 @@ FocusScope {
                     // keyboard navigation, so it needs to be manually implemented.
                     Keys.onLeftPressed: moveCurrentIndexLeft()
                     Keys.onRightPressed: moveCurrentIndexRight()
+
+                    onCurrentItemChanged: internal.ensureCurrentItemVisible(topSitesGrid, currentItem)
+                    onActiveFocusChanged: internal.ensureCurrentItemVisible(topSitesGrid, currentItem)
                 }
 
                 Keys.onUpPressed: bookmarkList.focus = true

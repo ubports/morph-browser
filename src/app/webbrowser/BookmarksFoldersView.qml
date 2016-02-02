@@ -28,6 +28,8 @@ FocusScope {
     property alias interactive: bookmarksFolderListView.interactive
     property url homeBookmarkUrl
 
+    readonly property Item currentItem: bookmarksFolderListView.currentItem ? bookmarksFolderListView.currentItem.currentItem : null
+
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
 
@@ -56,9 +58,13 @@ FocusScope {
             height: active ? item.height : 0
             active: entries.count > 0
 
+            readonly property Item currentItem: active ? item.currentItem : null
+
             sourceComponent: FocusScope {
                 objectName: "bookmarkFolderDelegate"
                 focus: true
+
+                readonly property Item currentItem: activeFocus ? (bookmarkFolderHeader.focus ? bookmarkFolderHeader : bookmarksInFolderLoader.item.currentItem) : null
 
                 function focusHeader() {
                     bookmarkFolderHeader.focus = true
@@ -252,9 +258,8 @@ FocusScope {
             while (currentItem && !currentItem.active) {
                 ++currentIndex
             }
-            if (!currentItem) {
+            if (!currentItem || !currentItem.active) {
                 currentIndex = current
-                event.accepted = false
             }
         }
     }
