@@ -185,7 +185,13 @@ FocusScope {
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
                 }
 
-                Keys.onUpPressed: bookmarkListHeader.focus = true
+                Keys.onUpPressed: {
+                    if (moreButton.visible) {
+                        bookmarkListHeader.focus = true
+                    } else {
+                        event.accepted = false
+                    }
+                }
             }
 
             Loader {
@@ -254,7 +260,13 @@ FocusScope {
                     }
                 }
 
-                Keys.onUpPressed: bookmarkListHeader.focus = true
+                Keys.onUpPressed: {
+                    if (moreButton.visible) {
+                        bookmarkListHeader.focus = true
+                    } else {
+                        event.accepted = false
+                    }
+                }
                 Keys.onDownPressed: {
                     if (topSitesGrid.visible) {
                         topSitesGrid.focus = true
