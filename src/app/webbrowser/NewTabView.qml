@@ -234,6 +234,7 @@ FocusScope {
                 }
 
                 sourceComponent: ListView {
+                    objectName: "bookmarksList"
                     focus: true
                     interactive: false
                     readonly property real delegateHeight: units.gu(5)
@@ -242,6 +243,7 @@ FocusScope {
                     model: limitedBookmarksModel.count + 1
 
                     delegate: UrlDelegate {
+                        objectName: (index == 0) ? "homepageBookmark" : "bookmark_%1".arg(index)
                         anchors {
                             left: parent.left
                             right: parent.right
