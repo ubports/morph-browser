@@ -83,4 +83,13 @@ GridView {
             event.accepted = false
         }
     }
+
+    Timer {
+        // Work around a weird issue with the use of a LimitProxyModel in a
+        // grid view, where the currentIndex is changed when populating the
+        // model.
+        running: true
+        interval: 1
+        onTriggered: grid.currentIndex = 0
+    }
 }
