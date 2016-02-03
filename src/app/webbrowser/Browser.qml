@@ -754,6 +754,7 @@ BrowserView {
 
     MouseArea {
         id: bottomEdgeBar
+        objectName: "bottomEdgeBar"
         anchors {
             left: parent.left
             right: parent.right
