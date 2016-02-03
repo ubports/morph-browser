@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -185,6 +185,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
+
+    def get_bottom_edge_bar(self):
+        return self.select_single(objectName="bottomEdgeBar", visible=True)
 
     def get_bookmark_options(self):
         return self.select_single(BookmarkOptions)
