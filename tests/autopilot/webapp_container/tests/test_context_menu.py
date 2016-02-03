@@ -133,6 +133,7 @@ class TestContextMenuLink(TestContextMenuBase):
         self.menu.click_action("ShareContextualAction")
         self.app.wait_select_single("ContentShareDialog")
 
+
 class TestContextMenuImage(TestContextMenuBase):
 
     def setUp(self):
