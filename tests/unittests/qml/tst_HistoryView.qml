@@ -67,8 +67,9 @@ FocusScope {
             HistoryModel.databasePath = ":memory:"
             populate()
             historyViewLoader.active = true
-            waitForRendering(historyView)
             historyView.loadModel()
+            waitForRendering(historyView)
+            verify(historyView.activeFocus)
             var domainsList = findChild(historyView, "domainsListView")
             waitForRendering(domainsList)
             tryCompare(domainsList, "count", 3)
@@ -190,7 +191,6 @@ FocusScope {
         }
 
         function test_keyboard_navigation() {
-            verify(historyView.activeFocus)
             var listview = findChild(historyView, "domainsListView")
             verify(listview.activeFocus)
             var domains = getListItems(listview, "historyViewDomainDelegate")

@@ -61,6 +61,7 @@ FocusScope {
         function init() {
             BookmarksModel.databasePath = ":memory:"
             populate()
+            verify(view.activeFocus)
             compare(bookmarkEntryClickedSpy.count, 0)
             compare(doneSpy.count, 0)
             compare(newTabClickedSpy.count, 0)
@@ -114,7 +115,6 @@ FocusScope {
         }
 
         function test_keyboard_navigation() {
-            verify(view.activeFocus)
             var listview = findChild(view, "bookmarksFolderListView")
             waitForRendering(listview)
             verify(listview.activeFocus)

@@ -97,6 +97,7 @@ FocusScope {
 
             Item {
                 id: bookmarkListHeader
+                objectName: "bookmarkListHeader"
                 height: units.gu(6)
                 anchors {
                     top: parent.top
@@ -140,6 +141,7 @@ FocusScope {
                         objectName: "bookmarks.moreButton"
                         height: parent.height - units.gu(2)
                         anchors { top: parent.top; topMargin: units.gu(1) }
+                        activeFocusOnPress: false
 
                         strokeColor: UbuntuColors.darkGrey
                         visible: internal.numberOfBookmarks > 4
@@ -257,7 +259,11 @@ FocusScope {
                         url: (index > 0) ? data.url : newTabView.settingsObject.homepage
 
                         onClicked: newTabView.bookmarkClicked(url)
-                        onRemoved: newTabView.bookmarkRemoved(url)
+                        onRemoved: {
+                            if (removable) {
+                                newTabView.bookmarkRemoved(url)
+                            }
+                        }
                     }
 
                     highlight: ListViewHighlight {}
@@ -413,6 +419,12 @@ FocusScope {
 
                     onCurrentItemChanged: internal.ensureCurrentItemVisible(topSitesGrid, currentItem)
                     onActiveFocusChanged: internal.ensureCurrentItemVisible(topSitesGrid, currentItem)
+
+                    onCountChanged: {
+                        if (activeFocus && (count == 0)) {
+                            bookmarkList.focus = true
+                        }
+                    }
                 }
 
                 Keys.onUpPressed: bookmarkList.focus = true

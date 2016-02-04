@@ -117,12 +117,16 @@ AbstractButton {
     Component {
         id: contextMenuComponent
         ActionSelectionPopover {
+            objectName: "urlPreviewDelegate.contextMenu"
             grabDismissAreaEvents: true
             actions: ActionList {
                 Action {
                     objectName: "delete"
                     text: i18n.tr("Remove")
-                    onTriggered: preview.removed()
+                    onTriggered: {
+                        preview.removed()
+                        preview.GridView.view.forceActiveFocus()
+                    }
                 }
             }
         }
