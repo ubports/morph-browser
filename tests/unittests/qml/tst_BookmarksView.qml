@@ -25,6 +25,7 @@ import webbrowserapp.private 0.1
 FocusScope {
     id: root
 
+    focus: true
     width: 300
     height: 500
 
@@ -60,7 +61,6 @@ FocusScope {
         function init() {
             BookmarksModel.databasePath = ":memory:"
             populate()
-            view.forceActiveFocus()
             compare(bookmarkEntryClickedSpy.count, 0)
             compare(doneSpy.count, 0)
             compare(newTabClickedSpy.count, 0)
@@ -116,8 +116,8 @@ FocusScope {
         function test_keyboard_navigation() {
             verify(view.activeFocus)
             var listview = findChild(view, "bookmarksFolderListView")
-            verify(listview.activeFocus)
             waitForRendering(listview)
+            verify(listview.activeFocus)
 
             var firstHeader = findChild(listview, "bookmarkFolderHeader")
             verify(firstHeader.activeFocus)

@@ -108,8 +108,8 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
+            activeFocusOnPress: false
             strokeColor: UbuntuColors.darkGrey
-
             text: i18n.tr("Done")
 
             onClicked: bookmarksView.done()

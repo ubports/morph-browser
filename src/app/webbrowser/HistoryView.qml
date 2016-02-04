@@ -79,6 +79,8 @@ FocusScope {
             width: parent.width
             height: units.gu(5)
 
+            readonly property int modelIndex: index
+
             title: model.domain
             url: lastVisitedTitle
             icon: model.lastVisitedIcon

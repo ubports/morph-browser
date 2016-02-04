@@ -28,6 +28,7 @@ AbstractButton {
 
     opacity: enabled ? 1.0 : 0.3
     width: Math.max(label.paintedWidth, icon.width)
+    activeFocusOnPress: false
 
     Item {
         anchors {
