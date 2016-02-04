@@ -30,14 +30,21 @@ FocusScope {
     width: 350
     height: 500
 
-    NewTabView {
-        id: view
+    Loader {
+        id: newTabViewLoader
         anchors.fill: parent
         focus: true
-        settingsObject: Settings {
-            property url homepage: "http://example.com/homepage"
+        active: false
+        sourceComponent: NewTabView {
+            focus: true
+            anchors.fill: parent
+            settingsObject: Settings {
+                property url homepage: "http://example.com/homepage"
+            }
         }
     }
+
+    readonly property Item view: newTabViewLoader.item
 
     SignalSpy {
         id: bookmarkClickedSpy
@@ -70,6 +77,7 @@ FocusScope {
             HistoryModel.databasePath = ":memory:"
             BookmarksModel.databasePath = ":memory:"
             populate()
+            newTabViewLoader.active = true
             waitForRendering(view)
             verify(view.activeFocus)
             compare(bookmarkClickedSpy.count, 0)
@@ -94,6 +102,7 @@ FocusScope {
         }
 
         function cleanup() {
+            newTabViewLoader.active = false
             BookmarksModel.databasePath = ""
             HistoryModel.databasePath = ""
             bookmarkClickedSpy.clear()
@@ -169,7 +178,6 @@ FocusScope {
             compare(grid.count, 5)
             var topsite = getListItems(grid, "topSiteItem")[1]
             clickItem(topsite, Qt.RightButton)
-            verify(topsite.activeFocus)
             var contextMenu = findChild(root, "urlPreviewDelegate.contextMenu")
             var action = findChild(contextMenu, "delete_button")
             clickItem(action)
@@ -177,9 +185,8 @@ FocusScope {
         }
 
         function test_keyboard_navigation() {
-            findChild(view, "topSitesList").currentIndex = 0
             var bookmarksList = findChild(view, "bookmarksList")
-            bookmarksList.forceActiveFocus()
+            verify(bookmarksList.activeFocus)
             check_focused_item("homepageBookmark")
 
             keyClick(Qt.Key_Up)
