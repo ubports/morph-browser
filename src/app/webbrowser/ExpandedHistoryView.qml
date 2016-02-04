@@ -45,6 +45,7 @@ FocusScope {
         id: entriesListView
 
         focus: true
+        clip: true
 
         anchors {
             top: header.bottom
