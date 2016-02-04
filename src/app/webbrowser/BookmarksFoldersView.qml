@@ -56,9 +56,15 @@ FocusScope {
             }
 
             height: active ? item.height : 0
-            active: entries.count > 0
+            active: (entries.count > 0) || !folder
 
             readonly property Item currentItem: active ? item.currentItem : null
+
+            onActiveChanged: {
+                if (!active && activeFocus) {
+                    bookmarksFolderListView.decrementCurrentIndex()
+                }
+            }
 
             sourceComponent: FocusScope {
                 objectName: "bookmarkFolderDelegate"
@@ -192,7 +198,7 @@ FocusScope {
 
                         delegate: UrlDelegate{
                             id: urlDelegate
-                            objectName: "urlDelegate_" + index
+                            objectName: "urlDelegate_%1".arg(index)
 
                             property var entry: isAllBookmarksFolder ? modelData : model
 
@@ -265,5 +271,9 @@ FocusScope {
     }
 
     // Initially focus the first bookmark
-    Component.onCompleted: bookmarksFolderListView.currentItem.item.focusBookmarks()
+    Component.onCompleted: {
+        if (bookmarksFolderListView.currentItem) {
+            bookmarksFolderListView.currentItem.item.focusBookmarks()
+        }
+    }
 }
