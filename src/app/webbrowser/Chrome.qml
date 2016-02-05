@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Unity.InputInfo 0.1
 import ".."
 
 ChromeBase {
@@ -53,6 +54,16 @@ ChromeBase {
         navigationBar.selectAll()
     }
 
+    InputDeviceModel {
+        id: touchScreenModel
+        deviceFilter: InputInfo.TouchScreen
+    }
+
+    QtObject {
+        id: internal
+        readonly property bool hasTouchScreen: touchScreenModel.count > 0
+    }
+
     FocusScope {
         id: content
         anchors.fill: parent
@@ -82,7 +93,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: active ? (formFactor == "desktop" ? units.gu(3) : units.gu(4)) : 0
+            height: active ? (internal.hasTouchScreen ? units.gu(4) : units.gu(3)) : 0
         }
 
         NavigationBar {
