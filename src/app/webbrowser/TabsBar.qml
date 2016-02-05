@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -31,6 +31,8 @@ Item {
     property real tabWidth: model ? Math.max(Math.min(tabsContainer.maxWidth / model.count, maxTabWidth), minTabWidth) : 0
 
     property bool incognito: false
+
+    property color fgColor: Theme.palette.normal.baseText
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
@@ -67,7 +69,7 @@ Item {
             height: units.gu(2)
             anchors.centerIn: parent
             name: "add"
-            color: incognito ? "white" : UbuntuColors.darkGrey
+            color: incognito ? "white" : root.fgColor
         }
 
         onClicked: root.requestNewTab(root.model.count, true)
@@ -149,6 +151,7 @@ Item {
                     incognito: root.incognito
                     title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
                     icon: model.icon
+                    fgColor: root.fgColor
 
                     rightMargin: tabDelegate.rightMargin
 
@@ -181,6 +184,17 @@ Item {
 
                 z: (root.model.currentIndex == index) ? 3 : 1 - index / root.model.count
             }
+        }
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+            }
+            width: root.width
+            height: units.dp(1)
+            color: "#cacaca"
+            z: 2
         }
     }
 }

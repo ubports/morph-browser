@@ -21,6 +21,7 @@ set(COMMONLIB_SRC
     favicon-fetcher.cpp
     mime-database.cpp
     session-storage.cpp
+    single-instance-manager.cpp
     webbrowser-window.cpp
 )
 
@@ -36,6 +37,7 @@ target_link_libraries(${COMMONLIB}
     Qt5::Quick
     Qt5::Widgets
     UbuntuGesturesQml
+    InputInfo
 )
 
 file(GLOB QML_FILES *.qml)

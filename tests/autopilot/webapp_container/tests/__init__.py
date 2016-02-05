@@ -124,6 +124,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
 
     def kill_app(self, signal=signal.SIGKILL):
         os.kill(self.app.pid, signal)
+        self.app.process.wait()
 
     def kill_web_processes(self, signal=signal.SIGKILL):
         children = psutil.Process(self.app.pid).children(True)

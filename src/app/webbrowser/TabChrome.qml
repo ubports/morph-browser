@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -62,7 +62,10 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
+        active: true
         hoverable: false
+        fgColor: "#111111"
+
         onSelected: tabChrome.selected()
         onClosed: tabChrome.closed()
     }

@@ -1,3 +1,33 @@
+webbrowser-app (0.23+16.04.20160129.1-0ubuntu1) xenial; urgency=medium
+
+  * Add a UA override for desktop gmail to get rid of a misleading
+    warning about using a deprecated version of safari. (LP: #1452616)
+  * Do not connect to the loadingChanged signal, which has been
+    deprecated for a good while. (LP: #1538190)
+  * In narrow mode, when a mouse is connected, turn the bottom edge hint
+    into a clickable bottom edge bar. (LP: #1534239)
+  * Update focus highlight to match the upcoming UITK implementation.
+    (LP: #1539176)
+  * Update tab visuals to higher-contrast assets. (LP: #1534760)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 29 Jan 2016 09:41:15 +0000
+
+webbrowser-app (0.23+16.04.20160122-0ubuntu1) xenial; urgency=medium
+
+  * Automatically focus the address bar when opening a new tab in wide
+    mode (instead of inferring a "desktop" form factor). This is not
+    exactly the correct fix (which would require the QInputInfo API),
+    but is better than the current situation anyway. (LP: #1533317)
+  * Ensure that only one instance of the app is running. (LP: #1535199)
+  * Fix failing autopilot test. With recent changes in the UITK, swiping
+    a non-swipeable item to the right activates it. (LP: #1534139)
+  * Fix undefined reference when dragging a bookmark from one folder to
+    another one.
+  * Show the share action if Ubuntu.Content is available, regardless of
+    the form factor.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 22 Jan 2016 10:23:33 +0000
+
 webbrowser-app (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

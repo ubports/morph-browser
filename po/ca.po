@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-12-22 16:35+0100\n"
-"PO-Revision-Date: 2015-07-04 09:58+0000\n"
+"PO-Revision-Date: 2016-01-29 19:01+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-01-21 05:50+0000\n"
-"X-Generator: Launchpad (build 17886)\n"
+"X-Launchpad-Export-Date: 2016-02-02 05:42+0000\n"
+"X-Generator: Launchpad (build 17908)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -115,6 +115,7 @@ msgstr "Sembla ser que teniu problemes per mostrar: %1."
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Verifiqueu els paràmetres de la xarxa i intenteu actualitzar la pàgina."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -229,8 +230,8 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"No hauríeu de continuar, especialment si no heu vist mai abans aquest avís "
-"en aquest lloc."
+"No hauríeu de continuar, especialment si mai heu vist aquest avís en aquest "
+"lloc abans."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -377,21 +378,21 @@ msgstr "Copia l'enllaç"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Retalla"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Suprimeix"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
 msgid "Find in page"
-msgstr ""
+msgstr "Cerca a la pàgina"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Cerca a la pàgina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -438,11 +439,11 @@ msgstr "Obre l'enllaç en una pestanya nova"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Enganxa"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Refés"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
@@ -461,7 +462,7 @@ msgstr "Desa la imatge"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Desa l'enllaç"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 #: src/app/webbrowser/HistoryView.qml:174
@@ -475,17 +476,17 @@ msgstr "Comparteix"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Desfés"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr ""
+msgstr "cerca a la pàgina"
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
@@ -565,7 +566,7 @@ msgstr "Pestanyes obertes"
 
 #: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Baixades"
 
 #: src/app/webbrowser/Browser.qml:554
 msgid "Leave Private Mode"
@@ -597,26 +598,28 @@ msgstr "Premeu la tecla Esc per sortir de la pantalla completa"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Trieu una aplicació per a obrir aquest fitxer, o afegiu-lo a la carpeta de "
+"baixades."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:88
 msgid "Choose an application"
-msgstr ""
+msgstr "Trieu una aplicació"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:101
 msgid "Download"
-msgstr ""
+msgstr "Baixa"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "Ha fallat la baixada"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Reprèn"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
-msgstr ""
+msgstr "Confirma la selecció"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 #: src/app/webbrowser/HistoryView.qml:200
@@ -626,7 +629,7 @@ msgstr "Suprimeix"
 
 #: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
-msgstr ""
+msgstr "No hi ha cap baixada disponible"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
@@ -651,16 +654,16 @@ msgstr "Ahir"
 
 #: src/app/webbrowser/HistoryViewWide.qml:198
 msgid "All History"
-msgstr ""
+msgstr "Tot l'historial"
 
 #: src/app/webbrowser/HistoryViewWide.qml:212
 #: src/app/webbrowser/HistoryViewWide.qml:286
 msgid "Today"
-msgstr ""
+msgstr "Avui"
 
 #: src/app/webbrowser/HistoryViewWide.qml:453
 msgid "search history"
-msgstr ""
+msgstr "Historial de cerques"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -668,21 +671,21 @@ msgstr "Si inicieu el mode públic es tancaran totes les pestanyes privades"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Voleu permetre a aquest domini accedir a la càmera i el micròfon?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Voleu permetre a aquest domini accedir a la càmera?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Voleu permetre aquest domini accedir al micròfon?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (incrustada a %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -720,23 +723,25 @@ msgstr "Encara no heu visitat cap pàgina web"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "S'ha tancat el procés de renderització per a aquesta pestanya."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Ha fallat quelcom en mostrar %1"
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"El sistema té poca memòria i no pot mostrar aquesta pàgina web. Intenteu "
+"tancar pestanyes que no siguin necessàries i torneu-la a carregar."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Tanca la pestanya"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -796,7 +801,7 @@ msgstr "Que s'execute per"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Predeterminat"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -814,7 +819,7 @@ msgstr "Permet l'obertura de pestanyes noves en segon pla"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Privadesa i permisos"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -823,7 +828,7 @@ msgstr "Restableix la configuració del navegador"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Càmera i micròfon"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -831,7 +836,7 @@ msgstr "Neteja l'historial de navegació"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Voleu suprimir l'historial de navegació?"
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
@@ -839,7 +844,7 @@ msgstr "Neteja la memòria cau"
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Voleu netejar la memòria cau?"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
@@ -847,11 +852,11 @@ msgstr "Neteja"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Micròfon"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Càmera"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -859,11 +864,11 @@ msgstr "Feu un toc per veure-ho"
 
 #: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
-msgstr ""
+msgstr "Tanca la pestanya"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "Suprimeix"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -941,7 +946,7 @@ msgstr "Trieu el compte"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "S'ha produït un error."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

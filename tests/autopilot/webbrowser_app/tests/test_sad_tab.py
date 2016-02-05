@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -16,8 +16,6 @@
 
 import signal
 import time
-
-from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -43,10 +41,11 @@ class TestSadTab(StartOpenRemotePageTestCaseBase):
         self.assert_home_page_eventually_loaded()
 
     def test_close_tab_web_process_killed(self):
+        wide = self.main_window.wide
         sad_tab = self._kill_web_process()
         sad_tab.click_close_tab_button()
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
+        if wide:
+            # closing the last open tab exits the application
             self.app.process.wait()
             return
         sad_tab.wait_until_destroyed()
@@ -64,9 +63,10 @@ class TestSadTab(StartOpenRemotePageTestCaseBase):
         self.assert_home_page_eventually_loaded()
 
     def test_close_tab_web_process_crashed(self):
+        wide = self.main_window.wide
         sad_tab = self._crash_web_process()
         sad_tab.click_close_tab_button()
-        if model() == 'Desktop':
+        if wide:
             # On desktop, closing the last open tab exits the application
             self.app.process.wait()
             return

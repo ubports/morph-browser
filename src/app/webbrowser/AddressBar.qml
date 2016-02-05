@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -43,6 +43,7 @@ FocusScope {
     property bool showFavicon: true
     property bool findInPageMode: false
     property var findController: null
+    property color fgColor: Theme.palette.normal.baseText
 
     property var securityStatus: null
 
@@ -117,7 +118,7 @@ FocusScope {
                     name: addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
-                    color: UbuntuColors.darkGrey
+                    color: addressbar.fgColor
 
                     MouseArea {
                         objectName: "actionButton"
@@ -142,7 +143,7 @@ FocusScope {
                 Icon {
                     id: secure
                     name: "network-secure"
-                    color: UbuntuColors.darkGrey
+                    color: addressbar.fgColor
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.secureConnection
@@ -159,7 +160,7 @@ FocusScope {
                 Icon {
                     id: securityAlert
                     name: "security-alert"
-                    color: UbuntuColors.darkGrey
+                    color: addressbar.fgColor
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.securityWarning
@@ -201,7 +202,7 @@ FocusScope {
                 objectName: "findInPageCounter"
                 anchors.verticalCenter: parent.verticalCenter
                 fontSize: "x-small"
-                color: UbuntuColors.darkGrey
+                color: addressbar.fgColor
                 opacity: findController && findController.count > 0 ? 1.0 : 0.6
                 visible: findInPageMode
 
@@ -226,7 +227,7 @@ FocusScope {
                     anchors.centerIn: parent
 
                     name: addressbar.bookmarked ? "starred" : "non-starred"
-                    color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
+                    color: addressbar.bookmarked ? UbuntuColors.orange : addressbar.fgColor
                 }
 
                 onClicked: addressbar.toggleBookmark()
@@ -239,7 +240,7 @@ FocusScope {
         }
 
         font.pixelSize: FontUtils.sizeToPixels("small")
-        color: UbuntuColors.darkGrey
+        color: addressbar.fgColor
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         placeholderText: findInPageMode ? i18n.tr("find in page")

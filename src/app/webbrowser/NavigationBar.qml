@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -37,6 +37,7 @@ FocusScope {
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
+    property color fgColor: Theme.palette.normal.baseText
     property color iconColor: UbuntuColors.darkGrey
     property real availableHeight
 
@@ -99,6 +100,8 @@ FocusScope {
 
         AddressBar {
             id: addressbar
+
+            fgColor: root.fgColor
 
             focus: true
 
@@ -337,7 +340,7 @@ FocusScope {
                             when: model.iconSource.toString()
                             value: model.iconSource
                         }
-                        color: UbuntuColors.darkGrey
+                        color: root.fgColor
                     }
 
                     Label {
@@ -350,7 +353,7 @@ FocusScope {
                         }
                         text: model.text
                         fontSize: "small"
-                        color: UbuntuColors.darkGrey
+                        color: root.fgColor
                         elide: Text.ElideRight
                     }
                 }
