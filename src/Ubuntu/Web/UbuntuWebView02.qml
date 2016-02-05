@@ -138,23 +138,11 @@ Oxide.WebView {
         console.warn("WARNING: the copy() function is deprecated and does nothing.")
     }
 
-    touchSelectionController {
-        handle: Item {
-            width: units.gu(1.5)
-            height: units.gu(1.5)
-            Image {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-                height: units.gu(6)
-                fillMode: Image.PreserveAspectFit
-                verticalAlignment: Image.AlignBottom
-                source: "handle.png"
-            }
-            Component.onCompleted: horizontalPaddingRatio = 0.5
-        }
+    touchSelectionController.handle: Image {
+        width: units.gu(1.5)
+        height: units.gu(1.5)
+        source: "handle.png"
+        Component.onCompleted: horizontalPaddingRatio = 0.5
     }
 
     UbuntuShape {
