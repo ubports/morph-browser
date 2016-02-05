@@ -1753,11 +1753,12 @@ BrowserView {
                     session.save()
                 }
                 if (browser.currentWebview) {
-                    // Workaround for a desktop bug where changing volume causes the app to
-                    // briefly lose focus to notify-osd, and therefore exit fullscreen mode.
-                    // We prevent this by exiting fullscreen only if the focus remains lost
-                    // for longer than a certain threshold. See: http://pad.lv/1477308
-                    if (formFactor == "desktop") exitFullscreenOnLostFocus.start()
+                    // Workaround for a desktop bug where changing volume causes
+                    // the app to briefly lose focus to notify-osd, and therefore
+                    // exit fullscreen mode. We prevent this by exiting fullscreen
+                    // only if the focus remains lost for longer than a certain
+                    // threshold. See: https://launchpad.net/bugs/694224.
+                    if (__platformName == "xcb") exitFullscreenOnLostFocus.start()
                     else browser.currentWebview.fullscreen = false
                 }
             } else exitFullscreenOnLostFocus.stop()
