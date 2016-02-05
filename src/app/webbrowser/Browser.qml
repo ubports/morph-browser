@@ -465,8 +465,9 @@ BrowserView {
         webview: browser.currentWebview
         forceHide: browser.fullscreen
         forceShow: recentView.visible
-        defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
-                                               : Oxide.LocationBarController.ModeAuto
+        defaultMode: (internal.hasMouse && !internal.hasTouchScreen)
+                         ? Oxide.LocationBarController.ModeShown
+                         : Oxide.LocationBarController.ModeAuto
     }
 
     Chrome {
@@ -1114,7 +1115,7 @@ BrowserView {
                     }
                     Actions.Share {
                         objectName: "ShareContextualAction"
-                        enabled: (formFactor == "mobile") && contextModel &&
+                        enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
                                  (contextModel.linkUrl.toString() || contextModel.selectionText)
                         onTriggered: {
                             if (contextModel.linkUrl.toString()) {
@@ -1325,9 +1326,9 @@ BrowserView {
                             color: "white"
                             font.weight: Font.Light
                             anchors.centerIn: parent
-                            text: (formFactor == "mobile") ?
-                                      i18n.tr("Swipe Up To Exit Full Screen") :
-                                      i18n.tr("Press ESC To Exit Full Screen")
+                            text: bottomEdgeHandle.enabled
+                                      ? i18n.tr("Swipe Up To Exit Full Screen")
+                                      : i18n.tr("Press ESC To Exit Full Screen")
                         }
 
                         Timer {
