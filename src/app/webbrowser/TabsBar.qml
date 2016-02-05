@@ -111,7 +111,6 @@ Item {
         anchors {
             top: parent.top
             bottom: parent.bottom
-            bottomMargin: tabsContainer.verticalGap
             left: parent.left
         }
         width: tabWidth * root.model.count
