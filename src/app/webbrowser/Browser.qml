@@ -106,6 +106,11 @@ BrowserView {
         deviceFilter: InputInfo.TouchPad
     }
 
+    InputDeviceModel {
+        id: touchScreenModel
+        deviceFilter: InputInfo.TouchScreen
+    }
+
     Component {
         id: mediaAccessDialogComponent
         MediaAccessDialog { }
@@ -478,6 +483,8 @@ BrowserView {
         showFaviconInAddressBar: !browser.wide
 
         availableHeight: tabContainer.height - height - y
+
+        touchEnabled: internal.hasTouchScreen
 
         property bool hidden: false
         y: hidden ? -height : webview ? webview.locationBarController.offset : 0
@@ -1432,6 +1439,7 @@ BrowserView {
         }
 
         readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
+        readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
         function getOpenPages() {
             var urls = []

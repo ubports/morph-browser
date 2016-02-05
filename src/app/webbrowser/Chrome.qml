@@ -41,6 +41,7 @@ ChromeBase {
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
+    property bool touchEnabled: true
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
@@ -52,16 +53,6 @@ ChromeBase {
 
     function selectAll() {
         navigationBar.selectAll()
-    }
-
-    InputDeviceModel {
-        id: touchScreenModel
-        deviceFilter: InputInfo.TouchScreen
-    }
-
-    QtObject {
-        id: internal
-        readonly property bool hasTouchScreen: touchScreenModel.count > 0
     }
 
     FocusScope {
@@ -83,6 +74,7 @@ ChromeBase {
                 model: tabsModel
                 incognito: chrome.incognito
                 fgColor: navigationBar.fgColor
+                touchEnabled: chrome.touchEnabled
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
@@ -93,7 +85,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: active ? (internal.hasTouchScreen ? units.gu(4) : units.gu(3)) : 0
+            height: active ? (touchEnabled ? units.gu(4) : units.gu(3)) : 0
         }
 
         NavigationBar {
