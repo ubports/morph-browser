@@ -156,7 +156,6 @@ BrowserView {
 
         property url homepage: settingsDefaults.homepage
         property string searchEngine: settingsDefaults.searchEngine
-        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
         property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
         property string defaultAudioDevice
@@ -165,7 +164,6 @@ BrowserView {
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
-            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
             newTabDefaultSection = settingsDefaults.newTabDefaultSection
             defaultAudioDevice = settingsDefaults.defaultAudioDevice
@@ -178,7 +176,6 @@ BrowserView {
 
         readonly property url homepage: "http://start.ubuntu.com"
         readonly property string searchEngine: "google"
-        readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
         readonly property int newTabDefaultSection: 0
         readonly property string defaultAudioDevice: ""
@@ -1083,10 +1080,7 @@ BrowserView {
                     }
                     Actions.OpenLinkInNewBackgroundTab {
                         objectName: "OpenLinkInNewBackgroundTabContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString() &&
-                                 ((settings.allowOpenInBackgroundTab === "true") ||
-                                  ((settings.allowOpenInBackgroundTab === "default") &&
-                                   (formFactor === "desktop")))
+                        enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
