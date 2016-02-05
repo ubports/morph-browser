@@ -190,6 +190,7 @@ Oxide.WebView {
                     anchors.fill: parent
                     name: "edit-cut"
                 }
+                activeFocusOnPress: false
                 visible: _webview.editingCapabilities & Oxide.WebView.CutCapability
                 onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
             }
@@ -203,6 +204,7 @@ Oxide.WebView {
                     anchors.fill: parent
                     name: "edit-copy"
                 }
+                activeFocusOnPress: false
                 visible: _webview.editingCapabilities & Oxide.WebView.CopyCapability
                 onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
             }
@@ -216,6 +218,7 @@ Oxide.WebView {
                     anchors.fill: parent
                     name: "edit-paste"
                 }
+                activeFocusOnPress: false
                 visible: _webview.editingCapabilities & Oxide.WebView.PasteCapability
                 onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
             }
@@ -229,6 +232,7 @@ Oxide.WebView {
                     anchors.fill: parent
                     name: "edit-delete"
                 }
+                activeFocusOnPress: false
                 visible: _webview.editingCapabilities & Oxide.WebView.EraseCapability
                 onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandErase)
             }
@@ -242,6 +246,7 @@ Oxide.WebView {
                     anchors.fill: parent
                     name: "edit-select-all"
                 }
+                activeFocusOnPress: false
                 visible: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
                 onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
             }
