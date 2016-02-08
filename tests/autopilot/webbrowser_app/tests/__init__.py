@@ -162,16 +162,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
             toolbar.click_action("newTabButton")
             tabs_view.visible.wait_for(False)
 
-        if self.main_window.wide or (model() == 'Desktop'):
-            new_count = count + 1
-        else:
-            max_webviews = self.main_window.maxLiveWebviews
-            new_count = (count + 1) if (count < max_webviews) else max_webviews
         if (self.main_window.incognito):
-            self.assert_number_incognito_webviews_eventually(new_count)
+            self.assert_number_incognito_webviews_eventually(count + 1)
             new_tab_view = self.main_window.get_new_private_tab_view()
         else:
-            self.assert_number_webviews_eventually(new_count)
+            self.assert_number_webviews_eventually(count + 1)
             new_tab_view = self.main_window.get_new_tab_view()
 
         if self.main_window.wide:
