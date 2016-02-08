@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -39,6 +39,7 @@ FocusScope {
     readonly property url icon: webview ? webview.icon : initialIcon
     property url preview
     property bool current: false
+    readonly property int lastCurrent: internal.lastCurrent
     property bool incognito
     visible: false
 
@@ -126,6 +127,7 @@ FocusScope {
         id: internal
         property bool hiding: false
         property var incubator: null
+        property int lastCurrent: 0
     }
 
     // When current is set to false, delay hiding the tab contents to give it
@@ -133,6 +135,7 @@ FocusScope {
     // only if embedders do not set the 'visible' property directly or
     // indirectly on instances of a BrowserTab.
     onCurrentChanged: {
+        internal.lastCurrent = Date.now()
         if (current) {
             internal.hiding = false
             z = 1

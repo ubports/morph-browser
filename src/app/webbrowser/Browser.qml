@@ -47,10 +47,6 @@ BrowserView {
 
     readonly property var tabsModel: incognito ? privateTabsModelLoader.item : publicTabsModel
 
-    // XXX: we might want to tweak this value depending
-    // on the form factor and/or the available memory
-    readonly property int maxLiveWebviews: 2
-
     // Restore only the n most recent tabs at startup,
     // to limit the overhead of instantiating too many
     // tab objects (see http://pad.lv/1376433).
@@ -1436,6 +1432,9 @@ BrowserView {
         readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
         readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
+        readonly property real freeMemRatio: (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
+        readonly property bool lowOnMemory: freeMemRatio < 0.2
+
         function getOpenPages() {
             var urls = []
             for (var i = 0; i < tabsModel.count; i++) {
@@ -1821,15 +1820,41 @@ BrowserView {
     }
 
     Connections {
-        // On mobile, ensure that at most n webviews are instantiated at all
-        // times, to reduce memory consumption (see http://pad.lv/1376418).
-        // Note: this works only in narrow mode, where the list of tabs is a
-        // stack. Switching from wide mode to narrow mode will result in
-        // undefined behaviour (tabs previously loaded won’t be unloaded).
-        target: ((formFactor == "mobile") && !browser.wide) ? tabsModel : null
-        onCurrentTabChanged: {
-            if (tabsModel.count > browser.maxLiveWebviews) {
-                tabsModel.get(browser.maxLiveWebviews).unload()
+        target: internal
+        onFreeMemRatioChanged: {
+            if (internal.lowOnMemory) {
+                // Unload an inactive tab to (hopefully) free up some memory
+                function getCandidate(model) {
+                    // Naive implementation that only takes into account the
+                    // last time a tab was current. In the future we might
+                    // want to take into account other parameters such as
+                    // whether the tab is currently playing audio/video.
+                    var candidate = null
+                    for (var i = 0; i < model.count; ++i) {
+                        var tab = model.get(i)
+                        if (tab.current || !tab.webview) {
+                            continue
+                        }
+                        if (!candidate || (candidate.lastCurrent > tab.lastCurrent)) {
+                            candidate = tab
+                        }
+                    }
+                    return candidate
+                }
+                var candidate = getCandidate(publicTabsModel)
+                if (candidate) {
+                    console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))
+                    candidate.unload()
+                    return
+                } else if (browser.incognito) {
+                    candidate = getCandidate(privateTabsModelLoader.item)
+                    if (candidate) {
+                        console.warn("Unloading a background incognito tab to free up some memory")
+                        candidate.unload()
+                        return
+                    }
+                }
+                console.warn("System low on memory, but unable to pick a tab to unload")
             }
         }
     }

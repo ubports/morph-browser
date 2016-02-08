@@ -30,6 +30,7 @@
 #include "browserapplication.h"
 #include "config.h"
 #include "favicon-fetcher.h"
+#include "meminfo.h"
 #include "mime-database.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
@@ -100,19 +101,17 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
-static QObject* MimeDatabase_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new MimeDatabase();
-}
+#define MAKE_SINGLETON_FACTORY(type) \
+    static QObject* type##_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine) { \
+        Q_UNUSED(engine); \
+        Q_UNUSED(scriptEngine); \
+        return new type(); \
+    }
 
-static QObject* Direction_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new Direction();
-}
+MAKE_SINGLETON_FACTORY(MemInfo)
+MAKE_SINGLETON_FACTORY(MimeDatabase)
+MAKE_SINGLETON_FACTORY(Direction)
+
 
 bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
@@ -159,6 +158,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 
     const char* uri = "webbrowsercommon.private";
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
+    qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
