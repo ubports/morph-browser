@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -205,10 +205,6 @@ WebViewImpl {
         webappUrlPatterns.push(urlPattern)
 
         samlRequestUrlPatternReceived(urlPattern)
-    }
-
-    function shouldOpenPopupsInDefaultBrowser() {
-        return formFactor !== "desktop";
     }
 
     function isRunningAsANamedWebapp() {
