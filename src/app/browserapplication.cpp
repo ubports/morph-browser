@@ -17,6 +17,7 @@
  */
 
 // system
+#include <cerrno>
 #include <cstring>
 #include <sys/apparmor.h>
 
@@ -153,16 +154,16 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         return false;
     }
 
-    bool runningConfined = false;
+    bool runningConfined = true;
     char* label;
     char* mode;
-    if (aa_getcon(&label, &mode) == -1) {
-        runningConfined = true;
-    } else {
-        if (strcmp(label, "unconfined") != 0) {
-            runningConfined = true;
+    if (aa_getcon(&label, &mode) != -1) {
+        if (strcmp(label, "unconfined") == 0) {
+            runningConfined = false;
         }
         free(label);
+    } else if (errno == EINVAL) {
+        runningConfined = false;
     }
 
     QString devtoolsPort = inspectorPort();
