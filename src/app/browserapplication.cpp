@@ -19,6 +19,7 @@
 // Qt
 #include <QtCore/QMetaObject>
 #include <QtCore/QtGlobal>
+#include <QtGui/QTouchDevice>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
@@ -197,6 +198,14 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
     browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
+
+    bool hasTouchScreen = false;
+    Q_FOREACH(const QTouchDevice* device, QTouchDevice::devices()) {
+        if (device->type() == QTouchDevice::TouchScreen) {
+            hasTouchScreen = true;
+        }
+    }
+    browser->setProperty("hasTouchScreen", hasTouchScreen);
 
     return true;
 }
