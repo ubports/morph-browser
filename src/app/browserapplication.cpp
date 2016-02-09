@@ -16,6 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// system
+#include <cstring>
+#include <sys/apparmor.h>
+
 // Qt
 #include <QtCore/QMetaObject>
 #include <QtCore/QtGlobal>
@@ -149,6 +153,18 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         return false;
     }
 
+    bool runningConfined = false;
+    char* label;
+    char* mode;
+    if (aa_getcon(&label, &mode) == -1) {
+        runningConfined = true;
+    } else {
+        if (strcmp(label, "unconfined") != 0) {
+            runningConfined = true;
+        }
+        free(label);
+    }
+
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();
     bool inspectorEnabled = !devtoolsPort.isEmpty();
@@ -180,6 +196,9 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     qmlEngineCreated(m_engine);
 
     QQmlContext* context = m_engine->rootContext();
+    context->setContextProperty("runningConfined", runningConfined);
+    context->setContextProperty("unversionedAppId", unversionedAppId);
+
     m_component = new QQmlComponent(m_engine);
     m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFileSubPath));
     if (!m_component->isReady()) {
@@ -188,7 +207,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     }
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
-    context->setContextProperty("unversionedAppId", unversionedAppId);
 
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
