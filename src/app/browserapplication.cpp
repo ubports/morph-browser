@@ -197,7 +197,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     qmlEngineCreated(m_engine);
 
     QQmlContext* context = m_engine->rootContext();
-    context->setContextProperty("runningConfined", runningConfined);
+    context->setContextProperty("__runningConfined", runningConfined);
     context->setContextProperty("unversionedAppId", unversionedAppId);
 
     m_component = new QQmlComponent(m_engine);
