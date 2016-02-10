@@ -171,7 +171,7 @@ FocusScope {
 
             ListViewHighlight {
                 anchors.fill: bookmarkListHeader
-                visible: bookmarkListHeader.activeFocus
+                visible: hasKeyboard && bookmarkListHeader.activeFocus
             }
 
             ListItems.ThinDivider {

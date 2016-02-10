@@ -53,8 +53,9 @@ GridView {
     }
 
     highlight: Item {
-        visible: GridView.view && GridView.view.activeFocus
+        visible: viewHighlight.hasKeyboard && GridView.view && GridView.view.activeFocus
         ListViewHighlight {
+            id: viewHighlight
             visible: true
             width: previewWidth + units.gu(2)
             height: previewHeight + units.gu(5)

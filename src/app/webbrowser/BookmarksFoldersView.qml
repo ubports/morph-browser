@@ -146,7 +146,7 @@ FocusScope {
 
                     ListViewHighlight {
                         anchors.fill: parent
-                        visible: parent.activeFocus
+                        visible: hasKeyboard && parent.activeFocus
                     }
 
                     MouseArea {
