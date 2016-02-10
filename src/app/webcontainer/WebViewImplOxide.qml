@@ -324,7 +324,7 @@ WebViewImpl {
     }
 
     onGeolocationPermissionRequested: {
-        if (__runningConfined) {
+        if (__runningConfined && (request.origin == request.embedder)) {
             // When running confined, querying the location service will trigger
             // a system prompt (trust store), so no need for a custom one.
             request.accept()
