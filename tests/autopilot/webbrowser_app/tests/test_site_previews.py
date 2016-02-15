@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -91,12 +91,14 @@ class TestSitePreviewsNoLaunch(TestSitePreviewsBase):
         self.populate_captures_dir(history + [other_url, not_hash, not_image])
 
         self.launch_app()
-        time.sleep(0.5)  # wait for file system to settle
+        time.sleep(1)  # wait for file system to settle
 
         # verify that non-image files and top 10 sites are left alone,
         # everything else is cleaned up
         topsites = history[0:10]
-        self.assertThat(self.captures_dir, DirContains(topsites + [not_image]))
+        current_tab = self.capture_file(self.url)
+        self.assertThat(self.captures_dir,
+                        DirContains(topsites + [not_image, current_tab]))
 
 
 class TestSitePreviews(TestSitePreviewsBase):

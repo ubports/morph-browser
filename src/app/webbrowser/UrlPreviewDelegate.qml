@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -79,10 +79,14 @@ AbstractButton {
             anchors.left: parent.left
             width: units.gu(26)
             height: units.gu(16)
+            backgroundColor: "#f7f7f7"
+
+            property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(preview.url))
+            readonly property bool hasPreview: FileOperations.exists(previewUrl)
 
             source: Image {
                 id: previewImage
-                source: FileOperations.exists(previewShape.previewUrl) ? previewShape.previewUrl : ""
+                source: previewShape.hasPreview ? previewShape.previewUrl : ""
                 sourceSize.width: previewShape.width
                 cache: false
             }
@@ -90,12 +94,10 @@ AbstractButton {
             sourceHorizontalAlignment: UbuntuShape.AlignLeft
             sourceVerticalAlignment: UbuntuShape.AlignTop
 
-            property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(preview.url))
-
             Connections {
                 target: PreviewManager
                 onPreviewSaved: {
-                    if (pageUrl !== preview.url) return
+                    if (pageUrl != preview.url) return
                     previewImage.source = ""
                     previewImage.source = previewShape.previewUrl
                 }
@@ -104,6 +106,14 @@ AbstractButton {
             function openContextMenu() {
                 preview.setCurrent()
                 PopupUtils.open(contextMenuComponent, previewShape)
+            }
+
+            Image {
+                anchors.centerIn: parent
+                width: units.gu(2.5)
+                height: units.gu(2.5)
+                source: previewShape.hasPreview ? "" : "assets/stock_website.png"
+                fillMode: Image.PreserveAspectFit
             }
         }
     }
