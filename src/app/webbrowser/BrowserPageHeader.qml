@@ -1,5 +1,5 @@
  /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -62,6 +62,7 @@ Item {
 
             width: height
 
+            activeFocusOnPress: false
             onTriggered: root.back()
             anchors {
                 top: parent.top

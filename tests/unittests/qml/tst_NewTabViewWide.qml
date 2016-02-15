@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -43,11 +43,6 @@ Item {
     }
 
     SignalSpy {
-        id: releasingKeyboardFocusSpy
-        signalName: "releasingKeyboardFocus"
-    }
-
-    SignalSpy {
         id: historyEntryClickedSpy
         signalName: "historyEntryClicked"
     }
@@ -76,8 +71,6 @@ Item {
 
             view.focus = true
 
-            releasingKeyboardFocusSpy.target = view
-            releasingKeyboardFocusSpy.clear()
             historyEntryClickedSpy.target = view
             historyEntryClickedSpy.clear()
             bookmarkClickedSpy.target = view
@@ -163,10 +156,8 @@ Item {
             compare(list.currentIndex, 0)
             keyClick(Qt.Key_Up)
             compare(list.currentIndex, 0)
-            compare(releasingKeyboardFocusSpy.count, 1)
             keyClick(Qt.Key_Left)
             compare(list.currentIndex, 0)
-            compare(releasingKeyboardFocusSpy.count, 2)
         }
 
         function test_activate_topsites_by_keyboard() {

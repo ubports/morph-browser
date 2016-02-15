@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -31,7 +31,6 @@ FocusScope {
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
-    signal releasingKeyboardFocus()
 
     Keys.onTabPressed: selectedIndex = (selectedIndex + 1) % 2
     Keys.onBacktabPressed: selectedIndex = Math.abs((selectedIndex - 1) % 2)
@@ -56,15 +55,8 @@ FocusScope {
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
 
-        Keys.onUpPressed: newTabViewWide.releasingKeyboardFocus()
         onBookmarkClicked: newTabViewWide.bookmarkClicked(url)
         onBookmarkRemoved: newTabViewWide.bookmarkRemoved(url)
-
-        // Relinquish focus as the presses and releases that compose the
-        // drag will move the keyboard focus in a location unexpected
-        // for the user. This way it will go back to the address bar and
-        // the user can predictably resume keyboard interaction from there.
-        onDragStarted: newTabViewWide.releasingKeyboardFocus()
 
         anchors {
             top: sectionsGroup.bottom
@@ -105,10 +97,8 @@ FocusScope {
         onActivated: newTabViewWide.historyEntryClicked(url)
         onRemoved: {
             HistoryModel.hide(url)
-            if (topSitesModel.count === 0) newTabViewWide.releasingKeyboardFocus()
             PreviewManager.checkDelete(url)
         }
-        onReleasingKeyboardFocus: newTabViewWide.releasingKeyboardFocus()
     }
 
     Scrollbar {
