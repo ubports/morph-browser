@@ -131,12 +131,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def open_tabs_view(self):
         self.assertFalse(self.main_window.wide)
         if model() == 'Desktop':
-            chrome = self.main_window.chrome
-            drawer_button = chrome.get_drawer_button()
-            self.pointing_device.click_object(drawer_button)
-            chrome.get_drawer()
-            tabs_action = chrome.get_drawer_action("tabs")
-            self.pointing_device.click_object(tabs_action)
+            bar = self.main_window.get_bottom_edge_bar()
+            self.pointing_device.click_object(bar)
         else:
             self.drag_bottom_edge_upwards(0.75)
         tabs_view = self.main_window.get_tabs_view()
