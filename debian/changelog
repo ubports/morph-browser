@@ -1,3 +1,19 @@
+webbrowser-app (0.23+16.04.20160215.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add keyboard navigation support to narrow views (new tab view,
+    history view, bookmarks view, downloads view). (LP: #1539221)
+  * Add video-specific contextual actions. (LP: #1539676)
+  * Take a capture of the current page shortly after it has finished
+    loading to give rendering an opportunity to complete. (LP: #1540129)
+  * Use the new bottom edge bar to open the tabs view in autopilot
+    tests.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 15 Feb 2016 13:33:21 +0000
+
 webbrowser-app (0.23+16.04.20160202-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
