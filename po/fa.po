@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-12-22 16:35+0100\n"
-"PO-Revision-Date: 2015-10-29 00:15+0000\n"
+"PO-Revision-Date: 2016-02-02 06:20+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-02 05:42+0000\n"
+"X-Launchpad-Export-Date: 2016-02-03 05:56+0000\n"
 "X-Generator: Launchpad (build 17908)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -85,8 +85,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"با اینکه می‌خواهید به صورت ایمن به %1 وصل شوید، ولی گواهینامه‌ی امنیتی این "
-"وب‌سایت قابل اطمینان نیست."
+"تلاش می‌کنید به صورت امن به %1 وصل شوید، ولی گواهینامهٔ امنیتی این پایگاه وب "
+"قابل اطمینان نیست."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -139,7 +139,7 @@ msgstr "اجازه دادن"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "گواهی‌نامه‌ی امنیتی این پایگاه مطمئن نیست.\n"
+msgstr "گواهینامهٔ امنیتی این پایگاه وب قابل اطمینان نیست.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
@@ -240,8 +240,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی ارائه داد "
-"که با هویت این پایگاه تطابق ندارد."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی ارائه داد که با "
+"هویت این پایگاه تطابق ندارد."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -250,8 +250,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی منقضی شده "
-"ارائه داد."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی منقضی شده ارائه "
+"داد."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -260,8 +260,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی ارائه داد "
-"که شامل تاریخ‌های نامعتبر است."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی ارائه داد که "
+"تاریخ‌های نامعتبری دارد."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -270,8 +270,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی ارائه داد "
-"که توسّط نهادی که قابل اعتماد نیست صادر شده است."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی ارائه داد که توسّط "
+"نهادی که قابل اعتماد نیست صادر شده است."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -280,8 +280,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی باطل شده "
-"ارائه داد."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی باطل شده ارائه داد."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -290,8 +289,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی نامعتبر "
-"ارائه داد."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی نامعتبر ارائه داد."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -300,8 +298,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی ناامن "
-"ارائه داد."
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی ناامن ارائه داد."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -311,9 +308,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"گواهی‌نامه‌ی امنیتی این پایگاه قابل اعتماد نیست.\n"
-"شما تلاش کردید به %1 برسید، ولی سرویس دهنده یک گواهی‌نامه‌ی امنیتی ارائه داد "
-"که به دلیل نامعلومی در بررسی‌های امنیتی ما شکست خورد."
+"گواهی‌نامهٔ امنیتی این پایگاه قابل اعتماد نیست.\n"
+"تلاش کردید به %1 برسید، ولی کارساز، یک گواهی‌نامهٔ امنیتی ارائه داد که به "
+"دلیل نامعلومی در بررسی‌های امنیتی ما شکست خورد."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -361,7 +358,7 @@ msgstr "پاک‌کردن تاریخچه"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "پاک کردن تاریخچه‌ی ناوبری"
+msgstr "پاک کردن تاریخچهٔ ناوبری"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -422,19 +419,19 @@ msgstr "زبانه تازه"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "بازکردن زبانه‌ی جدید"
+msgstr "گشودن زبانه‌‌ای جدید"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "بازکردن تصویر در زبانه‌ی جدید"
+msgstr "گشودن تصویر در زبانهٔ جدید"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "گشودن پیوند در زبانه‌ی پس‌زمینه‌ی جدید"
+msgstr "گشودن تصویر در زبانهٔ پس‌زمینهٔ جدید"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "بازکردن پیوند در زبانه‌ی جدید"
+msgstr "گشودن پیوند در زبانهٔ جدید"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -457,7 +454,7 @@ msgstr "ترک صفحه"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "ذخیره‌ی تصویر"
+msgstr "ذخیرهٔ تصویر"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
@@ -471,7 +468,7 @@ msgstr "گزینش همه"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
 msgid "Share"
-msgstr "به‌اشتراک گذاری"
+msgstr "هم‌رسانی"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
@@ -530,7 +527,7 @@ msgstr "ذخیره"
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
-msgstr "صفحه‌ی خانگی"
+msgstr "صفحهٔ خانگی"
 
 #: src/app/webbrowser/BookmarksView.qml:82
 #: src/app/webbrowser/BookmarksViewWide.qml:80
@@ -552,7 +549,7 @@ msgstr "انجام شد"
 #: src/app/webbrowser/HistoryViewWide.qml:522
 #: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "زبانه‌ی جدید"
+msgstr "زبانهٔ جدید"
 
 #: src/app/webbrowser/Browser.qml:515
 #: src/app/webbrowser/HistoryViewWide.qml:372
@@ -695,15 +692,15 @@ msgstr "خیر"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "این یک زبانه‌ی خصوصی است"
+msgstr "این یک زبانهٔ خصوصی است"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-"صفحه‌هایی که در این زبانه می‌بینید، در تاریخچه‌ی مرور شما ظاهر نمی شوند.\n"
-"با این خال، نشانک‌هایی که می‌سازید، ذخیره خواهند شد."
+"صفحه‌هایی که در این زبانه می‌بینید، در تاریخچهٔ مرور شما ظاهر نمی‌شوند.\n"
+"گرچه نشانک‌هایی که می‌سازید، ذخیره خواهند شد."
 
 #: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
@@ -754,36 +751,36 @@ msgstr "هویت این پایگاه وب تأیید نشده است."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr "گواهی‌نامه‌ی کارگزار با هویت پایگاه تطابق ندارد."
+msgstr "گواهی‌نامهٔ کارساز با هویت پایگاه تطابق ندارد."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr "گواهی‌نامه‌ی کارگزار منقضی شده است."
+msgstr "گواهی‌نامهٔ کارساز منقضی شده است."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "گواهی‌نامه‌ی کارگزار شامل تازیخ‌های نامعتبر است."
+msgstr "گواهی‌نامهٔ کارساز، تاریخ‌های نامعتبر دارد."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "گواهی‌نامه‌ی کارگزار توسّط نهادی صادر شده که مورد اطمینان نیست."
+msgstr "گواهی‌نامهٔ کارساز توسّط نهادی صادر شده که مورد اطمینان نیست."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "گواهی‌نامه‌ی کارگزار سلب شده است."
+msgstr "گواهی‌نامهٔ کارساز باطل شده است."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr "گواهی‌نامه‌ی کارگزار نامعتبر است."
+msgstr "گواهی‌نامهٔ کارساز نامعتبر است."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr "گواهی‌نامه‌ی کارگزار ناامن است."
+msgstr "گواهی‌نامهٔ کارساز ناامن است."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
-"گواهی‌نامه‌ی کارگزار به دلیل نامشخّصی در بررسی‌های امنیتی ما شکست خورد."
+"گواهی‌نامهٔ کارساز، به دلیل نامشخّصی در بررسی‌های امنیتی ما شکست خورد."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -808,7 +805,7 @@ msgstr "بازگردانی نشست پیشین هنگام شروع"
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr "اجازه‌ی گشودن زبانه‌ها در پس‌زمینه"
+msgstr "اجازهٔ گشودن زبانه‌ها در پس‌زمینه"
 
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
@@ -826,7 +823,7 @@ msgstr "دوربین و میکروفون"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
-msgstr "پاک‌سازی تاریخچه‌ی جست‌وجو"
+msgstr "پاک کردن تاریخچهٔ مرور"
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
