@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-02 05:42+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-16 05:35+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -112,7 +112,7 @@ msgstr "次のページを表示する際に問題が発生しました : %1"
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "ネットワーク設定を確認して、ページを更新してください。"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -483,7 +483,7 @@ msgstr "名前"
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "保存先"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:121
@@ -588,11 +588,11 @@ msgstr "ダウンロード"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "ダウンロードに失敗しました"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "再開する"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
@@ -606,7 +606,7 @@ msgstr "削除"
 
 #: src/app/webbrowser/DownloadsPage.qml:226
 msgid "No downloads available"
-msgstr ""
+msgstr "ダウンロードはありません"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:111
 #, qt-format
@@ -643,19 +643,19 @@ msgstr "検索履歴"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "パブリックモードに移行するとすべてのプライベートタブを閉じます"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "このドメインがカメラとマイクにアクセスすることを許可しますか?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "このドメインがカメラにアクセスすることを許可しますか?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "このドメインがマイクにアクセスすることを許可しますか?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
@@ -680,6 +680,8 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"このタブで見ているページはブラウザ履歴には表示されません。\n"
+"ただし、作成したブックマークについては保存されます。"
 
 #: src/app/webbrowser/NewTabView.qml:119
 msgid "More"
@@ -692,7 +694,7 @@ msgstr "よく訪れるサイト"
 
 #: src/app/webbrowser/NewTabView.qml:254
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "まだどのサイトも訪れていません"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -764,7 +766,7 @@ msgstr "接続先:"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "次によって実行:"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
@@ -795,7 +797,7 @@ msgstr "ブラウザの設定をリセットする"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "カメラとマイク"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -823,7 +825,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "カメラ"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -835,7 +837,7 @@ msgstr "タブを閉じる"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "削除する"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -853,7 +855,7 @@ msgstr "Ubuntuウェブブラウザー"
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
-msgstr ""
+msgstr "このウェブアプリにリンクされたアカウントはありません。アカウントを追加するために以下の項目から選んで下さい。"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -876,18 +878,20 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"アカウントウィンドウを開けませんでした。1度に1つのアカウントのみを作成することができます。他のすべてのアカウントウィンドウを閉じた後で、もう一度試してく"
+"ださい。"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1<b> はあなたの %2 アカウントへのアクセスを必要としています。"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1<b> はあなたの %2 アカウントにアクセスしようとしています。"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
@@ -904,11 +908,11 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "アカウントを選択してください"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "エラーが発生しました。"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

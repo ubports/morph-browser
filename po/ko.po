@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-02 05:42+0000\n"
-"X-Generator: Launchpad (build 17908)\n"
+"X-Launchpad-Export-Date: 2016-02-16 05:35+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -112,7 +112,7 @@ msgstr "%1에 접속하는데 문제가 있는 것 같습니다."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "네트워크 설정을 확인한 후 페이지를 다시 읽어주십시오."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -588,11 +588,11 @@ msgstr "다운로드"
 
 #: src/app/webbrowser/DownloadDelegate.qml:150
 msgid "Download failed"
-msgstr ""
+msgstr "다운로드 실패"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "계속"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
@@ -647,21 +647,21 @@ msgstr "공개 모드를 사용하면 사생활 보호 모드의 모든 탭을 �
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "이 도메인이 사용자의 카메리와 마이크에 접근할 수 있게 하시겠습니까?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "이 도메인이 사용자의 카메리에 접근할 수 있게 하시겠습니까?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "이 도메인이 사용자의 마이크에 접근할 수 있게 하시겠습니까?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (%2에 포함됨)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -770,7 +770,7 @@ msgstr "다음 주체가 운영합니다."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "기본"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -788,7 +788,7 @@ msgstr "새 탭을 배경으로 여는 걸 허용하기"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "사생활과 권한 설정"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -797,7 +797,7 @@ msgstr "브라우저 설정 초기화하기"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "카메라와 마이크 설정"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -821,11 +821,11 @@ msgstr "지우기"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "마이크"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "카메라"
 
 #: src/app/webbrowser/TabPreview.qml:80
 msgid "Tap to view"
@@ -837,7 +837,7 @@ msgstr "탭 닫기"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr ""
+msgstr "제거"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -911,7 +911,7 @@ msgstr "계정 선택"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "문제가 발생했습니다."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
