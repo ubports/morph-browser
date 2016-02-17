@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-12-22 16:35+0100\n"
+"POT-Creation-Date: 2016-02-16 22:15+0100\n"
 "PO-Revision-Date: 2014-09-18 06:34+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-16 05:35+0000\n"
+"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -52,13 +52,14 @@ msgstr "パスワード"
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:178
-#: src/app/webbrowser/HistoryView.qml:160
-#: src/app/webbrowser/HistoryViewWide.qml:388
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/HistoryView.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -363,7 +364,7 @@ msgstr "切り取り"
 msgid "Erase"
 msgstr "削除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
 msgid "Find in page"
 msgstr "ページ内検索"
 
@@ -393,8 +394,8 @@ msgstr "移動"
 msgid "Address;URL;www"
 msgstr "アドレス;Address;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
-#: src/app/webbrowser/TabsBar.qml:87
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
+#: src/app/webbrowser/TabsBar.qml:89
 msgid "New Tab"
 msgstr "新しいタブ"
 
@@ -416,6 +417,10 @@ msgstr "新しいバックグラウンドタブでリンクを開く"
 msgid "Open link in new tab"
 msgstr "新しいタブでリンクを開く"
 
+#: src/app/actions/OpenVideoInNewTab.qml:22
+msgid "Open video in new tab"
+msgstr ""
+
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
 msgstr "貼り付け"
@@ -425,7 +430,7 @@ msgid "Redo"
 msgstr "やり直す"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "再読み込み"
 
@@ -443,13 +448,17 @@ msgstr "画像を保存"
 msgid "Save link"
 msgstr "リンクを保存"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
-#: src/app/webbrowser/HistoryView.qml:174
-#: src/app/webbrowser/HistoryViewWide.qml:413
+#: src/app/actions/SaveVideo.qml:22
+msgid "Save video"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/webbrowser/HistoryView.qml:190
+#: src/app/webbrowser/HistoryViewWide.qml:422
 msgid "Select all"
 msgstr "すべて選択"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
 msgid "Share"
 msgstr "共有"
 
@@ -458,16 +467,16 @@ msgid "Undo"
 msgstr "元に戻す"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:209
+#: src/app/webbrowser/AddressBar.qml:210
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:245
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "find in page"
 msgstr "ページ内検索"
 
-#: src/app/webbrowser/AddressBar.qml:246
+#: src/app/webbrowser/AddressBar.qml:247
 msgid "search or enter an address"
 msgstr "検索 / アドレスの入力"
 
@@ -486,8 +495,8 @@ msgid "Save in"
 msgstr "保存先"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:121
-#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
+#: src/app/webbrowser/BookmarksFoldersView.qml:133
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "すべてのブックマーク"
 
@@ -505,71 +514,67 @@ msgstr "新しいフォルダーを作成"
 msgid "Save"
 msgstr "保存"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:160
-#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
-#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/BookmarksFoldersView.qml:191
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
+#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "ホームページ"
 
-#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
-#: src/app/webbrowser/NewTabViewWide.qml:149
+#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "ブックマーク"
 
-#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
-#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "完了"
 
-#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksView.qml:127
 #: src/app/webbrowser/BookmarksViewWide.qml:126
-#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
-#: src/app/webbrowser/HistoryViewWide.qml:522
-#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryView.qml:145
+#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "新しいタブ"
 
-#: src/app/webbrowser/Browser.qml:515
-#: src/app/webbrowser/HistoryViewWide.qml:372
+#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
 msgstr "履歴"
 
-#: src/app/webbrowser/Browser.qml:521
-msgid "Open tabs"
-msgstr "タブを表示"
-
-#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "ダウンロード"
 
-#: src/app/webbrowser/Browser.qml:554
+#: src/app/webbrowser/Browser.qml:561
 msgid "Leave Private Mode"
 msgstr "プライベートモードを離れる"
 
-#: src/app/webbrowser/Browser.qml:554
+#: src/app/webbrowser/Browser.qml:561
 msgid "Private Mode"
 msgstr "プライベートモード"
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "設定"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:748
+#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1268
+#: src/app/webbrowser/Browser.qml:1343
 msgid "Swipe Up To Exit Full Screen"
 msgstr "フルスクリーン表示を終了するには上にスワイプしてください"
 
-#: src/app/webbrowser/Browser.qml:1269
+#: src/app/webbrowser/Browser.qml:1344
 msgid "Press ESC To Exit Full Screen"
 msgstr "フルスクリーン表示を終了するにはESCキーを押してください"
 
@@ -586,36 +591,36 @@ msgstr "アプリケーションを選択"
 msgid "Download"
 msgstr "ダウンロード"
 
-#: src/app/webbrowser/DownloadDelegate.qml:150
+#: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "ダウンロードに失敗しました"
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
 msgstr "再開する"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:61
 msgid "Confirm selection"
 msgstr "選択を確認"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
-#: src/app/webbrowser/HistoryView.qml:200
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/HistoryView.qml:217
+#: src/app/webbrowser/HistoryViewWide.qml:441
 msgid "Delete"
 msgstr "削除"
 
-#: src/app/webbrowser/DownloadsPage.qml:226
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "ダウンロードはありません"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:111
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1ページ"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:136
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "Less"
 msgstr "隠す"
 
@@ -624,20 +629,20 @@ msgid "Last Visited"
 msgstr "直近の訪問"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:214
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Yesterday"
 msgstr "昨日"
 
-#: src/app/webbrowser/HistoryViewWide.qml:198
+#: src/app/webbrowser/HistoryViewWide.qml:196
 msgid "All History"
 msgstr "すべての履歴"
 
-#: src/app/webbrowser/HistoryViewWide.qml:212
-#: src/app/webbrowser/HistoryViewWide.qml:286
+#: src/app/webbrowser/HistoryViewWide.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:295
 msgid "Today"
 msgstr "今日"
 
-#: src/app/webbrowser/HistoryViewWide.qml:453
+#: src/app/webbrowser/HistoryViewWide.qml:462
 msgid "search history"
 msgstr "検索履歴"
 
@@ -683,16 +688,16 @@ msgstr ""
 "このタブで見ているページはブラウザ履歴には表示されません。\n"
 "ただし、作成したブックマークについては保存されます。"
 
-#: src/app/webbrowser/NewTabView.qml:119
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:223
-#: src/app/webbrowser/NewTabViewWide.qml:148
+#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "よく訪れるサイト"
 
-#: src/app/webbrowser/NewTabView.qml:254
+#: src/app/webbrowser/NewTabView.qml:366
 msgid "You haven't visited any site yet"
 msgstr "まだどのサイトも訪れていません"
 
@@ -827,15 +832,15 @@ msgstr ""
 msgid "Camera"
 msgstr "カメラ"
 
-#: src/app/webbrowser/TabPreview.qml:80
+#: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "表示するにはタップ"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:100
 msgid "Close Tab"
 msgstr "タブを閉じる"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:124
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
 msgid "Remove"
 msgstr "削除する"
 
@@ -945,6 +950,9 @@ msgstr "Internet;WWW;Browser;Web;Explorer;インターネット;ブラウザー;
 
 #~ msgid "Share…"
 #~ msgstr "共有..."
+
+#~ msgid "Open tabs"
+#~ msgstr "タブを表示"
 
 #~ msgid "see more"
 #~ msgstr "さらに表示"
