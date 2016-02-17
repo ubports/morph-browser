@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -100,7 +100,7 @@ Popover {
                 anchors.right: parent.right
                 text: i18n.tr("OK")
                 color: UbuntuColors.green
-                onClicked: hide()
+                onClicked: bookmarkOptions.destroy()
             }
         }
     }
