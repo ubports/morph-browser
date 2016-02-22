@@ -1437,7 +1437,12 @@ BrowserView {
         readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
         readonly property real freeMemRatio: (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
-        readonly property bool lowOnMemory: freeMemRatio < 0.2
+        // Under that threshold, available memory is considered "low", and the
+        // browser is going to try and free up memory from unused tabs. This
+        // value was chosen empirically, it is subject to change to better
+        // reflect what a system under memory pressure might look like.
+        readonly property real lowOnMemoryThreshold: 0.2
+        readonly property bool lowOnMemory: freeMemRatio < lowOnMemoryThreshold
 
         function getOpenPages() {
             var urls = []
