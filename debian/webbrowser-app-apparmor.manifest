@@ -32,11 +32,11 @@
         "/usr/share/applications/",
         "/custom/vendor/here/location-provider/consent/*.html",
         "@{HOME}/.local/share/applications/",
-        "@{HOME}/Downloads/",
+        "@{HOME}/@{XDG_DOWNLOAD_DIR}/",
         "/sys/devices/**/input*/"
       ],
       "write_path": [
-        "@{HOME}/Downloads/"
+        "@{HOME}/@{XDG_DOWNLOAD_DIR}/"
       ]
     }
   }
