@@ -32,7 +32,6 @@
         "/usr/share/applications/",
         "/custom/vendor/here/location-provider/consent/*.html",
         "@{HOME}/.local/share/applications/",
-        "@{HOME}/@{XDG_DOWNLOAD_DIR}/",
         "/sys/devices/**/input*/"
       ],
       "write_path": [
