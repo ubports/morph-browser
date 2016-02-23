@@ -1395,12 +1395,25 @@ BrowserView {
     Component {
         id: bookmarkOptionsComponent
         BookmarkOptions {
+            id: bookmarkOptions
             folderModel: BookmarksFolderListModel {
                 sourceModel: BookmarksModel
             }
 
             Component.onCompleted: {
                 forceActiveFocus()
+            }
+
+            // Fragile workaround for https://launchpad.net/bugs/1546677.
+            // By destroying the popover, its visibility isn’t changed to
+            // false, and thus the bookmark is not removed.
+            function closeAndConfirm() {
+                destroy()
+            }
+            onVisibleChanged: {
+                if (!visible) {
+                    BookmarksModel.remove(bookmarkUrl)
+                }
             }
 
             Component.onDestruction: {
@@ -1419,15 +1432,7 @@ BrowserView {
                 id: bookmarkOptionsShortcuts
                 KeyboardShortcut {
                     key: Qt.Key_Return
-                    onTriggered: hide()
-                }
-
-                KeyboardShortcut {
-                    key: Qt.Key_Escape
-                    onTriggered: {
-                        BookmarksModel.remove(bookmarkUrl)
-                        hide()
-                    }
+                    onTriggered: closeAndConfirm()
                 }
 
                 KeyboardShortcut {
@@ -1435,7 +1440,7 @@ BrowserView {
                     key: Qt.Key_D
                     onTriggered: {
                         BookmarksModel.remove(bookmarkUrl)
-                        hide()
+                        closeAndConfirm()
                     }
                 }
             }
