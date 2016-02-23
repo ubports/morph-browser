@@ -1,3 +1,20 @@
+webbrowser-app (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Remove the 'formFactor' context property, and replace all its uses
+    by more meaningful conditions. (LP: #1446904, #1542375)
+  * Update translation template.
+  * Work around a bug in the UITK that prevents touch scrolling to the
+    left of the address bar by ensuring that the x coordinate of the
+    text field is an integer. (LP: #1546346)
+  * Work around bug #1546677 (UITK), by destroying the bookmark options
+    popover instead of hiding it. (LP: #1546627, #1546677)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 23 Feb 2016 11:24:49 +0000
+
 webbrowser-app (0.23+16.04.20160215.1-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
