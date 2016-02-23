@@ -55,7 +55,7 @@ BrowserView {
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
-        } else if (!incognito) {
+        } else if (!incognito && tabsModel.currentTab) {
             // If the system is low on memory, the current public tab might
             // have been unloaded while browsing incognito, so reload it.
             tabsModel.currentTab.load()
