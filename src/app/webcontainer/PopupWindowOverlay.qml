@@ -30,7 +30,7 @@ Item {
     property alias currentWebview: popupWebview
     property alias request: popupWebview.request
     property alias url: popupWebview.url
-    property bool wide: false
+    property alias wide: popupWebview.wide
 
     signal webviewUrlChanged(url webviewUrl)
 
@@ -165,8 +165,6 @@ Item {
         context: webContext
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
-
-        wide: popup.wide
 
         anchors {
             bottom: parent.bottom

@@ -45,9 +45,9 @@ Item {
     signal themeColorMetaInformationDetected(string theme_color)
 
     onWideChanged: {
-        if (webappContainerWebViewLoader.item) {
+        if (webappContainerWebViewLoader.item
+                && webappContainerWebViewLoader.item.wide !== undefined) {
             webappContainerWebViewLoader.item.wide = wide
-            popupController.wide = wide
         }
     }
 
@@ -57,7 +57,7 @@ Item {
         webappUrlPatterns: containerWebview.webappUrlPatterns
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
-        wide: wide
+        wide: containerWebview.wide
         onInitializeOverlayViewsWithUrls: {
             if (webappContainerWebViewLoader.item) {
                 for (var i in urls) {
