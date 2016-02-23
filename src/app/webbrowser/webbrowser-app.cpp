@@ -82,6 +82,8 @@ bool WebbrowserApp::initialize()
         searchEnginesSearchPaths << UbuntuBrowserDirectory() + "/webbrowser/searchengines";
         m_engine->rootContext()->setContextProperty("searchEnginesSearchPaths", searchEnginesSearchPaths);
 
+        m_engine->rootContext()->setContextProperty("__platformName", platformName());
+
         m_window->setProperty("newSession", m_arguments.contains("--new-session"));
 
         QVariantList urls;
