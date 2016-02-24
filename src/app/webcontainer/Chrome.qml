@@ -25,6 +25,7 @@ ChromeBase {
 
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
+    property alias chromeTextLabelColor: chromeTextLabel.color
 
     signal chooseAccount()
 
@@ -90,6 +91,8 @@ ChromeBase {
         }
 
         Label {
+            id: chromeTextLabel
+
             anchors {
                 left: faviconContainer.right
                 right: reloadButton.left

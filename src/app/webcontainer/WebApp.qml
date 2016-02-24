@@ -50,6 +50,7 @@ BrowserView {
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible && !accountSwitcher
+    readonly property real themeColorTextDarkenFactor: 3.0
 
     signal chooseAccount()
 
@@ -143,6 +144,8 @@ BrowserView {
             onThemeColorMetaInformationDetected: {
                 if (!webapp.chromeless && chromeLoader.item) {
                     chromeLoader.item.backgroundColor = theme_color
+                    chromeLoader.item.chromeTextLabelColor =
+                            Qt.darker(theme_color, themeColorTextDarkenFactor)
                 }
             }
             onSamlRequestUrlPatternReceived: {
