@@ -40,6 +40,7 @@ ChromeBase {
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
+    property bool touchEnabled: true
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
@@ -72,6 +73,7 @@ ChromeBase {
                 model: tabsModel
                 incognito: chrome.incognito
                 fgColor: navigationBar.fgColor
+                touchEnabled: chrome.touchEnabled
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
@@ -82,7 +84,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: active ? (formFactor == "desktop" ? units.gu(3) : units.gu(4)) : 0
+            height: active ? (touchEnabled ? units.gu(4) : units.gu(3)) : 0
         }
 
         NavigationBar {

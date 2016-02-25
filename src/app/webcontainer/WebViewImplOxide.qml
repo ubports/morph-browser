@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -207,10 +207,6 @@ WebViewImpl {
         samlRequestUrlPatternReceived(urlPattern)
     }
 
-    function shouldOpenPopupsInDefaultBrowser() {
-        return formFactor !== "desktop";
-    }
-
     function isRunningAsANamedWebapp() {
         return webview.webappName && typeof(webview.webappName) === 'string' && webview.webappName.length != 0
     }
@@ -328,13 +324,12 @@ WebViewImpl {
     }
 
     onGeolocationPermissionRequested: {
-        if (formFactor == "desktop") {
-            requestGeolocationPermission(request)
-        } else {
-            // On devices where webapps are confined, trying to access the
-            // location service will trigger a system prompt from the trust
-            // store, so we don’t need a custom prompt.
+        if (__runningConfined && (request.origin == request.embedder)) {
+            // When running confined, querying the location service will trigger
+            // a system prompt (trust store), so no need for a custom one.
             request.accept()
+        } else {
+            requestGeolocationPermission(request)
         }
     }
 

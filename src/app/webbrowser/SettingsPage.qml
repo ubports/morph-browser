@@ -116,26 +116,6 @@ Item {
             }
 
             ListItem {
-                objectName: "backgroundTabs"
-
-                ListItemLayout {
-                    title.text: i18n.tr("Allow opening new tabs in background")
-                    CheckBox {
-                        id: allowOpenInBackgroundTabCheckbox
-                        SlotsLayout.position: SlotsLayout.Trailing
-                        onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
-                    }
-                }
-
-                Binding {
-                    target: allowOpenInBackgroundTabCheckbox
-                    property: "checked"
-                    value: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                           (settingsObject.allowOpenInBackgroundTab === 'default' && formFactor === "desktop")
-                }
-            }
-
-            ListItem {
                 objectName: "privacy"
 
                 ListItemLayout {

@@ -34,6 +34,8 @@ Item {
 
     property color fgColor: Theme.palette.normal.baseText
 
+    property bool touchEnabled: true
+
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index)
@@ -111,7 +113,6 @@ Item {
         anchors {
             top: parent.top
             bottom: parent.bottom
-            bottomMargin: tabsContainer.verticalGap
             left: parent.left
         }
         width: tabWidth * root.model.count
@@ -152,6 +153,8 @@ Item {
                     title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
                     icon: model.icon
                     fgColor: root.fgColor
+
+                    touchEnabled: root.touchEnabled
 
                     rightMargin: tabDelegate.rightMargin
 

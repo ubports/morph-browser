@@ -109,8 +109,10 @@ FocusScope {
             findController: internal.webview ? internal.webview.findController : null
 
             anchors {
-                left: forwardButton.right
-                leftMargin: units.gu(1)
+                left: parent.left
+                // Work around https://launchpad.net/bugs/1546346 by ensuring
+                // that the x coordinate of the text field is an integer.
+                leftMargin: Math.round(backButton.width + forwardButton.width + units.gu(1))
                 right: rightButtonsBar.left
                 rightMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter

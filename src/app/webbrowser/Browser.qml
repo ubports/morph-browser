@@ -47,10 +47,6 @@ BrowserView {
 
     readonly property var tabsModel: incognito ? privateTabsModelLoader.item : publicTabsModel
 
-    // XXX: we might want to tweak this value depending
-    // on the form factor and/or the available memory
-    readonly property int maxLiveWebviews: 2
-
     // Restore only the n most recent tabs at startup,
     // to limit the overhead of instantiating too many
     // tab objects (see http://pad.lv/1376433).
@@ -59,6 +55,10 @@ BrowserView {
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
+        } else if (!incognito && tabsModel.currentTab) {
+            // If the system is low on memory, the current public tab might
+            // have been unloaded while browsing incognito, so reload it.
+            tabsModel.currentTab.load()
         }
     }
 
@@ -106,6 +106,11 @@ BrowserView {
         deviceFilter: InputInfo.TouchPad
     }
 
+    InputDeviceModel {
+        id: touchScreenModel
+        deviceFilter: InputInfo.TouchScreen
+    }
+
     Component {
         id: mediaAccessDialogComponent
         MediaAccessDialog { }
@@ -151,7 +156,6 @@ BrowserView {
 
         property url homepage: settingsDefaults.homepage
         property string searchEngine: settingsDefaults.searchEngine
-        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
         property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
         property string defaultAudioDevice
@@ -160,7 +164,6 @@ BrowserView {
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
-            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
             newTabDefaultSection = settingsDefaults.newTabDefaultSection
             defaultAudioDevice = settingsDefaults.defaultAudioDevice
@@ -173,7 +176,6 @@ BrowserView {
 
         readonly property url homepage: "http://start.ubuntu.com"
         readonly property string searchEngine: "google"
-        readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
         readonly property int newTabDefaultSection: 0
         readonly property string defaultAudioDevice: ""
@@ -461,8 +463,9 @@ BrowserView {
         webview: browser.currentWebview
         forceHide: browser.fullscreen
         forceShow: recentView.visible
-        defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
-                                               : Oxide.LocationBarController.ModeAuto
+        defaultMode: (internal.hasMouse && !internal.hasTouchScreen)
+                         ? Oxide.LocationBarController.ModeShown
+                         : Oxide.LocationBarController.ModeAuto
     }
 
     Chrome {
@@ -479,6 +482,8 @@ BrowserView {
         showFaviconInAddressBar: !browser.wide
 
         availableHeight: tabContainer.height - height - y
+
+        touchEnabled: internal.hasTouchScreen
 
         property bool hidden: false
         y: hidden ? -height : webview ? webview.locationBarController.offset : 0
@@ -1080,10 +1085,7 @@ BrowserView {
                     }
                     Actions.OpenLinkInNewBackgroundTab {
                         objectName: "OpenLinkInNewBackgroundTabContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString() &&
-                                 ((settings.allowOpenInBackgroundTab === "true") ||
-                                  ((settings.allowOpenInBackgroundTab === "default") &&
-                                   (formFactor === "desktop")))
+                        enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
@@ -1112,7 +1114,7 @@ BrowserView {
                     }
                     Actions.Share {
                         objectName: "ShareContextualAction"
-                        enabled: (formFactor == "mobile") && contextModel &&
+                        enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
                                  (contextModel.linkUrl.toString() || contextModel.selectionText)
                         onTriggered: {
                             if (contextModel.linkUrl.toString()) {
@@ -1339,9 +1341,9 @@ BrowserView {
                             color: "white"
                             font.weight: Font.Light
                             anchors.centerIn: parent
-                            text: (formFactor == "mobile") ?
-                                      i18n.tr("Swipe Up To Exit Full Screen") :
-                                      i18n.tr("Press ESC To Exit Full Screen")
+                            text: bottomEdgeHandle.enabled
+                                      ? i18n.tr("Swipe Up To Exit Full Screen")
+                                      : i18n.tr("Press ESC To Exit Full Screen")
                         }
 
                         Timer {
@@ -1393,12 +1395,25 @@ BrowserView {
     Component {
         id: bookmarkOptionsComponent
         BookmarkOptions {
+            id: bookmarkOptions
             folderModel: BookmarksFolderListModel {
                 sourceModel: BookmarksModel
             }
 
             Component.onCompleted: {
                 forceActiveFocus()
+            }
+
+            // Fragile workaround for https://launchpad.net/bugs/1546677.
+            // By destroying the popover, its visibility isn’t changed to
+            // false, and thus the bookmark is not removed.
+            function closeAndConfirm() {
+                destroy()
+            }
+            onVisibleChanged: {
+                if (!visible) {
+                    BookmarksModel.remove(bookmarkUrl)
+                }
             }
 
             Component.onDestruction: {
@@ -1417,15 +1432,7 @@ BrowserView {
                 id: bookmarkOptionsShortcuts
                 KeyboardShortcut {
                     key: Qt.Key_Return
-                    onTriggered: hide()
-                }
-
-                KeyboardShortcut {
-                    key: Qt.Key_Escape
-                    onTriggered: {
-                        BookmarksModel.remove(bookmarkUrl)
-                        hide()
-                    }
+                    onTriggered: closeAndConfirm()
                 }
 
                 KeyboardShortcut {
@@ -1433,7 +1440,7 @@ BrowserView {
                     key: Qt.Key_D
                     onTriggered: {
                         BookmarksModel.remove(bookmarkUrl)
-                        hide()
+                        closeAndConfirm()
                     }
                 }
             }
@@ -1453,6 +1460,15 @@ BrowserView {
         }
 
         readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
+        readonly property bool hasTouchScreen: touchScreenModel.count > 0
+
+        readonly property real freeMemRatio: (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
+        // Under that threshold, available memory is considered "low", and the
+        // browser is going to try and free up memory from unused tabs. This
+        // value was chosen empirically, it is subject to change to better
+        // reflect what a system under memory pressure might look like.
+        readonly property real lowOnMemoryThreshold: 0.3
+        readonly property bool lowOnMemory: freeMemRatio < lowOnMemoryThreshold
 
         function getOpenPages() {
             var urls = []
@@ -1765,11 +1781,12 @@ BrowserView {
                     session.save()
                 }
                 if (browser.currentWebview) {
-                    // Workaround for a desktop bug where changing volume causes the app to
-                    // briefly lose focus to notify-osd, and therefore exit fullscreen mode.
-                    // We prevent this by exiting fullscreen only if the focus remains lost
-                    // for longer than a certain threshold. See: http://pad.lv/1477308
-                    if (formFactor == "desktop") exitFullscreenOnLostFocus.start()
+                    // Workaround for a desktop bug where changing volume causes
+                    // the app to briefly lose focus to notify-osd, and therefore
+                    // exit fullscreen mode. We prevent this by exiting fullscreen
+                    // only if the focus remains lost for longer than a certain
+                    // threshold. See: https://launchpad.net/bugs/694224.
+                    if (__platformName == "xcb") exitFullscreenOnLostFocus.start()
                     else browser.currentWebview.fullscreen = false
                 }
             } else exitFullscreenOnLostFocus.stop()
@@ -1838,15 +1855,41 @@ BrowserView {
     }
 
     Connections {
-        // On mobile, ensure that at most n webviews are instantiated at all
-        // times, to reduce memory consumption (see http://pad.lv/1376418).
-        // Note: this works only in narrow mode, where the list of tabs is a
-        // stack. Switching from wide mode to narrow mode will result in
-        // undefined behaviour (tabs previously loaded won’t be unloaded).
-        target: ((formFactor == "mobile") && !browser.wide) ? tabsModel : null
-        onCurrentTabChanged: {
-            if (tabsModel.count > browser.maxLiveWebviews) {
-                tabsModel.get(browser.maxLiveWebviews).unload()
+        target: internal
+        onFreeMemRatioChanged: {
+            if (internal.lowOnMemory) {
+                // Unload an inactive tab to (hopefully) free up some memory
+                function getCandidate(model) {
+                    // Naive implementation that only takes into account the
+                    // last time a tab was current. In the future we might
+                    // want to take into account other parameters such as
+                    // whether the tab is currently playing audio/video.
+                    var candidate = null
+                    for (var i = 0; i < model.count; ++i) {
+                        var tab = model.get(i)
+                        if (tab.current || !tab.webview) {
+                            continue
+                        }
+                        if (!candidate || (candidate.lastCurrent > tab.lastCurrent)) {
+                            candidate = tab
+                        }
+                    }
+                    return candidate
+                }
+                var candidate = getCandidate(publicTabsModel)
+                if (candidate) {
+                    console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))
+                    candidate.unload()
+                    return
+                } else if (browser.incognito) {
+                    candidate = getCandidate(privateTabsModelLoader.item)
+                    if (candidate) {
+                        console.warn("Unloading a background incognito tab to free up some memory")
+                        candidate.unload()
+                        return
+                    }
+                }
+                console.warn("System low on memory, but unable to pick a tab to unload")
             }
         }
     }
