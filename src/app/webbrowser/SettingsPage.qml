@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,7 +20,6 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
@@ -68,7 +67,7 @@ Item {
 
             width: parent.width
 
-            ListItems.Subtitled {
+            ListItem {
                 objectName: "searchengine"
 
                 SearchEngine {
@@ -77,32 +76,36 @@ Item {
                     filename: settingsObject.searchEngine
                 }
 
-                text: i18n.tr("Search engine")
-                subText: currentSearchEngine.name
+                ListItemLayout {
+                    title.text: i18n.tr("Search engine")
+                    subtitle.text: currentSearchEngine.name
+                }
 
                 visible: searchEngines.engines.count > 1
-
                 onClicked: searchEngineComponent.createObject(subpageContainer)
             }
 
-            ListItems.Subtitled {
+            ListItem {
                 objectName: "homepage"
 
-                text: i18n.tr("Homepage")
-                subText: settingsObject.homepage
+                ListItemLayout {
+                    title.text: i18n.tr("Homepage")
+                    subtitle.text: settingsObject.homepage
+                }
 
                 onClicked: PopupUtils.open(homepageDialog)
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "restoreSession"
 
-                text: i18n.tr("Restore previous session at startup")
-                highlightWhenPressed: false
-
-                control: CheckBox {
-                    id: restoreSessionCheckbox
-                    onTriggered: settingsObject.restoreSession = checked
+                ListItemLayout {
+                    title.text: i18n.tr("Restore previous session at startup")
+                    CheckBox {
+                        id: restoreSessionCheckbox
+                        SlotsLayout.position: SlotsLayout.Trailing
+                        onTriggered: settingsObject.restoreSession = checked
+                    }
                 }
 
                 Binding {
@@ -112,15 +115,16 @@ Item {
                 }
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "backgroundTabs"
 
-                text: i18n.tr("Allow opening new tabs in background")
-                highlightWhenPressed: false
-
-                control: CheckBox {
-                    id: allowOpenInBackgroundTabCheckbox
-                    onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
+                ListItemLayout {
+                    title.text: i18n.tr("Allow opening new tabs in background")
+                    CheckBox {
+                        id: allowOpenInBackgroundTabCheckbox
+                        SlotsLayout.position: SlotsLayout.Trailing
+                        onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
+                    }
                 }
 
                 Binding {
@@ -131,18 +135,22 @@ Item {
                 }
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "privacy"
 
-                text: i18n.tr("Privacy & permissions")
+                ListItemLayout {
+                    title.text: i18n.tr("Privacy & permissions")
+                }
 
                 onClicked: privacyComponent.createObject(subpageContainer)
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "reset"
 
-                text: i18n.tr("Reset browser settings")
+                ListItemLayout {
+                    title.text: i18n.tr("Reset browser settings")
+                }
 
                 onClicked: settingsObject.restoreDefaults()
             }
@@ -186,20 +194,23 @@ Item {
 
                     model: searchEngines.engines
 
-                    delegate: ListItems.Standard {
+                    delegate: ListItem {
                         objectName: "searchEngineDelegate_" + index
                         SearchEngine {
                             id: searchEngineDelegate
                             searchPaths: searchEngines.searchPaths
                             filename: model.filename
                         }
-                        text: searchEngineDelegate.name
 
-                        control: CheckBox {
-                            checked: settingsObject.searchEngine == searchEngineDelegate.filename
-                            onClicked: {
-                                settingsObject.searchEngine = searchEngineDelegate.filename
-                                searchEngineItem.destroy()
+                        ListItemLayout {
+                            title.text: searchEngineDelegate.name
+                            CheckBox {
+                                SlotsLayout.position: SlotsLayout.Trailing
+                                checked: settingsObject.searchEngine == searchEngineDelegate.filename
+                                onClicked: {
+                                    settingsObject.searchEngine = searchEngineDelegate.filename
+                                    searchEngineItem.destroy()
+                                }
                             }
                         }
                     }
@@ -243,15 +254,19 @@ Item {
                         id: privacyCol
                         width: parent.width
 
-                        ListItems.Standard {
+                        ListItem {
                             objectName: "privacy.mediaAccess"
-                            text: i18n.tr("Camera & microphone")
+                            ListItemLayout {
+                                title.text: i18n.tr("Camera & microphone")
+                            }
                             onClicked: mediaAccessComponent.createObject(subpageContainer)
                         }
 
-                        ListItems.Standard {
+                        ListItem {
                             objectName: "privacy.clearHistory"
-                            text: i18n.tr("Clear Browsing History")
+                            ListItemLayout {
+                                title.text: i18n.tr("Clear Browsing History")
+                            }
                             enabled: HistoryModel.count > 0
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
@@ -259,9 +274,11 @@ Item {
                             }
                         }
 
-                        ListItems.Standard {
+                        ListItem {
                             objectName: "privacy.clearCache"
-                            text: i18n.tr("Clear Cache")
+                            ListItemLayout {
+                                title.text: i18n.tr("Clear Cache")
+                            }
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")})
                                 dialog.confirmed.connect(function() {
@@ -402,8 +419,10 @@ Item {
                     id: mediaAccessCol
                     width: parent.width
 
-                    ListItems.Standard {
-                        text: i18n.tr("Microphone")
+                    ListItem {
+                        ListItemLayout {
+                            title.text: i18n.tr("Microphone")
+                        }
                     }
 
                     SettingsDeviceSelector {
@@ -421,8 +440,10 @@ Item {
                         }
                     }
 
-                    ListItems.Standard {
-                        text: i18n.tr("Camera")
+                    ListItem {
+                        ListItemLayout {
+                            title.text: i18n.tr("Camera")
+                        }
                     }
 
                     SettingsDeviceSelector {
