@@ -254,6 +254,7 @@ FocusScope {
             clip: actionsListView.y != 0
 
             InverseMouseArea {
+                topmostItem: true
                 enabled: drawer.opened
                 onPressed: drawer.opened = false
             }
