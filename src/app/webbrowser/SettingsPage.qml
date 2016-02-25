@@ -68,7 +68,9 @@ Item {
             width: parent.width
 
             ListItem {
+                id: searchEngineListItem
                 objectName: "searchengine"
+                readonly property string currentSearchEngineDisplayName: currentSearchEngine.name
 
                 SearchEngine {
                     id: currentSearchEngine
@@ -78,7 +80,7 @@ Item {
 
                 ListItemLayout {
                     title.text: i18n.tr("Search engine")
-                    subtitle.text: currentSearchEngine.name
+                    subtitle.text: searchEngineListItem.currentSearchEngineDisplayName
                 }
 
                 visible: searchEngines.engines.count > 1
@@ -86,11 +88,13 @@ Item {
             }
 
             ListItem {
+                id: homepageListItem
                 objectName: "homepage"
+                readonly property url currentHomepage: settingsObject.homepage
 
                 ListItemLayout {
                     title.text: i18n.tr("Homepage")
-                    subtitle.text: settingsObject.homepage
+                    subtitle.text: homepageListItem.currentHomepage
                 }
 
                 onClicked: PopupUtils.open(homepageDialog)
@@ -175,20 +179,22 @@ Item {
                     model: searchEngines.engines
 
                     delegate: ListItem {
-                        objectName: "searchEngineDelegate_" + index
+                        id: searchEngineDelegate
+                        objectName: "searchEngineDelegate"
+                        readonly property string displayName: delegateSearchEngine.name
                         SearchEngine {
-                            id: searchEngineDelegate
+                            id: delegateSearchEngine
                             searchPaths: searchEngines.searchPaths
                             filename: model.filename
                         }
 
                         ListItemLayout {
-                            title.text: searchEngineDelegate.name
+                            title.text: searchEngineDelegate.displayName
                             CheckBox {
                                 SlotsLayout.position: SlotsLayout.Trailing
-                                checked: settingsObject.searchEngine == searchEngineDelegate.filename
+                                checked: settingsObject.searchEngine == delegateSearchEngine.filename
                                 onClicked: {
-                                    settingsObject.searchEngine = searchEngineDelegate.filename
+                                    settingsObject.searchEngine = delegateSearchEngine.filename
                                     searchEngineItem.destroy()
                                 }
                             }
