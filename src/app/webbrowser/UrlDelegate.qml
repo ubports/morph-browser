@@ -50,19 +50,13 @@ ListItem {
             sourceComponent: undefined
         }
 
-        UbuntuShape {
-            id: iconContainer
-            width: units.gu(3)
-            height: width
-
-            Favicon {
-                id: icon
-                anchors.centerIn: parent
-            }
+        Favicon {
+            id: icon
+            anchors.verticalCenter: parent.verticalCenter
         }
 
         Column {
-            width: parent.width - headerComponentLoader.width - iconContainer.width - parent.spacing - (headerComponentLoader.sourceComponent ? parent.spacing : 0)
+            width: parent.width - headerComponentLoader.width - icon.width - parent.spacing - (headerComponentLoader.sourceComponent ? parent.spacing : 0)
             anchors {
                 top: parent.top
                 bottom: parent.bottom
