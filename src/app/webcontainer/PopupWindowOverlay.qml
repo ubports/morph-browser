@@ -30,7 +30,8 @@ Item {
     property alias currentWebview: popupWebview
     property alias request: popupWebview.request
     property alias url: popupWebview.url
-    
+    property alias wide: popupWebview.wide
+
     signal webviewUrlChanged(url webviewUrl)
 
     Rectangle {
@@ -156,7 +157,7 @@ Item {
         }
     }
 
-    WebViewImpl {
+    WebappWebview {
         id: popupWebview
 
         objectName: "overlayWebview"

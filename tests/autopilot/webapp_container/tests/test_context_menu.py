@@ -16,6 +16,8 @@
 
 import time
 
+import testtools
+
 from autopilot.platform import model
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, StartsWith
@@ -126,6 +128,11 @@ class TestContextMenuLink(TestContextMenuBase):
     def test_copy_link(self):
         self.menu.click_action("CopyLinkContextualAction")
 
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def test_share_link(self):
+        self.menu.click_action("ShareContextualAction")
+        self.app.wait_select_single("ContentShareDialog")
+
 
 class TestContextMenuImage(TestContextMenuBase):
 
@@ -157,6 +164,11 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
 
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
+
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def test_share_link(self):
+        self.menu.click_action("ShareContextualAction")
+        self.app.wait_select_single("ContentShareDialog")
 
     def test_copy_link(self):
         # There is no easy way to test the contents of the clipboard,
