@@ -1265,24 +1265,15 @@ BrowserView {
 
                 QtObject {
                     id: webviewInternal
-
                     property url storedUrl: ""
-                    property string storedTitle: ""
-                    property url storedIcon: ""
-
-                    readonly property string title: storedTitle ? storedTitle : webviewimpl.title
-                    readonly property url icon: storedIcon.toString() ? storedIcon : webviewimpl.icon
-                }
-                onUrlChanged: {
-                    if (url.toString() != webviewInternal.storedUrl.toString()) {
-                        webviewInternal.storedUrl = ""
-                        webviewInternal.storedTitle = ""
-                        webviewInternal.storedIcon = ""
-                    }
+                    property bool titleSet: false
+                    property string title: ""
                 }
                 onLoadEvent: {
                     if (event.type == Oxide.LoadEvent.TypeCommitted) {
                         chrome.findInPageMode = false
+                        webviewInternal.titleSet = false
+                        webviewInternal.title = title
                     }
 
                     if (webviewimpl.incognito) {
@@ -1291,35 +1282,25 @@ BrowserView {
 
                     if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
                         !event.isError &&
-                        !webviewInternal.storedUrl.toString() &&
                         (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
                         webviewInternal.storedUrl = event.url
-                        HistoryModel.add(event.url, webviewInternal.title, webviewInternal.icon)
+                        HistoryModel.add(event.url, title, icon)
                     }
                 }
                 onTitleChanged: {
-                    if (!webviewInternal.storedUrl.toString()) {
-                        return
-                    }
-                    if (!webviewInternal.storedTitle) {
+                    if (webviewInternal.storedUrl.toString() && !webviewInternal.titleSet) {
                         // Record the title to avoid updating the history database
                         // every time the page dynamically updates its title.
                         // We don’t want pages that update their title every second
                         // to achieve an ugly "scrolling title" effect to flood the
                         // history database with updates.
-                        webviewInternal.storedTitle = title
-                        HistoryModel.update(webviewInternal.storedUrl, title, webviewInternal.icon)
+                        webviewInternal.titleSet = true
+                        webviewInternal.title = title
+                        HistoryModel.update(webviewInternal.storedUrl, title, icon)
                     }
                 }
                 onIconChanged: {
-                    if (!webviewInternal.storedUrl.toString()) {
-                        return
-                    }
-                    if (!webviewInternal.storedIcon.toString()) {
-                        // Record the icon to avoid updating the history database
-                        // every time the page dynamically updates its icon
-                        // (see e.g. http://www.p01.org/defender_of_the_favicon/).
-                        webviewInternal.storedIcon = icon
+                    if (webviewInternal.storedUrl.toString()) {
                         HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, icon)
                     }
                 }
