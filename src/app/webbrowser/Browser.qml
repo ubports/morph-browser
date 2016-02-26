@@ -2146,7 +2146,7 @@ BrowserView {
 
     Loader {
         id: contentHandlerLoader
-        source: "ContentHandler.qml"
+        source: "../ContentHandler.qml"
         asynchronous: true
     }
 

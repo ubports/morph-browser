@@ -50,7 +50,7 @@ WebViewImpl {
         }
         Actions.Share {
             objectName: "ShareContextualAction"
-            enabled: (formFactor == "mobile") && contextModel &&
+            enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
                      (contextModel.linkUrl.toString() || contextModel.selectionText)
             onTriggered: {
                 if (contextModel.linkUrl.toString()) {
@@ -168,10 +168,16 @@ WebViewImpl {
         if (__runningConfined && (request.origin == request.embedder)) {
             // When running confined, querying the location service will trigger
             // a system prompt (trust store), so no need for a custom one.
-            request.accept()
+            request.allow()
         } else {
             requestGeolocationPermission(request)
         }
+    }
+
+    Loader {
+        id: contentHandlerLoader
+        source: "../ContentHandler.qml"
+        asynchronous: true
     }
 
     QtObject {
