@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -298,6 +298,43 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
         updateExistingEntryInDatabase(m_entries.first());
     }
     return count;
+}
+
+/*!
+    Update an existing entry in the model.
+
+    If no entry with the same URL exists yet, do nothing (and return false).
+    Otherwise the title and icon of the existing entry are updated (the number
+    of visits remains unchanged).
+
+    Return true if an update actually happened, false otherwise.
+*/
+bool HistoryModel::update(const QUrl& url, const QString& title, const QUrl& icon)
+{
+    if (url.isEmpty()) {
+        return false;
+    }
+    int index = getEntryIndex(url);
+    if (index == -1) {
+        return false;
+    }
+    QVector<int> roles;
+    const HistoryEntry& entry = m_entries.at(index);
+    if (title != entry.title) {
+        m_entries[index].title = title;
+        roles << Title;
+    }
+    if (icon != entry.icon) {
+        m_entries[index].icon = icon;
+        roles << Icon;
+    }
+    if (roles.isEmpty()) {
+        return false;
+    } else {
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), roles);
+        updateExistingEntryInDatabase(entry);
+        return true;
+    }
 }
 
 /*!

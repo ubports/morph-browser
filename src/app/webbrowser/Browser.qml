@@ -1308,7 +1308,7 @@ BrowserView {
                         // to achieve an ugly "scrolling title" effect to flood the
                         // history database with updates.
                         webviewInternal.storedTitle = title
-                        HistoryModel.add(webviewInternal.storedUrl, title, webviewInternal.icon)
+                        HistoryModel.update(webviewInternal.storedUrl, title, webviewInternal.icon)
                     }
                 }
                 onIconChanged: {
@@ -1320,7 +1320,7 @@ BrowserView {
                         // every time the page dynamically updates its icon
                         // (see e.g. http://www.p01.org/defender_of_the_favicon/).
                         webviewInternal.storedIcon = icon
-                        HistoryModel.add(webviewInternal.storedUrl, webviewInternal.title, icon)
+                        HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, icon)
                     }
                 }
 

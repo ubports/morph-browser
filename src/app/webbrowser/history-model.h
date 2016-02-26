@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -62,6 +62,7 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
+    Q_INVOKABLE bool update(const QUrl& url, const QString& title, const QUrl& icon);
     Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
     Q_INVOKABLE void removeEntriesByDate(const QDate& date);
     Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
