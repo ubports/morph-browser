@@ -64,7 +64,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         searchengine_page = settings.get_searchengine_page()
         self.assertThat(lambda: len(searchengine_page.select_many(
             objectName="searchEngineDelegate")),
-                        Eventually(GreaterThan(1)))
+            Eventually(GreaterThan(1)))
         delegates = searchengine_page.select_many(
             objectName="searchEngineDelegate")
         delegates.sort(key=lambda delegate: delegate.objectName)
