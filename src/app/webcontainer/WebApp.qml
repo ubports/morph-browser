@@ -260,6 +260,7 @@ BrowserView {
         id: unityWebapps
         name: webappName
         bindee: containerWebView.currentWebview
+        embeddedUiComponentParent: webapp
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication
