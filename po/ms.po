@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2013-12-14 06:00+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -810,10 +810,6 @@ msgstr "Enjin gelintar"
 msgid "Restore previous session at startup"
 msgstr "Pulih sesi terdahulu ketika permulaan"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Benarkan pembukaan tab baharu di sebalik tabir"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -1001,3 +997,6 @@ msgstr "Internet;WWW;Pelayar;Sesawang;Explorer"
 
 #~ msgid "Privacy"
 #~ msgstr "Kerahsiaan"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Benarkan pembukaan tab baharu di sebalik tabir"

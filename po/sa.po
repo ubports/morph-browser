@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2014-07-16 12:19+0000\n"
 "Last-Translator: उज्ज्वल राजपूत <ujjwal@ug.iisc.in>\n"
 "Language-Team: Sanskrit <sa@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -765,10 +765,6 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:137

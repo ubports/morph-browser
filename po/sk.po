@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-10-14 00:45+0000\n"
 "Last-Translator: Ján Dráb <jan@drab.name>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -812,10 +812,6 @@ msgstr "Vyhľadávač"
 msgid "Restore previous session at startup"
 msgstr "Pri štarte obnoviť predchádzajúce sedenie"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Povoliť otváranie kariet na pozadí"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -978,3 +974,6 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "Privacy"
 #~ msgstr "Súkromie"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Povoliť otváranie kariet na pozadí"

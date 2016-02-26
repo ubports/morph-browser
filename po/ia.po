@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-05-04 16:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Interlingua <ia@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -810,10 +810,6 @@ msgstr "Motor de recerca"
 msgid "Restore previous session at startup"
 msgstr "Restaurar le session previe al initio"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Permitter aperir nove tabellas in fundo"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -992,3 +988,6 @@ msgstr "Internet;WWW;Navigator;Web;Explorer"
 
 #~ msgid "Privacy"
 #~ msgstr "Privacy"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Permitter aperir nove tabellas in fundo"

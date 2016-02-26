@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-10-21 13:32+0000\n"
 "Last-Translator: Eltikin <eltikinuyghur@hotmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -806,10 +806,6 @@ msgstr "ئىزدەش ماتورى"
 msgid "Restore previous session at startup"
 msgstr "قوزغالغاندا ئالدىنقى قېتىملىق ئەڭگىمە ئەسلىگە كەلتۈرۈلسۇن"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "ئارقىدا يېڭى بەتكۈچ ئېچىشقا ئىجازەت"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -991,3 +987,6 @@ msgstr "ئىنتېرنېت;WWW;توركۆرگۈ;تور;كۆرگۈ"
 
 #~ msgid "Privacy"
 #~ msgstr "شەخسىيەت"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "ئارقىدا يېڭى بەتكۈچ ئېچىشقا ئىجازەت"

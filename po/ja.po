@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2014-09-18 06:34+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -786,10 +786,6 @@ msgstr "検索エンジン"
 msgid "Restore previous session at startup"
 msgstr "起動時に前回のセッションを復元する"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "新しいタブをバックグラウンドで開くのを許可する"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -971,3 +967,6 @@ msgstr "Internet;WWW;Browser;Web;Explorer;インターネット;ブラウザー;
 
 #~ msgid "Privacy"
 #~ msgstr "プライバシー"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "新しいタブをバックグラウンドで開くのを許可する"

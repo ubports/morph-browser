@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-10-06 17:50+0000\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@canonical.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -437,7 +437,7 @@ msgstr "Avaa linkki uuteen välilehteen"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Avaa video uudessa välilehdessä"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -468,7 +468,7 @@ msgstr "Tallenna linkki"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Tallenna video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -809,10 +809,6 @@ msgstr "Hakukone"
 msgid "Restore previous session at startup"
 msgstr "Palauta edellinen istunto käynnistyksen yhteydessä"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Salli uusien välilehtien avaaminen taustalle"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -997,3 +993,6 @@ msgstr "Internet;WWW;Browser;Web;Explorer;netti;selain;verkko"
 
 #~ msgid "Privacy"
 #~ msgstr "Yksityisyys"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Salli uusien välilehtien avaaminen taustalle"

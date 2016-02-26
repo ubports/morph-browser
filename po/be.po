@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-10-25 21:53+0000\n"
 "Last-Translator: XiveZ <kyrsant2008@list.ru>\n"
 "Language-Team: Belarusian <be@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -816,10 +816,6 @@ msgstr "Рухавік пошуку"
 msgid "Restore previous session at startup"
 msgstr "Аднаўляць папярэдні сеанс пры запуску"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Дазволіць адкрыццё новых укладак ў фоне"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -999,6 +995,9 @@ msgstr "Інтэрнэт;WWW;Браўзер;Веб;Праваднік"
 
 #~ msgid "Privacy"
 #~ msgstr "Прыватнасць"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Дазволіць адкрыццё новых укладак ў фоне"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."

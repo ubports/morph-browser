@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-09-03 13:32+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 "Language: gd\n"
 
@@ -444,7 +444,7 @@ msgstr "Fosgail an ceangal ann an taba ùr"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Fosgail a' video ann an taba ùr"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -475,7 +475,7 @@ msgstr "Sàbhail an ceangal"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Sàbhail a' video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -830,10 +830,6 @@ msgstr "Inneal-luirg"
 msgid "Restore previous session at startup"
 msgstr "Aisig an seisean mu dheireadh leis an tòiseachadh"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Ceadaich fosgladh thabaichean ùra sa chùlaibh"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -1024,3 +1020,6 @@ msgstr ""
 
 #~ msgid "Privacy"
 #~ msgstr "Prìobhaideachd"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Ceadaich fosgladh thabaichean ùra sa chùlaibh"

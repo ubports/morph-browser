@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-10-26 09:16+0000\n"
 "Last-Translator: Víctor R. Ruiz <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -439,7 +439,7 @@ msgstr "Abrir enlace en pestaña nueva"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Abrir vídeo en pestaña nueva"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -470,7 +470,7 @@ msgstr "Guardar el enlace"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Guardar vídeo"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -814,10 +814,6 @@ msgstr "Motor de búsquedas"
 msgid "Restore previous session at startup"
 msgstr "Restaurar sesión anterior al iniciar"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Permitir abrir pestañas en segundo plano"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -1003,3 +999,6 @@ msgstr "Internet;WWW;Navegador;Web;Explorador"
 
 #~ msgid "Privacy"
 #~ msgstr "Privacidad"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Permitir abrir pestañas en segundo plano"

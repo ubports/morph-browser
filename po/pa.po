@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-06-17 14:25+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -808,10 +808,6 @@ msgstr "ਖੋਜ ਇੰਜਨ"
 msgid "Restore previous session at startup"
 msgstr "ਸ਼ੁਰੂ ਹੋਣ ਤੇ ਪਿਛਲਾ ਸ਼ੈਸਨ ਮੁੜ ਚਲਾਓ"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "ਬੈਕਗਰਾਂਊਡ ਵਿੱਚ ਨਵੀਆਂ ਟੈਬਾਂ ਖੋਲ੍ਹਣ ਦੀ ਪ੍ਰਵਾਨਗੀ ਦਿਓ"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -993,3 +989,6 @@ msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈ�
 
 #~ msgid "Privacy"
 #~ msgstr "ਪਰਦੇਦਾਰੀ"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "ਬੈਕਗਰਾਂਊਡ ਵਿੱਚ ਨਵੀਆਂ ਟੈਬਾਂ ਖੋਲ੍ਹਣ ਦੀ ਪ੍ਰਵਾਨਗੀ ਦਿਓ"

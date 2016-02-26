@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2014-09-20 11:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -431,7 +431,7 @@ msgstr "Dobrir l'imatge dins un onglet novèl"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Dobrir lo ligam dins un novèl onglet en rèire plan"
+msgstr "Dobrir lo ligam dins un novèl onglet en rèireplan"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -809,10 +809,6 @@ msgstr "Motor de recèrca"
 msgid "Restore previous session at startup"
 msgstr "Restablir la sesilha precedenta a l'aviada"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "Autorizar la dobertura d'onglets novèls en rèire plan"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -938,7 +934,7 @@ msgstr "Causissètz un compte"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr "Ops, una error s'es produsida."
+msgstr "Ops, una error s'es producha."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -994,3 +990,6 @@ msgstr "Internet;WWW;Navigador;Web;Explorador"
 
 #~ msgid "Privacy"
 #~ msgstr "Vida privada"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Autorizar la dobertura d'onglets novèls en rèireplan"

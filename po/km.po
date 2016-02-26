@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-17 05:39+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -815,10 +815,6 @@ msgstr "ម៉ាស៊ីន​ស្វែងរក"
 msgid "Restore previous session at startup"
 msgstr "ស្ដារ​សម័យ​មុន​ដែល​នៅ​ពេល​ចាប់​ផ្ដើម"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "អនុញ្ញាត​ឱ្យ​មាន​ការ​បើក​ផ្ទាំង​ថ្មី​ក្នុង​​ខាង​ក្រោយ"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -1006,3 +1002,6 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "Privacy"
 #~ msgstr "ភាពឯកជន"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "អនុញ្ញាត​ឱ្យ​មាន​ការ​បើក​ផ្ទាំង​ថ្មី​ក្នុង​​ខាង​ក្រោយ"

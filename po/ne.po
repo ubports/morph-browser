@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-16 22:15+0100\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2016-02-23 06:50+0000\n"
 "Last-Translator: Sanjog Sigdel <sigdelsanjog@gmail.com>\n"
 "Language-Team: Nepali <ne@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-24 05:47+0000\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -52,13 +52,14 @@ msgstr "पासवर्ड"
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:113
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:178
-#: src/app/webbrowser/HistoryView.qml:160
-#: src/app/webbrowser/HistoryViewWide.qml:388
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/HistoryView.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:294
 #: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
 msgstr "रद्द गर्ने"
 
@@ -384,7 +385,7 @@ msgstr "काट्नुहोस्"
 msgid "Erase"
 msgstr "मेटनुहोस्"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:538
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
 msgid "Find in page"
 msgstr "पानामा खोज्नुहोस्"
 
@@ -414,8 +415,8 @@ msgstr "जानुहोस्"
 msgid "Address;URL;www"
 msgstr "ठेगाना; URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:409
-#: src/app/webbrowser/TabsBar.qml:87
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
+#: src/app/webbrowser/TabsBar.qml:89
 msgid "New Tab"
 msgstr "नयाँ ट्याब"
 
@@ -450,7 +451,7 @@ msgid "Redo"
 msgstr "फेरि गर्नुहोस्"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:92 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "पुन:लोड गर्नुहोस्"
 
@@ -472,13 +473,13 @@ msgstr "लिङ्क सङ्ग्रह गर्नुहोस्"
 msgid "Save video"
 msgstr "भिडियो संग्र्ह गर्नुहोस"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
-#: src/app/webbrowser/HistoryView.qml:174
-#: src/app/webbrowser/HistoryViewWide.qml:413
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/webbrowser/HistoryView.qml:190
+#: src/app/webbrowser/HistoryViewWide.qml:422
 msgid "Select all"
 msgstr "सबै चयन गर्नुहोस्"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:502
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
 msgid "Share"
 msgstr "सेयर गर्नुहोस्"
 
@@ -487,16 +488,16 @@ msgid "Undo"
 msgstr "पुर्वस्थितिमा फर्काउनुहोस्"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:209
+#: src/app/webbrowser/AddressBar.qml:210
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:245
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "find in page"
 msgstr "पानामा खोज्नुहोस्"
 
-#: src/app/webbrowser/AddressBar.qml:246
+#: src/app/webbrowser/AddressBar.qml:247
 msgid "search or enter an address"
 msgstr "ठेगाना लेख्नुहोस् या खोज्नुहोस्"
 
@@ -515,8 +516,8 @@ msgid "Save in"
 msgstr "यहाँ सङ्ग्रह गर्नुहोस्"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFoldersView.qml:121
-#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
+#: src/app/webbrowser/BookmarksFoldersView.qml:133
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "सबै पुस्तकचिनोहरू"
 
@@ -534,67 +535,67 @@ msgstr "नयाँ फोल्डर बनाउनुहोस्"
 msgid "Save"
 msgstr "सङ्ग्रह गर्नुहोस्"
 
-#: src/app/webbrowser/BookmarksFoldersView.qml:160
-#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
-#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/BookmarksFoldersView.qml:191
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
+#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "गृह पृष्ठ"
 
-#: src/app/webbrowser/BookmarksView.qml:82
+#: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:509 src/app/webbrowser/NewTabView.qml:104
-#: src/app/webbrowser/NewTabViewWide.qml:149
+#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "पुस्तकचिनोहरू"
 
-#: src/app/webbrowser/BookmarksView.qml:114
+#: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:118
-#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "सम्पन्न भयो"
 
-#: src/app/webbrowser/BookmarksView.qml:128
+#: src/app/webbrowser/BookmarksView.qml:127
 #: src/app/webbrowser/BookmarksViewWide.qml:126
-#: src/app/webbrowser/Browser.qml:531 src/app/webbrowser/HistoryView.qml:131
-#: src/app/webbrowser/HistoryViewWide.qml:522
-#: src/app/webbrowser/TabsBar.qml:150 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryView.qml:145
+#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "नयाँ ट्याब"
 
-#: src/app/webbrowser/Browser.qml:515
-#: src/app/webbrowser/HistoryViewWide.qml:372
+#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
 msgstr "इतिहास"
 
-#: src/app/webbrowser/Browser.qml:545 src/app/webbrowser/DownloadsPage.qml:56
+#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "डाउनलोडहरू"
 
-#: src/app/webbrowser/Browser.qml:554
+#: src/app/webbrowser/Browser.qml:561
 msgid "Leave Private Mode"
 msgstr "निजी मोड छोड्नुहोस्"
 
-#: src/app/webbrowser/Browser.qml:554
+#: src/app/webbrowser/Browser.qml:561
 msgid "Private Mode"
 msgstr "निजी मोड"
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "सेटिङ्"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:748
+#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1268
+#: src/app/webbrowser/Browser.qml:1343
 msgid "Swipe Up To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न माथि स्वाइप गर्नुहोस्"
 
-#: src/app/webbrowser/Browser.qml:1269
+#: src/app/webbrowser/Browser.qml:1344
 msgid "Press ESC To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न ESC थिच्नुहोस्"
 
@@ -613,37 +614,37 @@ msgstr "अनुप्रयोग छान्नुहोस्"
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: src/app/webbrowser/DownloadDelegate.qml:150
+#: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "डाउनलोड असफल भयो"
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
 msgstr "पुन: निरन्तरता दिनुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:61
 msgid "Confirm selection"
 msgstr "चयन निश्चित गर्नुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
-#: src/app/webbrowser/HistoryView.qml:200
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/HistoryView.qml:217
+#: src/app/webbrowser/HistoryViewWide.qml:441
 msgid "Delete"
 msgstr "मेट्नुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:226
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "डाउनलोड उपलब्ध छैन"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:111
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 पाना"
 msgstr[1] "%1 पाना"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:126
-#: src/app/webbrowser/NewTabView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:136
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "Less"
 msgstr "कम"
 
@@ -652,20 +653,20 @@ msgid "Last Visited"
 msgstr "पछिल्लो पटक भ्रमण गरिएको"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:214
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Yesterday"
 msgstr "हिजो"
 
-#: src/app/webbrowser/HistoryViewWide.qml:198
+#: src/app/webbrowser/HistoryViewWide.qml:196
 msgid "All History"
 msgstr "सबै इतिहास"
 
-#: src/app/webbrowser/HistoryViewWide.qml:212
-#: src/app/webbrowser/HistoryViewWide.qml:286
+#: src/app/webbrowser/HistoryViewWide.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:295
 msgid "Today"
 msgstr "आज"
 
-#: src/app/webbrowser/HistoryViewWide.qml:453
+#: src/app/webbrowser/HistoryViewWide.qml:462
 msgid "search history"
 msgstr "खोज इतिहास"
 
@@ -711,16 +712,16 @@ msgstr ""
 "यस ट्याबमा हेर्नु भएको पृष्ठ आफ्नो ब्राउजर इतिहासमा देखा पर्दैन।\n"
 "बनाउनु भएको बुक्मर्क​ तथापि, संरक्षित हुनेछ।"
 
-#: src/app/webbrowser/NewTabView.qml:119
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
 msgstr "बढि"
 
-#: src/app/webbrowser/NewTabView.qml:223
-#: src/app/webbrowser/NewTabViewWide.qml:148
+#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "शिर्ष साइटहरू"
 
-#: src/app/webbrowser/NewTabView.qml:254
+#: src/app/webbrowser/NewTabView.qml:366
 msgid "You haven't visited any site yet"
 msgstr "तपाईँले अहिलेसम्म कुनै साइट भ्रमण गर्नुभएको छैन"
 
@@ -811,10 +812,6 @@ msgstr "खोज इन्जिन"
 msgid "Restore previous session at startup"
 msgstr "स्टार्टअपमा अघिल्लो सत्र पुनर्स्थापित गर्नुहोस्"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-msgid "Allow opening new tabs in background"
-msgstr "पृष्ठभूमिमा नयाँ ट्याबहरू खोल्न अनुमति दिनुहोस्"
-
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
@@ -857,15 +854,15 @@ msgstr "माइक्रोफोन"
 msgid "Camera"
 msgstr "क्यामेरा"
 
-#: src/app/webbrowser/TabPreview.qml:80
+#: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "हेर्न ट्याप गर्नुहोस्"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:100
 msgid "Close Tab"
 msgstr "ट्याब बन्द गर्नुहोस्"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:124
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
 msgid "Remove"
 msgstr "हटाउनुहोस्"
 
@@ -974,3 +971,6 @@ msgstr "इन्टरनेट;WWW; ब्राउजर; वेब; एक�
 #~ msgstr ""
 #~ "उबुन्टु तपाईं आफ्नो नेटवर्क सेटिङहरू जाँच गर्न र पृष्ठ रिफ्रेस गर्न सुझाव "
 #~ "दिन्छ।"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "पृष्ठभूमिमा नयाँ ट्याबहरू खोल्न अनुमति दिनुहोस्"
