@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 
-Item {
+FocusScope {
     property bool developerExtrasEnabled: false
 
     property var currentWebview: null
@@ -31,6 +31,8 @@ Item {
     property var webbrowserWindow: null
 
     property var osk: _osk
+
+    property bool hasTouchScreen: false
 
     // See http://design.canonical.com/2015/05/to-converge-onto-mobile-tablet-and-desktop-think-grid-units/
     readonly property bool wide: width >= units.gu(90)

@@ -43,7 +43,7 @@ Dialog {
         text: i18n.tr("Allow")
         color: UbuntuColors.orange
         onClicked: {
-            request.accept()
+            request.allow()
             PopupUtils.close(dialog)
         }
     }

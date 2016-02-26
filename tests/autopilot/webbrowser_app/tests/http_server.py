@@ -6,6 +6,7 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
+from base64 import b64decode
 import http.server as http
 import json
 import logging
@@ -20,7 +21,13 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
     """
     A custom HTTP request handler that serves GET resources.
     """
+
     suggestions_data = {}
+
+    base64_png_data = \
+        "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwE" \
+        "AmpwYAAAAOUlEQVRYw+3OAQ0AAAgDoGv/zlpDN0hATS7qaGlpaWlpaWlpaWlpaWlpaW" \
+        "lpaWlpaWlpaWlpab1qLUGqAWNyFWTYAAAAAElFTkSuQmCC"
 
     def make_html(self, title, body):
         html = "<html><title>{}</title><body>{}</body></html>"
@@ -30,6 +37,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/html")
         self.end_headers()
         self.wfile.write(html.encode())
+
+    def send_auth_request(self):
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", "Basic realm=\"Enter Password\"")
+        self.end_headers()
+        self.send_html("Not Authorized")
 
     def do_GET(self):
         if self.path == "/ping":
@@ -81,6 +94,28 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += 'src="/blanktargetlink" />'
             html += '</body></html>'
             self.send_html(html)
+        elif self.path == "/image":
+            self.send_response(200)
+            html = '<html><body>'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</body></html>'
+            self.send_html(html)
+        elif self.path == "/imagelink":
+            self.send_response(200)
+            html = '<html><body><a href="/test1">'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</a></body></html>'
+            self.send_html(html)
+        elif self.path == "/textarea":
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<textarea style="width: 100%; height: 100%">some text'
+            html += '</textarea></body></html>'
+            self.send_html(html)
         elif self.path == "/uploadform":
             # craft a page that accepts clicks anywhere inside its window
             # and on a click opens up the content picker.
@@ -119,16 +154,6 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += 'navigator.geolocation.getCurrentPosition('
             html += 'function r(p) {});</script></body></html>'
             self.send_html(html)
-        elif self.path == "/selection":
-            self.send_response(200)
-            html = '<html><head>'
-            html += '<meta name="viewport" content="initial-scale=1"></head>'
-            html += '<body><div style="position: absolute; width: 80%; '
-            html += 'height: 80%; top: 10%; left: 10%">'
-            html += '<div style="position: absolute; '
-            html += 'width: 50%; height: 50%; top: 25%; left: 25%"></div>'
-            html += '</div></body></html>'
-            self.send_html(html)
         elif self.path == "/closeself":
             # craft a page that accepts clicks anywhere inside its window
             # and that requests to be closed
@@ -155,6 +180,41 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_response(200)
             name = self.path[len("/tab/"):]
             self.send_html('<html><body>' + name + '</body></html>')
+        elif self.path.startswith("/downloadpdfgenericmime"):
+            self.send_response(200)
+            self.send_header("Content-Type", "application/octet-stream")
+            self.send_header("Content-Disposition",
+                             "attachment; filename='test.pdf'")
+            self.end_headers()
+        elif self.path.startswith("/downloadpdf"):
+            self.send_response(200)
+            self.send_header("Content-Type", "application/pdf")
+            self.send_header("Content-Disposition",
+                             "attachment; filename='test.pdf'")
+            self.end_headers()
+        elif self.path.startswith("/basicauth"):
+            login = "user"
+            password = "pass"
+            if "Authorization" in self.headers:
+                header = self.headers.get("Authorization")
+                credentials = str(b64decode(header[len("Basic "):])).split(":")
+                if credentials[0] == login and credentials[1] == password:
+                    self.send_response(200)
+                    self.send_html("Authentication Successful !")
+                else:
+                    self.send_auth_request()
+            else:
+                self.send_auth_request()
+        elif self.path.startswith("/media/"):
+            self.send_response(200)
+            permissions = self.path[len("/media/"):]
+            self.send_html(
+                "<script>navigator.webkitGetUserMedia("
+                "{video: " + ("true" if "v" in permissions else "false") +
+                ", audio: " + ("true" if "a" in permissions else "false") +
+                "}, function() { location.href = '/test1' } " +
+                ", function() { location.href = '/test2' })</script>"
+            )
         else:
             self.send_error(404)
 

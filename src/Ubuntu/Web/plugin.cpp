@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -27,7 +27,10 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QtGlobal>
+#include <QtCore/QtMath>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QScreen>
+#include <QtGui/QWindow>
 #include <QtQml>
 #include <QtQml/QQmlInfo>
 
@@ -37,7 +40,7 @@ class UbuntuWebPluginContext : public QObject
 
     Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
-    Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
+    Q_PROPERTY(qreal screenDiagonal READ screenDiagonal NOTIFY screenDiagonalChanged)
     Q_PROPERTY(int cacheSizeHint READ cacheSizeHint NOTIFY cacheSizeHintChanged)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
@@ -48,7 +51,7 @@ public:
 
     QString cacheLocation() const;
     QString dataLocation() const;
-    QString formFactor();
+    qreal screenDiagonal() const;
     int cacheSizeHint() const;
     QString devtoolsHost();
     int devtoolsPort();
@@ -57,10 +60,15 @@ public:
 Q_SIGNALS:
     void cacheLocationChanged() const;
     void dataLocationChanged() const;
+    void screenDiagonalChanged() const;
     void cacheSizeHintChanged() const;
 
+private Q_SLOTS:
+    void onFocusWindowChanged(QWindow* window);
+    void updateScreen();
+
 private:
-    QString m_formFactor;
+    qreal m_screenDiagonal; // in millimeters
     QString m_devtoolsHost;
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
@@ -69,15 +77,31 @@ private:
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     : QObject(parent)
+    , m_screenDiagonal(0)
     , m_devtoolsPort(-2)
     , m_hostMappingRulesQueried(false)
 {
-    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
-            this, SIGNAL(cacheLocationChanged()));
-    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
-            this, SIGNAL(dataLocationChanged()));
-    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
-            this, SIGNAL(cacheSizeHintChanged()));
+    connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheLocationChanged()));
+    connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(dataLocationChanged()));
+    connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheSizeHintChanged()));
+    updateScreen();
+    connect(qApp, SIGNAL(focusWindowChanged(QWindow*)), SLOT(onFocusWindowChanged(QWindow*)));
+}
+
+void UbuntuWebPluginContext::updateScreen()
+{
+    QWindow* window = qApp->focusWindow();
+    if (window) {
+        QScreen* screen = window->screen();
+        if (screen) {
+            QSizeF size = screen->physicalSize();
+            qreal diagonal = qSqrt(size.width() * size.width() + size.height() * size.height());
+            if (diagonal != m_screenDiagonal) {
+                m_screenDiagonal = diagonal;
+                Q_EMIT screenDiagonalChanged();
+            }
+        }
+    }
 }
 
 QString UbuntuWebPluginContext::cacheLocation() const
@@ -102,38 +126,9 @@ QString UbuntuWebPluginContext::dataLocation() const
     return location.absolutePath();
 }
 
-QString UbuntuWebPluginContext::formFactor()
+qreal UbuntuWebPluginContext::screenDiagonal() const
 {
-    if (m_formFactor.isEmpty()) {
-        // This implementation only considers two possible form factors: desktop,
-        // and mobile (which includes phones and tablets).
-        // XXX: do we need to consider other form factors, such as tablet?
-        const char* DESKTOP = "desktop";
-        const char* MOBILE = "mobile";
-
-        // The "DESKTOP_MODE" environment variable can be used to force the form
-        // factor to desktop, when set to any valid value other than 0.
-        const char* DESKTOP_MODE_ENV_VAR = "DESKTOP_MODE";
-        if (qEnvironmentVariableIsSet(DESKTOP_MODE_ENV_VAR)) {
-            QByteArray stringValue = qgetenv(DESKTOP_MODE_ENV_VAR);
-            bool ok = false;
-            int value = stringValue.toInt(&ok);
-            if (ok) {
-                m_formFactor = (value == 0) ? MOBILE : DESKTOP;
-                return m_formFactor;
-            }
-        }
-
-        // XXX: Assume that QtUbuntu means mobile, which is currently the case,
-        // but may not remain true forever.
-        QString platform = QGuiApplication::platformName();
-        if ((platform == "ubuntu") || (platform == "ubuntumirclient")) {
-            m_formFactor = MOBILE;
-        } else {
-            m_formFactor = DESKTOP;
-        }
-    }
-    return m_formFactor;
+    return m_screenDiagonal;
 }
 
 int UbuntuWebPluginContext::cacheSizeHint() const
@@ -208,6 +203,14 @@ int UbuntuWebPluginContext::devtoolsPort()
         }
     }
     return m_devtoolsPort;
+}
+
+void UbuntuWebPluginContext::onFocusWindowChanged(QWindow* window)
+{
+    updateScreen();
+    if (window) {
+        connect(window, SIGNAL(screenChanged(QScreen*)), SLOT(updateScreen()));
+    }
 }
 
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)

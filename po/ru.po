@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-11 20:00+0200\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
 "PO-Revision-Date: 2015-07-06 09:31+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "Оповещение JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
 msgstr "Требуется авторизация."
 
@@ -38,23 +38,29 @@ msgstr "Требуется авторизация."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Сайт %1 требует авторизироваться."
+msgstr "Для сайта %1 требуется авторизация."
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr "Пароль"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
+#: src/app/webbrowser/ContextMenuMobile.qml:139
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/HistoryView.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:289
-#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -106,20 +112,15 @@ msgstr "Ошибка сети"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Похоже на то, что возникли проблемы с просмотром: %1."
+msgstr "Похоже, возникли проблемы с просмотром: %1."
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr "Проверьте настройки вашей сети и обновите страницу."
+msgid "Please check your network settings and try refreshing the page."
+msgstr "Проверьте настройки сети и обновите страницу."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Обновить страницу"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Выберите файл"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -374,15 +375,23 @@ msgstr "Копировать изображение"
 msgid "Copy link"
 msgstr "Копировать ссылку"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr "Вырезать"
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr "Удалить"
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
 msgid "Find in page"
-msgstr ""
+msgstr "Найти на странице"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Искать на странице"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -404,7 +413,8 @@ msgstr "Перейти к"
 msgid "Address;URL;www"
 msgstr "Адрес;URL;www;ссылка"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
+#: src/app/webbrowser/TabsBar.qml:89
 msgid "New Tab"
 msgstr "Новая вкладка"
 
@@ -426,7 +436,20 @@ msgstr "Открыть ссылку в новой вкладке"
 msgid "Open link in new tab"
 msgstr "Открыть ссылку в новой вкладке"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/OpenVideoInNewTab.qml:22
+msgid "Open video in new tab"
+msgstr ""
+
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr "Повторить"
+
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Обновить"
 
@@ -440,21 +463,39 @@ msgstr "Покинуть страницу"
 msgid "Save image"
 msgstr "Сохранить изображение"
 
-#: src/app/actions/ShareLink.qml:22
-msgid "Share…"
-msgstr "Поделиться..."
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr "Сохранить ссылку"
+
+#: src/app/actions/SaveVideo.qml:22
+msgid "Save video"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/webbrowser/HistoryView.qml:190
+#: src/app/webbrowser/HistoryViewWide.qml:422
+msgid "Select all"
+msgstr "Выделить всё"
+
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+msgid "Share"
+msgstr "Поделиться"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr "Отменить"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:210
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "find in page"
-msgstr ""
+msgstr "найти на странице"
 
-#: src/app/webbrowser/AddressBar.qml:216
+#: src/app/webbrowser/AddressBar.qml:247
 msgid "search or enter an address"
 msgstr "Введите поисковый запрос или адрес"
 
@@ -473,7 +514,8 @@ msgid "Save in"
 msgstr "Сохранить в"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/BookmarksFoldersView.qml:133
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "Все закладки"
 
@@ -487,58 +529,112 @@ msgid "Create new folder"
 msgstr "Создать новую папку"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:353
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/app/webbrowser/Browser.qml:312
-msgid "Share"
-msgstr "Поделиться"
+#: src/app/webbrowser/BookmarksFoldersView.qml:191
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
+#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:322
+msgid "Homepage"
+msgstr "Домашняя страница"
 
-#: src/app/webbrowser/Browser.qml:319
-msgid "History"
-msgstr "История"
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/NewTabViewWide.qml:139
+msgid "Bookmarks"
+msgstr "Закладки"
 
-#: src/app/webbrowser/Browser.qml:329
-msgid "Open tabs"
-msgstr "Открытые вкладки"
-
-#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
-msgid "New tab"
-msgstr "Новая вкладка"
-
-#: src/app/webbrowser/Browser.qml:355
-msgid "Leave Private Mode"
-msgstr "Выйти из режима инкогнито"
-
-#: src/app/webbrowser/Browser.qml:355
-msgid "Private Mode"
-msgstr "Режим инкогнито"
-
-#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr "Настройки"
-
-#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "Готово"
 
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/HistoryView.qml:145
+#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+msgid "New tab"
+msgstr "Новая вкладка"
+
+#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/HistoryViewWide.qml:381
+msgid "History"
+msgstr "История"
+
+#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+msgid "Downloads"
+msgstr "Загрузки"
+
+#: src/app/webbrowser/Browser.qml:561
+msgid "Leave Private Mode"
+msgstr "Выйти из режима инкогнито"
+
+#: src/app/webbrowser/Browser.qml:561
+msgid "Private Mode"
+msgstr "Режим инкогнито"
+
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+msgid "Settings"
+msgstr "Настройки"
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:689
+#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:973
+#: src/app/webbrowser/Browser.qml:1343
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Смахните вверх для выхода из полноэкранного режима"
 
-#: src/app/webbrowser/Browser.qml:974
+#: src/app/webbrowser/Browser.qml:1344
 msgid "Press ESC To Exit Full Screen"
 msgstr "Нажмите ESC для выхода из полноэкранного режима"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Выберите приложение, чтобы открыть данный файл или добавить его в папку "
+"загрузок."
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "Выберите приложение"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "Загрузка"
+
+#: src/app/webbrowser/DownloadDelegate.qml:159
+msgid "Download failed"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:208
+msgid "Resume"
+msgstr ""
+
+#: src/app/webbrowser/DownloadsPage.qml:61
+msgid "Confirm selection"
+msgstr "Подтвердить выбор"
+
+#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/HistoryView.qml:217
+#: src/app/webbrowser/HistoryViewWide.qml:441
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/app/webbrowser/DownloadsPage.qml:252
+msgid "No downloads available"
+msgstr "Нет доступных загрузок"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -546,32 +642,64 @@ msgstr[0] "%1 страница"
 msgstr[1] "%1 страницы"
 msgstr[2] "%1 страниц"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/ExpandedHistoryView.qml:136
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "Less"
 msgstr "Свернуть"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Последние посещённые"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Yesterday"
 msgstr "Вчера"
 
-#: src/app/webbrowser/HistoryView.qml:180
-msgid "Select all"
-msgstr "Выделить всё"
+#: src/app/webbrowser/HistoryViewWide.qml:196
+msgid "All History"
+msgstr "За всё время"
 
-#: src/app/webbrowser/HistoryView.qml:210
-msgid "Delete"
-msgstr "Удалить"
+#: src/app/webbrowser/HistoryViewWide.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:295
+msgid "Today"
+msgstr "Сегодня"
+
+#: src/app/webbrowser/HistoryViewWide.qml:462
+msgid "search history"
+msgstr "история поиска"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr ""
 "При переключении в обычный режим все вкладки, открытые в режиме инкогнито, "
 "будут закрыты."
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Разрешить домену доступ к камере и микрофону?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Разрешить домену доступ к камере?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Разрешить домену доступ к микрофону?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (размещённый на %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Да"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Нет"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -586,21 +714,40 @@ msgstr ""
 "браузера.\n"
 "Однако созданные закладки будут сохранены."
 
-#: src/app/webbrowser/NewTabView.qml:108
-msgid "Bookmarks"
-msgstr "Закладки"
-
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
 msgstr "Ещё"
 
-#: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Популярные сайты"
 
-#: src/app/webbrowser/NewTabView.qml:257
+#: src/app/webbrowser/NewTabView.qml:366
 msgid "You haven't visited any site yet"
 msgstr "Посещённые веб-сайты отсутствуют"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr "Процесс рендеринга для данной вкладки был завершён."
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr "Что-то пошло не так при отображении %1."
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+"Системе не хватает памяти для отображения этой веб-страницы. Попробуйте "
+"закрыть ненужные вкладки и перезагрузить страницу."
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr "Закрыть вкладку"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -655,66 +802,82 @@ msgstr "Вы подключены к"
 msgid "Which is run by"
 msgstr "Обслуживается"
 
-#: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:176
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr "По умолчанию"
+
+#: src/app/webbrowser/SettingsPage.qml:80
+#: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
 msgstr "Поисковая система"
 
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
-msgid "Homepage"
-msgstr "Домашняя страница"
-
-#: src/app/webbrowser/SettingsPage.qml:101
+#: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
 msgstr "Восстановить предыдущий сеанс при запуске"
 
-#: src/app/webbrowser/SettingsPage.qml:119
-msgid "Allow opening new tabs in background"
-msgstr "Открывать новые вкладки в фоне"
+#: src/app/webbrowser/SettingsPage.qml:137
+#: src/app/webbrowser/SettingsPage.qml:227
+msgid "Privacy & permissions"
+msgstr "Конфиденциальность и разрешения"
 
-#: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:228
-msgid "Privacy"
-msgstr "Конфиденциальность"
-
-#: src/app/webbrowser/SettingsPage.qml:146
+#: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Сбросить настройки браузера"
 
-#: src/app/webbrowser/SettingsPage.qml:249
+#: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr "Камера и микрофон"
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Очистить историю"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Очистить историю?"
 
-#: src/app/webbrowser/SettingsPage.qml:259
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "Очистить кэш"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Очистить кэш?"
 
-#: src/app/webbrowser/SettingsPage.qml:296
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
 msgstr "Очистить"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr "Микрофон"
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr "Камера"
+
+#: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "Нажать для просмотра"
 
+#: src/app/webbrowser/TabsBar.qml:100
+msgid "Close Tab"
+msgstr "Закрыть вкладку"
+
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+msgid "Remove"
+msgstr "Удалить"
+
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Веб-Браузер"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Веб-Браузер"
 
@@ -782,6 +945,10 @@ msgstr "Пропустить"
 msgid "Choose account"
 msgstr "Выберите учётную запись"
 
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr "Упс, что-то пошло не так."
+
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
 msgstr "Браузер"
@@ -798,6 +965,10 @@ msgstr "Навигация по сети Интернет"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Интернет;WWW;Браузер;Веб;Обозреватель"
 
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr "Проверьте настройки вашей сети и обновите страницу."
+
 #~ msgid "Select an account"
 #~ msgstr "Выберите учётную запись"
 
@@ -807,20 +978,29 @@ msgstr "Интернет;WWW;Браузер;Веб;Обозреватель"
 #~ msgid "Skip account creation step"
 #~ msgstr "Пропустить процедуру создания учётной записи"
 
+#~ msgid "Please choose a file"
+#~ msgstr "Выберите файл"
+
+#~ msgid "Share…"
+#~ msgstr "Поделиться..."
+
 #~ msgid "see less"
 #~ msgstr "показать меньше"
 
 #~ msgid "see more"
 #~ msgstr "показать больше"
 
-#~ msgid "No"
-#~ msgstr "Нет"
-
-#~ msgid "Yes"
-#~ msgstr "Да"
-
 #~ msgid "Delete all history?"
 #~ msgstr "Удалить историю полностью?"
 
 #~ msgid "Add"
 #~ msgstr "Добавить"
+
+#~ msgid "Open tabs"
+#~ msgstr "Открытые вкладки"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Открывать новые вкладки в фоне"
+
+#~ msgid "Privacy"
+#~ msgstr "Конфиденциальность"

@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,6 +18,8 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
+import time
+import testtools
 import unittest
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -57,16 +59,9 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_close_last_open_tab(self):
         tabs_view = self.main_window.get_tabs_view()
         tabs_view.get_previews()[0].close()
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
-            self.app.process.wait()
-            return
         tabs_view.visible.wait_for(False)
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
-        if model() == 'Desktop':
-            address_bar = self.main_window.address_bar
-            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
@@ -131,6 +126,66 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(url)
 
 
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
+
+    def test_focus_on_switch(self):
+        """Test that switching between tabs correctly resets focus to the
+           webview if a page is loaded, and to the address bar if we are in
+           the new page view"""
+        if not self.main_window.wide:
+            self.skipTest("only on wide form factors")
+
+        address_bar = self.main_window.address_bar
+
+        self.main_window.press_key('Ctrl+t')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+Tab')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+Tab')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(False)))
+
+    def test_focus_on_close(self):
+        """Test that closing tabs correctly resets focus,
+           allowing keyboard shortcuts to work without interruption"""
+        address_bar = self.main_window.address_bar
+
+        self.main_window.press_key('Ctrl+t')
+        self.main_window.press_key('Ctrl+t')
+        url = self.base_url + "/test1"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Ctrl+t')
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.main_window.press_key('Ctrl+t')
+        self.main_window.press_key('Ctrl+t')
+
+        self.main_window.press_key('Ctrl+w')
+        if self.main_window.wide:
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+w')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+w')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+w')
+        if self.main_window.wide:
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+
 class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_open_target_blank_in_new_tab(self):
@@ -142,6 +197,31 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
+        # http://pad.lv/1505724
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+    # http://pad.lv/1464436
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_ctrl_click_open_link_in_new_background_tab(self):
+        url = self.base_url + "/link"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+
+        self.keyboard.press('Ctrl')
+        self.pointing_device.click_object(webview)
+        self.keyboard.release('Ctrl')
+
+        # Eventually we should have two webviews but one should be hidden.
+        # Wait some time to increase confidence that webviews won't change
+        # their visibility state to an incorrect one before the check.
+        time.sleep(1)
+        self.assert_number_webviews_eventually(2)
+        views = self.main_window.select_many("WebViewImpl", visible=True)
+        self.assertThat(len(views), Equals(1))
+        self.check_current_tab(url)
+
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.main_window.go_to_url(url)
@@ -150,6 +230,10 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.pointing_device.click_object(webview)
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
+
+        # http://pad.lv/1505724
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
     def test_selecting_tab_focuses_webview(self):
         if self.main_window.wide:
@@ -161,9 +245,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         webview.activeFocus.wait_for(True)
 
     def test_webview_requests_close(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=True)
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
@@ -174,9 +256,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(1)
 
     def test_last_webview_requests_close(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=True)
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
@@ -189,11 +269,98 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
             toolbar.click_button("doneButton")
             tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
+        wide = self.main_window.wide
         self.pointing_device.click_object(webview)
-        if model() == 'Desktop':
-            # On desktop, closing the last open tab exits the application
+        if wide:
+            # closing the last open tab exits the application
             self.app.process.wait()
             return
         webview.wait_until_destroyed()
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_undo_close_tab(self):
+        url0 = self.main_window.get_current_webview().url
+
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
+        url1 = self.base_url + "/tab/1"
+        self.main_window.go_to_url(url1)
+        self.main_window.wait_until_page_loaded(url1)
+        self.assert_number_webviews_eventually(2)
+
+        # Insert a "new tab view" page in the middle, without any page loaded
+        # so that we can verify that it will not be restored
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
+
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
+        url2 = self.base_url + "/tab/2"
+        self.main_window.go_to_url(url2)
+        self.main_window.wait_until_page_loaded(url2)
+        self.assert_number_webviews_eventually(4)
+
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(3)
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(2)
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(1)
+        self.check_current_tab(url0)
+
+        # Both ctrl+shift+w and ctrl+shift+t activate the undo, so test both
+        self.main_window.press_key('Ctrl+Shift+w')
+        self.assert_number_webviews_eventually(2)
+        self.check_current_tab(url1)
+
+        self.main_window.press_key('Ctrl+Shift+t')
+        self.assert_number_webviews_eventually(3)
+        self.check_current_tab(url2)
+
+        self.main_window.press_key('Ctrl+Shift+t')
+        self.assert_number_webviews_eventually(3)
+        self.check_current_tab(url2)
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_undo_close_tab_incognito(self):
+        start_url = self.main_window.get_current_webview().url
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
+        url = self.base_url + "/tab/1"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(1)
+        self.check_current_tab(start_url)
+
+        incognito_url = self.base_url + "/tab/2"
+        self.main_window.enter_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(True)))
+        self.main_window.go_to_url(incognito_url)
+        self.main_window.wait_until_page_loaded(incognito_url)
+
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
+        self.main_window.go_to_url(incognito_url)
+        self.main_window.wait_until_page_loaded(incognito_url)
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_incognito_webviews_eventually(1)
+
+        # Test that no tabs will be restored in incognito mode.
+        # We sleep for a bit after the keypress to give more confidence that
+        # the tab still hasn't appeared within a reasonable amount of time.
+        self.main_window.press_key('Ctrl+Shift+w')
+        time.sleep(1)
+        self.assert_number_incognito_webviews_eventually(1)
+
+        # Close the last incognito tab to exit the mode. This is done on
+        # purpose instead of using leave_private_mode since we want to
+        # make sure the last tab is also not saved, as it is a corner case
+        self.main_window.press_key('Ctrl+w')
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(False)))
+
+        # Tabs that we closed before going incognito will be restored
+        # when going back to default mode
+        self.main_window.press_key('Ctrl+Shift+w')
+        self.assert_number_webviews_eventually(2)
+        self.check_current_tab(url)

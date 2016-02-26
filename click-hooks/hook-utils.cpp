@@ -36,6 +36,61 @@ QString shortAppIdFromUnversionedAppId(const QString& appId)
     return components.join('_');
 }
 
+QString stringFromClickLifeCyclePhase(
+        HookUtils::WebappHookParser::ClickLifeCyclePhase phase)
+{
+    using namespace HookUtils;
+    switch(phase) {
+    case WebappHookParser::CLICK_LIFECYCLE_PHASE_INSTALL:
+        return "install";
+        break;
+    case WebappHookParser::CLICK_LIFECYCLE_PHASE_UNINSTALL:
+        return "uninstall";
+        break;
+    case WebappHookParser::CLICK_LIFECYCLE_PHASE_UPDATE:
+        return "update";
+        break;
+    }
+    return QString();
+}
+
+void executeHookDirectives(const QString& hookFilename,
+                           HookUtils::WebappHookParser::ClickLifeCyclePhase phase) {
+    QFileInfo fileInfo(hookFilename);
+    if (!fileInfo.exists() || !fileInfo.isFile())
+    {
+        qDebug() << "Cannot execute directives for" << hookFilename;
+        return;
+    }
+
+    qDebug() << "Handling" << hookFilename;
+
+    HookUtils::WebappHookParser webappHookParser;
+    HookUtils::WebappHookParser::Data data =
+            webappHookParser.parseContent(
+                hookFilename,
+                phase);
+
+    QString appIdNoVersion = fileInfo.fileName();
+
+    if (data.shouldDeleteCache)
+    {
+        QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
+                 + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
+        dir.removeRecursively();
+
+        qDebug() << "Removing cache from" << dir.absolutePath();
+    }
+    if (data.shouldDeleteCookies)
+    {
+        QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+                 + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
+        dir.removeRecursively();
+
+        qDebug() << "Removing cookies from" << dir.absolutePath();
+    }
+}
+
 }
 
 
@@ -43,7 +98,8 @@ namespace HookUtils {
 
 
 WebappHookParser::Data
-WebappHookParser::parseContent(const QString& filename)
+WebappHookParser::parseContent(const QString& filename,
+                               ClickLifeCyclePhase clickLifeCyclePhase)
 {
     QFileInfo info(filename);
     if (!info.exists() || !info.isFile() || !info.isReadable())
@@ -63,11 +119,14 @@ WebappHookParser::parseContent(const QString& filename)
         return Data();
     }
 
-    return parseDocument(document.array());
+    return parseDocument(
+                document.array(),
+                clickLifeCyclePhase);
 }
 
 WebappHookParser::Data
-WebappHookParser::parseDocument(const QJsonArray& array)
+WebappHookParser::parseDocument(const QJsonArray& array,
+                                ClickLifeCyclePhase clickLifeCyclePhase)
 {
     Data result;
     if (array.count() == 0
@@ -81,24 +140,24 @@ WebappHookParser::parseDocument(const QJsonArray& array)
 #define JSON_OBJECT_VALIDATE(o,key,predicate) \
     o.contains(key) && o.value(key).predicate()
 
-    const QString UNINSTALL_KEY = "uninstall";
-    if (JSON_OBJECT_VALIDATE(rootObject,UNINSTALL_KEY,isObject))
+    QString phase = stringFromClickLifeCyclePhase(clickLifeCyclePhase);
+    if (JSON_OBJECT_VALIDATE(rootObject,phase,isObject))
     {
-        const QString UNINSTALL_DELETE_COOKIES = "delete-cookies";
-        const QString UNINSTALL_DELETE_CACHE = "delete-cache";
+        const QString DELETE_COOKIES = "delete-cookies";
+        const QString DELETE_CACHE = "delete-cache";
 
-        QJsonObject uninstallObject =
-                rootObject.value(UNINSTALL_KEY).toObject();
-        if (JSON_OBJECT_VALIDATE(uninstallObject,UNINSTALL_DELETE_COOKIES,isBool))
+        QJsonObject directiveObject =
+                rootObject.value(phase).toObject();
+        if (JSON_OBJECT_VALIDATE(directiveObject,DELETE_COOKIES,isBool))
         {
-            result.shouldDeleteCookiesOnUninstall =
-                    uninstallObject.value(UNINSTALL_DELETE_COOKIES).toBool();
+            result.shouldDeleteCookies =
+                    directiveObject.value(DELETE_COOKIES).toBool();
         }
 
-        if (JSON_OBJECT_VALIDATE(uninstallObject,UNINSTALL_DELETE_CACHE,isBool))
+        if (JSON_OBJECT_VALIDATE(directiveObject,DELETE_CACHE,isBool))
         {
-            result.shouldDeleteCacheOnUninstall =
-                    uninstallObject.value(UNINSTALL_DELETE_CACHE).toBool();
+            result.shouldDeleteCache =
+                    directiveObject.value(DELETE_CACHE).toBool();
         }
     }
 #undef JSON_OBJECT_VALIDATE
@@ -195,6 +254,9 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
                 installedClickHooks.parentFolder + "/"
                 + installedClickHooks.hookFiles[webappClickHook];
 
+        executeHookDirectives(hookFilename,
+                              WebappHookParser::CLICK_LIFECYCLE_PHASE_INSTALL);
+
         QFileInfo hookFileInfo(hookFilename);
         QString appIdNoVersion = removeVersionFrom(hookFileInfo.completeBaseName());
 
@@ -211,7 +273,6 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
 void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedClickHooks
                      , const WebappClickHookInstallDescription& currentClickHooks)
 {
-    WebappHookParser webappHookParser;
     QStringList deletedClickPackages =
             alreadyProcessedClickHooks.hookFiles.keys().toSet().subtract(
                 currentClickHooks.hookFiles.keys().toSet()).toList();
@@ -227,24 +288,8 @@ void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedCl
         QString hookFilename =
                 alreadyProcessedClickHooks.parentFolder + "/" + webappClickHook;
 
-        WebappHookParser::Data data =
-                webappHookParser.parseContent(hookFilename);
-
-        QFileInfo fileInfo(hookFilename);
-        QString appIdNoVersion = fileInfo.fileName();
-
-        if (data.shouldDeleteCacheOnUninstall)
-        {
-            QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
-                     + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
-            dir.removeRecursively();
-        }
-        if (data.shouldDeleteCookiesOnUninstall)
-        {
-            QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
-                     + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
-            dir.removeRecursively();
-        }
+        executeHookDirectives(hookFilename,
+                              WebappHookParser::CLICK_LIFECYCLE_PHASE_UNINSTALL);
 
         qDebug() << "Uninstalling: " << hookFilename;
 
@@ -281,6 +326,9 @@ void handleUpdates(const WebappClickHookInstallDescription& alreadyProcessedClic
             destinationInfo.lastModified() >= hookFileInfo.lastModified()) {
             continue;
         }
+
+        executeHookDirectives(hookFilename,
+                              WebappHookParser::CLICK_LIFECYCLE_PHASE_UPDATE);
 
         qDebug() << "Updating " << destination;
 

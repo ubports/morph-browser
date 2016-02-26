@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -15,11 +15,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import time
 
 import autopilot.logging
 import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 from autopilot import input
+from autopilot.platform import model
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +41,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.address_bar.go_to_url(url)
 
     def wait_until_page_loaded(self, url):
-        webview = self.get_current_webview()
-        webview.url.wait_for(url)
+        webview = self.wait_select_single("WebViewImpl", current=True, url=url)
         # loadProgress == 100 ensures that a page has actually loaded
         webview.loadProgress.wait_for(100, timeout=20)
         webview.loading.wait_for(False)
@@ -98,7 +99,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_parent()
 
     def get_current_webview(self):
-        return self.select_single("WebViewImpl", visible=True)
+        return self.select_single("WebViewImpl", current=True)
 
     def get_webviews(self):
         return self.select_many("WebViewImpl", incognito=False)
@@ -109,18 +110,20 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
 
+    def get_sad_tab(self):
+        return self.wait_select_single(SadTab)
+
     def get_suggestions(self):
         return self.select_single(Suggestions)
 
     def get_geolocation_dialog(self):
         return self.wait_select_single(GeolocationPermissionRequest)
 
-    def get_selection(self):
-        return self.wait_select_single(Selection)
+    def get_http_auth_dialog(self):
+        return self.wait_select_single(HttpAuthenticationDialog)
 
-    def get_selection_actions(self):
-        return self.wait_select_single("ActionSelectionPopover",
-                                       objectName="selectionActions")
+    def get_media_access_dialog(self):
+        return self.wait_select_single(MediaAccessDialog)
 
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
@@ -130,7 +133,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        state="shown")
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
+        if self.wide:
+            return self.wait_select_single("NewTabViewWide", visible=True)
+        else:
+            return self.wait_select_single("NewTabView", visible=True)
 
     # Since the NewPrivateTabView does not define any new QML property in its
     # extended file, it does not report itself to autopilot with the same name
@@ -143,13 +149,45 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
 
+    def get_downloads_page(self):
+        return self.wait_select_single(DownloadsPage, visible=True)
+
     def get_content_picker_dialog(self):
         # only on devices
         return self.wait_select_single("PopupBase",
                                        objectName="contentPickerDialog")
 
+    def get_download_dialog(self):
+        return self.wait_select_single("PopupBase",
+                                       objectName="downloadDialog")
+
+    def get_peer_picker(self):
+        return self.wait_select_single(objectName="contentPeerPicker")
+
+    def get_download_options_dialog(self):
+        return self.wait_select_single("Dialog",
+                                       objectName="downloadOptionsDialog")
+
+    def click_cancel_download_button(self):
+        button = self.select_single("Button",
+                                    objectName="cancelDownloadButton")
+        self.pointing_device.click_object(button)
+
+    def click_choose_app_button(self):
+        button = self.select_single("Button",
+                                    objectName="chooseAppButton")
+        self.pointing_device.click_object(button)
+
+    def click_download_file_button(self):
+        button = self.select_single("Button",
+                                    objectName="downloadFileButton")
+        self.pointing_device.click_object(button)
+
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
+
+    def get_bottom_edge_bar(self):
+        return self.select_single(objectName="bottomEdgeBar", visible=True)
 
     def get_bookmark_options(self):
         return self.select_single(BookmarkOptions)
@@ -158,19 +196,80 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("Dialog",
                                        objectName="newFolderDialog")
 
+    # The bookmarks view is dynamically created, so it might or might not be
+    # available
+    def get_bookmarks_view(self):
+        try:
+            if self.wide:
+                return self.select_single("BookmarksViewWide")
+            else:
+                return self.select_single("BookmarksView")
+        except exceptions.StateNotFoundError:
+            return None
+
     # The history view is dynamically created, so it might or might not be
     # available
     def get_history_view(self):
         try:
-            return self.select_single("HistoryView")
+            if self.wide:
+                return self.select_single(HistoryViewWide)
+            else:
+                return self.select_single(HistoryView)
         except exceptions.StateNotFoundError:
             return None
 
-    def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFolderListView)
+    def get_expanded_history_view(self):
+        return self.wait_select_single(ExpandedHistoryView, visible=True)
 
     def press_key(self, key):
         self.keyboard.press_and_release(key)
+
+    def get_context_menu(self):
+        if self.wide:
+            return self.wait_select_single(ContextMenuWide)
+        else:
+            return self.wait_select_single(ContextMenuMobile)
+
+    def open_item_context_menu_on_item(self, item, menuClass):
+        cx = item.globalRect.x + item.globalRect.width // 2
+        cy = item.globalRect.y + item.globalRect.height // 2
+        self.pointing_device.move(cx, cy)
+        if model() == 'Desktop':
+            self.pointing_device.click(button=3)
+        else:
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
+        return self.wait_select_single(menuClass)
+
+    def open_context_menu(self):
+        webview = self.get_current_webview()
+        chrome = self.chrome
+        x = webview.globalRect.x + webview.globalRect.width // 2
+        y = webview.globalRect.y + \
+            (webview.globalRect.height + chrome.height) // 2
+        self.pointing_device.move(x, y)
+        if model() == 'Desktop':
+            self.pointing_device.click(button=3)
+        else:
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
+        return self.get_context_menu()
+
+    def dismiss_context_menu(self, menu):
+        if self.wide:
+            # Dismiss by clicking outside of the menu
+            webview_rect = self.get_current_webview().globalRect
+            actions = menu.get_visible_actions()
+            outside_x = (webview_rect.x + actions[0].globalRect.x) // 2
+            outside_y = webview_rect.y + webview_rect.height // 2
+            self.pointing_device.move(outside_x, outside_y)
+            self.pointing_device.click()
+        else:
+            # Dismiss by clicking the cancel action
+            menu.click_cancel_action()
+        menu.wait_until_destroyed()
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -224,8 +323,7 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName,
-                                    visible=True)
+        return drawer.select_single(objectName=actionName, visible=True)
 
     def get_tabs_bar(self):
         return self.select_single(TabsBar)
@@ -276,7 +374,7 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                   objectName="bookmarkToggle")
 
     def get_find_in_page_counter(self):
-        return self.select_single("Label", objectName="findInPageCounter")
+        return self.select_single(objectName="findInPageCounter")
 
 
 class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -288,10 +386,10 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_tabs(self):
-        return self.select_many("QQuickItem", objectName="tabDelegate")
+        return self.select_many("QQuickMouseArea", objectName="tabDelegate")
 
     def get_tab(self, index):
-        return self.select_single("QQuickItem", objectName="tabDelegate",
+        return self.select_single("QQuickMouseArea", objectName="tabDelegate",
                                   tabIndex=index)
 
     @autopilot.logging.log_action(logger.info)
@@ -301,7 +399,7 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def close_tab(self, index):
         tab = self.get_tab(index)
-        close_button = tab.select_single("Icon", objectName="closeButton")
+        close_button = tab.select_single(objectName="closeButton")
         self.pointing_device.click_object(close_button)
 
 
@@ -310,6 +408,19 @@ class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_ordered_entries(self):
         return sorted(self.select_many("Suggestion"),
                       key=lambda item: item.globalRect.y)
+
+
+class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_close_tab_button(self):
+        button = self.select_single("Button", objectName="closeTabButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_reload_button(self):
+        button = self.select_single("Button", objectName="reloadButton")
+        self.pointing_device.click_object(button)
 
 
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -321,13 +432,34 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Button", objectName="allow")
 
 
-class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_rectangle(self):
-        return self.select_single("QQuickItem", objectName="rectangle")
+    def get_deny_button(self):
+        return self.select_single("Button", objectName="deny")
 
-    def get_handle(self, name):
-        return self.select_single("SelectionHandle", objectName=name)
+    def get_allow_button(self):
+        return self.select_single("Button", objectName="allow")
+
+    def get_username_field(self):
+        return self.select_single("TextField", objectName="username")
+
+    def get_password_field(self):
+        return self.select_single("TextField", objectName="password")
+
+
+class MediaAccessDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_deny_button(self):
+        button = self.select_single("Button",
+                                    objectName="mediaAccessDialog.denyButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_allow_button(self):
+        button = self.select_single("Button",
+                                    objectName="mediaAccessDialog.allowButton")
+        self.pointing_device.click_object(button)
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -343,7 +475,7 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def close(self):
-        button = self.select_single("AbstractButton", objectName="closeButton")
+        button = self.select_single(objectName="closeButton")
         self.pointing_device.click_object(button)
 
 
@@ -373,7 +505,7 @@ class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_header(self):
-        return self.select_single(SettingsPageHeader)
+        return self.select_single(BrowserPageHeader)
 
     def get_searchengine_entry(self):
         return self.select_single("Subtitled", objectName="searchengine")
@@ -402,12 +534,46 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Standard", objectName="reset")
 
 
-class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_header(self):
+        return self.select_single(BrowserPageHeader)
+
+
+class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):
-        button = self.select_single("AbstractButton", objectName="backButton")
+        button = self.select_single(objectName="backButton")
         self.pointing_device.click_object(button)
+
+
+class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_domain_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+
+class HistoryViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+    def get_search_field(self):
+        return self.select_single(objectName="searchQuery")
+
+
+class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_header(self):
+        return self.select_single(objectName="header")
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate",
+                                       objectName="entriesDelegate"),
+                      key=lambda item: item.globalRect.y)
 
 
 class LeavePrivateModeDialog(uitk.Dialog):
@@ -434,19 +600,81 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlDelegate, objectName="homepageBookmark")
 
     def get_bookmarks_list(self):
-        return self.select_single(UrlsList, objectName="bookmarksList")
+        return self.select_single(objectName="bookmarksList")
+
+    def get_bookmark_delegates(self):
+        list = self.get_bookmarks_list()
+        return sorted(list.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)
 
     def get_top_sites_list(self):
-        return self.select_single(UrlsList, objectName="topSitesList")
+        return self.select_single(UrlPreviewGrid, objectName="topSitesList")
 
     def get_notopsites_label(self):
-        return self.select_single("Label", objectName="notopsites")
+        return self.select_single(objectName="notopsites")
+
+    def get_top_site_items(self):
+        return self.get_top_sites_list().get_delegates()
+
+    def get_bookmarks_folder_list_view(self):
+        return self.wait_select_single(BookmarksFoldersView)
+
+    def get_bookmarks(self, folder_name):
+        # assumes that the "more" button has been clicked
+        folders = self.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        return folders.get_urls_from_folder(folder_delegate)
+
+    def get_folder_names(self):
+        folders = self.get_bookmarks_folder_list_view().get_delegates()
+        return [folder.folderName for folder in folders]
 
 
-class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def go_to_section(self, section_index):
+        sections = self.select_single(uitk.Sections)
+        if not sections.selectedIndex == section_index:
+            sections.click_section_button(section_index)
+
+    def get_bookmarks_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="bookmarksList")
+        return sorted(list.select_many("DraggableUrlDelegateWide",
+                      objectName="bookmarkItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_sites_list(self):
+        self.go_to_section(0)
+        return self.select_single(UrlPreviewGrid, objectName="topSitesList")
+
+    def get_folders_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="foldersList")
+        return sorted(list.select_many(objectName="folderItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_site_items(self):
+        return self.get_top_sites_list().get_delegates()
+
+    def get_bookmarks(self, folder_name):
+        folders = self.get_folders_list()
+        matches = [folder for folder in folders if folder.name == folder_name]
+        if not len(matches) == 1:
+            return []
+        self.pointing_device.click_object(matches[0])
+        return self.get_bookmarks_list()
+
+    def get_folder_names(self):
+        return [folder.name for folder in self.get_folders_list()]
+
+
+class UrlPreviewGrid(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
-        return sorted(self.select_many(UrlDelegate),
+        return sorted(self.select_many("UrlPreviewDelegate"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_urls(self):
@@ -456,6 +684,33 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class UrlDelegate(uitk.UCListItem):
 
     pass
+
+
+class UrlDelegateWide(uitk.UCListItem):
+
+    pass
+
+
+class UrlPreviewDelegate(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def hide_from_history(self, root):
+        menu = root.open_item_context_menu_on_item(self,
+                                                   "ActionSelectionPopover")
+
+        # Note: we can't still use the click_action_button method of
+        # ActionSelectionPopover's CPO, because it will crash if we delete the
+        # menu as a reaction to the click (which is the case here).
+        # However at least we can select the action button by objectName now.
+        # See bug http://pad.lv/1504189
+        delete_item = menu.wait_select_single(objectName="delete_button")
+        self.pointing_device.click_object(delete_item)
+        menu.wait_until_destroyed()
+
+
+class DraggableUrlDelegateWide(UrlDelegateWide):
+
+    def get_grip(self):
+        return self.select_single("Icon", objectName="dragGrip")
 
 
 class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -479,16 +734,14 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
 
-class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
-        return sorted(self.select_many("QQuickItem",
-                                       objectName="bookmarkFolderDelegate"),
+        return sorted(self.select_many(objectName="bookmarkFolderDelegate"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_folder_delegate(self, folder):
-        return self.select_single("QQuickItem",
-                                  objectName="bookmarkFolderDelegate",
+        return self.select_single(objectName="bookmarkFolderDelegate",
                                   folderName=folder)
 
     def get_urls_from_folder(self, folder):
@@ -496,5 +749,36 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_header_from_folder(self, folder):
-        return folder.wait_select_single("QQuickItem",
-                                         objectName="bookmarkFolderHeader")
+        return folder.wait_select_single(objectName="bookmarkFolderHeader")
+
+
+class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_label(self):
+        return self.select_single(objectName="titleLabel")
+
+    def get_visible_actions(self):
+        return self.select_many("Empty", visible=True)
+
+    def get_action(self, objectName):
+        name = objectName + "_item"
+        return self.select_single("Empty", objectName=name)
+
+    def click_action(self, objectName):
+        name = objectName + "_item"
+        action = self.select_single("Empty", visible=True,
+                                    enabled=True, objectName=name)
+        self.pointing_device.click_object(action)
+        self.wait_until_destroyed()
+
+
+class ContextMenuWide(ContextMenuBase):
+
+    pass
+
+
+class ContextMenuMobile(ContextMenuBase):
+
+    def click_cancel_action(self):
+        action = self.select_single("Empty", objectName="cancelAction")
+        self.pointing_device.click_object(action)

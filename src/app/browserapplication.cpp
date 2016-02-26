@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,11 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// system
+#include <cerrno>
+#include <cstring>
+#include <sys/apparmor.h>
+
 // Qt
-#include <QtCore/QLibrary>
+#include <QtCore/QMetaObject>
 #include <QtCore/QtGlobal>
+#include <QtGui/QTouchDevice>
 #include <QtNetwork/QNetworkInterface>
-#include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
@@ -31,12 +36,15 @@
 #include "browserapplication.h"
 #include "config.h"
 #include "favicon-fetcher.h"
+#include "meminfo.h"
+#include "mime-database.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
 #include "TouchRegistry.h"
 #include "Ubuntu/Gestures/Direction.h"
 #include "Ubuntu/Gestures/DirectionalDragArea.h"
+#include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
@@ -99,12 +107,17 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
-static QObject* Direction_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new Direction();
-}
+#define MAKE_SINGLETON_FACTORY(type) \
+    static QObject* type##_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine) { \
+        Q_UNUSED(engine); \
+        Q_UNUSED(scriptEngine); \
+        return new type(); \
+    }
+
+MAKE_SINGLETON_FACTORY(MemInfo)
+MAKE_SINGLETON_FACTORY(MimeDatabase)
+MAKE_SINGLETON_FACTORY(Direction)
+
 
 bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
@@ -120,7 +133,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     if (qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
-            id = QString(APP_ID);
+            id = QStringLiteral(APP_ID);
         }
         qputenv("APP_ID", id.toUtf8());
     }
@@ -133,6 +146,26 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
+    // Ensure only one instance of the app is running.
+    if (m_singleton.run(m_arguments)) {
+        connect(&m_singleton, SIGNAL(newInstanceLaunched(const QStringList&)),
+                SLOT(onNewInstanceLaunched(const QStringList&)));
+    } else {
+        return false;
+    }
+
+    bool runningConfined = true;
+    char* label;
+    char* mode;
+    if (aa_getcon(&label, &mode) != -1) {
+        if (strcmp(label, "unconfined") == 0) {
+            runningConfined = false;
+        }
+        free(label);
+    } else if (errno == EINVAL) {
+        runningConfined = false;
+    }
+
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();
     bool inspectorEnabled = !devtoolsPort.isEmpty();
@@ -143,11 +176,17 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 
     const char* uri = "webbrowsercommon.private";
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
+    qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
+    qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
     const char* gesturesUri = "Ubuntu.Gestures";
     qmlRegisterSingletonType<Direction>(gesturesUri, 0, 1, "Direction", Direction_singleton_factory);
     qmlRegisterType<DirectionalDragArea>(gesturesUri, 0, 1, "DirectionalDragArea");
+
+    const char* inputInfoUri = "Unity.InputInfo";
+    qmlRegisterType<QDeclarativeInputDeviceModel>(inputInfoUri, 0, 1, "InputDeviceModel");
+    qmlRegisterType<QInputDevice>(inputInfoUri, 0, 1, "InputInfo");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
@@ -158,6 +197,9 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     qmlEngineCreated(m_engine);
 
     QQmlContext* context = m_engine->rootContext();
+    context->setContextProperty("__runningConfined", runningConfined);
+    context->setContextProperty("unversionedAppId", unversionedAppId);
+
     m_component = new QQmlComponent(m_engine);
     m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFileSubPath));
     if (!m_component->isReady()) {
@@ -166,7 +208,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     }
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
-    context->setContextProperty("unversionedAppId", unversionedAppId);
 
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
@@ -177,7 +218,30 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
     browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
 
+    bool hasTouchScreen = false;
+    Q_FOREACH(const QTouchDevice* device, QTouchDevice::devices()) {
+        if (device->type() == QTouchDevice::TouchScreen) {
+            hasTouchScreen = true;
+        }
+    }
+    browser->setProperty("hasTouchScreen", hasTouchScreen);
+
     return true;
+}
+
+void BrowserApplication::onNewInstanceLaunched(const QStringList& arguments) const
+{
+    QVariantList urls;
+    Q_FOREACH(const QString& argument, arguments) {
+        if (!argument.startsWith(QStringLiteral("-"))) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    QMetaObject::invokeMethod(m_window, "openUrls", Q_ARG(QVariant, QVariant(urls)));
+    m_window->requestActivate();
 }
 
 void BrowserApplication::qmlEngineCreated(QQmlEngine*)

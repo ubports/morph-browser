@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Baidu</ShortName>
+  <Description>Baidu Search</Description>
+  <Url type="text/html" template="https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=0&amp;wd={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="http://suggestion.baidu.com/su?wd={searchTerms}&amp;action=opensearch"/>
+</OpenSearchDescription>

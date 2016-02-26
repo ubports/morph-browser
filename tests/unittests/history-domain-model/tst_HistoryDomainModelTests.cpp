@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,8 +23,6 @@
 // local
 #include "history-model.h"
 #include "history-domain-model.h"
-#include "history-timeframe-model.h"
-
 
 class HistoryDomainModelTests : public QObject
 {
@@ -32,7 +30,6 @@ class HistoryDomainModelTests : public QObject
 
 private:
     HistoryModel* history;
-    HistoryTimeframeModel* timeframe;
     HistoryDomainModel* model;
 
 private Q_SLOTS:
@@ -40,16 +37,13 @@ private Q_SLOTS:
     {
         history = new HistoryModel;
         history->setDatabasePath(":memory:");
-        timeframe = new HistoryTimeframeModel;
-        timeframe->setSourceModel(history);
         model = new HistoryDomainModel;
-        model->setSourceModel(timeframe);
+        model->setSourceModel(history);
     }
 
     void cleanup()
     {
         delete model;
-        delete timeframe;
         delete history;
     }
 
@@ -61,15 +55,15 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(timeframe);
+        model->setSourceModel(history);
         QVERIFY(spy.isEmpty());
-        HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel(model);
-        model->setSourceModel(timeframe2);
+        HistoryModel history2;
+        model->setSourceModel(&history2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), timeframe2);
-        model->setSourceModel(0);
+        QCOMPARE(model->sourceModel(), &history2);
+        model->setSourceModel(nullptr);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
+        QCOMPARE(model->sourceModel(), (HistoryModel*) nullptr);
     }
 
     void shouldNotifyWhenChangingDomain()

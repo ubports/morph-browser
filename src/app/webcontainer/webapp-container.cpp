@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,7 +20,7 @@
 #include "webapp-container.h"
 
 #include "chrome-cookie-store.h"
-#include "intent-filter.h"
+#include "scheme-filter.h"
 #include "local-cookie-store.h"
 #include "online-accounts-cookie-store.h"
 #include "session-utils.h"
@@ -33,17 +33,16 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
+#include <QtCore/QSettings>
+#include <QtCore/QStandardPaths>
 #include <QtCore/QTextStream>
+#include <QtCore/QtGlobal>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
 #include <QtQml>
 #include <QtQuick/QQuickWindow>
-
-#include <QStandardPaths>
-#include <QSettings>
 
 static const char privateModuleUri[] = "webcontainer.private";
 
@@ -78,7 +77,7 @@ static void clearCookiesHack(const QString &provider)
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
-const QString WebappContainer::LOCAL_INTENT_FILTER_FILENAME = "local-intent-filter.js";
+const QString WebappContainer::LOCAL_SCHEME_FILTER_FILENAME = "local-scheme-filter.js";
 
 
 WebappContainer::WebappContainer(int& argc, char** argv):
@@ -193,8 +192,8 @@ bool WebappContainer::initialize()
             return false;
         }
 
-        // Handle an optional intent filter. The default filter does nothing.
-        setupLocalIntentFilterIfAny(context);
+        // Handle an optional scheme handler filter. The default *catch all* filter does nothing.
+        setupLocalSchemeFilterIfAny(context, m_webappModelSearchPath);
 
         m_component->completeCreate();
 
@@ -204,28 +203,31 @@ bool WebappContainer::initialize()
     }
 }
 
-void WebappContainer::setupLocalIntentFilterIfAny(QQmlContext* context)
+void WebappContainer::setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath)
 {
-    if(!context)
-    {
+    if(!context) {
         return;
     }
 
-    QString localIntentFilterFileContent;
-    if (IntentFilter::isValidLocalIntentFilterFile(LOCAL_INTENT_FILTER_FILENAME))
-    {
-        QFile f(LOCAL_INTENT_FILTER_FILENAME);
-        if (f.open(QIODevice::ReadOnly))
-        {
-            localIntentFilterFileContent = QString(f.readAll());
-        }
-        f.close();
+    QDir searchPath(webappSearchPath.isEmpty()
+                    ? QDir::currentPath()
+                    : webappSearchPath);
 
-        qDebug() << "Using local intent filter file:"
-                 << LOCAL_INTENT_FILTER_FILENAME;
+    bool hasValidLocalSchemeFilterFile = false;
+
+    QMap<QString, QString> content =
+            SchemeFilter::parseValidLocalSchemeFilterFile(
+                hasValidLocalSchemeFilterFile,
+                searchPath.filePath(LOCAL_SCHEME_FILTER_FILENAME));
+
+    if (hasValidLocalSchemeFilterFile) {
+        qDebug() << "Using local scheme filter file:"
+                 << LOCAL_SCHEME_FILTER_FILENAME;
     }
-    m_intentFilter.reset(new IntentFilter(localIntentFilterFileContent, NULL));
-    context->setContextProperty("webappIntentFilter", m_intentFilter.data());
+
+    m_schemeFilter.reset(new SchemeFilter(content));
+
+    context->setContextProperty("webappSchemeFilter", m_schemeFilter.data());
 }
 
 bool WebappContainer::isValidLocalApplicationRunningContext() const

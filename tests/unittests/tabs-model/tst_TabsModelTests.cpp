@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtCore/QStringList>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlProperty>
@@ -45,6 +46,20 @@ private:
         object->setParent(this);
         QQuickItem* item = qobject_cast<QQuickItem*>(object);
         return item;
+    }
+
+    QQuickItem* createTabWithTitle(const QString& title) {
+        QQuickItem* tab = createTab();
+        tab->setProperty("title", title);
+        return tab;
+    }
+
+    void verifyTabsOrder(QStringList orderedTitles) {
+        QCOMPARE(model->rowCount(), orderedTitles.count());
+        int i = 0;
+        Q_FOREACH(QString title, orderedTitles) {
+            QCOMPARE(model->get(i++)->property("title").toString(), title);
+        }
     }
 
 private Q_SLOTS:
@@ -113,6 +128,51 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 1);
     }
 
+    void shouldNotInsertNullTab()
+    {
+        QCOMPARE(model->insert(0, 0), -1);
+        QCOMPARE(model->rowCount(), 0);
+    }
+
+    void shouldReturnIndexWhenInsertingTab()
+    {
+        for(int i = 0; i < 3; ++i) {
+            model->add(createTab());
+        }
+        for(int i = 2; i >= 0; --i) {
+            QCOMPARE(model->insert(createTab(), i), i);
+        }
+    }
+
+    void shouldUpdateCountWhenInsertingTab()
+    {
+        QSignalSpy spy(model, SIGNAL(countChanged()));
+        model->insert(createTab(), 0);
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(model->rowCount(), 1);
+    }
+
+    void shouldInsertAtCorrectIndex()
+    {
+        model->insert(createTabWithTitle("B"), 0);
+        model->insert(createTabWithTitle("A"), 0);
+        verifyTabsOrder(QStringList({"A", "B"}));
+        model->insert(createTabWithTitle("X"), 1);
+        verifyTabsOrder(QStringList({"A", "X", "B"}));
+        model->insert(createTabWithTitle("C"), 3);
+        verifyTabsOrder(QStringList({"A", "X", "B", "C"}));
+    }
+
+    void shouldClampIndexWhenInsertingTabOutOfBounds()
+    {
+        model->add(createTabWithTitle("A"));
+        model->add(createTabWithTitle("B"));
+        model->insert(createTabWithTitle("C"), 3);
+        verifyTabsOrder(QStringList({"A", "B", "C"}));
+        model->insert(createTabWithTitle("X"), -1);
+        verifyTabsOrder(QStringList({"X", "A", "B", "C"}));
+    }
+
     void shouldUpdateCountWhenRemovingTab()
     {
         model->add(createTab());
@@ -136,19 +196,6 @@ private Q_SLOTS:
         QObject* removed = model->remove(0);
         QCOMPARE(removed, tab);
         delete removed;
-    }
-
-    void shouldNotChangeCurrentTabWhenAddingUnlessModelWasEmpty()
-    {
-        QSignalSpy spy(model, SIGNAL(currentTabChanged()));
-        QQuickItem* tab = createTab();
-        model->add(tab);
-        QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentTab(), tab);
-        spy.clear();
-        model->add(createTab());
-        QVERIFY(spy.isEmpty());
-        QCOMPARE(model->currentTab(), tab);
     }
 
     void shouldNotDeleteTabWhenRemoving()
@@ -244,41 +291,164 @@ private Q_SLOTS:
         QCOMPARE(model->currentTab(), tab2);
     }
 
-    void shouldUpdateCurrentTabWhenRemoving()
+    void shouldSetCurrentTabWhenAddingFirstTab()
     {
-        QSignalSpy spy(model, SIGNAL(currentTabChanged()));
+        // Adding a tab to an empty model should update the current tab
+        // to that tab
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+        QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(model->currentTab(), (QObject*) nullptr);
 
-        // Adding a tab to an empty model should update the current tab.
-        // Removing the last tab from the model should update it too.
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(model->currentTab(), tab1);
+
+        // But adding further items should keep the index where it was
         model->add(createTab());
-        delete model->remove(0);
-        QCOMPARE(spy.count(), 2);
+        model->add(createTab());
 
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(model->currentTab(), tab1);
+    }
+
+    void shouldSetCurrentTabWhenInsertingFirstTab()
+    {
+        // Inserting a tab to an empty model should update the current tab
+        // to that tab
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+        QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(model->currentTab(), (QObject*) nullptr);
+
+        QQuickItem* tab1 = createTab();
+        model->insert(tab1, 0);
+
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(model->currentTab(), tab1);
+    }
+
+    void shouldUpdateCurrentTabWhenInsertingAtCurrentIndex()
+    {
+        QQuickItem* tab1 = createTab();
+        model->insert(tab1, 0);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(model->currentTab(), tab1);
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+
+        QQuickItem* tab2 = createTab();
+        model->insert(tab2, 0);
+
+        QVERIFY(spyindex.isEmpty());
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(model->currentTab(), tab2);
+    }
+
+    void shouldUpdateCurrentIndexWhenInsertingBeforeCurrentIndex()
+    {
+        model->insert(createTab(), 0);
+        model->insert(createTab(), 0);
+        model->setCurrentIndex(1);
+        QObject* current = model->currentTab();
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+
+        model->insert(createTab(), 0);
+
+        QVERIFY(spytab.isEmpty());
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentTab(), current);
+        QCOMPARE(model->currentIndex(), 2);
+    }
+
+    void shouldSetInvalidIndexWhenRemovingLastTab()
+    {
+        // Removing the last item should also set the current index to -1
+        // and the current tab to null
+        model->add(createTab());
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+        delete model->remove(0);
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(model->currentTab(), (QObject*) nullptr);
+    }
+
+    void shouldNotChangeIndexWhenRemovingAfterCurrent()
+    {
         // When removing a tab after the current one,
         // the current tab shouldn’t change.
         QQuickItem* tab1 = createTab();
         model->add(tab1);
         model->add(createTab());
-        spy.clear();
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
         delete model->remove(1);
         QCOMPARE(model->currentTab(), tab1);
-        QVERIFY(spy.isEmpty());
+        QVERIFY(spytab.isEmpty());
+        QVERIFY(spyindex.isEmpty());
+    }
 
+    void shouldUpdateIndexWhenRemovingCurrent()
+    {
         // When removing the current tab, if there is a tab after it,
         // it becomes the current one.
+        QQuickItem* tab1 = createTab();
         QQuickItem* tab2 = createTab();
+        QQuickItem* tab3 = createTab();
+        model->add(tab1);
         model->add(tab2);
-        spy.clear();
-        delete model->remove(0);
-        QCOMPARE(spy.count(), 1);
+        model->add(tab3);
+        model->setCurrentIndex(1);
+        QCOMPARE(model->currentIndex(), 1);
         QCOMPARE(model->currentTab(), tab2);
 
-        // When removing the current tab, if it was the last one, the
-        // current tab should be reset to 0.
-        spy.clear();
-        delete model->remove(0);
-        QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentTab(), (QObject*) nullptr);
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+        delete model->remove(1);
+        QCOMPARE(spyindex.count(), 0);
+        QCOMPARE(spytab.count(), 1);
+        QCOMPARE(model->currentTab(), tab3);
+
+        // If there is no tab after it but one before, that one becomes current
+        delete model->remove(1);
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(spytab.count(), 2);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(model->currentTab(), tab1);
+    }
+
+    void shouldDecreaseIndexWhenRemovingBeforeCurrent()
+    {
+        // When removing a tab before the current tab, the current index
+        // should decrease to match.
+        model->add(createTab());
+        model->add(createTab());
+        QQuickItem* tab = createTab();
+        model->add(tab);
+        model->setCurrentIndex(2);
+
+        QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
+        QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
+        delete model->remove(1);
+        QVERIFY(spytab.isEmpty());
+        QCOMPARE(spyindex.count(), 1);
+        QCOMPARE(model->currentIndex(), 1);
+        QCOMPARE(model->currentTab(), tab);
     }
 
     void shouldReturnData()

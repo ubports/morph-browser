@@ -7,30 +7,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-11 20:00+0200\n"
-"PO-Revision-Date: 2015-07-27 14:09+0000\n"
-"Last-Translator: Owen Llywelyn <owen.llywelyn@gmail.com>\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"PO-Revision-Date: 2016-02-04 14:29+0000\n"
+"Last-Translator: Rhoslyn Prys <rprys@yahoo.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : (n != 8 && n != 11) ? "
 "2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "Rhybudd JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Iawn"
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
 msgstr "Angen dilysiad."
 
@@ -40,21 +40,27 @@ msgstr "Angen dilysiad."
 msgid "The website %1 requires authentication."
 msgstr "Mae angen dilysiad ar wefan  %1"
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr "Enw Defnyddiwr"
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr "Cyfrinair"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
+#: src/app/webbrowser/ContextMenuMobile.qml:139
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/HistoryView.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:289
-#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
 msgstr "Diddymu"
 
@@ -109,19 +115,12 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "Mae'n debyg eich bod yn cael trafferth gweld: %1."
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr ""
-"Mae Ubuntu yn awgrymu y dylech wirio'ch cysylltiad rhwydwaith ac adnewyddu'r "
-"dudalen."
+msgid "Please check your network settings and try refreshing the page."
+msgstr "Gwiriwch eich gosodiadau rhwydwaith a cheisiwch adnewyddu'r dudalen."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Adnewyddu tudalen"
-
-#: src/app/FilePickerDialog.qml:28
-msgid "Please choose a file"
-msgstr "Dewiswch ffeil"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -377,15 +376,23 @@ msgstr "Copïo delwedd"
 msgid "Copy link"
 msgstr "Copïo dolen"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr "Torri"
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr "Dileu"
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
 msgid "Find in page"
-msgstr ""
+msgstr "Canfod yn y dudalen"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Canfod yn y dudalen"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -407,7 +414,8 @@ msgstr "Mynd i"
 msgid "Address;URL;www"
 msgstr "Cyfeiriad;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
+#: src/app/webbrowser/TabsBar.qml:89
 msgid "New Tab"
 msgstr "Tab Newydd"
 
@@ -429,7 +437,20 @@ msgstr "Agor dolen mewn tab cefndir newydd"
 msgid "Open link in new tab"
 msgstr "Agor dolen mewn tab newydd"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/OpenVideoInNewTab.qml:22
+msgid "Open video in new tab"
+msgstr ""
+
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr "Gludo"
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr "Ail-wneud"
+
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Ail-lwytho"
 
@@ -443,21 +464,39 @@ msgstr "Gadael tudalen"
 msgid "Save image"
 msgstr "Cadw delwedd"
 
-#: src/app/actions/ShareLink.qml:22
-msgid "Share…"
-msgstr "Rhannu..."
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr "Cadw'r ddolen"
+
+#: src/app/actions/SaveVideo.qml:22
+msgid "Save video"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/webbrowser/HistoryView.qml:190
+#: src/app/webbrowser/HistoryViewWide.qml:422
+msgid "Select all"
+msgstr "Dewis popeth"
+
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+msgid "Share"
+msgstr "Rhannu"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr "Dadwneud"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:210
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "find in page"
-msgstr ""
+msgstr "canfod yn y dudalen"
 
-#: src/app/webbrowser/AddressBar.qml:216
+#: src/app/webbrowser/AddressBar.qml:247
 msgid "search or enter an address"
 msgstr "chwiliwch neu rowch gyfeiriad"
 
@@ -476,7 +515,8 @@ msgid "Save in"
 msgstr "Cadw yn"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/BookmarksFoldersView.qml:133
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "Pob Nod Tudalen"
 
@@ -490,58 +530,112 @@ msgid "Create new folder"
 msgstr "Creu plygell newydd"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:353
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "Cadw"
 
-#: src/app/webbrowser/Browser.qml:312
-msgid "Share"
-msgstr "Rhannu"
+#: src/app/webbrowser/BookmarksFoldersView.qml:191
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
+#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:322
+msgid "Homepage"
+msgstr "Tudalen Gartref"
 
-#: src/app/webbrowser/Browser.qml:319
-msgid "History"
-msgstr "Hanes"
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/NewTabViewWide.qml:139
+msgid "Bookmarks"
+msgstr "Nodau Tudalen"
 
-#: src/app/webbrowser/Browser.qml:329
-msgid "Open tabs"
-msgstr "Agor tabiau"
-
-#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
-msgid "New tab"
-msgstr "Tab newydd"
-
-#: src/app/webbrowser/Browser.qml:355
-msgid "Leave Private Mode"
-msgstr "Gadael Modd Preifat"
-
-#: src/app/webbrowser/Browser.qml:355
-msgid "Private Mode"
-msgstr "Modd Preifat"
-
-#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr "Gosodiadau"
-
-#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "Cwblhawyd"
 
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/HistoryView.qml:145
+#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+msgid "New tab"
+msgstr "Tab newydd"
+
+#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/HistoryViewWide.qml:381
+msgid "History"
+msgstr "Hanes"
+
+#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+msgid "Downloads"
+msgstr "Llwythiadau i lawr"
+
+#: src/app/webbrowser/Browser.qml:561
+msgid "Leave Private Mode"
+msgstr "Gadael Modd Preifat"
+
+#: src/app/webbrowser/Browser.qml:561
+msgid "Private Mode"
+msgstr "Modd Preifat"
+
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+msgid "Settings"
+msgstr "Gosodiadau"
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:689
+#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:973
+#: src/app/webbrowser/Browser.qml:1343
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Traw i Fyny i Adael Sgrîn Lawn"
 
-#: src/app/webbrowser/Browser.qml:974
+#: src/app/webbrowser/Browser.qml:1344
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pwyswch ESC i Adael Sgrîn Lawn"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"Dewiswch raglen i agor y ffeil hon neu ei hychwanegu i'r ffolder llwytho i "
+"lawr."
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "Dewis rhaglen"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "Llwytho i lawr"
+
+#: src/app/webbrowser/DownloadDelegate.qml:159
+msgid "Download failed"
+msgstr "Methodd y llwytho i lawr"
+
+#: src/app/webbrowser/DownloadDelegate.qml:208
+msgid "Resume"
+msgstr "Ailgychwyn"
+
+#: src/app/webbrowser/DownloadsPage.qml:61
+msgid "Confirm selection"
+msgstr "Cadarnhau'r dewis"
+
+#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/HistoryView.qml:217
+#: src/app/webbrowser/HistoryViewWide.qml:441
+msgid "Delete"
+msgstr "Dileu"
+
+#: src/app/webbrowser/DownloadsPage.qml:252
+msgid "No downloads available"
+msgstr "Dim llwythi ar gael"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -550,30 +644,62 @@ msgstr[1] "%1 tudalen"
 msgstr[2] "%1 tudalen"
 msgstr[3] "%1 tudalen"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/ExpandedHistoryView.qml:136
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "Less"
 msgstr "Llai"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Ymwelwyd Ddiwethaf"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Yesterday"
 msgstr "Ddoe"
 
-#: src/app/webbrowser/HistoryView.qml:180
-msgid "Select all"
-msgstr "Dewis popeth"
+#: src/app/webbrowser/HistoryViewWide.qml:196
+msgid "All History"
+msgstr "Yr Holl Hanes"
 
-#: src/app/webbrowser/HistoryView.qml:210
-msgid "Delete"
-msgstr "Dileu"
+#: src/app/webbrowser/HistoryViewWide.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:295
+msgid "Today"
+msgstr "Heddiw"
+
+#: src/app/webbrowser/HistoryViewWide.qml:462
+msgid "search history"
+msgstr "hanes chwilio"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Bydd symud i modd cyhoeddus yn cau pob tab preifat"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Caniatáu i'r parth hwn gael mynediad i'ch camera a'ch meicroffon?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Caniatáu i'r parth hwn gael mynediad i'ch camera?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Caniatáu i'r parth hwn gael mynediad i'ch meicroffon?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (wedi ei fewnblannu yn %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Iawn"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Na"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -588,21 +714,40 @@ msgstr ""
 "porwr.\n"
 "Bydd nodau tudalen yr ydych yn eu creu yn cael eu cadw serch hynny."
 
-#: src/app/webbrowser/NewTabView.qml:108
-msgid "Bookmarks"
-msgstr "Nodau Tudalen"
-
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
 msgstr "Mwy"
 
-#: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Prif safleoedd"
 
-#: src/app/webbrowser/NewTabView.qml:257
+#: src/app/webbrowser/NewTabView.qml:366
 msgid "You haven't visited any site yet"
 msgstr "Nid ydych wedi ymweld â safle eto"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr "Mae'r broses llunio wedi ei gau yn y tab hwn."
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr "Aeth rhywbeth o'i le wrth ddangos %1"
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+"Mae lefel y cof y isel ar y system ac nid oes modd dangos y dudalen gwe hon. "
+"Ceisiwch gau tabiau diangen ac ail lwytho."
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr "Cau tab"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -657,66 +802,82 @@ msgstr "Rydych wedi cysylltu â"
 msgid "Which is run by"
 msgstr "Sy'n cael ei redeg gan"
 
-#: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:176
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr "Rhagosodedig"
+
+#: src/app/webbrowser/SettingsPage.qml:80
+#: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
 msgstr "Peiriant chwilio"
 
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
-msgid "Homepage"
-msgstr "Tudalen Gartref"
-
-#: src/app/webbrowser/SettingsPage.qml:101
+#: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
 msgstr "Adfer y sesiwn flaenorol wrth gychwyn"
 
-#: src/app/webbrowser/SettingsPage.qml:119
-msgid "Allow opening new tabs in background"
-msgstr "Caniatáu agor tabiau newydd yn y cefndir"
+#: src/app/webbrowser/SettingsPage.qml:137
+#: src/app/webbrowser/SettingsPage.qml:227
+msgid "Privacy & permissions"
+msgstr "Preifatrwydd a chaniatâd"
 
-#: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:228
-msgid "Privacy"
-msgstr "Preifatrwydd"
-
-#: src/app/webbrowser/SettingsPage.qml:146
+#: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Ailosod gosodiadau porwr"
 
-#: src/app/webbrowser/SettingsPage.qml:249
+#: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr "Camera a meicroffon"
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Clirio Hanes Pori"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Clirio Hanes Pori"
 
-#: src/app/webbrowser/SettingsPage.qml:259
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "Gwagio'r Celc"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Clirio'r Storfa"
 
-#: src/app/webbrowser/SettingsPage.qml:296
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
-msgstr ""
+msgstr "Clirio"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr "Meicroffon"
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr "Camera"
+
+#: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "Tapiwch i weld"
 
+#: src/app/webbrowser/TabsBar.qml:100
+msgid "Close Tab"
+msgstr "Cau'r Tab"
+
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+msgid "Remove"
+msgstr "Tynnu"
+
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Porwr Gwe Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr "Porwr Gwe Ubuntu"
 
@@ -782,6 +943,10 @@ msgstr "Neidio"
 msgid "Choose account"
 msgstr "Dewiswch gyfrif"
 
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr "Wps, aeth rhywbeth o'i le."
+
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
 msgstr "Porwr"
@@ -797,3 +962,24 @@ msgstr "Pori'r We Fyd Eang"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Rhyngrwyd;WWW;Porwr;Gwe;Fforiwr"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr ""
+#~ "Mae Ubuntu yn awgrymu y dylech wirio'ch cysylltiad rhwydwaith ac adnewyddu'r "
+#~ "dudalen."
+
+#~ msgid "Please choose a file"
+#~ msgstr "Dewiswch ffeil"
+
+#~ msgid "Share…"
+#~ msgstr "Rhannu..."
+
+#~ msgid "Open tabs"
+#~ msgstr "Agor tabiau"
+
+#~ msgid "Privacy"
+#~ msgstr "Preifatrwydd"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "Caniatáu agor tabiau newydd yn y cefndir"

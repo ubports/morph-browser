@@ -29,22 +29,23 @@ BrowserView {
     id: webapp
     objectName: "webappBrowserView"
 
-    currentWebview: webview.currentWebview
+    currentWebview: containerWebView.currentWebview
 
-    property alias url: webview.url
+    property alias url: containerWebView.url
 
     property bool accountSwitcher
 
     property string webappModelSearchPath: ""
 
-    property alias webappName: webview.webappName
     property var webappUrlPatterns
-    property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
-    property alias webviewOverrideFile: webview.webviewOverrideFile
-    property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
-    property alias localUserAgentOverride: webview.localUserAgentOverride
-    property alias dataPath: webview.dataPath
-    property alias runningLocalApplication: webview.runningLocalApplication
+    property alias popupRedirectionUrlPrefixPattern: containerWebView.popupRedirectionUrlPrefixPattern
+    property alias webviewOverrideFile: containerWebView.webviewOverrideFile
+    property alias blockOpenExternalUrls: containerWebView.blockOpenExternalUrls
+    property alias localUserAgentOverride: containerWebView.localUserAgentOverride
+    property alias dataPath: containerWebView.dataPath
+    property alias runningLocalApplication: containerWebView.runningLocalApplication
+
+    property string webappName: ""
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -59,15 +60,15 @@ BrowserView {
 
     actions: [
         Actions.Back {
-            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: webview.currentWebview.goBack()
+            enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoBack
+            onTriggered: containerWebView.currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: webview.currentWebview.goForward()
+            enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoForward
+            onTriggered: containerWebView.currentWebview.goForward()
         },
         Actions.Reload {
-            onTriggered: webview.currentWebview.reload()
+            onTriggered: containerWebView.currentWebview.reload()
         }
     ]
 
@@ -77,15 +78,22 @@ BrowserView {
     }
 
     function addGeneratedUrlPattern(urlPattern) {
-        var patterns
-        try {
-            patterns = JSON.parse(urlPatternSettings.generatedUrlPatterns)
-        } catch(e) {
-            console.error("Invalid JSON content found in url patterns file")
+        if (urlPattern.trim().length === 0) {
+            return;
         }
-        if (! (patterns instanceof Array)) {
-            console.error("Invalid JSON content type found in url patterns file (not an array)")
-            patterns = []
+
+        var patterns = []
+        if (urlPatternSettings.generatedUrlPatterns
+                && urlPatternSettings.generatedUrlPatterns.trim().length !== 0) {
+            try {
+                patterns = JSON.parse(urlPatternSettings.generatedUrlPatterns)
+            } catch(e) {
+                console.error("Invalid JSON content found in url patterns file")
+            }
+            if (! (patterns instanceof Array)) {
+                console.error("Invalid JSON content type found in url patterns file (not an array)")
+                patterns = []
+            }
         }
         if (patterns.indexOf(urlPattern) < 0) {
             patterns.push(urlPattern)
@@ -120,9 +128,10 @@ BrowserView {
         anchors.fill: parent
 
         WebappContainerWebview {
-            id: webview
+            id: containerWebView
             objectName: "webview"
 
+            wide: webapp.wide
             anchors {
                 left: parent.left
                 right: parent.right
@@ -130,24 +139,57 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+
+            onThemeColorMetaInformationDetected: {
+                if (!webapp.chromeless && chromeLoader.item) {
+                    chromeLoader.item.backgroundColor = theme_color
+                }
+            }
             onSamlRequestUrlPatternReceived: {
                 addGeneratedUrlPattern(urlPattern)
             }
             webappUrlPatterns: mergeUrlPatternSets(urlPatternSettings.generatedUrlPatterns,
                                    webapp.webappUrlPatterns)
+
+            /**
+             * Use the --webapp parameter value w/ precedence, but also take into account
+             * the fact that a webapp 'name' can come from a webapp-properties.json file w/o
+             * being explictly defined here.
+             */
+            webappName: webapp.webappName === "" ? unityWebapps.name : webapp.webappName
+
+            Loader {
+                anchors {
+                    fill: containerWebView
+                    topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown")
+                               ? chromeLoader.item.height
+                               : 0
+                }
+                active: containerWebView.currentWebview &&
+                        (webProcessMonitor.crashed || (webProcessMonitor.killed && !containerWebView.currentWebview.loading))
+                sourceComponent: SadPage {
+                    webview: containerWebView.currentWebview
+                    objectName: "mainWebviewSadPage"
+                }
+                WebProcessMonitor {
+                    id: webProcessMonitor
+                    webview: containerWebView.currentWebview
+                }
+                asynchronous: true
+            }
         }
 
         Loader {
             anchors {
-                fill: webview
+                fill: containerWebView
                 topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
             }
             sourceComponent: ErrorSheet {
-                visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-                url: webview.currentWebview ? webview.currentWebview.url : ""
+                visible: containerWebView.currentWebview && containerWebView.currentWebview.lastLoadFailed
+                url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
                 onRefreshClicked: {
-                    if (webview.currentWebview)
-                        webview.currentWebview.reload()
+                    if (containerWebView.currentWebview)
+                        containerWebView.currentWebview.reload()
                 }
             }
             asynchronous: true
@@ -177,7 +219,7 @@ BrowserView {
                         right: parent.right
                     }
                     height: units.gu(6)
-                    y: webapp.currentWebview ? webview.currentWebview.locationBarController.offset : 0
+                    y: webapp.currentWebview ? containerWebView.currentWebview.locationBarController.offset : 0
 
                     onChooseAccount: webapp.chooseAccount()
                 }
@@ -208,15 +250,16 @@ BrowserView {
         ChromeController {
             webview: webapp.currentWebview
             forceHide: webapp.chromeless
-            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
-                                                   : Oxide.LocationBarController.ModeAuto
+            defaultMode: webapp.hasTouchScreen
+                             ? Oxide.LocationBarController.ModeAuto
+                             : Oxide.LocationBarController.ModeShown
         }
     }
 
     UnityWebApps.UnityWebApps {
         id: unityWebapps
         name: webappName
-        bindee: webview.currentWebview
+        bindee: containerWebView.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication

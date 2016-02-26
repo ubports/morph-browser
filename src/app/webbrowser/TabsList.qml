@@ -23,10 +23,12 @@ Item {
     id: tabslist
 
     property real delegateHeight
-    property real chromeOffset
+    property real chromeHeight
     property alias model: repeater.model
     readonly property int count: repeater.count
+    property bool incognito
 
+    signal scheduleTabSwitch(int index)
     signal tabSelected(int index)
     signal tabClosed(int index)
 
@@ -35,6 +37,21 @@ Item {
     }
 
     readonly property bool animating: selectedAnimation.running
+
+    TabChrome {
+        id: invisibleTabChrome
+        visible: false
+    }
+
+    Rectangle {
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: invisibleTabChrome.height
+        color: "#fbfbfb"
+    }
 
     Flickable {
         id: flickable
@@ -80,24 +97,32 @@ Item {
                 }
 
                 readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                readonly property string icon: model.icon
 
-                readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
-                sourceComponent: needsInstance ? tabPreviewComponent : undefined
+                active: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
 
                 visible: flickable.contentY < ((index + 1) * delegateHeight)
 
-                Component {
-                    id: tabPreviewComponent
+                sourceComponent: TabPreview {
+                    title: delegate.title
+                    icon: delegate.icon
+                    incognito: tabslist.incognito
+                    tab: model.tab
+                    showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
+                                 !(tab.webview && tab.webview.visible)
 
-                    TabPreview {
-                        title: delegate.title
-                        tab: model.tab
-                        showContent: (index > 0) || (delegate.y > flickable.contentY) ||
-                                     !(tab.webview && tab.webview.visible)
-
-                        onSelected: tabslist.selectAndAnimateTab(index)
-                        onClosed: tabslist.tabClosed(index)
+                    Binding {
+                        // Change the height of the location bar controller
+                        // for the first webview only, and only while the tabs
+                        // list view is visible.
+                        when: tabslist.visible && (index == 0)
+                        target: tab.webview ? tab.webview.locationBarController : null
+                        property: "height"
+                        value: invisibleTabChrome.height
                     }
+
+                    onSelected: tabslist.selectAndAnimateTab(index)
+                    onClosed: tabslist.tabClosed(index)
                 }
             }
         }
@@ -107,15 +132,31 @@ Item {
             property int index: 0
             target: flickable
             property: "contentY"
-            to: index * delegateHeight - chromeOffset
+            to: index * delegateHeight - chromeHeight + invisibleTabChrome.height
             duration: UbuntuAnimation.FastDuration
-            onStopped: tabslist.tabSelected(index)
+            onStopped: {
+                // Delay switching the tab until after the animation has completed.
+                delayedTabSelection.index = index
+                delayedTabSelection.start()
+            }
+        }
+
+        Timer {
+            id: delayedTabSelection
+            interval: 1
+            property int index: 0
+            onTriggered: tabslist.tabSelected(index)
         }
     }
 
     function selectAndAnimateTab(index) {
         // Animate tab into full view
-        selectedAnimation.index = index
-        selectedAnimation.start()
+        if (index == 0) {
+            tabSelected(0)
+        } else {
+            selectedAnimation.index = index
+            scheduleTabSwitch(index)
+            selectedAnimation.start()
+        }
     }
 }

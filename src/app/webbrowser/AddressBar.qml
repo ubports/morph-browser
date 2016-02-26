@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.8 as Oxide
 import ".."
-import "urlManagement.js" as UrlManagement
+import "../UrlUtils.js" as UrlUtils
 
 FocusScope {
     id: addressbar
@@ -30,6 +30,7 @@ FocusScope {
     property bool incognito: false
     property alias text: textField.text
     property bool bookmarked: false
+    signal toggleBookmark()
     property url requestedUrl
     property url actualUrl
     signal validated()
@@ -42,6 +43,7 @@ FocusScope {
     property bool showFavicon: true
     property bool findInPageMode: false
     property var findController: null
+    property color fgColor: Theme.palette.normal.baseText
 
     property var securityStatus: null
 
@@ -74,13 +76,15 @@ FocusScope {
         primaryItem: Item {
             id: icons
 
-            width: iconsRow.width + units.gu(1)
+            width: iconsRow.anyIconVisible ? iconsRow.width + units.gu(1) : 0
             height: units.gu(2)
             visible: !findInPageMode
 
             Row {
                 id: iconsRow
-
+                property bool anyIconVisible: favicon.visible || action.visible ||
+                                              secure.visible || insecure.visible ||
+                                              securityAlert.visible
                 spacing: units.gu(1)
                 anchors {
                     top: parent.top
@@ -109,12 +113,12 @@ FocusScope {
 
                     readonly property bool reload: addressbar.activeFocus && addressbar.text &&
                                                    (addressbar.text == addressbar.actualUrl)
-                    readonly property bool looksLikeAUrl: UrlManagement.looksLikeAUrl(addressbar.text.trim())
+                    readonly property bool looksLikeAUrl: UrlUtils.looksLikeAUrl(addressbar.text.trim())
 
                     name: addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
-                    color: UbuntuColors.darkGrey
+                    color: addressbar.fgColor
 
                     MouseArea {
                         objectName: "actionButton"
@@ -137,14 +141,16 @@ FocusScope {
                 }
 
                 Icon {
+                    id: secure
                     name: "network-secure"
-                    color: UbuntuColors.darkGrey
+                    color: addressbar.fgColor
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.secureConnection
                 }
 
                 Image {
+                    id: insecure
                     source: "assets/broken_lock.png"
                     height: parent.height
                     fillMode: Image.PreserveAspectFit
@@ -152,8 +158,9 @@ FocusScope {
                 }
 
                 Icon {
+                    id: securityAlert
                     name: "security-alert"
-                    color: UbuntuColors.darkGrey
+                    color: addressbar.fgColor
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.securityWarning
@@ -195,7 +202,7 @@ FocusScope {
                 objectName: "findInPageCounter"
                 anchors.verticalCenter: parent.verticalCenter
                 fontSize: "x-small"
-                color: UbuntuColors.darkGrey
+                color: addressbar.fgColor
                 opacity: findController && findController.count > 0 ? 1.0 : 0.6
                 visible: findInPageMode
 
@@ -220,10 +227,10 @@ FocusScope {
                     anchors.centerIn: parent
 
                     name: addressbar.bookmarked ? "starred" : "non-starred"
-                    color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
+                    color: addressbar.bookmarked ? UbuntuColors.orange : addressbar.fgColor
                 }
 
-                onClicked: addressbar.bookmarked = !addressbar.bookmarked
+                onClicked: addressbar.toggleBookmark()
 
                 Item {
                     id: bookmarkTogglePlaceHolderItem
@@ -233,7 +240,7 @@ FocusScope {
         }
 
         font.pixelSize: FontUtils.sizeToPixels("small")
-        color: UbuntuColors.darkGrey
+        color: addressbar.fgColor
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         placeholderText: findInPageMode ? i18n.tr("find in page")
@@ -302,8 +309,8 @@ FocusScope {
 
         function validate() {
             var query = text.trim()
-            if (UrlManagement.looksLikeAUrl(query)) {
-                requestedUrl = UrlManagement.fixUrl(query)
+            if (UrlUtils.looksLikeAUrl(query)) {
+                requestedUrl = UrlUtils.fixUrl(query)
             } else {
                 requestedUrl = internal.buildSearchUrl(query)
             }
@@ -347,6 +354,13 @@ FocusScope {
         property bool simplified: false
     }
 
+    onIncognitoChanged: {
+        if (incognito) {
+            text = ""
+            internal.simplified = false
+        }
+    }
+
     onEditingChanged: {
         if (findInPageMode) return
         if (editing && internal.simplified) {
@@ -375,7 +389,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if ((editing && actualUrl.toString()) || findInPageMode) return
+        if (editing || findInPageMode) return
         if (canSimplifyText) {
             text = internal.simplifyUrl(actualUrl)
             internal.simplified = true

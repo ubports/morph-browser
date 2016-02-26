@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -28,6 +28,10 @@ import QtQml 2.0
  */
 
 QtObject {
+    // Empirical value: screens smaller than 19cm are considered small enough that a
+    // mobile UA string is used, screens bigger than that will get desktop content.
+    readonly property bool smallScreen: screenDiagonal < 190
+
     // %1: Ubuntu version, e.g. "14.04"
     // %2: optional token to specify further attributes of the platform, e.g. "like Android"
     // %3: optional hardware ID token
@@ -35,7 +39,7 @@ QtObject {
     // %5: Chromium version, e.g. "35.0.1870.2"
     // %6: Optional token to provide additional free-form information, e.g. "Mobile"
     // %7: Safari version, e.g. "537.36"
-    // %8: Optional token, in case some extra bits are needed to make things work (e.g. an extra formfactor info etc.)
+    // %8: Optional token, in case some extra bits are needed to make things work (e.g. an extra form factor info etc.)
     //
     // note #1: "Mozilla/5.0" is misinformation, but it is a legacy token that
     //   virtually every single UA out there has, it seems unwise to remove it
@@ -46,7 +50,7 @@ QtObject {
     // FIXME: compute at build time (using lsb_release)
     readonly property string _ubuntuVersion: "14.04"
 
-    readonly property string _attributes: (formFactor === "mobile") ? "like Android 4.4" : ""
+    readonly property string _attributes: smallScreen ? "like Android 4.4" : ""
 
     readonly property string _hardwareID: ""
 
@@ -59,7 +63,7 @@ QtObject {
     //       every time we rebase on a newer chromium.
     readonly property string _chromiumVersion: "35.0.1870.2"
 
-    readonly property string _formFactor: (formFactor === "mobile") ? "Mobile" : ""
+    readonly property string _formFactor: smallScreen ? "Mobile" : ""
 
     readonly property string _more: ""
 

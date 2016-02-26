@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,17 +25,19 @@
 #include <QtQuickTest/QtQuickTest>
 
 // local
+#include "bookmarks-model.h"
+#include "bookmarks-folderlist-model.h"
 #include "favicon-fetcher.h"
 #include "file-operations.h"
+#include "history-domain-model.h"
+#include "history-domainlist-model.h"
+#include "history-model.h"
+#include "history-lastvisitdatelist-model.h"
+#include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
-
-static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new FileOperations();
-}
+#include "text-search-filter-model.h"
+#include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
 class TestContext : public QObject
 {
@@ -96,17 +98,73 @@ public:
         return QFile(QDir(path).absoluteFilePath(QString("%1.xml").arg(filename))).remove();
     }
 
+    Q_INVOKABLE bool createFile(const QString& filePath) {
+        // create all the directories necessary for the file to be created
+        QFileInfo fileInfo(filePath);
+        if (!QFileInfo::exists(fileInfo.path())) {
+          QDir::root().mkpath(fileInfo.path());
+        }
+
+        QFile file(fileInfo.absoluteFilePath());
+        return file.open(QIODevice::WriteOnly | QIODevice::Text);
+    }
+
+    Q_INVOKABLE bool removeDirectory(const QString& path) {
+        QDir dir(path);
+        return dir.removeRecursively();
+    }
+
 private:
     QTemporaryDir m_testDir1;
     QTemporaryDir m_testDir2;
 };
 
-static QObject* TestContext_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
-{
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-    return new TestContext();
-}
+class HistoryModelMock : public HistoryModel {
+    Q_OBJECT
+
+public:
+    static bool compareHistoryEntries(const HistoryEntry& a, const HistoryEntry& b) {
+        return a.lastVisit < b.lastVisit;
+    }
+
+    Q_INVOKABLE int addByDate(const QUrl& url, const QString& title, const QDateTime& date)
+    {
+        int index = getEntryIndex(url);
+        int visitsToAdd = 1;
+        if (index == -1) {
+            add(url, title, QString());
+            index = getEntryIndex(url);
+            visitsToAdd = 0;
+        }
+
+        // Since this is useful only for testing and efficiency is not critical
+        // we reorder the model and reset it every time we add a new item by date
+        // to keep things simple.
+        beginResetModel();
+        HistoryEntry entry = m_entries.takeAt(index);
+        entry.lastVisit = date;
+        entry.visits = entry.visits + visitsToAdd;
+        m_entries.append(entry);
+        std::sort(m_entries.begin(), m_entries.end(), compareHistoryEntries);
+        endResetModel();
+
+        updateExistingEntryInDatabase(entry);
+
+        return entry.visits;
+    }
+};
+
+#define MAKE_SINGLETON_FACTORY(type) \
+    static QObject* type##_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine) { \
+        Q_UNUSED(engine); \
+        Q_UNUSED(scriptEngine); \
+        return new type(); \
+    }
+
+MAKE_SINGLETON_FACTORY(FileOperations)
+MAKE_SINGLETON_FACTORY(BookmarksModel)
+MAKE_SINGLETON_FACTORY(HistoryModelMock)
+MAKE_SINGLETON_FACTORY(TestContext)
 
 int main(int argc, char** argv)
 {
@@ -116,9 +174,22 @@ int main(int argc, char** argv)
     const char* browserUri = "webbrowserapp.private";
     qmlRegisterType<SearchEngine>(browserUri, 0, 1, "SearchEngine");
     qmlRegisterType<TabsModel>(browserUri, 0, 1, "TabsModel");
+    qmlRegisterSingletonType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel", BookmarksModel_singleton_factory);
+    qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
+    qmlRegisterSingletonType<HistoryModel>(browserUri, 0, 1, "HistoryModel", HistoryModelMock_singleton_factory);
+    qmlRegisterType<HistoryDomainModel>(browserUri, 0, 1, "HistoryDomainModel");
+    qmlRegisterType<HistoryDomainListModel>(browserUri, 0, 1, "HistoryDomainListModel");
+    qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
+    qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
+    qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
-    qmlRegisterSingletonType<TestContext>("webbrowsertest.private", 0, 1, "TestContext", TestContext_singleton_factory);
+    const char* testUri = "webbrowsertest.private";
+    qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
+
+    const char* inputInfoUri = "Unity.InputInfo";
+    qmlRegisterType<QDeclarativeInputDeviceModel>(inputInfoUri, 0, 1, "InputDeviceModel");
+    qmlRegisterType<QInputDevice>(inputInfoUri, 0, 1, "InputInfo");
 
     return quick_test_main(argc, argv, "QmlTests", nullptr);
 }

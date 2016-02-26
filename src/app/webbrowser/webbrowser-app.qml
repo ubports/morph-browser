@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -65,19 +65,10 @@ BrowserWindow {
         }
     }
 
-    // Handle runtime requests to open urls as defined
-    // by the freedesktop application dbus interface's open
-    // method for DBUS application activation:
-    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
-    // The dispatch on the org.freedesktop.Application if is done per appId at the
-    // url-dispatcher/upstart level.
-    Connections {
-        target: UriHandler
-        onOpened: {
-            for (var i = 0; i < uris.length; ++i) {
-                var setCurrent = (i == uris.length - 1)
-                browser.openUrlInNewTab(uris[i], setCurrent, setCurrent)
-            }
+    onOpenUrls: {
+        for (var i = 0; i < urls.length; ++i) {
+            var setCurrent = (i == urls.length - 1)
+            browser.openUrlInNewTab(urls[i], setCurrent, setCurrent)
         }
     }
 }

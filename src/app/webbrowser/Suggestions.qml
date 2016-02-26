@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "Highlight.js" as Highlight
 
 FocusScope {
     id: suggestions
@@ -71,8 +72,9 @@ FocusScope {
             width: suggestionsList.width
             showDivider: index < model.length - 1
 
-            title: selected ? modelData.title : internal.highlightTerms(modelData.title)
-            subtitle: modelData.displayUrl ? (selected ? modelData.url : internal.highlightTerms(modelData.url)) : ""
+            title: selected ? modelData.title : Highlight.highlightTerms(modelData.title, searchTerms)
+            subtitle: modelData.displayUrl ? (selected ? modelData.url :
+                                                         Highlight.highlightTerms(modelData.url, searchTerms)) : ""
             icon: modelData.icon
             selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
@@ -87,30 +89,6 @@ FocusScope {
 
     QtObject {
         id: internal
-
-        readonly property var termsRe: new RegExp(searchTerms.map(escapeTerm).join('|'), 'ig')
-        readonly property string highlight: '<font color="%1">$&</font>'.arg("#752571")
-
-        function escapeTerm(term) {
-            // Escape special characters in a search term
-            // (a simpler version of preg_quote).
-            return term.replace(/[().?+|*^$]/g, '\\$&')
-        }
-
-        function highlightTerms(text) {
-            // Highlight the matching terms in a case-insensitive manner
-            if (text && text.toString()) {
-                if (searchTerms.length == 0) {
-                    return text
-                }
-                var highlighted = text.toString().replace(termsRe, highlight)
-                highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-                highlighted = '<html>' + highlighted + '</html>'
-                return highlighted
-            } else {
-                return ""
-            }
-        }
 
         function countItems(total, model) {
             return total + (model.hasOwnProperty("length") ? model.length : model.count)

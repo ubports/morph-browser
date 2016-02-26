@@ -19,10 +19,12 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-Column {
+Item {
     id: tabPreview
 
     property alias title: chrome.title
+    property alias icon: chrome.icon
+    property alias incognito: chrome.incognito
     property var tab
     readonly property url url: tab ? tab.url : ""
 
@@ -34,44 +36,29 @@ Column {
     signal selected()
     signal closed()
 
-    Item {
+    TabChrome {
+        id: chrome
+
         anchors {
+            top: parent.top
             left: parent.left
             right: parent.right
         }
-        height: chrome.height
+        tabWidth: units.gu(26)
 
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            height: units.gu(8)
-
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0) }
-                GradientStop { position: 0.75; color: Qt.rgba(0, 0, 0, 0.1) }
-                GradientStop { position: 1.0; color: Qt.rgba(0, 0, 0, 0.3) }
-            }
-        }
-
-        TabChrome {
-            id: chrome
-
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            onSelected: tabPreview.selected()
-            onClosed: tabPreview.closed()
-        }
+        onSelected: tabPreview.selected()
+        onClosed: tabPreview.closed()
     }
 
     Item {
-        width: parent.width
+        anchors {
+            top: chrome.bottom
+            topMargin: units.dp(-1)
+            left: parent.left
+            right: parent.right
+        }
         height: parent.height
+        clip: true
 
         Rectangle {
             anchors.fill: parent
@@ -108,8 +95,8 @@ Column {
             visible: showContent && source.toString() && (status == Image.Ready)
             anchors {
                 left: parent.left
-                right: parent.right
                 top: parent.top
+                topMargin: -chrome.height
             }
             height: sourceSize.height
             fillMode: Image.Pad

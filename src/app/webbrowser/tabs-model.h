@@ -57,6 +57,7 @@ public:
     QObject* currentTab() const;
 
     Q_INVOKABLE int add(QObject* tab);
+    Q_INVOKABLE int insert(QObject* tab, int index);
     Q_INVOKABLE QObject* remove(int index);
     Q_INVOKABLE QObject* get(int index) const;
     Q_INVOKABLE void move(int from, int to);
@@ -76,6 +77,7 @@ private:
     int m_currentIndex;
 
     bool checkValidTabIndex(int index) const;
+    void setCurrentIndexNoCheck(int index);
     void onDataChanged(QObject* tab, int role);
 };
 

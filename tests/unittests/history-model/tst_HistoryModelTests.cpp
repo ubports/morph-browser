@@ -184,7 +184,7 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Icon).toUrl(), QUrl("image://webicon/123"));
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Visits).toInt(), 1);
         QVERIFY(model->data(model->index(0, 0), HistoryModel::LastVisit).toDateTime() >= now);
-        QVERIFY(!model->data(model->index(0, 0), HistoryModel::LastVisit + 3).isValid());
+        QVERIFY(!model->data(model->index(0, 0), HistoryModel::LastVisit + 4).isValid());
     }
 
     void shouldReturnDatabasePath()
@@ -253,6 +253,17 @@ private Q_SLOTS:
         model->removeEntryByUrl(QUrl("http://example.org/"));
         QCOMPARE(model->rowCount(), 1);
         model->removeEntryByUrl(QUrl("http://example.com/"));
+        QCOMPARE(model->rowCount(), 0);
+    }
+
+    void shouldRemoveByDate()
+    {
+        QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->add(QUrl("http://example.com/"), "Example Domain", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 2);
+
+        model->removeEntriesByDate(QDate::currentDate());
         QCOMPARE(model->rowCount(), 0);
     }
 

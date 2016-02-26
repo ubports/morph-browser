@@ -117,6 +117,39 @@ window.onload = function() {{
     </html>
         """.format(loopcount)
 
+    def manifest_json_content(self):
+        return """
+{
+  "name": "Theme Color",
+  "short_name": "Theme Color",
+  "icons": [],
+  "theme_color": "#FF0000"
+}        """
+
+    def theme_color_content(self, color, with_manifest=False):
+        color_content = ''
+        if color:
+            color_content = """
+<meta name=\"theme-color\" content=\"{}\"></meta>
+""".format(color)
+        manifest_content = ''
+        if with_manifest:
+            manifest_content = "<link rel=\"manifest\" href=\"manifest.json\">"
+
+        return """
+<html>
+<head>
+{}
+{}
+<title>theme-color</title>
+<script>
+</script>
+</head>
+<body>
+</body>
+</html>
+        """.format(color_content, manifest_content)
+
     def open_close_content(self):
         return """
 <html>
@@ -138,6 +171,11 @@ window.onload = function() {{
 </html>
         """
 
+    base64_png_data = \
+        "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwE" \
+        "AmpwYAAAAOUlEQVRYw+3OAQ0AAAgDoGv/zlpDN0hATS7qaGlpaWlpaWlpaWlpaWlpaW" \
+        "lpaWlpaWlpaWlpab1qLUGqAWNyFWTYAAAAAElFTkSuQmCC"
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -151,6 +189,28 @@ window.onload = function() {{
         elif self.path == '/with-external-link':
             self.send_response(200)
             self.serve_content(self.external_click_content())
+        elif self.path == "/image":
+            self.send_response(200)
+            html = '<html><body>'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</body></html>'
+            self.serve_content(html)
+        elif self.path == "/imagelink":
+            self.send_response(200)
+            html = '<html><body><a href="http://www.ubuntu.com">'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</a></body></html>'
+            self.serve_content(html)
+        elif self.path == "/textarea":
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<textarea style="width: 100%; height: 100%">some text'
+            html += '</textarea></body></html>'
+            self.serve_content(html)
         elif self.path == '/with-targetted-link':
             self.send_response(200)
             self.serve_content(self.targetted_click_content())
@@ -160,6 +220,20 @@ window.onload = function() {{
         elif self.path == '/open-close-content':
             self.send_response(200)
             self.serve_content(self.open_close_content())
+        elif self.path == '/theme-color/manifest.json':
+            self.send_response(200)
+            self.serve_content(self.manifest_json_content())
+        elif self.path.startswith('/theme-color/'):
+            args = self.path[len('/theme-color/'):]
+            self.send_response(200)
+            color = ''
+            if args.startswith('?color='):
+                color = args[len('?color='):]
+            with_manifest = False
+            if args.startswith('?manifest='):
+                with_manifest = True
+            self.send_response(200)
+            self.serve_content(self.theme_color_content(color, with_manifest))
         elif self.path.startswith('/saml/'):
             args = self.path[len('/saml/'):]
             loopCount = 0

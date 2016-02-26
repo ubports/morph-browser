@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
+import "."
 
 FocusScope {
     id: tab
@@ -38,17 +39,36 @@ FocusScope {
     readonly property url icon: webview ? webview.icon : initialIcon
     property url preview
     property bool current: false
+    readonly property int lastCurrent: internal.lastCurrent
     property bool incognito
+    visible: false
+
+    // Used as a workaround for https://launchpad.net/bugs/1502675 :
+    // invoke this on a tab shortly before it is set current.
+    signal aboutToShow()
+
+    Connections {
+        target: PreviewManager
+        onPreviewSaved: {
+            if (pageUrl !== url) return
+            if (preview == previewUrl) {
+                // Ensure that the preview URL actually changes,
+                // for the image to be reloaded
+                preview = ""
+            }
+            preview = previewUrl
+        }
+    }
 
     FocusScope {
         id: webviewContainer
         anchors.fill: parent
         focus: true
-        readonly property var webview: (children.length == 1) ? children[0] : null
+        property var webview: null
     }
 
     function load() {
-        if (!webview) {
+        if (!webview && !internal.incubator) {
             var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
                 properties['restoreState'] = restoreState
@@ -56,7 +76,24 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
-            webviewComponent.incubateObject(webviewContainer, properties)
+            var incubator = webviewComponent.incubateObject(webviewContainer, properties)
+            if (incubator === null) {
+                console.warn("Webview incubator failed to initialize")
+                return
+            }
+            if (incubator.status === Component.Ready) {
+                webviewContainer.webview = incubator.object
+                return
+            }
+            internal.incubator = incubator
+            incubator.onStatusChanged = function(status) {
+                if (status === Component.Ready) {
+                    webviewContainer.webview = incubator.object
+                } else if (status === Component.Error) {
+                    console.warn("Webview failed to incubate")
+                }
+                internal.incubator = null
+            }
         }
     }
 
@@ -71,17 +108,26 @@ FocusScope {
         }
     }
 
-    function close() {
-        unload()
-        if (preview && preview.toString()) {
-            FileOperations.remove(preview)
+    function reload() {
+        if (webview) {
+            webview.reload()
+        } else {
+            load()
         }
+    }
+
+    function close() {
+        var _url = url
+        unload()
+        if (_url.toString()) PreviewManager.checkDelete(_url)
         destroy()
     }
 
     QtObject {
         id: internal
         property bool hiding: false
+        property var incubator: null
+        property int lastCurrent: 0
     }
 
     // When current is set to false, delay hiding the tab contents to give it
@@ -89,10 +135,14 @@ FocusScope {
     // only if embedders do not set the 'visible' property directly or
     // indirectly on instances of a BrowserTab.
     onCurrentChanged: {
+        internal.lastCurrent = Date.now()
         if (current) {
             internal.hiding = false
+            z = 1
+            opacity = 1
             visible = true
         } else if (visible && !internal.hiding) {
+            z = -1
             if (!webview || webview.incognito) {
                 // XXX: Do not grab a capture in incognito mode, as we don’t
                 // want to write anything to disk. This means tab previews won’t
@@ -102,6 +152,12 @@ FocusScope {
                 visible = false
                 return
             }
+
+            if (url.toString().length === 0) {
+                visible = false
+                return
+            }
+
             internal.hiding = true
             webview.grabToImage(function(result) {
                 if (!internal.hiding) {
@@ -109,23 +165,41 @@ FocusScope {
                 }
                 internal.hiding = false
                 visible = false
-                var capturesDir = cacheLocation + "/captures"
-                if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
-                    FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
-                }
-                var filepath = capturesDir + "/" + uniqueId + ".jpg"
-                if (result.saveToFile(filepath)) {
-                    var previewUrl = Qt.resolvedUrl(filepath)
-                    if (preview == previewUrl) {
-                        // Ensure that the preview URL actually changes,
-                        // for the image to be reloaded
-                        preview = ""
-                    }
-                    preview = previewUrl
-                } else {
-                    preview = ""
-                }
+
+                PreviewManager.saveToDisk(result, url)
             })
+        }
+    }
+
+    // Take a capture of the current page shortly after it has finished
+    // loading to give rendering an opportunity to complete. There is
+    // unfortunately no signal to notify us when rendering has completed.
+    Timer {
+        id: delayedCapture
+        interval: 500
+        onTriggered: {
+            if (webview && current && visible && !internal.hiding) {
+                webview.grabToImage(function(result) {
+                    PreviewManager.saveToDisk(result, url)
+                })
+            }
+        }
+    }
+    Connections {
+        target: webview
+        onLoadingStateChanged: {
+            if (!webview.loading && !webview.incognito) {
+                delayedCapture.restart()
+            }
+        }
+    }
+
+    onAboutToShow: {
+        if (!current) {
+            opacity = 0
+            z = 1
+            visible = true
+            load()
         }
     }
 
@@ -133,7 +207,8 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request, 'incognito': incognito})
+            var properties = {"tab": tab, "request": request, 'incognito': incognito}
+            webviewContainer.webview = webviewComponent.createObject(webviewContainer, properties)
         }
     }
 }

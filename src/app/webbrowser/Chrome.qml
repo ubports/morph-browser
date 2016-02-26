@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,9 +24,11 @@ ChromeBase {
     id: chrome
 
     property var tabsModel
+    property alias tab: navigationBar.tab
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
+    signal toggleBookmark()
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
@@ -36,22 +38,33 @@ ChromeBase {
     property alias incognito: navigationBar.incognito
     property alias showTabsBar: tabsBar.active
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
+    property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
+    property bool touchEnabled: true
 
-    signal requestNewTab()
+    signal switchToTab(int index)
+    signal requestNewTab(int index, bool makeCurrent)
+    signal tabClosed(int index)
 
-    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
+    backgroundColor: incognito ? UbuntuColors.darkGrey : "#ffffff"
 
-    implicitHeight: tabsBar.height + navigationBar.height
+    implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
     function selectAll() {
         navigationBar.selectAll()
     }
 
     FocusScope {
+        id: content
         anchors.fill: parent
+        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
+
+        Rectangle {
+            anchors.fill: navigationBar
+            color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
+        }
 
         Loader {
             id: tabsBar
@@ -59,7 +72,11 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
-                onRequestNewTab: chrome.requestNewTab()
+                fgColor: navigationBar.fgColor
+                touchEnabled: chrome.touchEnabled
+                onSwitchToTab: chrome.switchToTab(index)
+                onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
+                onTabClosed: chrome.tabClosed(index)
             }
 
             anchors {
@@ -67,20 +84,14 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: active ? units.gu(4) : 0
-        }
-
-        Rectangle {
-            anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? "#dedede" : UbuntuColors.darkGrey
+            height: active ? (touchEnabled ? units.gu(4) : units.gu(3)) : 0
         }
 
         NavigationBar {
             id: navigationBar
 
-            iconColor: (incognito && !showTabsBar) ? "white" : UbuntuColors.darkGrey
-
-            webview: chrome.webview
+            fgColor: "#111111"
+            iconColor: (incognito && !showTabsBar) ? "white" : fgColor
 
             focus: true
 
@@ -90,6 +101,8 @@ ChromeBase {
                 right: parent.right
             }
             height: units.gu(6)
+
+            onToggleBookmark: chrome.toggleBookmark()
         }
     }
 }

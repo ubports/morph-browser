@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,13 +25,13 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
-class HistoryTimeframeModel;
+class HistoryModel;
 
 class HistoryDomainModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(HistoryModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString domain READ domain WRITE setDomain NOTIFY domainChanged)
     Q_PROPERTY(QDateTime lastVisit READ lastVisit NOTIFY lastVisitChanged)
     Q_PROPERTY(QString lastVisitedTitle READ lastVisitedTitle NOTIFY lastVisitedTitleChanged)
@@ -40,8 +40,8 @@ class HistoryDomainModel : public QSortFilterProxyModel
 public:
     HistoryDomainModel(QObject* parent=0);
 
-    HistoryTimeframeModel* sourceModel() const;
-    void setSourceModel(HistoryTimeframeModel* sourceModel);
+    HistoryModel* sourceModel() const;
+    void setSourceModel(HistoryModel* sourceModel);
 
     const QString& domain() const;
     void setDomain(const QString& domain);

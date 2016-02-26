@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
+import webbrowsercommon.private 0.1
 import "actions" as Actions
 
 WebView {
@@ -28,13 +29,13 @@ WebView {
     property var currentWebview: webview
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
-    experimental.authenticationDialog: AuthenticationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
     alertDialog: AlertDialog {}
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
-    filePicker: filePickerLoader.item
+
+    signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
     QtObject {
         id: internal
@@ -54,35 +55,49 @@ WebView {
 
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
-            if(request.cookies.length > 0) {
+            if (request.cookies.length > 0) {
                 headers["Cookie"] = request.cookies.join(";")
             }
-            if(request.referrer) {
+            if (request.referrer) {
                 headers["Referer"] = request.referrer
             }
             headers["User-Agent"] = webview.context.userAgent
-            downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers, request.suggestedFilename)
+            // Work around https://launchpad.net/bugs/1487090 by guessing the mime type
+            // from the suggested filename or URL if oxide hasn’t provided one, or if
+            // the server has provided the generic application/octet-stream mime type.
+            var mimeType = request.mimeType
+            if (!mimeType || mimeType == "application/octet-stream") {
+                mimeType = MimeDatabase.filenameToMimeType(request.suggestedFilename)
+            }
+            if (!mimeType) {
+                var scheme = request.url.toString().split('://').shift().toLowerCase()
+                var filename = request.url.toString().split('/').pop().split('?').shift()
+                if ((scheme == "file") || (filename.indexOf('.') > -1)) {
+                    mimeType = MimeDatabase.filenameToMimeType(filename)
+                }
+            }
+            downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename)
         } else {
             // Desktop form factor case
             Qt.openUrlExternally(request.url)
         }
     }
 
-    Loader {
-        id: filePickerLoader
-        source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
-        asynchronous: true
+    onHttpAuthenticationRequested: {
+        PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"),
+                        webview.currentWebview, {"request": request})
     }
 
     Loader {
         id: downloadLoader
-        source: formFactor == "desktop" ? "" : "Downloader.qml"
+        source: "Downloader.qml"
         asynchronous: true
     }
 
-    selectionActions: ActionList {
-        Actions.Copy {
-            onTriggered: copy()
+    Connections {
+        target: downloadLoader.item
+        onShowDownloadDialog: {
+            showDownloadDialog(downloadId, contentType, downloader, filename, mimeType)
         }
     }
 

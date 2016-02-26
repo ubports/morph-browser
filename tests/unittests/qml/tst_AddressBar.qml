@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import QtTest 1.0
-import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 
 Item {
@@ -68,14 +67,9 @@ Item {
         signalName: "validated"
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "AddressBar"
         when: windowShown
-
-        function clickItem(item) {
-            var center = centerOf(item)
-            mouseClick(item, center.x, center.y)
-        }
 
         function init() {
             addressBar.actualUrl = ""
@@ -272,19 +266,6 @@ Item {
             compare(addressBar.text, data.simplified)
             clickItem(addressBar)
             compare(addressBar.text, data.actualUrl)
-        }
-
-        function test_shouldBeClearedWhenFocusedIfActualUrlIsCleared() {
-            // https://launchpad.net/bugs/1456199
-            var text = "http://example.org"
-            typeString(text)
-            compare(addressBar.text, text)
-            verify(addressBar.activeFocus)
-            addressBar.actualUrl = text
-            verify(addressBar.activeFocus)
-            addressBar.actualUrl = ""
-            verify(addressBar.activeFocus)
-            compare(addressBar.text, "")
         }
 
         function test_actionButtonShouldBeDisabledWhenEmpty() {

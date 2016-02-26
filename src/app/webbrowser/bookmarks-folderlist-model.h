@@ -32,6 +32,7 @@ class BookmarksFolderListModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(BookmarksModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
     Q_ENUMS(Roles)
 
@@ -58,6 +59,7 @@ public:
 
 Q_SIGNALS:
     void sourceModelChanged() const;
+    void countChanged() const;
 
 private Q_SLOTS:
     void onFolderAdded(const QString& folder);

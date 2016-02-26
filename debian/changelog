@@ -1,3 +1,656 @@
+webbrowser-app (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Remove the 'formFactor' context property, and replace all its uses
+    by more meaningful conditions. (LP: #1446904, #1542375)
+  * Update translation template.
+  * Work around a bug in the UITK that prevents touch scrolling to the
+    left of the address bar by ensuring that the x coordinate of the
+    text field is an integer. (LP: #1546346)
+  * Work around bug #1546677 (UITK), by destroying the bookmark options
+    popover instead of hiding it. (LP: #1546627, #1546677)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 23 Feb 2016 11:24:49 +0000
+
+webbrowser-app (0.23+16.04.20160215.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add keyboard navigation support to narrow views (new tab view,
+    history view, bookmarks view, downloads view). (LP: #1539221)
+  * Add video-specific contextual actions. (LP: #1539676)
+  * Take a capture of the current page shortly after it has finished
+    loading to give rendering an opportunity to complete. (LP: #1540129)
+  * Use the new bottom edge bar to open the tabs view in autopilot
+    tests.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 15 Feb 2016 13:33:21 +0000
+
+webbrowser-app (0.23+16.04.20160202-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Enhance google.com specific patterns to enable co.* & com.* patterns
+    (LP: #1517527)
+  * Make sure that the overlay views closed by the user are not part of
+    the list of recovered overlays opened after the oom closed the app.
+    (LP: #1535154)
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/sco.po
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 02 Feb 2016 15:33:33 +0000
+
+webbrowser-app (0.23+16.04.20160129.1-0ubuntu1) xenial; urgency=medium
+
+  * Add a UA override for desktop gmail to get rid of a misleading
+    warning about using a deprecated version of safari. (LP: #1452616)
+  * Do not connect to the loadingChanged signal, which has been
+    deprecated for a good while. (LP: #1538190)
+  * In narrow mode, when a mouse is connected, turn the bottom edge hint
+    into a clickable bottom edge bar. (LP: #1534239)
+  * Update focus highlight to match the upcoming UITK implementation.
+    (LP: #1539176)
+  * Update tab visuals to higher-contrast assets. (LP: #1534760)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 29 Jan 2016 09:41:15 +0000
+
+webbrowser-app (0.23+16.04.20160122-0ubuntu1) xenial; urgency=medium
+
+  * Automatically focus the address bar when opening a new tab in wide
+    mode (instead of inferring a "desktop" form factor). This is not
+    exactly the correct fix (which would require the QInputInfo API),
+    but is better than the current situation anyway. (LP: #1533317)
+  * Ensure that only one instance of the app is running. (LP: #1535199)
+  * Fix failing autopilot test. With recent changes in the UITK, swiping
+    a non-swipeable item to the right activates it. (LP: #1534139)
+  * Fix undefined reference when dragging a bookmark from one folder to
+    another one.
+  * Show the share action if Ubuntu.Content is available, regardless of
+    the form factor.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 22 Jan 2016 10:23:33 +0000
+
+webbrowser-app (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/et.po
+
+  [ Michael Sheldon ]
+  * Dynamically load the thumbnailer image provider if it's available,
+    otherwise fallback to mimetype images (LP: #1531179)
+
+  [ Olivier Tilloy ]
+  * Address a number of minor functional and code issues in the new
+    downloads-in-browser functionality. (LP: #1528651)
+  * Restore active focus on the webview after closing the context menu.
+    (LP: #1526884)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 12 Jan 2016 17:44:22 +0000
+
+webbrowser-app (0.23+16.04.20160108.1-0ubuntu1) xenial; urgency=medium
+
+  * Handle theme_color page metainformation. (LP: #1477674)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 08 Jan 2016 19:33:34 +0000
+
+webbrowser-app (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle application crashes or OOM interventions & save opened
+    overlays (LP: #1508969)
+  * Handle empty url pattern in configuration file and invalid url
+    pattern being specified. (LP: #1522585)
+  * Limited handling of custom context menu for the container
+  * Make the webapp-container click hook more flexible. Instead of being
+    able to delete cache & resource folders as the click is being
+    uninstalled, one can also act on them as the click is being upgraded
+    & installed. (LP: #1522562)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 06 Jan 2016 19:43:28 +0000
+
+webbrowser-app (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
+
+  * Add keyboard shorcuts for 'next' (Ctrl+G) and 'previous'
+    (Ctrl+Shift+G) while in find-in-page mode. (LP: #1522152)
+  * Do not allow interacting with tabs and the chrome while the settings
+    page is shown. (LP: #1524353)
+  * Fix a crash when clearing the navigation history while the new tab
+    view is open. (LP: #1525937)
+  * Fix deleting multiple domains from the history view. Add unit tests
+    for the HistoryView component. (LP: #1527144)
+  * Fix some obvious issues in PreviewManager. (LP: #1519019)
+  * Fix the tab preview sometimes covering the tab chrome, in the tabs
+    view. Offset tab previews by 1px to cover the semi-transparent
+    horizontal line at the bottom of the tab chrome asset. (LP:
+    #1520624)
+  * Recognize openoffice and MS-office file formats as documents, now
+    that the document viewer app knows how to render them. (LP:
+    #1523452)
+  * Update translation template.
+  * Use the screen size (diagonal in millimeters) to determine which
+    default UA string and which UA overrides to use. An empirical
+    threshold of 19cm is being used, it is subject to further
+    adjustments. (LP: #1504084)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Dec 2015 18:15:54 +0000
+
+webbrowser-app (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
+
+  [ Michael Sheldon ]
+  * Add support for handling downloads internally within the browser.
+    (LP: #1354391)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 21 Dec 2015 20:39:36 +0000
+
+webbrowser-app (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Work around what appears to be a regression in the UITK by
+    specifying a non-null delay when swiping a list item to delete it in
+    unit tests. (LP: #1526940)
+
+  [ Zsombor Egri ]
+  * Fix local Toolbar collision with UITK 1.3 Toolbar.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Fri, 18 Dec 2015 04:08:15 +0000
+
+webbrowser-app (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Fix 3 autopilot test failures on desktop in narrow mode. (LP:
+    #1522344)
+  * Fix multiple keyboard focus/shortcut issues. (LP: #1522776,
+    #1522783, #1522757, #1522767)
+  * Replace custom models (HistoryDomainListChronologicalModel,
+    HistoryLastVisitDateModel and TopSitesModel) with simple, pure QML
+    SortFilterModel instances. Remove entirely HistoryTimeframeModel
+    which was not needed any longer. (LP: #1480947)
+  * Skip a test that requires HTTPS support in the test suite, which is
+    lacking for now.
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 04 Dec 2015 11:06:50 +0000
+
+webbrowser-app (0.23+16.04.20151130-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Rebuild against Qt 5.5.1.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 30 Nov 2015 14:50:57 +0000
+
+webbrowser-app (0.23+16.04.20151126-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add missing import statements, and add missing unit tests for
+    BookmarksView.qml and BookmarksViewWide.qml. (LP: #1515631)
+  * Code cleanup: remove unused include statements and forward
+    declarations, and convert unnecessary include statements to forward
+    declarations.
+  * Make the drawer menu flickable so that all its actions can be
+    accessed even on a small mobile screen in landscape orientation.
+    (LP: #1513348)
+  * Prevent click events from propagating through the expanded history
+    view to the view below. (LP: #1518904)
+  * Use the capture device display names instead of their unique ID.
+    (LP: #1518931)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 26 Nov 2015 13:42:25 +0000
+
+webbrowser-app (0.23+16.04.20151124-0ubuntu1) xenial; urgency=medium
+
+  * Multiple changes to improve the tab switching animation. The biggest
+    remaining issue is bug #1502675, which is worked around here until
+    it is properly addressed in oxide. (LP: #1502675)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 24 Nov 2015 12:03:50 +0000
+
+webbrowser-app (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add missing unit test cleanup.
+  * Ship empty apparmor hardware profile directories to avoid adding a
+    runtime dependency on apparmor-easyprof-ubuntu. (LP: #1511439)
+
+  [ Ugo Riboni ]
+  * Add keyboard shortcuts to undo closing tabs (Ctrl+Shift+T and
+    Ctrl+Shift+W). (LP: #1499767)
+  * Create the webview in a safer way, by keeping the incubator around
+    and monitoring the progress, and by using sync creation if there is
+    a pending request. (LP: #1514701)
+  * Hide webviews created via onNewViewRequested until the tab they
+    belong to becomes current. (LP: #1464436)
+  * Use lowercase letters for keyboard shortcut invokation in autopilot
+    tests.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 11 Nov 2015 16:04:11 +0000
+
+webbrowser-app (0.23+16.04.20151103-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix a bug preventing in some cases the address bar from getting
+    focus when entering find in page mode. Also correctly hide the left
+    hand side icons when in find in page mode. (LP: #1508130)
+  * Focus the page when opening links with target="_blank". (LP:
+    #1505724)
+  * Prevent the address bar from being cleared when the actual url
+    changes and the user has already started typing. (LP: #1487713)
+  * Update the user script to remove the Facebook app banner. (LP:
+    #1352783)
+  * Use AbstractButton to handle some tab interactions so that haptics
+    are used on touch. (LP: #1505725)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 03 Nov 2015 11:56:19 +0000
+
+webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add an exception to the generated apparmor profile to allow reading
+    HERE’s TOS in the browser. (LP: #1507667)
+  * Modify the generated apparmor profile to allow rw access to
+    /dev/shm/.org.chromium.Chromium.* too. (LP: #1508054)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix inability to drag the map to pan in Google maps, on desktop.
+    (LP: #1503506)
+  * Implement support for allowing or denying access to media input
+    devices and for setting default media input devices. (LP: #1410996)
+  * Refactor the BookmarksModel to be a singleton.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 22 Oct 2015 15:07:49 +0000
+
+webbrowser-app (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Add bookmarks view to top level menu
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Ensure that the default context menu cannot be dismissed several
+    times, causing a crash in oxide. The issue in oxide remains, it
+    should have a safeguard against this kind of behaviour. (LP:
+    #1501330)
+  * Fix a couple of autopilot failures on desktop in narrow mode. (LP:
+    #1506879)
+  * Fixes for minor UX issues with the preview grid: Make the highlight
+    follow the item selected for deletion in the preview grid. Do not
+    show a highlight in the narrow version of the new tab view, as it
+    doesn’t support keyboard navigation. Grab dismiss area events so
+    that they are not propagated to the view below when dismissing a
+    context menu. (LP: #1506579)
+  * Update a localized error string, per design. (LP: #1493466)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 16 Oct 2015 15:29:07 +0000
+
+webbrowser-app (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk. added: po/bn.po
+
+  [ Michael Terry ]
+  * Add Ctrl+PageUp and Ctrl+PageDown as alternate keyboard shortcuts
+    for cycling through tabs. (LP: #1499761)
+
+  [ Olivier Tilloy ]
+  * Handle RemoteHostClosedError in shouldCancelRequests(). (LP:
+    #1498539)
+  * Use the new oxide API to allow a geolocation permission request.
+    (LP: #1500862)
+
+  [ Ugo Riboni ]
+  * Delay the creation of the XMLHttpRequest used to retrieve the search
+    suggestions until the first request, to save memory and speed up
+    application startup.
+  * Reimplement the top sites list to use a grid of previews in all form
+    factors.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 13 Oct 2015 12:57:55 +0000
+
+webbrowser-app (0.23+15.10.20151005-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Add apparmor profile to run webbrowser-app confined. (LP: #1356516)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 05 Oct 2015 09:49:24 +0000
+
+webbrowser-app (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle webapp webview renderer crashes (LP: #1498091, #1375215)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+ -- David Barth <david.barth@canonical.com>  Fri, 02 Oct 2015 07:45:24 +0000
+
+webbrowser-app (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Do not select labels by their class name, as this is changing in the
+    newest UITK.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Thu, 01 Oct 2015 19:53:17 +0000
+
+webbrowser-app (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the UA override for www.youtube.com on mobile too. (LP:
+    #1499394)
+
+  [ Ugo Riboni ]
+  * Extend the clickable area to close a tab on mobile, as taps are less
+    precise and often end up missing it. (LP: #1500339)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 29 Sep 2015 10:08:45 +0000
+
+webbrowser-app (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Michael Sheldon ]
+  * Add support for alternative mimetype header for vcards (LP:
+    #1498992)
+
+  [ Olivier Tilloy ]
+  * Add a context menu to each tab in the tab bar, allowing to insert a
+    new tab just after, close or reload the current tab.
+  * Fix a couple of autopilot test failures on desktop. (LP: #1495297,
+    #1499411)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Add a context menu to each tab in the tab bar, allowing to insert a
+    new tab just after, close or reload the current tab.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 28 Sep 2015 08:15:15 +0000
+
+webbrowser-app (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Jin Hsieh ]
+  * Add XML description for the Baidu Chinese search engine.
+
+  [ Michael Sheldon ]
+  * Add new strings to support internal download features
+
+  [ Olivier Tilloy ]
+  * Add contextual actions (copy & share) for text selection. (LP:
+    #1490922)
+  * Add contextual actions (copy & share) for text selection. (LP:
+    #1490922)
+  * Disable predictive text on the search field to ensure results are
+    filtered as the user types.
+  * Give ToolbarAction a default font color.
+  * Make a flaky unit test more robust by ensuring that the list view
+    has been updated before testing its contents.
+  * Silence the warnings issued by the favicon fetcher when the server
+    replies with an error. Those warnings can easily flood the console
+    when opening the history view, thus making it difficult to spot
+    legitimate console output.
+  * Updated translation template to include new strings for upcoming
+    branch that implements a context menu on tabs (wide mode).
+
+  [ Riccardo Padovani ]
+  * Use right icon in tab switcher to open a new tab when in private
+    mode
+
+  [ Ugo Riboni ]
+  * Implement search within the history view (only from the widescreen
+    version)
+  * Implement the visual refresh for the tabs in all screen modes.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Sep 2015 01:27:50 +0000
+
+webbrowser-app (0.23+15.10.20150916.1-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add a general URI reformatting mechanism for webapp specific handled
+    schemes. (LP: #1475708)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 16 Sep 2015 15:33:11 +0000
+
+webbrowser-app (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk. added: po/mr.po
+
+  [ Olivier Tilloy ]
+  * Allow saving canvas images from the context menu.
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+  * Remove the workaround for bug #1471181 now that oxide 1.9 has been
+    released with a proper fix. (LP: #1471181)
+  * Set the 'visible' property of actions instead of 'enabled' to ensure
+    the visibility of the corresponding entries in the drawer menu
+    matches. (LP: #1495297)
+  * Use SIGABRT instead of SIGSEGV to crash a renderer process in tests.
+    (LP: #1493825)
+  * Use the new WebContext.userAgentOverrides API (new in Oxide 1.9).
+    (LP: #1410753)
+
+  [ Ugo Riboni ]
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Sun, 13 Sep 2015 21:25:02 +0000
+
+webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Do not redefine the action property on context menu delegates, just
+    assign to the existing ListItems.Empty.action property instead.
+
+  [ Zoltán Balogh ]
+  * Use right name for AbstractButton when 1.3 UITK is used.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Tue, 08 Sep 2015 10:18:10 +0000
+
+webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Michael Terry ]
+  * Use the Ubuntu/Canonical search tag when searching with DuckDuckGo.
+    (LP: #1490283)
+
+  [ Olivier Tilloy ]
+  * Display a friendly message when the renderer process crashes or is
+    killed. This adds a runtime dependency for webbrowser-app-autopilot
+    on python3-psutil. (LP: #1375272)
+  * Do not display the bottom edge hint on tablets in wide mode. (LP:
+    #1488995)
+  * Update translation template.
+
+  [ Riccardo Padovani ]
+  * Don't store urls with status different from 2xx in the history. (LP:
+    #1244335)
+  * Don't store urls with status different from 2xx in the history. (LP:
+    #1244335)
+
+  [ Ugo Riboni ]
+  * Allow choosing the bookmark folder when bookmarking a link from the
+    context menu. Disable the bookmark option when the link is already
+    bookmarked. Ensure the bookmark star state in the chrome is always
+    consistent with the bookmarked state of the current webview URL.
+    (LP: #1477314)
+  * Properly reset focus when the current tab changes (including as a
+    result of closing tabs). (LP: #1488470)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 03 Sep 2015 09:46:35 +0000
+
+webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the contextMenu API new in oxide 1.8. Update the visuals for the
+    context menu in narrow and wide form factors. Add text editing
+    commands to the context menu. Add unit and autopilot tests for the
+    context menu features. This bumps the runtime dependency of webapp-
+    container and qtdeclarative5-ubuntu-web-plugin on liboxideqt-
+    qmlplugin to 1.8. This also removes the qtdeclarative5-ubuntu-web-
+    plugin-assets binary package, which contained only one PNG asset
+    which is not used anywhere any longer. (LP: #1477310, #1477315,
+    #1471181, #1264493, #1487090, #1326070, #1477309, #1450430,
+    #1438046)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 27 Aug 2015 14:02:08 +0000
+
+webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix webapp name logic (LP: #1473472)
+
+  [ Arthur Mello ]
+  * Add support for removing history entries with delete key in
+    HistoryViewWide (LP: #1484562)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove an old workaround for an issue that was fixed since then in
+    the content hub and that caused the file picker to accept the
+    selected file twice.
+
+  [ Ugo Riboni ]
+  * Merge two url utility files into one, since they had no reason for
+    being separate. Add unit tests for some of the functions that had
+    none.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 20 Aug 2015 08:58:20 +0000
+
+webbrowser-app (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Make sure to set the historyModel to the HistoryView component when
+    browser wide property changes (LP: #1484555)
+  * Wait for OptionSelector's collapsing transition to finish (LP:
+    #1484175)
+
+  [ Colin Watson ]
+  * Fix versioned dependencies on qtdeclarative5-ubuntu-ui-toolkit-
+    plugin to allow qtdeclarative5-ubuntu-ui-toolkit-plugin-gles.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 17 Aug 2015 09:59:08 +0000
+
+webbrowser-app (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Ugo Riboni ]
+  * Delay the exit from fullscreen mode until focus remains lost for a
+    certain amount of time. (LP: #1477308)
+  * Disable find in page when the new tab view is active. (LP: #1483847)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 14 Aug 2015 09:25:42 +0000
+
+webbrowser-app (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove strong typing of the contextualActions and selectionActions
+    properties. This would cause issues if an app imported Ubuntu.Web
+    along with Ubuntu.Components < 1.3 and overrode one of these
+    properties, because the webview expected an ActionList 1.3, and
+    would get an earlier version. (LP: #1484437)
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 13 Aug 2015 21:39:06 +0000
+
+webbrowser-app (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+  [ Ugo Riboni ]
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 12 Aug 2015 19:53:17 +0000
+
 webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

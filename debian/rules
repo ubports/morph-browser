@@ -10,12 +10,22 @@ export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 %:
 	dh $@ --parallel --with translations
 
-override_dh_install:
-	ln -sf /usr/share/qtdeclarative5-ubuntu-web-plugin/assets \
-	$(CURDIR)/debian/tmp/usr/lib/*/qt5/qml/Ubuntu/Web
-	ln -sf /usr/share/qtdeclarative5-ubuntu-web-plugin/assets \
-	$(CURDIR)/debian/tmp/usr/lib/*/qt5/qml/Ubuntu/Components/Extras/Browser
+apparmor:
+	aa-easyprof -m ./debian/webbrowser-app-apparmor.manifest --no-verify | \
+	egrep -v '(# Click packages|CLICK_DIR)' | \
+	sed 's/@{APP_PKGNAME}_@{APP_APPNAME}_@{APP_VERSION}/@{APP_PKGNAME}/g' | \
+	sed 's#/run/shm/\.org\.chromium\.Chromium\.\*#/{dev,run}/shm/.org.chromium.Chromium.*#g' | \
+	egrep -v 'deny /run/udev/data/\*\* r,' | \
+	sed 's#^}$$#\n  /sys/class/ r,\n  /sys/class/input/ r,\n  /run/udev/data/** r,\n}#g' \
+	> ./debian/usr.bin.webbrowser-app
+	apparmor_parser -QTK ./debian/usr.bin.webbrowser-app
+
+override_dh_install: apparmor
 	dh_install --fail-missing
+
+override_dh_installdeb:
+	dh_apparmor --profile-name=usr.bin.webbrowser-app -pwebbrowser-app
+	dh_installdeb
 
 override_dh_translations:
 	# Override dh_translations to work around http://pad.lv/1183262.

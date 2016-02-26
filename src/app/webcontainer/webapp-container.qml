@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -32,7 +32,6 @@ BrowserWindow {
 
     property string localCookieStoreDbPath: ""
 
-    property var intentFilterHandler
     property string url: ""
     property url webappIcon: ""
     property string webappName: ""
@@ -54,7 +53,7 @@ BrowserWindow {
     title: getWindowTitle()
 
     // Used for testing
-    signal intentUriHandleResult(string uri)
+    signal schemeUriHandleFilterResult(string uri)
 
     function getWindowTitle() {
         var webappViewTitle =
@@ -229,13 +228,13 @@ BrowserWindow {
         showWebView()
     }
 
-    function makeUrlFromIntentResult(intentFilterResult) {
+    function makeUrlFromResult(result) {
         var scheme = null
         var hostname = null
         var url = root.currentWebview.url || root.url
-        if (intentFilterResult.host
-                && intentFilterResult.host.length !== 0) {
-            hostname = intentFilterResult.host
+        if (result.host
+                && result.host.length !== 0) {
+            hostname = result.host
         }
         else {
             var matchHostname = url.toString().match(/.*:\/\/([^/]*)\/.*/)
@@ -243,9 +242,10 @@ BrowserWindow {
                 hostname = matchHostname[1]
             }
         }
-        if (intentFilterResult.scheme
-                && intentFilterResult.scheme.length !== 0) {
-            scheme = intentFilterResult.scheme
+
+        if (result.scheme
+                && result.scheme.length !== 0) {
+            scheme = result.scheme
         }
         else {
             var matchScheme = url.toString().match(/(.*):\/\/[^/]*\/.*/)
@@ -257,66 +257,56 @@ BrowserWindow {
                 + '://'
                 + hostname
                 + "/"
-                + (intentFilterResult.uri
-                    ? intentFilterResult.uri : "")
+                + (result.path
+                    ? result.path : "")
     }
 
     /**
-     * Identity function for non-intent URIs.
      *
-     * Otherwise if the URI is an intent, tries to apply a webapp
-     * local filter (or identity) and reconstruct the target URI based
-     * on its result.
      */
-    function handleIntentUri(uri) {
-        var _uri = uri;
-        if (webappIntentFilter
-                && webappIntentFilter.isValidIntentUri(_uri)) {
-            var result = webappIntentFilter.applyFilter(_uri)
-            _uri = makeUrlFromIntentResult(result)
-
-            console.log("Intent URI '" + uri + "' was mapped to '" + _uri + "'")
+    function translateHandlerUri(uri) {
+        //
+        var scheme = uri.substr(0, uri.indexOf(":"))
+        if (scheme.indexOf("http") === 0) {
+            schemeUriHandleFilterResult(uri)
+            return uri
         }
+
+        var result = webappSchemeFilter.applyFilter(uri)
+        var mapped_uri = makeUrlFromResult(result)
+
+        uri = mapped_uri
 
         // Report the result of the intent uri filtering (if any)
         // Done for testing purposed. It is not possible at this point
         // to have AP call a slot and retrieve its result synchronously.
-        intentUriHandleResult(_uri)
+        schemeUriHandleFilterResult(uri)
 
-        return _uri
+        return uri
     }
 
-    // Handle runtime requests to open urls as defined
-    // by the freedesktop application dbus interface's open
-    // method for DBUS application activation:
-    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
-    // The dispatch on the org.freedesktop.Application if is done per appId at the
-    // url-dispatcher/upstart level.
-    Connections {
-        target: UriHandler
-        onOpened: {
-            // only consider the first one (if multiple)
-            if (uris.length === 0 || !root.currentWebview) {
-                return;
-            }
-            var requestedUrl = uris[0].toString();
-
-            if (popupRedirectionUrlPrefixPattern.length !== 0
-                    && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
-                return;
-            }
-
-            requestedUrl = handleIntentUri(requestedUrl);
-
-            // Add a small guard to prevent browsing to invalid urls
-            if (currentWebview
-                    && currentWebview.shouldAllowNavigationTo
-                    && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
-                return;
-            }
-
-            root.url = requestedUrl
-            root.currentWebview.url = requestedUrl
+    onOpenUrls: {
+        // only consider the first one (if multiple)
+        if (urls.length === 0 || !root.currentWebview) {
+            return;
         }
+        var requestedUrl = urls[0].toString();
+
+        if (popupRedirectionUrlPrefixPattern.length !== 0
+                && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
+            return;
+        }
+
+        requestedUrl = translateHandlerUri(requestedUrl);
+
+        // Add a small guard to prevent browsing to invalid urls
+        if (currentWebview
+                && currentWebview.shouldAllowNavigationTo
+                && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
+            return;
+        }
+
+        root.url = requestedUrl
+        root.currentWebview.url = requestedUrl
     }
 }

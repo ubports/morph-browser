@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,11 +18,13 @@
 
 import os
 import shutil
+import signal
 import tempfile
 import time
 import urllib.request
 
 import fixtures
+import psutil
 from testtools.matchers import Equals, NotEquals
 
 from autopilot.matchers import Eventually
@@ -80,17 +82,18 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if not os.path.exists(self.cache_location):
             os.makedirs(self.cache_location)
 
-    def setUp(self):
+    def setUp(self, launch=True):
         self.create_temporary_profile()
         self.pointing_device = uitk.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
-        self.app = self.launch_app()
+        if (launch):
+            self.launch_app()
 
     def launch_app(self):
         if os.path.exists(self.local_location):
-            return self.launch_test_local()
+            self.app = self.launch_test_local()
         else:
-            return self.launch_test_installed()
+            self.app = self.launch_test_installed()
         self.main_window.visible.wait_for(True)
 
     def launch_test_local(self):
@@ -128,12 +131,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def open_tabs_view(self):
         self.assertFalse(self.main_window.wide)
         if model() == 'Desktop':
-            chrome = self.main_window.chrome
-            drawer_button = chrome.get_drawer_button()
-            self.pointing_device.click_object(drawer_button)
-            chrome.get_drawer()
-            tabs_action = chrome.get_drawer_action("tabs")
-            self.pointing_device.click_object(tabs_action)
+            bar = self.main_window.get_bottom_edge_bar()
+            self.pointing_device.click_object(bar)
         else:
             self.drag_bottom_edge_upwards(0.75)
         tabs_view = self.main_window.get_tabs_view()
@@ -143,7 +142,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         time.sleep(1)
         return tabs_view
 
-    def open_new_tab(self):
+    def open_new_tab(self, open_tabs_view=False, expand_view=False):
         if (self.main_window.incognito):
             count = len(self.main_window.get_incognito_webviews())
         else:
@@ -152,28 +151,28 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if self.main_window.wide:
             self.main_window.chrome.get_tabs_bar().click_new_tab_button()
         else:
-            # assumes the tabs view is already open
+            if open_tabs_view:
+                self.open_tabs_view()
             tabs_view = self.main_window.get_tabs_view()
             toolbar = self.main_window.get_recent_view_toolbar()
             toolbar.click_action("newTabButton")
             tabs_view.visible.wait_for(False)
 
-        if self.main_window.wide or (model() == 'Desktop'):
-            new_count = count + 1
-        else:
-            max_webviews = self.main_window.maxLiveWebviews
-            new_count = (count + 1) if (count < max_webviews) else max_webviews
         if (self.main_window.incognito):
-            self.assert_number_incognito_webviews_eventually(new_count)
+            self.assert_number_incognito_webviews_eventually(count + 1)
             new_tab_view = self.main_window.get_new_private_tab_view()
         else:
-            self.assert_number_webviews_eventually(new_count)
+            self.assert_number_webviews_eventually(count + 1)
             new_tab_view = self.main_window.get_new_tab_view()
 
-        if model() == 'Desktop':
-            self.assertThat(
-                self.main_window.address_bar.activeFocus,
-                Eventually(Equals(True)))
+        if self.main_window.wide:
+            self.assertThat(self.main_window.address_bar.activeFocus,
+                            Eventually(Equals(True)))
+
+        if not self.main_window.wide and expand_view:
+            more_button = new_tab_view.get_bookmarks_more_button()
+            self.assertThat(more_button.visible, Equals(True))
+            self.pointing_device.click_object(more_button)
 
         return new_tab_view
 
@@ -186,13 +185,32 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(settings_action)
         return self.main_window.get_settings_page()
 
+    def open_bookmarks(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        bookmarks_action = chrome.get_drawer_action("bookmarks")
+        self.pointing_device.click_object(bookmarks_action)
+        return self.main_window.get_bookmarks_view()
+
     def open_history(self):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
-        settings_action = chrome.get_drawer_action("history")
-        self.pointing_device.click_object(settings_action)
+        history_action = chrome.get_drawer_action("history")
+        self.pointing_device.click_object(history_action)
+        return self.main_window.get_history_view()
+
+    def open_downloads(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        downloads_action = chrome.get_drawer_action("downloads")
+        self.pointing_device.click_object(downloads_action)
+        return self.main_window.get_downloads_page()
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
@@ -207,6 +225,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
         ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
 
+    def kill_web_processes(self, signal=signal.SIGKILL):
+        children = psutil.Process(self.app.pid).children(True)
+        for child in children:
+            if child.name() == 'oxide-renderer':
+                for arg in child.cmdline():
+                    if '--type=renderer' in arg:
+                        os.kill(child.pid, signal)
+                        break
+
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
 
@@ -220,17 +247,23 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     are executed, thus making them more robust.
     """
 
-    def setUp(self, path="/test1"):
+    def setUp(self, path="/test1", launch=True):
         self.http_server = http_server.HTTPServerInAThread()
         self.ping_server(self.http_server)
         self.addCleanup(self.http_server.cleanup)
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
             "MAP test:80 localhost:{}".format(self.http_server.port)))
-        self.base_url = "http://test"
+        self.base_domain = "test"
+        self.base_url = "http://" + self.base_domain
         self.url = self.base_url + path
         self.ARGS = self.ARGS + [self.url]
-        super(StartOpenRemotePageTestCaseBase, self).setUp()
+        super(StartOpenRemotePageTestCaseBase, self).setUp(launch)
+        if (launch):
+            self.assert_home_page_eventually_loaded()
+
+    def launch_and_wait_for_page_loaded(self):
+        self.launch_app()
         self.assert_home_page_eventually_loaded()
 
     def assert_home_page_eventually_loaded(self):

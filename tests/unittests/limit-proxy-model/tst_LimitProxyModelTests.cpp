@@ -17,45 +17,92 @@
  */
 
 // Qt
+#include <QtCore/QAbstractListModel>
+#include <QtCore/QStringList>
 #include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
 
 // local
-#include "domain-utils.h"
-#include "history-model.h"
-#include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
-#include "top-sites-model.h"
+
+class SimpleListModel : public QAbstractListModel {
+    Q_OBJECT
+
+public:
+    enum Roles {
+        Index = Qt::UserRole + 1,
+        String
+    };
+
+    QHash<int, QByteArray> roleNames() const
+    {
+        static QHash<int, QByteArray> roles;
+        if (roles.isEmpty()) {
+            roles[Index] = "index";
+            roles[String] = "string";
+        }
+        return roles;
+    }
+
+    int rowCount(const QModelIndex& parent=QModelIndex()) const
+    {
+        return m_strings.count();
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if (!index.isValid()) {
+            return QVariant();
+        }
+        switch (role) {
+        case Index:
+            return index.row();
+        case String:
+            return m_strings.at(index.row());
+        default:
+            return QVariant();
+        }
+    }
+
+    void append(const QStringList& strings)
+    {
+        int index = m_strings.count();
+        beginInsertRows(QModelIndex(), index, index + strings.count() - 1);
+        m_strings << strings;
+        endInsertRows();
+    }
+
+    void remove(int index)
+    {
+        beginRemoveRows(QModelIndex(), index, index);
+        m_strings.removeAt(index);
+        endRemoveRows();
+    }
+
+private:
+    QStringList m_strings;
+};
 
 class LimitProxyModelTests : public QObject
 {
     Q_OBJECT
 
 private:
-    HistoryModel* history;
-    HistoryTimeframeModel* timeframe;
-    TopSitesModel* topsites;
+    SimpleListModel* strings;
     LimitProxyModel* model;
 
 private Q_SLOTS:
     void init()
     {
-        history = new HistoryModel;
-        history->setDatabasePath(":memory:");
-        timeframe = new HistoryTimeframeModel;
-        timeframe->setSourceModel(history);
-        topsites = new TopSitesModel;
-        topsites->setSourceModel(timeframe);
+        strings = new SimpleListModel;
         model = new LimitProxyModel;
-        model->setSourceModel(topsites);
+        model->setSourceModel(strings);
     }
 
     void cleanup()
     {
         delete model;
-        delete topsites;
-        delete timeframe;
-        delete history;
+        delete strings;
     }
 
     void shouldBeInitiallyEmpty()
@@ -71,38 +118,29 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(topsites);
+        model->setSourceModel(strings);
         QVERIFY(spy.isEmpty());
-        TopSitesModel* topsites2 = new TopSitesModel;
-        model->setSourceModel(topsites2);
+        QStringListModel strings2;
+        model->setSourceModel(&strings2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), topsites2);
+        QCOMPARE(model->sourceModel(), &strings2);
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (TopSitesModel*) 0);
-        delete topsites2;
+        QCOMPARE(model->sourceModel(), (QAbstractItemModel*) 0);
     }
 
     void shouldLimitEntriesWithLimitSetBeforePopulating()
     {
         model->setLimit(2);
-
-        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
-
+        strings->append({"a", "b", "c"});
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(model->unlimitedRowCount(), 3);
     }
 
     void shouldLimitEntriesWithLimitSetAfterPopulating()
     {
-        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
-
+        strings->append({"a", "b", "c"});
         model->setLimit(2);
-
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(model->unlimitedRowCount(), 3);
     }
@@ -110,11 +148,7 @@ private Q_SLOTS:
     void shouldNotLimitEntriesIfLimitIsMinusOne()
     {
         model->setLimit(-1);
-
-        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
-
+        strings->append({"a", "b", "c"});
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), model->unlimitedRowCount());
     }
@@ -122,11 +156,7 @@ private Q_SLOTS:
     void shouldNotLimitEntriesIfLimitIsGreaterThanRowCount()
     {
         model->setLimit(4);
-
-        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
-
+        strings->append({"a", "b", "c"});
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), model->unlimitedRowCount());
     }
@@ -134,25 +164,17 @@ private Q_SLOTS:
     void shouldUpdateRowCountAndNotifyAfterAnEntryIsRemoved()
     {
         model->setLimit(2);
+        strings->append({"a", "b", "c", "d"});
 
-        qRegisterMetaType<QVector<int> >();
         QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
         QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
 
-        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
-        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
-        QTest::qWait(1001);
-        history->add(QUrl("http://example4.org/"), "Example 4 Domain", QUrl());
-
-        history->removeEntryByUrl(QUrl("http://example1.org/"));
-
+        strings->remove(0);
         QCOMPARE(spyChanged.count(), 1);
-        QCOMPARE(spyRemoved.count(), 0);
+        QVERIFY(spyRemoved.isEmpty());
 
-        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example2.org/"));
-        QCOMPARE(model->data(model->index(1, 0), HistoryModel::Url).toUrl(), QUrl("http://example3.org/"));
+        QCOMPARE(model->data(model->index(0, 0), SimpleListModel::String).toString(), QString("b"));
+        QCOMPARE(model->data(model->index(1, 0), SimpleListModel::String).toString(), QString("c"));
 
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), 2);
@@ -160,13 +182,10 @@ private Q_SLOTS:
 
     void shouldGetItemWithCorrectValues()
     {
-        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-
+        strings->append({"a"});
         QVariantMap item = model->get(0);
         QHash<int, QByteArray> roles = model->roleNames();
-
         QCOMPARE(roles.count(), item.count());
-
         Q_FOREACH(int role, roles.keys()) {
             QString roleName = QString::fromUtf8(roles.value(role));
             QCOMPARE(model->data(model->index(0, 0), role), item.value(roleName));

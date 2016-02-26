@@ -7,6 +7,9 @@ find_package(Qt5Qml REQUIRED)
 find_package(Qt5Quick REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 
+include(FindPkgConfig)
+pkg_check_modules(LIBAPPARMOR REQUIRED libapparmor)
+
 add_subdirectory(unity8)
 
 configure_file(
@@ -19,14 +22,18 @@ set(COMMONLIB webbrowser-common)
 set(COMMONLIB_SRC
     browserapplication.cpp
     favicon-fetcher.cpp
+    meminfo.cpp
+    mime-database.cpp
     session-storage.cpp
+    single-instance-manager.cpp
     webbrowser-window.cpp
 )
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
 include_directories(${unity8_SOURCE_DIR}/libs/UbuntuGestures
-                    ${unity8_SOURCE_DIR}/plugins)
+                    ${unity8_SOURCE_DIR}/plugins
+                    ${LIBAPPARMOR_INCLUDE_DIRS})
 target_link_libraries(${COMMONLIB}
     Qt5::Core
     Qt5::Gui
@@ -35,6 +42,8 @@ target_link_libraries(${COMMONLIB}
     Qt5::Quick
     Qt5::Widgets
     UbuntuGesturesQml
+    InputInfo
+    ${LIBAPPARMOR_LDFLAGS}
 )
 
 file(GLOB QML_FILES *.qml)

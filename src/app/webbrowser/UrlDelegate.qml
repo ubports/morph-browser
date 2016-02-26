@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -27,6 +27,10 @@ ListItem {
     property alias title: title.text
     property alias url: url.text
 
+    property alias headerComponent: headerComponentLoader.sourceComponent
+
+    property bool removable: true
+
     divider.visible: false
 
     signal removed()
@@ -36,8 +40,15 @@ ListItem {
             verticalCenter: parent.verticalCenter
             left: parent.left
             leftMargin: units.gu(1.5)
+            right: parent.right
+            rightMargin: units.gu(1.5)
         }
         spacing: units.gu(1)
+
+        Loader {
+            id: headerComponentLoader
+            sourceComponent: undefined
+        }
 
         UbuntuShape {
             id: iconContainer
@@ -51,12 +62,18 @@ ListItem {
         }
 
         Column {
-            width: parent.width - iconContainer.width - parent.spacing
-            height: parent.height
+            width: parent.width - headerComponentLoader.width - iconContainer.width - parent.spacing - (headerComponentLoader.sourceComponent ? parent.spacing : 0)
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+            }
 
             Label {
                 id: title
-
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
                 fontSize: "x-small"
                 color: UbuntuColors.darkGrey
                 wrapMode: Text.Wrap
@@ -66,7 +83,10 @@ ListItem {
 
             Label {
                 id: url
-
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
                 fontSize: "xx-small"
                 color: UbuntuColors.darkGrey
                 wrapMode: Text.Wrap
@@ -76,7 +96,8 @@ ListItem {
         }
     }
 
-    leadingActions: ListItemActions {
+    ListItemActions {
+        id: listItemActions
         actions: [
             Action {
                 objectName: "leadingAction.delete"
@@ -85,4 +106,6 @@ ListItem {
             }
         ]
     }
+
+    leadingActions: removable ? listItemActions : null
 }

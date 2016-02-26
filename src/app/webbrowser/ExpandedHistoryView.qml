@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import ".."
 
-Item {
+FocusScope {
     id: expandedHistoryView
 
     property alias model: entriesListView.model
@@ -30,6 +30,12 @@ Item {
     signal historyEntryRemoved(url url)
     signal done()
 
+    MouseArea {
+        // Prevent click events from propagating through to the view below
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "#f6f6f6"
@@ -38,13 +44,16 @@ Item {
     ListView {
         id: entriesListView
 
+        focus: true
+        clip: true
+
         anchors {
             top: header.bottom
+            topMargin: units.gu(1.5)
             bottom: parent.bottom
+            bottomMargin: units.gu(1.5)
             left: parent.left
             right: parent.right
-            margins: units.gu(1.5)
-            leftMargin: 0
         }
 
         section.property: "lastVisitDate"
@@ -58,6 +67,7 @@ Item {
 
         delegate: UrlDelegate {
             id: entriesDelegate
+            objectName: "entriesDelegate"
             width: parent.width
             height: units.gu(5)
 
@@ -68,10 +78,18 @@ Item {
             onClicked: expandedHistoryView.historyEntryClicked(model.url)
             onRemoved: expandedHistoryView.historyEntryRemoved(model.url)
         }
+
+        highlight: ListViewHighlight {}
+
+        Keys.onEnterPressed: currentItem.clicked()
+        Keys.onReturnPressed: currentItem.clicked()
+        Keys.onDeletePressed: currentItem.removed()
+        Keys.onEscapePressed: done()
     }
 
     Item {
         id: header
+        objectName: "header"
 
         anchors {
             top: parent.top
@@ -98,8 +116,8 @@ Item {
                 top: parent.top
                 topMargin: -units.gu(0.7)
             }
-            icon: expandedHistoryView.model.lastVisitedIcon
-            title: expandedHistoryView.model.domain
+            icon: model ? model.lastVisitedIcon : ""
+            title: model ? model.domain : ""
             url: i18n.tr("%1 page", "%1 pages", entriesListView.count).arg(entriesListView.count)
             enabled: false
         }

@@ -27,9 +27,12 @@ Item {
 
     property var popupWindowController
     property var webContext
+    property alias currentWebview: popupWebview
     property alias request: popupWebview.request
     property alias url: popupWebview.url
     
+    signal webviewUrlChanged(url webviewUrl)
+
     Rectangle {
         color: "#F2F1F0"
         anchors.fill: parent
@@ -160,6 +163,8 @@ Item {
 
         context: webContext
 
+        onUrlChanged: webviewUrlChanged(popupWebview.url)
+
         anchors {
             bottom: parent.bottom
             left: parent.left
@@ -169,7 +174,7 @@ Item {
 
         onNewViewRequested: {
             if (popupWindowController) {
-                popupWindowController.createPopupView(
+                popupWindowController.createPopupViewForRequest(
                             popup.parent, request, false, context)
             }
         }
@@ -194,6 +199,21 @@ Item {
                 popupWindowController.handleViewRemoved(popup)
             }
         }
-    }
 
+        Loader {
+            anchors {
+                fill: popupWebview
+            }
+            active: webProcessMonitor.crashed || (webProcessMonitor.killed && !popupWebview.currentWebview.loading)
+            sourceComponent: SadPage {
+                webview: popupWebview
+                objectName: "overlaySadPage"
+            }
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: popupWebview
+            }
+            asynchronous: true
+        }
+    }
 }

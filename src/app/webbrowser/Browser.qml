@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,15 +19,17 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
-import ".."
 import "../UrlUtils.js" as UrlUtils
-import "urlManagement.js" as UrlManagement
+import ".."
+import "."
+import "." as Local
 
 BrowserView {
     id: browser
@@ -37,18 +39,13 @@ BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
-    property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
+    readonly property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
 
     property bool newSession: false
 
     property bool incognito: false
 
     readonly property var tabsModel: incognito ? privateTabsModelLoader.item : publicTabsModel
-
-    // XXX: we might want to tweak this value depending
-    // on the form factor and/or the available memory
-    readonly property int maxLiveWebviews: 2
 
     // Restore only the n most recent tabs at startup,
     // to limit the overhead of instantiating too many
@@ -58,6 +55,10 @@ BrowserView {
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
+        } else if (!incognito && tabsModel.currentTab) {
+            // If the system is low on memory, the current public tab might
+            // have been unloaded while browsing incognito, so reload it.
+            tabsModel.currentTab.load()
         }
     }
 
@@ -66,7 +67,7 @@ BrowserView {
         onCurrentIndexChanged: {
             // Remove focus from the address bar when the current tab
             // changes to ensure that its contents are updated.
-            tabContainer.forceActiveFocus()
+            contentsContainer.forceActiveFocus()
 
             // In narrow mode, the tabslist is a stack:
             // the current tab is always at the top.
@@ -74,6 +75,45 @@ BrowserView {
                 tabsModel.move(tabsModel.currentIndex, 0)
             }
         }
+    }
+
+    Connections {
+        target: currentWebview
+
+        /* Note that we are connecting the mediaAccessPermissionRequested signal
+           on the current webview only because we want all the tabs that are not
+           visible to automatically deny the request but emit the signal again
+           if the same origin requests permissions (which is the default
+           behavior in oxide if we don't connect a signal handler), so that we
+           can pop-up a dialog asking the user for permission.
+
+           Design is working on a new component that allows per-tab non-modal
+           dialogs that will allow asking permission to the user without blocking
+           interaction with the rest of the page or the window. When ready all
+           tabs will have their mediaAccessPermissionRequested signal handled by
+           creating one of these new dialogs.
+        */
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
+
+    InputDeviceModel {
+        id: miceModel
+        deviceFilter: InputInfo.Mouse
+    }
+
+    InputDeviceModel {
+        id: touchPadModel
+        deviceFilter: InputInfo.TouchPad
+    }
+
+    InputDeviceModel {
+        id: touchScreenModel
+        deviceFilter: InputInfo.TouchScreen
+    }
+
+    Component {
+        id: mediaAccessDialogComponent
+        MediaAccessDialog { }
     }
 
     actions: [
@@ -93,18 +133,17 @@ BrowserView {
             onTriggered: currentWebview.reload()
         },
         Actions.Bookmark {
-            enabled: currentWebview && browser.bookmarksModel
+            enabled: currentWebview
             onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
-            enabled: browser.historyModel
-            onTriggered: browser.historyModel.clearAll()
+            onTriggered: HistoryModel.clearAll()
         },
         Actions.FindInPage {
-            enabled: !chrome.findInPageMode
+            enabled: !chrome.findInPageMode && !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
@@ -117,14 +156,18 @@ BrowserView {
 
         property url homepage: settingsDefaults.homepage
         property string searchEngine: settingsDefaults.searchEngine
-        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
+        property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
+        property string defaultAudioDevice
+        property string defaultVideoDevice
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
-            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
+            newTabDefaultSection = settingsDefaults.newTabDefaultSection
+            defaultAudioDevice = settingsDefaults.defaultAudioDevice
+            defaultVideoDevice = settingsDefaults.defaultVideoDevice
         }
     }
 
@@ -133,42 +176,34 @@ BrowserView {
 
         readonly property url homepage: "http://start.ubuntu.com"
         readonly property string searchEngine: "google"
-        readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
+        readonly property int newTabDefaultSection: 0
+        readonly property string defaultAudioDevice: ""
+        readonly property string defaultVideoDevice: ""
     }
 
     FocusScope {
+        id: contentsContainer
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewContainer.visible
-
-        TabChrome {
-            id: invisibleTabChrome
-            visible: false
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-        }
-
-        Rectangle {
-            // Background for the recent view
-            anchors.fill: invisibleTabChrome
-            visible: recentView.visible
-            color: "#312f2c"
-        }
+        visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsViewLoader.active
 
         FocusScope {
             id: tabContainer
             anchors {
                 left: parent.left
                 right: parent.right
-                top: recentView.visible ? invisibleTabChrome.bottom : parent.top
+                top: parent.top
             }
-            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
+            height: parent.height - osk.height - bottomEdgeBar.height
+
+            focus: !errorSheetLoader.focus &&
+                   !invalidCertificateErrorSheetLoader.focus &&
+                   !newTabViewLoader.focus &&
+                   !sadTabLoader.focus
         }
 
         Loader {
+            id: errorSheetLoader
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -178,10 +213,12 @@ BrowserView {
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }
+            focus: item.visible
             asynchronous: true
         }
 
         Loader {
+            id: invalidCertificateErrorSheetLoader
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -199,11 +236,13 @@ BrowserView {
                     currentWebview.resetCertificateError()
                 }
             }
+            focus: item.visible
             asynchronous: true
         }
 
         Loader {
             id: newTabViewLoader
+
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -219,6 +258,8 @@ BrowserView {
                 }
             }
             active: false
+            focus: active
+            asynchronous: true
 
             Connections {
                 target: browser
@@ -230,306 +271,81 @@ BrowserView {
                 }
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+            sourceComponent: browser.incognito ? newPrivateTabView :
+                             (browser.wide ? newTabViewWide : newTabView)
 
             Component {
-                id: newTabViewComponent
+                id: newTabView
 
                 NewTabView {
-                    historyModel: browser.historyModel
-                    bookmarksModel: browser.bookmarksModel
+                    anchors.fill: parent
                     settingsObject: settings
+                    focus: true
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onBookmarkRemoved: BookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
+                    Keys.onUpPressed: chrome.focus = true
                 }
             }
 
             Component {
-                id: newPrivateTabViewComponent
+                id: newTabViewWide
 
-                NewPrivateTabView { }
+                NewTabViewWide {
+                    anchors.fill: parent
+                    settingsObject: settings
+                    focus: true
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: BookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    Keys.onUpPressed: chrome.focus = true
+                }
             }
+
+            Component {
+                id: newPrivateTabView
+
+                NewPrivateTabView { anchors.fill: parent }
+            }
+        }
+
+        Loader {
+            id: sadTabLoader
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
+
+            active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
+            focus: active
+
+            sourceComponent: SadTab {
+                webview: currentWebview
+                onCloseTabRequested: internal.closeCurrentTab()
+            }
+
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: currentWebview
+            }
+
             asynchronous: true
-        }
-
-        SearchEngine {
-            id: currentSearchEngine
-            searchPaths: searchEnginesSearchPaths
-            filename: settings.searchEngine
-        }
-
-        Chrome {
-            id: chrome
-
-            visible: !recentView.visible
-
-            webview: browser.currentWebview
-            tabsModel: browser.tabsModel
-            searchUrl: currentSearchEngine.urlTemplate
-
-            incognito: browser.incognito
-
-            showTabsBar: browser.wide
-            showFaviconInAddressBar: !browser.wide
-
-            y: webview ? webview.locationBarController.offset : 0
-
-            function isCurrentUrlBookmarked() {
-                return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
-            }
-            bookmarked: isCurrentUrlBookmarked()
-            onBookmarkedChanged: {
-                if (bookmarked && !isCurrentUrlBookmarked()) {
-                    internal.addBookmark(webview.url, webview.title, webview.icon)
-                } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.remove(webview.url)
-                }
-            }
-            onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
-            Connections {
-                target: chrome.webview
-                onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
-            }
-            Connections {
-                target: browser.bookmarksModel
-                onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
-                onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
-            }
-
-            onRequestNewTab: browser.openUrlInNewTab("", true)
-
-            onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
-
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            drawerActions: [
-                Action {
-                    objectName: "share"
-                    text: i18n.tr("Share")
-                    iconName: "share"
-                    enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
-                    onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
-                },
-                Action {
-                    objectName: "history"
-                    text: i18n.tr("History")
-                    iconName: "history"
-                    enabled: browser.historyModel
-                    onTriggered: {
-                        historyViewComponent.createObject(historyViewContainer)
-                        historyViewContainer.focus = true
-                    }
-                },
-                Action {
-                    objectName: "tabs"
-                    text: i18n.tr("Open tabs")
-                    iconName: "browser-tabs"
-                    enabled: (formFactor != "mobile") && !browser.wide
-                    onTriggered: {
-                        recentView.state = "shown"
-                        recentToolbar.state = "shown"
-                    }
-                },
-                Action {
-                    objectName: "newtab"
-                    text: i18n.tr("New tab")
-                    iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    enabled: (formFactor != "mobile") && !browser.wide
-                    onTriggered: browser.openUrlInNewTab("", true)
-                },
-                Action {
-                    objectName: "findinpage"
-                    text: i18n.tr("Find in page")
-                    iconName: "search"
-                    enabled: !chrome.findInPageMode
-                    onTriggered: {
-                        chrome.findInPageMode = true
-                        chrome.focus = true
-                    }
-                },
-                Action {
-                    objectName: "privatemode"
-                    text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
-                    iconName: "private-browsing"
-                    iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
-                    onTriggered: {
-                        if (browser.incognito) {
-                            if (tabsModel.count > 1) {
-                                PopupUtils.open(leavePrivateModeDialog)
-                            } else {
-                                browser.incognito = false
-                                internal.resetFocus()
-                            }
-                        } else {
-                            browser.incognito = true
-                        }
-                    }
-                },
-                Action {
-                    objectName: "settings"
-                    text: i18n.tr("Settings")
-                    iconName: "settings"
-                    onTriggered: {
-                        settingsComponent.createObject(settingsContainer)
-                        settingsContainer.focus = true
-                    }
-                }
-            ]
-
-            canSimplifyText: !browser.wide
-            editing: activeFocus || suggestionsList.activeFocus
-
-            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
-            Keys.onEscapePressed: {
-                if (chrome.findInPageMode) {
-                    chrome.findInPageMode = false
-                } else {
-                    internal.resetFocus()
-                }
-            }
-        }
-
-        ChromeController {
-            id: chromeController
-            webview: browser.currentWebview
-            forceHide: recentView.visible || browser.fullscreen
-            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
-                                                   : Oxide.LocationBarController.ModeAuto
-        }
-
-        Suggestions {
-            id: suggestionsList
-            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
-                      (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
-            Behavior on opacity {
-                UbuntuNumberAnimation {}
-            }
-            enabled: opacity > 0
-            anchors {
-                top: chrome.bottom
-                horizontalCenter: parent.horizontalCenter
-            }
-            width: chrome.width - units.gu(5)
-            height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
-
-            searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
-
-            Keys.onUpPressed: chrome.focus = true
-            Keys.onEscapePressed: internal.resetFocus()
-
-            models: [historySuggestions,
-                     bookmarksSuggestions,
-                     searchSuggestions.limit(4)]
-
-            LimitProxyModel {
-                id: historySuggestions
-                limit: 2
-                readonly property string icon: "history"
-                readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
-                    sourceModel: browser.historyModel
-                    terms: suggestionsList.searchTerms
-                    searchFields: ["url", "title"]
-                }
-            }
-
-            LimitProxyModel {
-                id: bookmarksSuggestions
-                limit: 2
-                readonly property string icon: "non-starred"
-                readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
-                    sourceModel: browser.bookmarksModel
-                    terms: suggestionsList.searchTerms
-                    searchFields: ["url", "title"]
-                }
-            }
-
-            SearchSuggestions {
-                id: searchSuggestions
-                terms: suggestionsList.searchTerms
-                searchEngine: currentSearchEngine
-                active: (chrome.activeFocus || suggestionsList.activeFocus) &&
-                         !browser.incognito && !chrome.findInPageMode &&
-                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
-
-                function limit(number) {
-                    var slice = results.slice(0, number)
-                    slice.icon = 'search'
-                    slice.displayUrl = false
-                    return slice
-                }
-            }
-
-            onActivated: {
-                browser.currentWebview.url = url
-                tabContainer.forceActiveFocus()
-                chrome.requestedUrl = url
-            }
-        }
-
-        Component {
-            id: bookmarkOptionsComponent
-            BookmarkOptions {
-                folderModel: BookmarksFolderListModel {
-                    sourceModel: bookmarksModel
-                }
-
-                Component.onCompleted: {
-                    forceActiveFocus()
-                }
-
-                Component.onDestruction: {
-                    if (browser.bookmarksModel.contains(bookmarkUrl)) {
-                        browser.bookmarksModel.update(bookmarkUrl,
-                                                      bookmarkTitle,
-                                                      bookmarkFolder)
-                    }
-                }
-
-                Keys.onPressed: {
-                    if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
-                        event.accepted = true
-                    }
-                }
-
-                KeyboardShortcuts {
-                    id: bookmarkOptionsShortcuts
-                    KeyboardShortcut {
-                        key: Qt.Key_Return
-                        onTriggered: hide()
-                    }
-
-                    KeyboardShortcut {
-                        key: Qt.Key_Escape
-                        onTriggered: {
-                            browser.bookmarksModel.remove(bookmarkUrl)
-                            hide()
-                        }
-                    }
-
-                    KeyboardShortcut {
-                        modifiers: Qt.ControlModifier
-                        key: Qt.Key_D
-                        onTriggered: {
-                            browser.bookmarksModel.remove(bookmarkUrl)
-                            hide()
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -539,6 +355,7 @@ BrowserView {
 
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
+        onVisibleChanged: chrome.hidden = visible
 
         states: State {
             name: "shown"
@@ -546,7 +363,7 @@ BrowserView {
 
         function closeAndSwitchToTab(index) {
             recentView.reset()
-            internal.switchToTab(index)
+            internal.switchToTab(index, false)
         }
 
         Keys.onEscapePressed: closeAndSwitchToTab(0)
@@ -569,21 +386,16 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
-            chromeOffset: chrome.height - invisibleTabChrome.height
-            onTabSelected: recentView.closeAndSwitchToTab(index)
-            onTabClosed: {
-                var tab = tabsModel.remove(index)
-                if (tab) {
-                    tab.close()
-                }
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                    recentView.reset()
-                }
+            chromeHeight: chrome.height
+            onScheduleTabSwitch: {
+                chrome.hidden = false
+                internal.nextTabIndex = index
             }
+            onTabSelected: recentView.closeAndSwitchToTab(index)
+            onTabClosed: internal.closeTab(index)
         }
 
-        Toolbar {
+        Local.Toolbar {
             id: recentToolbar
             objectName: "recentToolbar"
 
@@ -594,6 +406,8 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
+            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
+
             Button {
                 objectName: "doneButton"
                 anchors {
@@ -602,7 +416,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: UbuntuColors.darkGrey
+                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
 
                 text: i18n.tr("Done")
 
@@ -620,7 +434,8 @@ BrowserView {
 
                 text: i18n.tr("New Tab")
 
-                iconName: "add"
+                iconName: browser.incognito ? "private-tab-new" : "add"
+                color: browser.incognito ? "#f6f6f6" : "#808080"
 
                 onClicked: {
                     recentView.reset()
@@ -633,6 +448,233 @@ BrowserView {
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
+            internal.resetFocus()
+        }
+    }
+
+    SearchEngine {
+        id: currentSearchEngine
+        searchPaths: searchEnginesSearchPaths
+        filename: settings.searchEngine
+    }
+
+    ChromeController {
+        id: chromeController
+        webview: browser.currentWebview
+        forceHide: browser.fullscreen
+        forceShow: recentView.visible
+        defaultMode: (internal.hasMouse && !internal.hasTouchScreen)
+                         ? Oxide.LocationBarController.ModeShown
+                         : Oxide.LocationBarController.ModeAuto
+    }
+
+    Chrome {
+        id: chrome
+
+        tab: internal.nextTab || tabsModel.currentTab
+        webview: tab ? tab.webview : null
+        tabsModel: browser.tabsModel
+        searchUrl: currentSearchEngine.urlTemplate
+
+        incognito: browser.incognito
+
+        showTabsBar: browser.wide
+        showFaviconInAddressBar: !browser.wide
+
+        availableHeight: tabContainer.height - height - y
+
+        touchEnabled: internal.hasTouchScreen
+
+        property bool hidden: false
+        y: hidden ? -height : webview ? webview.locationBarController.offset : 0
+        Behavior on y {
+            enabled: recentView.visible
+            NumberAnimation {
+                duration: UbuntuAnimation.FastDuration
+            }
+        }
+
+        function isCurrentUrlBookmarked() {
+            return tab ? BookmarksModel.contains(tab.url) : false
+        }
+        bookmarked: isCurrentUrlBookmarked()
+        onToggleBookmark: {
+            if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
+            else internal.addBookmark(tab.url, tab.title, tab.icon)
+        }
+        onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
+        Connections {
+            target: chrome.tab
+            onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
+        }
+        Connections {
+            target: BookmarksModel
+            onCountChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
+        }
+
+        onSwitchToTab: internal.switchToTab(index, true)
+        onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
+        onTabClosed: internal.closeTab(index)
+
+        onFindInPageModeChanged: {
+            if (!chrome.findInPageMode) internal.resetFocus()
+            else chrome.forceActiveFocus()
+        }
+
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+
+        drawerActions: [
+            Action {
+                objectName: "share"
+                text: i18n.tr("Share")
+                iconName: "share"
+                enabled: (contentHandlerLoader.status == Loader.Ready) &&
+                         chrome.tab && chrome.tab.url.toString()
+                onTriggered: internal.shareLink(chrome.tab.url, chrome.tab.title)
+            },
+            Action {
+                objectName: "bookmarks"
+                text: i18n.tr("Bookmarks")
+                iconName: "bookmark"
+                onTriggered: bookmarksViewLoader.active = true
+            },
+            Action {
+                objectName: "history"
+                text: i18n.tr("History")
+                iconName: "history"
+                onTriggered: historyViewLoader.active = true
+            },
+            Action {
+                objectName: "findinpage"
+                text: i18n.tr("Find in page")
+                iconName: "search"
+                enabled: !chrome.findInPageMode && !newTabViewLoader.active
+                onTriggered: chrome.findInPageMode = true
+            },
+            Action {
+                objectName: "downloads"
+                text: i18n.tr("Downloads")
+                iconName: "save"
+                enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
+                onTriggered: downloadsViewLoader.active = true
+            },
+            Action {
+                objectName: "privatemode"
+                text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
+                iconName: "private-browsing"
+                iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
+                onTriggered: {
+                    if (browser.incognito) {
+                        if (tabsModel.count > 1) {
+                            PopupUtils.open(leavePrivateModeDialog)
+                        } else {
+                            browser.incognito = false
+                            internal.resetFocus()
+                        }
+                    } else {
+                        browser.incognito = true
+                    }
+                }
+            },
+            Action {
+                objectName: "settings"
+                text: i18n.tr("Settings")
+                iconName: "settings"
+                onTriggered: settingsViewLoader.active = true
+            }
+        ]
+
+        canSimplifyText: !browser.wide
+        editing: activeFocus || suggestionsList.activeFocus
+
+        Keys.onDownPressed: {
+            if (suggestionsList.count) suggestionsList.focus = true
+            else if (newTabViewLoader.status == Loader.Ready) {
+                newTabViewLoader.forceActiveFocus()
+            }
+        }
+
+        Keys.onEscapePressed: {
+            if (chrome.findInPageMode) {
+                chrome.findInPageMode = false
+            } else {
+                internal.resetFocus()
+            }
+        }
+    }
+
+    Suggestions {
+        id: suggestionsList
+        opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
+                  (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
+        Behavior on opacity {
+            UbuntuNumberAnimation {}
+        }
+        enabled: opacity > 0
+        anchors {
+            top: chrome.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+        width: chrome.width - units.gu(5)
+        height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
+
+        searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+        Keys.onUpPressed: chrome.focus = true
+        Keys.onEscapePressed: internal.resetFocus()
+
+        models: searchTerms && searchTerms.length > 0 ?
+                [historySuggestions,
+                 bookmarksSuggestions,
+                 searchSuggestions.limit(4)] : []
+
+        LimitProxyModel {
+            id: historySuggestions
+            limit: 2
+            readonly property string icon: "history"
+            readonly property bool displayUrl: true
+            sourceModel: TextSearchFilterModel {
+                sourceModel: HistoryModel
+                terms: suggestionsList.searchTerms
+                searchFields: ["url", "title"]
+            }
+        }
+
+        LimitProxyModel {
+            id: bookmarksSuggestions
+            limit: 2
+            readonly property string icon: "non-starred"
+            readonly property bool displayUrl: true
+            sourceModel: TextSearchFilterModel {
+                sourceModel: BookmarksModel
+                terms: suggestionsList.searchTerms
+                searchFields: ["url", "title"]
+            }
+        }
+
+        SearchSuggestions {
+            id: searchSuggestions
+            terms: suggestionsList.searchTerms
+            searchEngine: currentSearchEngine
+            active: (chrome.activeFocus || suggestionsList.activeFocus) &&
+                     !browser.incognito && !chrome.findInPageMode &&
+                     !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+
+            function limit(number) {
+                var slice = results.slice(0, number)
+                slice.icon = 'search'
+                slice.displayUrl = false
+                return slice
+            }
+        }
+
+        onActivated: {
+            browser.currentWebview.url = url
+            tabContainer.forceActiveFocus()
+            chrome.requestedUrl = url
         }
     }
 
@@ -655,9 +697,9 @@ BrowserView {
         }
         height: units.gu(2)
 
-        enabled: (formFactor == "mobile") && (recentView.state == "") &&
-                 (Screen.orientation == Screen.primaryOrientation) &&
-                 browser.currentWebview
+        enabled: !browser.wide && (recentView.state == "") &&
+                 browser.currentWebview &&
+                 (Screen.orientation == Screen.primaryOrientation)
 
         onDraggingChanged: {
             if (dragging) {
@@ -686,7 +728,7 @@ BrowserView {
     Image {
         id: bottomEdgeHint
         objectName: "bottomEdgeHint"
-        source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
+        source: "assets/bottom_edge_hint.png"
         property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -696,7 +738,7 @@ BrowserView {
                 UbuntuNumberAnimation {}
             }
         }
-        visible: bottomEdgeHandle.enabled
+        visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
         Behavior on opacity {
             UbuntuNumberAnimation {}
@@ -715,83 +757,255 @@ BrowserView {
         }
     }
 
-    FocusScope {
-        id: historyViewContainer
-        objectName: "historyView"
+    MouseArea {
+        id: bottomEdgeBar
+        objectName: "bottomEdgeBar"
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        enabled: !browser.wide && internal.hasMouse &&
+                 (osk.state == "hidden") && (recentView.state == "")
+        visible: enabled
+        height: visible ? units.gu(4) : 0
 
-        visible: children.length > 0
+        onClicked: {
+            recentView.state = "shown"
+            recentToolbar.state = "shown"
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#f7f7f7"
+            border {
+                width: units.dp(1)
+                color: "#cdcdcd"
+            }
+        }
+
+        Label {
+            anchors.centerIn: parent
+            color: "#5d5d5d"
+            // TRANSLATORS: %1 refers to the current number of tabs opened
+            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        }
+    }
+
+    Loader {
+        id: bookmarksViewLoader
+
         anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? bookmarksViewWideComponent : bookmarksViewComponent
 
-        Component {
-            id: historyViewComponent
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                bookmarksViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
 
-            HistoryView {
-                anchors.fill: parent
-                visible: historyViewContainer.children.length == 1
-                focus: true
+        Keys.onEscapePressed: bookmarksViewLoader.active = false
 
-                Keys.onEscapePressed: {
-                    destroy()
-                    internal.resetFocus()
-                }
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
 
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
+        Connections {
+            target: bookmarksViewLoader.item
 
-                onSeeMoreEntriesClicked: {
-                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
-                    view.onHistoryEntryClicked.connect(destroy)
-                }
-                onDone: destroy()
+            onBookmarkEntryClicked: {
+                browser.openUrlInNewTab(url, true)
+                bookmarksViewLoader.active = false
+            }
+            onDone: bookmarksViewLoader.active = false
+            onNewTabClicked: {
+                browser.openUrlInNewTab("", true)
+                bookmarksViewLoader.active = false
             }
         }
 
         Component {
-            id: expandedHistoryViewComponent
+            id: bookmarksViewComponent
 
-            ExpandedHistoryView {
+            BookmarksView {
                 anchors.fill: parent
+
+                homepageUrl: settings.homepage
+            }
+        }
+
+        Component {
+            id: bookmarksViewWideComponent
+
+            BookmarksViewWide {
+                anchors.fill: parent
+
+                homepageUrl: settings.homepage
+            }
+        }
+    }
+
+    Loader {
+        id: historyViewLoader
+
+        anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                historyViewLoader.item.loadModel()
+                historyViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: historyViewLoader.active = false
+
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
+        Component {
+            id: historyViewComponent
+
+            FocusScope {
+                signal loadModel()
+                onLoadModel: children[0].loadModel()
+
+                HistoryView {
+                    anchors.fill: parent
+                    focus: !expandedHistoryViewLoader.focus
+                    visible: focus
+                    onSeeMoreEntriesClicked: {
+                        expandedHistoryViewLoader.model = model
+                        expandedHistoryViewLoader.active = true
+                    }
+                    onNewTabRequested: browser.openUrlInNewTab("", true)
+                    onDone: historyViewLoader.active = false
+                }
+
+                Loader {
+                    id: expandedHistoryViewLoader
+                    asynchronous: true
+                    anchors.fill: parent
+                    active: false
+                    focus: active
+                    property var model: null
+                    sourceComponent: ExpandedHistoryView {
+                        focus: true
+                        model: expandedHistoryViewLoader.model
+                        onHistoryEntryClicked: {
+                            browser.openUrlInNewTab(url, true)
+                            historyViewLoader.active = false
+                        }
+                        onHistoryEntryRemoved: {
+                            if (count == 1) {
+                                done()
+                            }
+                            HistoryModel.removeEntryByUrl(url)
+                        }
+                        onDone: expandedHistoryViewLoader.active = false
+                    }
+                }
+            }
+        }
+
+        Component {
+            id: historyViewWideComponent
+
+            HistoryViewWide {
+                anchors.fill: parent
+
+                Keys.onEscapePressed: {
+                    historyViewLoader.active = false
+                    internal.resetFocus()
+                }
 
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: {
-                    if (count == 1) {
-                        done()
-                    }
-                    browser.historyModel.removeEntryByUrl(url)
-                }
-                onDone: destroy()
+
+                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onDone: historyViewLoader.active = false
             }
         }
     }
 
-    FocusScope {
-        id: settingsContainer
+    Loader {
+        id: settingsViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
 
-        Component {
-            id: settingsComponent
-
-            SettingsPage {
-                anchors.fill: parent
-                focus: true
-                historyModel: browser.historyModel
-                settingsObject: settings
-                onDone: destroy()
-                Keys.onEscapePressed: {
-                    destroy()
-                    internal.resetFocus()
-                }
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                settingsViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
             }
+        }
+
+        Keys.onEscapePressed: settingsViewLoader.active = false
+
+        onActiveChanged: {
+            if (active) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
+            }
+        }
+
+        sourceComponent: SettingsPage {
+            anchors.fill: parent
+            focus: true
+            settingsObject: settings
+            onDone: settingsViewLoader.active = false
+        }
+    }
+
+    Loader {
+        id: downloadsViewLoader
+
+        anchors.fill: parent
+        active: false
+        source: "DownloadsPage.qml"
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: active = false
+
+        onActiveChanged: {
+            if (active) {
+                forceActiveFocus()
+            }
+        }
+
+        Binding {
+            target: downloadsViewLoader.item
+            property: "downloadManager"
+            value: browser.downloadManager
+        }
+
+        Connections {
+            target: downloadsViewLoader.item
+            onDone: downloadsViewLoader.active = false
         }
     }
 
@@ -821,14 +1035,8 @@ BrowserView {
     }
 
     Loader {
-        id: historyModelLoader
-        source: "HistoryModel.qml"
-        asynchronous: true
-    }
-
-    Loader {
-        id: bookmarksModelLoader
-        source: "BookmarksModel.qml"
+        id: downloadHandlerLoader
+        source: "DownloadHandler.qml"
         asynchronous: true
     }
 
@@ -840,12 +1048,19 @@ BrowserView {
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
+            Item {
+                id: contextualMenuTarget
+                visible: false
+            }
+
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
                 property BrowserTab tab
+                readonly property bool current: tab.current
 
                 currentWebview: browser.currentWebview
+                filePicker: filePickerLoader.item
 
                 anchors.fill: parent
                 focus: true
@@ -853,7 +1068,7 @@ BrowserView {
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
-                    height: webviewimpl.visible ? chrome.height : 0
+                    height: chrome.height
                     mode: chromeController.defaultMode
                 }
 
@@ -861,46 +1076,173 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
+                property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        enabled: contextualData.href.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                        objectName: "OpenLinkInNewTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
-                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                        objectName: "OpenLinkInNewBackgroundTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        objectName: "BookmarkLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                                 && !BookmarksModel.contains(contextModel.linkUrl)
+                        onTriggered: {
+                            // position the menu target with a one-off assignement instead of a binding
+                            // since the contents of the contextModel have meaning only while the context
+                            // menu is active
+                            contextualMenuTarget.x = contextModel.position.x
+                            contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
+                            internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
+                                                 "", contextualMenuTarget)
+                        }
                     }
                     Actions.CopyLink {
-                        enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
+                        objectName: "CopyLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
-                    Actions.ShareLink {
-                        enabled: (formFactor == "mobile") && contextualData.href.toString()
-                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                    Actions.SaveLink {
+                        objectName: "SaveLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: contextModel.saveLink()
+                    }
+                    Actions.Share {
+                        objectName: "ShareContextualAction"
+                        enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
+                                 (contextModel.linkUrl.toString() || contextModel.selectionText)
+                        onTriggered: {
+                            if (contextModel.linkUrl.toString()) {
+                                internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
+                            } else if (contextModel.selectionText) {
+                                internal.shareText(contextModel.selectionText)
+                            }
+                        }
                     }
                     Actions.OpenImageInNewTab {
-                        enabled: contextualData.img.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                        objectName: "OpenImageInNewTabContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
-                        enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
+                        objectName: "CopyImageContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
-                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                        objectName: "SaveImageContextualAction"
+                        enabled: contextModel &&
+                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                                 contextModel.hasImageContents
+                        onTriggered: contextModel.saveMedia()
+                    }
+                    Actions.OpenVideoInNewTab {
+                        objectName: "OpenVideoInNewTabContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
+                    }
+                    Actions.SaveVideo {
+                        objectName: "SaveVideoContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: contextModel.saveMedia()
+                    }
+                    Actions.Undo {
+                        objectName: "UndoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.UndoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+                    }
+                    Actions.Redo {
+                        objectName: "RedoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.RedoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+                    }
+                    Actions.Cut {
+                        objectName: "CutContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CutCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+                    }
+                    Actions.Copy {
+                        objectName: "CopyContextualAction"
+                        enabled: contextModel && (contextModel.selectionText ||
+                                 (contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)))
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+                    }
+                    Actions.Paste {
+                        objectName: "PasteContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.PasteCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+                    }
+                    Actions.Erase {
+                        objectName: "EraseContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.EraseCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+                    }
+                    Actions.SelectAll {
+                        objectName: "SelectAllContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
                     }
                 }
+
+                function contextMenuOnCompleted(menu) {
+                    contextModel = menu.contextModel
+                    if (contextModel.linkUrl.toString() ||
+                        contextModel.srcUrl.toString() ||
+                        contextModel.selectionText ||
+                        (contextModel.isEditable && contextModel.editFlags) ||
+                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
+                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
+                         contextModel.hasImageContents)) {
+                        menu.show()
+                    } else {
+                        contextModel.close()
+                    }
+                }
+
+                Component {
+                    id: contextMenuNarrowComponent
+                    ContextMenuMobile {
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
+                    }
+                }
+                Component {
+                    id: contextMenuWideComponent
+                    ContextMenuWide {
+                        webview: webviewimpl
+                        parent: browser
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
+                    }
+                }
+                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
+                    if (setCurrent) tabContainer.forceActiveFocus()
                 }
 
                 onCloseRequested: prepareToClose()
@@ -946,12 +1288,13 @@ BrowserView {
                     if (webviewimpl.incognito) {
                         return
                     }
+
                     if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
                         !event.isError &&
-                        browser.historyModel &&
-                        !webviewInternal.storedUrl.toString()) {
+                        !webviewInternal.storedUrl.toString() &&
+                        (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
                         webviewInternal.storedUrl = event.url
-                        browser.historyModel.add(event.url, webviewInternal.title, webviewInternal.icon)
+                        HistoryModel.add(event.url, webviewInternal.title, webviewInternal.icon)
                     }
                 }
                 onTitleChanged: {
@@ -965,7 +1308,7 @@ BrowserView {
                         // to achieve an ugly "scrolling title" effect to flood the
                         // history database with updates.
                         webviewInternal.storedTitle = title
-                        browser.historyModel.add(webviewInternal.storedUrl, title, webviewInternal.icon)
+                        HistoryModel.add(webviewInternal.storedUrl, title, webviewInternal.icon)
                     }
                 }
                 onIconChanged: {
@@ -975,9 +1318,9 @@ BrowserView {
                     if (!webviewInternal.storedIcon.toString()) {
                         // Record the icon to avoid updating the history database
                         // every time the page dynamically updates its icon
-                        // (see e.g. http://www.p01.org/releases/DEFENDER_of_the_favicon/).
+                        // (see e.g. http://www.p01.org/defender_of_the_favicon/).
                         webviewInternal.storedIcon = icon
-                        browser.historyModel.add(webviewInternal.storedUrl, webviewInternal.title, icon)
+                        HistoryModel.add(webviewInternal.storedUrl, webviewInternal.title, icon)
                     }
                 }
 
@@ -1044,9 +1387,9 @@ BrowserView {
                             color: "white"
                             font.weight: Font.Light
                             anchors.centerIn: parent
-                            text: (formFactor == "mobile") ?
-                                      i18n.tr("Swipe Up To Exit Full Screen") :
-                                      i18n.tr("Press ESC To Exit Full Screen")
+                            text: bottomEdgeHandle.enabled
+                                      ? i18n.tr("Swipe Up To Exit Full Screen")
+                                      : i18n.tr("Press ESC To Exit Full Screen")
                         }
 
                         Timer {
@@ -1068,54 +1411,217 @@ BrowserView {
                         Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
+
+                onShowDownloadDialog: {
+                    if (downloadDialogLoader.status === Loader.Ready) {
+                        var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
+                                                                                                  "downloadId" : downloadId,
+                                                                                                  "singleDownload" : downloader,
+                                                                                                  "filename" : filename,
+                                                                                                  "mimeType" : mimeType})
+                        downloadDialog.startDownload.connect(startDownload)
+                    }
+                }
+
+                function showDownloadsPage() {
+                    downloadsViewLoader.active = true
+                    return downloadsViewLoader.item
+                }
+
+                function startDownload(downloadId, download, mimeType) {
+                    DownloadsModel.add(downloadId, download.url, mimeType)
+                    download.start()
+                    downloadsViewLoader.active = true
+                }
+
             }
         }
     }
 
-    Loader {
-        id: downloadLoader
-        source: formFactor == "desktop" ? "" : "../Downloader.qml"
-        asynchronous: true
+    Component {
+        id: bookmarkOptionsComponent
+        BookmarkOptions {
+            id: bookmarkOptions
+            folderModel: BookmarksFolderListModel {
+                sourceModel: BookmarksModel
+            }
+
+            Component.onCompleted: {
+                forceActiveFocus()
+            }
+
+            // Fragile workaround for https://launchpad.net/bugs/1546677.
+            // By destroying the popover, its visibility isn’t changed to
+            // false, and thus the bookmark is not removed.
+            function closeAndConfirm() {
+                destroy()
+            }
+            onVisibleChanged: {
+                if (!visible) {
+                    BookmarksModel.remove(bookmarkUrl)
+                }
+            }
+
+            Component.onDestruction: {
+                if (BookmarksModel.contains(bookmarkUrl)) {
+                    BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
+                }
+            }
+
+            Keys.onPressed: {
+                if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
+                    event.accepted = true
+                }
+            }
+
+            KeyboardShortcuts {
+                id: bookmarkOptionsShortcuts
+                KeyboardShortcut {
+                    key: Qt.Key_Return
+                    onTriggered: closeAndConfirm()
+                }
+
+                KeyboardShortcut {
+                    modifiers: Qt.ControlModifier
+                    key: Qt.Key_D
+                    onTriggered: {
+                        BookmarksModel.remove(bookmarkUrl)
+                        closeAndConfirm()
+                    }
+                }
+            }
+        }
     }
 
     QtObject {
         id: internal
+        property var closedTabHistory: []
 
-        function shareLink(url, title) {
+        property int nextTabIndex: -1
+        readonly property var nextTab: (nextTabIndex > -1) ? tabsModel.get(nextTabIndex) : null
+        onNextTabChanged: {
+            if (nextTab) {
+                nextTab.aboutToShow()
+            }
+        }
+
+        readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
+        readonly property bool hasTouchScreen: touchScreenModel.count > 0
+
+        readonly property real freeMemRatio: (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
+        // Under that threshold, available memory is considered "low", and the
+        // browser is going to try and free up memory from unused tabs. This
+        // value was chosen empirically, it is subject to change to better
+        // reflect what a system under memory pressure might look like.
+        readonly property real lowOnMemoryThreshold: 0.3
+        readonly property bool lowOnMemory: freeMemRatio < lowOnMemoryThreshold
+
+        function getOpenPages() {
+            var urls = []
+            for (var i = 0; i < tabsModel.count; i++) {
+                var url = tabsModel.get(i).url
+                if (url.toString()) urls.push(url) // exclude "new tab" tabs
+            }
+            return urls
+        }
+
+        function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
                 var share = component.createObject(browser)
                 share.onDone.connect(share.destroy)
-                share.shareLink(url, title)
+                return share
             }
+            return null
         }
 
-        function addTab(tab, setCurrent) {
-            var index = tabsModel.add(tab)
+        function shareLink(url, title) {
+            var share = instantiateShareComponent()
+            if (share) share.shareLink(url, title)
+        }
+
+        function shareText(text) {
+            var share = instantiateShareComponent()
+            if (share) share.shareText(text)
+        }
+
+        function addTab(tab, setCurrent, index) {
+            if (index === undefined) index = tabsModel.add(tab)
+            else index = tabsModel.insert(tab, index)
             if (setCurrent) {
-                tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
+                switchToTab(index, true)
             }
         }
 
-        function switchToTab(index) {
-            tabsModel.currentIndex = index
-            var tab = tabsModel.currentTab
+        function closeTab(index) {
+            // Save the incognito state before removing the tab, because
+            // removing the last tab in the model will switch out incognito
+            // mode, thus causing the check below to fail and save the tab
+            // into the undo stack when it should be forgotten instead.
+            var wasIncognito = incognito
+            var tab = tabsModel.remove(index)
             if (tab) {
-                if (!tab.url.toString() && !tab.initialUrl.toString() &&
-                    (formFactor == "desktop")) {
-                    focusAddressBar()
-                } else {
-                    tabContainer.forceActiveFocus()
+                if (!wasIncognito && tab.url.toString().length > 0) {
+                    closedTabHistory.push({
+                        state: session.serializeTabState(tab),
+                        index: index
+                    })
                 }
+                tab.close()
+            }
+            if (tabsModel.count === 0) {
+                browser.openUrlInNewTab("", true)
+                recentView.reset()
             }
         }
 
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
-                var tab = tabsModel.remove(tabsModel.currentIndex)
-                if (tab) {
-                    tab.close()
+                closeTab(tabsModel.currentIndex)
+            }
+        }
+
+        function undoCloseTab() {
+            if (!incognito && closedTabHistory.length > 0) {
+                var tabInfo = closedTabHistory.pop()
+                var tab = session.createTabFromState(tabInfo.state)
+                addTab(tab, true, tabInfo.index)
+            }
+        }
+
+        function switchToPreviousTab() {
+            if (browser.wide) {
+                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count, true)
+            } else {
+                internal.switchToTab(tabsModel.count - 1, true)
+            }
+        }
+
+        function switchToNextTab() {
+            if (browser.wide) {
+                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count, true)
+            } else {
+                internal.switchToTab(tabsModel.count - 1, true)
+            }
+        }
+
+        function switchToTab(index, delayed) {
+            if (delayed) {
+                nextTabIndex = index
+                delayedTabSwitcher.restart()
+            } else {
+                tabsModel.currentIndex = index
+                nextTabIndex = -1
+                var tab = tabsModel.currentTab
+                if (recentView.visible) {
+                    recentView.focus = true
+                } else if (tab) {
+                    if (!tab.url.toString() && !tab.initialUrl.toString()) {
+                        maybeFocusAddressBar()
+                    } else {
+                        tabContainer.forceActiveFocus()
+                    }
                 }
             }
         }
@@ -1128,11 +1634,28 @@ BrowserView {
 
         function resetFocus() {
             if (browser.currentWebview) {
-                if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
-                    internal.focusAddressBar()
+                if (!browser.currentWebview.url.toString()) {
+                    internal.maybeFocusAddressBar()
                 } else {
-                    tabContainer.forceActiveFocus()
+                    contentsContainer.forceActiveFocus()
                 }
+            }
+        }
+
+        function maybeFocusAddressBar() {
+            // XXX: this is not the right condition, but it is better than
+            // inferring a "desktop" form factor from various heuristics.
+            // The real fix is to detect whether there is a physical keyboard
+            // connected, for which there is currently no API yet (there will
+            // be a QInputInfo API in a future version of Qt).
+            // Wide mode might be in use on a device without a physical
+            // keyboard (e.g. a 10" tablet), and conversely the browser window
+            // might be shrinked to a narrow layout on a desktop setup with a
+            // physical keyboard and no OSK.
+            if (browser.wide) {
+                focusAddressBar()
+            } else {
+                contentsContainer.forceActiveFocus()
             }
         }
 
@@ -1175,24 +1698,34 @@ BrowserView {
             }
         }
 
-        function addBookmark(url, title, icon) {
-            bookmarksModel.add(url, title, icon, "")
+        function addBookmark(url, title, icon, location) {
+            if (title == "") title = UrlUtils.removeScheme(url)
+            BookmarksModel.add(url, title, icon, "")
+            if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
-                            chrome.bookmarkTogglePlaceHolder,
+                            location,
                             {"bookmarkUrl": url,
-                             "bookmarkTitle": title}) 
+                             "bookmarkTitle": title})
         }
     }
 
-    function openUrlInNewTab(url, setCurrent, load) {
+    // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
+    // the next tab for a fraction of a second to avoid a black flash.
+    Timer {
+        id: delayedTabSwitcher
+        interval: 50
+        onTriggered: internal.switchToTab(internal.nextTabIndex, false)
+    }
+
+    function openUrlInNewTab(url, setCurrent, load, index) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
-        internal.addTab(tab, setCurrent)
+        internal.addTab(tab, setCurrent, index)
         if (load) {
-            tabsModel.currentTab.load()
+            tab.load()
         }
-        if (!url.toString() && (formFactor == "desktop")) {
-            internal.focusAddressBar()
+        if (!url.toString()) {
+            internal.maybeFocusAddressBar()
         }
     }
 
@@ -1232,7 +1765,7 @@ BrowserView {
                     }
                 }
                 if ('currentIndex' in state) {
-                    publicTabsModel.currentIndex = state.currentIndex
+                    internal.switchToTab(state.currentIndex, true)
                 }
             }
         }
@@ -1279,6 +1812,13 @@ BrowserView {
         running: !browser.incognito
         onTriggered: delayedSessionSaver.restart()
     }
+    Timer {
+        id: exitFullscreenOnLostFocus
+        interval: 500
+        onTriggered: {
+            if (browser.currentWebview) browser.currentWebview.fullscreen = false
+        }
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -1287,9 +1827,15 @@ BrowserView {
                     session.save()
                 }
                 if (browser.currentWebview) {
-                    browser.currentWebview.fullscreen = false
+                    // Workaround for a desktop bug where changing volume causes
+                    // the app to briefly lose focus to notify-osd, and therefore
+                    // exit fullscreen mode. We prevent this by exiting fullscreen
+                    // only if the focus remains lost for longer than a certain
+                    // threshold. See: https://launchpad.net/bugs/694224.
+                    if (__platformName == "xcb") exitFullscreenOnLostFocus.start()
+                    else browser.currentWebview.fullscreen = false
                 }
-            }
+            } else exitFullscreenOnLostFocus.stop()
         }
         onAboutToQuit: {
             if (!browser.incognito) {
@@ -1310,8 +1856,18 @@ BrowserView {
         }
     }
 
-    // Delay instantiation of the first webview by 1 msec to allow initial
-    // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
+    // Schedule various expensive tasks to a point after the initialization and
+    // first rendering of the application have already happened.
+    //
+    // Scheduling a Timer with the shortest non-zero interval possible (1ms) will
+    // effectively queue its onTriggered function to run immediately after anything
+    // that is currently in the event loop queue at the moment the Timer starts.
+    //
+    // The tasks are:
+    // - creating the webviews for all initial tabs. This should ideally be done
+    //   asynchronously via object incubation, but http://pad.lv/1359911 prevents it
+    // - loading the HistoryModel and BookmarksModel from the database
+    // - deleting any page screenshots that are no longer needed
     Timer {
         running: true
         interval: 1
@@ -1319,6 +1875,7 @@ BrowserView {
             if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
+
             // Sanity check
             console.assert(tabsModel.count <= browser.maxTabsToRestore,
                            "WARNING: too many tabs were restored")
@@ -1329,22 +1886,56 @@ BrowserView {
                 browser.openUrlInNewTab(settings.homepage, true, false)
             }
             tabsModel.currentTab.load()
-            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
-                internal.focusAddressBar()
+            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
+                internal.maybeFocusAddressBar()
             }
+
+            BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
+            HistoryModel.databasePath = dataLocation + "/history.sqlite"
+            DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
+
+            // Note that the property setter for databasePath won't return until
+            // the entire model has been loaded, so it is safe to call this here
+            PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
         }
     }
 
     Connections {
-        // On mobile, ensure that at most n webviews are instantiated at all
-        // times, to reduce memory consumption (see http://pad.lv/1376418).
-        // Note: this works only in narrow mode, where the list of tabs is a
-        // stack. Switching from wide mode to narrow mode will result in
-        // undefined behaviour (tabs previously loaded won’t be unloaded).
-        target: ((formFactor == "mobile") && !browser.wide) ? tabsModel : null
-        onCurrentTabChanged: {
-            if (tabsModel.count > browser.maxLiveWebviews) {
-                tabsModel.get(browser.maxLiveWebviews).unload()
+        target: internal
+        onFreeMemRatioChanged: {
+            if (internal.lowOnMemory) {
+                // Unload an inactive tab to (hopefully) free up some memory
+                function getCandidate(model) {
+                    // Naive implementation that only takes into account the
+                    // last time a tab was current. In the future we might
+                    // want to take into account other parameters such as
+                    // whether the tab is currently playing audio/video.
+                    var candidate = null
+                    for (var i = 0; i < model.count; ++i) {
+                        var tab = model.get(i)
+                        if (tab.current || !tab.webview) {
+                            continue
+                        }
+                        if (!candidate || (candidate.lastCurrent > tab.lastCurrent)) {
+                            candidate = tab
+                        }
+                    }
+                    return candidate
+                }
+                var candidate = getCandidate(publicTabsModel)
+                if (candidate) {
+                    console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))
+                    candidate.unload()
+                    return
+                } else if (browser.incognito) {
+                    candidate = getCandidate(privateTabsModelLoader.item)
+                    if (candidate) {
+                        console.warn("Unloading a background incognito tab to free up some memory")
+                        candidate.unload()
+                        return
+                    }
+                }
+                console.warn("System low on memory, but unable to pick a tab to unload")
             }
         }
     }
@@ -1357,13 +1948,14 @@ BrowserView {
             if (tab) {
                 tab.load()
             }
+            internal.resetFocus()
         }
         onCountChanged: {
             if (tabsModel.count == 0) {
                 if (browser.incognito) {
                     browser.incognito = false
                     internal.resetFocus()
-                } else if ((formFactor == "desktop") || browser.wide) {
+                } else if (browser.wide) {
                     Qt.quit()
                 }
             }
@@ -1400,47 +1992,60 @@ BrowserView {
     KeyboardShortcuts {
         id: shortcuts
 
-        // Ctrl+Tab: cycle through open tabs
+        // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
-            enabled: chrome.visible || recentView.visible
-            onTriggered: {
-                if (browser.wide) {
-                    internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
-                } else {
-                    internal.switchToTab(tabsModel.count - 1)
-                }
-                if (recentView.visible) recentView.focus = true
-            }
+            enabled: tabContainer.visible || recentView.visible
+            onTriggered: internal.switchToNextTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_PageDown
+            enabled: tabContainer.visible || recentView.visible
+            onTriggered: internal.switchToNextTab()
         }
 
-        // Ctrl+Shift+Tab: cycle through open tabs in reverse order
+        // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
-            enabled: chrome.visible || recentView.visible
-            onTriggered: {
-                if (browser.wide) {
-                    internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
-                } else {
-                    internal.switchToTab(tabsModel.count - 1)
-                }
-                if (recentView.visible) recentView.focus = true
-            }
+            enabled: tabContainer.visible || recentView.visible
+            onTriggered: internal.switchToPreviousTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_PageUp
+            enabled: tabContainer.visible || recentView.visible
+            onTriggered: internal.switchToPreviousTab()
+        }
+
+        // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_W
+            enabled: tabContainer.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
+        }
+
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_T
+            enabled: tabContainer.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
         }
 
         // Ctrl+W or Ctrl+F4: Close the current tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.closeCurrentTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F4
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible
             onTriggered: internal.closeCurrentTab()
         }
 
@@ -1448,10 +2053,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible
+            enabled: tabContainer.visible || recentView.visible ||
+                     bookmarksViewLoader.active || historyViewLoader.active
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
+                bookmarksViewLoader.active = false
+                historyViewLoader.active = false
             }
         }
 
@@ -1459,18 +2067,18 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             key: Qt.Key_F6
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.focusAddressBar(true)
         }
 
@@ -1478,11 +2086,11 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: {
                 if (currentWebview) {
-                    if (bookmarksModel.contains(currentWebview.url)) {
-                        bookmarksModel.remove(currentWebview.url)
+                    if (BookmarksModel.contains(currentWebview.url)) {
+                        BookmarksModel.remove(currentWebview.url)
                     } else {
                         internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
                     }
@@ -1494,25 +2102,28 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
-            enabled: chrome.visible
-            onTriggered: {
-                if (historyViewContainer.children.length === 0) {
-                    historyViewComponent.createObject(historyViewContainer)
-                    historyViewContainer.focus = true
-                }
-            }
+            enabled: tabContainer.visible
+            onTriggered: historyViewLoader.active = true
+        }
+
+        // Ctrl+Shift+O: Show Bookmarks
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_O
+            enabled: tabContainer.visible
+            onTriggered: bookmarksViewLoader.active = true
         }
 
         // Alt+← or Backspace: Goes to the previous page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoBack()
         }
         KeyboardShortcut {
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoBack()
         }
 
@@ -1520,37 +2131,93 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoForward()
         }
         KeyboardShortcut {
             modifiers: Qt.ShiftModifier
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: internal.historyGoForward()
         }
 
         // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_R
-            enabled: chrome.visible
+            enabled: tabContainer.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
-        // Ctrl + F: Find in Page
+        // Ctrl+F: Find in Page
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
-            onTriggered: {
-                chrome.findInPageMode = true
-                chrome.focus = true
+            enabled: tabContainer.visible && !newTabViewLoader.active
+            onTriggered: chrome.findInPageMode = true
+        }
+
+        // Ctrl+J: Show downloads page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_J
+            enabled: chrome.visible &&
+                     downloadHandlerLoader.status == Loader.Ready &&
+                     contentHandlerLoader.status == Loader.Ready &&
+                     !downloadsViewLoader.active
+            onTriggered: downloadsViewLoader.active = true
+        }
+
+        // Ctrl+Shift+G: Find previous
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.previous()
+        }
+
+        // Ctrl+G: Find next
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_G
+            enabled: currentWebview && chrome.findInPageMode
+            onTriggered: currentWebview.findController.next()
+        }
+    }
+
+    Loader {
+        id: contentHandlerLoader
+        source: "ContentHandler.qml"
+        asynchronous: true
+    }
+
+    Connections {
+        target: contentHandlerLoader.item
+        onExportFromDownloads: {
+            if (downloadHandlerLoader.status == Loader.Ready) {
+                downloadsViewLoader.active = true
+                downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
+                downloadsViewLoader.item.activeTransfer = transfer
+                downloadsViewLoader.item.multiSelect = multiSelect
+                downloadsViewLoader.item.pickingMode = true
             }
         }
+    }
+
+    Loader {
+        id: downloadDialogLoader
+        source: "ContentDownloadDialog.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: filePickerLoader
+        source: "ContentPickerDialog.qml"
+        asynchronous: true
     }
 }

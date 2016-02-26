@@ -13,15 +13,14 @@ set(WEBBROWSER_APP_MODELS_SRC
     bookmarks-model.cpp
     bookmarks-folder-model.cpp
     bookmarks-folderlist-model.cpp
+    downloads-model.cpp
     history-domain-model.cpp
-    history-domainlist-chronological-model.cpp
     history-domainlist-model.cpp
+    history-lastvisitdatelist-model.cpp
     history-model.cpp
-    history-timeframe-model.cpp
     limit-proxy-model.cpp
-    suggestions-filter-model.cpp
     tabs-model.cpp
-    top-sites-model.cpp
+    text-search-filter-model.cpp
 )
 
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
@@ -54,12 +53,12 @@ target_link_libraries(${WEBBROWSER_APP}
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-file(GLOB QML_FILES *.qml *.js)
+file(GLOB QML_FILES *.qml qmldir *.js)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser)
 
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.png PATTERN *.svg)
+        FILES_MATCHING PATTERN *.png PATTERN *.svg PATTERN *.sci)
 
 install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
@@ -76,3 +75,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
 
 install(FILES "webbrowser-app.url-dispatcher"
         DESTINATION ${CMAKE_INSTALL_DATADIR}/url-dispatcher/urls)
+
+install(FILES "webbrowser-app-content-hub.json"
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/content-hub/peers
+    RENAME webbrowser-app
+    )

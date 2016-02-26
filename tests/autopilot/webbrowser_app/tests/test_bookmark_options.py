@@ -17,7 +17,6 @@
 import os.path
 import sqlite3
 import time
-import testtools
 
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals
@@ -86,27 +85,25 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         connection.commit()
         connection.close()
 
-    def _get_bookmarks_folders_list_view(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
-        self.assertThat(more_button.visible, Equals(True))
-        self.pointing_device.click_object(more_button)
-        return self.main_window.get_bookmarks_folder_list_view()
-
     def _get_bookmark_options(self):
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.pointing_device.click_object(bookmark_toggle)
         return self.main_window.get_bookmark_options()
 
+    def _assert_bookmark_count_in_folder(self, tab, folder_name, count):
+        urls = tab.get_bookmarks(folder_name)
+        self.assertThat(lambda: len(urls), Eventually(Equals(count)))
+
+    def _toggle_bookmark_folder(self, tab, folder_name):
+        folders = tab.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+
     def test_save_bookmarked_url_in_default_folder(self):
-        folders = self._get_bookmarks_folders_list_view()
-        folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(4)))
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
@@ -121,20 +118,16 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(5)))
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self._assert_bookmark_count_in_folder(new_tab, "", 6)
 
     def test_save_bookmarked_url_in_existing_folder(self):
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
-        folder_delegate = folders.get_folder_delegate("Actinide")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(1)))
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "Actinide")
+        self._assert_bookmark_count_in_folder(new_tab, "Actinide", 1)
 
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
@@ -152,23 +145,25 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
             "OptionSelectorDelegate", text="Actinide")
         self.pointing_device.click_object(option_selector_delegate)
         option_selector.currentlyExpanded.wait_for(False)
+        # Wait for collapsing animation to finish
+        self.assertThat(option_selector.height,
+                        Eventually(Equals(option_selector.itemHeight)))
 
         bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
-        folder_delegate = folders.get_folder_delegate("Actinide")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(2)))
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "Actinide")
+        self._assert_bookmark_count_in_folder(new_tab, "Actinide", 2)
 
     def test_save_bookmarked_url_in_new_folder(self):
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
 
         url = self.base_url + "/test2"
@@ -205,18 +200,15 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(4)))
-        folder_delegate = folders.get_folder_delegate("NewFolder")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(1)))
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "NewFolder")
+        self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
-    @testtools.skip("Temporarily skipped until popover going out of view with"
-                    " OSK is fixed http://pad.lv/1466222")
     def test_set_bookmark_title(self):
-        url = self.base_url + "/test2"
+        url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
@@ -226,6 +218,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         bookmark_options = self._get_bookmark_options()
 
         title_text_field = bookmark_options.get_title_text_field()
+        self.assertThat(title_text_field.text,
+                        Equals(self.base_domain + "/blanktargetlink"))
         self.pointing_device.click_object(title_text_field)
         title_text_field.activeFocus.wait_for(True)
         title_text_field.write("NewTitle", True)
@@ -235,10 +229,39 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(5)))
-        delegate = folders.get_urls_from_folder(folder_delegate)[0]
-        self.assertThat(delegate.title, Equals("NewTitle"))
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self._assert_bookmark_count_in_folder(new_tab, "", 6)
+
+        bookmark = new_tab.get_bookmarks("")[1]
+        self.assertThat(bookmark.title, Equals("NewTitle"))
+
+    def test_bookmark_options_from_contextual_menu(self):
+        url = self.base_url + "/blanktargetlink"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+
+        # invoke the context menu over the link, which covers the entire page
+        menu = self.main_window.open_context_menu()
+        menu.click_action("BookmarkLinkContextualAction")
+
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
+        bookmark_options.wait_until_destroyed()
+
+        # reopen the context menu and verify that the bookmark options is
+        # disabled as we have already bookmarked this link
+        menu = self.main_window.open_context_menu()
+        bookmark_action = menu.get_action("BookmarkLinkContextualAction")
+        self.assertThat(bookmark_action.visible, Equals(False))
+
+        # dismiss the dialog
+        self.main_window.dismiss_context_menu(menu)
+
+        # click on the link and verify that the bookmark star is lit on the
+        # target page
+        self.pointing_device.click_object(webview)
+        self.main_window.wait_until_page_loaded(self.base_url + "/test2")
+
+        chrome = self.main_window.chrome
+        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))

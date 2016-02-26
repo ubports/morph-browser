@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,17 +20,16 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
-import "urlManagement.js" as UrlManagement
+import "../UrlUtils.js" as UrlUtils
 
 Item {
     id: settingsItem
 
-    property QtObject historyModel
-    property Settings settingsObject
+    property QtObject settingsObject
 
     signal done()
 
@@ -44,7 +43,7 @@ Item {
         searchPaths: searchEnginesSearchPaths
     }
 
-    SettingsPageHeader {
+    BrowserPageHeader {
         id: title
 
         onBack: settingsItem.done()
@@ -69,7 +68,7 @@ Item {
 
             width: parent.width
 
-            ListItem.Subtitled {
+            ListItems.Subtitled {
                 objectName: "searchengine"
 
                 SearchEngine {
@@ -86,7 +85,7 @@ Item {
                 onClicked: searchEngineComponent.createObject(subpageContainer)
             }
 
-            ListItem.Subtitled {
+            ListItems.Subtitled {
                 objectName: "homepage"
 
                 text: i18n.tr("Homepage")
@@ -95,7 +94,7 @@ Item {
                 onClicked: PopupUtils.open(homepageDialog)
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "restoreSession"
 
                 text: i18n.tr("Restore previous session at startup")
@@ -113,34 +112,15 @@ Item {
                 }
             }
 
-            ListItem.Standard {
-                objectName: "backgroundTabs"
-
-                text: i18n.tr("Allow opening new tabs in background")
-                highlightWhenPressed: false
-
-                control: CheckBox {
-                    id: allowOpenInBackgroundTabCheckbox
-                    onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
-                }
-
-                Binding {
-                    target: allowOpenInBackgroundTabCheckbox
-                    property: "checked"
-                    value: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                           (settingsObject.allowOpenInBackgroundTab === 'default' && formFactor === "desktop")
-                }
-            }
-
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "privacy"
 
-                text: i18n.tr("Privacy")
+                text: i18n.tr("Privacy & permissions")
 
                 onClicked: privacyComponent.createObject(subpageContainer)
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "reset"
 
                 text: i18n.tr("Reset browser settings")
@@ -169,7 +149,7 @@ Item {
                     color: "#f6f6f6"
                 }
 
-                SettingsPageHeader {
+                BrowserPageHeader {
                     id: searchEngineTitle
 
                     onBack: searchEngineItem.destroy()
@@ -187,7 +167,7 @@ Item {
 
                     model: searchEngines.engines
 
-                    delegate: ListItem.Standard {
+                    delegate: ListItems.Standard {
                         objectName: "searchEngineDelegate_" + index
                         SearchEngine {
                             id: searchEngineDelegate
@@ -222,10 +202,10 @@ Item {
                     color: "#f6f6f6"
                 }
 
-                SettingsPageHeader {
+                BrowserPageHeader {
                     id: privacyTitle
                     onBack: privacyItem.destroy()
-                    text: i18n.tr("Privacy")
+                    text: i18n.tr("Privacy & permissions")
                 }
 
                 Flickable {
@@ -244,17 +224,23 @@ Item {
                         id: privacyCol
                         width: parent.width
 
-                        ListItem.Standard {
+                        ListItems.Standard {
+                            objectName: "privacy.mediaAccess"
+                            text: i18n.tr("Camera & microphone")
+                            onClicked: mediaAccessComponent.createObject(subpageContainer)
+                        }
+
+                        ListItems.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
-                            enabled: historyModel.count > 0
+                            enabled: HistoryModel.count > 0
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
-                                dialog.confirmed.connect(historyModel.clearAll)
+                                dialog.confirmed.connect(HistoryModel.clearAll)
                             }
                         }
 
-                        ListItem.Standard {
+                        ListItems.Standard {
                             objectName: "privacy.clearCache"
                             text: i18n.tr("Clear Cache")
                             onClicked: {
@@ -327,8 +313,8 @@ Item {
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
                 onAccepted: {
-                    if (UrlManagement.looksLikeAUrl(text)) {
-                        settingsObject.homepage = UrlManagement.fixUrl(text)
+                    if (UrlUtils.looksLikeAUrl(text)) {
+                        settingsObject.homepage = UrlUtils.fixUrl(text)
                         PopupUtils.close(dialogue)
                     }
                 }
@@ -351,11 +337,89 @@ Item {
                     right: parent.right
                 }
                 text: i18n.tr("Save")
-                enabled: UrlManagement.looksLikeAUrl(homepageTextField.text.trim())
+                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim())
                 color: "#3fb24f"
                 onClicked: {
-                    settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text)
+                    settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text)
                     PopupUtils.close(dialogue)
+                }
+            }
+        }
+    }
+
+    Component {
+        id: mediaAccessComponent
+
+        Item {
+            id: mediaAccessItem
+            objectName: "mediaAccessSettings"
+            anchors.fill: parent
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#f6f6f6"
+            }
+
+            BrowserPageHeader {
+                id: mediaAccessTitle
+
+                onBack: mediaAccessItem.destroy()
+                text: i18n.tr("Camera & microphone")
+            }
+
+            Flickable {
+                anchors {
+                    top: mediaAccessTitle.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+
+                clip: true
+
+                contentHeight: mediaAccessCol.height
+
+                Column {
+                    id: mediaAccessCol
+                    width: parent.width
+
+                    ListItems.Standard {
+                        text: i18n.tr("Microphone")
+                    }
+
+                    SettingsDeviceSelector {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        isAudio: true
+                        visible: devicesCount > 0
+                        enabled: devicesCount > 1
+
+                        defaultDevice: settingsObject.defaultAudioDevice
+                        onDeviceSelected: {
+                            SharedWebContext.sharedContext.defaultAudioCaptureDeviceId = id
+                            settingsObject.defaultAudioDevice = id
+                        }
+                    }
+
+                    ListItems.Standard {
+                        text: i18n.tr("Camera")
+                    }
+
+                    SettingsDeviceSelector {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        isAudio: false
+                        visible: devicesCount > 0
+                        enabled: devicesCount > 1
+
+                        defaultDevice: settingsObject.defaultVideoDevice
+                        onDeviceSelected: {
+                            SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = id
+                            settingsObject.defaultVideoDevice = id
+                        }
+                    }
                 }
             }
         }

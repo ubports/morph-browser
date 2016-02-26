@@ -20,6 +20,7 @@ import QtQuick 2.4
 import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Qt.labs.settings 1.0
 
 Item {
     id: controller
@@ -34,7 +35,58 @@ Item {
     signal newViewCreated(string url)
     signal windowOverlayOpenAnimationDone()
 
+    signal initializeOverlayViewsWithUrls(var urls)
+
     readonly property int maxSimultaneousViews: 3
+
+    Settings {
+        id: webviewOverlayUrlsSettings
+        property string overlayUrls
+    }
+
+    QtObject {
+        id: internal
+        property var urlPerOverlayView
+    }
+
+    function updateOverlayUrlsSettings() {
+        var urls = []
+        webviewOverlayUrlsSettings.overlayUrls = "[]"
+        for (var i in internal.urlPerOverlayView) {
+            urls.push(internal.urlPerOverlayView[i].toString())
+        }
+        webviewOverlayUrlsSettings.overlayUrls = JSON.stringify(urls)
+    }
+    function onUrlUpdatedForOverlay(overlayView, url) {
+        if (!internal.urlPerOverlayView) {
+            internal.urlPerOverlayView = {}
+        }
+
+        internal.urlPerOverlayView[overlayView] = url
+
+        updateOverlayUrlsSettings()
+    }
+
+    Connections {
+        target: Qt.application
+        onAboutToQuit: {
+            webviewOverlayUrlsSettings.overlayUrls = "[]"
+        }
+    }
+
+    Component.onCompleted: {
+        if (webviewOverlayUrlsSettings.overlayUrls
+                && webviewOverlayUrlsSettings.overlayUrls.length > 0) {
+            try {
+                var urls = JSON.parse(webviewOverlayUrlsSettings.overlayUrls)
+                if (typeof(urls) === 'object'
+                        && urls.length != undefined
+                        && urls.length > 0) {
+                    initializeOverlayViewsWithUrls(urls)
+                }
+            } catch (e) {}
+        }
+    }
 
     function openUrlExternally(url) {
         if (!blockOpenExternalUrls) {
@@ -53,6 +105,10 @@ Item {
             var topView = views[views.length-1]
         }
         views.push(view)
+
+        view.webviewUrlChanged.connect(function(webviewUrl) {
+            onUrlUpdatedForOverlay(view, webviewUrl)
+        })
     }
     function handleOpenInUrlBrowserForView(url, view) {
         handleViewRemoved(view)
@@ -84,6 +140,10 @@ Item {
             return
         }
         views.pop()
+        if (internal.urlPerOverlayView) {
+            delete internal.urlPerOverlayView[topMostView]
+            updateOverlayUrlsSettings()
+        }
 
         var parentHeight = topMostView.parent.height
         var nextView = topViewOnStack()
@@ -100,12 +160,15 @@ Item {
         topMostView.yChanged.connect(onViewSlidingOut)
         topMostView.y = topMostView.parent.height
     }
-    function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
+    function updateViewVisibility(view, visible) {
+        if (view) {
+            view.opacity = visible ? 1.0 : 0.0
+        }
+    }
+    function createPopupView(parentView, params, isRequestFromMainWebappWebview, context) {
         var view = popupWebOverlayFactory.createObject(
             parentView,
-            { request: request,
-              webContext: context,
-              popupWindowController: controller });
+            params);
 
         var topMostView = topViewOnStack()
 
@@ -129,10 +192,24 @@ Item {
         handleNewViewAdded(view)
         newViewCreated(view.url)
     }
-    function updateViewVisibility(view, visible) {
-        if (view) {
-            view.opacity = visible ? 1.0 : 0.0
-        }
+    function createPopupViewForRequest(parentView, request, isRequestFromMainWebappWebview, context) {
+        createPopupView(parentView,
+                        { request: request,
+                          webContext: context,
+                          popupWindowController: controller },
+                        isRequestFromMainWebappWebview,
+                        context)
+    }
+    function createPopupViewForUrl(parentView,
+                                   overlayUrl,
+                                   isRequestFromMainWebappWebview,
+                                   context) {
+        createPopupView(parentView,
+                        { url: overlayUrl,
+                          webContext: context,
+                          popupWindowController: controller },
+                        isRequestFromMainWebappWebview,
+                        context)
     }
 
     Component {

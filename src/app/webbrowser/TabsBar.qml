@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import ".."
 
 Item {
@@ -31,16 +32,22 @@ Item {
 
     property bool incognito: false
 
-    signal requestNewTab()
+    property color fgColor: Theme.palette.normal.baseText
+
+    property bool touchEnabled: true
+
+    signal switchToTab(int index)
+    signal requestNewTab(int index, bool makeCurrent)
+    signal tabClosed(int index)
 
     MouseArea {
         anchors.fill: parent
         onWheel: {
             var angle = (wheel.angleDelta.x != 0) ? wheel.angleDelta.x : wheel.angleDelta.y
             if ((angle < 0) && (root.model.currentIndex < (root.model.count - 1))) {
-                root.model.currentIndex++
+                switchToTab(root.model.currentIndex + 1)
             } else if ((angle > 0) && (root.model.currentIndex > 0)) {
-                root.model.currentIndex--
+                switchToTab(root.model.currentIndex - 1)
             }
         }
     }
@@ -64,10 +71,39 @@ Item {
             height: units.gu(2)
             anchors.centerIn: parent
             name: "add"
-            color: incognito ? "white" : UbuntuColors.darkGrey
+            color: incognito ? "white" : root.fgColor
         }
 
-        onClicked: root.requestNewTab()
+        onClicked: root.requestNewTab(root.model.count, true)
+    }
+
+    Component {
+        id: contextualOptionsComponent
+        ActionSelectionPopover {
+            id: menu
+            objectName: "tabContextualActions"
+            property int targetIndex
+            readonly property var tab: root.model.get(targetIndex)
+
+            actions: ActionList {
+                Action {
+                    objectName: "tab_action_new_tab"
+                    text: i18n.tr("New Tab")
+                    onTriggered: root.requestNewTab(menu.targetIndex + 1, false)
+                }
+                Action {
+                    objectName: "tab_action_reload"
+                    text: i18n.tr("Reload")
+                    enabled: menu.tab.url.toString().length > 0
+                    onTriggered: menu.tab.reload()
+                }
+                Action {
+                    objectName: "tab_action_close_tab"
+                    text: i18n.tr("Close Tab")
+                    onTriggered: root.tabClosed(menu.targetIndex)
+                }
+            }
+        }
     }
 
     Item {
@@ -87,133 +123,61 @@ Item {
 
             property bool reordering: false
 
-            delegate: Item {
+            delegate: MouseArea {
                 id: tabDelegate
                 objectName: "tabDelegate"
+
                 readonly property int tabIndex: index
 
-                anchors {
-                    top: tabsContainer.top
-                    bottom: tabsContainer.bottom
-                }
-                width: tabWidth
+                anchors.top: tabsContainer.top
+                property real rightMargin: units.dp(1)
+                width: tabWidth + rightMargin
+                height: tabsContainer.height
 
-                MouseArea {
-                    id: mouseArea
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                readonly property bool dragging: drag.active
+                drag {
+                    target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
+                    axis: Drag.XAxis
+                    minimumX: 0
+                    maximumX: root.width - tabDelegate.width
+                    filterChildren: true
+                }
+
+                TabItem {
                     anchors.fill: parent
-                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-                    hoverEnabled: true
-                    onPressed: {
-                        if (mouse.button === Qt.LeftButton) {
-                            root.model.currentIndex = index
-                        }
-                    }
-                    onReleased: {
-                        if (mouse.button === Qt.MiddleButton) {
-                            internal.closeTab(index)
-                        }
-                    }
-                    // XXX: should not start a drag when middle button was pressed
-                    drag {
-                        target: tabDelegate
-                        axis: Drag.XAxis
-                        minimumX: 0
-                        maximumX: root.width - tabDelegate.width
-                    }
+
+                    active: tabIndex === root.model.currentIndex
+                    hoverable: true
+                    incognito: root.incognito
+                    title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                    icon: model.icon
+                    fgColor: root.fgColor
+
+                    touchEnabled: root.touchEnabled
+
+                    rightMargin: tabDelegate.rightMargin
+
+                    onClosed: root.tabClosed(index)
+                    onSelected: root.switchToTab(index)
+                    onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                 }
 
                 Binding {
                     target: repeater
                     property: "reordering"
-                    value: mouseArea.drag.active
-                }
-
-                readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : (mouseArea.containsMouse ? "assets/tab-hovered" : "assets/tab-inactive")
-
-                Item {
-                    anchors.fill: parent
-
-                    Image {
-                        id: tabBackgroundLeft
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            left: parent.left
-                        }
-                        source: "%1-left.png".arg(assetPrefix)
-                    }
-
-                    Image {
-                        id: tabBackgroundRight
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            right: parent.right
-                            rightMargin: units.gu(-1.5)
-                        }
-                        source: "%1-right.png".arg(assetPrefix)
-                    }
-
-                    Image {
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            left: tabBackgroundLeft.right
-                            right: tabBackgroundRight.left
-                        }
-                        source: "%1-center.png".arg(assetPrefix)
-                        fillMode: Image.TileHorizontally
-                    }
-                }
-
-                Row {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        margins: units.gu(1.5)
-                        verticalCenter: parent.verticalCenter
-                    }
-                    spacing: units.gu(1)
-
-                    Favicon {
-                        id: favicon
-                        source: model.icon
-                        shouldCache: !incognito
-                    }
-
-                    Label {
-                        fontSize: "small"
-                        color: UbuntuColors.darkGrey
-                        text: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                        elide: Text.ElideRight
-                        width: parent.width - favicon.width - closeIcon.width - parent.spacing * 2
-                    }
-
-                    Icon {
-                        id: closeIcon
-                        objectName: "closeButton"
-                        name: "close"
-                        color: UbuntuColors.darkGrey
-                        width: units.gu(1.5)
-                        height: units.gu(1.5)
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: internal.closeTab(index)
-                        }
-                    }
+                    value: dragging
                 }
 
                 Binding on x {
-                    when: !mouseArea.drag.active
+                    when: !dragging
                     value: index * width
                 }
 
                 Behavior on x { NumberAnimation { duration: 250 } }
 
                 onXChanged: {
-                    if (!mouseArea.drag.active) return
+                    if (!dragging) return
                     if (x < (index * width - width / 2)) {
                         root.model.move(index, index - 1)
                     } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {
@@ -234,15 +198,6 @@ Item {
             height: units.dp(1)
             color: "#cacaca"
             z: 2
-        }
-    }
-
-    QtObject {
-        id: internal
-
-        function closeTab(index) {
-            var tab = root.model.remove(index)
-            if (tab) tab.close()
         }
     }
 }

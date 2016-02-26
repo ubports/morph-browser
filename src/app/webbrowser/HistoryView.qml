@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,14 +18,15 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
+import "." as Local
 
-Item {
+FocusScope {
     id: historyView
 
-    property alias historyModel: historyTimeframeModel.sourceModel
-
     signal seeMoreEntriesClicked(var model)
+    signal newTabRequested()
     signal done()
 
     Rectangle {
@@ -33,23 +34,36 @@ Item {
         color: "#f6f6f6"
     }
 
+    Timer {
+        // Set the model asynchronously to ensure
+        // the view is displayed as early as possible.
+        id: loadModelTimer
+        interval: 1
+        onTriggered: historyDomainListModel.sourceModel = HistoryModel
+    }
+
+    function loadModel() { loadModelTimer.restart() }
+
     ListView {
         id: domainsListView
+        objectName: "domainsListView"
+
+        focus: true
+        currentIndex: 0
 
         anchors {
             top: topBar.bottom
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            rightMargin: units.gu(2)
         }
 
-        model: HistoryDomainListChronologicalModel {
-            sourceModel: HistoryDomainListModel {
-                sourceModel: HistoryTimeframeModel {
-                    id: historyTimeframeModel
-                }
+        model: SortFilterModel {
+            model: HistoryDomainListModel {
+                id: historyDomainListModel
             }
+            sort.property: "lastVisit"
+            sort.order: Qt.DescendingOrder
         }
 
         section.property: "lastVisitDate"
@@ -61,8 +75,11 @@ Item {
 
         delegate: UrlDelegate {
             id: urlDelegate
+            objectName: "historyViewDomainDelegate"
             width: parent.width
             height: units.gu(5)
+
+            readonly property int modelIndex: index
 
             title: model.domain
             url: lastVisitedTitle
@@ -75,7 +92,7 @@ Item {
                     historyView.seeMoreEntriesClicked(model.entries)
                 }
             }
-            onRemoved: historyView.historyModel.removeEntriesByDomain(model.domain)
+            onRemoved: HistoryModel.removeEntriesByDomain(model.domain)
             onPressAndHold: {
                 selectMode = !selectMode
                 if (selectMode) {
@@ -83,9 +100,15 @@ Item {
                 }
             }
         }
+
+        highlight: ListViewHighlight {}
+
+        Keys.onEnterPressed: currentItem.clicked()
+        Keys.onReturnPressed: currentItem.clicked()
+        Keys.onDeletePressed: currentItem.removed()
     }
 
-    Toolbar {
+    Local.Toolbar {
         id: toolbar
         height: units.gu(7)
 
@@ -111,6 +134,7 @@ Item {
         }
 
         ToolbarAction {
+            objectName: "newTabAction"
             anchors {
                 right: parent.right
                 rightMargin: units.gu(2)
@@ -122,17 +146,18 @@ Item {
             iconName: "tab-new"
 
             onClicked: {
-                browser.openUrlInNewTab("", true)
+                historyView.newTabRequested()
                 historyView.done()
             }
         }
     }
 
-    Item {
+    Local.Toolbar {
         id: topBar
 
         visible: domainsListView.ViewItems.selectMode
-        height: visible ? units.gu(5) : 0
+        height: visible ? units.gu(7) : 0
+        color: "#f7f7f7"
 
         Behavior on height {
             UbuntuNumberAnimation {}
@@ -144,91 +169,79 @@ Item {
             top: parent.top
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height + units.gu(1.5)
-            color: "white"
-        }
+        ToolbarAction {
+            iconName: "close"
+            objectName: "closeButton"
+            text: i18n.tr("Cancel")
 
-        Item {
+            onClicked: domainsListView.ViewItems.selectMode = false
+
             anchors {
-                top: parent.top
                 left: parent.left
                 leftMargin: units.gu(2)
-                bottom: parent.bottom
+            }
+
+            height: parent.height - units.gu(2)
+        }
+
+        ToolbarAction {
+            iconName: "select"
+            objectName: "selectAllButton"
+            text: i18n.tr("Select all")
+
+            onClicked: {
+                if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
+                    domainsListView.ViewItems.selectedIndices = []
+                } else {
+                    var indices = []
+                    for (var i = 0; i < domainsListView.count; ++i) {
+                        indices.push(i)
+                    }
+                    domainsListView.ViewItems.selectedIndices = indices
+                }
+            }
+
+            anchors {
+                right: deleteButton.left
+                rightMargin: units.gu(2)
+            }
+
+            height: parent.height - units.gu(2)
+        }
+
+        ToolbarAction {
+            id: deleteButton
+            objectName: "deleteButton"
+
+            iconName: "delete"
+            text: i18n.tr("Delete")
+            enabled: domainsListView.ViewItems.selectedIndices.length > 0
+
+            onClicked: {
+                var indices = domainsListView.ViewItems.selectedIndices
+                var domains = []
+                for (var i in indices) {
+                    domains.push(domainsListView.model.get(indices[i]).domain)
+                }
+                domainsListView.ViewItems.selectMode = false
+                for (var j in domains) {
+                    HistoryModel.removeEntriesByDomain(domains[j])
+                }
+            }
+
+            anchors {
                 right: parent.right
                 rightMargin: units.gu(2)
             }
 
-            ToolbarAction {
-                iconName: "close"
-                text: i18n.tr("Cancel")
+            height: parent.height - units.gu(2)
+        }
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: domainsListView.ViewItems.selectMode = false
-                }
-
-                anchors.left: parent.left
-
-                height: parent.height
-                width: height
-            }
-
-            ToolbarAction {
-                iconName: "select"
-                text: i18n.tr("Select all")
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
-                            domainsListView.ViewItems.selectedIndices = []
-                        } else {
-                            var indices = []
-                            for (var i = 0; i < domainsListView.count; ++i) {
-                                indices.push(i)
-                            }
-                            domainsListView.ViewItems.selectedIndices = indices
-                        }
-                    }
-                }
-
-                anchors {
-                    right: deleteButton.left
-                    rightMargin: units.gu(2)
-                }
-
-                height: parent.height
-                width: height
-            }
-
-            ToolbarAction {
-                id: deleteButton
-
-                iconName: "delete"
-                text: i18n.tr("Delete")
-                enabled: domainsListView.ViewItems.selectedIndices.length > 0
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        var indices = domainsListView.ViewItems.selectedIndices
-                        var domains = []
-                        for (var i in indices) {
-                            domains.push(domainsListView.model.get(indices[i]))
-                        }
-                        domainsListView.ViewItems.selectMode = false
-                        for (var j in domains) {
-                            historyModel.removeEntriesByDomain(domains[j])
-                        }
-                    }
-                }
-
-                anchors.right: parent.right
-
-                height: parent.height
-                width: height
+        ListItems.ThinDivider {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
             }
         }
     }

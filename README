@@ -86,11 +86,6 @@ The following keys are supported:
    the OpenSearch document description format
    (http://www.opensearch.org/Specifications/OpenSearch/1.1)
 
- - 'allowOpenInBackgroundTab': whether to offer an option to open a link in a
-   new background tab in the contextual menu. Possible values are "true",
-   "false", and "default" (which resolves to true on desktop and false on
-   mobile).
-
  - restoreSession: whether to restore the previous browsing session at startup
    (defaults to true)
 

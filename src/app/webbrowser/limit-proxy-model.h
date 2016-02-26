@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,8 +21,6 @@
 
 // Qt
 #include <QtCore/QIdentityProxyModel>
-
-class QSortFilterProxyModel;
 
 class LimitProxyModel : public QIdentityProxyModel
 {

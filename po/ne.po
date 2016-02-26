@@ -1,0 +1,976 @@
+# Nepali translation for webbrowser-app
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"PO-Revision-Date: 2016-02-23 06:50+0000\n"
+"Last-Translator: Sanjog Sigdel <sigdelsanjog@gmail.com>\n"
+"Language-Team: Nepali <ne@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
+
+#: src/app/AlertDialog.qml:23
+msgid "JavaScript Alert"
+msgstr "जाभास्क्रिप्ट चेतावनी"
+
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "OK"
+msgstr "ठीक छ"
+
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
+msgid "Authentication required."
+msgstr "प्रमाणीकरण आवश्यक।"
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "वेबसाइट %1 लाई प्रमाणिकरण चाहिन्छ"
+
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
+msgid "Username"
+msgstr "प्रयोगकर्ता नाम:"
+
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContentDownloadDialog.qml:113
+#: src/app/webbrowser/ContextMenuMobile.qml:139
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/HistoryView.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:397
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
+#: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:141
+msgid "Cancel"
+msgstr "रद्द गर्ने"
+
+#: src/app/BeforeUnloadDialog.qml:23
+msgid "Confirm Navigation"
+msgstr "नेभिगेसन गर्न निश्चित गर्नुहोस्"
+
+#: src/app/BeforeUnloadDialog.qml:26
+msgid "Leave"
+msgstr "छोड्नुहोस्"
+
+#: src/app/BeforeUnloadDialog.qml:31
+msgid "Stay"
+msgstr "यहीँ रहनुहोस्"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "यो जडान अविश्वासिलो छ"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"तपाईं सुरक्षित %1 पुग्न खोज्रनुभयेका छन्, तर यो वेबसाइटको सुरक्षा प्रमाणपत्र "
+"विश्वसनीय छैन।"
+
+#: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:160
+msgid "Proceed anyway"
+msgstr "जसरी अगाडि बढ्नुहोस्"
+
+#: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "सुरक्षित ठाउँमा फर्कने"
+
+#: src/app/ConfirmDialog.qml:23
+msgid "JavaScript Confirmation"
+msgstr "जाबास्क्रिप्ट निश्चित"
+
+#: src/app/ErrorSheet.qml:36
+msgid "Network Error"
+msgstr "नेटवर्क त्रुटि"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:42
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "तपाईंलाईं %1 हेर्न समस्या भैरहेको देखिन्छ।"
+
+#: src/app/ErrorSheet.qml:48
+msgid "Please check your network settings and try refreshing the page."
+msgstr ""
+"क्रिपया आफ्नो नेटवर्क सेटिङहरू जाँच गर्नुहोस् र पृष्ठ रिफ्रेस गर्न प्रयास "
+"गर्नुहोस्।"
+
+#: src/app/ErrorSheet.qml:53
+msgid "Refresh page"
+msgstr "पाना पुनःलोड गर्नुहोस्"
+
+#: src/app/GeolocationPermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "अनुमति अनुरोध"
+
+#: src/app/GeolocationPermissionRequest.qml:29
+msgid "This page wants to know your device’s location."
+msgstr "यो पृष्ठ तपाइँको उपकरणको स्थान जान्न चाहनुहुन्छ।"
+
+#: src/app/GeolocationPermissionRequest.qml:33
+msgid "Deny"
+msgstr "अस्वीकार गर्नुहोस्"
+
+#: src/app/GeolocationPermissionRequest.qml:43
+msgid "Allow"
+msgstr "अनुमति दिनुहोस्"
+
+#: src/app/InvalidCertificateErrorSheet.qml:55
+msgid "This site security certificate is not trusted.\n"
+msgstr "यो साइट सुरक्षा प्रमाणपत्र विश्वसनीय छैन।\n"
+
+#: src/app/InvalidCertificateErrorSheet.qml:63
+msgid "Learn more"
+msgstr "अझै जानौ"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:87
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+"क्रम संख्या:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:94
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+"विषय:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:102
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+"विषय ठेगाना:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:113
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+"जारी कर्ता:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:121
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+"जारी कर्ताको ठेगाना  :\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:132
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+"मान्य सुरु अवधि:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:139
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+"मान्य अवधि:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:146
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+"फिङ्गरप्रिन्ट (SHA1):\n"
+"%1"
+
+#: src/app/InvalidCertificateErrorSheet.qml:153
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+"यदि विशेष गरी तपाईंले यो  सायिटको लागी  यो चेतावनी कहिल्यै देख्नुभयेको छैन "
+"भने, तपाईं अगाडी बड्नु हुँदैन"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:187
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+"तपाईँले %1 मा पुग्न प्रयास गर्नु भयो तर सर्भरले सुरक्षा प्रमाणपत्र प्रस्तुत "
+"गर्‍यो जुन साइट को पहिचानसँग मेल खाँदैन।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले समाप्त भैसकेको एक सुरक्षा "
+"प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले अमान्य मिति समावेश भएको एक "
+"सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले विश्वसनीय छैन भनेर एक इकाइ "
+"द्वारा जारी एक सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले खारेज भैसकेको सुरक्षा "
+"प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक अमान्य सुरक्षा प्रमाणपत्र "
+"प्रस्तुत गरेको छ​।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक असुरक्षित सुरक्षा प्रमाणपत्र "
+"प्रस्तुत गरेको छ​।"
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+"यो साइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन\n"
+"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक सुरक्षा प्रमाणपत्र प्रस्तुत "
+"गर्यो जस्ले अज्ञात कारणले हाम्रो सुरक्षा जाँच असफल भएको छ​।"
+
+#: src/app/PromptDialog.qml:23
+msgid "JavaScript Prompt"
+msgstr "जाभास्क्रिप्ट प्रोम्ट"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "प्रोक्सी प्रमाणिकरण आवश्यक"
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "वेबसाइट %1:%2 लाई प्रमाणीकरण आवश्यक छ।"
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "पछाडि"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "पुरानो पाना"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "पुस्तकचिनो"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "यो पानालाई पुस्तकचिनोमा थप्नुहोस्"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "पुस्तकचिनो लिङ्क"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "इतिहास खाली गर्नुहोस्"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "नेभिगेसन इतिहास हटाउनुहोस्"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "प्रतिलिपि गर्नुहोस्"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "तस्वित प्रतिलिपी गर्नुहोस्"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "लिङ्क प्रतिलिपी गर्नुहोस्"
+
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr "काट्नुहोस्"
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr "मेटनुहोस्"
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
+msgid "Find in page"
+msgstr "पानामा खोज्नुहोस्"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr "पानामा खोज्नुहोस्"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "अगाडि"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "नयाँ पाना"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "जानुहोस्"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "ठेगाना; URL;www"
+
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
+#: src/app/webbrowser/TabsBar.qml:89
+msgid "New Tab"
+msgstr "नयाँ ट्याब"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "नयाँ ट्याब खोल्नुहोस्"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "तस्विर नयाँ ट्याबमा खोल्नुहोस्"
+
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr "लिङ्कलाई नयाँ पृष्ठभूमि ट्याबमा खोल्नुहोस्"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "लिङ्कलाई नयाँ ट्याबमा खोल्नुहोस्"
+
+#: src/app/actions/OpenVideoInNewTab.qml:22
+msgid "Open video in new tab"
+msgstr "भिडियो नया ट्याबमा खोल्नुहोस"
+
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr "टाँस्नुहोस्"
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr "फेरि गर्नुहोस्"
+
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
+msgid "Reload"
+msgstr "पुन:लोड गर्नुहोस्"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "पानालाई छोड्नुहोस्"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "तस्विर सङ्ग्रह गर्नुहोस्"
+
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr "लिङ्क सङ्ग्रह गर्नुहोस्"
+
+#: src/app/actions/SaveVideo.qml:22
+msgid "Save video"
+msgstr "भिडियो संग्र्ह गर्नुहोस"
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/webbrowser/HistoryView.qml:190
+#: src/app/webbrowser/HistoryViewWide.qml:422
+msgid "Select all"
+msgstr "सबै चयन गर्नुहोस्"
+
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+msgid "Share"
+msgstr "सेयर गर्नुहोस्"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr "पुर्वस्थितिमा फर्काउनुहोस्"
+
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:210
+#, qt-format
+msgid "%1/%2"
+msgstr "%1/%2"
+
+#: src/app/webbrowser/AddressBar.qml:246
+msgid "find in page"
+msgstr "पानामा खोज्नुहोस्"
+
+#: src/app/webbrowser/AddressBar.qml:247
+msgid "search or enter an address"
+msgstr "ठेगाना लेख्नुहोस् या खोज्नुहोस्"
+
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "पुस्तकचिनो थपियो"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "नाम"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "यहाँ सङ्ग्रह गर्नुहोस्"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFoldersView.qml:133
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
+msgid "All Bookmarks"
+msgstr "सबै पुस्तकचिनोहरू"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "नयाँ फोल्डर"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "नयाँ फोल्डर बनाउनुहोस्"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:358
+msgid "Save"
+msgstr "सङ्ग्रह गर्नुहोस्"
+
+#: src/app/webbrowser/BookmarksFoldersView.qml:191
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
+#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:322
+msgid "Homepage"
+msgstr "गृह पृष्ठ"
+
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:80
+#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/NewTabViewWide.qml:139
+msgid "Bookmarks"
+msgstr "पुस्तकचिनोहरू"
+
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:112
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:517
+msgid "Done"
+msgstr "सम्पन्न भयो"
+
+#: src/app/webbrowser/BookmarksView.qml:127
+#: src/app/webbrowser/BookmarksViewWide.qml:126
+#: src/app/webbrowser/HistoryView.qml:145
+#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+msgid "New tab"
+msgstr "नयाँ ट्याब"
+
+#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/HistoryViewWide.qml:381
+msgid "History"
+msgstr "इतिहास"
+
+#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+msgid "Downloads"
+msgstr "डाउनलोडहरू"
+
+#: src/app/webbrowser/Browser.qml:561
+msgid "Leave Private Mode"
+msgstr "निजी मोड छोड्नुहोस्"
+
+#: src/app/webbrowser/Browser.qml:561
+msgid "Private Mode"
+msgstr "निजी मोड"
+
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+msgid "Settings"
+msgstr "सेटिङ्"
+
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
+#, qt-format
+msgid "(%1)"
+msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1343
+msgid "Swipe Up To Exit Full Screen"
+msgstr "पुरा स्क्रिन छोड्न माथि स्वाइप गर्नुहोस्"
+
+#: src/app/webbrowser/Browser.qml:1344
+msgid "Press ESC To Exit Full Screen"
+msgstr "पुरा स्क्रिन छोड्न ESC थिच्नुहोस्"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:82
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
+"थप्नुहोस।"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:88
+msgid "Choose an application"
+msgstr "अनुप्रयोग छान्नुहोस्"
+
+#: src/app/webbrowser/ContentDownloadDialog.qml:101
+msgid "Download"
+msgstr "डाउनलोड"
+
+#: src/app/webbrowser/DownloadDelegate.qml:159
+msgid "Download failed"
+msgstr "डाउनलोड असफल भयो"
+
+#: src/app/webbrowser/DownloadDelegate.qml:208
+msgid "Resume"
+msgstr "पुन: निरन्तरता दिनुहोस्"
+
+#: src/app/webbrowser/DownloadsPage.qml:61
+msgid "Confirm selection"
+msgstr "चयन निश्चित गर्नुहोस्"
+
+#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/HistoryView.qml:217
+#: src/app/webbrowser/HistoryViewWide.qml:441
+msgid "Delete"
+msgstr "मेट्नुहोस्"
+
+#: src/app/webbrowser/DownloadsPage.qml:252
+msgid "No downloads available"
+msgstr "डाउनलोड उपलब्ध छैन"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#, qt-format
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 पाना"
+msgstr[1] "%1 पाना"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:136
+#: src/app/webbrowser/NewTabView.qml:148
+msgid "Less"
+msgstr "कम"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
+msgid "Last Visited"
+msgstr "पछिल्लो पटक भ्रमण गरिएको"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:212
+msgid "Yesterday"
+msgstr "हिजो"
+
+#: src/app/webbrowser/HistoryViewWide.qml:196
+msgid "All History"
+msgstr "सबै इतिहास"
+
+#: src/app/webbrowser/HistoryViewWide.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:295
+msgid "Today"
+msgstr "आज"
+
+#: src/app/webbrowser/HistoryViewWide.qml:462
+msgid "search history"
+msgstr "खोज इतिहास"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr "सार्वजनिक मोडमा जाँदै सबै निजी ट्याबहरू बन्द हुनेछन्"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "यस डोमेनलाई तपाईँको क्यामेरा र माइक्रोफोन पहुँच अनुमति दिने हो?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "यस डोमेनलाई  तपाईँको क्यामेरा पहुँच अनुमति दिने हो?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "यस डोमेनलाई तपाईँको माइक्रोफोन पहुँच अनुमति दिने हो?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 ( %2 मा इम्बेडे गरिएको छ)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "हो"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "होइन"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr "यो निजी ट्याब हो"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
+"यस ट्याबमा हेर्नु भएको पृष्ठ आफ्नो ब्राउजर इतिहासमा देखा पर्दैन।\n"
+"बनाउनु भएको बुक्मर्क​ तथापि, संरक्षित हुनेछ।"
+
+#: src/app/webbrowser/NewTabView.qml:148
+msgid "More"
+msgstr "बढि"
+
+#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabViewWide.qml:138
+msgid "Top sites"
+msgstr "शिर्ष साइटहरू"
+
+#: src/app/webbrowser/NewTabView.qml:366
+msgid "You haven't visited any site yet"
+msgstr "तपाईँले अहिलेसम्म कुनै साइट भ्रमण गर्नुभएको छैन"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr "यो ट्याबको लागि प्रतिपादन प्रक्रिया बन्द गरिएको छ।"
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr "%1 देखाउने बेलामा केही त्रुटी भयो।"
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+"सिस्टम्को मेमोरी कम छ र वेबपेज प्रदर्शन गर्न सक्दैन। नचाहिने ट्याबहरू बन्द "
+"गर्नुहोस् र पुन: लोड गर्ने प्रयास गर्नुहोस्।"
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr "ट्याब बन्द गर्नुहोस्"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+msgid "This site has insecure content"
+msgstr "यो साइटमा असुरक्षित सामग्री"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr "परिचय प्रमाणिकरण गर्न सकिएन"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr "यो वेबसाइट को पहिचान प्रमाणित भैसकेको छैन।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr "सर्भर सर्टिफिकेट र साइटको परिचय मिल्दैन ।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr "सर्भर सर्टिफिकेटको समय सकिएको छ"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
+msgstr "सर्भर सर्टिफिकेटमा अमान्य मितिहरू छन्"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr "सर्भर प्रमाणपत्र एक अविश्वसनीय इकाइद्वारा जारी गरिएको छ।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr "सर्भर प्रमाणपत्र खारेज गरिएको छ।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr "सर्भर सर्टिफिकेट अमान्य छ ।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr "सर्भर सर्टिफिकेट असुरक्षित छ ।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr "एक अज्ञात कारण सर्भर प्रमाणपत्रमा हाम्रो सुरक्षा जाँच असफल भयो।"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+msgid "You are connected to"
+msgstr "तपाईँ जोडिएको हुनुहुन्छ"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+msgid "Which is run by"
+msgstr "यसका सञ्चालनकर्ता"
+
+#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+msgid "Default"
+msgstr "पूर्वनिर्धारित"
+
+#: src/app/webbrowser/SettingsPage.qml:80
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr "खोज इन्जिन"
+
+#: src/app/webbrowser/SettingsPage.qml:100
+msgid "Restore previous session at startup"
+msgstr "स्टार्टअपमा अघिल्लो सत्र पुनर्स्थापित गर्नुहोस्"
+
+#: src/app/webbrowser/SettingsPage.qml:137
+#: src/app/webbrowser/SettingsPage.qml:227
+msgid "Privacy & permissions"
+msgstr "गोपनीयता र अनुमतिहरू"
+
+#: src/app/webbrowser/SettingsPage.qml:145
+msgid "Reset browser settings"
+msgstr "ब्राउजर सेटिङहरू पूर्वस्थितीमा फर्काउनुहोस्"
+
+#: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr "क्यामेरा र माइक्रोफोन"
+
+#: src/app/webbrowser/SettingsPage.qml:254
+msgid "Clear Browsing History"
+msgstr "ब्राउजिङ इतिहास हटाउनुहोस्"
+
+#: src/app/webbrowser/SettingsPage.qml:257
+msgid "Clear Browsing History?"
+msgstr "ब्राउजिङ इतिहास हटाउने हो?"
+
+#: src/app/webbrowser/SettingsPage.qml:264
+msgid "Clear Cache"
+msgstr "क्यास खाली गर्नुहोस्"
+
+#: src/app/webbrowser/SettingsPage.qml:266
+msgid "Clear Cache?"
+msgstr "क्यास खाली गर्ने हो ?"
+
+#: src/app/webbrowser/SettingsPage.qml:301
+msgid "Clear"
+msgstr "खाली गर्नुहोस्"
+
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr "माइक्रोफोन"
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr "क्यामेरा"
+
+#: src/app/webbrowser/TabPreview.qml:86
+msgid "Tap to view"
+msgstr "हेर्न ट्याप गर्नुहोस्"
+
+#: src/app/webbrowser/TabsBar.qml:100
+msgid "Close Tab"
+msgstr "ट्याब बन्द गर्नुहोस्"
+
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+msgid "Remove"
+msgstr "हटाउनुहोस्"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:67
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - उबुन्टु वेब ब्राउजर"
+
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:69
+msgid "Ubuntu Web Browser"
+msgstr "उबुन्टु वेब ब्राउजर"
+
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr "कुनै खाता यस वेबएपमा जोडिएको छैन; खाता थप्न तलको वस्तु थिच्नुहोस्।"
+
+#: src/app/webcontainer/AccountChooserDialog.qml:78
+msgid "Add account"
+msgstr "खाता थप्नुहोस्"
+
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "खाता प्रयोग नगर्नुहोस्"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "खाता त्रुटि"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "बन्दगर्नुहोस्"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"खाता विन्डो खोल्न सकिएन। मात्र एक समयमा एउटा खाता सिर्जना गर्न सक्नुहुन्छ; "
+"सबै अन्य खाता विन्डोज् बन्द गरिसके पछि फेरि प्रयास गर्नुहोस्।"
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> लाई तपाईँको  %2 अनलाइन खाता पहुँच आवश्यक छ"
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr ""
+"Copy text \t\r\n"
+"<b>%1</b>तपाईँको  %2 अनलाइन खाता पहुँच गर्न चाहन्छ"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"अहिले खाता छान्नुहोस् या यो भाग छोडेर पछि अनलाइन खाता छान्न पनि सक्नुहुनेछ ।"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "अनुप्रयोगलाई बन्द गर्नुहोस्"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "छोड्नुहोस्"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "खाता छान्नुहोस्"
+
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr "ओहो, केही गलत भयो।"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "ब्राउजर"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "वेब ब्राउजर"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "वर्ल्ड वाइड वेब ब्राउज गर्नुहोस्"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr "इन्टरनेट;WWW; ब्राउजर; वेब; एक्सप्लोरर"
+
+#~ msgid "Please choose a file"
+#~ msgstr "एक फाइल छान्नुहोस्"
+
+#~ msgid "Open tabs"
+#~ msgstr "खुल्ला ट्याबहरू"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr ""
+#~ "उबुन्टु तपाईं आफ्नो नेटवर्क सेटिङहरू जाँच गर्न र पृष्ठ रिफ्रेस गर्न सुझाव "
+#~ "दिन्छ।"
+
+#~ msgid "Allow opening new tabs in background"
+#~ msgstr "पृष्ठभूमिमा नयाँ ट्याबहरू खोल्न अनुमति दिनुहोस्"

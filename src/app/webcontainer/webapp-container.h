@@ -21,15 +21,14 @@
 
 #include "browserapplication.h"
 
-#include "webapp-container-helper.h"
-
 // Qt
 #include <QString>
 #include <QStringList>
 #include <QScopedPointer>
 
-class IntentFilter;
+class SchemeFilter;
 class QQmlContext;
+class WebappContainerHelper;
 
 class WebappContainer : public BrowserApplication
 {
@@ -54,7 +53,7 @@ private:
     bool isValidLocalResource(const QString& resourceName) const;
     bool shouldNotValidateCommandLineUrls() const;
     bool isValidLocalIntentFilterFile(const QString& filename) const;
-    void setupLocalIntentFilterIfAny(QQmlContext* context);
+    void setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath);
 
 private:
     QString m_webappName;
@@ -71,10 +70,10 @@ private:
     QString m_localCookieStoreDbPath;
     QString m_userAgentOverride;
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
-    QScopedPointer<IntentFilter> m_intentFilter;
+    QScopedPointer<SchemeFilter> m_schemeFilter;
 
     static const QString URL_PATTERN_SEPARATOR;
-    static const QString LOCAL_INTENT_FILTER_FILENAME;
+    static const QString LOCAL_SCHEME_FILTER_FILENAME;
 };
 
 #endif // __WEBAPP_CONTAINER_H__
