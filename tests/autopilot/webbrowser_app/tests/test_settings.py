@@ -20,7 +20,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from testtools.matchers import Equals, GreaterThan, NotEquals
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 
 import ubuntuuitoolkit as uitk
 
