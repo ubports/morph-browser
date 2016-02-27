@@ -40,6 +40,7 @@ Item {
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
     property bool wide: false
+    property bool openExternalUrlInOverlay: false
 
     signal samlRequestUrlPatternReceived(string urlPattern)
     signal themeColorMetaInformationDetected(string theme_color)
@@ -109,7 +110,8 @@ Item {
                     , runningLocalApplication: containerWebview.runningLocalApplication
                     , popupController: popupController
                     , overlayViewsParent: containerWebview.parent
-                    , wide: containerWebview.wide})
+                    , wide: containerWebview.wide
+                    , openExternalUrlInOverlay: containerWebview.openExternalUrlInOverlay})
     }
 }
 

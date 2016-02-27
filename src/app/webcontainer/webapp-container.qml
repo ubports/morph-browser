@@ -45,6 +45,7 @@ BrowserWindow {
     property alias webContextSessionCookieMode: webappViewLoader.webContextSessionCookieMode
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
+    property bool openExternalUrlInOverlay: false
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
@@ -88,6 +89,7 @@ BrowserWindow {
             webappModelSearchPath: root.webappModelSearchPath
             webappUrlPatterns: root.webappUrlPatterns
             blockOpenExternalUrls: root.blockOpenExternalUrls
+            openExternalUrlInOverlay: root.openExternalUrlInOverlay
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 

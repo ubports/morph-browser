@@ -251,8 +251,8 @@ Item {
             console.log("Maximum number of popup overlay opened, opening: "
                         + url
                         + " in the browser")
-            return
+            return false
         }
-        request.action = Oxide.NavigationRequest.ActionAccept
+        return true
     }
 }

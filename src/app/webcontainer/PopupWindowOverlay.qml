@@ -186,12 +186,15 @@ Item {
 
         onNavigationRequested: {
             var url = request.url.toString()
-            if (isNewForegroundWebViewDisposition(request.disposition)) {
-                popupWindowController.handleNewForegroundNavigationRequest(
-                            url, request, false)
-                return
-            }
             request.action = Oxide.NavigationRequest.ActionAccept
+            if (isNewForegroundWebViewDisposition(request.disposition)) {
+                var shouldAcceptRequest =
+                        popupWindowController.handleNewForegroundNavigationRequest(
+                              url, request, false);
+                if (!shouldAcceptRequest) {
+                    request.action = Oxide.NavigationRequest.ActionReject
+                }
+            }
         }
 
         onCloseRequested: {

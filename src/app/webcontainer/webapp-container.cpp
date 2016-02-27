@@ -87,6 +87,7 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
     m_localWebappManifest(false),
+    m_openExternalUrlInOverlay(false),
     m_webappContainerHelper(new WebappContainerHelper())
 {
 }
@@ -126,6 +127,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
         m_window->setProperty("accountSwitcher", m_accountSwitcher);
+        m_window->setProperty("openExternalUrlInOverlay", m_openExternalUrlInOverlay);
 
         m_window->setProperty("webappUrlPatterns", m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
@@ -290,6 +292,7 @@ void WebappContainer::printUsage() const
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
+    out << "  --open-external-url-in-overlay      enable media-hub for audio playback" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -345,6 +348,8 @@ void WebappContainer::parseCommandLine()
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
         } else if (argument.startsWith("--user-agent-string=")) {
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
+        } else if (argument == "--open-external-url-in-overlay") {
+            m_openExternalUrlInOverlay = true;
         }
     }
 }

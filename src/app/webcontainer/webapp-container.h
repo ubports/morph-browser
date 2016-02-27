@@ -66,6 +66,7 @@ private:
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
     bool m_localWebappManifest;
+    bool m_openExternalUrlInOverlay;
     QString m_popupRedirectionUrlPrefixPattern;
     QString m_localCookieStoreDbPath;
     QString m_userAgentOverride;
