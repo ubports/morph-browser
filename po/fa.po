@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-25 21:16+0100\n"
-"PO-Revision-Date: 2016-02-02 06:20+0000\n"
+"PO-Revision-Date: 2016-02-27 20:16+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
+"X-Launchpad-Export-Date: 2016-02-28 05:44+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -436,7 +436,7 @@ msgstr "گشودن پیوند در زبانهٔ جدید"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "گشودن ویدیو در زبانهٔ جدید"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -467,7 +467,7 @@ msgstr "ذخیرهٔ پیوند"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "ذخیرهٔ ویدیو"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190

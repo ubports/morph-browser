@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-25 21:16+0100\n"
-"PO-Revision-Date: 2015-10-14 00:45+0000\n"
-"Last-Translator: Ján Dráb <jan@drab.name>\n"
+"PO-Revision-Date: 2016-02-27 16:51+0000\n"
+"Last-Translator: P_E_T_O <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
+"X-Launchpad-Export-Date: 2016-02-28 05:44+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -469,7 +469,7 @@ msgstr "Uložiť odkaz"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Uložiť video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -614,11 +614,11 @@ msgstr "Stiahnuť"
 
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
-msgstr ""
+msgstr "Sťahovanie zlyhalo"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr ""
+msgstr "Pokračovať"
 
 #: src/app/webbrowser/DownloadsPage.qml:61
 msgid "Confirm selection"
@@ -693,11 +693,11 @@ msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
-msgstr ""
+msgstr "Áno"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:60
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -801,7 +801,7 @@ msgstr "Ktorý prevádzkuje"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Predvolené"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
@@ -824,7 +824,7 @@ msgstr "Obnovenie nastavení prehliadača"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Fotoaparát a mikrofón"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -848,11 +848,11 @@ msgstr "Vyčistiť"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofón"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Fotoaparát"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
@@ -864,7 +864,7 @@ msgstr "Zavrieť kartu"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:135
 msgid "Remove"
-msgstr ""
+msgstr "Odstrániť"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
