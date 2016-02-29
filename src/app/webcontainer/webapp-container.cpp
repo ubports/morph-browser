@@ -292,7 +292,7 @@ void WebappContainer::printUsage() const
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
-    out << "  --open-external-url-in-overlay      enable media-hub for audio playback" << endl;
+    out << "  --open-external-url-in-overlay      if url patterns are defined, all external urls are opened in overlay instead of browser" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
