@@ -24,7 +24,24 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestHistory(StartOpenRemotePageTestCaseBase):
 
-    def test_history_not_save_404(self):
+    def expect_history_entries(self, ordered_urls):
+        history = self.main_window.get_history_view()
+        if self.main_window.wide:
+            self.assertThat(lambda: len(history.get_entries()),
+                            Eventually(Equals(len(ordered_urls))))
+            entries = history.get_entries()
+        else:
+            self.assertThat(lambda: len(history.get_domain_entries()),
+                            Eventually(Equals(1)))
+            self.pointing_device.click_object(history.get_domain_entries()[0])
+            expanded_history = self.main_window.get_expanded_history_view()
+            self.assertThat(lambda: len(expanded_history.get_entries()),
+                            Eventually(Equals(len(ordered_urls))))
+            entries = expanded_history.get_entries()
+        self.assertThat([entry.url for entry in entries], Equals(ordered_urls))
+        return entries
+
+    def test_404_not_saved(self):
         url = self.base_url + "/notfound"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
@@ -35,28 +52,8 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
-        history = self.open_history()
-
-        # We have domains with subsections only on mobiles.
-        # On wide we take all the entries directly
-        if self.main_window.wide:
-            # 2 addresses: /test1 and /test2
-            self.assertThat(lambda: len(history.get_entries()),
-                            Eventually(Equals(2)))
-            self.assertThat([entry.url for entry in history.get_entries()],
-                            Equals([url, self.url]))
-        else:
-            # 1 domain: the local one
-            self.assertThat(lambda: len(history.get_domain_entries()),
-                            Eventually(Equals(1)))
-            self.pointing_device.click_object(history.get_domain_entries()[0])
-            expanded_history = self.main_window.get_expanded_history_view()
-
-            # 2 addresses: /test1 and /test2
-            self.assertThat(lambda: len(expanded_history.get_entries()),
-                            Eventually(Equals(2)))
-            self.assertThat([e.url for e in expanded_history.get_entries()],
-                            Equals([url, self.url]))
+        self.open_history()
+        self.expect_history_entries([url, self.url])
 
     def test_expanded_history_view_header_swallows_clicks(self):
         # Regression test for https://launchpad.net/bugs/1518904
@@ -78,19 +75,8 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         url = self.base_url + "/favicon"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
-        history = self.open_history()
-        if self.main_window.wide:
-            self.assertThat(lambda: len(history.get_entries()),
-                            Eventually(Equals(2)))
-            first = history.get_entries()[0]
-        else:
-            self.assertThat(lambda: len(history.get_domain_entries()),
-                            Eventually(Equals(1)))
-            self.pointing_device.click_object(history.get_domain_entries()[0])
-            expanded_history = self.main_window.get_expanded_history_view()
-            self.assertThat(lambda: len(expanded_history.get_entries()),
-                            Eventually(Equals(2)))
-            first = expanded_history.get_entries()[0]
+        self.open_history()
+        first = self.expect_history_entries([url, self.url])[0]
         self.assertThat(first.url, Equals(url))
         favicon = self.base_url + "/assets/icon1.png"
         self.assertThat(first.icon, Equals(favicon))
@@ -101,19 +87,8 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         url = self.base_url + "/changingfavicon"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
-        history = self.open_history()
-        if self.main_window.wide:
-            self.assertThat(lambda: len(history.get_entries()),
-                            Eventually(Equals(2)))
-            first = history.get_entries()[0]
-        else:
-            self.assertThat(lambda: len(history.get_domain_entries()),
-                            Eventually(Equals(1)))
-            self.pointing_device.click_object(history.get_domain_entries()[0])
-            expanded_history = self.main_window.get_expanded_history_view()
-            self.assertThat(lambda: len(expanded_history.get_entries()),
-                            Eventually(Equals(2)))
-            first = expanded_history.get_entries()[0]
+        self.open_history()
+        first = self.expect_history_entries([url, self.url])[0]
         indexes = set()
         while len(indexes) < 3:
             self.assertThat(first.url, Equals(url))
