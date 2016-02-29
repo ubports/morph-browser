@@ -96,3 +96,20 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
             self.assertThat(icon, StartsWith(self.base_url))
             self.assertThat(icon, EndsWith(".png"))
             indexes.add(int(first.icon[(len(self.base_url)+1):-4]))
+
+    def test_title_saved(self):
+        self.open_history()
+        entry = self.expect_history_entries([self.url])[0]
+        self.assertThat(entry.title, Equals("test page 1"))
+
+    def test_title_not_updated(self):
+        # Verify that a page dynamically updating its title
+        # does NOT trigger an update in the history database.
+        url = self.base_url + "/changingtitle"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.open_history()
+        first = self.expect_history_entries([url, self.url])[0]
+        for i in range(10):
+            self.assertThat(first.title, Equals("title0"))
+            time.sleep(0.5)

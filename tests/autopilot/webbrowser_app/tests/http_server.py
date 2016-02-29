@@ -229,6 +229,13 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += 'document.getElementById("favicon").href = ++i + '
             html += '".png"; }, 1000);</script></body></html>'
             self.send_html(html)
+        elif self.path == "/changingtitle":
+            self.send_response(200)
+            html = '<html><head><title>title0</title></head><body><script>'
+            html += 'var i = 0; window.setInterval(function() { '
+            html += 'document.title = "title" + ++i; }, 500);</script></body>'
+            html += '</html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
