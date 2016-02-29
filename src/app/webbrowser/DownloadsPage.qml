@@ -23,6 +23,7 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 
 import "../MimeTypeMapper.js" as MimeTypeMapper
+import ".."
 
 FocusScope {
     id: downloadsItem
