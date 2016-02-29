@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -215,6 +215,20 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
                 "}, function() { location.href = '/test1' } " +
                 ", function() { location.href = '/test2' })</script>"
             )
+        elif self.path == "/favicon":
+            self.send_response(200)
+            html = '<html><head><link rel="icon" type="image/png" '
+            html += 'href="/assets/icon1.png"></head>'
+            html += '<body>favicon</body></html>'
+            self.send_html(html)
+        elif self.path == "/changingfavicon":
+            self.send_response(200)
+            html = '<html><head><link id="favicon" rel="shortcut icon" '
+            html += 'type="image/png" href="icon0.png"></head><body><script>'
+            html += 'var i = 0; window.setInterval(function() {'
+            html += 'document.getElementById("favicon").href = ++i + '
+            html += '".png"; }, 1000);</script></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
