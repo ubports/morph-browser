@@ -113,3 +113,14 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         for i in range(10):
             self.assertThat(first.title, Equals("title0"))
             time.sleep(0.5)
+
+    def test_pushstate_updates_history(self):
+        url = self.base_url + "/pushstate"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        pushed = self.base_url + "/statepushed"
+        self.main_window.wait_until_page_loaded(pushed)
+        self.open_history()
+        self.expect_history_entries([pushed, url, self.url])

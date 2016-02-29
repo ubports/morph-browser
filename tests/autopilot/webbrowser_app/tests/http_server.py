@@ -236,6 +236,16 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += 'document.title = "title" + ++i; }, 500);</script></body>'
             html += '</html>'
             self.send_html(html)
+        elif self.path == "/pushstate":
+            self.send_response(200)
+            html = '<html><head><title>push state</title></head>'
+            html += '<body style="margin: 0"><a id="link">'
+            html += '<div style="height: 100%"></div></a><script>'
+            html += 'document.getElementById("link").addEventListener("click",'
+            html += ' function(e) { document.title = "state pushed"; '
+            html += 'history.pushState(null, null, "/statepushed"); });'
+            html += '</script></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
