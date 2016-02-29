@@ -45,7 +45,8 @@ class WebappContainerUrlPatternsTestCase(
             Eventually(Equals(True)))
 
     def test_pattern_with_external_url_in_overlay(self):
-        args = ["--webappUrlPatterns=http://www.test.com/*", "--open-external-url-in-overlay"]
+        args = ["--webappUrlPatterns=http://www.test.com/*",
+                "--open-external-url-in-overlay"]
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
         self.launch_webcontainer_app_with_local_http_server(
             args,
@@ -58,9 +59,6 @@ class WebappContainerUrlPatternsTestCase(
         popup_controller = self.get_popup_controller()
         new_view_watcher = popup_controller.watch_signal(
             'newViewCreated(QString)')
-        animation_watcher = popup_controller.watch_signal(
-            'windowOverlayOpenAnimationDone()')
-        animation_signal_emission = animation_watcher.num_emissions
 
         views = self.get_popup_overlay_views()
         self.assertThat(len(views), Equals(0))
