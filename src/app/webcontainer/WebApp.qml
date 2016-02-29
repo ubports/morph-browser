@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,6 +24,7 @@ import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Qt.labs.settings 1.0
 import "../actions" as Actions
 import ".."
+import "ColorUtils.js" as ColorUtils
 
 BrowserView {
     id: webapp
@@ -50,7 +51,7 @@ BrowserView {
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible && !accountSwitcher
-    readonly property real themeColorTextDarkenFactor: 3.0
+    readonly property real themeColorTextContrastFactor: 3.0
 
     signal chooseAccount()
 
@@ -142,10 +143,14 @@ BrowserView {
             developerExtrasEnabled: webapp.developerExtrasEnabled
 
             onThemeColorMetaInformationDetected: {
-                if (!webapp.chromeless && chromeLoader.item) {
+                var color = webappContainerHelper.rgbColorFromCSSColor(theme_color)
+                if (!webapp.chromeless && chromeLoader.item && color.length) {
                     chromeLoader.item.backgroundColor = theme_color
                     chromeLoader.item.chromeTextLabelColor =
-                            Qt.darker(theme_color, themeColorTextDarkenFactor)
+                            ColorUtils.getMostConstrastedColor(
+                                color,
+                                Qt.darker(theme_color, themeColorTextContrastFactor),
+                                Qt.lighter(theme_color, themeColorTextContrastFactor))
                 }
             }
             onSamlRequestUrlPatternReceived: {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014, 2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -30,6 +30,15 @@ class WebappContainerHelper : public QObject
 public:
     WebappContainerHelper(QObject* parent = 0);
     ~WebappContainerHelper();
+
+    /**
+     * Expects a CSS color string http://www.w3schools.com/css/css_colors.asp
+     * and returns a #rrggbb formatted string.
+     *
+     * If the provided string is not a valid CSS color string, an empty string
+     * is returned.
+     */
+    Q_INVOKABLE QString rgbColorFromCSSColor(const QString& cssColor);
 
 private Q_SLOTS:
 

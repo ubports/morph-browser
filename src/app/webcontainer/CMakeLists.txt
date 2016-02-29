@@ -30,6 +30,7 @@ add_executable(${WEBAPP_CONTAINER} ${WEBAPP_CONTAINER_SRC})
 target_link_libraries(${WEBAPP_CONTAINER}
     Qt5::Core
     Qt5::DBus
+    Qt5::Gui
     Qt5::Qml
     Qt5::Quick
     Qt5::Sql
