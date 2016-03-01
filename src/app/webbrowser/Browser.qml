@@ -1288,7 +1288,7 @@ BrowserView {
                     }
                 }
                 onTitleChanged: {
-                    if (webviewInternal.storedUrl.toString() && !webviewInternal.titleSet) {
+                    if (!webviewInternal.titleSet && webviewInternal.storedUrl.toString()) {
                         // Record the title to avoid updating the history database
                         // every time the page dynamically updates its title.
                         // We don’t want pages that update their title every second
