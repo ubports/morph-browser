@@ -330,11 +330,10 @@ bool HistoryModel::update(const QUrl& url, const QString& title, const QUrl& ico
     }
     if (roles.isEmpty()) {
         return false;
-    } else {
-        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), roles);
-        updateExistingEntryInDatabase(entry);
-        return true;
     }
+    Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), roles);
+    updateExistingEntryInDatabase(entry);
+    return true;
 }
 
 /*!
