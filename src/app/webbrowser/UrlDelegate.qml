@@ -47,6 +47,7 @@ ListItem {
 
         Loader {
             id: headerComponentLoader
+            anchors.verticalCenter: parent.verticalCenter
             sourceComponent: undefined
         }
 
