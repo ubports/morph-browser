@@ -769,6 +769,9 @@ BrowserView {
                  (osk.state == "hidden") && (recentView.state == "")
         visible: enabled
         height: visible ? units.gu(4) : 0
+        // Ensure that this ends up below the chrome, so that the
+        // drawer menu’s inverse mouse area covers it.
+        z: -1
 
         onClicked: {
             recentView.state = "shown"
