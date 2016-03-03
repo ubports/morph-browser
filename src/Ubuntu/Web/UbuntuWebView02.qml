@@ -230,20 +230,6 @@ Oxide.WebView {
                 width: visible ? height : 0
                 Icon {
                     anchors.fill: parent
-                    name: "edit-delete"
-                }
-                activeFocusOnPress: false
-                visible: _webview.editingCapabilities & Oxide.WebView.EraseCapability
-                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandErase)
-            }
-            AbstractButton {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: visible ? height : 0
-                Icon {
-                    anchors.fill: parent
                     name: "edit-select-all"
                 }
                 activeFocusOnPress: false
