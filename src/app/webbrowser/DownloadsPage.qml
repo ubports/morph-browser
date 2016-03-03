@@ -148,7 +148,7 @@ FocusScope {
     ListView {
         id: downloadsListView
         clip: true
-        focus: true
+        focus: !exportPeerPicker.focus
 
         anchors {
             fill: parent
@@ -223,6 +223,23 @@ FocusScope {
 
         Keys.onEnterPressed: currentItem.clicked()
         Keys.onReturnPressed: currentItem.clicked()
+        Keys.onEscapePressed: {
+            if (selectMode) {
+                selectMode = false
+            } else {
+                event.accepted = false
+            }
+        }
+        Keys.onSpacePressed: {
+            if (selectMode || pickingMode) {
+                currentItem.clicked()
+            }
+        }
+        Keys.onDeletePressed: {
+            if (!selectMode && !pickingMode) {
+                currentItem.removed()
+            }
+        }
     }
 
     Label {
@@ -243,6 +260,7 @@ FocusScope {
     ContentPeerPicker {
         id: exportPeerPicker
         visible: false
+        focus: visible
         anchors.fill: parent
         handler: ContentHandler.Destination
         property string path
@@ -254,9 +272,8 @@ FocusScope {
             }
             visible = false
         }
-        onCancelPressed: {
-            visible = false
-        }
+        onCancelPressed: visible = false
+        Keys.onEscapePressed: visible = false
     }
 
 }

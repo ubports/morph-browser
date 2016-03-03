@@ -33,7 +33,7 @@ FocusScope {
     function restoreLastFocusedColumn() {
         if (internal.lastFocusedColumn &&
             internal.lastFocusedColumn == bookmarksList &&
-            model.count > 0) {
+            BookmarksModel.count > 0) {
             bookmarksList.forceActiveFocus()
         } else {
             folders.forceActiveFocus()
@@ -44,11 +44,6 @@ FocusScope {
         if (activeFocus) {
             restoreLastFocusedColumn()
         }
-    }
-
-    Rectangle {
-        anchors.fill: parent
-        color: "#fbfbfb"
     }
 
     ListView {

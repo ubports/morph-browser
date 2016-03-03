@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -40,7 +40,6 @@ class UbuntuWebPluginContext : public QObject
 
     Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
-    Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
     Q_PROPERTY(qreal screenDiagonal READ screenDiagonal NOTIFY screenDiagonalChanged)
     Q_PROPERTY(int cacheSizeHint READ cacheSizeHint NOTIFY cacheSizeHintChanged)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
@@ -52,7 +51,6 @@ public:
 
     QString cacheLocation() const;
     QString dataLocation() const;
-    QString formFactor();
     qreal screenDiagonal() const;
     int cacheSizeHint() const;
     QString devtoolsHost();
@@ -71,7 +69,6 @@ private Q_SLOTS:
 
 private:
     qreal m_screenDiagonal; // in millimeters
-    QString m_formFactor;
     QString m_devtoolsHost;
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
@@ -127,40 +124,6 @@ QString UbuntuWebPluginContext::dataLocation() const
         QDir(location.absoluteFilePath("Cache")).removeRecursively();
     }
     return location.absolutePath();
-}
-
-QString UbuntuWebPluginContext::formFactor()
-{
-    if (m_formFactor.isEmpty()) {
-        // This implementation only considers two possible form factors: desktop,
-        // and mobile (which includes phones and tablets).
-        // XXX: do we need to consider other form factors, such as tablet?
-        const char* DESKTOP = "desktop";
-        const char* MOBILE = "mobile";
-
-        // The "DESKTOP_MODE" environment variable can be used to force the form
-        // factor to desktop, when set to any valid value other than 0.
-        const char* DESKTOP_MODE_ENV_VAR = "DESKTOP_MODE";
-        if (qEnvironmentVariableIsSet(DESKTOP_MODE_ENV_VAR)) {
-            QByteArray stringValue = qgetenv(DESKTOP_MODE_ENV_VAR);
-            bool ok = false;
-            int value = stringValue.toInt(&ok);
-            if (ok) {
-                m_formFactor = (value == 0) ? MOBILE : DESKTOP;
-                return m_formFactor;
-            }
-        }
-
-        // XXX: Assume that QtUbuntu means mobile, which is currently the case,
-        // but may not remain true forever.
-        QString platform = QGuiApplication::platformName();
-        if ((platform == "ubuntu") || (platform == "ubuntumirclient")) {
-            m_formFactor = MOBILE;
-        } else {
-            m_formFactor = DESKTOP;
-        }
-    }
-    return m_formFactor;
 }
 
 qreal UbuntuWebPluginContext::screenDiagonal() const

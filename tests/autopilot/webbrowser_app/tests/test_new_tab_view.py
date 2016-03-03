@@ -238,8 +238,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         self.main_window.wait_until_page_loaded(url)
 
     def test_open_bookmark(self):
-        bookmarks = self.new_tab_view.get_bookmarks_list()
-        bookmark = bookmarks.get_delegates()[1]
+        bookmark = self.new_tab_view.get_bookmark_delegates()[2]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
         self.new_tab_view.wait_until_destroyed()
@@ -264,9 +263,8 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         bookmarks = self.new_tab_view.get_bookmarks_list()
         top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(top_sites.visible, Equals(True))
-        # When the bookmarks list is collapsed, it shows a maximum of 4 entries
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(4)))
+        # When the bookmarks list is collapsed, it shows a maximum of 5 entries
+        self.assertThat(bookmarks.count, Eventually(Equals(5)))
         # When expanded, it shows all entries
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
@@ -280,18 +278,17 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         # Collapse again
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(4)))
+        bookmarks = self.new_tab_view.get_bookmarks_list()
+        self.assertThat(bookmarks.count, Eventually(Equals(5)))
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
     def _remove_first_bookmark(self):
-        bookmarks = self.new_tab_view.get_bookmarks_list()
-        delegate = bookmarks.get_delegates()[0]
-        url = delegate.url
-        delegate.trigger_leading_action("leadingAction.delete",
-                                        delegate.wait_until_destroyed)
-        self.assertThat(lambda: bookmarks.get_urls()[0],
-                        Eventually(NotEquals(url)))
+        bookmark = self.new_tab_view.get_bookmark_delegates()[1]
+        url = bookmark.url
+        bookmark.trigger_leading_action("leadingAction.delete", lambda: None)
+        self.assertThat(
+            lambda: self.new_tab_view.get_bookmark_delegates()[1].url,
+            Eventually(NotEquals(url)))
 
     def _remove_first_bookmark_from_folder(self, folder):
         folders = self.new_tab_view.get_bookmarks_folder_list_view()
@@ -314,14 +311,12 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
 
     def test_remove_bookmarks_when_collapsed(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(4)))
+        self.assertThat(bookmarks.count, Eventually(Equals(5)))
         more_button = self.new_tab_view.get_bookmarks_more_button()
         for i in range(3):
             self._remove_first_bookmark()
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
-            self.assertThat(len(bookmarks.get_delegates()),
-                            Equals(4 if (i < 2) else 3))
+            self.assertThat(bookmarks.count, Equals(5 if (i < 2) else 4))
 
     def test_remove_bookmarks_when_expanded(self):
         more_button = self.new_tab_view.get_bookmarks_more_button()

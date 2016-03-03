@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -185,6 +185,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
+
+    def get_bottom_edge_bar(self):
+        return self.select_single(objectName="bottomEdgeBar", visible=True)
 
     def get_bookmark_options(self):
         return self.select_single(BookmarkOptions)
@@ -597,7 +600,12 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlDelegate, objectName="homepageBookmark")
 
     def get_bookmarks_list(self):
-        return self.select_single(UrlsList, objectName="bookmarksList")
+        return self.select_single(objectName="bookmarksList")
+
+    def get_bookmark_delegates(self):
+        list = self.get_bookmarks_list()
+        return sorted(list.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)
 
     def get_top_sites_list(self):
         return self.select_single(UrlPreviewGrid, objectName="topSitesList")
@@ -661,16 +669,6 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_folder_names(self):
         return [folder.name for folder in self.get_folders_list()]
-
-
-class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_delegates(self):
-        return sorted(self.select_many(UrlDelegate),
-                      key=lambda delegate: delegate.globalRect.y)
-
-    def get_urls(self):
-        return [delegate.url for delegate in self.get_delegates()]
 
 
 class UrlPreviewGrid(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -739,13 +737,11 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
-        return sorted(self.select_many("QQuickItem",
-                                       objectName="bookmarkFolderDelegate"),
+        return sorted(self.select_many(objectName="bookmarkFolderDelegate"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_folder_delegate(self, folder):
-        return self.select_single("QQuickItem",
-                                  objectName="bookmarkFolderDelegate",
+        return self.select_single(objectName="bookmarkFolderDelegate",
                                   folderName=folder)
 
     def get_urls_from_folder(self, folder):
@@ -753,8 +749,7 @@ class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_header_from_folder(self, folder):
-        return folder.wait_select_single("QQuickItem",
-                                         objectName="bookmarkFolderHeader")
+        return folder.wait_select_single(objectName="bookmarkFolderHeader")
 
 
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):

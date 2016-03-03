@@ -83,6 +83,14 @@ private Q_SLOTS:
                 << "https?://mail.google.*/*"
                 << "https?://mail.google.[^\\./]*/[^\\s]*" << true;
 
+        QTest::newRow("Valid Google com SLD pattern")
+                << "https?://mail.google.com.*/*"
+                << "https?://mail.google.com.[^\\./]*/[^\\s]*" << true;
+
+        QTest::newRow("Valid Google co SLD pattern")
+                << "https?://mail.google.co.*/*"
+                << "https?://mail.google.co.[^\\./]*/[^\\s]*" << true;
+
         QTest::newRow("Valid non Google pattern")
                 << "https://*.google.com/*"
                 << "https://[^\\./]*.google.com/[^\\s]*" << true;
@@ -100,6 +108,7 @@ private Q_SLOTS:
         WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(6, "https://se*rv?ice.goo*gle.com/*");
         WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(7, "https://se*rvice.goo*gle.com/*");
         WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(8, "https://se*rvice.goo*gle.*/*");
+        WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(8, "https://service.google.kom.*/*");
     }
 
     void transformedUrlPatterns()

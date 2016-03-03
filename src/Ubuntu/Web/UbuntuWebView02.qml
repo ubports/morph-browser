@@ -51,7 +51,7 @@ Oxide.WebView {
         navigationRequestedDelegate(request);
     }
 
-    preferences.passwordEchoEnabled: formFactor === "mobile"
+    preferences.passwordEchoEnabled: Qt.inputMethod.visible
 
     popupMenu: ItemSelector02 {
         automaticOrientation: false

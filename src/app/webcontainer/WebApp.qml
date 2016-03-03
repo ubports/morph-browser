@@ -250,8 +250,9 @@ BrowserView {
         ChromeController {
             webview: webapp.currentWebview
             forceHide: webapp.chromeless
-            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
-                                                   : Oxide.LocationBarController.ModeAuto
+            defaultMode: webapp.hasTouchScreen
+                             ? Oxide.LocationBarController.ModeAuto
+                             : Oxide.LocationBarController.ModeShown
         }
     }
 

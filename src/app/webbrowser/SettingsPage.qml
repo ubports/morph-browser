@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -109,25 +109,6 @@ Item {
                     target: restoreSessionCheckbox
                     property: "checked"
                     value: settingsObject.restoreSession
-                }
-            }
-
-            ListItems.Standard {
-                objectName: "backgroundTabs"
-
-                text: i18n.tr("Allow opening new tabs in background")
-                highlightWhenPressed: false
-
-                control: CheckBox {
-                    id: allowOpenInBackgroundTabCheckbox
-                    onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
-                }
-
-                Binding {
-                    target: allowOpenInBackgroundTabCheckbox
-                    property: "checked"
-                    value: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                           (settingsObject.allowOpenInBackgroundTab === 'default' && formFactor === "desktop")
                 }
             }
 

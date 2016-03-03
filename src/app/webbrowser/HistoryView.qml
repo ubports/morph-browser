@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "." as Local
 
-Item {
+FocusScope {
     id: historyView
 
     signal seeMoreEntriesClicked(var model)
@@ -48,12 +48,14 @@ Item {
         id: domainsListView
         objectName: "domainsListView"
 
+        focus: true
+        currentIndex: 0
+
         anchors {
             top: topBar.bottom
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            rightMargin: units.gu(2)
         }
 
         model: SortFilterModel {
@@ -77,6 +79,8 @@ Item {
             width: parent.width
             height: units.gu(5)
 
+            readonly property int modelIndex: index
+
             title: model.domain
             url: lastVisitedTitle
             icon: model.lastVisitedIcon
@@ -96,6 +100,12 @@ Item {
                 }
             }
         }
+
+        highlight: ListViewHighlight {}
+
+        Keys.onEnterPressed: currentItem.clicked()
+        Keys.onReturnPressed: currentItem.clicked()
+        Keys.onDeletePressed: currentItem.removed()
     }
 
     Local.Toolbar {

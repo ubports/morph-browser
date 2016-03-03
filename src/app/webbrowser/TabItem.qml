@@ -37,6 +37,8 @@ Item {
 
     property color fgColor: Theme.palette.normal.baseText
 
+    property bool touchEnabled: true
+
     signal selected()
     signal closed()
     signal contextMenu()
@@ -47,7 +49,7 @@ Item {
         anchors.rightMargin: tabItem.rightMargin
         source: "assets/tab-%1%2.sci".arg((active) ? "active" :
                                           (hoverArea.containsMouse ? "hover" : "non-active"))
-                                     .arg(formFactor == "desktop" ? "-desktop" : "")
+                                     .arg(touchEnabled ? "" : "-desktop")
 
         Favicon {
             id: favicon
@@ -121,15 +123,14 @@ Item {
             id: closeButton
             objectName: "closeButton"
 
-            // On mobile the tap area to close the tab occupies the whole right
+            // On touch the tap area to close the tab occupies the whole right
             // hand side of the tab, while it covers only the close icon in
             // other form factors
-            readonly property bool mobile: formFactor == "mobile"
-            anchors.fill: mobile ? undefined : closeIcon
-            anchors.top: mobile ? parent.top : undefined
-            anchors.bottom: mobile ? parent.bottom : undefined
-            anchors.right: mobile ? parent.right : undefined
-            width: mobile ? units.gu(4) : closeIcon.width
+            anchors.fill: touchEnabled ? undefined : closeIcon
+            anchors.top: touchEnabled ? parent.top : undefined
+            anchors.bottom: touchEnabled ? parent.bottom : undefined
+            anchors.right: touchEnabled ? parent.right : undefined
+            width: touchEnabled ? units.gu(4) : closeIcon.width
 
             onClicked: closed()
 
