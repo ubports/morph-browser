@@ -151,8 +151,9 @@ Oxide.WebView {
         visible: _webview.touchSelectionController.active
         aspect: UbuntuShape.DropShadow
         backgroundColor: "white"
-        width: childrenRect.width + units.gu(2)
-        height: units.gu(6)
+        readonly property int padding: units.gu(1)
+        width: touchSelectionActionsRow.width + padding * 2
+        height: childrenRect.height + padding * 2
 
         readonly property rect bounds: _webview.touchSelectionController.bounds
         readonly property real handleHeight: units.gu(1.5)
@@ -166,77 +167,64 @@ Oxide.WebView {
                      : fitsAbove ? (bounds.y - spacing - height)
                                  : bounds.y + (bounds.height - height) / 2
 
-        Row {
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                left: parent.left
-                margins: units.gu(1)
+        ActionList {
+            id: touchSelectionActions
+            Action {
+                text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
+                iconName: "edit-select-all"
+                enabled: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
             }
-            spacing: units.gu(1)
+            Action {
+                text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
+                iconName: "edit-cut"
+                enabled: _webview.editingCapabilities & Oxide.WebView.CutCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+            }
+            Action {
+                text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
+                iconName: "edit-copy"
+                enabled: _webview.editingCapabilities & Oxide.WebView.CopyCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+            }
+            Action {
+                text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
+                iconName: "edit-paste"
+                enabled: _webview.editingCapabilities & Oxide.WebView.PasteCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+            }
+        }
+
+        Row {
+            id: touchSelectionActionsRow
+            x: parent.padding
+            y: parent.padding
             width: {
                 // work around what seems to be a bug in Row’s childrenRect.width
                 var w = 0
                 for (var i in visibleChildren) {
-                    w += visibleChildren[i].width + spacing
+                    w += visibleChildren[i].width
                 }
-                return w - spacing
+                return w
             }
-            AbstractButton {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
+            height: units.gu(6)
+
+            Repeater {
+                model: touchSelectionActions.actions.length
+                AbstractButton {
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: Math.max(units.gu(5), implicitWidth) + units.gu(2)
+                    action: touchSelectionActions.actions[modelData]
+                    styleName: "ToolbarButtonStyle"
+                    activeFocusOnPress: false
                 }
-                width: visible ? height : 0
-                Icon {
-                    anchors.fill: parent
-                    name: "edit-cut"
-                }
-                activeFocusOnPress: false
-                visible: _webview.editingCapabilities & Oxide.WebView.CutCapability
-                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
-            }
-            AbstractButton {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: visible ? height : 0
-                Icon {
-                    anchors.fill: parent
-                    name: "edit-copy"
-                }
-                activeFocusOnPress: false
-                visible: _webview.editingCapabilities & Oxide.WebView.CopyCapability
-                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
-            }
-            AbstractButton {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: visible ? height : 0
-                Icon {
-                    anchors.fill: parent
-                    name: "edit-paste"
-                }
-                activeFocusOnPress: false
-                visible: _webview.editingCapabilities & Oxide.WebView.PasteCapability
-                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
-            }
-            AbstractButton {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: visible ? height : 0
-                Icon {
-                    anchors.fill: parent
-                    name: "edit-select-all"
-                }
-                activeFocusOnPress: false
-                visible: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
-                onClicked: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
             }
         }
     }
