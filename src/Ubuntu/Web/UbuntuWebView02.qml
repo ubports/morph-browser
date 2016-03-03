@@ -165,7 +165,7 @@ Oxide.WebView {
             ? xCentered : (xCentered < 0) ? 0 : _webview.width - width
         y: fitsBelow ? (bounds.y + bounds.height + handleHeight + spacing)
                      : fitsAbove ? (bounds.y - spacing - height)
-                                 : bounds.y + (bounds.height - height) / 2
+                                 : (_webview.height + _webview.locationBarController.height + _webview.locationBarController.offset - height) / 2
 
         ActionList {
             id: touchSelectionActions
@@ -173,28 +173,28 @@ Oxide.WebView {
                 text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
                 iconName: "edit-select-all"
                 enabled: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
-                visible: enabled
+                visible: enabled
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
             }
             Action {
                 text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
                 iconName: "edit-cut"
                 enabled: _webview.editingCapabilities & Oxide.WebView.CutCapability
-                visible: enabled
+                visible: enabled
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
             }
             Action {
                 text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
                 iconName: "edit-copy"
                 enabled: _webview.editingCapabilities & Oxide.WebView.CopyCapability
-                visible: enabled
+                visible: enabled
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
             }
             Action {
                 text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
                 iconName: "edit-paste"
                 enabled: _webview.editingCapabilities & Oxide.WebView.PasteCapability
-                visible: enabled
+                visible: enabled
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
             }
         }
