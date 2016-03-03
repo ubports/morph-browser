@@ -306,19 +306,9 @@ FocusScope {
                     title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms)
                     url: Highlight.highlightTerms(model.url, searchQuery.terms)
 
-                    headerComponent: Component {
-                        Item {
-                            objectName: "historySectionDelegate"
-                            height: units.gu(3)
-                            width: timeLabel.width
-
-                            Label {
-                                id: timeLabel
-                                anchors.centerIn: parent
-                                text: Qt.formatTime(model.lastVisit)
-                                fontSize: "xx-small"
-                            }
-                        }
+                    headerComponent: Label {
+                        text: Qt.formatTime(model.lastVisit)
+                        fontSize: "xx-small"
                     }
 
                     onClicked: {

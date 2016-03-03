@@ -508,30 +508,25 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(BrowserPageHeader)
 
     def get_searchengine_entry(self):
-        return self.select_single("Subtitled", objectName="searchengine")
+        return self.select_single(objectName="searchengine")
 
     def get_searchengine_page(self):
-        return self.wait_select_single("QQuickItem",
-                                       objectName="searchEnginePage")
+        return self.wait_select_single(objectName="searchEnginePage")
 
     def get_homepage_entry(self):
-        return self.select_single("Subtitled", objectName="homepage")
+        return self.select_single(objectName="homepage")
 
     def get_restore_session_entry(self):
-        return self.select_single("Standard", objectName="restoreSession")
-
-    def get_background_tabs_entry(self):
-        return self.select_single("Standard", objectName="backgroundTabs")
+        return self.select_single(objectName="restoreSession")
 
     def get_privacy_entry(self):
-        return self.select_single("Standard", objectName="privacy")
+        return self.select_single(objectName="privacy")
 
     def get_privacy_page(self):
-        return self.wait_select_single("QQuickItem",
-                                       objectName="privacySettings")
+        return self.wait_select_single(objectName="privacySettings")
 
     def get_reset_settings_entry(self):
-        return self.select_single("Standard", objectName="reset")
+        return self.select_single(objectName="reset")
 
 
 class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
