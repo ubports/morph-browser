@@ -159,7 +159,9 @@ Oxide.WebView {
         readonly property real spacing: units.gu(1)
         readonly property bool fitsBelow: (bounds.y + bounds.height + handleHeight + spacing + height) <= _webview.height
         readonly property bool fitsAbove: (bounds.y - spacing - height) >= (_webview.locationBarController.height + _webview.locationBarController.offset)
-        x: bounds.x + (bounds.width - width) / 2
+        readonly property real xCentered: bounds.x + (bounds.width - width) / 2
+        x: ((xCentered >= 0) && ((xCentered + width) <= _webview.width))
+            ? xCentered : (xCentered < 0) ? 0 : _webview.width - width
         y: fitsBelow ? (bounds.y + bounds.height + handleHeight + spacing)
                      : fitsAbove ? (bounds.y - spacing - height)
                                  : bounds.y + (bounds.height - height) / 2
