@@ -137,8 +137,8 @@ Section: doc
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
-Breaks: qtdeclarative5-ubuntu-web-plugin (<< ${source:Version})
-Replaces: qtdeclarative5-ubuntu-web-plugin (<< ${source:Version})
+Breaks: qtdeclarative5-ubuntu-web-plugin-doc (<< ${source:Version})
+Replaces: qtdeclarative5-ubuntu-web-plugin-doc (<< ${source:Version})
 Description: Ubuntu web QML module HTML documentation
  A standalone QML module that contains the WebView component,
  in the Ubuntu.Web namespace. This package contains the public
