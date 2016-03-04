@@ -18,6 +18,7 @@
 import http.server as http
 import logging
 import threading
+import urllib
 
 
 class RequestHandler(http.BaseHTTPRequestHandler):
@@ -66,7 +67,7 @@ This is some {} content
 </html>
         """
 
-    def targetted_click_content(self):
+    def external_href_with_link_content(self, path="open-close-content"):
         return """
 <html>
 <head>
@@ -74,14 +75,14 @@ This is some {} content
 </head>
 <body>
 <div>
-<a href="/open-close-content" target="_blank">
+<a href="/{}" target="_blank">
 <div style="height: 100%; width: 100%">
 </div>
 </a>
 </div>
 </body>
 </html>
-        """
+        """.format(path)
 
     def display_ua_content(self):
         return """
@@ -213,7 +214,7 @@ window.onload = function() {{
             self.serve_content(html)
         elif self.path == '/with-targetted-link':
             self.send_response(200)
-            self.serve_content(self.targetted_click_content())
+            self.serve_content(self.external_href_with_link_content())
         elif self.path == '/show-user-agent':
             self.send_response(200)
             self.serve_content(self.display_ua_content())
@@ -255,6 +256,10 @@ window.onload = function() {{
             self.send_response(302)
             self.send_header("Location", locationTarget)
             self.end_headers()
+        elif self.path.startswith('/with-overlay-link'):
+            qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            self.send_response(200)
+            self.serve_content(self.external_href_with_link_content(qs['path'][0]))
         else:
             self.send_error(404)
 

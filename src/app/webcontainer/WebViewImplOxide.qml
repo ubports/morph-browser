@@ -87,6 +87,8 @@ WebappWebview {
         }
     ]
 
+    onOpenUrlExternallyRequested: openUrlExternally(url)
+
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
     preferences.localStorageEnabled: true

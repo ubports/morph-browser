@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -29,6 +29,8 @@ WebViewImpl {
 
     property bool wide: false
 
+    signal openUrlExternallyRequested(string url)
+
     filePicker: filePickerLoader.item
 
     property QtObject contextModel: null
@@ -36,7 +38,7 @@ WebViewImpl {
         Actions.OpenLinkInWebBrowser {
             objectName: "OpenLinkInWebBrowser"
             enabled: contextModel && contextModel.linkUrl.toString()
-            onTriggered: openUrlExternally(contextModel.linkUrl)
+            onTriggered: openUrlExternallyRequested(contextModel.linkUrl)
         }
         Actions.CopyLink {
             enabled: contextModel && contextModel.linkUrl.toString()

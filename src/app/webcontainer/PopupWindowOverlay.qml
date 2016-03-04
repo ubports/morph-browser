@@ -166,6 +166,12 @@ Item {
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
 
+        onOpenUrlExternallyRequested: {
+            if (popupWindowController) {
+               popupWindowController.openUrlExternally(url)
+            }
+        }
+
         anchors {
             bottom: parent.bottom
             left: parent.left
