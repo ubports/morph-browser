@@ -34,6 +34,9 @@ obj-*
 debian/usr.bin.webbrowser-app
 debian/files
 debian/tmp/
+debian/qml-module-ubuntu-ui-extras-browser/
+debian/qml-module-ubuntu-web/
+debian/qml-module-ubuntu-web-doc/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin/
 debian/qtdeclarative5-ubuntu-web-plugin/
 debian/qtdeclarative5-ubuntu-web-plugin-doc/
@@ -41,6 +44,7 @@ debian/webapp-container/
 debian/webapp-container-autopilot/
 debian/webbrowser-app/
 debian/webbrowser-app-autopilot/
+debian/debhelper-build-stamp
 debian/*.debhelper
 debian/*.debhelper.log
 debian/*.substvars

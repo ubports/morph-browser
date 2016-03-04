@@ -1,0 +1,3 @@
+qml-module-ubuntu-web: pkg-has-shlibs-control-file-but-no-actual-shared-libs
+qml-module-ubuntu-web: postinst-has-useless-call-to-ldconfig
+qml-module-ubuntu-web: postrm-has-useless-call-to-ldconfig
