@@ -215,6 +215,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
                 "}, function() { location.href = '/test1' } " +
                 ", function() { location.href = '/test2' })</script>"
             )
+        elif self.path == "/super":
+            self.send_response(200)
+            html = '<html><body><div style="position: fixed; top: 50%; left: '
+            html += '50%; transform: translate(-50%, -50%); font-size: 500%">'
+            html += 'Supercalifragilisticexpialidocious</div></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 

@@ -139,6 +139,8 @@ Oxide.WebView {
     }
 
     touchSelectionController.handle: Image {
+        objectName: "touchSelectionHandle"
+        readonly property int handleOrientation: orientation
         width: units.gu(1.5)
         height: units.gu(1.5)
         source: "handle.png"
@@ -146,6 +148,7 @@ Oxide.WebView {
     }
 
     UbuntuShape {
+        objectName: "touchSelectionActions"
         // FIXME: hide contextual actions while resizing the
         // selection (needs an additional API in oxide?)
         visible: _webview.touchSelectionController.active
@@ -216,6 +219,7 @@ Oxide.WebView {
             Repeater {
                 model: touchSelectionActions.actions.length
                 AbstractButton {
+                    objectName: "touchSelectionActionButton"
                     anchors {
                         top: parent.top
                         bottom: parent.bottom
