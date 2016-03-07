@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -137,6 +137,7 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
         self.menu.click_action("CopyImageContextualAction")
 
 
+@testtools.skipIf(model() != "Desktop", "on desktop only")
 class TestContextMenuTextArea(TestContextMenuBase):
 
     def setUp(self):
