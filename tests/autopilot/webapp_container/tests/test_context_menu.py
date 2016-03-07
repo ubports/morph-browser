@@ -130,7 +130,8 @@ class TestContextMenuBase(WebappContainerTestCaseWithLocalContentBase):
             lambda: animation_watcher.num_emissions,
             Eventually(GreaterThan(animation_signal_emission)))
 
-        self.webview = self.get_popup_overlay_views()[0].select_single(objectName="overlayWebview")
+        self.webview = self.get_popup_overlay_views()[0].select_single(
+            objectName="overlayWebview")
         self.menu = self._open_context_menu(self.webview)
 
     def _setup_webview_context_menu(self, path):
@@ -328,10 +329,10 @@ class TestContextMenuTextAreaMainWebView(TestContextMenuTextArea):
 
 class TestContextMenuTextAreaOverlayWebView(TestContextMenuTextArea):
 
-     def setUp(self):
-         super(TestContextMenuTextAreaOverlayWebView, self).setUp()
-         self._setup_overlay_webview_context_menu("textarea")
-         self.assertThat(self.menu.get_title_label().visible, Equals(False))
+    def setUp(self):
+        super(TestContextMenuTextAreaOverlayWebView, self).setUp()
+        self._setup_overlay_webview_context_menu("textarea")
+        self.assertThat(self.menu.get_title_label().visible, Equals(False))
 
-     def test_actions(self):
-         self._test_actions()
+    def test_actions(self):
+        self._test_actions()

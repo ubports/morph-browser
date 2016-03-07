@@ -259,7 +259,8 @@ window.onload = function() {{
         elif self.path.startswith('/with-overlay-link'):
             qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             self.send_response(200)
-            self.serve_content(self.external_href_with_link_content(qs['path'][0]))
+            self.serve_content(
+                self.external_href_with_link_content(qs['path'][0]))
         else:
             self.send_error(404)
 
