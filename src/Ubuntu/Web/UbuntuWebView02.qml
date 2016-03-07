@@ -173,6 +173,7 @@ Oxide.WebView {
         ActionList {
             id: touchSelectionActions
             Action {
+                name: "selectall"
                 text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
                 iconName: "edit-select-all"
                 enabled: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
@@ -180,6 +181,7 @@ Oxide.WebView {
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
             }
             Action {
+                name: "cut"
                 text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
                 iconName: "edit-cut"
                 enabled: _webview.editingCapabilities & Oxide.WebView.CutCapability
@@ -187,6 +189,7 @@ Oxide.WebView {
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
             }
             Action {
+                name: "copy"
                 text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
                 iconName: "edit-copy"
                 enabled: _webview.editingCapabilities & Oxide.WebView.CopyCapability
@@ -194,6 +197,7 @@ Oxide.WebView {
                 onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
             }
             Action {
+                name: "paste"
                 text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
                 iconName: "edit-paste"
                 enabled: _webview.editingCapabilities & Oxide.WebView.PasteCapability
@@ -219,7 +223,7 @@ Oxide.WebView {
             Repeater {
                 model: touchSelectionActions.actions.length
                 AbstractButton {
-                    objectName: "touchSelectionActionButton"
+                    objectName: "touchSelectionAction_" + action.name
                     anchors {
                         top: parent.top
                         bottom: parent.bottom

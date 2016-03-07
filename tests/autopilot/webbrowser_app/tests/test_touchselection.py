@@ -22,11 +22,12 @@ import time
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-@testtools.skipIf(model() == "Desktop", "on devices only")
-class TestTouchSelection(StartOpenRemotePageTestCaseBase):
+class TestTouchSelectionBase(StartOpenRemotePageTestCaseBase):
 
-    def setUp(self):
-        super(TestTouchSelection, self).setUp(path="/super")
+    def get_actions(self):
+        webview = self.main_window.get_current_webview()
+        return webview.wait_select_single(objectName="touchSelectionActions",
+                                          visible=True)
 
     def long_press_webview(self):
         webview = self.main_window.get_current_webview()
@@ -38,22 +39,63 @@ class TestTouchSelection(StartOpenRemotePageTestCaseBase):
         self.pointing_device.press()
         time.sleep(1.5)
         self.pointing_device.release()
-        return webview.wait_select_single(objectName="touchSelectionActions",
-                                          visible=True)
+        return self.get_actions()
 
-    def test_touch_selection(self):
-        actions = self.long_press_webview()
-        buttons = actions.select_many(objectName="touchSelectionActionButton",
-                                      visible=True)
-        # "Select All" & "Copy"
-        self.assertThat(len(buttons), Equals(2))
+    def get_visible_actions(self, actions):
+        return actions.select_many(styleName="ToolbarButtonStyle",
+                                   visible=True)
 
+    def get_handles(self):
         webview = self.main_window.get_current_webview()
         handles = webview.select_many(objectName="touchSelectionHandle",
                                       visible=True)
-        self.assertThat(len(handles), Equals(2))
         handles.sort(key=lambda handle: handle.globalRect.x)
+        return handles
+
+
+@testtools.skipIf(model() == "Desktop", "on devices only")
+class TestTouchSelection(TestTouchSelectionBase):
+
+    def setUp(self):
+        super(TestTouchSelection, self).setUp(path="/super")
+
+    def test_touch_selection(self):
+        actions = self.long_press_webview()
+        self.assertThat(len(self.get_visible_actions(actions)), Equals(2))
+        actions.select_single(objectName="touchSelectionAction_selectall",
+                              visible=True)
+        actions.select_single(objectName="touchSelectionAction_copy",
+                              visible=True)
+
+        handles = self.get_handles()
+        self.assertThat(len(handles), Equals(2))
         left = 0  # Oxide.TouchSelectionController.HandleOrientationLeft
         self.assertThat(handles[0].handleOrientation, Equals(left))
         right = 2  # Oxide.TouchSelectionController.HandleOrientationRight
         self.assertThat(handles[1].handleOrientation, Equals(right))
+
+
+@testtools.skipIf(model() == "Desktop", "on devices only")
+class TestTouchInsertion(TestTouchSelectionBase):
+
+    def setUp(self):
+        super(TestTouchInsertion, self).setUp(path="/textarea")
+
+    def test_touch_insertion(self):
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        actions = self.get_actions()
+        self.assertThat(len(self.get_visible_actions(actions)), Equals(2))
+        actions.select_single(objectName="touchSelectionAction_selectall",
+                              visible=True)
+        actions.select_single(objectName="touchSelectionAction_paste",
+                              visible=True)
+
+        handles = self.get_handles()
+        self.assertThat(len(handles), Equals(1))
+        center = 1  # Oxide.TouchSelectionController.HandleOrientationCenter
+        self.assertThat(handles[0].handleOrientation, Equals(center))
+
+
+# TODO: add tests for selection resizing, and activation of the contextual
+# actions (verifying the contents of the clipboard is a complex task).
