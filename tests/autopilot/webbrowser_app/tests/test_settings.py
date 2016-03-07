@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -20,7 +20,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from testtools.matchers import Equals, GreaterThan, NotEquals
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 
 import ubuntuuitoolkit as uitk
 
@@ -45,7 +44,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
     def test_open_close_searchengine_page(self):
         settings = self.open_settings()
         searchengine = settings.get_searchengine_entry()
-        old_engine = searchengine.subText
+        old_engine = searchengine.currentSearchEngineDisplayName
         self.assertThat(old_engine, NotEquals(""))
         self.pointing_device.click_object(searchengine)
         searchengine_page = settings.get_searchengine_page()
@@ -53,18 +52,21 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
             browser.BrowserPageHeader)
         searchengine_header.click_back_button()
         searchengine_page.wait_until_destroyed()
-        self.assertThat(searchengine.subText, Equals(old_engine))
+        self.assertThat(searchengine.currentSearchEngineDisplayName,
+                        Equals(old_engine))
 
     def test_change_searchengine(self):
         settings = self.open_settings()
         searchengine = settings.get_searchengine_entry()
-        old_engine = searchengine.subText
+        old_engine = searchengine.currentSearchEngineDisplayName
         self.assertThat(old_engine, NotEquals(""))
         self.pointing_device.click_object(searchengine)
         searchengine_page = settings.get_searchengine_page()
-        self.assertThat(lambda: len(searchengine_page.select_many("Standard")),
-                        Eventually(GreaterThan(1)))
-        delegates = searchengine_page.select_many("Standard")
+        self.assertThat(lambda: len(searchengine_page.select_many(
+            objectName="searchEngineDelegate")),
+            Eventually(GreaterThan(1)))
+        delegates = searchengine_page.select_many(
+            objectName="searchEngineDelegate")
         delegates.sort(key=lambda delegate: delegate.objectName)
         new_index = -1
         for (i, delegate) in enumerate(delegates):
@@ -72,18 +74,19 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
             if (new_index == -1) and not checkbox.checked:
                 new_index = i
             self.assertThat(checkbox.checked,
-                            Equals(delegate.text == old_engine))
-        new_engine = delegates[new_index].text
+                            Equals(delegate.displayName == old_engine))
+        new_engine = delegates[new_index].displayName
         self.assertThat(new_engine, NotEquals(old_engine))
         self.pointing_device.click_object(
             delegates[new_index].select_single(uitk.CheckBox))
         searchengine_page.wait_until_destroyed()
-        self.assertThat(searchengine.subText, Eventually(Equals(new_engine)))
+        self.assertThat(searchengine.currentSearchEngineDisplayName,
+                        Eventually(Equals(new_engine)))
 
     def test_change_homepage(self):
         settings = self.open_settings()
         homepage = settings.get_homepage_entry()
-        old = homepage.subText
+        old = homepage.currentHomepage
         self.assertThat(old, NotEquals(""))
 
         # First test cancelling the edition
@@ -97,7 +100,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
             objectName="homepageDialog.cancelButton")
         self.pointing_device.click_object(cancel_button)
         dialog.wait_until_destroyed()
-        self.assertThat(homepage.subText, Equals(old))
+        self.assertThat(homepage.currentHomepage, Equals(old))
 
         # Then test actually changing the homepage
         self.pointing_device.click_object(homepage)
@@ -113,7 +116,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
             objectName="homepageDialog.saveButton")
         self.pointing_device.click_object(save_button)
         dialog.wait_until_destroyed()
-        self.assertThat(homepage.subText, Eventually(Equals(new)))
+        self.assertThat(homepage.currentHomepage, Eventually(Equals(new)))
 
     def test_open_close_privacy_settings(self):
         settings = self.open_settings()
@@ -130,7 +133,6 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(privacy)
         privacy_page = settings.get_privacy_page()
         clear_history = privacy_page.select_single(
-            "Standard",
             objectName="privacy.clearHistory")
         self.assertThat(clear_history.enabled, Equals(True))
 
@@ -158,7 +160,6 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(privacy)
         privacy_page = settings.get_privacy_page()
         clear_cache = privacy_page.select_single(
-            "Standard",
             objectName="privacy.clearCache")
         self.assertThat(clear_cache.enabled, Equals(True))
 
@@ -186,18 +187,13 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(reset)
 
         searchengine = settings.get_searchengine_entry()
-        self.assertThat(searchengine.subText,
+        self.assertThat(searchengine.currentSearchEngineDisplayName,
                         Eventually(Equals("Google")))
 
         homepage = settings.get_homepage_entry()
-        self.assertThat(homepage.subText,
+        self.assertThat(homepage.currentHomepage,
                         Eventually(Equals("http://start.ubuntu.com")))
 
         restore_session = settings.get_restore_session_entry()
         checkbox = restore_session.select_single(uitk.CheckBox)
         self.assertThat(checkbox.checked, Eventually(Equals(True)))
-
-        background_tabs = settings.get_background_tabs_entry()
-        checkbox = background_tabs.select_single(uitk.CheckBox)
-        self.assertThat(checkbox.checked,
-                        Eventually(Equals(model() == 'Desktop')))

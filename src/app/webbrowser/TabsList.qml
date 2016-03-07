@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -50,7 +50,7 @@ Item {
             right: parent.right
         }
         height: invisibleTabChrome.height
-        color: "#fbfbfb"
+        color: "#111111"
     }
 
     Flickable {

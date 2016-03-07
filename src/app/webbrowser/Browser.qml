@@ -769,6 +769,9 @@ BrowserView {
                  (osk.state == "hidden") && (recentView.state == "")
         visible: enabled
         height: visible ? units.gu(4) : 0
+        // Ensure that this ends up below the chrome, so that the
+        // drawer menu’s inverse mouse area covers it.
+        z: -1
 
         onClicked: {
             recentView.state = "shown"
@@ -1263,18 +1266,45 @@ BrowserView {
                     }
                 }
 
+                QtObject {
+                    id: webviewInternal
+                    property url storedUrl: ""
+                    property bool titleSet: false
+                    property string title: ""
+                }
                 onLoadEvent: {
                     if (event.type == Oxide.LoadEvent.TypeCommitted) {
                         chrome.findInPageMode = false
+                        webviewInternal.titleSet = false
+                        webviewInternal.title = title
                     }
 
                     if (webviewimpl.incognito) {
                         return
                     }
 
-                    if (event.type == Oxide.LoadEvent.TypeSucceeded &&
-                        300 > event.httpStatusCode && event.httpStatusCode >= 200) {
+                    if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
+                        !event.isError &&
+                        (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
+                        webviewInternal.storedUrl = event.url
                         HistoryModel.add(event.url, title, icon)
+                    }
+                }
+                onTitleChanged: {
+                    if (!webviewInternal.titleSet && webviewInternal.storedUrl.toString()) {
+                        // Record the title to avoid updating the history database
+                        // every time the page dynamically updates its title.
+                        // We don’t want pages that update their title every second
+                        // to achieve an ugly "scrolling title" effect to flood the
+                        // history database with updates.
+                        webviewInternal.titleSet = true
+                        webviewInternal.title = title
+                        HistoryModel.update(webviewInternal.storedUrl, title, icon)
+                    }
+                }
+                onIconChanged: {
+                    if (webviewInternal.storedUrl.toString()) {
+                        HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, icon)
                     }
                 }
 
