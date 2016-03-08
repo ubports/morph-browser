@@ -16,7 +16,7 @@
 
 from autopilot.platform import model
 import testtools
-from testtools.matchers import Equals
+from testtools.matchers import Equals, MatchesAny
 import time
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -85,11 +85,13 @@ class TestTouchInsertion(TestTouchSelectionBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         actions = self.get_actions()
-        self.assertThat(len(self.get_visible_actions(actions)), Equals(2))
+        self.assertThat(len(self.get_visible_actions(actions)),
+                        MatchesAny(Equals(1), Equals(2)))
         actions.select_single(objectName="touchSelectionAction_selectall",
                               visible=True)
-        actions.select_single(objectName="touchSelectionAction_paste",
-                              visible=True)
+        if len(self.get_visible_actions(actions)) == 2:
+            actions.select_single(objectName="touchSelectionAction_paste",
+                                  visible=True)
 
         handles = self.get_handles()
         self.assertThat(len(handles), Equals(1))
