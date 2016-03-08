@@ -151,7 +151,7 @@ Oxide.WebView {
         objectName: "touchSelectionActions"
         // FIXME: hide contextual actions while resizing the
         // selection (needs an additional API in oxide?)
-        visible: _webview.touchSelectionController.active
+        visible: _webview.activeFocus && _webview.touchSelectionController.active
         aspect: UbuntuShape.DropShadow
         backgroundColor: "white"
         readonly property int padding: units.gu(1)
