@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import ".."
 
 Item {
@@ -30,7 +31,8 @@ Item {
     property alias currentWebview: popupWebview
     property alias request: popupWebview.request
     property alias url: popupWebview.url
-    
+    property var mediaAccessDialogComponent
+
     signal webviewUrlChanged(url webviewUrl)
 
     Rectangle {
@@ -164,6 +166,19 @@ Item {
         context: webContext
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
+
+
+        Connections {
+            target: popupWebview.visible ? popupWebview : null
+
+            /**
+             * We are only connecting to the mediaAccessPermission signal is we are current
+             * visible overlay.
+             *
+             * See the browser's webbrowser/Browser.qml source for additional comments.
+             */
+            onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+        }
 
         anchors {
             bottom: parent.bottom

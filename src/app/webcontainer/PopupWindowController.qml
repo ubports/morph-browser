@@ -29,6 +29,7 @@ Item {
     property var mainWebappView
     property var views: []
     property bool blockOpenExternalUrls: false
+    property var mediaAccessDialogComponent
 
     // Used to access runtime behavior during tests
     signal openExternalUrlTriggered(string url)
@@ -196,7 +197,9 @@ Item {
         createPopupView(parentView,
                         { request: request,
                           webContext: context,
-                          popupWindowController: controller },
+                          popupWindowController: controller,
+                          mediaAccessDialogComponent: mediaAccessDialogComponent
+                        },
                         isRequestFromMainWebappWebview,
                         context)
     }
@@ -207,7 +210,9 @@ Item {
         createPopupView(parentView,
                         { url: overlayUrl,
                           webContext: context,
-                          popupWindowController: controller },
+                          popupWindowController: controller,
+                          mediaAccessDialogComponent: mediaAccessDialogComponent
+                        },
                         isRequestFromMainWebappWebview,
                         context)
     }

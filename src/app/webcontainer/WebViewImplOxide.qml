@@ -38,6 +38,7 @@ WebViewImpl {
     property var popupController
     property var overlayViewsParent: webview.parent
     property bool wide: false
+    property var mediaAccessDialogComponent
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -197,6 +198,20 @@ WebViewImpl {
         }
     }
     contextMenu: webview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+
+    Connections {
+        target: webview.visible ? webview : null
+
+        /**
+         * We are only connecting to the mediaAccessPermission signal is we are current
+         * the only view visible (no overlay present). In the case of an overlay,
+         * the absence of a signal handler in the main view, oxide's default behavior
+         * is triggered and the request is denied.
+         *
+         * See the browser's webbrowser/Browser.qml source for additional comments.
+         */
+        onMediaAccessPermissionRequested:PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication
