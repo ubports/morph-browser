@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3 as Popups
 import Ubuntu.Content 1.3
 import "../MimeTypeMapper.js" as MimeTypeMapper
+import ".."
 
 Component {
     Popups.PopupBase {
