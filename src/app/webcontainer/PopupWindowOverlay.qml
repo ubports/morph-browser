@@ -32,6 +32,7 @@ Item {
     property alias request: popupWebview.request
     property alias url: popupWebview.url
     property var mediaAccessDialogComponent
+    property alias wide: popupWebview.wide
 
     signal webviewUrlChanged(url webviewUrl)
 
@@ -158,7 +159,7 @@ Item {
         }
     }
 
-    WebViewImpl {
+    WebappWebview {
         id: popupWebview
 
         objectName: "overlayWebview"
@@ -166,7 +167,6 @@ Item {
         context: webContext
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
-
 
         Connections {
             target: popupWebview.visible ? popupWebview : null
@@ -178,6 +178,12 @@ Item {
              * See the browser's webbrowser/Browser.qml source for additional comments.
              */
             onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+        }
+
+        onOpenUrlExternallyRequested: {
+            if (popupWindowController) {
+               popupWindowController.openUrlExternally(url)
+            }
         }
 
         anchors {

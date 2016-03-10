@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
+import ".."
 
 Component {
     PopupBase {

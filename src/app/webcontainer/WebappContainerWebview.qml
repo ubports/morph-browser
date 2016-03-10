@@ -44,7 +44,12 @@ Item {
     signal samlRequestUrlPatternReceived(string urlPattern)
     signal themeColorMetaInformationDetected(string theme_color)
 
-    onWideChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.wide = wide
+    onWideChanged: {
+        if (webappContainerWebViewLoader.item
+                && webappContainerWebViewLoader.item.wide !== undefined) {
+            webappContainerWebViewLoader.item.wide = wide
+        }
+    }
 
     Component {
         id: mediaAccessDialogComponent
@@ -60,6 +65,7 @@ Item {
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
         mediaAccessDialogComponent: mediaAccessDialogComponent
+        wide: containerWebview.wide
         onInitializeOverlayViewsWithUrls: {
             if (webappContainerWebViewLoader.item) {
                 for (var i in urls) {

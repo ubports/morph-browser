@@ -15,11 +15,19 @@
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
-from testtools.matchers import Equals
+from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
 
 class TestMediaPermission(WebappContainerTestCaseWithLocalContentBase):
+    def _click_window_open(self):
+        webview = self.get_oxide_webview()
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + webview.width*3/4,
+            gr.y + webview.height*3/4)
+        self.pointing_device.click()
+
     def test_access_media_from_main_view(self):
         args = []
         self.launch_webcontainer_app_with_local_http_server(
@@ -27,5 +35,30 @@ class TestMediaPermission(WebappContainerTestCaseWithLocalContentBase):
             '/media-access')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        chrome_base = self.app.wait_select_single(
+        self.app.wait_select_single(
+            objectName="mediaAccessDialog")
+
+    def test_access_media_from_overlay(self):
+        args = []
+        overlay_link = "/with-overlay-link?path=media-access"
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            overlay_link)
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        popup_controller = self.get_popup_controller()
+        animation_watcher = popup_controller.watch_signal(
+            'windowOverlayOpenAnimationDone()')
+        animation_signal_emission = animation_watcher.num_emissions
+
+        self._click_window_open()
+
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(1)))
+        self.assertThat(
+            lambda: animation_watcher.num_emissions,
+            Eventually(GreaterThan(animation_signal_emission)))
+
+        self.app.wait_select_single(
             objectName="mediaAccessDialog")
