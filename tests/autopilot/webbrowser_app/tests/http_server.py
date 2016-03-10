@@ -246,6 +246,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += 'history.pushState(null, null, "/statepushed"); });'
             html += '</script></body></html>'
             self.send_html(html)
+        elif self.path == "/super":
+            self.send_response(200)
+            html = '<html><body><div style="position: fixed; top: 50%; left: '
+            html += '50%; transform: translate(-50%, -50%); font-size: 500%">'
+            html += 'Supercalifragilisticexpialidocious</div></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
