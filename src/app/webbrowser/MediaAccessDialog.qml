@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,20 +24,30 @@ Dialog {
     property var request
     modal: true
 
-    title: request.isForAudio && request.isForVideo ?
-           i18n.tr("Allow this domain to access your camera and microphone?") :
-           (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
-                               : i18n.tr("Allow this domain to access your microphone?"))
+    Label {
+        text: (request.isForAudio && request.isForVideo)
+                  ? i18n.tr("Allow this domain to access your camera and microphone?")
+                  : (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
+                                        : i18n.tr("Allow this domain to access your microphone?"))
+        wrapMode: Text.Wrap
+    }
 
-    text: request.embedder.toString() !== request.origin.toString() ?
-          internal.textWhenEmbedded : request.origin
+    Label {
+        text: (request.embedder.toString() !== request.origin.toString())
+                  // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+                  ? i18n.tr("%1 (embedded in %2)").arg(request.origin).arg(request.embedder)
+                  : request.origin
+        wrapMode: Text.Wrap
+    }
+
+    Item {
+        // to introduce some vertical spacing between the label above and the row of buttons
+        height: units.dp(1)
+    }
 
     Row {
         id: internal
 
-        // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-        readonly property string textWhenEmbedded: i18n.tr("%1 (embedded in %2)")
-                                                   .arg(request.origin).arg(request.embedder)
         height: units.gu(4)
         spacing: units.gu(2)
         anchors.horizontalCenter: parent.horizontalCenter
