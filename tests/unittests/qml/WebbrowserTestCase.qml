@@ -55,10 +55,7 @@ UbuntuTestCase {
     }
 
     function swipeToDeleteAndConfirm(listitem) {
-        flick(listitem,
-              listitem.width / 10, listitem.height / 2, listitem.width / 2, 0,
-              // work around https://launchpad.net/bugs/1526940 by specifying a non-null delay
-              -1, -1, Qt.LeftButton, Qt.NoModifiers, 1)
+        flick(listitem, listitem.width / 10, listitem.height / 2, listitem.width / 2, 0)
         var confirm = findChild(listitem, "actionbutton_leadingAction.delete")
         clickItem(confirm)
     }
