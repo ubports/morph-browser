@@ -1,3 +1,13 @@
+webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add a touch selection controller. (LP: #1376268, #1551494)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 10 Mar 2016 05:59:53 +0000
+
 webbrowser-app (0.23+16.04.20160307-0ubuntu1) xenial; urgency=medium
 
   * Handle context menu in overlay webviews. (LP: #1533727)
