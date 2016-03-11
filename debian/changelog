@@ -1,3 +1,11 @@
+webbrowser-app (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Activate the Webapp only when we are ready to navigate to the webapp
+    URL (LP: #1507995)
+
+ -- David Barth <david.barth@canonical.com>  Fri, 11 Mar 2016 12:57:01 +0000
+
 webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
