@@ -172,8 +172,9 @@ Item {
             target: popupWebview.visible ? popupWebview : null
 
             /**
-             * We are only connecting to the mediaAccessPermission signal is we are current
-             * visible overlay.
+             * We are only connecting to the mediaAccessPermission signal if we are the currently
+             * visible overlay. If other overlays slide over this one, oxide will deny (by default)
+             * all media access requests for this overlay.
              *
              * See the browser's webbrowser/Browser.qml source for additional comments.
              */

@@ -101,9 +101,9 @@ WebappWebview {
         target: webview.visible ? webview : null
 
         /**
-         * We are only connecting to the mediaAccessPermission signal is we are current
-         * the only view visible (no overlay present). In the case of an overlay,
-         * the absence of a signal handler in the main view, oxide's default behavior
+         * We are only connecting to the mediaAccessPermission signal if we are
+         * the only webview currently visible (no overlay present). In the case of an overlay
+         * and the absence of a signal handler in this main view, oxide's default behavior
          * is triggered and the request is denied.
          *
          * See the browser's webbrowser/Browser.qml source for additional comments.
