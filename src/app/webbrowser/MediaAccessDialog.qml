@@ -25,39 +25,45 @@ Dialog {
     modal: true
 
     Label {
+        elide: Text.ElideRight
+        textSize: Label.Large
+        color: theme.palette.normal.overlayText
+        text: i18n.tr("Permission")
+    }
+
+    Label {
+        color: theme.palette.normal.baseText
+        wrapMode: Text.Wrap
         text: (request.isForAudio && request.isForVideo)
                   ? i18n.tr("Allow this domain to access your camera and microphone?")
                   : (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
                                         : i18n.tr("Allow this domain to access your microphone?"))
-        wrapMode: Text.Wrap
     }
 
     Label {
+        color: theme.palette.normal.baseText
+        wrapMode: Text.Wrap
         text: (request.embedder.toString() !== request.origin.toString())
                   // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
                   ? i18n.tr("%1 (embedded in %2)").arg(request.origin).arg(request.embedder)
                   : request.origin
-        wrapMode: Text.Wrap
     }
 
     Item {
         // to introduce some vertical spacing between the label above and the row of buttons
-        height: units.dp(1)
+        height: units.gu(2)
     }
 
     Row {
-        id: internal
-
         height: units.gu(4)
         spacing: units.gu(2)
-        anchors.horizontalCenter: parent.horizontalCenter
+        layoutDirection: Qt.RightToLeft
 
         Button {
-            id: allowButton
             objectName: "mediaAccessDialog.allowButton"
             text: i18n.tr("Yes")
             color: UbuntuColors.green
-            width: units.gu(14)
+            width: units.gu(10)
             onClicked: {
                 request.allow()
                 hide()
@@ -65,15 +71,22 @@ Dialog {
         }
 
         Button {
-            id: denyButton
             objectName: "mediaAccessDialog.denyButton"
             text: i18n.tr("No")
-            color: UbuntuColors.red
-            width: units.gu(14)
+            color: UbuntuColors.lightGrey
+            width: units.gu(10)
             onClicked: {
                 request.deny()
                 hide()
             }
         }
+    }
+
+    // adjust default dialog visuals to custom design requirements
+    // (should not be needed when updated dialog implementation lands in UITK)
+    Binding {
+        target: __foreground
+        property: "margins"
+        value: units.gu(2)
     }
 }
