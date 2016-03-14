@@ -50,8 +50,16 @@ Dialog {
     }
 
     Item {
-        // to introduce some vertical spacing between the label above and the row of buttons
         height: units.gu(2)
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            height: units.dp(1)
+            color: theme.palette.normal.base
+        }
     }
 
     Row {
