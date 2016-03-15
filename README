@@ -40,6 +40,7 @@ To run the unit tests, you can use the commands below:
 
     $ ctest
 
+
 = Automated UI tests =
 
 webbrowser-app uses autopilot (https://launchpad.net/autopilot) to test its UI.
@@ -57,6 +58,7 @@ You can get a list of all available tests with the following command:
 In order to run the tests in a virtual machine with an environment closer to
 what a user will get in Ubuntu Touch, see the Dep8 tests section.
 
+
 = Code coverage =
 
 To generate a report with detailed code coverage, you need to re-run cmake with
@@ -70,9 +72,10 @@ To generate a report with detailed code coverage, you need to re-run cmake with
 This will generate a coverage report in XML format (coverage.xml) and an
 interactive human-readable report in HTML format (coveragereport/index.html).
 
+
 = Dep8 tests =
 
-Dep8 tests excercise the package "as-installed".
+Dep8 tests exercise the package "as-installed".
 
 Currently, the webbrowser-app has one suite of dep8 tests that uses autopilot
 (https://launchpad.net/autopilot) to test from the point of view of the user.
@@ -96,14 +99,14 @@ place to avoid rebuilding images every time. You can store it in any
 directory you wish. This image is better consumed "fresh", building it daily
 will avoid long updates/upgrades when running the tests.
 
-    $ adt-buildvm-ubuntu-cloud -r vivid -a amd64 -o ~/
+    $ adt-buildvm-ubuntu-cloud -r $(lsb_release -c -s) -a amd64 -o ~/
 
 Then run the tests using adt-run with the qemu virtualization host against
 the current archive.
 
     $ adt-run -B -U --unbuilt-tree . \
       -o ~/adt-browser-test/$(date +%Y-%m-%d-%H-%M) \
-      --- qemu ~/adt-vivid-amd64-cloud.img
+      --- qemu ~/adt-$(lsb_release -c -s)-amd64-cloud.img
 
 The tests can also be run on a local phone.
 
@@ -114,15 +117,11 @@ The tests can also be run on a local phone.
 == Examine the dep8 autopilot results ==
 
 To examine the test results, which are in subunit format, additional tools are
-required.
-
-    $ sudo add-apt-repository ppa:thomir/trv
-    $ sudo apt-get update
-    $ sudo apt-get install trv
-    $ trv
+required, such as trv (https://launchpad.net/trv).
 
 You can find the results file in the directory
 ~/adt-browser-test/$(date +%Y-%m-%d-%H-%M)/artifacts.
+
 
 = Settings =
 
