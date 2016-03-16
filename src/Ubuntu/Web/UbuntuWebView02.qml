@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.9 as Oxide
+import com.canonical.Oxide 1.12 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
@@ -136,6 +136,106 @@ Oxide.WebView {
     onSelectionActionsChanged: console.warn("WARNING: the 'selectionActions' property is deprecated and ignored.")
     function copy() {
         console.warn("WARNING: the copy() function is deprecated and does nothing.")
+    }
+
+    touchSelectionController.handle: Image {
+        objectName: "touchSelectionHandle"
+        readonly property int handleOrientation: orientation
+        width: units.gu(1.5)
+        height: units.gu(1.5)
+        source: "handle.png"
+        Component.onCompleted: horizontalPaddingRatio = 0.5
+    }
+
+    UbuntuShape {
+        objectName: "touchSelectionActions"
+        // FIXME: hide contextual actions while resizing the
+        // selection (needs an additional API in oxide?)
+        visible: _webview.activeFocus && _webview.touchSelectionController.active && !selectionOutOfSight
+        aspect: UbuntuShape.DropShadow
+        backgroundColor: "white"
+        readonly property int padding: units.gu(1)
+        width: touchSelectionActionsRow.width + padding * 2
+        height: childrenRect.height + padding * 2
+
+        readonly property rect bounds: _webview.touchSelectionController.bounds
+        readonly property bool selectionOutOfSight: (bounds.x > _webview.width) || ((bounds.x + bounds.width) < 0) || (bounds.y > _webview.height) || ((bounds.y + bounds.height) < 0)
+        readonly property real handleHeight: units.gu(1.5)
+        readonly property real spacing: units.gu(1)
+        readonly property bool fitsBelow: (bounds.y + bounds.height + handleHeight + spacing + height) <= _webview.height
+        readonly property bool fitsAbove: (bounds.y - spacing - height) >= (_webview.locationBarController.height + _webview.locationBarController.offset)
+        readonly property real xCentered: bounds.x + (bounds.width - width) / 2
+        x: ((xCentered >= 0) && ((xCentered + width) <= _webview.width))
+            ? xCentered : (xCentered < 0) ? 0 : _webview.width - width
+        y: fitsBelow ? (bounds.y + bounds.height + handleHeight + spacing)
+                     : fitsAbove ? (bounds.y - spacing - height)
+                                 : (_webview.height + _webview.locationBarController.height + _webview.locationBarController.offset - height) / 2
+
+        ActionList {
+            id: touchSelectionActions
+            Action {
+                name: "selectall"
+                text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
+                iconName: "edit-select-all"
+                enabled: _webview.editingCapabilities & Oxide.WebView.SelectAllCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
+            }
+            Action {
+                name: "cut"
+                text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
+                iconName: "edit-cut"
+                enabled: _webview.editingCapabilities & Oxide.WebView.CutCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+            }
+            Action {
+                name: "copy"
+                text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
+                iconName: "edit-copy"
+                enabled: _webview.editingCapabilities & Oxide.WebView.CopyCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+            }
+            Action {
+                name: "paste"
+                text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
+                iconName: "edit-paste"
+                enabled: _webview.editingCapabilities & Oxide.WebView.PasteCapability
+                visible: enabled
+                onTriggered: _webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+            }
+        }
+
+        Row {
+            id: touchSelectionActionsRow
+            x: parent.padding
+            y: parent.padding
+            width: {
+                // work around what seems to be a bug in Row’s childrenRect.width
+                var w = 0
+                for (var i in visibleChildren) {
+                    w += visibleChildren[i].width
+                }
+                return w
+            }
+            height: units.gu(6)
+
+            Repeater {
+                model: touchSelectionActions.actions.length
+                AbstractButton {
+                    objectName: "touchSelectionAction_" + action.name
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: Math.max(units.gu(5), implicitWidth) + units.gu(2)
+                    action: touchSelectionActions.actions[modelData]
+                    styleName: "ToolbarButtonStyle"
+                    activeFocusOnPress: false
+                }
+            }
+        }
     }
 
     QtObject {

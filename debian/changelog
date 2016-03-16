@@ -1,3 +1,35 @@
+webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add a touch selection controller. (LP: #1376268, #1551494)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 10 Mar 2016 05:59:53 +0000
+
+webbrowser-app (0.23+16.04.20160307-0ubuntu1) xenial; urgency=medium
+
+  * Handle context menu in overlay webviews. (LP: #1533727)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 07 Mar 2016 18:44:37 +0000
+
+webbrowser-app (0.23+16.04.20160303-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Refer to @{XDG_DOWNLOAD_DIR} in the browser’s apparmor profile
+    instead of hardcoding "Downloads" in English. (LP: #1535666)
+  * Store entries in the history database on load committed, not load
+    succeeded. This ensures that content-initiated navigations are also
+    stored. (LP: #1455858, #1549780)
+  * Update translation template.
+  * Visual tweaks per designers’ review.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 03 Mar 2016 19:01:40 +0000
+
 webbrowser-app (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
