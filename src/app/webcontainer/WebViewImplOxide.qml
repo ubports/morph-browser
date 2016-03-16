@@ -78,15 +78,21 @@ WebappWebview {
             }
         ]
     }
-    messageHandlers: [
-        Oxide.ScriptMessageHandler {
-            msgId: "webapp-specific-page-metadata-detected"
-            contexts: ["oxide://webapp-specific-page-metadata-collector/"]
-            callback: function(msg, frame) {
-                handlePageMetadata(msg.args)
-            }
-        }
-    ]
+
+    Component.onCompleted: webappSpecificMessageHandler.createObject(
+                               webview,
+                               {
+                                   msgId: "webapp-specific-page-metadata-detected",
+                                   contexts: ["oxide://webapp-specific-page-metadata-collector/"],
+                                   callback: function(msg, frame) {
+                                       handlePageMetadata(msg.args)
+                                   }
+                               });
+
+    Component {
+        id: webappSpecificMessageHandler
+        Oxide.ScriptMessageHandler { }
+    }
 
     onOpenUrlExternallyRequested: openUrlExternally(url)
 
@@ -108,7 +114,7 @@ WebappWebview {
          *
          * See the browser's webbrowser/Browser.qml source for additional comments.
          */
-        onMediaAccessPermissionRequested:PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
     }
 
     StateSaver.properties: "url"
