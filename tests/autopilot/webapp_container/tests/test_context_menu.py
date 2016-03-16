@@ -147,7 +147,7 @@ class TestContextMenuLink(TestContextMenuBase):
             'openUrlExternallyRequested(QString)')
         self.assertThat(signal.was_emitted, Equals(False))
 
-        self.menu.click_action("OpenLinkInWebBrowser")
+        self.menu.click_action("OpenLinkInBrowser")
 
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
@@ -234,7 +234,7 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
             'openUrlExternallyRequested(QString)')
         self.assertThat(signal.was_emitted, Equals(False))
 
-        self.menu.click_action("OpenLinkInWebBrowser")
+        self.menu.click_action("OpenLinkInBrowser")
 
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
