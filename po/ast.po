@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-25 21:16+0100\n"
-"PO-Revision-Date: 2015-10-31 17:20+0000\n"
+"PO-Revision-Date: 2016-03-11 23:59+0000\n"
 "Last-Translator: enolp <enolp@softastur.org>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-12 06:03+0000\n"
+"X-Generator: Launchpad (build 17939)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -50,14 +50,14 @@ msgstr "Contraseña"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContentDownloadDialog.qml:113
+#: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/DownloadDelegate.qml:187
 #: src/app/webbrowser/HistoryView.qml:175
-#: src/app/webbrowser/HistoryViewWide.qml:397
+#: src/app/webbrowser/HistoryViewWide.qml:387
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:294
-#: src/app/webbrowser/SettingsPage.qml:348
+#: src/app/webbrowser/SettingsPage.qml:297
+#: src/app/webbrowser/SettingsPage.qml:351
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -384,7 +384,7 @@ msgstr "Cortar"
 msgid "Erase"
 msgstr "Esborrar"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
 msgid "Find in page"
 msgstr "Alcontrar na páxina"
 
@@ -414,8 +414,8 @@ msgstr "Dir a"
 msgid "Address;URL;www"
 msgstr "Direición;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
-#: src/app/webbrowser/TabsBar.qml:89
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Llingüeta nueva"
 
@@ -439,7 +439,7 @@ msgstr "Abrir enllaz en llingüeta nueva"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Abrir videu nuna ventana nueva"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -450,7 +450,7 @@ msgid "Redo"
 msgstr "Refacer"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Recargar"
 
@@ -470,15 +470,15 @@ msgstr "Guardar enllaz"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Guardar videu"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:86
 #: src/app/webbrowser/HistoryView.qml:190
-#: src/app/webbrowser/HistoryViewWide.qml:422
+#: src/app/webbrowser/HistoryViewWide.qml:412
 msgid "Select all"
 msgstr "Esbillalo too"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
 msgid "Share"
 msgstr "Compartir"
 
@@ -530,108 +530,109 @@ msgid "Create new folder"
 msgstr "Crear una carpeta nueva"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:358
+#: src/app/webbrowser/SettingsPage.qml:361
 msgid "Save"
 msgstr "Guardar"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
-#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:322
+#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/SettingsPage.qml:96
+#: src/app/webbrowser/SettingsPage.qml:325
 msgid "Homepage"
 msgstr "Sitiu web"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Marcadores"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:507
 msgid "Done"
 msgstr "Fecho"
 
 #: src/app/webbrowser/BookmarksView.qml:127
 #: src/app/webbrowser/BookmarksViewWide.qml:126
 #: src/app/webbrowser/HistoryView.qml:145
-#: src/app/webbrowser/HistoryViewWide.qml:531
-#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryViewWide.qml:521
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Llingüeta nueva"
 
-#: src/app/webbrowser/Browser.qml:541
-#: src/app/webbrowser/HistoryViewWide.qml:381
+#: src/app/webbrowser/Browser.qml:546
+#: src/app/webbrowser/HistoryViewWide.qml:371
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:58
 msgid "Downloads"
 msgstr "Descargues"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Leave Private Mode"
 msgstr "Dexar el mou priváu"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Private Mode"
 msgstr "Mou priváu"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:49
 msgid "Settings"
 msgstr "Preferencies"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:794
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1343
+#: src/app/webbrowser/Browser.qml:1375
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Esliza arriba pa salir de pantalla completa"
 
-#: src/app/webbrowser/Browser.qml:1344
+#: src/app/webbrowser/Browser.qml:1376
 msgid "Press ESC To Exit Full Screen"
 msgstr "Calca ESC pa salir de pantalla completa"
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:82
+#: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
 "Escueye una aplicación p'abrir esti ficheru o añádelu a la carpeta de "
 "descargues."
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:88
+#: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Escueye una aplicación"
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:101
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
 msgstr "Descargar"
 
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
-msgstr ""
+msgstr "Falló la descarga"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr ""
+msgstr "Resumir"
 
-#: src/app/webbrowser/DownloadsPage.qml:61
+#: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
 msgstr "Confirmar la esbilla"
 
-#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/DownloadsPage.qml:102
 #: src/app/webbrowser/HistoryView.qml:217
-#: src/app/webbrowser/HistoryViewWide.qml:441
+#: src/app/webbrowser/HistoryViewWide.qml:431
 msgid "Delete"
 msgstr "Desaniciar"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:253
 msgid "No downloads available"
 msgstr "Nun hai descargues disponibles"
 
@@ -665,7 +666,7 @@ msgstr "Tol historial"
 msgid "Today"
 msgstr "Güei"
 
-#: src/app/webbrowser/HistoryViewWide.qml:462
+#: src/app/webbrowser/HistoryViewWide.qml:452
 msgid "search history"
 msgstr "historial de gueta"
 
@@ -689,7 +690,7 @@ msgstr "¿Premití-y a esti dominiu acceder al to micrófonu?"
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (integráu en %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -803,28 +804,28 @@ msgstr "Que ta dirixíu por"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Por Defeutu"
 
-#: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:82
+#: src/app/webbrowser/SettingsPage.qml:167
 msgid "Search engine"
 msgstr "Motor de gueta"
 
-#: src/app/webbrowser/SettingsPage.qml:100
+#: src/app/webbrowser/SettingsPage.qml:107
 msgid "Restore previous session at startup"
 msgstr "Restaurar la sesión anterior nel aniciu"
 
-#: src/app/webbrowser/SettingsPage.qml:137
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:126
+#: src/app/webbrowser/SettingsPage.qml:224
 msgid "Privacy & permissions"
 msgstr "Privacidá y permisos"
 
-#: src/app/webbrowser/SettingsPage.qml:145
+#: src/app/webbrowser/SettingsPage.qml:136
 msgid "Reset browser settings"
 msgstr "Reaniciar les preferencies del restolador"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:386
+#: src/app/webbrowser/SettingsPage.qml:246
+#: src/app/webbrowser/SettingsPage.qml:389
 msgid "Camera & microphone"
 msgstr "Cáma y micrófonu"
 
@@ -832,27 +833,27 @@ msgstr "Cáma y micrófonu"
 msgid "Clear Browsing History"
 msgstr "Llimpiar l'historial de navegación"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:258
 msgid "Clear Browsing History?"
 msgstr "¿Llimpiar l'historial de navegación?"
 
-#: src/app/webbrowser/SettingsPage.qml:264
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache"
 msgstr "Llimpiar la caché"
 
-#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webbrowser/SettingsPage.qml:269
 msgid "Clear Cache?"
 msgstr "¿Llimpiar la caché?"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:304
 msgid "Clear"
 msgstr "Llimpiar"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:410
 msgid "Microphone"
 msgstr "Micrófonu"
 
-#: src/app/webbrowser/SettingsPage.qml:425
+#: src/app/webbrowser/SettingsPage.qml:431
 msgid "Camera"
 msgstr "Cámara"
 
@@ -860,7 +861,7 @@ msgstr "Cámara"
 msgid "Tap to view"
 msgstr "Toca pa ver"
 
-#: src/app/webbrowser/TabsBar.qml:100
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "Zarrar llingüeta"
 
