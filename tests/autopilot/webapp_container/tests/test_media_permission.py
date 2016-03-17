@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import testtools
+
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
 from testtools.matchers import Equals, GreaterThan
@@ -28,6 +30,8 @@ class TestMediaPermission(WebappContainerTestCaseWithLocalContentBase):
             gr.y + webview.height*3/4)
         self.pointing_device.click()
 
+    @testtools.skip("Skipping due to the lack of HTTPS support in the "
+                    "test suite, see https://launchpad.net/bugs/1505995")
     def test_access_media_from_main_view(self):
         args = []
         self.launch_webcontainer_app_with_local_http_server(
@@ -38,6 +42,8 @@ class TestMediaPermission(WebappContainerTestCaseWithLocalContentBase):
         self.app.wait_select_single(
             objectName="mediaAccessDialog")
 
+    @testtools.skip("Skipping due to the lack of HTTPS support in the "
+                    "test suite, see https://launchpad.net/bugs/1505995")
     def test_access_media_from_overlay(self):
         args = []
         overlay_link = "/with-overlay-link?path=media-access"
