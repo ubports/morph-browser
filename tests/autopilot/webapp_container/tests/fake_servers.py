@@ -118,6 +118,38 @@ window.onload = function() {{
     </html>
         """.format(loopcount)
 
+    def media_access(self):
+        return """
+<html>
+<head>
+<title>open-close</title>
+
+<script>
+navigator.getUserMedia = navigator.getUserMedia ||
+  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+function callback(stream) {}
+
+var constraints = {
+  audio: {},
+  video: {}
+};
+
+navigator.getUserMedia(constraints, callback, callback);
+
+</script>
+</head>
+
+<body>
+
+<div>
+<select>
+</select>
+</div>
+</body>
+</html>
+        """
+
     def manifest_json_content(self):
         return """
 {
@@ -256,6 +288,9 @@ window.onload = function() {{
             self.send_response(302)
             self.send_header("Location", locationTarget)
             self.end_headers()
+        elif self.path == '/media-access':
+            self.send_response(200)
+            self.serve_content(self.media_access())
         elif self.path.startswith('/with-overlay-link'):
             qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             self.send_response(200)

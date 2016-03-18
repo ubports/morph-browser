@@ -36,6 +36,7 @@ WebappWebview {
     property url dataPath
     property var popupController
     property var overlayViewsParent: webview.parent
+    property var mediaAccessDialogComponent
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -77,15 +78,21 @@ WebappWebview {
             }
         ]
     }
-    messageHandlers: [
-        Oxide.ScriptMessageHandler {
-            msgId: "webapp-specific-page-metadata-detected"
-            contexts: ["oxide://webapp-specific-page-metadata-collector/"]
-            callback: function(msg, frame) {
-                handlePageMetadata(msg.args)
-            }
-        }
-    ]
+
+    Component.onCompleted: webappSpecificMessageHandler.createObject(
+                               webview,
+                               {
+                                   msgId: "webapp-specific-page-metadata-detected",
+                                   contexts: ["oxide://webapp-specific-page-metadata-collector/"],
+                                   callback: function(msg, frame) {
+                                       handlePageMetadata(msg.args)
+                                   }
+                               });
+
+    Component {
+        id: webappSpecificMessageHandler
+        Oxide.ScriptMessageHandler { }
+    }
 
     onOpenUrlExternallyRequested: openUrlExternally(url)
 
@@ -95,6 +102,20 @@ WebappWebview {
     preferences.appCacheEnabled: true
 
     onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
+
+    Connections {
+        target: webview.visible ? webview : null
+
+        /**
+         * We are only connecting to the mediaAccessPermission signal if we are
+         * the only webview currently visible (no overlay present). In the case of an overlay
+         * and the absence of a signal handler in this main view, oxide's default behavior
+         * is triggered and the request is denied.
+         *
+         * See the browser's webbrowser/Browser.qml source for additional comments.
+         */
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication

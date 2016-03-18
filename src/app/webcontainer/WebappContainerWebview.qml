@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -51,12 +51,20 @@ Item {
         }
     }
 
+    Component {
+        id: mediaAccessDialogComponent
+        MediaAccessDialog {
+            objectName: "mediaAccessDialog"
+        }
+    }
+
     PopupWindowController {
         id: popupController
         objectName: "popupController"
         webappUrlPatterns: containerWebview.webappUrlPatterns
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+        mediaAccessDialogComponent: mediaAccessDialogComponent
         wide: containerWebview.wide
         onInitializeOverlayViewsWithUrls: {
             if (webappContainerWebViewLoader.item) {
@@ -115,7 +123,8 @@ Item {
                     , runningLocalApplication: containerWebview.runningLocalApplication
                     , popupController: popupController
                     , overlayViewsParent: containerWebview.parent
-                    , wide: containerWebview.wide})
+                    , wide: containerWebview.wide
+                    , mediaAccessDialogComponent: mediaAccessDialogComponent})
     }
 }
 

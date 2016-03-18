@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -29,6 +29,7 @@ Item {
     property var mainWebappView
     property var views: []
     property bool blockOpenExternalUrls: false
+    property var mediaAccessDialogComponent
     property bool wide: false
 
     // Used to access runtime behavior during tests
@@ -197,7 +198,9 @@ Item {
         createPopupView(parentView,
                         { request: request,
                           webContext: context,
-                          popupWindowController: controller },
+                          popupWindowController: controller,
+                          mediaAccessDialogComponent: mediaAccessDialogComponent
+                        },
                         isRequestFromMainWebappWebview,
                         context)
     }
@@ -208,7 +211,9 @@ Item {
         createPopupView(parentView,
                         { url: overlayUrl,
                           webContext: context,
-                          popupWindowController: controller },
+                          popupWindowController: controller,
+                          mediaAccessDialogComponent: mediaAccessDialogComponent
+                        },
                         isRequestFromMainWebappWebview,
                         context)
     }
