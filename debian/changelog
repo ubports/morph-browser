@@ -1,3 +1,14 @@
+webbrowser-app (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle media access request from webcontainer main view and overlay
+    views (LP: #1554202)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 18 Mar 2016 15:08:11 +0000
+
 webbrowser-app (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
 
   [ Alberto Mardegan ]
