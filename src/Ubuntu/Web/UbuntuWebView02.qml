@@ -234,6 +234,7 @@ Oxide.WebView {
                     action: touchSelectionActions.actions[modelData]
                     styleName: "ToolbarButtonStyle"
                     activeFocusOnPress: false
+                    onClicked: _webview.touchSelectionController.hide()
                 }
             }
         }
