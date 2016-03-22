@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.12 as Oxide
+import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
@@ -149,9 +149,10 @@ Oxide.WebView {
 
     UbuntuShape {
         objectName: "touchSelectionActions"
-        // FIXME: hide contextual actions while resizing the
-        // selection (needs an additional API in oxide?)
-        visible: _webview.activeFocus && _webview.touchSelectionController.active && !selectionOutOfSight
+        visible: _webview.activeFocus
+                 && _webview.touchSelectionController.active
+                 && !_webview.touchSelectionController.handleDragInProgress
+                 && !selectionOutOfSight
         aspect: UbuntuShape.DropShadow
         backgroundColor: "white"
         readonly property int padding: units.gu(1)
