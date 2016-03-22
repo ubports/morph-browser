@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,7 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// system
+#include <cstdio>
+
 // Qt
+#include <QtCore/QDateTime>
 #include <QtCore/QFile>
 
 // local
@@ -73,10 +77,13 @@ bool SessionStorage::isLocked() const
 
 void SessionStorage::store(const QString& data) const
 {
-    QFile file(m_dataFile);
+    QString tempName = m_dataFile + "." + \
+        QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch());;
+    QFile file(tempName);
     if (file.open(QIODevice::WriteOnly)) {
         file.write(data.toUtf8());
         file.close();
+        rename(tempName.toUtf8().constData(), m_dataFile.toUtf8().constData());
     }
 }
 
