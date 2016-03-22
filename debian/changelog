@@ -1,3 +1,12 @@
+webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
+
+  * Make google maps work in complete mode on tablets. (LP: #1560079)
+  * Tentative fix for a bug where the session state stored on disk is
+    apparently corrupted, thus discarding the current browsing session.
+    (LP: #1531583)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Mar 2016 06:46:57 +0000
+
 webbrowser-app (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
