@@ -202,14 +202,10 @@ FocusScope {
             paused: model.paused
 
             onClicked: {
-                if (model.complete) {
-                    if (selectMode) {
-                        selected = !selected
-                    } else {
-                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                        exportPeerPicker.visible = true
-                        exportPeerPicker.path = model.path
-                    }
+                if (model.complete && !selectMode) {
+                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+                    exportPeerPicker.visible = true
+                    exportPeerPicker.path = model.path
                 }
             }
 
