@@ -37,6 +37,7 @@ WebappWebview {
     property var popupController
     property var overlayViewsParent: webview.parent
     property var mediaAccessDialogComponent
+    property bool openExternalUrlInOverlay: false
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -139,10 +140,15 @@ WebappWebview {
                disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
     }
 
-    function openUrlExternally(url) {
-        webview.openExternalUrlTriggered(url)
-        if (! webview.blockOpenExternalUrls) {
-            Qt.openUrlExternally(url)
+    function openUrlExternally(url, request) {
+        if (openExternalUrlInOverlay && request) {
+            popupController.createPopupViewForUrl(overlayViewsParent, url, true, context)
+            return
+        } else {
+            webview.openExternalUrlTriggered(url)
+            if (! webview.blockOpenExternalUrls) {
+                Qt.openUrlExternally(url)
+            }
         }
     }
 
@@ -174,15 +180,19 @@ WebappWebview {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = Oxide.NavigationRequest.ActionReject
-            openUrlExternally(url)
+            openUrlExternally(url, request)
             return
         }
 
         request.action = Oxide.NavigationRequest.ActionReject
         if (isNewForegroundWebViewDisposition(request.disposition)) {
             request.action = Oxide.NavigationRequest.ActionAccept
-            popupController.handleNewForegroundNavigationRequest(url, request, true)
-            return
+            var shouldAcceptRequest =
+                    popupWindowController.handleNewForegroundNavigationRequest(
+                          url, request, true);
+            if (shouldAcceptRequest) {
+                request.action = Oxide.NavigationRequest.ActionAccept
+            }
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
@@ -218,7 +228,7 @@ WebappWebview {
 
         if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
-            openUrlExternally(url)
+            openUrlExternally(url, request)
         }
     }
 
