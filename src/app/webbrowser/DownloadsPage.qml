@@ -164,6 +164,28 @@ FocusScope {
             }
         }
 
+        property int selectedIndex: -1
+        ViewItems.selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
+        ViewItems.onSelectedIndicesChanged: {
+            if (downloadsItem.multiSelect) {
+                return
+            }
+            // Enforce single selection mode to work around
+            // the lack of such a feature in the UITK.
+            if (ViewItems.selectedIndices.length > 1 && selectedIndex != -1) {
+                var selection = ViewItems.selectedIndices
+                selection.splice(selection.indexOf(selectedIndex), 1)
+                selectedIndex = selection[0]
+                ViewItems.selectedIndices = selection
+                return
+            }
+            if (ViewItems.selectedIndices.length > 0) {
+                selectedIndex = ViewItems.selectedIndices[0]
+            } else {
+                selectedIndex = -1
+            }
+        }
+
         delegate: DownloadDelegate {
             downloadManager: downloadsItem.downloadManager
             downloadId: model.downloadId
@@ -175,19 +197,9 @@ FocusScope {
                                   ? "image://thumbnailer/file://" + model.path : ""
             icon: MimeDatabase.iconForMimetype(model.mimetype)
             incomplete: !model.complete
-            selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
             visible: !(selectMode && incomplete)
             errorMessage: model.error
             paused: model.paused
-            // Work around bug #1493880
-            property bool lastSelected
-
-            onSelectedChanged: {
-                if (!multiSelect && selected && lastSelected != selected) {
-                    downloadsListView.ViewItems.selectedIndices = [index]
-                }
-                lastSelected = selected
-            }
 
             onClicked: {
                 if (model.complete) {
