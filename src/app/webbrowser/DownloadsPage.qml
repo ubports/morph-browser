@@ -210,6 +210,9 @@ FocusScope {
             }
 
             onPressAndHold: {
+                if (downloadsItem.selectMode || downloadsItem.pickingMode) {
+                    return
+                }
                 downloadsItem.selectMode = true
                 downloadsItem.multiSelect = true
                 if (downloadsItem.selectMode) {
