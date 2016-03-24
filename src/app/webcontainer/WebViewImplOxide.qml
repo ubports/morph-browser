@@ -95,7 +95,7 @@ WebappWebview {
         Oxide.ScriptMessageHandler { }
     }
 
-    onOpenUrlExternallyRequested: openUrlExternally(url)
+    onOpenUrlExternallyRequested: openUrlExternally(url, false)
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
@@ -140,8 +140,8 @@ WebappWebview {
                disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
     }
 
-    function openUrlExternally(url, request) {
-        if (openExternalUrlInOverlay && request) {
+    function openUrlExternally(url, isTriggeredByUserNavigation) {
+        if (openExternalUrlInOverlay && isTriggeredByUserNavigation) {
             popupController.createPopupViewForUrl(overlayViewsParent, url, true, context)
             return
         } else {
@@ -180,7 +180,7 @@ WebappWebview {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = Oxide.NavigationRequest.ActionReject
-            openUrlExternally(url, request)
+            openUrlExternally(url, true)
             return
         }
 
@@ -228,7 +228,7 @@ WebappWebview {
 
         if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
-            openUrlExternally(url, request)
+            openUrlExternally(url, true)
         }
     }
 
