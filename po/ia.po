@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-03-18 06:06+0000\n"
-"X-Generator: Launchpad (build 17947)\n"
+"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
+"X-Generator: Launchpad (build 17967)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -116,6 +116,7 @@ msgstr "Il appare tu es habente enoios a vider: %1."
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Per favor controla le configurationes de tu rete e proa a refrescar le pagina"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -439,7 +440,7 @@ msgstr "Aperir le ligamine in un nove scheda"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Aperir un video in un nove scheda"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -470,7 +471,7 @@ msgstr "Salvar le ligamine"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Salvar un video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -670,19 +671,19 @@ msgstr "cercar le chronologia"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Ir al modo public claudera tote le schedas private"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Consenti a iste dominio de acceder a tu camera e microphono?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Consenti a iste dominio de acceder a tu camera?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Consenti a iste dominio de acceder a tu microphono?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
@@ -813,7 +814,7 @@ msgstr "Restaurar le session previe al initio"
 #: src/app/webbrowser/SettingsPage.qml:118
 #: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Confidentialitate & licentias"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
@@ -908,7 +909,7 @@ msgstr ""
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> necessita acceder tu%2 conto in linea"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
@@ -935,7 +936,7 @@ msgstr "Eliger le conto"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Oops, alcun cosa iva mal."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
