@@ -38,6 +38,7 @@
 #include "favicon-fetcher.h"
 #include "meminfo.h"
 #include "mime-database.h"
+#include "qquickshortcut_p.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
@@ -179,6 +180,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
+    qmlRegisterType<QQuickShortcut>(uri, 0, 1, "Shortcut");
 
     const char* gesturesUri = "Ubuntu.Gestures";
     qmlRegisterSingletonType<Direction>(gesturesUri, 0, 1, "Direction", Direction_singleton_factory);

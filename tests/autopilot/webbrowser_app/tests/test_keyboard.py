@@ -103,7 +103,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(2)
         self.main_window.press_key('Ctrl+Page_Down')
         self.check_tab_number(0)
-        self.main_window.press_key('Shift+Ctrl+Tab')
+        self.main_window.press_key('Ctrl+Shift+Tab')
         if self.main_window.wide:
             self.check_tab_number(2)
         else:
