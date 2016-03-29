@@ -111,6 +111,11 @@ BrowserView {
         deviceFilter: InputInfo.TouchScreen
     }
 
+    InputDeviceModel {
+        id: keyboardModel
+        deviceFilter: InputInfo.Keyboard
+    }
+
     Component {
         id: mediaAccessDialogComponent
         MediaAccessDialog { }
@@ -1601,16 +1606,7 @@ BrowserView {
         }
 
         function maybeFocusAddressBar() {
-            // XXX: this is not the right condition, but it is better than
-            // inferring a "desktop" form factor from various heuristics.
-            // The real fix is to detect whether there is a physical keyboard
-            // connected, for which there is currently no API yet (there will
-            // be a QInputInfo API in a future version of Qt).
-            // Wide mode might be in use on a device without a physical
-            // keyboard (e.g. a 10" tablet), and conversely the browser window
-            // might be shrinked to a narrow layout on a desktop setup with a
-            // physical keyboard and no OSK.
-            if (browser.wide) {
+            if (keyboardModel.count > 0) {
                 focusAddressBar()
             } else {
                 contentsContainer.forceActiveFocus()
