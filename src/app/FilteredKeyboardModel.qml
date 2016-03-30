@@ -18,22 +18,16 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import ".."
+import Unity.InputInfo 0.1
 
-Rectangle {
-    color: "transparent"
-    border {
-        width: units.gu(0.18)
-        color: UbuntuColors.orange
+SortFilterModel {
+    model: InputDeviceModel {
+        deviceFilter: InputInfo.Keyboard
     }
-    radius: units.gu(0.3)
-    visible: hasKeyboard &&
-             ((ListView.view && ListView.view.activeFocus) ||
-              (GridView.view && GridView.view.activeFocus))
-
-    readonly property bool hasKeyboard: keyboardModel.count > 0
-
-    FilteredKeyboardModel {
-        id: keyboardModel
+    filter {
+        // Filter out autopilot-emulated keyboards
+        // (see https://launchpad.net/bugs/1542224).
+        property: "name"
+        pattern: /^(?!py-evdev-uinput).*$/
     }
 }

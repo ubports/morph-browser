@@ -111,9 +111,8 @@ BrowserView {
         deviceFilter: InputInfo.TouchScreen
     }
 
-    InputDeviceModel {
+    FilteredKeyboardModel {
         id: keyboardModel
-        deviceFilter: InputInfo.Keyboard
     }
 
     Component {
