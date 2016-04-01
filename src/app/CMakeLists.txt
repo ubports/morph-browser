@@ -31,8 +31,7 @@ set(COMMONLIB_SRC
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-include_directories(${unity8_SOURCE_DIR}/libs/UbuntuGestures
-                    ${unity8_SOURCE_DIR}/plugins
+include_directories(${unity8_SOURCE_DIR}/plugins
                     ${LIBAPPARMOR_INCLUDE_DIRS})
 target_link_libraries(${COMMONLIB}
     Qt5::Core
@@ -41,7 +40,6 @@ target_link_libraries(${COMMONLIB}
     Qt5::Qml
     Qt5::Quick
     Qt5::Widgets
-    UbuntuGesturesQml
     InputInfo
     ${LIBAPPARMOR_LDFLAGS}
 )
