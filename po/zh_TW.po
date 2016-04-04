@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-26 05:42+0000\n"
+"X-Generator: Launchpad (build 17967)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -56,8 +56,8 @@ msgstr "密碼"
 #: src/app/webbrowser/HistoryView.qml:175
 #: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:294
-#: src/app/webbrowser/SettingsPage.qml:348
+#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:329
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -113,7 +113,7 @@ msgstr "似乎在檢視此頁時遇到問題：%1。"
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "請檢查網路設定，然後重刷頁面。"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -364,15 +364,15 @@ msgstr "切割"
 msgid "Erase"
 msgstr "擦除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
 msgid "Find in page"
-msgstr ""
+msgstr "在頁面尋找"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "在頁面搜尋"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -394,8 +394,8 @@ msgstr "前往"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;網址;網路;位址"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
-#: src/app/webbrowser/TabsBar.qml:89
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "新分頁"
 
@@ -419,7 +419,7 @@ msgstr "在新分頁開啟連結"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "在新分頁開啟影片"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -430,7 +430,7 @@ msgid "Redo"
 msgstr "重做"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "重新載入"
 
@@ -450,7 +450,7 @@ msgstr "儲存連結"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "儲存影片"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -458,7 +458,7 @@ msgstr ""
 msgid "Select all"
 msgstr "全選"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
 msgid "Share"
 msgstr "分享"
 
@@ -474,7 +474,7 @@ msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "find in page"
-msgstr ""
+msgstr "在頁面尋找"
 
 #: src/app/webbrowser/AddressBar.qml:247
 msgid "search or enter an address"
@@ -510,27 +510,27 @@ msgid "Create new folder"
 msgstr "建立新資料夾"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:358
+#: src/app/webbrowser/SettingsPage.qml:339
 msgid "Save"
 msgstr "儲存"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
 #: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:322
+#: src/app/webbrowser/SettingsPage.qml:303
 msgid "Homepage"
 msgstr "首頁"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "書籤"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
 #: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "完成"
@@ -539,42 +539,42 @@ msgstr "完成"
 #: src/app/webbrowser/BookmarksViewWide.qml:126
 #: src/app/webbrowser/HistoryView.qml:145
 #: src/app/webbrowser/HistoryViewWide.qml:531
-#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "新分頁"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:546
 #: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
 msgstr "歷史"
 
-#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "下載"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Leave Private Mode"
 msgstr "離開私密模式"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Private Mode"
 msgstr "私密模式"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "設定"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:791
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1343
+#: src/app/webbrowser/Browser.qml:1345
 msgid "Swipe Up To Exit Full Screen"
 msgstr "向上掃以結束全螢幕"
 
-#: src/app/webbrowser/Browser.qml:1344
+#: src/app/webbrowser/Browser.qml:1346
 msgid "Press ESC To Exit Full Screen"
 msgstr "按 ESC 以結束全螢幕"
 
@@ -593,11 +593,11 @@ msgstr "下載"
 
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
-msgstr ""
+msgstr "下載失敗"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr ""
+msgstr "恢復"
 
 #: src/app/webbrowser/DownloadsPage.qml:61
 msgid "Confirm selection"
@@ -685,6 +685,8 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"在此分貢瀏覽的頁面不會記入「瀏覽器歷史」。\n"
+"但建立的書籤會保存。"
 
 #: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
@@ -697,7 +699,7 @@ msgstr "最常造訪"
 
 #: src/app/webbrowser/NewTabView.qml:366
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "還未瀏覽過網站"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -713,7 +715,7 @@ msgstr "顯示 %1 時發生了問題。"
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
-msgstr ""
+msgstr "系統記憶體不足，無法顯示此網頁。試試關閉不需要的分頁，再重新載入。"
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
@@ -776,7 +778,7 @@ msgid "Default"
 msgstr "預設"
 
 #: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:156
 msgid "Search engine"
 msgstr "搜尋引擎"
 
@@ -784,45 +786,45 @@ msgstr "搜尋引擎"
 msgid "Restore previous session at startup"
 msgstr "啟動時回復之前工作階段"
 
-#: src/app/webbrowser/SettingsPage.qml:137
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
 msgstr "隱私及權限"
 
-#: src/app/webbrowser/SettingsPage.qml:145
+#: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
 msgstr "重設瀏覽器設定"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:386
+#: src/app/webbrowser/SettingsPage.qml:229
+#: src/app/webbrowser/SettingsPage.qml:367
 msgid "Camera & microphone"
 msgstr "攝影機及麥克風"
 
-#: src/app/webbrowser/SettingsPage.qml:254
+#: src/app/webbrowser/SettingsPage.qml:235
 msgid "Clear Browsing History"
 msgstr "清除瀏覽歷史"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:238
 msgid "Clear Browsing History?"
 msgstr "是否清除瀏覽歷史？"
 
-#: src/app/webbrowser/SettingsPage.qml:264
+#: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Cache"
 msgstr "清除快取"
 
-#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webbrowser/SettingsPage.qml:247
 msgid "Clear Cache?"
 msgstr "是否清除網頁快取？"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:282
 msgid "Clear"
 msgstr "清除"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:387
 msgid "Microphone"
 msgstr "麥克風"
 
-#: src/app/webbrowser/SettingsPage.qml:425
+#: src/app/webbrowser/SettingsPage.qml:406
 msgid "Camera"
 msgstr "攝影機"
 
@@ -830,7 +832,7 @@ msgstr "攝影機"
 msgid "Tap to view"
 msgstr "輕觸以檢視"
 
-#: src/app/webbrowser/TabsBar.qml:100
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "關閉分頁"
 
@@ -862,11 +864,11 @@ msgstr "加入帳號"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "不使用帳號"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "帳號出錯"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -893,7 +895,7 @@ msgstr "<b>%1</b> 想要存取您的 %2 線上帳號。"
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr ""
+msgstr "現在選擇一個帳號，或是略過此步驟稍候再選擇一個線上帳號。"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"

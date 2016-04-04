@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:25+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
+"X-Generator: Launchpad (build 17967)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -57,8 +57,8 @@ msgstr "Lozinka"
 #: src/app/webbrowser/HistoryView.qml:175
 #: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:294
-#: src/app/webbrowser/SettingsPage.qml:348
+#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:329
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -384,7 +384,7 @@ msgstr "Izreži"
 msgid "Erase"
 msgstr "Obriši"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
 msgid "Find in page"
 msgstr "Potraži na stranici"
 
@@ -414,8 +414,8 @@ msgstr "Idi na"
 msgid "Address;URL;www"
 msgstr "Adresa;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
-#: src/app/webbrowser/TabsBar.qml:89
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Nova kartica"
 
@@ -439,7 +439,7 @@ msgstr "Otvori poveznicu u novoj kartici"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Otvori video snimku u novoj kartici"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -450,7 +450,7 @@ msgid "Redo"
 msgstr "Ponovi"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Ponovo učitaj"
 
@@ -470,7 +470,7 @@ msgstr "Spremi poveznicu"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Spremi video snimku"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -478,7 +478,7 @@ msgstr ""
 msgid "Select all"
 msgstr "Odaberi sve"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
 msgid "Share"
 msgstr "Podijeli"
 
@@ -530,27 +530,27 @@ msgid "Create new folder"
 msgstr "Stvori novu mapu"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:358
+#: src/app/webbrowser/SettingsPage.qml:339
 msgid "Save"
 msgstr "Spremi"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
 #: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:322
+#: src/app/webbrowser/SettingsPage.qml:303
 msgid "Homepage"
 msgstr "Početna stranica"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Zabilješke"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
 #: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "Završeno"
@@ -559,42 +559,42 @@ msgstr "Završeno"
 #: src/app/webbrowser/BookmarksViewWide.qml:126
 #: src/app/webbrowser/HistoryView.qml:145
 #: src/app/webbrowser/HistoryViewWide.qml:531
-#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nova kartica"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:546
 #: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
 msgstr "Povijest"
 
-#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "Preuzimanja"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Leave Private Mode"
 msgstr "Napusti privatan način"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Private Mode"
 msgstr "Privatan način"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Postavke"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:791
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1343
+#: src/app/webbrowser/Browser.qml:1345
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Klizni za izlazak i cjelozaslonskog prikaza"
 
-#: src/app/webbrowser/Browser.qml:1344
+#: src/app/webbrowser/Browser.qml:1346
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pritisni ESC za izlazak i cjelozaslonskog prikaza"
 
@@ -807,7 +807,7 @@ msgid "Default"
 msgstr "Zadano"
 
 #: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:156
 msgid "Search engine"
 msgstr "Pogon pretraživanja"
 
@@ -815,45 +815,45 @@ msgstr "Pogon pretraživanja"
 msgid "Restore previous session at startup"
 msgstr "Vrati prijašnju sesiju pri pokretanju"
 
-#: src/app/webbrowser/SettingsPage.qml:137
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
 msgstr "Privatnost i dozvole"
 
-#: src/app/webbrowser/SettingsPage.qml:145
+#: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
 msgstr "Vrati zadane postavke preglednika"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:386
+#: src/app/webbrowser/SettingsPage.qml:229
+#: src/app/webbrowser/SettingsPage.qml:367
 msgid "Camera & microphone"
 msgstr "Kamera i mikrofon"
 
-#: src/app/webbrowser/SettingsPage.qml:254
+#: src/app/webbrowser/SettingsPage.qml:235
 msgid "Clear Browsing History"
 msgstr "Obriši povijest pregledavanja"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:238
 msgid "Clear Browsing History?"
 msgstr "Želite li obrisati povijest pretraživanja?"
 
-#: src/app/webbrowser/SettingsPage.qml:264
+#: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Cache"
 msgstr "Obriši predmemoriju"
 
-#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webbrowser/SettingsPage.qml:247
 msgid "Clear Cache?"
 msgstr "Želite li obrisati predmemoriju?"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:282
 msgid "Clear"
 msgstr "Obriši"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:387
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: src/app/webbrowser/SettingsPage.qml:425
+#: src/app/webbrowser/SettingsPage.qml:406
 msgid "Camera"
 msgstr "Kamera"
 
@@ -861,7 +861,7 @@ msgstr "Kamera"
 msgid "Tap to view"
 msgstr "Dodirnite za prikaz"
 
-#: src/app/webbrowser/TabsBar.qml:100
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "Zatvori karticu"
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import ".."
 
 Item {
@@ -30,7 +31,9 @@ Item {
     property alias currentWebview: popupWebview
     property alias request: popupWebview.request
     property alias url: popupWebview.url
-    
+    property var mediaAccessDialogComponent
+    property alias wide: popupWebview.wide
+
     signal webviewUrlChanged(url webviewUrl)
 
     Rectangle {
@@ -156,7 +159,7 @@ Item {
         }
     }
 
-    WebViewImpl {
+    WebappWebview {
         id: popupWebview
 
         objectName: "overlayWebview"
@@ -164,6 +167,25 @@ Item {
         context: webContext
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
+
+        Connections {
+            target: popupWebview.visible ? popupWebview : null
+
+            /**
+             * We are only connecting to the mediaAccessPermission signal if we are the currently
+             * visible overlay. If other overlays slide over this one, oxide will deny (by default)
+             * all media access requests for this overlay.
+             *
+             * See the browser's webbrowser/Browser.qml source for additional comments.
+             */
+            onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+        }
+
+        onOpenUrlExternallyRequested: {
+            if (popupWindowController) {
+               popupWindowController.openUrlExternally(url)
+            }
+        }
 
         anchors {
             bottom: parent.bottom

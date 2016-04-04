@@ -1,3 +1,47 @@
+webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
+
+  * Make google maps work in complete mode on tablets. (LP: #1560079)
+  * Tentative fix for a bug where the session state stored on disk is
+    apparently corrupted, thus discarding the current browsing session.
+    (LP: #1531583)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Mar 2016 06:46:57 +0000
+
+webbrowser-app (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle media access request from webcontainer main view and overlay
+    views (LP: #1554202)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 18 Mar 2016 15:08:11 +0000
+
+webbrowser-app (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Activate the Webapp only when we are ready to navigate to the webapp
+    URL (LP: #1507995)
+
+ -- David Barth <david.barth@canonical.com>  Fri, 11 Mar 2016 12:57:01 +0000
+
+webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add a touch selection controller. (LP: #1376268, #1551494)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 10 Mar 2016 05:59:53 +0000
+
+webbrowser-app (0.23+16.04.20160307-0ubuntu1) xenial; urgency=medium
+
+  * Handle context menu in overlay webviews. (LP: #1533727)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 07 Mar 2016 18:44:37 +0000
+
 webbrowser-app (0.23+16.04.20160303-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

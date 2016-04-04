@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
+"X-Generator: Launchpad (build 17967)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -56,8 +56,8 @@ msgstr "ពាក្យសម្ងាត់"
 #: src/app/webbrowser/HistoryView.qml:175
 #: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:294
-#: src/app/webbrowser/SettingsPage.qml:348
+#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:329
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -387,7 +387,7 @@ msgstr "​កាត់"
 msgid "Erase"
 msgstr "លុប"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
 msgid "Find in page"
 msgstr "រក​មើល​ក្នុង​ទំព័រ"
 
@@ -417,8 +417,8 @@ msgstr "ទៅ​កាន់"
 msgid "Address;URL;www"
 msgstr "អាសយដ្ឋាន;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
-#: src/app/webbrowser/TabsBar.qml:89
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
@@ -453,7 +453,7 @@ msgid "Redo"
 msgstr "ធ្វើ​វិញ"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "ផ្ទុក​ឡើង​វិញ"
 
@@ -481,7 +481,7 @@ msgstr ""
 msgid "Select all"
 msgstr "ជ្រើស​ទាំងអស់"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
 msgid "Share"
 msgstr "ចែករំលែក"
 
@@ -533,27 +533,27 @@ msgid "Create new folder"
 msgstr "បង្កើតថតថ្មី"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:358
+#: src/app/webbrowser/SettingsPage.qml:339
 msgid "Save"
 msgstr "រក្សា​ទុក"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
 #: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:322
+#: src/app/webbrowser/SettingsPage.qml:303
 msgid "Homepage"
 msgstr "គេហទំព័រ"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "ចំណាំ"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
 #: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "ធ្វើរួច"
@@ -562,42 +562,42 @@ msgstr "ធ្វើរួច"
 #: src/app/webbrowser/BookmarksViewWide.qml:126
 #: src/app/webbrowser/HistoryView.qml:145
 #: src/app/webbrowser/HistoryViewWide.qml:531
-#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:546
 #: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
 msgstr "ប្រវត្តិ"
 
-#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "ការ​ទាញយក"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Leave Private Mode"
 msgstr "បិទ​របៀប​ឯកជន"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Private Mode"
 msgstr "របៀប​ឯកជន"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "ការ​កំណត់"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:791
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1343
+#: src/app/webbrowser/Browser.qml:1345
 msgid "Swipe Up To Exit Full Screen"
 msgstr "រុញ​ឡើង​លើ​ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
-#: src/app/webbrowser/Browser.qml:1344
+#: src/app/webbrowser/Browser.qml:1346
 msgid "Press ESC To Exit Full Screen"
 msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
@@ -807,7 +807,7 @@ msgid "Default"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:156
 msgid "Search engine"
 msgstr "ម៉ាស៊ីន​ស្វែងរក"
 
@@ -815,45 +815,45 @@ msgstr "ម៉ាស៊ីន​ស្វែងរក"
 msgid "Restore previous session at startup"
 msgstr "ស្ដារ​សម័យ​មុន​ដែល​នៅ​ពេល​ចាប់​ផ្ដើម"
 
-#: src/app/webbrowser/SettingsPage.qml:137
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:145
+#: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
 msgstr "​កំណត់​កម្មវិធី​រុករក​ឡើង​វិញ"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:386
+#: src/app/webbrowser/SettingsPage.qml:229
+#: src/app/webbrowser/SettingsPage.qml:367
 msgid "Camera & microphone"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:254
+#: src/app/webbrowser/SettingsPage.qml:235
 msgid "Clear Browsing History"
 msgstr "ជម្រះ​ប្រវត្តិ​ការរុករក"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:238
 msgid "Clear Browsing History?"
 msgstr "សម្អាត​ប្រវត្តិ​ស្វែងរក?"
 
-#: src/app/webbrowser/SettingsPage.qml:264
+#: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Cache"
 msgstr "ជម្រះ​ឃ្លាំង​សម្ងាត់"
 
-#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webbrowser/SettingsPage.qml:247
 msgid "Clear Cache?"
 msgstr "សម្អាត​ឃ្លាំង​សម្ងាត់?"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:282
 msgid "Clear"
 msgstr "សម្អាត"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:387
 msgid "Microphone"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:425
+#: src/app/webbrowser/SettingsPage.qml:406
 msgid "Camera"
 msgstr ""
 
@@ -861,7 +861,7 @@ msgstr ""
 msgid "Tap to view"
 msgstr "ប៉ះ​ដើម្បី​មើល"
 
-#: src/app/webbrowser/TabsBar.qml:100
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "បិទ​ផ្ទាំង"
 
