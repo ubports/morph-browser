@@ -127,7 +127,10 @@ window.onload = function() {{
   "theme_color": "#FF0000"
 }        """
 
-    def theme_color_content(self, color, with_manifest=False, delayed_color_update=''):
+    def theme_color_content(self,
+                            color,
+                            with_manifest=False,
+                            delayed_color_update=''):
         color_content = ''
         if color:
             color_content = """
@@ -243,14 +246,16 @@ setTimeout(function() {
             color = ''
             if 'color' in q:
                 color = q['color'][0]
-            delayed_color_update = ''
+            color_update = ''
             if 'delaycolorupdate' in q:
-                delayed_color_update = q['delaycolorupdate'][0]
+                color_update = q['delaycolorupdate'][0]
             with_manifest = False
-            if 'manifest' in q and q['manifest'][0]=='true':
+            if 'manifest' in q and q['manifest'][0] == 'true':
                 with_manifest = True
             self.send_response(200)
-            self.serve_content(self.theme_color_content(color, with_manifest, delayed_color_update))
+            self.serve_content(
+                self.theme_color_content(
+                    color, with_manifest, color_update))
         elif self.path.startswith('/saml/'):
             args = self.path[len('/saml/'):]
             loopCount = 0
