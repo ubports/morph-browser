@@ -81,6 +81,7 @@ Item {
                 ListItemLayout {
                     title.text: i18n.tr("Search engine")
                     subtitle.text: searchEngineListItem.currentSearchEngineDisplayName
+                    ProgressionSlot {}
                 }
 
                 visible: searchEngines.engines.count > 1
@@ -124,6 +125,7 @@ Item {
 
                 ListItemLayout {
                     title.text: i18n.tr("Privacy & permissions")
+                    ProgressionSlot {}
                 }
 
                 onClicked: privacyComponent.createObject(subpageContainer)
@@ -244,6 +246,7 @@ Item {
                             objectName: "privacy.mediaAccess"
                             ListItemLayout {
                                 title.text: i18n.tr("Camera & microphone")
+                                ProgressionSlot {}
                             }
                             onClicked: mediaAccessComponent.createObject(subpageContainer)
                         }
