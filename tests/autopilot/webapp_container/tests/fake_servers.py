@@ -17,7 +17,6 @@
 
 import http.server as http
 import logging
-import urllib
 import threading
 import urllib
 
