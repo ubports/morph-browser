@@ -1,5 +1,5 @@
 /*
- * Copyright 2014, 2016 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,9 +19,9 @@
 #include "webapp-container-helper.h"
 
 #include <QColor>
-#include <QtCore/QMetaObject>
-#include <QtCore/QMetaProperty>
-#include <QtCore/QRegExp>
+#include <QMetaObject>
+#include <QMetaProperty>
+#include <QRegExp>
 #include <QDebug>
 
 WebappContainerHelper::WebappContainerHelper(QObject* parent)
@@ -69,26 +69,17 @@ QString WebappContainerHelper::rgbColorFromCSSColor(const QString& cssColor)
         return QString();
     } else if (color.startsWith("#")) {
         QString hexColor = color.mid(1);
-        if (hexColor.size() != 6) {
-            hexColor = QString(6 - hexColor.size(), '0') + hexColor;
+        if (hexColor.size() < 6) {
+            color = "#" + QString(6 - hexColor.size(), '0') + hexColor;
         }
-        QRegExp rgbColorRe("((\\d|[a-f])(\\d|[a-f]))((\\d|[a-f])(\\d|[a-f]))((\\d|[a-f])(\\d|[a-f]))");
-        if (rgbColorRe.exactMatch(hexColor)) {
-            bool status = false;
-            return returnColorFormat
-                    .arg(rgbColorRe.cap(1).toUInt(&status, 16))
-                    .arg(rgbColorRe.cap(4).toUInt(&status, 16))
-                    .arg(rgbColorRe.cap(7).toUInt(&status, 16));
-        }
-        return QString();
-    } else {
-        QColor returnColor(color);
-        return returnColor.isValid()
-                ? returnColorFormat
-                        .arg(returnColor.red())
-                        .arg(returnColor.green())
-                        .arg(returnColor.blue())
-                        .toLower()
-                : QString();
     }
+
+    QColor returnColor(color);
+    return returnColor.isValid()
+        ? returnColorFormat
+          .arg(returnColor.red())
+          .arg(returnColor.green())
+          .arg(returnColor.blue())
+          .toLower()
+        : QString();
 }

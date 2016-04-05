@@ -33,7 +33,7 @@ public:
 
     /**
      * Expects a CSS color string http://www.w3schools.com/css/css_colors.asp
-     * and returns a #rrggbb formatted string.
+     * and returns a rr,gg,bb formatted string.
      *
      * If the provided string is not a valid CSS color string, an empty string
      * is returned.
