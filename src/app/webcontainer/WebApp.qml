@@ -44,6 +44,7 @@ BrowserView {
     property alias localUserAgentOverride: containerWebView.localUserAgentOverride
     property alias dataPath: containerWebView.dataPath
     property alias runningLocalApplication: containerWebView.runningLocalApplication
+    property alias openExternalUrlInOverlay: containerWebView.openExternalUrlInOverlay
 
     property string webappName: ""
 
