@@ -23,3 +23,5 @@ add_subdirectory(text-search-filter-model)
 add_subdirectory(downloads-model)
 add_subdirectory(single-instance-manager)
 add_subdirectory(meminfo)
+add_subdirectory(webapp-container-color-helper)
+
