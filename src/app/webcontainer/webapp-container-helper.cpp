@@ -69,7 +69,7 @@ QString WebappContainerHelper::rgbColorFromCSSColor(const QString& cssColor)
         return QString();
     } else if (color.startsWith("#")) {
         QString hexColor = color.mid(1);
-        if (hexColor.size() < 6) {
+        if (hexColor.size() < 6 && hexColor.size() != 3) {
             color = "#" + QString(6 - hexColor.size(), '0') + hexColor;
         }
     }

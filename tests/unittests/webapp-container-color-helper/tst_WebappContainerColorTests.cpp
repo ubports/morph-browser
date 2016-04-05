@@ -43,6 +43,7 @@ private Q_SLOTS:
         QTest::newRow("Valid RGB CSS color") << " rgb (255, 0, 0) " << "255,0,0";
         QTest::newRow("Valid plain RGB CSS color") << " #FF0000 " << "255,0,0";
         QTest::newRow("Valid short plain RGB CSS color") << " #36699 " << "3,102,153";
+        QTest::newRow("Valid shortest plain RGB CSS color") << " #366 " << "51,102,102";
         QTest::newRow("Valid very short plain RGB CSS color") << " #000 " << "0,0,0";
         QTest::newRow("Valid SVG name CSS color") << " #FF000044 " << "0,0,68";
     }
