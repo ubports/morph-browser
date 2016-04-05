@@ -47,10 +47,19 @@
         return false;
     }
 
-    var detectors = [detectThemeColorMetaInformation, detectManifestMetaInformation]
-    for (var i in detectors) {
-        if (detectors[i]()) {
-            break;
+    function extractWebAppMetaInfo() {
+        var detectors = [detectThemeColorMetaInformation, detectManifestMetaInformation]
+        for (var i in detectors) {
+            if (detectors[i]()) {
+                break;
+            }
         }
     }
+    extractWebAppMetaInfo();
+
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    var observer = new MutationObserver(function(mutations) {
+        extractWebAppMetaInfo();
+    });
+    observer.observe(document, {childList: true, subtree: true, attributes: true });
 })();

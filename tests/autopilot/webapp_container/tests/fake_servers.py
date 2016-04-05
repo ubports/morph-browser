@@ -159,29 +159,43 @@ navigator.getUserMedia(constraints, callback, callback);
   "theme_color": "#FF0000"
 }        """
 
-    def theme_color_content(self, color, with_manifest=False):
+    def theme_color_content(self,
+                            color,
+                            with_manifest=False,
+                            delayed_color_update=''):
         color_content = ''
         if color:
             color_content = """
 <meta name=\"theme-color\" content=\"{}\"></meta>
 """.format(color)
+
         manifest_content = ''
         if with_manifest:
             manifest_content = "<link rel=\"manifest\" href=\"manifest.json\">"
+
+        delayed_color_code = ''
+        if len(delayed_color_update) != 0:
+            delayed_color_code = """
+setTimeout(function() {
+   var e=document.head.querySelector('meta[name="theme-color"]');
+   e.content = '%s';
+}, 2000)""" % delayed_color_update
 
         return """
 <html>
 <head>
 {}
 {}
-<title>theme-color</title>
+
 <script>
+{}
 </script>
+<title>theme-color</title>
 </head>
 <body>
 </body>
 </html>
-        """.format(color_content, manifest_content)
+        """.format(color_content, manifest_content, delayed_color_code)
 
     def open_close_content(self):
         return """
@@ -257,16 +271,23 @@ navigator.getUserMedia(constraints, callback, callback);
             self.send_response(200)
             self.serve_content(self.manifest_json_content())
         elif self.path.startswith('/theme-color/'):
-            args = self.path[len('/theme-color/'):]
+            q = urllib.parse.parse_qs(
+                urllib.parse.urlparse(
+                    self.path).query)
             self.send_response(200)
             color = ''
-            if args.startswith('?color='):
-                color = args[len('?color='):]
+            if 'color' in q:
+                color = q['color'][0]
+            color_update = ''
+            if 'delaycolorupdate' in q:
+                color_update = q['delaycolorupdate'][0]
             with_manifest = False
-            if args.startswith('?manifest='):
+            if 'manifest' in q and q['manifest'][0] == 'true':
                 with_manifest = True
             self.send_response(200)
-            self.serve_content(self.theme_color_content(color, with_manifest))
+            self.serve_content(
+                self.theme_color_content(
+                    color, with_manifest, color_update))
         elif self.path.startswith('/saml/'):
             args = self.path[len('/saml/'):]
             loopCount = 0
