@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
+
+  * Add --open-external-url-in-overlay option to allow externals urls
+    (not part of patterns) are opened in overlays instead of external
+    browser (LP: #1548575)
+  * Handle live updates to theme color meta tag and reflect them in the
+    top bar background color (LP: #1550754)
+  * Set address bar text color to a darker version of the theme color if
+    one is defined in a webapp (LP: #1548573)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 05 Apr 2016 15:42:59 +0000
+
 webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
 
   * Make google maps work in complete mode on tablets. (LP: #1560079)
