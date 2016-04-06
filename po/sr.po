@@ -2,26 +2,27 @@
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
-#
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-25 21:16+0100\n"
-"PO-Revision-Date: 2016-01-21 22:24+0000\n"
-"Last-Translator: Bojan Bogdanović <Unknown>\n"
-"Language-Team: Serbian <sr@li.org>\n"
+"PO-Revision-Date: 2016-04-05 07:29+0000\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-06 05:51+0000\n"
+"X-Generator: Launchpad (build 17972)\n"
+"Language: sr\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "JavaScript обавештење"
+msgstr "Обавештење скрипте Јаве"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
@@ -32,13 +33,13 @@ msgstr "У реду"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "Обавезна је аутентификација."
+msgstr "Потребно је потврђивање идентитета."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Веб страница на %1 захтева аутентификацију."
+msgstr "Веб страница „%1“ захтева потврду идентитета."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
@@ -66,7 +67,7 @@ msgstr "Откажи"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Потврда навигације"
+msgstr "Потврди навигацију"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -87,8 +88,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Покушавате да безбедно дођете до %1, али сертификат ове веб странице није од "
-"поверења."
+"Покушавате безбедно да приступите „%1“, али безбедносно уверење ове веб "
+"странице није поверљиво."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -102,7 +103,7 @@ msgstr "Назад у безбедност"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "ЈаваСкрипт потврда"
+msgstr "Потврда скрипте Јаве"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -112,12 +113,11 @@ msgstr "Грешка на мрежи"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Изгледа да имате проблема гледајући: %1."
+msgstr "Изгледа да имате проблема са прегледањем: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
-"Молимо да проверите подешавање мреже и покушајте са освежавањем странице."
+msgstr "Проверите подешавање мреже и покушајте да освежите страницу."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -125,11 +125,11 @@ msgstr "Освежи страницу"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Захтев за овлашћење"
+msgstr "Захтев за дозволе"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Ова страница жели да зна положај вашег уређаја."
+msgstr "Ова страница жели да зна место вашег уређаја."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -141,7 +141,7 @@ msgstr "Допусти"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "Потврда безбедности ове странице није од поверења.\n"
+msgstr "Безбедносно уверење ове странице није од поверења.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
@@ -232,8 +232,8 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Не препоручује се да наставите, нарочито ако никад раније нисте видели ово "
-"упозорење за ову страницу."
+"Не препоручује вам се да наставите, нарочито ако никад раније нисте видели "
+"ово упозорење за ову страницу."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -242,8 +242,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио потврду безбедности која "
-"се не поклапа са идентитетом странице."
+"Покушали сте да приступите на „%1“ али је сервер приказао безбедносно "
+"уверење које се не поклапа са идентитетом странице."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -252,8 +252,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио потврду безбедности која "
-"је истекла."
+"Покушали сте да приступите на „%1“ али је сервер приказао безбедносно "
+"уверење које је истекло."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -262,8 +262,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио потврду безбедности која "
-"садржи неисправне датуме."
+"Покушали сте да приступите „%1“ али је сервер приказао безбедносно уверење "
+"које садржи неисправне датуме."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -272,8 +272,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио потврду безбедности која "
-"је издата од стране организације која није од поверења."
+"Покушали сте да приступите „%1“ али је сервер приказао безбедносно уверење "
+"које је издато од стране организације која није од поверења."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -282,8 +282,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио потврду безбедности која "
-"је повучена."
+"Покушали сте да приступите „%1“ али је сервер приказао безбедносно уверење "
+"које је повучено."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -292,8 +292,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио неисправну потврду "
-"безбедности."
+"Покушали сте да приступите „%1“ али је сервер приказао неисправно "
+"безбедносно уверење."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -302,8 +302,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"Покушали сте да приступите %1 али је сервер понудио небезбедну потврду "
-"безбедности."
+"Покушали сте да приступите „%1“ али је сервер приказао безбедносно уверење "
+"које није безбедно."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -313,23 +313,23 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"Безбедносна потврда ове странице није од поверења\n"
-"Покушали сте да приступите %1 али је сервер понудио потврду безбедности која "
-"није прошла наше безбедносне провере из непознатих разлога."
+"Безбедносно уверење ове странице није од поверења\n"
+"Покушали сте да приступите „%1“ али је сервер приказао безбедносно уверење "
+"које није прошло наше безбедносне провере из непознатих разлога."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr "Јаваскрипт питање"
+msgstr "Питање скрипте Јаве"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Посредник захтева аутентификацију."
+msgstr "Посредник захтева потврду идентитета."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "Веб страница %1:%2 захтева аутентификацију."
+msgstr "Веб страница „%1:%2“ захтева потврду идентитета."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -339,7 +339,7 @@ msgstr "Назад"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Старија страна"
+msgstr "Старија страница"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -349,7 +349,7 @@ msgstr "Обележи"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Додај ову страницу међу обележиваче"
+msgstr "Додајте ову страницу међу обележиваче"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
@@ -383,27 +383,27 @@ msgstr "Исеци"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr "Обришите"
+msgstr "Обриши"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
 msgid "Find in page"
-msgstr "Пронађи на страни"
+msgstr "Пронађи на страници"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr "Претражи страницу"
+msgstr "Тражи на страници"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "вија"
+msgstr "Напред"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Новија страна"
+msgstr "Новија страница"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -413,7 +413,7 @@ msgstr "Иди на"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Адреса;УРЛ;веб"
+msgstr "адреса;УРЛ;веб"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
 #: src/app/webbrowser/TabsBar.qml:91
@@ -424,7 +424,7 @@ msgstr "Нови лист"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Отвори нови лист"
+msgstr "Отворите нови лист"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
@@ -440,11 +440,11 @@ msgstr "Отвори везу у новом листу"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr "Отвори видео у новом језичку"
+msgstr "Отвори видео у новом листу"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr "Налепи"
+msgstr "Убаци"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
@@ -495,11 +495,11 @@ msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "find in page"
-msgstr "пронађи на страни"
+msgstr "нађи на страници"
 
 #: src/app/webbrowser/AddressBar.qml:247
 msgid "search or enter an address"
-msgstr "тражи или унеси адресу"
+msgstr "тражите или унесите адресу"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
@@ -528,7 +528,7 @@ msgstr "Нова фасцикла"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr "Креирај нову фасциклу"
+msgstr "Направи нову фасциклу"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:339
@@ -540,7 +540,7 @@ msgstr "Сачувај"
 #: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:303
 msgid "Homepage"
-msgstr "Почетна страна"
+msgstr "Матична страница"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
@@ -567,7 +567,7 @@ msgstr "Нови лист"
 #: src/app/webbrowser/Browser.qml:546
 #: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
-msgstr "Историја"
+msgstr "Историјат"
 
 #: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
@@ -597,14 +597,14 @@ msgstr "Превуците на горе да напустите пуни екр
 
 #: src/app/webbrowser/Browser.qml:1346
 msgid "Press ESC To Exit Full Screen"
-msgstr "Притисните ЕСЦ да напустите пуни екран"
+msgstr "Притисните „ЕСЦ“ да напустите пуни екран"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:82
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"Изаберите програм да отворите овај тип датотеке или је додајте у фасциклу "
-"Преузми."
+"Изаберите програм за отварање ове врсте датотеке или је додајте у фасциклу "
+"преузимања."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:88
 msgid "Choose an application"
@@ -660,7 +660,7 @@ msgstr "Јуче"
 
 #: src/app/webbrowser/HistoryViewWide.qml:196
 msgid "All History"
-msgstr "Комплетна историја"
+msgstr "Сав историјат"
 
 #: src/app/webbrowser/HistoryViewWide.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:295
@@ -669,23 +669,23 @@ msgstr "Данас"
 
 #: src/app/webbrowser/HistoryViewWide.qml:462
 msgid "search history"
-msgstr "историја претраге"
+msgstr "историјат претраге"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr "Прелазак на јавни режим ће затворити све приватне листове"
+msgstr "Прелазак на јавни режим затвориће све приватне листове"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr "Дозволи овој веб страници приступ вашој камери и микрофону?"
+msgstr "Да дозволим овој веб страници да приступи вашој камери и микрофону?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr "Дозволи овој веб страници приступ вашој камери?"
+msgstr "Да дозволим овој веб страници да приступи вашој камери?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr "Дозволи овој веб страници приступ вашем микрофону?"
+msgstr "Да дозволим овој веб страници да приступи вашем микрофону?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
@@ -710,12 +710,13 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-"Стране које посетите у овом листу неће се појавити у историји претраживача.\n"
-"Међутим, обележивачи које креирате биће сачувани."
+"Странице које посетите у овом листу неће се појавити у историјату "
+"прегледника.\n"
+"Међутим, обележивачи које направите биће сачувани."
 
 #: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
-msgstr "Више"
+msgstr "Још"
 
 #: src/app/webbrowser/NewTabView.qml:335
 #: src/app/webbrowser/NewTabViewWide.qml:138
@@ -724,25 +725,25 @@ msgstr "Главне странице"
 
 #: src/app/webbrowser/NewTabView.qml:366
 msgid "You haven't visited any site yet"
-msgstr "Нисте посетили ни једну старницу до сада"
+msgstr "До сада нисте посетили ни једну страницу"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr "Процес рендеровања је затворен за овај лист."
+msgstr "Процес исцртавања је затворен за овај лист."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr "Нешто је пошло лоше при приказивању %1."
+msgstr "Нешто је пошло наопако приликом приказивања „%1“."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
-"Систем је на минимуму меморије и не може приказати ову страницу. Покушајте "
-"да затворите непотребне листове и освежите станицу."
+"Систему недостаје меморије и не може приказати ову страницу. Покушајте да "
+"затворите непотребне листове и освежите станицу."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
@@ -750,49 +751,48 @@ msgstr "Затворите лист"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr "Ова страница има небезбедног садржаја"
+msgstr "Ова страница има садржај који није безбедан"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr "Идентитет није верификован"
+msgstr "Идентитет није проверен"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "Идентитет овог веб сајта није верификован."
+msgstr "Идентитет овог веб сајта није проверен."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr "Сертификат сервера се не поклапа са идентитетом странице."
+msgstr "Уверење сервера се не поклапа са идентитетом странице."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr "Сртификат сервера је истекао."
+msgstr "Уверење сервера је истекло."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "Сертификат сервера садржи неисправне датуме."
+msgstr "Уверење сервера садржи неисправне датуме."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "Сертификат сервера је издат од стране којој се не може веровати."
+msgstr "Уверење сервера је издато од стране којој се не може веровати."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "Сертификат сервера је опозван."
+msgstr "Уверење сервера је опозвано."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr "Сертификат сервера није валидан."
+msgstr "Уверење сервера није исправно."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr "Сертификат сервера не несигуран."
+msgstr "Уверење сервера није безбедно."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
-"Сертификат сервера је није прошао наше сигурносне провере из непознатог "
-"разлога."
+"Уверење сервера није прошао наше безбедносне провере из непознатог разлога."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -800,7 +800,7 @@ msgstr "Повезани сте на"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "За који је задужен"
+msgstr "Кога покреће"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
@@ -809,7 +809,7 @@ msgstr "Подразумевано"
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:156
 msgid "Search engine"
-msgstr "Претраживач"
+msgstr "Погон претраге"
 
 #: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
@@ -822,7 +822,7 @@ msgstr "Приватност и дозволе"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
-msgstr "Враћање прегледача на почетна подешавања"
+msgstr "Враћање подешавања прегледача"
 
 #: src/app/webbrowser/SettingsPage.qml:229
 #: src/app/webbrowser/SettingsPage.qml:367
@@ -831,19 +831,19 @@ msgstr "Камера и микрофон"
 
 #: src/app/webbrowser/SettingsPage.qml:235
 msgid "Clear Browsing History"
-msgstr "Обриши историју претраге"
+msgstr "Обриши историјат претраге"
 
 #: src/app/webbrowser/SettingsPage.qml:238
 msgid "Clear Browsing History?"
-msgstr "Обриши историју претраге?"
+msgstr "Да обришем историјат претраге?"
 
 #: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Cache"
-msgstr "Очисти кеш"
+msgstr "Очисти оставу"
 
 #: src/app/webbrowser/SettingsPage.qml:247
 msgid "Clear Cache?"
-msgstr "Очисти кеш?"
+msgstr "Да очистим оставу?"
 
 #: src/app/webbrowser/SettingsPage.qml:282
 msgid "Clear"
@@ -859,7 +859,7 @@ msgstr "Камера"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
-msgstr "Тапни да погледаш"
+msgstr "Лупните за преглед"
 
 #: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
@@ -874,19 +874,19 @@ msgstr "Уклони"
 #: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 — Убунту Прегледач веба"
+msgstr "%1 — Убунтуов прегледник веба"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
-msgstr "Убунту Прегледач веба"
+msgstr "Убунтуов прегледник веба"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Ни један налог није повезан за ову веб апликацију; притисните ставку испод "
+"Ни један налог није повезан са овом веб апликацијом; притисните ставку испод "
 "да додате налог."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
@@ -895,7 +895,7 @@ msgstr "Додај налог"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr "Немојте користити налог"
+msgstr "Немој користити налог"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
@@ -910,15 +910,14 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"Прозор налога не може бити отворен. Можете креирати само један налог у исто "
-"време; молимо да покушате поново када затворите све друге прозоре са "
-"налозима."
+"Прозор налога не може бити отворен. Можете направити само један налог "
+"одједном; покушајте поново када затворите све друге прозоре са налозима."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr "<b>%1</b> мора да приступи вашем %2 налогу."
+msgstr "<b>%1</b> треба да приступи вашем %2 налогу."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
@@ -930,7 +929,7 @@ msgstr "<b>%1</b> жели да приступи вашем %2 налогу."
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
-"Изаберите сада налог, или прескочите овај корак и изаберите налог касније."
+"Сада изаберите налог, или прескочите овај корак и касније изаберите налог."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
@@ -942,7 +941,7 @@ msgstr "Прескочи"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr "Изаберите налог"
+msgstr "Изабери налог"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
@@ -950,11 +949,11 @@ msgstr "Упс, нешто није у реду."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "Прегледач"
+msgstr "Прегледник"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Прегледач веба"
+msgstr "Прегледник веба"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
@@ -962,7 +961,7 @@ msgstr "Разгледајте веб"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Интернет;WWW;Прегледач;Веб;Претраживач"
+msgstr "интернет;прегледник;веб;претраживач;WWW"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
