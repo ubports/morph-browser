@@ -109,7 +109,7 @@ FocusScope {
 
         spacing: units.gu(1)
 
-        Item {
+        FocusScope {
             width: units.gu(40)
             height: parent.height
 
@@ -118,54 +118,17 @@ FocusScope {
                 objectName: "lastVisitDateListView"
 
                 anchors.fill: parent
+                focus: true
 
                 currentIndex: 0
-                onCurrentIndexChanged: {
-                    if (currentItem) {
-                        historyLastVisitDateModel.lastVisitDate = currentItem.lastVisitDate
-                    }
-                    urlsListView.ViewItems.selectedIndices = []
-                }
-
-                // Manually track the current date, so that we can detect when
-                // the ListView automatically changes the currentItem as result
-                // of a change in the model that removes the currentItem.
-                // When this happens, we reset the currentItem to "all dates".
-                property date currentDate
-
-                // Ignore currentItemChanged signals while we are changing the
-                // currentIndex manually (as a result of either UP and DOWN key
-                // presses, or clicking on items)
-                // Any other emission of currentItemChanged will therefore be
-                // from ListView changing it automatically.
-                function explicitlyChangeCurrentIndex(changeAction) {
-                    explicitlySettingCurrentIndex = true
-                    changeAction()
-                    explicitlySettingCurrentIndex = false
-                    currentDate = currentItem.lastVisitDate
-                }
-                property bool explicitlySettingCurrentIndex: false
-                Keys.onDownPressed: explicitlyChangeCurrentIndex(incrementCurrentIndex)
-                Keys.onUpPressed: explicitlyChangeCurrentIndex(function() {
-                    if (lastVisitDateListView.currentIndex == 0 && searchMode) {
-                        searchQuery.focus = true
-                    } else {
-                        lastVisitDateListView.decrementCurrentIndex()
-                    }
-                })
-
-                onCurrentItemChanged: {
-                    if (explicitlySettingCurrentIndex) return;
-                    if (currentItem.lastVisitDate.valueOf() !== currentDate.valueOf()) {
-                        currentIndex = 0
-                    }
-                }
+                onCurrentIndexChanged: urlsListView.ViewItems.selectedIndices = []
 
                 model: HistoryLastVisitDateListModel {
                     sourceModel: historyLastVisitDateModel.model
                 }
 
                 delegate: ListItem {
+                    id: lastVisitDateDelegate
                     objectName: "lastVisitDateDelegate"
 
                     property var lastVisitDate: model.lastVisitDate
@@ -215,7 +178,7 @@ FocusScope {
                         }
 
                         fontSize: "small"
-                        color: (!lastVisitDateListView.activeFocus && (lastVisitDateListView.currentIndex == index)) ? UbuntuColors.orange : UbuntuColors.darkGrey
+                        color: (!lastVisitDateListView.activeFocus && lastVisitDateDelegate.ListView.isCurrentItem) ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
 
                     divider {
@@ -227,10 +190,34 @@ FocusScope {
                         Behavior on opacity { UbuntuNumberAnimation {} }
                     }
 
-                    onClicked: ListView.view.explicitlyChangeCurrentIndex(function() { ListView.view.currentIndex = index })
+                    onClicked: ListView.view.currentIndex = index
+
+                    ListView.onRemove: {
+                        if (ListView.isCurrentItem) {
+                            // For some reason, setting the current index here
+                            // results in it being reset to its previous value
+                            // right away. Delaying it with a timer so the
+                            // operation is queued does the trick.
+                            resetIndexTimer.restart()
+                        }
+                    }
                 }
 
                 highlight: ListViewHighlight {}
+
+                Timer {
+                    id: resetIndexTimer
+                    interval: 0
+                    onTriggered: lastVisitDateListView.currentIndex = 0
+                }
+            }
+
+            Keys.onUpPressed: {
+                if (searchMode) {
+                    searchQuery.focus = true
+                } else {
+                    event.accepted = false
+                }
             }
 
             Scrollbar {
@@ -254,7 +241,7 @@ FocusScope {
 
                 model: SortFilterModel {
                     id: historyLastVisitDateModel
-                    property date lastVisitDate
+                    readonly property date lastVisitDate: lastVisitDateListView.currentItem ? lastVisitDateListView.currentItem.lastVisitDate : ""
                     filter {
                         property: "lastVisitDateString"
                         pattern: new RegExp(lastVisitDate.isValid() ? "^%1$".arg(Qt.formatDate(lastVisitDate, "yyyy-MM-dd")) : "")
