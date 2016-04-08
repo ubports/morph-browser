@@ -689,6 +689,7 @@ BrowserView {
 
     BottomEdgeHandle {
         id: bottomEdgeHandle
+        objectName: "bottomEdgeHandle"
 
         anchors {
             left: parent.left
@@ -727,7 +728,6 @@ BrowserView {
 
     Image {
         id: bottomEdgeHint
-        objectName: "bottomEdgeHint"
         source: "assets/bottom_edge_hint.png"
         property bool forceShow: false
         anchors {

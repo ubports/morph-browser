@@ -183,8 +183,8 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                     objectName="downloadFileButton")
         self.pointing_device.click_object(button)
 
-    def get_bottom_edge_hint(self):
-        return self.select_single("QQuickImage", objectName="bottomEdgeHint")
+    def get_bottom_edge_handle(self):
+        return self.select_single(objectName="bottomEdgeHandle")
 
     def get_bottom_edge_bar(self):
         return self.select_single(objectName="bottomEdgeBar", visible=True)
