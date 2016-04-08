@@ -804,20 +804,14 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                bookmarksViewLoader.item.forceActiveFocus()
+                chrome.findInPageMode = false
+                forceActiveFocus()
             } else {
                 internal.resetFocus()
             }
         }
 
-        Keys.onEscapePressed: bookmarksViewLoader.active = false
-
-        onActiveChanged: {
-            if (active) {
-                chrome.findInPageMode = false
-                forceActiveFocus()
-            }
-        }
+        Keys.onEscapePressed: active = false
 
         Connections {
             target: bookmarksViewLoader.item
@@ -838,7 +832,7 @@ BrowserView {
 
             BookmarksView {
                 anchors.fill: parent
-
+                focus: true
                 homepageUrl: settings.homepage
             }
         }
@@ -848,7 +842,7 @@ BrowserView {
 
             BookmarksViewWide {
                 anchors.fill: parent
-
+                focus: true
                 homepageUrl: settings.homepage
             }
         }
@@ -863,26 +857,22 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
+                chrome.findInPageMode = false
+                forceActiveFocus()
                 historyViewLoader.item.loadModel()
-                historyViewLoader.item.forceActiveFocus()
             } else {
                 internal.resetFocus()
             }
         }
 
-        Keys.onEscapePressed: historyViewLoader.active = false
-
-        onActiveChanged: {
-            if (active) {
-                chrome.findInPageMode = false
-                forceActiveFocus()
-            }
-        }
+        Keys.onEscapePressed: active = false
 
         Component {
             id: historyViewComponent
 
             FocusScope {
+                focus: true
+
                 signal loadModel()
                 onLoadModel: children[0].loadModel()
 
@@ -930,6 +920,8 @@ BrowserView {
             HistoryViewWide {
                 anchors.fill: parent
 
+                focus: true
+
                 Keys.onEscapePressed: {
                     historyViewLoader.active = false
                     internal.resetFocus()
@@ -954,20 +946,14 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                settingsViewLoader.item.forceActiveFocus()
+                chrome.findInPageMode = false
+                forceActiveFocus()
             } else {
                 internal.resetFocus()
             }
         }
 
-        Keys.onEscapePressed: settingsViewLoader.active = false
-
-        onActiveChanged: {
-            if (active) {
-                chrome.findInPageMode = false
-                forceActiveFocus()
-            }
-        }
+        Keys.onEscapePressed: active = false
 
         sourceComponent: SettingsPage {
             anchors.fill: parent
@@ -982,34 +968,21 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        source: "DownloadsPage.qml"
+        sourceComponent: DownloadsPage {
+            focus: true
+            downloadManager: browser.downloadManager
+            onDone: downloadsViewLoader.active = false
+        }
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                item.forceActiveFocus()
+                forceActiveFocus()
             } else {
                 internal.resetFocus()
             }
         }
 
         Keys.onEscapePressed: active = false
-
-        onActiveChanged: {
-            if (active) {
-                forceActiveFocus()
-            }
-        }
-
-        Binding {
-            target: downloadsViewLoader.item
-            property: "downloadManager"
-            value: browser.downloadManager
-        }
-
-        Connections {
-            target: downloadsViewLoader.item
-            onDone: downloadsViewLoader.active = false
-        }
     }
 
     TabsModel {
