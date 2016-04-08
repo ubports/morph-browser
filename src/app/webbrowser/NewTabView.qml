@@ -75,13 +75,6 @@ FocusScope {
         id: flickable
         anchors.fill: parent
         contentHeight: contentScope.height
-        focus: true
-
-        onActiveFocusChanged: {
-            if (activeFocus) {
-                contentScope.forceActiveFocus()
-            }
-        }
 
         Behavior on contentY {
             UbuntuNumberAnimation {}
@@ -94,6 +87,8 @@ FocusScope {
                 right: parent.right
             }
             height: childrenRect.height
+
+            focus: true
 
             Item {
                 id: bookmarkListHeader
