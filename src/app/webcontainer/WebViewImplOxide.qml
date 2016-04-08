@@ -38,6 +38,7 @@ WebappWebview {
     property var overlayViewsParent: webview.parent
     property var mediaAccessDialogComponent
     property bool openExternalUrlInOverlay: false
+    property string defaultVideoCaptureCameraPosition: ""
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -69,6 +70,8 @@ WebappWebview {
     context: WebContext {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
+
+        cameraPositionVideoCaptureDefault: webview.defaultVideoCaptureCameraPosition
 
         userScripts: [
             Oxide.UserScript {
