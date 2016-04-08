@@ -357,6 +357,14 @@ FocusScope {
             top: parent.top
         }
 
+        Keys.onEscapePressed: {
+            if (searchQuery.activeFocus) {
+                historyViewWide.searchMode = false
+            } else {
+                event.accepted = false
+            }
+        }
+
         Label {
             visible: !urlsListView.ViewItems.selectMode &&
                      !historyViewWide.searchMode
@@ -453,7 +461,6 @@ FocusScope {
             visible: historyViewWide.searchMode
             readonly property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
-            Keys.onEscapePressed: historyViewWide.searchMode = false
             Keys.onDownPressed: urlsListView.focus = true
         }
 
