@@ -115,7 +115,8 @@ FocusScope {
                 leftMargin: Math.round(backButton.width + forwardButton.width + units.gu(1))
                 right: rightButtonsBar.left
                 rightMargin: units.gu(1)
-                verticalCenter: parent.verticalCenter
+                top: parent.top
+                bottom: parent.bottom
             }
 
             icon: (internal.webview && internal.webview.certificateError) ? "" : tab ? tab.icon : ""
