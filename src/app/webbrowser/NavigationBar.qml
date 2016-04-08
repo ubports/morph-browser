@@ -220,15 +220,18 @@ FocusScope {
         id: internal
         property var openDrawer: null
         readonly property var webview: tab ? tab.webview : null
+    }
 
-        onWebviewChanged: {
-            if (webview) {
-                addressbar.actualUrl = webview.url
-                addressbar.securityStatus = webview.securityStatus
-            } else {
-                addressbar.actualUrl = ""
-                addressbar.securityStatus = null
+    onTabChanged: {
+        if (tab) {
+            addressbar.actualUrl = tab.url
+            addressbar.securityStatus = (tab.webview ? tab.webview.securityStatus : null)
+            if (!tab.url.toString() && editing) {
+                addressbar.text = ""
             }
+        } else {
+            addressbar.actualUrl = ""
+            addressbar.securityStatus = null
         }
     }
 

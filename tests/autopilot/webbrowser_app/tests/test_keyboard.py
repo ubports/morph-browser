@@ -493,3 +493,24 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.main_window.press_key('Ctrl+w')
         self.assert_number_webviews_eventually(1)
+
+    def test_addressbar_cleared_when_opening_new_tab(self):
+        # Verify that when opening a new tab while the address bar was focused,
+        # the address bar is cleared.
+        self.main_window.press_key('Ctrl+l')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals(self.url)))
+        self.main_window.press_key('Ctrl+t')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals("")))
+
+    def test_addressbar_cleared_when_switching_between_new_tabs(self):
+        # Verify that when opening a new tab while a new tab was already open
+        # with text input in the address bar, the address bar is cleared.
+        self.main_window.press_key('Ctrl+t')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals("")))
+        self.address_bar.write("abc")
+        self.main_window.press_key('Ctrl+t')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals("")))

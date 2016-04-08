@@ -63,21 +63,6 @@ BrowserView {
     }
 
     Connections {
-        target: tabsModel
-        onCurrentIndexChanged: {
-            // Remove focus from the address bar when the current tab
-            // changes to ensure that its contents are updated.
-            contentsContainer.forceActiveFocus()
-
-            // In narrow mode, the tabslist is a stack:
-            // the current tab is always at the top.
-            if (!browser.wide) {
-                tabsModel.move(tabsModel.currentIndex, 0)
-            }
-        }
-    }
-
-    Connections {
         target: currentWebview
 
         /* Note that we are connecting the mediaAccessPermissionRequested signal
@@ -1895,6 +1880,13 @@ BrowserView {
 
     Connections {
         target: tabsModel
+        onCurrentIndexChanged: {
+            // In narrow mode, the tabslist is a stack:
+            // the current tab is always at the top.
+            if (!browser.wide) {
+                tabsModel.move(tabsModel.currentIndex, 0)
+            }
+        }
         onCurrentTabChanged: {
             chrome.findInPageMode = false
             var tab = tabsModel.currentTab
