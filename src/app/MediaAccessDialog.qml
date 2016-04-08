@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,30 +24,54 @@ Dialog {
     property var request
     modal: true
 
-    title: request.isForAudio && request.isForVideo ?
-           i18n.tr("Allow this domain to access your camera and microphone?") :
-           (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
-                               : i18n.tr("Allow this domain to access your microphone?"))
+    Label {
+        elide: Text.ElideRight
+        textSize: Label.Large
+        color: theme.palette.normal.overlayText
+        text: i18n.tr("Permission")
+    }
 
-    text: request.embedder.toString() !== request.origin.toString() ?
-          internal.textWhenEmbedded : request.origin
+    Label {
+        color: theme.palette.normal.baseText
+        wrapMode: Text.Wrap
+        text: (request.isForAudio && request.isForVideo)
+                  ? i18n.tr("Allow this domain to access your camera and microphone?")
+                  : (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
+                                        : i18n.tr("Allow this domain to access your microphone?"))
+    }
+
+    Label {
+        color: theme.palette.normal.baseText
+        wrapMode: Text.Wrap
+        text: (request.embedder.toString() !== request.origin.toString())
+                  // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+                  ? i18n.tr("%1 (embedded in %2)").arg(request.origin).arg(request.embedder)
+                  : request.origin
+    }
+
+    Item {
+        height: units.gu(2)
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            height: units.dp(1)
+            color: theme.palette.normal.base
+        }
+    }
 
     Row {
-        id: internal
-
-        // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-        readonly property string textWhenEmbedded: i18n.tr("%1 (embedded in %2)")
-                                                   .arg(request.origin).arg(request.embedder)
         height: units.gu(4)
         spacing: units.gu(2)
-        anchors.horizontalCenter: parent.horizontalCenter
+        layoutDirection: Qt.RightToLeft
 
         Button {
-            id: allowButton
             objectName: "mediaAccessDialog.allowButton"
             text: i18n.tr("Yes")
             color: UbuntuColors.green
-            width: units.gu(14)
+            width: units.gu(10)
             onClicked: {
                 request.allow()
                 hide()
@@ -55,15 +79,22 @@ Dialog {
         }
 
         Button {
-            id: denyButton
             objectName: "mediaAccessDialog.denyButton"
             text: i18n.tr("No")
-            color: UbuntuColors.red
-            width: units.gu(14)
+            color: UbuntuColors.lightGrey
+            width: units.gu(10)
             onClicked: {
                 request.deny()
                 hide()
             }
         }
+    }
+
+    // adjust default dialog visuals to custom design requirements
+    // (should not be needed when updated dialog implementation lands in UITK)
+    Binding {
+        target: __foreground
+        property: "margins"
+        value: units.gu(2)
     }
 }
