@@ -7,7 +7,7 @@
 export DEB_BUILD_HARDENING=1
 export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 
-BUILDHOME=$(CURDIR)/debian/build
+BUILDHOME=/tmp/home
 
 %:
 	dh $@ --parallel --with translations
