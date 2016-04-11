@@ -99,4 +99,36 @@ Oxide.WebContext {
     devtoolsIp: webviewDevtoolsDebugHost
 
     hostMappingRules: webviewHostMappingRules
+
+    property string cameraPositionVideoCaptureDefault: "frontface"
+    Component.onCompleted: {
+        var OxideGlobal = Oxide.Oxide
+
+        function updateDefaultVideoCaptureDevice() {
+            var devices = OxideGlobal.availableVideoCaptureDevices
+            if (! OxideGlobal.defaultVideoCaptureDeviceId) {
+                for (var i = 0; i < devices.length; ++i) {
+                    if (devices[i].position === cameraPositionVideoCaptureDefault) {
+                        OxideGlobal.defaultVideoCaptureDeviceId = devices[i].id
+                        break
+                    }
+                }
+            }
+
+            //TODO handle the case of a non existant (removed) Oxide.defaultVideoCaptureDeviceId
+        }
+
+        if (cameraPositionVideoCaptureDefault) {
+            var devices = OxideGlobal.availableVideoCaptureDevices
+            if (! devices || devices.length === 0) {
+                OxideGlobal.availableVideoCaptureDevicesChanged.connect(function(){
+                    updateDefaultVideoCaptureDevice()
+
+                    //TODO disconnect?
+                })
+            } else {
+                updateDefaultVideoCaptureDevice()
+            }
+        }
+    }
 }

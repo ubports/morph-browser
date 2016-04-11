@@ -72,6 +72,7 @@ private:
     QString m_userAgentOverride;
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
     QScopedPointer<SchemeFilter> m_schemeFilter;
+    QString m_defaultVideoCaptureCameraPosition;
 
     static const QString URL_PATTERN_SEPARATOR;
     static const QString LOCAL_SCHEME_FILTER_FILENAME;
