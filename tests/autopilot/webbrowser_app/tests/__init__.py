@@ -122,9 +122,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def drag_bottom_edge_upwards(self, fraction):
         self.assertThat(model(), NotEquals('Desktop'))
-        hint = self.main_window.get_bottom_edge_hint()
-        x = hint.globalRect.x + hint.globalRect.width // 2
-        y0 = hint.globalRect.y + hint.globalRect.height // 2
+        handleRect = self.main_window.get_bottom_edge_handle().globalRect
+        x = handleRect.x + handleRect.width // 2
+        y0 = handleRect.y + handleRect.height // 2
         y1 = y0 - int(self.main_window.height * fraction)
         self.pointing_device.drag(x, y0, x, y1)
 

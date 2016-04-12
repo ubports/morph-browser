@@ -69,6 +69,8 @@ bool SingleInstanceManager::run(const QStringList& arguments)
         }
     }
     QString name = profile.absoluteFilePath(QStringLiteral("SingletonSocket"));
+    // XXX: Unix domain sockets limit the length of the pathname to 108 characters.
+    //  We should probably handle QAbstractSocket::HostNotFoundError explicitly.
 
     if (listen(name)) {
         return true;

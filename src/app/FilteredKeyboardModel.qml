@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,25 +17,17 @@
  */
 
 import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Unity.InputInfo 0.1
 
-Item {
-    function processKey(key, modifiers) {
-        for (var i = 0; i < data.length; i++) {
-            var shortcut = data[i];
-
-            if (!shortcut.enabled) continue
-            if (key !== shortcut.key) continue
-
-            if (shortcut.modifiers === Qt.NoModifier) {
-                if (modifiers === Qt.NoModifier) {
-                    shortcut.trigger()
-                    return true
-                }
-            } else if ((modifiers & shortcut.modifiers) === shortcut.modifiers) {
-                shortcut.trigger()
-                return true
-            }
-        }
-        return false
+SortFilterModel {
+    model: InputDeviceModel {
+        deviceFilter: InputInfo.Keyboard
+    }
+    filter {
+        // Filter out autopilot-emulated keyboards
+        // (see https://launchpad.net/bugs/1542224).
+        property: "name"
+        pattern: /^(?!py-evdev-uinput).*$/
     }
 }
