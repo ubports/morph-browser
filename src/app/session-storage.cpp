@@ -77,6 +77,9 @@ bool SessionStorage::isLocked() const
 
 void SessionStorage::store(const QString& data) const
 {
+    if (m_dataFile.isEmpty()) {
+        return;
+    }
     QString tempName = m_dataFile + "." + \
         QString::number(QDateTime::currentDateTime().toMSecsSinceEpoch());;
     QFile file(tempName);

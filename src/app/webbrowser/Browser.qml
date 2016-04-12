@@ -63,21 +63,6 @@ BrowserView {
     }
 
     Connections {
-        target: tabsModel
-        onCurrentIndexChanged: {
-            // Remove focus from the address bar when the current tab
-            // changes to ensure that its contents are updated.
-            contentsContainer.forceActiveFocus()
-
-            // In narrow mode, the tabslist is a stack:
-            // the current tab is always at the top.
-            if (!browser.wide) {
-                tabsModel.move(tabsModel.currentIndex, 0)
-            }
-        }
-    }
-
-    Connections {
         target: currentWebview
 
         /* Note that we are connecting the mediaAccessPermissionRequested signal
@@ -109,6 +94,10 @@ BrowserView {
     InputDeviceModel {
         id: touchScreenModel
         deviceFilter: InputInfo.TouchScreen
+    }
+
+    FilteredKeyboardModel {
+        id: keyboardModel
     }
 
     Component {
@@ -689,6 +678,7 @@ BrowserView {
 
     BottomEdgeHandle {
         id: bottomEdgeHandle
+        objectName: "bottomEdgeHandle"
 
         anchors {
             left: parent.left
@@ -727,7 +717,6 @@ BrowserView {
 
     Image {
         id: bottomEdgeHint
-        objectName: "bottomEdgeHint"
         source: "assets/bottom_edge_hint.png"
         property bool forceShow: false
         anchors {
@@ -1425,21 +1414,12 @@ BrowserView {
     Component {
         id: bookmarkOptionsComponent
         BookmarkOptions {
-            id: bookmarkOptions
             folderModel: BookmarksFolderListModel {
                 sourceModel: BookmarksModel
             }
 
-            Component.onCompleted: {
-                forceActiveFocus()
-            }
+            Component.onCompleted: forceActiveFocus()
 
-            // Fragile workaround for https://launchpad.net/bugs/1546677.
-            // By destroying the popover, its visibility isn’t changed to
-            // false, and thus the bookmark is not removed.
-            function closeAndConfirm() {
-                destroy()
-            }
             onVisibleChanged: {
                 if (!visible) {
                     BookmarksModel.remove(bookmarkUrl)
@@ -1452,28 +1432,11 @@ BrowserView {
                 }
             }
 
-            Keys.onPressed: {
-                if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
-                    event.accepted = true
-                }
-            }
-
-            KeyboardShortcuts {
-                id: bookmarkOptionsShortcuts
-                KeyboardShortcut {
-                    key: Qt.Key_Return
-                    onTriggered: closeAndConfirm()
-                }
-
-                KeyboardShortcut {
-                    modifiers: Qt.ControlModifier
-                    key: Qt.Key_D
-                    onTriggered: {
-                        BookmarksModel.remove(bookmarkUrl)
-                        closeAndConfirm()
-                    }
-                }
-            }
+            // Fragile workaround for https://launchpad.net/bugs/1546677.
+            // By destroying the popover, its visibility isn’t changed to
+            // false, and thus the bookmark is not removed.
+            Keys.onEnterPressed: destroy()
+            Keys.onReturnPressed: destroy()
         }
     }
 
@@ -1627,16 +1590,7 @@ BrowserView {
         }
 
         function maybeFocusAddressBar() {
-            // XXX: this is not the right condition, but it is better than
-            // inferring a "desktop" form factor from various heuristics.
-            // The real fix is to detect whether there is a physical keyboard
-            // connected, for which there is currently no API yet (there will
-            // be a QInputInfo API in a future version of Qt).
-            // Wide mode might be in use on a device without a physical
-            // keyboard (e.g. a 10" tablet), and conversely the browser window
-            // might be shrinked to a narrow layout on a desktop setup with a
-            // physical keyboard and no OSK.
-            if (browser.wide) {
+            if (keyboardModel.count > 0) {
                 focusAddressBar()
             } else {
                 contentsContainer.forceActiveFocus()
@@ -1682,14 +1636,14 @@ BrowserView {
             }
         }
 
+        property var currentBookmarkOptionsDialog: null
         function addBookmark(url, title, icon, location) {
             if (title == "") title = UrlUtils.removeScheme(url)
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
-            PopupUtils.open(bookmarkOptionsComponent,
-                            location,
-                            {"bookmarkUrl": url,
-                             "bookmarkTitle": title})
+            var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
+            currentBookmarkOptionsDialog = PopupUtils.open(bookmarkOptionsComponent,
+                                                           location, properties)
         }
     }
 
@@ -1926,6 +1880,13 @@ BrowserView {
 
     Connections {
         target: tabsModel
+        onCurrentIndexChanged: {
+            // In narrow mode, the tabslist is a stack:
+            // the current tab is always at the top.
+            if (!browser.wide) {
+                tabsModel.move(tabsModel.currentIndex, 0)
+            }
+        }
         onCurrentTabChanged: {
             chrome.findInPageMode = false
             var tab = tabsModel.currentTab
@@ -1972,206 +1933,187 @@ BrowserView {
         }
     }
 
-    Keys.onPressed: if (shortcuts.processKey(event.key, event.modifiers)) event.accepted = true
-    KeyboardShortcuts {
-        id: shortcuts
+    // TODO: internationalize non-standard key sequences?
 
-        // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_Tab
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.switchToNextTab()
-        }
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_PageDown
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.switchToNextTab()
-        }
+    // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
+    Shortcut {
+        sequence: StandardKey.NextChild
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.switchToNextTab()
+    }
+    Shortcut {
+        sequence: "Ctrl+PgDown"
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.switchToNextTab()
+    }
 
-        // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_Backtab
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.switchToPreviousTab()
-        }
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_PageUp
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.switchToPreviousTab()
-        }
+    // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
+    Shortcut {
+        sequence: StandardKey.PreviousChild
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.switchToPreviousTab()
+    }
+    Shortcut {
+        sequence: "Ctrl+Shift+Tab"
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.switchToPreviousTab()
+    }
+    Shortcut {
+        sequence: "Ctrl+PgUp"
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.switchToPreviousTab()
+    }
 
-        // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier | Qt.ShiftModifier
-            key: Qt.Key_W
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.undoCloseTab()
-        }
+    // Ctrl+W or Ctrl+F4: Close the current tab
+    Shortcut {
+        sequence: StandardKey.Close
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.closeCurrentTab()
+    }
+    Shortcut {
+        sequence: "Ctrl+F4"
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.closeCurrentTab()
+    }
 
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier | Qt.ShiftModifier
-            key: Qt.Key_T
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.undoCloseTab()
-        }
+    // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
+    Shortcut {
+        sequence: "Ctrl+Shift+W"
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.undoCloseTab()
+    }
+    Shortcut {
+        sequence: "Ctrl+Shift+T"
+        enabled: tabContainer.visible || recentView.visible
+        onActivated: internal.undoCloseTab()
+    }
 
-        // Ctrl+W or Ctrl+F4: Close the current tab
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_W
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.closeCurrentTab()
+    // Ctrl+T: Open a new Tab
+    Shortcut {
+        sequence: StandardKey.AddTab
+        enabled: tabContainer.visible || recentView.visible ||
+                 bookmarksViewLoader.active || historyViewLoader.active
+        onActivated: {
+            openUrlInNewTab("", true)
+            if (recentView.visible) recentView.reset()
+            bookmarksViewLoader.active = false
+            historyViewLoader.active = false
         }
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_F4
-            enabled: tabContainer.visible || recentView.visible
-            onTriggered: internal.closeCurrentTab()
-        }
+    }
 
-        // Ctrl+T: Open a new Tab
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_T
-            enabled: tabContainer.visible || recentView.visible ||
-                     bookmarksViewLoader.active || historyViewLoader.active
-            onTriggered: {
-                openUrlInNewTab("", true)
-                if (recentView.visible) recentView.reset()
-                bookmarksViewLoader.active = false
-                historyViewLoader.active = false
-            }
-        }
+    // F6 or Ctrl+L or Alt+D: Select the content in the address bar
+    Shortcut {
+        sequence: "F6"
+        enabled: tabContainer.visible
+        onActivated: internal.focusAddressBar(true)
+    }
+    Shortcut {
+        sequence: "Ctrl+L"
+        enabled: tabContainer.visible
+        onActivated: internal.focusAddressBar(true)
+    }
+    Shortcut {
+        sequence: "Alt+D"
+        enabled: tabContainer.visible
+        onActivated: internal.focusAddressBar(true)
+    }
 
-        // F6 or Ctrl+L or Alt+D: Select the content in the address bar
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_L
-            enabled: tabContainer.visible
-            onTriggered: internal.focusAddressBar(true)
-        }
-        KeyboardShortcut {
-            modifiers: Qt.AltModifier
-            key: Qt.Key_D
-            enabled: tabContainer.visible
-            onTriggered: internal.focusAddressBar(true)
-        }
-        KeyboardShortcut {
-            key: Qt.Key_F6
-            enabled: tabContainer.visible
-            onTriggered: internal.focusAddressBar(true)
-        }
-
-        // Ctrl+D: Toggle bookmarked state on current Tab
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_D
-            enabled: tabContainer.visible
-            onTriggered: {
-                if (currentWebview) {
-                    if (BookmarksModel.contains(currentWebview.url)) {
-                        BookmarksModel.remove(currentWebview.url)
-                    } else {
-                        internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
-                    }
+    // Ctrl+D: Toggle bookmarked state on current Tab
+    Shortcut {
+        sequence: "Ctrl+D"
+        enabled: tabContainer.visible
+        onActivated: {
+            if (internal.currentBookmarkOptionsDialog) {
+                internal.currentBookmarkOptionsDialog.hide()
+            } else if (currentWebview) {
+                if (BookmarksModel.contains(currentWebview.url)) {
+                    BookmarksModel.remove(currentWebview.url)
+                } else {
+                    internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
                 }
             }
         }
+    }
 
-        // Ctrl+H: Show History
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_H
-            enabled: tabContainer.visible
-            onTriggered: historyViewLoader.active = true
-        }
+    // Ctrl+H: Show History
+    Shortcut {
+        sequence: "Ctrl+H"
+        enabled: tabContainer.visible
+        onActivated: historyViewLoader.active = true
+    }
 
-        // Ctrl+Shift+O: Show Bookmarks
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier | Qt.ShiftModifier
-            key: Qt.Key_O
-            enabled: tabContainer.visible
-            onTriggered: bookmarksViewLoader.active = true
-        }
+    // Ctrl+Shift+O: Show Bookmarks
+    Shortcut {
+        sequence: "Ctrl+Shift+O"
+        enabled: tabContainer.visible
+        onActivated: bookmarksViewLoader.active = true
+    }
 
-        // Alt+← or Backspace: Goes to the previous page in history
-        KeyboardShortcut {
-            modifiers: Qt.AltModifier
-            key: Qt.Key_Left
-            enabled: tabContainer.visible
-            onTriggered: internal.historyGoBack()
-        }
-        KeyboardShortcut {
-            key: Qt.Key_Backspace
-            enabled: tabContainer.visible
-            onTriggered: internal.historyGoBack()
-        }
+    // Alt+← or Backspace: Goes to the previous page in history
+    Shortcut {
+        sequence: StandardKey.Back
+        enabled: tabContainer.visible
+        onActivated: internal.historyGoBack()
+    }
+    Shortcut {
+        sequence: "Backspace"
+        enabled: tabContainer.visible
+        onActivated: internal.historyGoBack()
+    }
 
-        // Alt+→ or Shift+Backspace: Goes to the next page in history
-        KeyboardShortcut {
-            modifiers: Qt.AltModifier
-            key: Qt.Key_Right
-            enabled: tabContainer.visible
-            onTriggered: internal.historyGoForward()
-        }
-        KeyboardShortcut {
-            modifiers: Qt.ShiftModifier
-            key: Qt.Key_Backspace
-            enabled: tabContainer.visible
-            onTriggered: internal.historyGoForward()
-        }
+    // Alt+→ or Shift+Backspace: Goes to the next page in history
+    Shortcut {
+        sequence: StandardKey.Forward
+        enabled: tabContainer.visible
+        onActivated: internal.historyGoForward()
+    }
+    Shortcut {
+        sequence: "Shift+Backspace"
+        enabled: tabContainer.visible
+        onActivated: internal.historyGoForward()
+    }
 
-        // F5 or Ctrl+R: Reload current Tab
-        KeyboardShortcut {
-            key: Qt.Key_F5
-            enabled: tabContainer.visible
-            onTriggered: if (currentWebview) currentWebview.reload()
-        }
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_R
-            enabled: tabContainer.visible
-            onTriggered: if (currentWebview) currentWebview.reload()
-        }
+    // F5 or Ctrl+R: Reload current Tab
+    Shortcut {
+        sequence: StandardKey.Refresh
+        enabled: tabContainer.visible
+        onActivated: if (currentWebview) currentWebview.reload()
+    }
+    Shortcut {
+        sequence: "F5"
+        enabled: tabContainer.visible
+        onActivated: if (currentWebview) currentWebview.reload()
+    }
 
-        // Ctrl+F: Find in Page
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_F
-            enabled: tabContainer.visible && !newTabViewLoader.active
-            onTriggered: chrome.findInPageMode = true
-        }
+    // Ctrl+F: Find in Page
+    Shortcut {
+        sequence: StandardKey.Find
+        enabled: tabContainer.visible && !newTabViewLoader.active
+        onActivated: chrome.findInPageMode = true
+    }
 
-        // Ctrl+J: Show downloads page
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_J
-            enabled: chrome.visible &&
-                     downloadHandlerLoader.status == Loader.Ready &&
-                     contentHandlerLoader.status == Loader.Ready &&
-                     !downloadsViewLoader.active
-            onTriggered: downloadsViewLoader.active = true
-        }
+    // Ctrl+J: Show downloads page
+    Shortcut {
+        sequence: "Ctrl+J"
+        enabled: chrome.visible &&
+                 downloadHandlerLoader.status == Loader.Ready &&
+                 contentHandlerLoader.status == Loader.Ready &&
+                 !downloadsViewLoader.active
+        onActivated: downloadsViewLoader.active = true
+    }
 
-        // Ctrl+Shift+G: Find previous
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier | Qt.ShiftModifier
-            key: Qt.Key_G
-            enabled: currentWebview && chrome.findInPageMode
-            onTriggered: currentWebview.findController.previous()
-        }
+    // Ctrl+G: Find next
+    Shortcut {
+        sequence: StandardKey.FindNext
+        enabled: currentWebview && chrome.findInPageMode
+        onActivated: currentWebview.findController.next()
+    }
 
-        // Ctrl+G: Find next
-        KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_G
-            enabled: currentWebview && chrome.findInPageMode
-            onTriggered: currentWebview.findController.next()
-        }
+    // Ctrl+Shift+G: Find previous
+    Shortcut {
+        sequence: StandardKey.FindPrevious
+        enabled: currentWebview && chrome.findInPageMode
+        onActivated: currentWebview.findController.previous()
     }
 
     Loader {

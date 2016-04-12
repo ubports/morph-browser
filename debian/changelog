@@ -1,3 +1,57 @@
+webbrowser-app (0.23+16.04.20160408.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Loïc Molinari ]
+  * Made AddressBar height scalable with regards to the grid units
+    system.
+
+  [ Olivier Tilloy ]
+  * Add dep8 tests and instructions to run them in qemu or on a phone.
+    Original work by Leo Arias and Vincent Ladeuil. added: debian/tests/
+    debian/tests/control debian/tests/touch-session-autopilot
+  * Catch ESC key event one level up to ensure that it’s not incorrectly
+    bubbled up to the outer component. (LP: #1557016)
+  * Customize the contents of the media permission dialog to avoid
+    truncated text. (LP: #1554220)
+  * Do not write the session to a temporary file when no target file is
+    defined.
+  * Fix a failing unit test with Qt 5.6. (LP: #1565507)
+  * Fix broken webapp container autopilot tests. (LP: #1557019)
+  * Fix issues with item selection in the downloads page: do not allow
+    selecting multiple files when only one is expected do not allow
+    entering delete mode (with a long press on an item) while in picker
+    mode (LP: #1534112, #1561575)
+  * Fix unit tests when run under an sbuild chroot. (LP: #1567294)
+  * Import QQuickShortcut from Qt 5.5 to properly handle window-level
+    keyboard shortcuts. We cannot bump the dependency on Qt to 5.5 as
+    the stable overlay PPA for devices currently has Qt 5.4.1. (LP:
+    #1542224, #1545802, #1537782)
+  * Make the autopilot tests more reliable when dragging the bottom
+    edge. (LP: #1560109)
+  * Remove workaround for bug #1526940 that was fixed in the latest
+    release of the UITK. (LP: #1526940)
+  * Rename debian packages to follow new QML module naming convention.
+    (LP: #1342031)
+  * Simplify the implementation of HistoryViewWide quite a bit, and as a
+    side effect fix a unit test failure when run against the staging
+    branch of the UITK. (LP: #1567337)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 08 Apr 2016 17:07:04 +0000
+
+webbrowser-app (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
+
+  * Add --open-external-url-in-overlay option to allow externals urls
+    (not part of patterns) are opened in overlays instead of external
+    browser (LP: #1548575)
+  * Handle live updates to theme color meta tag and reflect them in the
+    top bar background color (LP: #1550754)
+  * Set address bar text color to a darker version of the theme color if
+    one is defined in a webapp (LP: #1548573)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 05 Apr 2016 15:42:59 +0000
+
 webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
 
   * Make google maps work in complete mode on tablets. (LP: #1560079)

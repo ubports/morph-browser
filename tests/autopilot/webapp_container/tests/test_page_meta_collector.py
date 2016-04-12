@@ -47,3 +47,21 @@ class TestPageMetaCollector(WebappContainerTestCaseWithLocalContentBase):
         self.assertThat(
             lambda: str(chrome_base.backgroundColor),
             Eventually(Equals("Color(255, 0, 0, 255)")))
+
+    def test_track_theme_color_live_updates(self):
+        args = ['--enable-addressbar']
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            '/theme-color/?color=red&delaycolorupdate=black')
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        chrome_base = self.app.wait_select_single(
+            objectName="chromeBase")
+
+        self.assertThat(
+            lambda: str(chrome_base.backgroundColor),
+            Eventually(Equals("Color(255, 0, 0, 255)")))
+
+        self.assertThat(
+            lambda: str(chrome_base.backgroundColor),
+            Eventually(Equals("Color(0, 0, 0, 255)")))
