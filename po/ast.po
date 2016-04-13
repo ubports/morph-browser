@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2016-03-11 23:59+0000\n"
 "Last-Translator: enolp <enolp@softastur.org>\n"
 "Language-Team: Asturian <ast@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:39+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -315,6 +315,36 @@ msgstr ""
 "El certificáu de seguridá d'esti sitiu nun ye de confianza\n"
 "Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "que nun pasó los controles por una razón desconocida."
+
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "¿Premití-y a esti dominiu acceder a la to cámara y micrófonu?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "¿Premití-y a esti dominiu acceder a la to cámara?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "¿Premití-y a esti dominiu acceder al to micrófonu?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (integráu en %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Sí"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Non"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -672,32 +702,6 @@ msgstr "historial de gueta"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Dir al mou públicu zarrará toles llingüetes privaes"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "¿Premití-y a esti dominiu acceder a la to cámara y micrófonu?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "¿Premití-y a esti dominiu acceder a la to cámara?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "¿Premití-y a esti dominiu acceder al to micrófonu?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (integráu en %2)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "Sí"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "Non"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"

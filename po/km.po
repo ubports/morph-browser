@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -319,6 +319,36 @@ msgstr ""
 "ទេប៉ុន្តែម៉ាស៊ីនបម្រើបានបង្ហាញវិញ្ញាបនបត្រសន្តិសុខមួយដែលបានបរាជ័យក្នុងការត្រួ"
 "តពិនិត្យសន្តិសុខរបស់យើងសម្រាប់ហេតុផលដែលមិនស្គាល់មួយ ។"
 
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "បាទ/ចាស"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "ទេ"
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "ប្រាប់ JavaScript"
@@ -620,7 +650,7 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr ""
+msgstr "បន្ត"
 
 #: src/app/webbrowser/DownloadsPage.qml:61
 msgid "Confirm selection"
@@ -672,32 +702,6 @@ msgstr "ប្រវត្តិ​ស្វែងរក"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "ការ​ទៅកាន់​របៀប​សាធារណៈ វា​នឹង​បិទ​ផ្ទាំង​ឯកជន​ទាំងអស់"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr ""
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr ""
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr ""
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "បាទ/ចាស"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "ទេ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -804,7 +808,7 @@ msgstr "ដែលត្រូវបានគ្រប់គ្រងដោយ"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "​លំនាំដើម"
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:156
@@ -851,11 +855,11 @@ msgstr "សម្អាត"
 
 #: src/app/webbrowser/SettingsPage.qml:387
 msgid "Microphone"
-msgstr ""
+msgstr "មីក្រូហ្វូន"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Camera"
-msgstr ""
+msgstr "ម៉ាស៊ីន​ថត"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
@@ -867,7 +871,7 @@ msgstr "បិទ​ផ្ទាំង"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:135
 msgid "Remove"
-msgstr ""
+msgstr "យកចេញ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35

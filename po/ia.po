@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2015-05-04 16:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Interlingua <ia@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -317,6 +317,36 @@ msgstr ""
 "a attinger %1 sed le server presentava un certificato de securitate que "
 "falleva nostre controlos pro motivo incognite."
 
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Consenti a iste dominio de acceder a tu camera e microphono?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Consenti a iste dominio de acceder a tu camera?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Consenti a iste dominio de acceder a tu microphono?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (incastrate in %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Si"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "No"
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "Prompt de JavaScript"
@@ -593,7 +623,7 @@ msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1345
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Striar super pro exir del schermo plen"
 
 #: src/app/webbrowser/Browser.qml:1346
 msgid "Press ESC To Exit Full Screen"
@@ -673,32 +703,6 @@ msgstr "cercar le chronologia"
 msgid "Going to public mode will close all private tabs"
 msgstr "Ir al modo public claudera tote le schedas private"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "Consenti a iste dominio de acceder a tu camera e microphono?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "Consenti a iste dominio de acceder a tu camera?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "Consenti a iste dominio de acceder a tu microphono?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (incastrate in %2)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "Si"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "No"
-
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "Iste es un scheda private"
@@ -708,6 +712,9 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Le paginas que tu vide in iste scheda non apparera in tu chronologia del "
+"navigator.\n"
+"Sed essera preservate le signa libros tu ha create."
 
 #: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
@@ -724,19 +731,21 @@ msgstr "Tu non ha ancora visitate ulle sito"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Le processo de render  ha essite clause pro iste scheda."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Alcun cosa de mal capitava durante le monstra de %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Le systema es paupere de memoria e non pote monstrar iste pagina WEB. Prova "
+"a clauder le schedas non necessari e a recargar."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
@@ -882,6 +891,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Nulle conto ha essite ligate a iste application WEB; pulsa le elemento in "
+"basso pro adder un conto."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -904,6 +915,9 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Le fenestra del conto non pote ser aperte. Tu pote sol crear un conto per "
+"vice; per favor reproba post haber claudite tote le altere fenestras de "
+"conto."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -915,12 +929,13 @@ msgstr "<b>%1</b> necessita acceder tu%2 conto in linea"
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> desirarea acceder tu conto in linea %2."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Selige un conto ora, o salta iste grado e selige un conto in linea postea."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2016-02-23 06:50+0000\n"
 "Last-Translator: Sanjog Sigdel <sigdelsanjog@gmail.com>\n"
 "Language-Team: Nepali <ne@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -316,6 +316,36 @@ msgstr ""
 "यो साइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन\n"
 "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक सुरक्षा प्रमाणपत्र प्रस्तुत "
 "गर्यो जस्ले अज्ञात कारणले हाम्रो सुरक्षा जाँच असफल भएको छ​।"
+
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "यस डोमेनलाई तपाईँको क्यामेरा र माइक्रोफोन पहुँच अनुमति दिने हो?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "यस डोमेनलाई  तपाईँको क्यामेरा पहुँच अनुमति दिने हो?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "यस डोमेनलाई तपाईँको माइक्रोफोन पहुँच अनुमति दिने हो?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 ( %2 मा इम्बेडे गरिएको छ)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "हो"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "होइन"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -673,32 +703,6 @@ msgstr "खोज इतिहास"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "सार्वजनिक मोडमा जाँदै सबै निजी ट्याबहरू बन्द हुनेछन्"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "यस डोमेनलाई तपाईँको क्यामेरा र माइक्रोफोन पहुँच अनुमति दिने हो?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "यस डोमेनलाई  तपाईँको क्यामेरा पहुँच अनुमति दिने हो?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "यस डोमेनलाई तपाईँको माइक्रोफोन पहुँच अनुमति दिने हो?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 ( %2 मा इम्बेडे गरिएको छ)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "हो"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "होइन"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"

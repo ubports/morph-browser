@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2014-12-07 23:33+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -315,6 +315,36 @@ msgstr ""
 "Sigurnosna vjerodajnica ove stranice nije pouzdana\n"
 "Pokušali ste dosegnuti %1 ali poslužitelj je predstavio sigurnosnu "
 "vjerodajnicu koja nije prošla našu sigurnosnu provjeru iz nepoznatog razloga."
+
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Dopusti ovoj domeni pristup tvojoj kameri i mikrofonu?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Dopusti ovoj domeni pristup tvojoj kameri?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Dopusti ovoj domeni pristup tvojem i mikrofonu?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (uklopljeno u %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Da"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Ne"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -673,32 +703,6 @@ msgstr "pretraži povijest"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Prijelaz u javni način će zatvoriti sve privatne kartice"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "Dopusti ovoj domeni pristup tvojoj kameri i mikrofonu?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "Dopusti ovoj domeni pristup tvojoj kameri?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "Dopusti ovoj domeni pristup tvojem i mikrofonu?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (uklopljeno u %2)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "Da"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "Ne"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"

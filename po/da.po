@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2014-08-03 02:48+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -117,6 +117,7 @@ msgstr "Det lader til, at du har problemer med at se: %1."
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Tjek venligst dine netværksindstillinger og prøv en genopfriskning af siden."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -318,6 +319,36 @@ msgstr ""
 "sikkerhedscertifikat, der ikke bestod vores sikkerhedstjek af en ukendt "
 "grund."
 
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Tillad at dette domæne tilgår dit kamera og din mikrofon?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Tillad at dette domæne tilgår dit kamera?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Tillad at dette domæne tilgår din mikrofon?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (indlejret i %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Ja"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Nej"
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "JavaScript-forespørgsel"
@@ -441,7 +472,7 @@ msgstr "Åbn link i nyt faneblad"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Åbn video i ny fane"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -472,7 +503,7 @@ msgstr "Gem link"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Gem video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -675,32 +706,6 @@ msgstr "søg i historik"
 msgid "Going to public mode will close all private tabs"
 msgstr "Overgangen til offentlig tilstand vil lukke alle private faner"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr ""
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr ""
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr ""
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "Ja"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "Nej"
-
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "Dette er en privat fane"
@@ -817,7 +822,7 @@ msgstr "Gendan forrige session ved opstart"
 #: src/app/webbrowser/SettingsPage.qml:118
 #: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Privatliv & tilladelser"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
@@ -826,7 +831,7 @@ msgstr "Nulstil browserindstillinger"
 #: src/app/webbrowser/SettingsPage.qml:229
 #: src/app/webbrowser/SettingsPage.qml:367
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Kamera & mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:235
 msgid "Clear Browsing History"

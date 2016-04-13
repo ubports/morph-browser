@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2014-09-18 06:34+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -296,6 +296,36 @@ msgstr ""
 "このサイトセキュリティ証明書は信頼できません。\n"
 "%1に接続しようとしましたが、サーバーは不明な理由でセキュリティチェックに失敗したセキュリティ証明書を提示しています。"
 
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "このドメインがカメラとマイクにアクセスすることを許可しますか?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "このドメインがカメラにアクセスすることを許可しますか?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "このドメインがマイクにアクセスすることを許可しますか?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (%2 に埋め込まれている)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "はい"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "いいえ"
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "JavaScriptのプロンプト"
@@ -419,7 +449,7 @@ msgstr "新しいタブでリンクを開く"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "新しいタブで動画で開く"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -450,7 +480,7 @@ msgstr "リンクを保存"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "動画を保存"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -650,32 +680,6 @@ msgstr "検索履歴"
 msgid "Going to public mode will close all private tabs"
 msgstr "パブリックモードに移行するとすべてのプライベートタブを閉じます"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "このドメインがカメラとマイクにアクセスすることを許可しますか?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "このドメインがカメラにアクセスすることを許可しますか?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "このドメインがマイクにアクセスすることを許可しますか?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (%2 に埋め込まれている)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "はい"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "いいえ"
-
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "これはプライベートタブです"
@@ -690,7 +694,7 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:148
 msgid "More"
-msgstr ""
+msgstr "もっと表示する"
 
 #: src/app/webbrowser/NewTabView.qml:335
 #: src/app/webbrowser/NewTabViewWide.qml:138
@@ -709,7 +713,7 @@ msgstr ""
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "%1 の表示中にエラーが発生しました。"
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
@@ -789,7 +793,7 @@ msgstr "起動時に前回のセッションを復元する"
 #: src/app/webbrowser/SettingsPage.qml:118
 #: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "プライバシーとアクセス許可"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
