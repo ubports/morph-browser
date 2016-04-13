@@ -189,6 +189,16 @@ BrowserView {
                    !invalidCertificateErrorSheetLoader.focus &&
                    !newTabViewLoader.focus &&
                    !sadTabLoader.focus
+
+            Keys.onPressed: {
+                if (tabContainer.visible && (event.key == Qt.Key_Backspace)) {
+                    // Not handled as a window-level shortcut as it would take
+                    // precedence over backspace events in HTML text fields
+                    // (https://launchpad.net/bugs/1569938).
+                    internal.historyGoBack()
+                    event.accepted = true
+                }
+            }
         }
 
         Loader {
@@ -2052,11 +2062,6 @@ BrowserView {
     // Alt+← or Backspace: Goes to the previous page in history
     Shortcut {
         sequence: StandardKey.Back
-        enabled: tabContainer.visible
-        onActivated: internal.historyGoBack()
-    }
-    Shortcut {
-        sequence: "Backspace"
         enabled: tabContainer.visible
         onActivated: internal.historyGoBack()
     }

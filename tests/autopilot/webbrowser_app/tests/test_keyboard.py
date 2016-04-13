@@ -276,6 +276,16 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
+    def test_backspace_does_not_go_back_when_html_text_field_focused(self):
+        # Regression test for https://launchpad.net/bugs/1569938
+        url = self.base_url + "/textarea"
+        self.main_window.go_to_url(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.main_window.press_key('Backspace')
+        time.sleep(2)
+        self.assertThat(webview.url, Equals(url))
+
     def test_toggle_bookmarks(self):
         self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
         self.main_window.press_key('Ctrl+Shift+o')
