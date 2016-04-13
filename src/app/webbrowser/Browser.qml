@@ -189,6 +189,21 @@ BrowserView {
                    !invalidCertificateErrorSheetLoader.focus &&
                    !newTabViewLoader.focus &&
                    !sadTabLoader.focus
+
+            Keys.onPressed: {
+                if (tabContainer.visible && (event.key == Qt.Key_Backspace)) {
+                    // Not handled as a window-level shortcut as it would take
+                    // precedence over backspace events in HTML text fields
+                    // (https://launchpad.net/bugs/1569938).
+                    if (event.modifiers == Qt.NoModifier) {
+                        internal.historyGoBack()
+                        event.accepted = true
+                    } else if (event.modifiers == Qt.ShiftModifier) {
+                        internal.historyGoForward()
+                        event.accepted = true
+                    }
+                }
+            }
         }
 
         Loader {
@@ -2055,20 +2070,10 @@ BrowserView {
         enabled: tabContainer.visible
         onActivated: internal.historyGoBack()
     }
-    Shortcut {
-        sequence: "Backspace"
-        enabled: tabContainer.visible
-        onActivated: internal.historyGoBack()
-    }
 
     // Alt+→ or Shift+Backspace: Goes to the next page in history
     Shortcut {
         sequence: StandardKey.Forward
-        enabled: tabContainer.visible
-        onActivated: internal.historyGoForward()
-    }
-    Shortcut {
-        sequence: "Shift+Backspace"
         enabled: tabContainer.visible
         onActivated: internal.historyGoForward()
     }
