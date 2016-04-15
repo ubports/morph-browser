@@ -968,9 +968,20 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: DownloadsPage {
-            focus: true
-            downloadManager: browser.downloadManager
+        source: "DownloadsPage.qml"
+
+        Binding {
+            target: downloadsViewLoader.item
+            property: "downloadManager"
+            value: browser.downloadManager
+        }
+        Binding {
+            target: downloadsViewLoader.item
+            property: "focus"
+            value: true
+        }
+        Connections {
+            target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
         }
 
