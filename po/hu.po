@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-04-14 06:20+0000\n"
-"X-Generator: Launchpad (build 17990)\n"
+"X-Launchpad-Export-Date: 2016-04-15 06:08+0000\n"
+"X-Generator: Launchpad (build 17995)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -50,14 +50,14 @@ msgstr "Jelszó"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContentDownloadDialog.qml:113
+#: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/DownloadDelegate.qml:187
 #: src/app/webbrowser/HistoryView.qml:175
-#: src/app/webbrowser/HistoryViewWide.qml:397
+#: src/app/webbrowser/HistoryViewWide.qml:382
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:275
-#: src/app/webbrowser/SettingsPage.qml:329
+#: src/app/webbrowser/SettingsPage.qml:297
+#: src/app/webbrowser/SettingsPage.qml:351
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -318,30 +318,30 @@ msgstr ""
 msgid "Permission"
 msgstr "Jogosultság"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:28
+#: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
 "Engedélyezi a a kamera- és a mikrofon-hozzáférést ennek a tartománynak?"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:29
+#: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
 msgstr "Engedélyezi a a kamera-hozzáférést ennek a tartománynak?"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:30
+#: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
 msgstr "Engedélyezi a a mikrofon-hozzáférést ennek a tartománynak?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
+#: src/app/MediaAccessDialog.qml:48
 #, qt-format
 msgid "%1 (embedded in %2)"
 msgstr "%1 (beágyazva ide: %2)"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:48
+#: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
 msgstr "Igen"
 
-#: src/app/webbrowser/MediaAccessDialog.qml:60
+#: src/app/MediaAccessDialog.qml:83
 msgid "No"
 msgstr "Nem"
 
@@ -413,7 +413,7 @@ msgstr "Kivágás"
 msgid "Erase"
 msgstr "Törlés"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:556
 msgid "Find in page"
 msgstr "Keresés"
 
@@ -443,7 +443,7 @@ msgstr "Ugrás"
 msgid "Address;URL;www"
 msgstr "Cím;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:439
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Új lap"
@@ -501,13 +501,13 @@ msgstr "Hivatkozás mentése"
 msgid "Save video"
 msgstr "Videó mentése"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:86
 #: src/app/webbrowser/HistoryView.qml:190
-#: src/app/webbrowser/HistoryViewWide.qml:422
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Select all"
 msgstr "Összes kijelölése"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:536
 msgid "Share"
 msgstr "Megosztás"
 
@@ -516,16 +516,16 @@ msgid "Undo"
 msgstr "Visszavonás"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:208
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:246
+#: src/app/webbrowser/AddressBar.qml:244
 msgid "find in page"
 msgstr "keresés"
 
-#: src/app/webbrowser/AddressBar.qml:247
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "search or enter an address"
 msgstr "keresés vagy cím megadása"
 
@@ -559,86 +559,87 @@ msgid "Create new folder"
 msgstr "Új mappa létrehozása"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:339
+#: src/app/webbrowser/SettingsPage.qml:361
 msgid "Save"
 msgstr "Mentés"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
-#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:303
+#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/SettingsPage.qml:96
+#: src/app/webbrowser/SettingsPage.qml:325
 msgid "Homepage"
 msgstr "Kezdőlap"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:544 src/app/webbrowser/NewTabView.qml:135
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/Browser.qml:425 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:501
 msgid "Done"
 msgstr "Kész"
 
 #: src/app/webbrowser/BookmarksView.qml:127
 #: src/app/webbrowser/BookmarksViewWide.qml:126
 #: src/app/webbrowser/HistoryView.qml:145
-#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/HistoryViewWide.qml:515
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Új lap"
 
-#: src/app/webbrowser/Browser.qml:546
-#: src/app/webbrowser/HistoryViewWide.qml:381
+#: src/app/webbrowser/Browser.qml:550
+#: src/app/webbrowser/HistoryViewWide.qml:366
 msgid "History"
 msgstr "Előzmények"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:563 src/app/webbrowser/DownloadsPage.qml:58
 msgid "Downloads"
 msgstr "Letöltések"
 
-#: src/app/webbrowser/Browser.qml:566
+#: src/app/webbrowser/Browser.qml:570
 msgid "Leave Private Mode"
 msgstr "Privát mód bezárása"
 
-#: src/app/webbrowser/Browser.qml:566
+#: src/app/webbrowser/Browser.qml:570
 msgid "Private Mode"
 msgstr "Privát mód"
 
-#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:588 src/app/webbrowser/SettingsPage.qml:49
 msgid "Settings"
 msgstr "Beállítások"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:791
+#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/Browser.qml:798
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1345
+#: src/app/webbrowser/Browser.qml:1379
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Felfelé húzással léphet ki a teljes képernyős módból"
 
-#: src/app/webbrowser/Browser.qml:1346
+#: src/app/webbrowser/Browser.qml:1380
 msgid "Press ESC To Exit Full Screen"
 msgstr "Az ESC billentyű lenyomásával léphet ki a teljes képernyős módból"
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:82
+#: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
 "Válasszon egy alkalmazást, amivel megnyitja ezt a fájlt, vagy csak töltse le "
 "a Letöltések mappába."
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:88
+#: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Alkalmazás kiválasztása"
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:101
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
 msgstr "Letöltés"
 
@@ -650,17 +651,17 @@ msgstr "A letöltés meghiúsult"
 msgid "Resume"
 msgstr "Folytatás"
 
-#: src/app/webbrowser/DownloadsPage.qml:61
+#: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
 msgstr "Kiválasztás megerősítése"
 
-#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/DownloadsPage.qml:102
 #: src/app/webbrowser/HistoryView.qml:217
-#: src/app/webbrowser/HistoryViewWide.qml:441
+#: src/app/webbrowser/HistoryViewWide.qml:426
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:264
 msgid "No downloads available"
 msgstr "Nincsenek letöltések"
 
@@ -681,20 +682,20 @@ msgid "Last Visited"
 msgstr "Utoljára meglátogatott"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:175
 msgid "Yesterday"
 msgstr "Tegnap"
 
-#: src/app/webbrowser/HistoryViewWide.qml:196
+#: src/app/webbrowser/HistoryViewWide.qml:159
 msgid "All History"
 msgstr "Minden előzmény"
 
-#: src/app/webbrowser/HistoryViewWide.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:295
+#: src/app/webbrowser/HistoryViewWide.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
 msgstr "Ma"
 
-#: src/app/webbrowser/HistoryViewWide.qml:462
+#: src/app/webbrowser/HistoryViewWide.qml:447
 msgid "search history"
 msgstr "előzmények keresése"
 
@@ -808,54 +809,54 @@ msgstr "Üzemeltető:"
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:156
+#: src/app/webbrowser/SettingsPage.qml:82
+#: src/app/webbrowser/SettingsPage.qml:167
 msgid "Search engine"
 msgstr "Keresőmotor"
 
-#: src/app/webbrowser/SettingsPage.qml:100
+#: src/app/webbrowser/SettingsPage.qml:107
 msgid "Restore previous session at startup"
 msgstr "Előző munkamenet induláskor"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-#: src/app/webbrowser/SettingsPage.qml:208
+#: src/app/webbrowser/SettingsPage.qml:126
+#: src/app/webbrowser/SettingsPage.qml:224
 msgid "Privacy & permissions"
 msgstr "Adatvédelem és engedélyek"
 
-#: src/app/webbrowser/SettingsPage.qml:126
+#: src/app/webbrowser/SettingsPage.qml:136
 msgid "Reset browser settings"
 msgstr "Böngészőbeállítások visszaállítása"
 
-#: src/app/webbrowser/SettingsPage.qml:229
-#: src/app/webbrowser/SettingsPage.qml:367
+#: src/app/webbrowser/SettingsPage.qml:246
+#: src/app/webbrowser/SettingsPage.qml:389
 msgid "Camera & microphone"
 msgstr "Kamera és mikrofon"
 
-#: src/app/webbrowser/SettingsPage.qml:235
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Böngészési előzmények törlése"
 
-#: src/app/webbrowser/SettingsPage.qml:238
+#: src/app/webbrowser/SettingsPage.qml:258
 msgid "Clear Browsing History?"
 msgstr "Törli az előzményeket?"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache"
 msgstr "Gyorsítótár törlése"
 
-#: src/app/webbrowser/SettingsPage.qml:247
+#: src/app/webbrowser/SettingsPage.qml:269
 msgid "Clear Cache?"
 msgstr "Törli a gyorsítótárat?"
 
-#: src/app/webbrowser/SettingsPage.qml:282
+#: src/app/webbrowser/SettingsPage.qml:304
 msgid "Clear"
 msgstr "Törlés"
 
-#: src/app/webbrowser/SettingsPage.qml:387
+#: src/app/webbrowser/SettingsPage.qml:410
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:431
 msgid "Camera"
 msgstr "Kamera"
 
@@ -873,13 +874,13 @@ msgstr "Eltávolítás"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webböngésző"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:69
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webböngésző"
 
