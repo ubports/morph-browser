@@ -23,7 +23,6 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 
 import "../MimeTypeMapper.js" as MimeTypeMapper
-import ".."
 
 FocusScope {
     id: downloadsItem
@@ -230,8 +229,6 @@ FocusScope {
                 DownloadsModel.cancelDownload(model.downloadId)
             }
         }
-
-        highlight: ListViewHighlight {}
 
         Keys.onEnterPressed: currentItem.clicked()
         Keys.onReturnPressed: currentItem.clicked()
