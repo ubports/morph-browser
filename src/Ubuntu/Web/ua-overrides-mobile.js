@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,4 +24,9 @@ var overrides = [
     ["^http:\/\/chrome\.angrybirds\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1284158
     ["^https?:\/\/(\w+\.)*hsbc\.com\.br\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1380657
     ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1316259
+
+    // Google hangouts (https://launchpad.net/bugs/1565055)
+    ["^https?:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],
+    ["^https?:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],
+    ["^https?:\/\/plus\.google\.com\/hangouts\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],
 ];
