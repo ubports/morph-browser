@@ -1,3 +1,23 @@
+webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add UA overrides for google hangouts to work on desktop, tablet and
+    phone. (LP: #1565055)
+  * Add a progression symbol to list items that open new pages in
+    settings. (LP: #1517206)
+  * Remove duplicated list view focus rects, and update the styling of
+    the remaining ones to match that of the UITK. (LP: #1570807)
+  * Simplify focus handling in various places.
+
+  [ Timo Jyrinki ]
+  * Fix FTBFS on Qt 5.6 by adding a dependency on qttools5-dev-tools for
+    qdoc (LP: #1565502)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 15 Apr 2016 11:38:13 +0000
+
 webbrowser-app (0.23+16.04.20160413-0ubuntu1) xenial; urgency=medium
 
   * Do not handle backspace as a window-level shortcut, as it would take
