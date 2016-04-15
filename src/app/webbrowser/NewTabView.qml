@@ -266,8 +266,6 @@ FocusScope {
                         }
                     }
 
-                    highlight: ListViewHighlight {}
-
                     Keys.onEnterPressed: currentItem.clicked()
                     Keys.onReturnPressed: currentItem.clicked()
                     Keys.onDeletePressed: currentItem.removed()

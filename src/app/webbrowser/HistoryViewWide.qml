@@ -181,15 +181,6 @@ FocusScope {
                         color: (!lastVisitDateListView.activeFocus && lastVisitDateDelegate.ListView.isCurrentItem) ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
 
-                    divider {
-                        // Hide the divider so that the highlight doesn’t overlap it
-                        // Do not set visible to false, otherwise the content item is resized.
-                        opacity: (!ListView.view.activeFocus ||
-                                  (index > ListView.view.currentIndex) ||
-                                  (index < (ListView.view.currentIndex - 1))) ? 1 : 0
-                        Behavior on opacity { UbuntuNumberAnimation {} }
-                    }
-
                     onClicked: ListView.view.currentIndex = index
 
                     ListView.onRemove: {
@@ -202,8 +193,6 @@ FocusScope {
                         }
                     }
                 }
-
-                highlight: ListViewHighlight {}
 
                 Timer {
                     id: resetIndexTimer
@@ -321,8 +310,6 @@ FocusScope {
                         }
                     }
                 }
-
-                highlight: ListViewHighlight {}
             }
 
             Scrollbar {
