@@ -1,4 +1,4 @@
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -15,12 +15,12 @@
 # autopkgtest is a test dependency so we don't need to copy
 # ubuntu-touch-session to the testbed but can use it from autopkgtest instead
 
-Test-Command: debian/tests/touch-session-autopilot webbrowser_app
+Test-Command: chmod +x debian/tests/touch-session-autopilot; debian/tests/touch-session-autopilot webbrowser_app
 Restrictions: allow-stderr
 Classes: ubuntu-touch
 Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev
 
-Test-Command: debian/tests/touch-session-autopilot webapp_container
+Test-Command: chmod +x debian/tests/touch-session-autopilot; debian/tests/touch-session-autopilot webapp_container
 Restrictions: allow-stderr
 Classes: ubuntu-touch
 Depends: webapp-container-autopilot, autopkgtest, python3-evdev
