@@ -1,4 +1,4 @@
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,9 +18,9 @@
 Test-Command: debian/tests/touch-session-autopilot webbrowser_app
 Restrictions: allow-stderr
 Classes: ubuntu-touch
-Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev
+Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev, procps, sudo
 
 Test-Command: debian/tests/touch-session-autopilot webapp_container
 Restrictions: allow-stderr
 Classes: ubuntu-touch
-Depends: webapp-container-autopilot, autopkgtest, python3-evdev
+Depends: webapp-container-autopilot, autopkgtest, python3-evdev, procps, sudo
