@@ -32,4 +32,4 @@ if ! pgrep -f unity-system-compositor ; then
    . /etc/environment
 fi
 
-autopilot3 run -v -f xml -o ${ADT_ARTIFACTS}/${SUITE}.xml ${SUITE}
+autopilot3 run --verbose --format xml --output "${ADT_ARTIFACTS}/${SUITE}.xml" ${SUITE}
