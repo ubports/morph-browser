@@ -15,12 +15,12 @@
 # autopkgtest is a test dependency so we don't need to copy
 # ubuntu-touch-session to the testbed but can use it from autopkgtest instead
 
-Test-Command: debian/tests/touch-session-autopilot webbrowser_app
+Test-Command: /bin/sh -ex debian/tests/touch-session-autopilot webbrowser_app
 Restrictions: allow-stderr
 Classes: ubuntu-touch
 Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev, procps, sudo
 
-Test-Command: debian/tests/touch-session-autopilot webapp_container
+Test-Command: /bin/sh -ex debian/tests/touch-session-autopilot webapp_container
 Restrictions: allow-stderr
 Classes: ubuntu-touch
 Depends: webapp-container-autopilot, autopkgtest, python3-evdev, procps, sudo
