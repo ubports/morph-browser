@@ -32,4 +32,6 @@ if ! pgrep -f unity-system-compositor ; then
    . /etc/environment
 fi
 
+gdbus call --session --dest com.canonical.UnityGreeter --object-path / --method com.canonical.UnityGreeter.HideGreeter
+
 autopilot3 run --verbose --format xml --output "${ADT_ARTIFACTS}/${SUITE}.xml" ${SUITE}
