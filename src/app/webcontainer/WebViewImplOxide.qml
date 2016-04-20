@@ -188,11 +188,12 @@ WebappWebview {
         if (isNewForegroundWebViewDisposition(request.disposition)) {
             request.action = Oxide.NavigationRequest.ActionAccept
             var shouldAcceptRequest =
-                    popupWindowController.handleNewForegroundNavigationRequest(
+                    popupController.handleNewForegroundNavigationRequest(
                           url, request, true);
             if (shouldAcceptRequest) {
                 request.action = Oxide.NavigationRequest.ActionAccept
             }
+            return
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
