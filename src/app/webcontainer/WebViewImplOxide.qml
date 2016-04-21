@@ -54,6 +54,14 @@ WebappWebview {
     signal gotRedirectionUrl(string url)
     property bool runningLocalApplication: false
 
+    onLoadEvent: {
+        var url = event.url.toString()
+        if (event.type === Oxide.LoadEvent.TypeRedirected
+                && url.indexOf("SAMLRequest") > 0) {
+            handleSamlRequestNavigation(url)
+        }
+    }
+
     function openOverlayForUrl(overlayUrl) {
         if (popupController) {
             popupController.createPopupViewForUrl(
@@ -176,6 +184,18 @@ WebappWebview {
         return false;
     }
 
+    function handleSamlRequestNavigation(url) {
+        var urlRegExp = new RegExp("https?://([^?/]+)")
+        var match = urlRegExp.exec(url)
+        var host = match[1]
+        var escapeDotsRegExp = new RegExp("\\.", "g")
+        var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
+
+        console.log("SAML request detected. Adding host pattern: " + hostPattern)
+
+        handleSAMLRequestPattern(hostPattern)
+    }
+
     function navigationRequestedDelegate(request) {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
@@ -211,18 +231,9 @@ WebappWebview {
         // query parameter called "SAMLRequest".
         // Besides letting the request through, we must also add the SAML
         // domain to the list of the allowed hosts.
-        if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab &&
-            url.indexOf("SAMLRequest") > 0) {
-            var urlRegExp = new RegExp("https?://([^?/]+)")
-            var match = urlRegExp.exec(url)
-            var host = match[1]
-            var escapeDotsRegExp = new RegExp("\\.", "g")
-            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
-
-            console.log("SAML request detected. Adding host pattern: " + hostPattern)
-
-            handleSAMLRequestPattern(hostPattern)
-
+        if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab
+                && url.indexOf("SAMLRequest") > 0) {
+            handleSamlRequestNavigation(url)
             request.action = Oxide.NavigationRequest.ActionAccept
         }
 
