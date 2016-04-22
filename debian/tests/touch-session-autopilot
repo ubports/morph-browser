@@ -32,4 +32,15 @@ if ! pgrep -f unity-system-compositor ; then
    . /etc/environment
 fi
 
+mkdir -p ~/.config/ubuntu-system-settings
+touch ~/.config/ubuntu-system-settings/wizard-has-run
+
+dbus-send --system --print-reply --dest=com.canonical.PropertyService /com/canonical/PropertyService com.canonical.PropertyService.SetProperty string:edge boolean:false
+
+initctl --session restart unity8
+
+sleep 20
+
+gdbus call --session --dest com.canonical.UnityGreeter --object-path / --method com.canonical.UnityGreeter.HideGreeter
+
 autopilot3 run --verbose --format xml --output "${ADT_ARTIFACTS}/${SUITE}.xml" ${SUITE}
