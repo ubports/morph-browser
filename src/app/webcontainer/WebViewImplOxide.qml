@@ -81,8 +81,6 @@ WebappWebview {
                 matchAllFrames: false
             }
         ]
-
-        Component.onCompleted: console.log("popupBlockerEnabled ", popupBlockerEnabled)
     }
 
     Component.onCompleted: webappSpecificMessageHandler.createObject(
