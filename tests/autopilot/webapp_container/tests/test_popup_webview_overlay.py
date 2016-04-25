@@ -179,7 +179,6 @@ class WebappContainerPopupWebViewOverlayTestCase(
             {'WEBAPP_CONTAINER_BLOCKER_DISABLED': '1'})
         self.get_webcontainer_window().visible.wait_for(True)
 
-        popup_controller = self.get_popup_controller()
         webview = self.get_oxide_webview()
         self.assertThat(
             lambda: webview.visible,
