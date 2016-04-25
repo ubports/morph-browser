@@ -22,6 +22,11 @@ var overrides = [
       ["^https?:\/\/(www\.)?google\.com\/calendar", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Chrome/35.0.1870.2 Safari/537.36"],
       ["^http:\/\/chrome\.angrybirds\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1284158
       ["^https?:\/\/(www\.)?youtube\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1412880
-      ["^https?:\/\/(www\.)?google\..+\/maps", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Safari/537.36"], // http://pad.lv/1503506
+      ["^https?:\/\/(www\.)?google\..+\/maps", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1503506, http://pad.lv/1551649
       ["^https?:\/\/mail\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/47.0.2526.106 Safari/537.36"], // http://pad.lv/1452616
+
+      // Google hangouts (https://launchpad.net/bugs/1565055)
+      ["^https?:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/49.0.2623.87 Safari/537.36"],
+      ["^https?:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/49.0.2623.87 Safari/537.36"],
+      ["^https?:\/\/plus\.google\.com\/hangouts\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/49.0.2623.87 Safari/537.36"],
 ];

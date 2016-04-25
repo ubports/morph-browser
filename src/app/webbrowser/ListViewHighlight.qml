@@ -18,23 +18,24 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Unity.InputInfo 0.1
+import ".."
 
 Rectangle {
     color: "transparent"
     border {
-        width: units.gu(0.18)
-        color: UbuntuColors.orange
+        width: units.dp(1)
+        color: ((ListView.view && !ListView.view.currentItem.enabled) ||
+                (GridView.view && !GridView.view.currentItem.enabled))
+                   ? Theme.palette.disabled.focus
+                   : Theme.palette.normal.focus
     }
-    radius: units.gu(0.3)
     visible: hasKeyboard &&
              ((ListView.view && ListView.view.activeFocus) ||
               (GridView.view && GridView.view.activeFocus))
 
     readonly property bool hasKeyboard: keyboardModel.count > 0
 
-    InputDeviceModel {
+    FilteredKeyboardModel {
         id: keyboardModel
-        deviceFilter: InputInfo.Keyboard
     }
 }

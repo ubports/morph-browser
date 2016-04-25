@@ -20,7 +20,6 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
@@ -68,8 +67,10 @@ Item {
 
             width: parent.width
 
-            ListItems.Subtitled {
+            ListItem {
+                id: searchEngineListItem
                 objectName: "searchengine"
+                readonly property string currentSearchEngineDisplayName: currentSearchEngine.name
 
                 SearchEngine {
                     id: currentSearchEngine
@@ -77,32 +78,39 @@ Item {
                     filename: settingsObject.searchEngine
                 }
 
-                text: i18n.tr("Search engine")
-                subText: currentSearchEngine.name
+                ListItemLayout {
+                    title.text: i18n.tr("Search engine")
+                    subtitle.text: searchEngineListItem.currentSearchEngineDisplayName
+                    ProgressionSlot {}
+                }
 
                 visible: searchEngines.engines.count > 1
-
                 onClicked: searchEngineComponent.createObject(subpageContainer)
             }
 
-            ListItems.Subtitled {
+            ListItem {
+                id: homepageListItem
                 objectName: "homepage"
+                readonly property url currentHomepage: settingsObject.homepage
 
-                text: i18n.tr("Homepage")
-                subText: settingsObject.homepage
+                ListItemLayout {
+                    title.text: i18n.tr("Homepage")
+                    subtitle.text: homepageListItem.currentHomepage
+                }
 
                 onClicked: PopupUtils.open(homepageDialog)
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "restoreSession"
 
-                text: i18n.tr("Restore previous session at startup")
-                highlightWhenPressed: false
-
-                control: CheckBox {
-                    id: restoreSessionCheckbox
-                    onTriggered: settingsObject.restoreSession = checked
+                ListItemLayout {
+                    title.text: i18n.tr("Restore previous session at startup")
+                    CheckBox {
+                        id: restoreSessionCheckbox
+                        SlotsLayout.position: SlotsLayout.Trailing
+                        onTriggered: settingsObject.restoreSession = checked
+                    }
                 }
 
                 Binding {
@@ -112,18 +120,23 @@ Item {
                 }
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "privacy"
 
-                text: i18n.tr("Privacy & permissions")
+                ListItemLayout {
+                    title.text: i18n.tr("Privacy & permissions")
+                    ProgressionSlot {}
+                }
 
                 onClicked: privacyComponent.createObject(subpageContainer)
             }
 
-            ListItems.Standard {
+            ListItem {
                 objectName: "reset"
 
-                text: i18n.tr("Reset browser settings")
+                ListItemLayout {
+                    title.text: i18n.tr("Reset browser settings")
+                }
 
                 onClicked: settingsObject.restoreDefaults()
             }
@@ -167,20 +180,25 @@ Item {
 
                     model: searchEngines.engines
 
-                    delegate: ListItems.Standard {
-                        objectName: "searchEngineDelegate_" + index
+                    delegate: ListItem {
+                        id: searchEngineDelegate
+                        objectName: "searchEngineDelegate"
+                        readonly property string displayName: delegateSearchEngine.name
                         SearchEngine {
-                            id: searchEngineDelegate
+                            id: delegateSearchEngine
                             searchPaths: searchEngines.searchPaths
                             filename: model.filename
                         }
-                        text: searchEngineDelegate.name
 
-                        control: CheckBox {
-                            checked: settingsObject.searchEngine == searchEngineDelegate.filename
-                            onClicked: {
-                                settingsObject.searchEngine = searchEngineDelegate.filename
-                                searchEngineItem.destroy()
+                        ListItemLayout {
+                            title.text: searchEngineDelegate.displayName
+                            CheckBox {
+                                SlotsLayout.position: SlotsLayout.Trailing
+                                checked: settingsObject.searchEngine == delegateSearchEngine.filename
+                                onClicked: {
+                                    settingsObject.searchEngine = delegateSearchEngine.filename
+                                    searchEngineItem.destroy()
+                                }
                             }
                         }
                     }
@@ -224,15 +242,20 @@ Item {
                         id: privacyCol
                         width: parent.width
 
-                        ListItems.Standard {
+                        ListItem {
                             objectName: "privacy.mediaAccess"
-                            text: i18n.tr("Camera & microphone")
+                            ListItemLayout {
+                                title.text: i18n.tr("Camera & microphone")
+                                ProgressionSlot {}
+                            }
                             onClicked: mediaAccessComponent.createObject(subpageContainer)
                         }
 
-                        ListItems.Standard {
+                        ListItem {
                             objectName: "privacy.clearHistory"
-                            text: i18n.tr("Clear Browsing History")
+                            ListItemLayout {
+                                title.text: i18n.tr("Clear Browsing History")
+                            }
                             enabled: HistoryModel.count > 0
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
@@ -240,9 +263,11 @@ Item {
                             }
                         }
 
-                        ListItems.Standard {
+                        ListItem {
                             objectName: "privacy.clearCache"
-                            text: i18n.tr("Clear Cache")
+                            ListItemLayout {
+                                title.text: i18n.tr("Clear Cache")
+                            }
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")})
                                 dialog.confirmed.connect(function() {
@@ -383,8 +408,10 @@ Item {
                     id: mediaAccessCol
                     width: parent.width
 
-                    ListItems.Standard {
-                        text: i18n.tr("Microphone")
+                    ListItem {
+                        ListItemLayout {
+                            title.text: i18n.tr("Microphone")
+                        }
                     }
 
                     SettingsDeviceSelector {
@@ -402,8 +429,10 @@ Item {
                         }
                     }
 
-                    ListItems.Standard {
-                        text: i18n.tr("Camera")
+                    ListItem {
+                        ListItemLayout {
+                            title.text: i18n.tr("Camera")
+                        }
                     }
 
                     SettingsDeviceSelector {

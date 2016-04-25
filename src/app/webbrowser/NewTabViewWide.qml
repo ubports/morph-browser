@@ -112,7 +112,7 @@ FocusScope {
             left: parent.left
             right: parent.right
         }
-        color: "#f8f8f8"
+        color: "#ffffff"
         height: sections.height
 
         Sections {
@@ -138,6 +138,17 @@ FocusScope {
                 Action { text: i18n.tr("Top sites") },
                 Action { text: i18n.tr("Bookmarks") }
             ]
+        }
+
+        Rectangle {
+            // Divider, see Ubuntu/Components/Themes/Ambiance/1.3/PageHeaderStyle.qml
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.bottom
+            }
+            height: units.dp(1)
+            color: Qt.rgba(0, 0, 0, 0.1)
         }
     }
 }

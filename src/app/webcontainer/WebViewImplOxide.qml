@@ -23,10 +23,9 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Ubuntu.Web 0.2
-import "../actions" as Actions
 import ".."
 
-WebViewImpl {
+WebappWebview {
     id: webview
 
     property bool developerExtrasEnabled: false
@@ -37,7 +36,8 @@ WebViewImpl {
     property url dataPath
     property var popupController
     property var overlayViewsParent: webview.parent
-    property bool wide: false
+    property var mediaAccessDialogComponent
+    property bool openExternalUrlInOverlay: false
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -65,7 +65,6 @@ WebViewImpl {
     }
 
     currentWebview: webview
-    filePicker: filePickerLoader.item
 
     context: WebContext {
         dataPath: webview.dataPath
@@ -80,15 +79,23 @@ WebViewImpl {
             }
         ]
     }
-    messageHandlers: [
-        Oxide.ScriptMessageHandler {
-            msgId: "webapp-specific-page-metadata-detected"
-            contexts: ["oxide://webapp-specific-page-metadata-collector/"]
-            callback: function(msg, frame) {
-                handlePageMetadata(msg.args)
-            }
-        }
-    ]
+
+    Component.onCompleted: webappSpecificMessageHandler.createObject(
+                               webview,
+                               {
+                                   msgId: "webapp-specific-page-metadata-detected",
+                                   contexts: ["oxide://webapp-specific-page-metadata-collector/"],
+                                   callback: function(msg, frame) {
+                                       handlePageMetadata(msg.args)
+                                   }
+                               });
+
+    Component {
+        id: webappSpecificMessageHandler
+        Oxide.ScriptMessageHandler { }
+    }
+
+    onOpenUrlExternallyRequested: openUrlExternally(url, false)
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
@@ -97,106 +104,19 @@ WebViewImpl {
 
     onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
 
-    property QtObject contextModel: null
-    contextualActions: ActionList {
-        Actions.OpenLinkInWebBrowser {
-            objectName: "OpenLinkInWebBrowser"
-            enabled: contextModel && contextModel.linkUrl.toString()
-            onTriggered: openUrlExternally(contextModel.linkUrl)
-        }
-        Actions.CopyLink {
-            enabled: webview.contextModel && webview.contextModel.linkUrl.toString()
-            onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
-            objectName: "CopyLinkContextualAction"
-        }
-        Actions.CopyImage {
-            enabled: webview.contextModel &&
-                     (webview.contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
-                     webview.contextModel.srcUrl.toString()
-            onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
-            objectName: "CopyImageContextualAction"
-        }
-        Actions.Undo {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.UndoCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
-            objectName: "UndoContextualAction"
-        }
-        Actions.Redo {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.RedoCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
-            objectName: "RedoContextualAction"
-        }
-        Actions.Cut {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.CutCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
-            objectName: "CutContextualAction"
-        }
-        Actions.Copy {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.CopyCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
-            objectName: "CopyContextualAction"
-        }
-        Actions.Paste {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.PasteCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
-            objectName: "PasteContextualAction"
-        }
-        Actions.Erase {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.EraseCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandErase)
-            objectName: "EraseContextualAction"
-        }
-        Actions.SelectAll {
-            enabled: webview.contextModel && webview.contextModel.isEditable &&
-                     (webview.contextModel.editFlags & Oxide.WebView.SelectAllCapability)
-            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
-            objectName: "SelectAllContextualAction"
-        }
-    }
-    function contextMenuOnCompleted(menu) {
-        if (!menu || !menu.contextModel) {
-            return
-        }
-        contextModel = menu.contextModel
+    Connections {
+        target: webview.visible ? webview : null
 
-        var isImageMediaType =
-                ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                 (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas))
-             && contextModel.hasImageContents;
-
-        if (contextModel.linkUrl.toString() ||
-            contextModel.srcUrl.toString() ||
-            contextModel.selectionText ||
-            (contextModel.isEditable && contextModel.editFlags) ||
-            isImageMediaType) {
-            menu.show()
-        } else {
-            contextModel.close()
-        }
+        /**
+         * We are only connecting to the mediaAccessPermission signal if we are
+         * the only webview currently visible (no overlay present). In the case of an overlay
+         * and the absence of a signal handler in this main view, oxide's default behavior
+         * is triggered and the request is denied.
+         *
+         * See the browser's webbrowser/Browser.qml source for additional comments.
+         */
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
     }
-    Component {
-        id: contextMenuNarrowComponent
-        ContextMenuMobile {
-            actions: contextualActions
-            Component.onCompleted: webview.contextMenuOnCompleted(this)
-        }
-    }
-    Component {
-        id: contextMenuWideComponent
-        ContextMenuWide {
-            associatedWebview: webview
-            parent: browser
-            actions: contextualActions
-            Component.onCompleted: webview.contextMenuOnCompleted(this)
-        }
-    }
-    contextMenu: webview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication
@@ -220,10 +140,15 @@ WebViewImpl {
                disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
     }
 
-    function openUrlExternally(url) {
-        webview.openExternalUrlTriggered(url)
-        if (! webview.blockOpenExternalUrls) {
-            Qt.openUrlExternally(url)
+    function openUrlExternally(url, isTriggeredByUserNavigation) {
+        if (openExternalUrlInOverlay && isTriggeredByUserNavigation) {
+            popupController.createPopupViewForUrl(overlayViewsParent, url, true, context)
+            return
+        } else {
+            webview.openExternalUrlTriggered(url)
+            if (! webview.blockOpenExternalUrls) {
+                Qt.openUrlExternally(url)
+            }
         }
     }
 
@@ -255,15 +180,19 @@ WebViewImpl {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = Oxide.NavigationRequest.ActionReject
-            openUrlExternally(url)
+            openUrlExternally(url, true)
             return
         }
 
         request.action = Oxide.NavigationRequest.ActionReject
         if (isNewForegroundWebViewDisposition(request.disposition)) {
             request.action = Oxide.NavigationRequest.ActionAccept
-            popupController.handleNewForegroundNavigationRequest(url, request, true)
-            return
+            var shouldAcceptRequest =
+                    popupWindowController.handleNewForegroundNavigationRequest(
+                          url, request, true);
+            if (shouldAcceptRequest) {
+                request.action = Oxide.NavigationRequest.ActionAccept
+            }
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
@@ -299,7 +228,7 @@ WebViewImpl {
 
         if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
-            openUrlExternally(url)
+            openUrlExternally(url, true)
         }
     }
 
@@ -321,16 +250,6 @@ WebViewImpl {
             }
         };
         return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
-    }
-
-    onGeolocationPermissionRequested: {
-        if (__runningConfined && (request.origin == request.embedder)) {
-            // When running confined, querying the location service will trigger
-            // a system prompt (trust store), so no need for a custom one.
-            request.accept()
-        } else {
-            requestGeolocationPermission(request)
-        }
     }
 
     function handlePageMetadata(metadata) {
@@ -355,28 +274,5 @@ WebViewImpl {
                 themeColorMetaInformationDetected(metadata['theme_color'])
             }
         }
-    }
-
-    onShowDownloadDialog: {
-       if (downloadDialogLoader.status === Loader.Ready) {
-           var downloadDialog = PopupUtils.open(downloadDialogLoader.item, webview, {"contentType" : contentType,
-                                                                                     "downloadId" : downloadId,
-                                                                                     "singleDownload" : downloader,
-                                                                                     "filename" : filename,
-                                                                                     "mimeType" : mimeType})
-           downloadDialog.startDownload.connect(startDownload)
-        }
-    }
-
-    Loader {
-        id: downloadDialogLoader
-        source: "ContentDownloadDialog.qml"
-        asynchronous: true
-    }
-
-    Loader {
-        id: filePickerLoader
-        source: "ContentPickerDialog.qml"
-        asynchronous: true
     }
 }

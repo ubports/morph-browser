@@ -115,7 +115,8 @@ FocusScope {
                 leftMargin: Math.round(backButton.width + forwardButton.width + units.gu(1))
                 right: rightButtonsBar.left
                 rightMargin: units.gu(1)
-                verticalCenter: parent.verticalCenter
+                top: parent.top
+                bottom: parent.bottom
             }
 
             icon: (internal.webview && internal.webview.certificateError) ? "" : tab ? tab.icon : ""
@@ -220,15 +221,18 @@ FocusScope {
         id: internal
         property var openDrawer: null
         readonly property var webview: tab ? tab.webview : null
+    }
 
-        onWebviewChanged: {
-            if (webview) {
-                addressbar.actualUrl = webview.url
-                addressbar.securityStatus = webview.securityStatus
-            } else {
-                addressbar.actualUrl = ""
-                addressbar.securityStatus = null
+    onTabChanged: {
+        if (tab) {
+            addressbar.actualUrl = tab.url
+            addressbar.securityStatus = (tab.webview ? tab.webview.securityStatus : null)
+            if (!tab.url.toString() && editing) {
+                addressbar.text = ""
             }
+        } else {
+            addressbar.actualUrl = ""
+            addressbar.securityStatus = null
         }
     }
 
@@ -256,6 +260,7 @@ FocusScope {
             clip: actionsListView.y != 0
 
             InverseMouseArea {
+                anchors.fill: parent
                 enabled: drawer.opened
                 onPressed: drawer.opened = false
             }

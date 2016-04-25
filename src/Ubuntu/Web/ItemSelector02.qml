@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3
 
 Popover {
@@ -38,8 +38,10 @@ Popover {
 
         model: selectorModel.items
 
-        delegate: ListItem.Standard {
-            text: model.text
+        delegate: ListItem {
+            ListItemLayout {
+                title.text: model.text
+            }
             enabled: model.enabled
             selected: model.selected
             onClicked: {
@@ -49,7 +51,7 @@ Popover {
         }
 
         section.property: "group"
-        section.delegate: ListItem.Header {
+        section.delegate: ListItems.Header {
             text: section
         }
 

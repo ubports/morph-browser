@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -29,6 +29,8 @@ Item {
     property var mainWebappView
     property var views: []
     property bool blockOpenExternalUrls: false
+    property var mediaAccessDialogComponent
+    property bool wide: false
 
     // Used to access runtime behavior during tests
     signal openExternalUrlTriggered(string url)
@@ -196,7 +198,9 @@ Item {
         createPopupView(parentView,
                         { request: request,
                           webContext: context,
-                          popupWindowController: controller },
+                          popupWindowController: controller,
+                          mediaAccessDialogComponent: mediaAccessDialogComponent
+                        },
                         isRequestFromMainWebappWebview,
                         context)
     }
@@ -207,7 +211,9 @@ Item {
         createPopupView(parentView,
                         { url: overlayUrl,
                           webContext: context,
-                          popupWindowController: controller },
+                          popupWindowController: controller,
+                          mediaAccessDialogComponent: mediaAccessDialogComponent
+                        },
                         isRequestFromMainWebappWebview,
                         context)
     }
@@ -219,6 +225,8 @@ Item {
 
             height: parent.height
             width: parent.width
+
+            wide: controller.wide
 
             y: overlay.parent.height
 
@@ -251,8 +259,8 @@ Item {
             console.log("Maximum number of popup overlay opened, opening: "
                         + url
                         + " in the browser")
-            return
+            return false
         }
-        request.action = Oxide.NavigationRequest.ActionAccept
+        return true
     }
 }

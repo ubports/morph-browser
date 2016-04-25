@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -134,6 +134,54 @@ private Q_SLOTS:
         QVERIFY(roles.contains(HistoryModel::Title));
         QVERIFY(roles.contains(HistoryModel::Icon));
         QVERIFY(roles.contains(HistoryModel::Visits));
+    }
+
+    void shouldUpdateAttributes()
+    {
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        QUrl url(QStringLiteral("http://example.org/"));
+        QCOMPARE(model->add(url, QStringLiteral(""), QUrl()), 1);
+
+        QVERIFY(!model->update(QUrl(), QStringLiteral(""), QUrl()));
+        QVERIFY(spyChanged.isEmpty());
+
+        QVERIFY(!model->update(QUrl(QStringLiteral("http://example.com/")), QStringLiteral(""), QUrl()));
+        QVERIFY(spyChanged.isEmpty());
+
+        QVERIFY(!model->update(url, QStringLiteral(""), QUrl()));
+        QVERIFY(spyChanged.isEmpty());
+
+        QVERIFY(model->update(url, QStringLiteral("title update"), QUrl()));
+        QCOMPARE(spyChanged.count(), 1);
+        QList<QVariant> args = spyChanged.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        QVector<int> roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QVERIFY(roles.contains(HistoryModel::Title));
+        QCOMPARE(model->get(0)[QStringLiteral("visits")].toInt(), 1);
+
+        QVERIFY(model->update(url, QStringLiteral("title update"), QUrl(QStringLiteral("image://webicon/123"))));
+        QCOMPARE(spyChanged.count(), 1);
+        args = spyChanged.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QVERIFY(roles.contains(HistoryModel::Icon));
+        QCOMPARE(model->get(0)[QStringLiteral("visits")].toInt(), 1);
+
+        QVERIFY(model->update(url, QStringLiteral("title update 2"), QUrl(QStringLiteral("image://webicon/1234"))));
+        QCOMPARE(spyChanged.count(), 1);
+        args = spyChanged.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 2);
+        QVERIFY(roles.contains(HistoryModel::Title));
+        QVERIFY(roles.contains(HistoryModel::Icon));
+        QCOMPARE(model->get(0)[QStringLiteral("visits")].toInt(), 1);
     }
 
     void shouldNotifyWhenHidingOrUnHidingExistingEntry()

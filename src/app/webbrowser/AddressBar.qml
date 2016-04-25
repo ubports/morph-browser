@@ -55,8 +55,6 @@ FocusScope {
     readonly property Item __actionButton: action
     readonly property Item __bookmarkToggle: bookmarkToggle
 
-    height: textField.height
-
     function selectAll() {
         textField.selectAll()
     }

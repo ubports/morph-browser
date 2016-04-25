@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 import ".."
 
@@ -35,7 +36,7 @@ ListItem {
 
     signal removed()
 
-    Row {
+    RowLayout {
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left
@@ -47,26 +48,18 @@ ListItem {
 
         Loader {
             id: headerComponentLoader
-            sourceComponent: undefined
+            anchors.verticalCenter: parent.verticalCenter
+            visible: status == Loader.Ready
         }
 
-        UbuntuShape {
-            id: iconContainer
-            width: units.gu(3)
-            height: width
-
-            Favicon {
-                id: icon
-                anchors.centerIn: parent
-            }
+        Favicon {
+            id: icon
+            anchors.verticalCenter: parent.verticalCenter
         }
 
         Column {
-            width: parent.width - headerComponentLoader.width - iconContainer.width - parent.spacing - (headerComponentLoader.sourceComponent ? parent.spacing : 0)
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
+            Layout.fillWidth: true
+            anchors.verticalCenter: parent.verticalCenter
 
             Label {
                 id: title

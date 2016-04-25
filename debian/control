@@ -12,7 +12,7 @@ Build-Depends: apparmor,
                hardening-wrapper,
                libapparmor-dev,
                libevdev-dev,
-               liboxideqt-qmlplugin (>= 1.9),
+               liboxideqt-qmlplugin (>= 1.12),
                libqt5sql5-sqlite,
                libudev-dev,
                pkg-config,
@@ -21,6 +21,7 @@ Build-Depends: apparmor,
                qml-module-qt-labs-folderlistmodel,
                qml-module-qt-labs-settings,
                qml-module-qtquick2 (>= 5.4),
+               qml-module-qtquick-layouts,
                qml-module-qttest,
                qt5-default,
                qt5-qmake,
@@ -30,8 +31,9 @@ Build-Depends: apparmor,
                qtdeclarative5-dev,
                qtdeclarative5-private-dev,
                qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
+               qttools5-dev-tools,
                xvfb,
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Homepage: https://launchpad.net/webbrowser-app
 # If you aren't a member of ~phablet-team but need to upload packaging changes,
 # just go ahead.  ~phablet-team will notice and sync up the code again.
@@ -48,9 +50,10 @@ Depends: ${misc:Depends},
          qml-module-qt-labs-folderlistmodel,
          qml-module-qt-labs-settings,
          qml-module-qtquick2 (>= 5.4),
+         qml-module-qtquick-layouts,
          qml-module-qtquick-window2 (>= 5.3),
+         qml-module-ubuntu-web (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
-         qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-unity-action-plugin,
 Replaces: webbrowser-app-assets,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
@@ -71,18 +74,18 @@ Depends: ${misc:Depends},
          libqt5sql5-sqlite,
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
-         qtdeclarative5-accounts-plugin,
+         qml-module-ubuntu-onlineaccounts,
+         qml-module-ubuntu-web (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
-         qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-unity-action-plugin,
          unity-webapps-qml,
          webbrowser-app (= ${binary:Version}),
-Suggests: qtdeclarative5-online-accounts-client0.1 (>= 0.3),
+Suggests: qml-module-ubuntu-onlineaccounts-client (>= 0.3),
 Description: Ubuntu web applications container
  A lightweight webapp container tailored for Ubuntu, based on the Oxide browser
  engine and using the Ubuntu UI components.
 
-Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
+Package: qml-module-ubuntu-ui-extras-browser
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -91,35 +94,67 @@ Depends: ${misc:Depends},
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
-         qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
-Replaces: webbrowser-app (<< 0.21)
-Breaks: webbrowser-app (<< 0.21)
-Description: Ubuntu web QML plugin
- A standalone QML plugin that contains the UbuntuWebView component
- , in the Ubuntu.Components.Extras.Browser module.
+         qml-module-ubuntu-web (= ${binary:Version}),
+Replaces: webbrowser-app (<< 0.21), qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< ${source:Version})
+Breaks: webbrowser-app (<< 0.21), qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< ${source:Version})
+Description: Ubuntu web QML module
+ A standalone QML module that contains the UbuntuWebView component
+ , in the Ubuntu.Components.Extras.Browser namespace.
+
+Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
+Architecture: any
+Multi-Arch: same
+Section: oldlibs
+Depends: qml-module-ubuntu-ui-extras-browser, ${misc:Depends}
+Description: transitional dummy package for the Ubuntu web QML module
+ A standalone QML module that contains the UbuntuWebView component
+ , in the Ubuntu.Components.Extras.Browser namespace.
+
+Package: qml-module-ubuntu-web
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         liboxideqt-qmlplugin (>= 1.12),
+         qml-module-qtquick2 (>= 5.4),
+         qml-module-qtquick-window2 (>= 5.3),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
+Breaks: qtdeclarative5-ubuntu-web-plugin (<< ${source:Version})
+Replaces: qtdeclarative5-ubuntu-web-plugin (<< ${source:Version})
+Description: Ubuntu web QML module
+ A standalone QML module that contains the WebView component,
+ in the Ubuntu.Web namespace.
 
 Package: qtdeclarative5-ubuntu-web-plugin
 Architecture: any
 Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends},
-         liboxideqt-qmlplugin (>= 1.9),
-         qml-module-qtquick2 (>= 5.4),
-         qml-module-qtquick-window2 (>= 5.3),
-         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
-Description: Ubuntu web QML plugin
- A standalone QML plugin that contains the WebView component,
- in the Ubuntu.Web module.
+Section: oldlibs
+Depends: qml-module-ubuntu-web, ${misc:Depends}
+Description: transitional dummy package for the Ubuntu web QML module
+ A standalone QML module that contains the WebView component,
+ in the Ubuntu.Web namespace.
 
-Package: qtdeclarative5-ubuntu-web-plugin-doc
+Package: qml-module-ubuntu-web-doc
 Section: doc
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends},
-Description: Ubuntu web QML plugin HTML documentation
- A standalone QML plugin that contains the WebView component,
- in the Ubuntu.Web module. This package contains the public
+Depends: ${misc:Depends}
+Breaks: qtdeclarative5-ubuntu-web-plugin-doc (<< ${source:Version})
+Replaces: qtdeclarative5-ubuntu-web-plugin-doc (<< ${source:Version})
+Description: Ubuntu web QML module HTML documentation
+ A standalone QML module that contains the WebView component,
+ in the Ubuntu.Web namespace. This package contains the public
+ HTML documentation.
+
+Package: qtdeclarative5-ubuntu-web-plugin-doc
+Section: oldlibs
+Architecture: all
+Multi-Arch: foreign
+Depends: qml-module-ubuntu-web-doc, ${misc:Depends}
+Description: transitional dummy package for the Ubuntu web QML module HTML documentation
+ A standalone QML module that contains the WebView component,
+ in the Ubuntu.Web namespace. This package contains the public
  HTML documentation.
 
 Package: webbrowser-app-autopilot

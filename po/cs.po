@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-04-12 19:16+0200\n"
 "PO-Revision-Date: 2015-07-07 10:46+0000\n"
 "Last-Translator: Vojtěch Daněk <vdanek@outlook.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-02-26 05:24+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-04-13 05:40+0000\n"
+"X-Generator: Launchpad (build 17990)\n"
 "Language: cs\n"
 
 #: src/app/AlertDialog.qml:23
@@ -57,8 +57,8 @@ msgstr "Heslo"
 #: src/app/webbrowser/HistoryView.qml:175
 #: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:294
-#: src/app/webbrowser/SettingsPage.qml:348
+#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:329
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -316,6 +316,36 @@ msgstr ""
 "Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
 "certifikát, který neprošel bezpečnostní kontrolou z neznámého důvodu."
 
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Povolit této doméně přístup ke kameře a mikrofonu?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Povolit této doméně přístup ke kameře?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Povolit této doméně přístup k mikrofonu?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (přistupuje z %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Ano"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Ne"
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "Výzva JavaScriptu"
@@ -384,7 +414,7 @@ msgstr "Vyjmout"
 msgid "Erase"
 msgstr "Smazat"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:547
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
 msgid "Find in page"
 msgstr "Najít na stránce"
 
@@ -414,8 +444,8 @@ msgstr "Přejít na"
 msgid "Address;URL;www"
 msgstr "Adresa;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:433
-#: src/app/webbrowser/TabsBar.qml:89
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Nový panel"
 
@@ -439,7 +469,7 @@ msgstr "Otevřít odkaz v novém panelu"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Otevřít video v novém tabu"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -450,7 +480,7 @@ msgid "Redo"
 msgstr "Opakovat"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:94 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Obnovit"
 
@@ -470,7 +500,7 @@ msgstr "Uložit odkaz"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Uložit video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
 #: src/app/webbrowser/HistoryView.qml:190
@@ -478,7 +508,7 @@ msgstr ""
 msgid "Select all"
 msgstr "Zvolit vše"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:527
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
 msgid "Share"
 msgstr "Sdílet"
 
@@ -530,27 +560,27 @@ msgid "Create new folder"
 msgstr "Vytvořit nový adresář"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:358
+#: src/app/webbrowser/SettingsPage.qml:339
 msgid "Save"
 msgstr "Uložit"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
 #: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:322
+#: src/app/webbrowser/SettingsPage.qml:303
 msgid "Homepage"
 msgstr "Domovská stránka"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:535 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Záložky"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
 #: src/app/webbrowser/HistoryViewWide.qml:517
 msgid "Done"
 msgstr "Hotovo"
@@ -559,42 +589,42 @@ msgstr "Hotovo"
 #: src/app/webbrowser/BookmarksViewWide.qml:126
 #: src/app/webbrowser/HistoryView.qml:145
 #: src/app/webbrowser/HistoryViewWide.qml:531
-#: src/app/webbrowser/TabsBar.qml:152 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nový panel"
 
-#: src/app/webbrowser/Browser.qml:541
+#: src/app/webbrowser/Browser.qml:546
 #: src/app/webbrowser/HistoryViewWide.qml:381
 msgid "History"
 msgstr "Historie"
 
-#: src/app/webbrowser/Browser.qml:554 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "Stahování"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Leave Private Mode"
 msgstr "Opustit anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:561
+#: src/app/webbrowser/Browser.qml:566
 msgid "Private Mode"
 msgstr "Anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Nastavení"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:751 src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:791
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1343
+#: src/app/webbrowser/Browser.qml:1345
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Přejeďte prstem nahoru pro ukončení módu celé obrazovky"
 
-#: src/app/webbrowser/Browser.qml:1344
+#: src/app/webbrowser/Browser.qml:1346
 msgid "Press ESC To Exit Full Screen"
 msgstr "Stiskněte ESC pro ukončení módu celé obrazovky"
 
@@ -673,32 +703,6 @@ msgstr "hledání v historii"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Přechodem do veřejného režimu zavřete všechna anonymní okna."
-
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "Povolit této doméně přístup ke kameře a mikrofonu?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "Povolit této doméně přístup ke kameře?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "Povolit této doméně přístup k mikrofonu?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (přistupuje z %2)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "Ano"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "Ne"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -805,7 +809,7 @@ msgid "Default"
 msgstr "Výchozí"
 
 #: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:156
 msgid "Search engine"
 msgstr "Vyhledávač"
 
@@ -813,45 +817,45 @@ msgstr "Vyhledávač"
 msgid "Restore previous session at startup"
 msgstr "Obnovit předchozí relaci při startu"
 
-#: src/app/webbrowser/SettingsPage.qml:137
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:208
 msgid "Privacy & permissions"
 msgstr "Soukromí & oprávnění"
 
-#: src/app/webbrowser/SettingsPage.qml:145
+#: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
 msgstr "Obnovit nastavení prohlížeče"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:386
+#: src/app/webbrowser/SettingsPage.qml:229
+#: src/app/webbrowser/SettingsPage.qml:367
 msgid "Camera & microphone"
 msgstr "Kamera & mikrofón"
 
-#: src/app/webbrowser/SettingsPage.qml:254
+#: src/app/webbrowser/SettingsPage.qml:235
 msgid "Clear Browsing History"
 msgstr "Smazat historii procházení"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:238
 msgid "Clear Browsing History?"
 msgstr "Smazat historii?"
 
-#: src/app/webbrowser/SettingsPage.qml:264
+#: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Cache"
 msgstr "Vymazat Cache"
 
-#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webbrowser/SettingsPage.qml:247
 msgid "Clear Cache?"
 msgstr "Vyčistit vyrovnávací paměť?"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:282
 msgid "Clear"
 msgstr "Vyčistit"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:387
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: src/app/webbrowser/SettingsPage.qml:425
+#: src/app/webbrowser/SettingsPage.qml:406
 msgid "Camera"
 msgstr "Kamera"
 
@@ -859,7 +863,7 @@ msgstr "Kamera"
 msgid "Tap to view"
 msgstr "Klepnout pro zobrazení"
 
-#: src/app/webbrowser/TabsBar.qml:100
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "Zavřít panel"
 
@@ -993,3 +997,6 @@ msgstr "Internet;WWW;Prohlížeč;Web;Explorer"
 
 #~ msgid "Select an account"
 #~ msgstr "Zvolit účet"
+
+#~ msgid "Add"
+#~ msgstr "Přidat"

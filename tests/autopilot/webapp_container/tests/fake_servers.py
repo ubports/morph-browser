@@ -18,6 +18,7 @@
 import http.server as http
 import logging
 import threading
+import urllib
 
 
 class RequestHandler(http.BaseHTTPRequestHandler):
@@ -66,7 +67,7 @@ This is some {} content
 </html>
         """
 
-    def targetted_click_content(self):
+    def external_href_with_link_content(self, path="open-close-content"):
         return """
 <html>
 <head>
@@ -74,14 +75,14 @@ This is some {} content
 </head>
 <body>
 <div>
-<a href="/open-close-content" target="_blank">
+<a href="/{}" target="_blank">
 <div style="height: 100%; width: 100%">
 </div>
 </a>
 </div>
 </body>
 </html>
-        """
+        """.format(path)
 
     def display_ua_content(self):
         return """
@@ -117,6 +118,38 @@ window.onload = function() {{
     </html>
         """.format(loopcount)
 
+    def media_access(self):
+        return """
+<html>
+<head>
+<title>open-close</title>
+
+<script>
+navigator.getUserMedia = navigator.getUserMedia ||
+  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+function callback(stream) {}
+
+var constraints = {
+  audio: {},
+  video: {}
+};
+
+navigator.getUserMedia(constraints, callback, callback);
+
+</script>
+</head>
+
+<body>
+
+<div>
+<select>
+</select>
+</div>
+</body>
+</html>
+        """
+
     def manifest_json_content(self):
         return """
 {
@@ -126,29 +159,43 @@ window.onload = function() {{
   "theme_color": "#FF0000"
 }        """
 
-    def theme_color_content(self, color, with_manifest=False):
+    def theme_color_content(self,
+                            color,
+                            with_manifest=False,
+                            delayed_color_update=''):
         color_content = ''
         if color:
             color_content = """
 <meta name=\"theme-color\" content=\"{}\"></meta>
 """.format(color)
+
         manifest_content = ''
         if with_manifest:
             manifest_content = "<link rel=\"manifest\" href=\"manifest.json\">"
+
+        delayed_color_code = ''
+        if len(delayed_color_update) != 0:
+            delayed_color_code = """
+setTimeout(function() {
+   var e=document.head.querySelector('meta[name="theme-color"]');
+   e.content = '%s';
+}, 2000)""" % delayed_color_update
 
         return """
 <html>
 <head>
 {}
 {}
-<title>theme-color</title>
+
 <script>
+{}
 </script>
+<title>theme-color</title>
 </head>
 <body>
 </body>
 </html>
-        """.format(color_content, manifest_content)
+        """.format(color_content, manifest_content, delayed_color_code)
 
     def open_close_content(self):
         return """
@@ -213,7 +260,7 @@ window.onload = function() {{
             self.serve_content(html)
         elif self.path == '/with-targetted-link':
             self.send_response(200)
-            self.serve_content(self.targetted_click_content())
+            self.serve_content(self.external_href_with_link_content())
         elif self.path == '/show-user-agent':
             self.send_response(200)
             self.serve_content(self.display_ua_content())
@@ -224,16 +271,23 @@ window.onload = function() {{
             self.send_response(200)
             self.serve_content(self.manifest_json_content())
         elif self.path.startswith('/theme-color/'):
-            args = self.path[len('/theme-color/'):]
+            q = urllib.parse.parse_qs(
+                urllib.parse.urlparse(
+                    self.path).query)
             self.send_response(200)
             color = ''
-            if args.startswith('?color='):
-                color = args[len('?color='):]
+            if 'color' in q:
+                color = q['color'][0]
+            color_update = ''
+            if 'delaycolorupdate' in q:
+                color_update = q['delaycolorupdate'][0]
             with_manifest = False
-            if args.startswith('?manifest='):
+            if 'manifest' in q and q['manifest'][0] == 'true':
                 with_manifest = True
             self.send_response(200)
-            self.serve_content(self.theme_color_content(color, with_manifest))
+            self.serve_content(
+                self.theme_color_content(
+                    color, with_manifest, color_update))
         elif self.path.startswith('/saml/'):
             args = self.path[len('/saml/'):]
             loopCount = 0
@@ -255,6 +309,14 @@ window.onload = function() {{
             self.send_response(302)
             self.send_header("Location", locationTarget)
             self.end_headers()
+        elif self.path == '/media-access':
+            self.send_response(200)
+            self.serve_content(self.media_access())
+        elif self.path.startswith('/with-overlay-link'):
+            qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            self.send_response(200)
+            self.serve_content(
+                self.external_href_with_link_content(qs['path'][0]))
         else:
             self.send_error(404)
 

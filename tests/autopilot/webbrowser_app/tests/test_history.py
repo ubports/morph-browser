@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -16,7 +16,7 @@
 
 import time
 
-from testtools.matchers import Equals
+from testtools.matchers import EndsWith, Equals, StartsWith
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -24,8 +24,25 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestHistory(StartOpenRemotePageTestCaseBase):
 
-    def test_history_not_save_404(self):
-        url = self.base_url + "/404page"
+    def expect_history_entries(self, ordered_urls):
+        history = self.main_window.get_history_view()
+        if self.main_window.wide:
+            self.assertThat(lambda: len(history.get_entries()),
+                            Eventually(Equals(len(ordered_urls))))
+            entries = history.get_entries()
+        else:
+            self.assertThat(lambda: len(history.get_domain_entries()),
+                            Eventually(Equals(1)))
+            self.pointing_device.click_object(history.get_domain_entries()[0])
+            expanded_history = self.main_window.get_expanded_history_view()
+            self.assertThat(lambda: len(expanded_history.get_entries()),
+                            Eventually(Equals(len(ordered_urls))))
+            entries = expanded_history.get_entries()
+        self.assertThat([entry.url for entry in entries], Equals(ordered_urls))
+        return entries
+
+    def test_404_not_saved(self):
+        url = self.base_url + "/notfound"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
@@ -35,34 +52,8 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
-        history = self.open_history()
-
-        # We have domains with subsections only on mobiles.
-        # On wide we take all the entries directly
-        if self.main_window.wide:
-            delegates = history.get_entries()
-
-            # 2 addresses: /test1 and /test2
-            self.assertThat(lambda: len(history.get_entries()),
-                            Eventually(Equals(2)))
-            self.assertThat(sorted([delegate.url for delegate in delegates]),
-                            Equals(sorted([self.url, url])))
-        else:
-            # 1 domain: the local one
-            domain_entries = history.get_domain_entries()
-            self.assertThat(lambda: len(history.get_domain_entries()),
-                            Eventually(Equals(1)))
-
-            self.pointing_device.click_object(domain_entries[0])
-            expanded_history = self.main_window.get_expanded_history_view()
-
-            # 2 addresses: /test1 and /test2
-            self.assertThat(lambda: len(expanded_history.get_entries()),
-                            Eventually(Equals(2)))
-
-            delegates = expanded_history.get_entries()
-            self.assertThat(sorted([delegate.url for delegate in delegates]),
-                            Equals(sorted([self.url, url])))
+        self.open_history()
+        self.expect_history_entries([url, self.url])
 
     def test_expanded_history_view_header_swallows_clicks(self):
         # Regression test for https://launchpad.net/bugs/1518904
@@ -78,3 +69,58 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         # There should be only one instance on the expanded history view.
         # If there’s more, the following call will raise an exception.
         self.main_window.get_expanded_history_view()
+
+    def test_favicon_saved(self):
+        # Regression test for https://launchpad.net/bugs/1549780
+        url = self.base_url + "/favicon"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.open_history()
+        first = self.expect_history_entries([url, self.url])[0]
+        self.assertThat(first.url, Equals(url))
+        favicon = self.base_url + "/assets/icon1.png"
+        self.assertThat(first.icon, Equals(favicon))
+
+    def test_favicon_updated(self):
+        # Verify that a page dynamically updating its favicon
+        # triggers an update in the history database.
+        url = self.base_url + "/changingfavicon"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.open_history()
+        first = self.expect_history_entries([url, self.url])[0]
+        indexes = set()
+        while len(indexes) < 3:
+            self.assertThat(first.url, Equals(url))
+            icon = first.icon
+            self.assertThat(icon, StartsWith(self.base_url))
+            self.assertThat(icon, EndsWith(".png"))
+            indexes.add(int(first.icon[(len(self.base_url)+1):-4]))
+
+    def test_title_saved(self):
+        self.open_history()
+        entry = self.expect_history_entries([self.url])[0]
+        self.assertThat(entry.title, Equals("test page 1"))
+
+    def test_title_not_updated(self):
+        # Verify that a page dynamically updating its title
+        # does NOT trigger an update in the history database.
+        url = self.base_url + "/changingtitle"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.open_history()
+        first = self.expect_history_entries([url, self.url])[0]
+        for i in range(10):
+            self.assertThat(first.title, Equals("title0"))
+            time.sleep(0.5)
+
+    def test_pushstate_updates_history(self):
+        url = self.base_url + "/pushstate"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        pushed = self.base_url + "/statepushed"
+        self.main_window.wait_until_page_loaded(pushed)
+        self.open_history()
+        self.expect_history_entries([pushed, url, self.url])

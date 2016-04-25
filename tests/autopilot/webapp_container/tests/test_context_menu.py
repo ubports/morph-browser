@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015 Canonical
+# Copyright 2015-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,7 +18,8 @@ import time
 
 from autopilot.platform import model
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, StartsWith
+import testtools
+from testtools.matchers import Equals, GreaterThan, StartsWith
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
@@ -67,10 +68,10 @@ class TestContextMenuBase(WebappContainerTestCaseWithLocalContentBase):
                 ContextMenuMobile,
                 objectName="contextMenuMobile")
 
-    def _open_context_menu(self):
-        webview = self.get_webview()
-        x = webview.globalRect.x + webview.globalRect.width // 2
-        y = webview.globalRect.y + webview.globalRect.height // 2
+    def _open_context_menu(self, webview):
+        gr = webview.globalRect
+        x = gr.x + webview.width // 2
+        y = gr.y + webview.height // 2
         self.pointing_device.move(x, y)
         if model() == 'Desktop':
             self.pointing_device.click(button=3)
@@ -94,28 +95,56 @@ class TestContextMenuBase(WebappContainerTestCaseWithLocalContentBase):
             menu.click_cancel_action()
         menu.wait_until_destroyed()
 
-    def setUp(self, path):
-        super(TestContextMenuBase, self).setUp()
+    def _click_window_open(self):
+        webview = self.get_oxide_webview()
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + webview.width*3/4,
+            gr.y + webview.height*3/4)
+        self.pointing_device.click()
+
+    def _launch_application(self, path):
         args = []
         self.launch_webcontainer_app_with_local_http_server(
             args,
             path,
             {'WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY': '1'})
         self.get_webcontainer_window().visible.wait_for(True)
-        self.menu = self._open_context_menu()
+
+    def _setup_overlay_webview_context_menu(self, path):
+        overlay_path = "/with-overlay-link?path={}".format(path)
+        self._launch_application(overlay_path)
+
+        popup_controller = self.get_popup_controller()
+        animation_watcher = popup_controller.watch_signal(
+            'windowOverlayOpenAnimationDone()')
+        animation_signal_emission = animation_watcher.num_emissions
+
+        self._click_window_open()
+
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(1)))
+        self.assertThat(
+            lambda: animation_watcher.num_emissions,
+            Eventually(GreaterThan(animation_signal_emission)))
+
+        self.webview = self.get_popup_overlay_views()[0].select_single(
+            objectName="overlayWebview")
+        self.menu = self._open_context_menu(self.webview)
+
+    def _setup_webview_context_menu(self, path):
+        self._launch_application("/{}".format(path))
+
+        self.webview = self.get_oxide_webview()
+        self.menu = self._open_context_menu(self.webview)
 
 
 class TestContextMenuLink(TestContextMenuBase):
 
-    def setUp(self):
-        super(TestContextMenuLink, self).setUp(path="/with-external-link")
-        self.assertThat(self.menu.get_title_label().text,
-                        Equals("http://www.ubuntu.com/"))
-
-    def test_open_link_(self):
-        main_webview = self.get_oxide_webview()
-        signal = main_webview.watch_signal(
-            'openExternalUrlTriggered(QString)')
+    def _test_open_link_(self):
+        signal = self.webview.watch_signal(
+            'openUrlExternallyRequested(QString)')
         self.assertThat(signal.was_emitted, Equals(False))
 
         self.menu.click_action("OpenLinkInWebBrowser")
@@ -123,34 +152,86 @@ class TestContextMenuLink(TestContextMenuBase):
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
 
-    def test_copy_link(self):
+    def _test_copy_link(self):
         self.menu.click_action("CopyLinkContextualAction")
+
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def _test_share_link(self):
+        self.menu.click_action("ShareContextualAction")
+        self.app.wait_select_single("ContentShareDialog")
+
+
+class TestContextMenuLinkOverlayWebView(TestContextMenuLink):
+
+    def setUp(self):
+        super(TestContextMenuLinkOverlayWebView, self).setUp()
+        self._setup_overlay_webview_context_menu("with-external-link")
+
+    def test_open_link_(self):
+        self._test_open_link_()
+
+    def test_copy_link(self):
+        self._test_copy_link()
+
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def test_share_link(self):
+        self._test_share_link()
+
+
+class TestContextMenuLinkMainWebView(TestContextMenuLink):
+
+    def setUp(self):
+        super(TestContextMenuLinkMainWebView, self).setUp()
+        self._setup_webview_context_menu("with-external-link")
+
+    def test_open_link_(self):
+        self._test_open_link_()
+
+    def test_copy_link(self):
+        self._test_copy_link()
+
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def test_share_link(self):
+        self._test_share_link()
 
 
 class TestContextMenuImage(TestContextMenuBase):
 
-    def setUp(self):
-        super(TestContextMenuImage, self).setUp(path="/image")
-        self.assertThat(self.menu.get_title_label().text,
-                        StartsWith(self.data_uri_prefix))
-
-    def test_copy_image(self):
+    def _test_copy_image(self):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
         self.menu.click_action("CopyImageContextualAction")
 
 
-class TestContextMenuImageAndLink(TestContextMenuBase):
+class TestContextMenuImageMainWebview(TestContextMenuImage):
 
     def setUp(self):
-        super(TestContextMenuImageAndLink, self).setUp(path="/imagelink")
+        super(TestContextMenuImageMainWebview, self).setUp()
+        self._setup_webview_context_menu("image")
         self.assertThat(self.menu.get_title_label().text,
                         StartsWith(self.data_uri_prefix))
 
-    def test_open_link_in_webbrowser(self):
-        main_webview = self.get_oxide_webview()
-        signal = main_webview.watch_signal(
-            'openExternalUrlTriggered(QString)')
+    def test_copy_image(self):
+        self._test_copy_image()
+
+
+class TestContextMenuImageOverlayWebView(TestContextMenuImage):
+
+    def setUp(self):
+        super(TestContextMenuImageOverlayWebView, self).setUp()
+        self._setup_overlay_webview_context_menu("image")
+        self.assertThat(self.menu.get_title_label().text,
+                        StartsWith(self.data_uri_prefix))
+
+    def test_copy_image(self):
+        self._test_copy_image()
+
+
+class TestContextMenuImageAndLink(TestContextMenuBase):
+
+    def _test_open_link_in_webbrowser(self):
+        signal = self.webview.watch_signal(
+            'openUrlExternallyRequested(QString)')
         self.assertThat(signal.was_emitted, Equals(False))
 
         self.menu.click_action("OpenLinkInWebBrowser")
@@ -158,24 +239,68 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
 
-    def test_copy_link(self):
+    def _test_share_link(self):
+        self.menu.click_action("ShareContextualAction")
+        self.app.wait_select_single("ContentShareDialog")
+
+    def _test_copy_link(self):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
         self.menu.click_action("CopyLinkContextualAction")
 
-    def test_copy_image(self):
+    def _test_copy_image(self):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
         self.menu.click_action("CopyImageContextualAction")
 
 
-class TestContextMenuTextArea(TestContextMenuBase):
+class TestContextMenuImageAndLinkMainWebView(TestContextMenuImageAndLink):
 
     def setUp(self):
-        super(TestContextMenuTextArea, self).setUp(path="/textarea")
-        self.assertThat(self.menu.get_title_label().visible, Equals(False))
+        super(TestContextMenuImageAndLinkMainWebView, self).setUp()
+        self._setup_webview_context_menu("imagelink")
+        self.assertThat(self.menu.get_title_label().text,
+                        StartsWith(self.data_uri_prefix))
 
-    def test_actions(self):
+    def test_open_link_in_webbrowser(self):
+        self._test_open_link_in_webbrowser()
+
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def test_share_link(self):
+        self._test_share_link()
+
+    def test_copy_link(self):
+        self._test_copy_link()
+
+    def test_copy_image(self):
+        self._test_copy_image()
+
+
+class TestContextMenuImageAndLinkOverlayWebView(TestContextMenuImageAndLink):
+
+    def setUp(self):
+        super(TestContextMenuImageAndLinkOverlayWebView, self).setUp()
+        self._setup_overlay_webview_context_menu("imagelink")
+        self.assertThat(self.menu.get_title_label().text,
+                        StartsWith(self.data_uri_prefix))
+
+    def test_open_link_in_webbrowser(self):
+        self._test_open_link_in_webbrowser()
+
+    @testtools.skipIf(model() == "Desktop", "on devices only")
+    def test_share_link(self):
+        self._test_share_link()
+
+    def test_copy_link(self):
+        self._test_copy_link()
+
+    def test_copy_image(self):
+        self._test_copy_image()
+
+
+class TestContextMenuTextArea(TestContextMenuBase):
+
+    def _test_actions(self):
         actions = ["SelectAll",
                    "Cut",
                    "Undo",
@@ -186,4 +311,29 @@ class TestContextMenuTextArea(TestContextMenuBase):
                    "Erase"]
         for action in actions:
             self.menu.click_action("{}ContextualAction".format(action))
-            self.menu = self._open_context_menu()
+            webview = self.get_webview()
+            self.menu = self._open_context_menu(webview)
+
+
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestContextMenuTextAreaMainWebView(TestContextMenuTextArea):
+
+    def setUp(self):
+        super(TestContextMenuTextAreaMainWebView, self).setUp()
+        self._setup_webview_context_menu("textarea")
+        self.assertThat(self.menu.get_title_label().visible, Equals(False))
+
+    def test_actions(self):
+        self._test_actions()
+
+
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestContextMenuTextAreaOverlayWebView(TestContextMenuTextArea):
+
+    def setUp(self):
+        super(TestContextMenuTextAreaOverlayWebView, self).setUp()
+        self._setup_overlay_webview_context_menu("textarea")
+        self.assertThat(self.menu.get_title_label().visible, Equals(False))
+
+    def test_actions(self):
+        self._test_actions()

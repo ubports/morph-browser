@@ -1,3 +1,145 @@
+webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add UA overrides for google hangouts to work on desktop, tablet and
+    phone. (LP: #1565055)
+  * Add a progression symbol to list items that open new pages in
+    settings. (LP: #1517206)
+  * Remove duplicated list view focus rects, and update the styling of
+    the remaining ones to match that of the UITK. (LP: #1570807)
+  * Simplify focus handling in various places.
+
+  [ Timo Jyrinki ]
+  * Fix FTBFS on Qt 5.6 by adding a dependency on qttools5-dev-tools for
+    qdoc (LP: #1565502)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 15 Apr 2016 11:38:13 +0000
+
+webbrowser-app (0.23+16.04.20160413-0ubuntu1) xenial; urgency=medium
+
+  * Do not handle backspace as a window-level shortcut, as it would take
+    precedence over backspace events in HTML text fields. (LP: #1569938)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 13 Apr 2016 15:22:11 +0000
+
+webbrowser-app (0.23+16.04.20160408.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Loïc Molinari ]
+  * Made AddressBar height scalable with regards to the grid units
+    system.
+
+  [ Olivier Tilloy ]
+  * Add dep8 tests and instructions to run them in qemu or on a phone.
+    Original work by Leo Arias and Vincent Ladeuil. added: debian/tests/
+    debian/tests/control debian/tests/touch-session-autopilot
+  * Catch ESC key event one level up to ensure that it’s not incorrectly
+    bubbled up to the outer component. (LP: #1557016)
+  * Customize the contents of the media permission dialog to avoid
+    truncated text. (LP: #1554220)
+  * Do not write the session to a temporary file when no target file is
+    defined.
+  * Fix a failing unit test with Qt 5.6. (LP: #1565507)
+  * Fix broken webapp container autopilot tests. (LP: #1557019)
+  * Fix issues with item selection in the downloads page: do not allow
+    selecting multiple files when only one is expected do not allow
+    entering delete mode (with a long press on an item) while in picker
+    mode (LP: #1534112, #1561575)
+  * Fix unit tests when run under an sbuild chroot. (LP: #1567294)
+  * Import QQuickShortcut from Qt 5.5 to properly handle window-level
+    keyboard shortcuts. We cannot bump the dependency on Qt to 5.5 as
+    the stable overlay PPA for devices currently has Qt 5.4.1. (LP:
+    #1542224, #1545802, #1537782)
+  * Make the autopilot tests more reliable when dragging the bottom
+    edge. (LP: #1560109)
+  * Remove workaround for bug #1526940 that was fixed in the latest
+    release of the UITK. (LP: #1526940)
+  * Rename debian packages to follow new QML module naming convention.
+    (LP: #1342031)
+  * Simplify the implementation of HistoryViewWide quite a bit, and as a
+    side effect fix a unit test failure when run against the staging
+    branch of the UITK. (LP: #1567337)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 08 Apr 2016 17:07:04 +0000
+
+webbrowser-app (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
+
+  * Add --open-external-url-in-overlay option to allow externals urls
+    (not part of patterns) are opened in overlays instead of external
+    browser (LP: #1548575)
+  * Handle live updates to theme color meta tag and reflect them in the
+    top bar background color (LP: #1550754)
+  * Set address bar text color to a darker version of the theme color if
+    one is defined in a webapp (LP: #1548573)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 05 Apr 2016 15:42:59 +0000
+
+webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
+
+  * Make google maps work in complete mode on tablets. (LP: #1560079)
+  * Tentative fix for a bug where the session state stored on disk is
+    apparently corrupted, thus discarding the current browsing session.
+    (LP: #1531583)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Mar 2016 06:46:57 +0000
+
+webbrowser-app (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle media access request from webcontainer main view and overlay
+    views (LP: #1554202)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 18 Mar 2016 15:08:11 +0000
+
+webbrowser-app (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Activate the Webapp only when we are ready to navigate to the webapp
+    URL (LP: #1507995)
+
+ -- David Barth <david.barth@canonical.com>  Fri, 11 Mar 2016 12:57:01 +0000
+
+webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add a touch selection controller. (LP: #1376268, #1551494)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 10 Mar 2016 05:59:53 +0000
+
+webbrowser-app (0.23+16.04.20160307-0ubuntu1) xenial; urgency=medium
+
+  * Handle context menu in overlay webviews. (LP: #1533727)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 07 Mar 2016 18:44:37 +0000
+
+webbrowser-app (0.23+16.04.20160303-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Refer to @{XDG_DOWNLOAD_DIR} in the browser’s apparmor profile
+    instead of hardcoding "Downloads" in English. (LP: #1535666)
+  * Store entries in the history database on load committed, not load
+    succeeded. This ensures that content-initiated navigations are also
+    stored. (LP: #1455858, #1549780)
+  * Update translation template.
+  * Visual tweaks per designers’ review.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 03 Mar 2016 19:01:40 +0000
+
 webbrowser-app (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
