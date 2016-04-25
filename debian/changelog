@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix invalid variable reference popupWindowController (LP: #1572673)
+  * Track SAML requests that are part of redirection chains and do not
+    trigger a navigation requested delegate. (LP: #1573017)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- David Barth <david.barth@canonical.com>  Mon, 25 Apr 2016 17:38:08 +0000
+
 webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
