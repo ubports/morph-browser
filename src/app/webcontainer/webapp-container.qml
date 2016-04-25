@@ -46,6 +46,7 @@ BrowserWindow {
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
     property bool openExternalUrlInOverlay: false
+    property bool popupBlockerEnabled: true
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
@@ -89,6 +90,7 @@ BrowserWindow {
             webappUrlPatterns: root.webappUrlPatterns
             blockOpenExternalUrls: root.blockOpenExternalUrls
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
+            popupBlockerEnabled: root.popupBlockerEnabled
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 

@@ -197,6 +197,11 @@ bool WebappContainer::initialize()
         // Handle an optional scheme handler filter. The default *catch all* filter does nothing.
         setupLocalSchemeFilterIfAny(context, m_webappModelSearchPath);
 
+        if (qEnvironmentVariableIsSet("WEBAPP_CONTAINER_BLOCKER_DISABLED")
+                && QString(qgetenv("WEBAPP_CONTAINER_BLOCKER_DISABLED")) == "1") {
+            m_window->setProperty("popupBlockerEnabled", false);
+        }
+
         m_component->completeCreate();
 
         return true;

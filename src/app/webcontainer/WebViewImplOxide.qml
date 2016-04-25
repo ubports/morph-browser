@@ -38,6 +38,7 @@ WebappWebview {
     property var overlayViewsParent: webview.parent
     property var mediaAccessDialogComponent
     property bool openExternalUrlInOverlay: false
+    property bool popupBlockerEnabled: true
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -77,6 +78,8 @@ WebappWebview {
     context: WebContext {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
+
+        popupBlockerEnabled: webview.popupBlockerEnabled
 
         userScripts: [
             Oxide.UserScript {
@@ -206,13 +209,13 @@ WebappWebview {
 
         request.action = Oxide.NavigationRequest.ActionReject
         if (isNewForegroundWebViewDisposition(request.disposition)) {
-            request.action = Oxide.NavigationRequest.ActionAccept
             var shouldAcceptRequest =
-                    popupWindowController.handleNewForegroundNavigationRequest(
+                    popupController.handleNewForegroundNavigationRequest(
                           url, request, true);
             if (shouldAcceptRequest) {
                 request.action = Oxide.NavigationRequest.ActionAccept
             }
+            return
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
