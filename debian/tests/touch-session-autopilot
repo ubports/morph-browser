@@ -30,11 +30,11 @@ if ! pgrep -f unity-system-compositor ; then
    # Import the environment produced above in the current shell
    set -a
    . /etc/environment
+elif pgrep -f unity8 ; then
+   # Work around https://launchpad.net/bugs/1574706
+   initctl --session restart unity8
+   sleep 20
+   gdbus call --session --dest com.canonical.UnityGreeter --object-path / --method com.canonical.UnityGreeter.HideGreeter
 fi
-
-# Work around https://launchpad.net/bugs/1574706
-initctl --session restart unity8
-sleep 20
-gdbus call --session --dest com.canonical.UnityGreeter --object-path / --method com.canonical.UnityGreeter.HideGreeter
 
 autopilot3 run --verbose --format xml --output "${ADT_ARTIFACTS}/${SUITE}.xml" ${SUITE}
