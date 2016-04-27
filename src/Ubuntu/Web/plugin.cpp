@@ -26,6 +26,7 @@
 #include <QtCore/QStorageInfo>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QSysInfo>
 #include <QtCore/QtGlobal>
 #include <QtCore/QtMath>
 #include <QtGui/QGuiApplication>
@@ -45,6 +46,7 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
     Q_PROPERTY(QStringList webviewHostMappingRules READ hostMappingRules CONSTANT)
+    Q_PROPERTY(QString ubuntuVersion READ ubuntuVersion CONSTANT)
 
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
@@ -56,6 +58,7 @@ public:
     QString devtoolsHost();
     int devtoolsPort();
     QStringList hostMappingRules();
+    QString ubuntuVersion() const;
 
 Q_SIGNALS:
     void cacheLocationChanged() const;
@@ -203,6 +206,11 @@ int UbuntuWebPluginContext::devtoolsPort()
         }
     }
     return m_devtoolsPort;
+}
+
+QString UbuntuWebPluginContext::ubuntuVersion() const
+{
+    return QSysInfo::productVersion();
 }
 
 void UbuntuWebPluginContext::onFocusWindowChanged(QWindow* window)
