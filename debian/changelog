@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Autopkgtest fixes.
+  * When sharing a link, correctly share its URL and title. (LP:
+    #1571361)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 27 Apr 2016 09:50:28 +0000
+
 webbrowser-app (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
