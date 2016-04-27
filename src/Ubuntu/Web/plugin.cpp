@@ -26,7 +26,6 @@
 #include <QtCore/QStorageInfo>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QSysInfo>
 #include <QtCore/QtGlobal>
 #include <QtCore/QtMath>
 #include <QtGui/QGuiApplication>
@@ -210,7 +209,7 @@ int UbuntuWebPluginContext::devtoolsPort()
 
 QString UbuntuWebPluginContext::ubuntuVersion() const
 {
-    return QSysInfo::productVersion();
+    return QStringLiteral(UBUNTU_VERSION);
 }
 
 void UbuntuWebPluginContext::onFocusWindowChanged(QWindow* window)
