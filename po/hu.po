@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-04-26 06:01+0000\n"
+"X-Launchpad-Export-Date: 2016-04-28 05:57+0000\n"
 "X-Generator: Launchpad (build 17995)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -874,13 +874,13 @@ msgstr "Eltávolítás"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:69
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webböngésző"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:71
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webböngésző"
 
