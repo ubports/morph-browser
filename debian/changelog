@@ -1,3 +1,19 @@
+webbrowser-app (0.23+16.04.20160428-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Read the ubuntu version at build time, instead of hardcoding it.
+    (LP: #1466427)
+  * Skip geolocation autopilot tests because they are now failing with
+    oxide 1.14.
+  * Use the UITK’s SwipeArea component for the bottom edge gesture
+    recognition. This requires oxide 1.14 to work well (because of bug
+    #1459362). (LP: #1459362, #1458037, #1474533, #1491806)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 28 Apr 2016 14:39:25 +0000
+
 webbrowser-app (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
