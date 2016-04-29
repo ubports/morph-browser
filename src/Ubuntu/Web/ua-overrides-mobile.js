@@ -24,7 +24,7 @@ var overrides = [
     ["^http:\/\/chrome\.angrybirds\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1284158
     ["^https?:\/\/(\w+\.)*hsbc\.com\.br\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1380657
     ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1316259
-
+    ["^https?:\/\/(www|m)\.facebook\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.102 Mobile Safari/537.36"], // http://pad.lv/1538056, http://pad.lv/1457661
     // Google hangouts (https://launchpad.net/bugs/1565055)
     ["^https?:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],
     ["^https?:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],
