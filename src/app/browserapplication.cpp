@@ -144,12 +144,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
-    if (appIdParts.size() < 3) {
-        QCoreApplication::setApplicationName(appIdParts.first());
-    } else {
-        QCoreApplication::setApplicationName(unversionedAppId);
-    }
-
+    QCoreApplication::setApplicationName(appIdParts.first());
     QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
 
     // Ensure only one instance of the app is running.
