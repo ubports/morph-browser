@@ -18,102 +18,28 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
 
-/*
- * Component to use as page header in settings page, download page and 
- * subpages
- *
- * It has a back() signal fired when back button is pressed, a text
- * property to set the page title and an actions property which
- * displays action icons on the right of header.
- */
+PageHeader {
+    id: pageHeader
 
-Item {
-    id: root
+    property bool showBackAction: true
+    property list<Action> leadingActions
+    property list<Action> trailingActions
+
     signal back()
-    property string text
-    property alias actions: actionBar.actions
-    property alias color: title.color
 
-    height: title.height + divider.height
-
-    anchors {
-        left: parent.left
-        right: parent.right
+    StyleHints {
+        backgroundColor: "#f6f6f6"
     }
 
-    MouseArea {
-        // Prevent click events from propagating through to the view below
-        anchors.fill: parent
-        acceptedButtons: Qt.AllButtons
+    leadingActionBar.actions: showBackAction ? [backAction] : leadingActions
+
+    Action {
+        id: backAction
+        objectName: "back"
+        iconName: "back"
+        onTriggered: pageHeader.back()
     }
 
-    Rectangle {
-        id: title
-
-        height: units.gu(6) - divider.height
-        anchors { left: parent.left; right: parent.right }
-        color: "#f6f6f6"
-
-        AbstractButton {
-            id: backButton
-            objectName: "backButton"
-
-            width: height
-
-            activeFocusOnPress: false
-            onTriggered: root.back()
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                left: parent.left
-            }
-
-            Rectangle {
-                anchors.fill: parent
-                anchors.leftMargin: units.gu(1)
-                anchors.rightMargin: units.gu(1)
-                color: "#E6E6E6"
-                visible: parent.pressed
-            }
-
-            Icon {
-                name: "back"
-                anchors {
-                    fill: parent
-                    topMargin: units.gu(2)
-                    bottomMargin: units.gu(2)
-                }
-            }
-        }
-
-        Label {
-            anchors {
-                left: backButton.right
-                verticalCenter: parent.verticalCenter
-            }
-            text: root.text
-            fontSize: 'x-large'
-        }
-
-        ActionBar {
-            id: actionBar
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        
-    }
-
-    Rectangle {
-        id: divider
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        height: units.dp(1)
-        color: Qt.darker(title.color, 1.1)
-    }
+    trailingActionBar.actions: trailingActions
 }
