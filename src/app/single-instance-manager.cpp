@@ -62,6 +62,7 @@ bool SingleInstanceManager::run(const QStringList& arguments)
 
     QDir profile(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!profile.exists()) {
+        qDebug() << profile.absolutePath();
         if (!QDir::root().mkpath(profile.absolutePath())) {
             qCritical() << "Failed to create profile directory,"
                            "unable to ensure a single instance of the application";
