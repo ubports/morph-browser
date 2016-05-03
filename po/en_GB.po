@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-04-12 19:16+0200\n"
+"POT-Creation-Date: 2016-05-02 14:39+0200\n"
 "PO-Revision-Date: 2016-04-13 09:24+0000\n"
 "Last-Translator: Andi Chandler <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-04-15 06:08+0000\n"
+"X-Launchpad-Export-Date: 2016-05-03 05:39+0000\n"
 "X-Generator: Launchpad (build 17995)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -53,11 +53,11 @@ msgstr "Password"
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/HistoryView.qml:175
-#: src/app/webbrowser/HistoryViewWide.qml:382
+#: src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:369
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:297
-#: src/app/webbrowser/SettingsPage.qml:351
+#: src/app/webbrowser/SettingsPage.qml:300
+#: src/app/webbrowser/SettingsPage.qml:354
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -458,6 +458,10 @@ msgstr "Open a New Tab"
 msgid "Open image in new tab"
 msgstr "Open image in new tab"
 
+#: src/app/actions/OpenLinkInBrowser.qml:22
+msgid "Open link in default browser"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
 msgstr "Open link in new background tab"
@@ -501,9 +505,9 @@ msgstr "Save link"
 msgid "Save video"
 msgstr "Save video"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:86
-#: src/app/webbrowser/HistoryView.qml:190
-#: src/app/webbrowser/HistoryViewWide.qml:407
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
+#: src/app/webbrowser/HistoryView.qml:188
+#: src/app/webbrowser/HistoryViewWide.qml:394
 msgid "Select all"
 msgstr "Select all"
 
@@ -559,46 +563,46 @@ msgid "Create new folder"
 msgstr "Create new folder"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:361
+#: src/app/webbrowser/SettingsPage.qml:364
 msgid "Save"
 msgstr "Save"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
-#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
-#: src/app/webbrowser/NewTabView.qml:258
-#: src/app/webbrowser/SettingsPage.qml:96
-#: src/app/webbrowser/SettingsPage.qml:325
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
+#: src/app/webbrowser/NewTabView.qml:253
+#: src/app/webbrowser/SettingsPage.qml:97
+#: src/app/webbrowser/SettingsPage.qml:328
 msgid "Homepage"
 msgstr "Homepage"
 
 #: src/app/webbrowser/BookmarksView.qml:81
 #: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:544 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/Browser.qml:544 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
 #: src/app/webbrowser/BookmarksView.qml:113
 #: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:425 src/app/webbrowser/HistoryView.qml:131
-#: src/app/webbrowser/HistoryViewWide.qml:501
+#: src/app/webbrowser/Browser.qml:425 src/app/webbrowser/HistoryView.qml:129
+#: src/app/webbrowser/HistoryViewWide.qml:488
 msgid "Done"
 msgstr "Done"
 
 #: src/app/webbrowser/BookmarksView.qml:127
 #: src/app/webbrowser/BookmarksViewWide.qml:126
-#: src/app/webbrowser/HistoryView.qml:145
-#: src/app/webbrowser/HistoryViewWide.qml:515
+#: src/app/webbrowser/HistoryView.qml:143
+#: src/app/webbrowser/HistoryViewWide.qml:502
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "New tab"
 
 #: src/app/webbrowser/Browser.qml:550
-#: src/app/webbrowser/HistoryViewWide.qml:366
+#: src/app/webbrowser/HistoryViewWide.qml:353
 msgid "History"
 msgstr "History"
 
-#: src/app/webbrowser/Browser.qml:563 src/app/webbrowser/DownloadsPage.qml:58
+#: src/app/webbrowser/Browser.qml:563 src/app/webbrowser/DownloadsPage.qml:57
 msgid "Downloads"
 msgstr "Downloads"
 
@@ -620,11 +624,11 @@ msgstr "Settings"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1379
+#: src/app/webbrowser/Browser.qml:1363
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Swipe Up To Exit Full Screen"
 
-#: src/app/webbrowser/Browser.qml:1380
+#: src/app/webbrowser/Browser.qml:1364
 msgid "Press ESC To Exit Full Screen"
 msgstr "Press ESC To Exit Full Screen"
 
@@ -650,29 +654,29 @@ msgstr "Download failed"
 msgid "Resume"
 msgstr "Resume"
 
-#: src/app/webbrowser/DownloadsPage.qml:62
+#: src/app/webbrowser/DownloadsPage.qml:61
 msgid "Confirm selection"
 msgstr "Confirm selection"
 
-#: src/app/webbrowser/DownloadsPage.qml:102
-#: src/app/webbrowser/HistoryView.qml:217
-#: src/app/webbrowser/HistoryViewWide.qml:426
+#: src/app/webbrowser/DownloadsPage.qml:101
+#: src/app/webbrowser/HistoryView.qml:215
+#: src/app/webbrowser/HistoryViewWide.qml:413
 msgid "Delete"
 msgstr "Delete"
 
-#: src/app/webbrowser/DownloadsPage.qml:264
+#: src/app/webbrowser/DownloadsPage.qml:261
 msgid "No downloads available"
 msgstr "No downloads available"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 page"
 msgstr[1] "%1 pages"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:136
-#: src/app/webbrowser/NewTabView.qml:148
+#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Less"
 
@@ -690,11 +694,11 @@ msgid "All History"
 msgstr "All History"
 
 #: src/app/webbrowser/HistoryViewWide.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:282
+#: src/app/webbrowser/HistoryViewWide.qml:271
 msgid "Today"
 msgstr "Today"
 
-#: src/app/webbrowser/HistoryViewWide.qml:447
+#: src/app/webbrowser/HistoryViewWide.qml:434
 msgid "search history"
 msgstr "search history"
 
@@ -714,16 +718,16 @@ msgstr ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 
-#: src/app/webbrowser/NewTabView.qml:148
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
 msgstr "More"
 
-#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabView.qml:328
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Top sites"
 
-#: src/app/webbrowser/NewTabView.qml:366
+#: src/app/webbrowser/NewTabView.qml:359
 msgid "You haven't visited any site yet"
 msgstr "You haven't visited any site yet"
 
@@ -806,53 +810,53 @@ msgid "Default"
 msgstr "Default"
 
 #: src/app/webbrowser/SettingsPage.qml:82
-#: src/app/webbrowser/SettingsPage.qml:167
+#: src/app/webbrowser/SettingsPage.qml:169
 msgid "Search engine"
 msgstr "Search engine"
 
-#: src/app/webbrowser/SettingsPage.qml:107
+#: src/app/webbrowser/SettingsPage.qml:108
 msgid "Restore previous session at startup"
 msgstr "Restore previous session at startup"
 
-#: src/app/webbrowser/SettingsPage.qml:126
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:127
+#: src/app/webbrowser/SettingsPage.qml:226
 msgid "Privacy & permissions"
 msgstr "Privacy & permissions"
 
-#: src/app/webbrowser/SettingsPage.qml:136
+#: src/app/webbrowser/SettingsPage.qml:138
 msgid "Reset browser settings"
 msgstr "Reset browser settings"
 
-#: src/app/webbrowser/SettingsPage.qml:246
-#: src/app/webbrowser/SettingsPage.qml:389
+#: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:392
 msgid "Camera & microphone"
 msgstr "Camera & microphone"
 
-#: src/app/webbrowser/SettingsPage.qml:254
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History"
 msgstr "Clear Browsing History"
 
-#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Browsing History?"
 msgstr "Clear Browsing History?"
 
-#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webbrowser/SettingsPage.qml:269
 msgid "Clear Cache"
 msgstr "Clear Cache"
 
-#: src/app/webbrowser/SettingsPage.qml:269
+#: src/app/webbrowser/SettingsPage.qml:272
 msgid "Clear Cache?"
 msgstr "Clear Cache?"
 
-#: src/app/webbrowser/SettingsPage.qml:304
+#: src/app/webbrowser/SettingsPage.qml:307
 msgid "Clear"
 msgstr "Clear"
 
-#: src/app/webbrowser/SettingsPage.qml:410
+#: src/app/webbrowser/SettingsPage.qml:413
 msgid "Microphone"
 msgstr "Microphone"
 
-#: src/app/webbrowser/SettingsPage.qml:431
+#: src/app/webbrowser/SettingsPage.qml:434
 msgid "Camera"
 msgstr "Camera"
 
@@ -870,13 +874,13 @@ msgstr "Remove"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:69
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web Browser"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:71
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web Browser"
 

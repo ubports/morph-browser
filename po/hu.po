@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-04-12 19:16+0200\n"
+"POT-Creation-Date: 2016-05-02 14:39+0200\n"
 "PO-Revision-Date: 2016-04-25 16:19+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-04-30 05:34+0000\n"
+"X-Launchpad-Export-Date: 2016-05-03 05:39+0000\n"
 "X-Generator: Launchpad (build 17995)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -457,6 +457,10 @@ msgstr "Megnyitás új lapon"
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
 msgstr "Kép megnyitása új lapon"
+
+#: src/app/actions/OpenLinkInBrowser.qml:22
+msgid "Open link in default browser"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
