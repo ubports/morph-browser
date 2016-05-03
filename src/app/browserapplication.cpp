@@ -116,7 +116,8 @@ MAKE_SINGLETON_FACTORY(MemInfo)
 MAKE_SINGLETON_FACTORY(MimeDatabase)
 
 
-bool BrowserApplication::initialize(const QString& qmlFileSubPath)
+bool BrowserApplication::initialize(const QString& qmlFileSubPath
+                                    , const QString& defaultAppId)
 {
     Q_ASSERT(m_window == 0);
 
@@ -130,18 +131,28 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     if (qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
-            id = QStringLiteral(APP_ID);
+            id = defaultAppId;
         }
         qputenv("APP_ID", id.toUtf8());
     }
+
     // Ensure that application-specific data is written where it ought to.
     QStringList appIdParts =
         QString::fromUtf8(qgetenv("APP_ID")).split('_');
-    QCoreApplication::setApplicationName(appIdParts.first());
-    QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
+
     // Get also the the first two components of the app ID: <package>_<app>,
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
+
+    qDebug() << unversionedAppId;
+
+    if (appIdParts.size() < 3) {
+        QCoreApplication::setApplicationName(appIdParts.first());
+    } else {
+        QCoreApplication::setApplicationName(unversionedAppId);
+    }
+
+    QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
 
     // Ensure only one instance of the app is running.
     if (m_singleton.run(m_arguments)) {

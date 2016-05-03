@@ -23,7 +23,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QString>
 
-#define APP_ID "webbrowser-app"
 #define REMOTE_INSPECTOR_PORT 9221
 
 inline bool isRunningInstalled()

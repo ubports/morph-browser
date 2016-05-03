@@ -49,6 +49,8 @@ static const char privateModuleUri[] = "webcontainer.private";
 namespace
 {
 
+const char kDefaultAppId[] = "webapp-container";
+
 /* Hack to clear the local data of the webapp, when it's integrated with OA:
  * https://bugs.launchpad.net/bugs/1371659
  * This is needed because cookie sets from different accounts might not
@@ -97,7 +99,7 @@ bool WebappContainer::initialize()
 {
     earlyEnvironment();
 
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml", kDefaultAppId)) {
         parseCommandLine();
         parseExtraConfiguration();
 
