@@ -21,6 +21,7 @@
 
 // Qt
 #include <QtCore/QByteArray>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDataStream>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
@@ -38,6 +39,14 @@ const int kWaitForRunningInstanceToAckMs = 1000;
 const int kDataStreamVersion = QDataStream::Qt_5_0;
 const QString kHeaderToken = QStringLiteral("MESSAGE");
 const QString kAckToken = QStringLiteral("ACK");
+}
+
+// static
+QString SingleInstanceManager::getProfilePath()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::DataLocation)
+        + QDir::separator()
+        + QCoreApplication::applicationName();
 }
 
 SingleInstanceManager::SingleInstanceManager(QObject* parent)
@@ -60,9 +69,8 @@ bool SingleInstanceManager::run(const QStringList& arguments)
         return false;
     }
 
-    QDir profile(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    QDir profile(getProfilePath());
     if (!profile.exists()) {
-        qDebug() << profile.absolutePath();
         if (!QDir::root().mkpath(profile.absolutePath())) {
             qCritical() << "Failed to create profile directory,"
                            "unable to ensure a single instance of the application";
