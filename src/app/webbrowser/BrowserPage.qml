@@ -26,10 +26,13 @@ Page {
     property list<Action> leadingActions
     property list<Action> trailingActions
     property alias title: pageHeader.title
+    property alias headerContents: pageHeader.contents
 
     default property alias contents: contentsItem.data
 
     signal back()
+
+    Keys.onEscapePressed: back()
 
     MouseArea {
         // Prevent click events from propagating through to the view below the page

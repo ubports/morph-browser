@@ -25,17 +25,12 @@ import webbrowserapp.private 0.1
 
 import "../UrlUtils.js" as UrlUtils
 
-Item {
+FocusScope {
     id: settingsItem
 
     property QtObject settingsObject
 
     signal done()
-
-    Rectangle {
-        anchors.fill: parent
-        color: "#f6f6f6"
-    }
 
     SearchEngines {
         id: searchEngines
@@ -44,8 +39,11 @@ Item {
 
     BrowserPage {
         title: i18n.tr("Settings")
+
         anchors.fill: parent
         visible: !subpageContainer.visible
+        focus: true
+
         onBack: settingsItem.done()
 
         Flickable {
