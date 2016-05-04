@@ -59,8 +59,16 @@ QString SingleInstanceManager::getProfilePath()
 
     QString appDesktopName;
 
-    // We try to guess the
-    // https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1555542
+    // We try to get the "short app name" to try to uniquely identify
+    // the single instance profile path.
+    // In cases where you have a single click with multiple apps in it,
+    // the "app name" as defined in the click manifest.json file will be
+    // a proper way to distinguish a unique instance, it needs to take
+    // the desktop name into account.
+
+    // At the moment there is no clean way to get those click app name
+    // paths, see:
+    //  https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1555542
     if (appIdParts.size() >= 3) {
         // Assume that we have a APP_ID that corresponds to:
         // <manifest app name>_<desktop app name>_<version>
@@ -69,9 +77,6 @@ QString SingleInstanceManager::getProfilePath()
         // We either run on desktop or as the webbrowser
         appDesktopName = appIdParts.first();
     }
-
-    qDebug() << appIdParts << appDesktopName;
-    qDebug() << appIdParts.size();
 
     return profilePath
         + QDir::separator()
