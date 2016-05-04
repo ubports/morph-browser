@@ -889,7 +889,7 @@ BrowserView {
                         expandedHistoryViewLoader.active = true
                     }
                     onNewTabRequested: browser.openUrlInNewTab("", true)
-                    onDone: historyViewLoader.active = false
+                    onBack: historyViewLoader.active = false
                 }
 
                 Loader {

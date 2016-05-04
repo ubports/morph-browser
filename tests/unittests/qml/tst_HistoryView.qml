@@ -54,9 +54,9 @@ FocusScope {
     }
 
     SignalSpy {
-        id: doneSpy
+        id: backSpy
         target: historyView
-        signalName: "done"
+        signalName: "back"
     }
 
     WebbrowserTestCase {
@@ -74,7 +74,7 @@ FocusScope {
             waitForRendering(domainsList)
             tryCompare(domainsList, "count", 3)
             compare(seeMoreEntriesClickedSpy.count, 0)
-            compare(doneSpy.count, 0)
+            compare(backSpy.count, 0)
         }
 
         function populate() {
@@ -88,20 +88,20 @@ FocusScope {
             historyViewLoader.active = false
             HistoryModel.databasePath = ""
             seeMoreEntriesClickedSpy.clear()
-            doneSpy.clear()
+            backSpy.clear()
         }
 
-        function test_done() {
+        function test_back() {
             var button = findChild(historyView, "doneButton")
             clickItem(button)
-            compare(doneSpy.count, 1)
+            compare(backSpy.count, 1)
         }
 
         function test_new_tab() {
             var action = findChild(historyView, "newTabAction")
             clickItem(action)
             compare(newTabRequestedSpy.count, 1)
-            compare(doneSpy.count, 1)
+            compare(backSpy.count, 1)
         }
 
         function test_see_more_entries() {
@@ -128,7 +128,7 @@ FocusScope {
             longPressItem(first)
             tryCompare(first, "selectMode", true)
 
-            var closeButton = findChild(historyView, "closeButton")
+            var closeButton = findChild(historyView, "close_button")
             clickItem(closeButton)
             tryCompare(first, "selectMode", false)
         }
@@ -148,7 +148,7 @@ FocusScope {
             clickItem(third)
             tryCompare(third, "selected", true)
 
-            var deleteButton = findChild(historyView, "deleteButton")
+            var deleteButton = findChild(historyView, "delete_button")
             clickItem(deleteButton)
             tryCompare(first, "selectMode", false)
             tryCompare(HistoryModel, "count", 1)
@@ -165,10 +165,10 @@ FocusScope {
             tryCompare(first, "selected", true)
             verify(!second.selected)
             verify(!third.selected)
-            var deleteButton = findChild(historyView, "deleteButton")
+            var deleteButton = findChild(historyView, "delete_button")
             verify(deleteButton.enabled)
 
-            var selectAllButton = findChild(historyView, "selectAllButton")
+            var selectAllButton = findChild(historyView, "selectAll_button")
             clickItem(selectAllButton)
             verify(first.selected)
             tryCompare(second, "selected", true)
