@@ -64,7 +64,7 @@ QString SingleInstanceManager::getProfilePath()
     if (appIdParts.size() >= 3) {
         // Assume that we have a APP_ID that corresponds to:
         // <manifest app name>_<desktop app name>_<version>
-        appDesktopName = QStringList(appIdParts.mid(0, 2)).join('_');
+        appDesktopName = QStringList(appIdParts.mid(1, 2)).join('_');
     } else {
         // We either run on desktop or as the webbrowser
         appDesktopName = appIdParts.first();
