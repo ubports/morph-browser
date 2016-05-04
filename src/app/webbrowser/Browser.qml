@@ -824,7 +824,7 @@ BrowserView {
                 browser.openUrlInNewTab(url, true)
                 bookmarksViewLoader.active = false
             }
-            onDone: bookmarksViewLoader.active = false
+            onBack: bookmarksViewLoader.active = false
             onNewTabClicked: {
                 browser.openUrlInNewTab("", true)
                 bookmarksViewLoader.active = false
