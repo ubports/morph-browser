@@ -331,7 +331,7 @@ Item {
 
             var terms = ["1", "Example"]
             typeString(terms.join(" "))
-            compare(searchQuery.text, "1 Example")
+            tryCompare(searchQuery, "text", "1 Example")
             items = getListItems(urlsList, "historyDelegate")
             compare(items.length, 1)
             compare(items[0].title, wraphtml("%1 Domain %0"
@@ -384,9 +384,10 @@ Item {
             // change the search terms so that it will display more items, but
             // since we have a selected date, we will see only one
             keyClick(Qt.Key_F, Qt.ControlModifier)
+            tryCompare(searchQuery, "activeFocus", true)
             keyClick(Qt.Key_Backspace)
             keyClick(Qt.Key_Backspace)
-            compare(searchQuery.text, "Al")
+            tryCompare(searchQuery, "text", "Al")
             returnToDatesList()
             verify(testItem.activeFocus)
             urls = getListItems(urlsListView, "historyDelegate")
