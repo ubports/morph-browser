@@ -30,6 +30,7 @@
 #include <QtCore/QStringList>
 #include <QtNetwork/QLocalSocket>
 
+#include <QDebug>
 // local
 #include "single-instance-manager.h"
 
@@ -42,16 +43,13 @@ const QString kAckToken = QStringLiteral("ACK");
 }
 
 // static
-QString SingleInstanceManager::getProfilePath()
+QString SingleInstanceManager::getProfilePathFromAppId(const QString& appId)
 {
     QString profilePath =
             QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
     // Take the app_name into account when creating the
-    QStringList appIdParts =
-            QString::fromUtf8(qgetenv("APP_ID")).split
-                ('_', QString::SkipEmptyParts);
-
+    QStringList appIdParts = appId.split('_', QString::SkipEmptyParts);
     if (appIdParts.isEmpty()) {
         // Should not happen
         return profilePath;
@@ -72,7 +70,7 @@ QString SingleInstanceManager::getProfilePath()
     if (appIdParts.size() >= 3) {
         // Assume that we have a APP_ID that corresponds to:
         // <manifest app name>_<desktop app name>_<version>
-        appDesktopName = QStringList(appIdParts.mid(1, 2)).join('_');
+        appDesktopName = appIdParts.mid(1, 1)[0];
     } else {
         // We either run on desktop or as the webbrowser
         appDesktopName = appIdParts.first();
@@ -97,13 +95,13 @@ bool SingleInstanceManager::listen(const QString& name)
     return false;
 }
 
-bool SingleInstanceManager::run(const QStringList& arguments)
+bool SingleInstanceManager::run(const QStringList& arguments, const QString& appId)
 {
     if (m_server.isListening()) {
         return false;
     }
 
-    QDir profile(getProfilePath());
+    QDir profile(getProfilePathFromAppId(appId));
     if (!profile.exists()) {
         if (!QDir::root().mkpath(profile.absolutePath())) {
             qCritical() << "Failed to create profile directory,"

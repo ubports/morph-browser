@@ -43,13 +43,6 @@
 #include <QtQuick/QQuickWindow>
 
 
-namespace
-{
-
-const char kDefaultAppId[] = "webbrowser-app";
-
-}
-
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
 {
@@ -84,7 +77,8 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
 
-    if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", kDefaultAppId)) {
+    const char* browserAppId = "webbrowser-app";
+    if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", browserAppId)) {
         QStringList searchEnginesSearchPaths;
         searchEnginesSearchPaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/searchengines";
         searchEnginesSearchPaths << UbuntuBrowserDirectory() + "/webbrowser/searchengines";

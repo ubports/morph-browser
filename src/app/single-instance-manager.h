@@ -33,7 +33,7 @@ class SingleInstanceManager : public QObject
 public:
     SingleInstanceManager(QObject* parent=nullptr);
 
-    bool run(const QStringList& arguments);
+    bool run(const QStringList& arguments, const QString& appId);
 
 Q_SIGNALS:
     void newInstanceLaunched(const QStringList& arguments) const;
@@ -44,7 +44,7 @@ private Q_SLOTS:
     void onDisconnected();
 
 private:
-    static QString getProfilePath();
+    static QString getProfilePathFromAppId(const QString& appId);
 
     QLocalServer m_server;
     bool listen(const QString& name);

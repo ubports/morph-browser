@@ -49,8 +49,6 @@ static const char privateModuleUri[] = "webcontainer.private";
 namespace
 {
 
-const char kDefaultAppId[] = "webapp-container";
-
 /* Hack to clear the local data of the webapp, when it's integrated with OA:
  * https://bugs.launchpad.net/bugs/1371659
  * This is needed because cookie sets from different accounts might not
@@ -94,12 +92,49 @@ WebappContainer::WebappContainer(int& argc, char** argv):
 {
 }
 
+QString WebappContainer::appId() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--app-id=")) {
+            return argument.split("--app-id=")[1];
+        }
+    }
+    return QString();
+}
 
 bool WebappContainer::initialize()
 {
     earlyEnvironment();
 
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml", kDefaultAppId)) {
+    // Handle legacy platforms (i.e. current desktop versions, where
+    // applications are not started by the Ubuntu ApplicationManager).
+
+    const char* kDefaultAppId = "webapp-container";
+
+    if (qgetenv("APP_ID").isEmpty()) {
+        QString id = appId();
+        if (id.isEmpty()) {
+            qWarning() << "NOTE: The application has been launched with no "
+                          "explicit or system provided app id. "
+                          "The application may not function properly "
+                          "and display some undesired behaviors. "
+                          "An application id can be set by using the --app-id "
+                          "command line parameter and setting it to a unique "
+                          "application specific value or using the APP_ID environment "
+                          "variable.";
+
+            id = kDefaultAppId;
+
+            qWarning() << "IMPORTANT: setting default application id to the NON UNIQUE"
+                          " value:" << id;
+        }
+        qputenv("APP_ID", id.toUtf8());
+    }
+
+    if (BrowserApplication::initialize(
+                "webcontainer/webapp-container.qml",
+                QString::fromUtf8(qgetenv("APP_ID")))) {
+
         parseCommandLine();
         parseExtraConfiguration();
 
