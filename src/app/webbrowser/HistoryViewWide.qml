@@ -35,6 +35,8 @@ BrowserPage {
     title: (selectMode || searchMode) ? "" : i18n.tr("History")
     headerContents: searchMode ? searchQuery : null
 
+    showBackAction: !searchMode && !selectMode
+
     onBack: {
         if (searchMode) {
             searchMode = false
@@ -46,6 +48,21 @@ BrowserPage {
             done()
         }
     }
+
+    leadingActions: [
+        Action {
+            objectName: "close"
+            iconName: "close"
+            onTriggered: {
+                if (historyViewWide.searchMode) {
+                    historyViewWide.searchMode = false
+                } else if (historyViewWide.selectMode) {
+                    urlsListView.ViewItems.selectMode = false
+                }
+                lastVisitDateListView.forceActiveFocus()
+            }
+        }
+    ]
 
     trailingActions: [
         Action {
@@ -415,10 +432,7 @@ BrowserPage {
             text: i18n.tr("New tab")
             iconName: "tab-new"
 
-            onClicked: {
-                historyViewWide.newTabRequested()
-                historyViewWide.done()
-            }
+            onClicked: historyViewWide.newTabRequested()
         }
     }
 

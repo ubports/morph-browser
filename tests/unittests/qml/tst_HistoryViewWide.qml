@@ -113,7 +113,6 @@ Item {
             newTabRequestedSpy.clear()
             clickItem(newTabButton)
             compare(newTabRequestedSpy.count, 1)
-            compare(doneSpy.count, 1)
         }
 
         function test_history_entry_clicked() {
@@ -137,12 +136,15 @@ Item {
             compare(selectButton, null)
             compare(deleteButton, null)
             longPressItem(urlsList.children[0])
-            verify(backButton.visible)
+            backButton = findChild(historyViewWide, "back_button")
+            compare(backButton, null)
             selectButton = findChild(historyViewWide, "selectAll_button")
             verify(selectButton.visible)
             deleteButton = findChild(historyViewWide, "delete_button")
             verify(deleteButton.visible)
-            clickItem(backButton)
+            var closeButton = findChild(historyViewWide, "close_button")
+            clickItem(closeButton)
+            backButton = findChild(historyViewWide, "back_button")
             verify(backButton.visible)
             verify(!selectButton.visible)
             verify(!deleteButton.visible)
@@ -158,8 +160,8 @@ Item {
             clickItem(selectButton)
             compare(selectedIndices.length, urlsList.count)
             clickItem(selectButton)
-            var backButton = findChild(historyViewWide, "back_button")
-            clickItem(backButton)
+            var closeButton = findChild(historyViewWide, "close_button")
+            clickItem(closeButton)
         }
 
         function test_delete_button() {
@@ -207,10 +209,10 @@ Item {
             typeString("2")
             compare(urlsList.count, 1)
 
-            var backButton = findChild(historyViewWide, "back_button")
-            verify(backButton.visible)
-            clickItem(backButton)
-            verify(backButton.visible)
+            var closeButton = findChild(historyViewWide, "close_button")
+            verify(closeButton.visible)
+            clickItem(closeButton)
+            verify(closeButton.visible)
             searchButton = findChild(historyViewWide, "search_button")
             tryCompare(searchButton, "visible", true)
             compare(urlsList.count, 3)
@@ -317,8 +319,8 @@ Item {
             compare(items.length, 1)
             compare(items[0].title, wraphtml("Example Domain " + highlight(term)))
 
-            var backButton = findChild(historyViewWide, "back_button")
-            clickItem(backButton)
+            var closeButton = findChild(historyViewWide, "close_button")
+            clickItem(closeButton)
             verify(!historyViewWide.searchMode)
             searchButton = findChild(historyViewWide, "search_button")
             tryCompare(searchButton, "visible", true)

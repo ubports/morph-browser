@@ -44,6 +44,16 @@ BrowserPage {
 
     title: i18n.tr("Downloads")
 
+    showBackAction: !selectMode
+
+    leadingActions: [
+        Action {
+            objectName: "close"
+            iconName: "close"
+            onTriggered: downloadsItem.selectMode = false
+        }
+    ]
+
     trailingActions: [
         Action {
             text: i18n.tr("Confirm selection")

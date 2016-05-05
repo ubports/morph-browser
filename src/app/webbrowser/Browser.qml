@@ -922,10 +922,13 @@ BrowserView {
                 focus: true
 
                 onHistoryEntryClicked: {
+                    historyViewLoader.active = false
                     browser.openUrlInNewTab(url, true)
-                    done()
                 }
-                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onNewTabRequested: {
+                    historyViewLoader.active = false
+                    browser.openUrlInNewTab("", true)
+                }
                 onDone: {
                     historyViewLoader.active = false
                     internal.resetFocus()
