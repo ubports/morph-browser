@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -130,18 +130,20 @@ Item {
         function test_selection_mode() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)
-            var backButton = findChild(historyViewWide, "backButton")
-            var selectButton = findChild(historyViewWide, "selectButton")
-            var deleteButton = findChild(historyViewWide, "deleteButton")
-            verify(!backButton.visible)
-            verify(!selectButton.visible)
-            verify(!deleteButton.visible)
+            var backButton = findChild(historyViewWide, "back_button")
+            var selectButton = findChild(historyViewWide, "selectAll_button")
+            var deleteButton = findChild(historyViewWide, "delete_button")
+            verify(backButton.visible)
+            compare(selectButton, null)
+            compare(deleteButton, null)
             longPressItem(urlsList.children[0])
             verify(backButton.visible)
+            selectButton = findChild(historyViewWide, "selectAll_button")
             verify(selectButton.visible)
+            deleteButton = findChild(historyViewWide, "delete_button")
             verify(deleteButton.visible)
             clickItem(backButton)
-            verify(!backButton.visible)
+            verify(backButton.visible)
             verify(!selectButton.visible)
             verify(!deleteButton.visible)
         }
@@ -152,11 +154,11 @@ Item {
             longPressItem(urlsList.children[0])
             var selectedIndices = urlsList.ViewItems.selectedIndices
             compare(selectedIndices.length, 1)
-            var selectButton = findChild(historyViewWide, "selectButton")
+            var selectButton = findChild(historyViewWide, "selectAll_button")
             clickItem(selectButton)
             compare(selectedIndices.length, urlsList.count)
             clickItem(selectButton)
-            var backButton = findChild(historyViewWide, "backButton")
+            var backButton = findChild(historyViewWide, "back_button")
             clickItem(backButton)
         }
 
@@ -165,7 +167,7 @@ Item {
             compare(urlsList.count, 3)
             var deletedUrl = urlsList.model.get(0).url
             longPressItem(urlsList.children[0])
-            var deleteButton = findChild(historyViewWide, "deleteButton")
+            var deleteButton = findChild(historyViewWide, "delete_button")
             clickItem(deleteButton)
             compare(urlsList.count, 2)
             for (var i = 0; i < urlsList.count; ++i) {
@@ -188,13 +190,14 @@ Item {
 
         function test_search_button() {
             var searchQuery = findChild(historyViewWide, "searchQuery")
-            verify(!searchQuery.visible)
+            compare(searchQuery, null)
 
-            var searchButton = findChild(historyViewWide, "searchButton")
+            var searchButton = findChild(historyViewWide, "search_button")
             verify(searchButton.visible)
             clickItem(searchButton)
             verify(!searchButton.visible)
 
+            searchQuery = findChild(historyViewWide, "searchQuery")
             verify(searchQuery.visible)
             verify(searchQuery.activeFocus)
             compare(searchQuery.text, "")
@@ -204,12 +207,12 @@ Item {
             typeString("2")
             compare(urlsList.count, 1)
 
-            var backButton = findChild(historyViewWide, "backButton")
+            var backButton = findChild(historyViewWide, "back_button")
             verify(backButton.visible)
             clickItem(backButton)
-            verify(!backButton.visible)
-            verify(!searchQuery.visible)
-            verify(searchButton.visible)
+            verify(backButton.visible)
+            searchButton = findChild(historyViewWide, "search_button")
+            tryCompare(searchButton, "visible", true)
             compare(urlsList.count, 3)
 
             clickItem(searchButton)
@@ -242,11 +245,11 @@ Item {
         function test_ctrl_f_during_search_returns_to_query() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             var datesList = findChild(historyViewWide, "lastVisitDateListView")
-            var searchQuery = findChild(historyViewWide, "searchQuery")
 
             verify(urlsList.activeFocus)
             verify(!historyViewWide.searchMode)
             keyClick(Qt.Key_F, Qt.ControlModifier)
+            var searchQuery = findChild(historyViewWide, "searchQuery")
             verify(searchQuery.activeFocus)
             verify(historyViewWide.searchMode)
 
@@ -303,10 +306,10 @@ Item {
                 return "<font color=\"%1\">%2</font>".arg("#752571").arg(term)
             }
 
-            var searchButton = findChild(historyViewWide, "searchButton")
-            var searchQuery = findChild(historyViewWide, "searchQuery")
+            var searchButton = findChild(historyViewWide, "search_button")
             var urlsList = findChild(historyViewWide, "urlsListView")
             clickItem(searchButton)
+            verify(!searchButton.visible)
 
             var term = "2"
             typeString(term)
@@ -314,12 +317,19 @@ Item {
             compare(items.length, 1)
             compare(items[0].title, wraphtml("Example Domain " + highlight(term)))
 
-            var backButton = findChild(historyViewWide, "backButton")
+            var backButton = findChild(historyViewWide, "back_button")
             clickItem(backButton)
+            verify(!historyViewWide.searchMode)
+            searchButton = findChild(historyViewWide, "search_button")
+            tryCompare(searchButton, "visible", true)
             clickItem(searchButton)
+            tryCompare(historyViewWide, "searchMode", true)
+            var searchQuery = findChild(historyViewWide, "searchQuery")
+            verify(searchQuery.activeFocus)
 
             var terms = ["1", "Example"]
             typeString(terms.join(" "))
+            compare(searchQuery.text, "1 Example")
             items = getListItems(urlsList, "historyDelegate")
             compare(items.length, 1)
             compare(items[0].title, wraphtml("%1 Domain %0"
@@ -342,7 +352,6 @@ Item {
                 keyClick(Qt.Key_Left)
             }
 
-            var searchQuery = findChild(historyViewWide, "searchQuery")
             var today = new Date()
             today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
             var youngest = new Date(1912, 6, 23)
@@ -363,6 +372,7 @@ Item {
             clickItem(testItem)
             verify(testItem.activeFocus)
             keyClick(Qt.Key_F, Qt.ControlModifier)
+            var searchQuery = findChild(historyViewWide, "searchQuery")
             typeString("Alan")
             urls = getListItems(urlsListView, "historyDelegate")
             compare(urls.length, 1)
