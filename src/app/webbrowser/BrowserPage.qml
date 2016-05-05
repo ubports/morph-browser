@@ -61,7 +61,13 @@ Page {
         color: "#f6f6f6"
     }
 
-    Item {
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            contentsItem.forceActiveFocus()
+        }
+    }
+
+    FocusScope {
         id: contentsItem
         anchors {
             top: pageHeader.bottom
