@@ -354,13 +354,13 @@ BrowserView {
 
         HoveredUrlLabel {
             anchors {
-                left: parent.left
+                left: tabContainer.left
                 leftMargin: units.dp(-1)
-                bottom: parent.bottom
+                bottom: tabContainer.bottom
                 bottomMargin: units.dp(-1)
             }
             height: units.gu(3)
-            collapsedWidth: Math.min(units.gu(40), parent.width)
+            collapsedWidth: Math.min(units.gu(40), tabContainer.width)
             webview: browser.currentWebview
         }
     }
