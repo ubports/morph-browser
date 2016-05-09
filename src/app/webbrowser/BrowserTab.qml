@@ -105,6 +105,7 @@ FocusScope {
             restoreState = webview.currentState
             restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
+            gc()
         }
     }
 
