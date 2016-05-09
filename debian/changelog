@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Fine-tune the custom memory-pressure handler, from data gathered on
+    several devices. (LP: #1576639)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 09 May 2016 17:56:03 +0000
+
 webbrowser-app (0.23+16.04.20160429.1-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
