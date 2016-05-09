@@ -111,8 +111,6 @@ bool WebappContainer::initialize()
         if (id.isEmpty()) {
             qCritical() << "The application has been launched with no "
                           "explicit or system provided app id. "
-                          "The application may not function properly "
-                          "and display some undesired behaviors. "
                           "An application id can be set by using the --app-id "
                           "command line parameter and setting it to a unique "
                           "application specific value or using the APP_ID environment "
