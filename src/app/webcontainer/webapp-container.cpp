@@ -106,15 +106,10 @@ bool WebappContainer::initialize()
 {
     earlyEnvironment();
 
-    // Handle legacy platforms (i.e. current desktop versions, where
-    // applications are not started by the Ubuntu ApplicationManager).
-
-    const char* kDefaultAppId = "webapp-container";
-
     if (qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
-            qWarning() << "NOTE: The application has been launched with no "
+            qCritical() << "The application has been launched with no "
                           "explicit or system provided app id. "
                           "The application may not function properly "
                           "and display some undesired behaviors. "
@@ -122,11 +117,7 @@ bool WebappContainer::initialize()
                           "command line parameter and setting it to a unique "
                           "application specific value or using the APP_ID environment "
                           "variable.";
-
-            id = kDefaultAppId;
-
-            qWarning() << "IMPORTANT: setting default application id to the NON UNIQUE"
-                          " value:" << id;
+            return false;
         }
         qputenv("APP_ID", id.toUtf8());
     }
