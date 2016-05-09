@@ -42,7 +42,6 @@
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
-
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
 {

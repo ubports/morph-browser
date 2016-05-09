@@ -21,7 +21,6 @@
 
 // Qt
 #include <QtCore/QByteArray>
-#include <QtCore/QCoreApplication>
 #include <QtCore/QDataStream>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
@@ -30,30 +29,24 @@
 #include <QtCore/QStringList>
 #include <QtNetwork/QLocalSocket>
 
-#include <QDebug>
 // local
 #include "single-instance-manager.h"
 
 namespace {
+
 const int kWaitForRunningInstanceToRespondMs = 1000;
 const int kWaitForRunningInstanceToAckMs = 1000;
 const int kDataStreamVersion = QDataStream::Qt_5_0;
 const QString kHeaderToken = QStringLiteral("MESSAGE");
 const QString kAckToken = QStringLiteral("ACK");
-}
 
-// static
-QString SingleInstanceManager::getProfilePathFromAppId(const QString& appId)
+QString getProfilePathFromAppId(const QString& appId)
 {
     QString profilePath =
             QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
     // Take the app_name into account when creating the
     QStringList appIdParts = appId.split('_', QString::SkipEmptyParts);
-    if (appIdParts.isEmpty()) {
-        // Should not happen
-        return profilePath;
-    }
 
     QString appDesktopName;
 
@@ -66,20 +59,21 @@ QString SingleInstanceManager::getProfilePathFromAppId(const QString& appId)
 
     // At the moment there is no clean way to get those click app name
     // paths, see:
-    //  https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1555542
+    //  https://launchpad.net/bugs/1555542
     if (appIdParts.size() >= 3) {
         // Assume that we have a APP_ID that corresponds to:
         // <manifest app name>_<desktop app name>_<version>
-        appDesktopName = appIdParts.mid(1, 1)[0];
+        appDesktopName = appIdParts[1];
     } else {
         // We either run on desktop or as the webbrowser
         appDesktopName = appIdParts.first();
     }
 
-    return profilePath
-        + QDir::separator()
-        + appDesktopName;
+    return profilePath + QDir::separator() + appDesktopName;
 }
+
+}
+
 
 SingleInstanceManager::SingleInstanceManager(QObject* parent)
     : QObject(parent)

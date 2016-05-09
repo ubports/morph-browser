@@ -110,6 +110,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
 {
     Q_ASSERT(m_window == 0);
 
+    if (appId.isEmpty()) {
+        qCritical() << "Cannot initialize the runtime environment: "
+                       "no application id detected.";
+        return false;
+    }
+
     if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
         printUsage();
         return false;

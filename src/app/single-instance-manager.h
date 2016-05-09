@@ -44,8 +44,6 @@ private Q_SLOTS:
     void onDisconnected();
 
 private:
-    static QString getProfilePathFromAppId(const QString& appId);
-
     QLocalServer m_server;
     bool listen(const QString& name);
 };
