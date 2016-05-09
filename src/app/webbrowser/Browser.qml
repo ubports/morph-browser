@@ -1454,13 +1454,12 @@ BrowserView {
         readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
         readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
-        readonly property real freeMemRatio: (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
         // Under that threshold, available memory is considered "low", and the
         // browser is going to try and free up memory from unused tabs. This
         // value was chosen empirically, it is subject to change to better
         // reflect what a system under memory pressure might look like.
-        readonly property real lowOnMemoryThreshold: 0.3
-        readonly property bool lowOnMemory: freeMemRatio < lowOnMemoryThreshold
+        readonly property real lowOnMemoryThreshold: 200 * 1024 // 200MB
+        readonly property bool lowOnMemory: (MemInfo.total > 0) ? (MemInfo.free < lowOnMemoryThreshold) : false
 
         function getOpenPages() {
             var urls = []
@@ -1838,8 +1837,8 @@ BrowserView {
     }
 
     Connections {
-        target: internal
-        onFreeMemRatioChanged: {
+        target: MemInfo
+        onFreeChanged: {
             if (internal.lowOnMemory) {
                 // Unload an inactive tab to (hopefully) free up some memory
                 function getCandidate(model) {
