@@ -45,13 +45,13 @@ QString getProfilePathFromAppId(const QString& appId)
     QString profilePath =
             QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
-    // Take the app_name into account when creating the
     QStringList appIdParts = appId.split('_', QString::SkipEmptyParts);
 
     QString appDesktopName;
 
     // We try to get the "short app name" to try to uniquely identify
     // the single instance profile path.
+
     // In cases where you have a single click with multiple apps in it,
     // the "app name" as defined in the click manifest.json file will be
     // a proper way to distinguish a unique instance, it needs to take
@@ -60,6 +60,7 @@ QString getProfilePathFromAppId(const QString& appId)
     // At the moment there is no clean way to get those click app name
     // paths, see:
     //  https://launchpad.net/bugs/1555542
+
     if (appIdParts.size() >= 3) {
         // Assume that we have a APP_ID that corresponds to:
         // <manifest app name>_<desktop app name>_<version>

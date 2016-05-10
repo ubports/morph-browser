@@ -124,12 +124,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     // Ensure that application-specific data is written where it ought to.
     QStringList appIdParts = appId.split('_');
 
+    QCoreApplication::setApplicationName(appIdParts.first());
+    QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
+
     // Get also the the first two components of the app ID: <package>_<app>,
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
-
-    QCoreApplication::setApplicationName(appIdParts.first());
-    QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
 
     // Ensure only one instance of the app is running.
     // For webapps using the container as a launcher, the predicate that
