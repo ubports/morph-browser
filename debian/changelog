@@ -1,3 +1,70 @@
+webbrowser-app (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Fine-tune the custom memory-pressure handler, from data gathered on
+    several devices. (LP: #1576639)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 09 May 2016 17:56:03 +0000
+
+webbrowser-app (0.23+16.04.20160429.1-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add facebook UA override that fixes photos not being displayed with
+    the right size, and improves the UIs and features (add photos etc.)
+    (LP: #1538056, #1457661)
+  * Specify a parent for embedded uis being launched by webapps (LP:
+    #1550397)
+  * Tweak container context menu open in browser string (LP: #1532937)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 29 Apr 2016 20:19:40 +0000
+
+webbrowser-app (0.23+16.04.20160428-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Read the ubuntu version at build time, instead of hardcoding it.
+    (LP: #1466427)
+  * Skip geolocation autopilot tests because they are now failing with
+    oxide 1.14.
+  * Use the UITK’s SwipeArea component for the bottom edge gesture
+    recognition. This requires oxide 1.14 to work well (because of bug
+    #1459362). (LP: #1459362, #1458037, #1474533, #1491806)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 28 Apr 2016 14:39:25 +0000
+
+webbrowser-app (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Autopkgtest fixes.
+  * When sharing a link, correctly share its URL and title. (LP:
+    #1571361)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 27 Apr 2016 09:50:28 +0000
+
+webbrowser-app (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix invalid variable reference popupWindowController (LP: #1572673)
+  * Track SAML requests that are part of redirection chains and do not
+    trigger a navigation requested delegate. (LP: #1573017)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- David Barth <david.barth@canonical.com>  Mon, 25 Apr 2016 17:38:08 +0000
+
 webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]

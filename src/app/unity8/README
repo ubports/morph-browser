@@ -1,19 +1,11 @@
 Code in this directory was copied over from unity8.
 
-Ubuntu.Gestures:
- - first import: 2015-02-04, at revision 1583 of lp:unity8
- - last sync: 2015-03-17, at revision 1663 of lp:unity8
-
 Unity.InputInfo:
  - first import: 2016-01-28, at revision 2143 of lp:unity8
 
 The structure of the directories has been kept identical, to ease syncing the
 code in the future. Minor changes were made to the build system to integrate it
 with the existing webbrowser-app code base.
-
-As of 2015-12-09, the SwipeArea component is available in the UITK, so we should
-start using it instead of building a local copy of Ubuntu.Gestures. This is
-currently blocked on https://launchpad.net/bugs/1459362.
 
 The Unity.InputInfo plugin should be replaced by an upstream Qt API in the near
 future.

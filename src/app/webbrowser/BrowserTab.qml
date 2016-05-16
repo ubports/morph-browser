@@ -39,7 +39,7 @@ FocusScope {
     readonly property url icon: webview ? webview.icon : initialIcon
     property url preview
     property bool current: false
-    readonly property int lastCurrent: internal.lastCurrent
+    readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
     visible: false
 
@@ -105,6 +105,7 @@ FocusScope {
             restoreState = webview.currentState
             restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
+            gc()
         }
     }
 
@@ -127,7 +128,7 @@ FocusScope {
         id: internal
         property bool hiding: false
         property var incubator: null
-        property int lastCurrent: 0
+        property real lastCurrent: 0
     }
 
     // When current is set to false, delay hiding the tab contents to give it

@@ -168,3 +168,22 @@ class WebappContainerPopupWebViewOverlayTestCase(
         self.assertThat(
             lambda: external_open_watcher.was_emitted,
             Eventually(Equals(True)))
+
+    def test_multiple_window_open_from_webview(self):
+        args = []
+        overlay_opened_from_main_view_count = 3
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            '/timer-window-open-content?count={}'.format(
+                overlay_opened_from_main_view_count),
+            {'WEBAPP_CONTAINER_BLOCKER_DISABLED': '1'})
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        webview = self.get_oxide_webview()
+        self.assertThat(
+            lambda: webview.visible,
+            Eventually(Equals(True)))
+
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(overlay_opened_from_main_view_count)))
