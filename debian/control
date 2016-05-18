@@ -33,7 +33,7 @@ Build-Depends: apparmor,
                qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
                qttools5-dev-tools,
                xvfb,
-Standards-Version: 3.9.6
+Standards-Version: 3.9.7
 Homepage: https://launchpad.net/webbrowser-app
 # If you aren't a member of ~phablet-team but need to upload packaging changes,
 # just go ahead.  ~phablet-team will notice and sync up the code again.
