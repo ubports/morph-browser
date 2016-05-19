@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -40,9 +40,9 @@ Item {
     }
 
     SignalSpy {
-        id: doneSpy
+        id: backSpy
         target: view
-        signalName: "done"
+        signalName: "back"
     }
 
     SignalSpy {
@@ -60,7 +60,7 @@ Item {
             populate()
             view.forceActiveFocus()
             compare(bookmarkEntryClickedSpy.count, 0)
-            compare(doneSpy.count, 0)
+            compare(backSpy.count, 0)
             compare(newTabClickedSpy.count, 0)
         }
 
@@ -74,14 +74,14 @@ Item {
         function cleanup() {
             BookmarksModel.databasePath = ""
             bookmarkEntryClickedSpy.clear()
-            doneSpy.clear()
+            backSpy.clear()
             newTabClickedSpy.clear()
         }
 
-        function test_done() {
+        function test_back() {
             var button = findChild(view, "doneButton")
             clickItem(button)
-            compare(doneSpy.count, 1)
+            compare(backSpy.count, 1)
         }
 
         function test_new_tab() {

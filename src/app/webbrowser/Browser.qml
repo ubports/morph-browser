@@ -815,8 +815,6 @@ BrowserView {
             }
         }
 
-        Keys.onEscapePressed: active = false
-
         Connections {
             target: bookmarksViewLoader.item
 
@@ -824,7 +822,7 @@ BrowserView {
                 browser.openUrlInNewTab(url, true)
                 bookmarksViewLoader.active = false
             }
-            onDone: bookmarksViewLoader.active = false
+            onBack: bookmarksViewLoader.active = false
             onNewTabClicked: {
                 browser.openUrlInNewTab("", true)
                 bookmarksViewLoader.active = false
@@ -869,8 +867,6 @@ BrowserView {
             }
         }
 
-        Keys.onEscapePressed: active = false
-
         Component {
             id: historyViewComponent
 
@@ -889,7 +885,7 @@ BrowserView {
                         expandedHistoryViewLoader.active = true
                     }
                     onNewTabRequested: browser.openUrlInNewTab("", true)
-                    onDone: historyViewLoader.active = false
+                    onBack: historyViewLoader.active = false
                 }
 
                 Loader {
@@ -923,21 +919,20 @@ BrowserView {
 
             HistoryViewWide {
                 anchors.fill: parent
-
                 focus: true
 
-                Keys.onEscapePressed: {
+                onHistoryEntryClicked: {
+                    historyViewLoader.active = false
+                    browser.openUrlInNewTab(url, true)
+                }
+                onNewTabRequested: {
+                    historyViewLoader.active = false
+                    browser.openUrlInNewTab("", true)
+                }
+                onDone: {
                     historyViewLoader.active = false
                     internal.resetFocus()
                 }
-
-                onHistoryEntryClicked: {
-                    browser.openUrlInNewTab(url, true)
-                    done()
-                }
-
-                onNewTabRequested: browser.openUrlInNewTab("", true)
-                onDone: historyViewLoader.active = false
             }
         }
     }
@@ -956,8 +951,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-
-        Keys.onEscapePressed: active = false
 
         sourceComponent: SettingsPage {
             anchors.fill: parent
@@ -996,8 +989,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-
-        Keys.onEscapePressed: active = false
     }
 
     TabsModel {
