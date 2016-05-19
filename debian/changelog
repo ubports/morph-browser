@@ -1,3 +1,19 @@
+webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
+
+  * Display the currently hovered hyperlink’s target URL in an overlay.
+    (LP: #1499775)
+  * Introduce a BrowserPage type for consistency between all pages, and
+    use the UITK Page and PageHeader types. (LP: #1511137)
+  * Keep the securityStatus property of the address bar always in sync
+    with the current webview. (LP: #1581025)
+  * Minor packaging updates.
+  * Only load the current tab when the session is restored. (LP:
+    #1580290)
+  * Set a minimum width and height on the browser window. (LP: #1581259)
+  * Use QStringLiteral instead of QString in config.h.in.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 19 May 2016 18:39:35 +0000
+
 webbrowser-app (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
