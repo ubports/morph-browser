@@ -1678,7 +1678,13 @@ BrowserView {
             store(JSON.stringify({tabs: tabs, currentIndex: publicTabsModel.currentIndex}))
         }
 
+        property bool restoring: false
         function restore() {
+            restoring = true
+            _doRestore()
+            restoring = false
+        }
+        function _doRestore() {
             if (!locked) {
                 return
             }
@@ -1693,11 +1699,11 @@ BrowserView {
                 if (tabs) {
                     for (var i = 0; i < Math.min(tabs.length, browser.maxTabsToRestore); ++i) {
                         var tab = createTabFromState(tabs[i])
-                        internal.addTab(tab, i == 0)
+                        internal.addTab(tab, false)
                     }
                 }
                 if ('currentIndex' in state) {
-                    internal.switchToTab(state.currentIndex, true)
+                    internal.switchToTab(state.currentIndex, false)
                 }
             }
         }
@@ -1817,7 +1823,9 @@ BrowserView {
             if (tabsModel.count == 0) {
                 browser.openUrlInNewTab(settings.homepage, true, false)
             }
-            tabsModel.currentTab.load()
+            if (!delayedTabSwitcher.running) {
+                tabsModel.currentTab.load()
+            }
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
                 internal.maybeFocusAddressBar()
             }
@@ -1879,7 +1887,7 @@ BrowserView {
     }
 
     Connections {
-        target: tabsModel
+        target: session.restoring ? null : tabsModel
         onCurrentIndexChanged: {
             // In narrow mode, the tabslist is a stack:
             // the current tab is always at the top.
