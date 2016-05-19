@@ -1820,7 +1820,9 @@ BrowserView {
             if (tabsModel.count == 0) {
                 browser.openUrlInNewTab(settings.homepage, true, false)
             }
-            tabsModel.currentTab.load()
+            if (!delayedTabSwitcher.running) {
+                tabsModel.currentTab.load()
+            }
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
                 internal.maybeFocusAddressBar()
             }
