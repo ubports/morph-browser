@@ -305,7 +305,7 @@ Item {
                                 objectName: "privacyConfirmDialog.confirmButton"
                                 width: (parent.width - parent.spacing) / 2
                                 text: i18n.tr("Clear")
-                                color: UbuntuColors.green
+                                color: theme.palette.normal.positive
                                 onClicked: {
                                     confirmed()
                                     PopupUtils.close(privacyConfirmDialog)

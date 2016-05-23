@@ -45,13 +45,12 @@ Popups.Dialog {
 
     Button {
         text: i18n.tr("OK")
-        color: "green"
+        color: theme.palette.normal.positive
         onClicked: accept()
     }
 
     Button {
         text: i18n.tr("Cancel")
-        color: UbuntuColors.coolGrey
         onClicked: model.reject()
     }
 

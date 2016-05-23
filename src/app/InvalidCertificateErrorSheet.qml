@@ -175,7 +175,7 @@ Rectangle {
                     certificateError.deny()
                     denied()
                 }
-                color: UbuntuColors.orange
+                color: theme.palette.normal.positive
             }
         }
     }

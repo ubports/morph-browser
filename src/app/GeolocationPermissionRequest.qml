@@ -31,7 +31,6 @@ Dialog {
     Button {
         objectName: "deny"
         text: i18n.tr("Deny")
-        color: UbuntuColors.warmGrey
         onClicked: {
             request.deny()
             PopupUtils.close(dialog)
@@ -41,7 +40,7 @@ Dialog {
     Button {
         objectName: "allow"
         text: i18n.tr("Allow")
-        color: UbuntuColors.orange
+        color: theme.palette.normal.positive
         onClicked: {
             request.allow()
             PopupUtils.close(dialog)

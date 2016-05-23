@@ -90,7 +90,7 @@ FocusScope {
             readonly property bool isAllBookmarksFolder: folder.length === 0
             readonly property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
 
-            color: isCurrentDropTarget ? "green" : "transparent"
+            color: isCurrentDropTarget ? theme.palette.normal.positive : "transparent"
 
             Label {
                 anchors {
@@ -103,7 +103,7 @@ FocusScope {
 
                 fontSize: "small"
                 text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folderItem.name
-                color: (isActiveFolder && !folders.activeFocus) ? UbuntuColors.orange : UbuntuColors.darkGrey
+                color: (isActiveFolder && !folders.activeFocus) ? theme.palette.normal.positionText : theme.palette.normal.backgroundSecondaryText
             }
 
             onClicked: folders.currentIndex = index

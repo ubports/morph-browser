@@ -27,13 +27,13 @@ Popups.Dialog {
 
     Button {
         text: i18n.tr("Proceed anyway")
-        color: "red"
+        color: theme.palette.normal.negative
         onClicked: model.accept()
     }
 
     Button {
         text: i18n.tr("Back to safety")
-        color: "green"
+        color: theme.palette.normal.positive
         onClicked: model.reject()
     }
 

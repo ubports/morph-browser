@@ -37,7 +37,7 @@ Dialog {
         objectName: "leavePrivateModeDialog.okButton"
         anchors { left: parent.left; right: parent.right }
         text: i18n.tr("OK")
-        color: UbuntuColors.green
+        color: theme.palette.normal.positive
         onClicked: okButtonClicked()
     }
 }

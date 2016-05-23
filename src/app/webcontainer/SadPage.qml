@@ -49,7 +49,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             objectName: "reloadButton"
             text: i18n.tr("Reload")
-            color: UbuntuColors.green
+            color: theme.palette.normal.positive
             onClicked: webview.reload()
         }
     }

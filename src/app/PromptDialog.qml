@@ -30,13 +30,12 @@ ModalDialog {
 
     Button {
         text: i18n.tr("OK")
-        color: "green"
+        color: theme.palette.normal.positive
         onClicked: model.accept(input.text)
     }
 
     Button {
         text: i18n.tr("Cancel")
-        color: UbuntuColors.coolGrey
         onClicked: model.reject()
     }
 

@@ -178,7 +178,7 @@ FocusScope {
                         }
 
                         fontSize: "small"
-                        color: (!lastVisitDateListView.activeFocus && lastVisitDateDelegate.ListView.isCurrentItem) ? UbuntuColors.orange : UbuntuColors.darkGrey
+                        color: (!lastVisitDateListView.activeFocus && lastVisitDateDelegate.ListView.isCurrentItem) ? theme.palette.normal.positionText : theme.palette.normal.backgroundSecondaryText
                     }
 
                     onClicked: ListView.view.currentIndex = index

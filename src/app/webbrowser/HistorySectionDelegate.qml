@@ -52,7 +52,7 @@ Item {
         }
 
         fontSize: "small"
-        color: UbuntuColors.darkGrey
+        color: theme.palette.normal.backgroundSecondaryText
     }
 
     ListItem.ThinDivider {
