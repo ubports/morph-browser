@@ -383,7 +383,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.main_window.press_key('Escape')
         self.assertThat(history_view.searchMode, Eventually(Equals(False)))
-        self.assertThat(search_field.visible, Equals(False))
+        search_field.wait_until_destroyed()
 
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()

@@ -18,33 +18,23 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "." as Local
 
-FocusScope {
+BrowserPage {
     id: bookmarksView
 
     property alias homepageUrl: bookmarksFoldersView.homeBookmarkUrl
 
     signal bookmarkEntryClicked(url url)
-    signal done()
     signal newTabClicked()
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#f6f6f6"
-    }
+    title: i18n.tr("Bookmarks")
 
     BookmarksFoldersView {
         id: bookmarksFoldersView
 
-        anchors {
-            top: topBar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: toolbar.top
-        }
+        anchors.fill: parent
 
         interactive: true
         focus: true
@@ -52,46 +42,13 @@ FocusScope {
         onBookmarkClicked: bookmarksView.bookmarkEntryClicked(url)
         onBookmarkRemoved: {
             if (BookmarksModel.count == 1) {
-                done()
+                bookmarksView.back()
             }
             BookmarksModel.remove(url)
         }
     }
 
     Local.Toolbar {
-        id: topBar
-
-        height: units.gu(7)
-        color: "#f7f7f7"
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-        }
-
-        Label {
-            anchors {
-                top: parent.top
-                left: parent.left
-                topMargin: units.gu(2)
-                leftMargin: units.gu(2)
-            }
-
-            text: i18n.tr("Bookmarks")
-        }
-
-        ListItems.ThinDivider {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-        }
-    }
-
-    Local.Toolbar {
-        id: toolbar
         height: units.gu(7)
 
         anchors {
@@ -112,7 +69,7 @@ FocusScope {
             strokeColor: UbuntuColors.darkGrey
             text: i18n.tr("Done")
 
-            onClicked: bookmarksView.done()
+            onClicked: bookmarksView.back()
         }
 
         ToolbarAction {

@@ -31,6 +31,9 @@ Window {
 
     contentOrientation: Screen.orientation
 
+    minimumWidth: units.gu(50)
+    minimumHeight: units.gu(20)
+
     width: units.gu(100)
     height: units.gu(75)
 

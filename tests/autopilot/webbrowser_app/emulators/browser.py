@@ -502,10 +502,21 @@ class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(action)
 
 
-class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class PageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_back_button(self):
+        button = self.select_single(objectName="back_button")
+        self.pointing_device.click_object(button)
+
+
+class BrowserPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_header(self):
-        return self.select_single(BrowserPageHeader)
+        return self.select_single(PageHeader)
+
+
+class SettingsPage(BrowserPage):
 
     def get_searchengine_entry(self):
         return self.select_single(objectName="searchengine")
@@ -529,18 +540,9 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(objectName="reset")
 
 
-class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class DownloadsPage(BrowserPage):
 
-    def get_header(self):
-        return self.select_single(BrowserPageHeader)
-
-
-class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    @autopilot.logging.log_action(logger.info)
-    def click_back_button(self):
-        button = self.select_single(objectName="backButton")
-        self.pointing_device.click_object(button)
+    pass
 
 
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):

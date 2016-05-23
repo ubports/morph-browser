@@ -351,6 +351,18 @@ BrowserView {
 
             asynchronous: true
         }
+
+        HoveredUrlLabel {
+            anchors {
+                left: tabContainer.left
+                leftMargin: units.dp(-1)
+                bottom: tabContainer.bottom
+                bottomMargin: units.dp(-1)
+            }
+            height: units.gu(3)
+            collapsedWidth: Math.min(units.gu(40), tabContainer.width)
+            webview: browser.currentWebview
+        }
     }
 
     FocusScope {
@@ -815,8 +827,6 @@ BrowserView {
             }
         }
 
-        Keys.onEscapePressed: active = false
-
         Connections {
             target: bookmarksViewLoader.item
 
@@ -824,7 +834,7 @@ BrowserView {
                 browser.openUrlInNewTab(url, true)
                 bookmarksViewLoader.active = false
             }
-            onDone: bookmarksViewLoader.active = false
+            onBack: bookmarksViewLoader.active = false
             onNewTabClicked: {
                 browser.openUrlInNewTab("", true)
                 bookmarksViewLoader.active = false
@@ -869,8 +879,6 @@ BrowserView {
             }
         }
 
-        Keys.onEscapePressed: active = false
-
         Component {
             id: historyViewComponent
 
@@ -889,7 +897,7 @@ BrowserView {
                         expandedHistoryViewLoader.active = true
                     }
                     onNewTabRequested: browser.openUrlInNewTab("", true)
-                    onDone: historyViewLoader.active = false
+                    onBack: historyViewLoader.active = false
                 }
 
                 Loader {
@@ -923,21 +931,20 @@ BrowserView {
 
             HistoryViewWide {
                 anchors.fill: parent
-
                 focus: true
 
-                Keys.onEscapePressed: {
+                onHistoryEntryClicked: {
+                    historyViewLoader.active = false
+                    browser.openUrlInNewTab(url, true)
+                }
+                onNewTabRequested: {
+                    historyViewLoader.active = false
+                    browser.openUrlInNewTab("", true)
+                }
+                onDone: {
                     historyViewLoader.active = false
                     internal.resetFocus()
                 }
-
-                onHistoryEntryClicked: {
-                    browser.openUrlInNewTab(url, true)
-                    done()
-                }
-
-                onNewTabRequested: browser.openUrlInNewTab("", true)
-                onDone: historyViewLoader.active = false
             }
         }
     }
@@ -956,8 +963,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-
-        Keys.onEscapePressed: active = false
 
         sourceComponent: SettingsPage {
             anchors.fill: parent
@@ -996,8 +1001,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-
-        Keys.onEscapePressed: active = false
     }
 
     TabsModel {
@@ -1687,7 +1690,13 @@ BrowserView {
             store(JSON.stringify({tabs: tabs, currentIndex: publicTabsModel.currentIndex}))
         }
 
+        property bool restoring: false
         function restore() {
+            restoring = true
+            _doRestore()
+            restoring = false
+        }
+        function _doRestore() {
             if (!locked) {
                 return
             }
@@ -1702,11 +1711,11 @@ BrowserView {
                 if (tabs) {
                     for (var i = 0; i < Math.min(tabs.length, browser.maxTabsToRestore); ++i) {
                         var tab = createTabFromState(tabs[i])
-                        internal.addTab(tab, i == 0)
+                        internal.addTab(tab, false)
                     }
                 }
                 if ('currentIndex' in state) {
-                    internal.switchToTab(state.currentIndex, true)
+                    internal.switchToTab(state.currentIndex, false)
                 }
             }
         }
@@ -1826,7 +1835,9 @@ BrowserView {
             if (tabsModel.count == 0) {
                 browser.openUrlInNewTab(settings.homepage, true, false)
             }
-            tabsModel.currentTab.load()
+            if (!delayedTabSwitcher.running) {
+                tabsModel.currentTab.load()
+            }
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
                 internal.maybeFocusAddressBar()
             }
@@ -1888,7 +1899,7 @@ BrowserView {
     }
 
     Connections {
-        target: tabsModel
+        target: session.restoring ? null : tabsModel
         onCurrentIndexChanged: {
             // In narrow mode, the tabslist is a stack:
             // the current tab is always at the top.

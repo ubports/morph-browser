@@ -107,6 +107,7 @@ FocusScope {
 
             findInPageMode: findInPageMode
             findController: internal.webview ? internal.webview.findController : null
+            securityStatus: internal.webview ? internal.webview.securityStatus : null
 
             anchors {
                 left: parent.left
@@ -226,13 +227,11 @@ FocusScope {
     onTabChanged: {
         if (tab) {
             addressbar.actualUrl = tab.url
-            addressbar.securityStatus = (tab.webview ? tab.webview.securityStatus : null)
             if (!tab.url.toString() && editing) {
                 addressbar.text = ""
             }
         } else {
             addressbar.actualUrl = ""
-            addressbar.securityStatus = null
         }
     }
 
