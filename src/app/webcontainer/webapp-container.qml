@@ -91,6 +91,7 @@ BrowserWindow {
             blockOpenExternalUrls: root.blockOpenExternalUrls
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
             popupBlockerEnabled: root.popupBlockerEnabled
+            hasTouchScreen: root.hasTouchScreen
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
