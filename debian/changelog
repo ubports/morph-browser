@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix account logic translation typo
+  * Fix container/webbrowser app_id; Properly set applicationname based
+    on package name and app name (LP: #1574884, #1577806)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Thu, 26 May 2016 17:01:10 +0000
+
 webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
 
   * Display the currently hovered hyperlink’s target URL in an overlay.
