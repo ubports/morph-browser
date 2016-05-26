@@ -20,36 +20,84 @@ from autopilot.matchers import Eventually
 
 
 class TestPageMetaCollector(WebappContainerTestCaseWithLocalContentBase):
-    def test_update_theme_color(self):
-        args = ['--enable-addressbar']
+    def _click_webview(self):
+        webview = self.get_oxide_webview()
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + gr.width/4,
+            gr.y + gr.height/4)
+        self.pointing_device.click()
+        self.assert_page_eventually_loaded()
+
+    def _click_theme_color_webview(self):
+        webview = self.get_oxide_webview()
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + 3*gr.width/4,
+            gr.y + 3*gr.height/4)
+        self.pointing_device.click()
+        self.assert_page_eventually_loaded()
+
+    def _setup_back_forward_context(self, color_url_part):
+        args = ['--enable-addressbar', '--enable-back-forward']
         self.launch_webcontainer_app_with_local_http_server(
             args,
-            '/theme-color/?color=red')
+            '/local-browse-link-chain/1?color_url_part={}'.format(
+                color_url_part))
         self.get_webcontainer_window().visible.wait_for(True)
+
+        self._click_webview()
+        self._click_webview()
+
+        self.pointing_device.click_object(
+            self.app.select_single(
+                objectName="backButton"))
+
+    def _validate_chrome_component_color(self, fcolor, bcolor):
+        text_component = self.app.wait_select_single(
+            objectName="chromeTextLabel")
+        self.assertThat(
+            lambda: str(text_component.color),
+            Eventually(Equals(fcolor)))
+
+        component = self.app.wait_select_single(
+            objectName="backButton")
+        self.assertThat(
+            lambda: str(component.iconColor),
+            Eventually(Equals(fcolor)))
+
+        component = self.app.wait_select_single(
+            objectName="reloadButton")
+        self.assertThat(
+            lambda: str(component.iconColor),
+            Eventually(Equals(fcolor)))
 
         chrome_base = self.app.wait_select_single(
             objectName="chromeBase")
-
         self.assertThat(
             lambda: str(chrome_base.backgroundColor),
-            Eventually(Equals("Color(255, 0, 0, 255)")))
+            Eventually(Equals(bcolor)))
+
+    def test_update_theme_color(self):
+        import urllib.parse
+        self._setup_back_forward_context(
+            urllib.parse.quote("/theme-color/?color=red"))
+        self._click_theme_color_webview()
+        self._validate_chrome_component_color(
+            "Color(255, 255, 255, 255)",
+            "Color(255, 0, 0, 255)")
 
     def test_update_theme_color_with_manifest(self):
-        args = ['--enable-addressbar']
-        self.launch_webcontainer_app_with_local_http_server(
-            args,
-            '/theme-color/?manifest=true')
-        self.get_webcontainer_window().visible.wait_for(True)
-
-        chrome_base = self.app.wait_select_single(
-            objectName="chromeBase")
-
-        self.assertThat(
-            lambda: str(chrome_base.backgroundColor),
-            Eventually(Equals("Color(255, 0, 0, 255)")))
+        import urllib.parse
+        self._setup_back_forward_context(
+            urllib.parse.quote("/theme-color/?manifest=true"))
+        self._click_theme_color_webview()
+        self._validate_chrome_component_color(
+            "Color(255, 255, 255, 255)",
+            "Color(255, 0, 0, 255)")
 
     def test_track_theme_color_live_updates(self):
-        args = ['--enable-addressbar']
+        args = ['--enable-addressbar', '--enable-back-forward']
         self.launch_webcontainer_app_with_local_http_server(
             args,
             '/theme-color/?color=red&delaycolorupdate=black')

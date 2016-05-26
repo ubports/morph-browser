@@ -240,6 +240,35 @@ window.setInterval(function() {
 </html>
 """ % count
 
+    def local_browse_link_chain_content(self, next, color_url):
+        import urllib.parse
+
+        return """
+    <html>
+    <head>
+    <title>Some content</title>
+    </head>
+    <body>
+    <div>
+    <a href="/local-browse-link-chain/{}">
+        <div style="height: 50%; width: 100%; background-color: red">
+            local browse
+        </div>
+    </a>
+    <a href="{}">
+        <div id="lorem" style="height: 50%; width: 100%">
+            Lorem ipsum dolor sit amet
+        </div>
+    </a>
+    </div>
+    </body>
+    </html>
+        """.format(
+            "{}?color_url_part={}".format(
+                next,
+                urllib.parse.quote(color_url)),
+            color_url)
+
     base64_png_data = \
         "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwE" \
         "AmpwYAAAAOUlEQVRYw+3OAQ0AAAgDoGv/zlpDN0hATS7qaGlpaWlpaWlpaWlpaWlpaW" \
@@ -346,6 +375,22 @@ window.setInterval(function() {
                 count = int(qs['count'][0])
             self.send_response(200)
             self.serve_content(self.timer_based_window_open_content(count))
+        elif self.path.startswith('/local-browse-link-chain'):
+            qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            p = urllib.parse.urlparse(self.path).path
+            p = p.strip('/local-browse-link-chain')
+            next = '1'
+            try:
+                p = p.strip('/')
+                next = str(int(p) + 1)
+            except:
+                pass
+            self.send_response(200)
+            color_url = ''
+            if 'color_url_part' in qs:
+                color_url = qs['color_url_part'][0]
+            self.serve_content(
+                self.local_browse_link_chain_content(next, color_url))
         else:
             self.send_error(404)
 

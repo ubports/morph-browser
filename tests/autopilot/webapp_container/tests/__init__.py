@@ -96,9 +96,10 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             objectName='containerWebviewLoader')
         return container.wait_select_single('WebViewImplOxide')
 
-    def assert_page_eventually_loaded(self, url):
+    def assert_page_eventually_loaded(self, url=''):
         webview = self.get_oxide_webview()
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        if url:
+            self.assertThat(webview.url, Eventually(Equals(url)))
         # loadProgress == 100 ensures that a page has actually loaded
         self.assertThat(webview.loadProgress,
                         Eventually(Equals(100), timeout=20))
