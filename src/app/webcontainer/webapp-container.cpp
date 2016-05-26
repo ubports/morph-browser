@@ -92,12 +92,38 @@ WebappContainer::WebappContainer(int& argc, char** argv):
 {
 }
 
+QString WebappContainer::appId() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--app-id=")) {
+            return argument.split("--app-id=")[1];
+        }
+    }
+    return QString();
+}
 
 bool WebappContainer::initialize()
 {
     earlyEnvironment();
 
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
+    if (qgetenv("APP_ID").isEmpty()) {
+        QString id = appId();
+        if (id.isEmpty()) {
+            qCritical() << "The application has been launched with no "
+                          "explicit or system provided app id. "
+                          "An application id can be set by using the --app-id "
+                          "command line parameter and setting it to a unique "
+                          "application specific value or using the APP_ID environment "
+                          "variable.";
+            return false;
+        }
+        qputenv("APP_ID", id.toUtf8());
+    }
+
+    if (BrowserApplication::initialize(
+                "webcontainer/webapp-container.qml",
+                QString::fromUtf8(qgetenv("APP_ID")))) {
+
         parseCommandLine();
         parseExtraConfiguration();
 
