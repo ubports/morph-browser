@@ -147,12 +147,28 @@ Oxide.WebView {
         Component.onCompleted: horizontalPaddingRatio = 0.5
     }
 
+    Connections {
+        target: _webview.touchSelectionController
+        onStatusChanged: {
+            var status = _webview.touchSelectionController.status
+            if (status == Oxide.TouchSelectionController.StatusInactive) {
+                quickMenu.visible = false
+            } else if (status == Oxide.TouchSelectionController.StatusSelectionActive) {
+                quickMenu.visible = true
+            }
+        }
+        onInsertionHandleTapped: quickMenu.visible = !quickMenu.visible
+        onContextMenuIntercepted: quickMenu.visible = true
+    }
+
     UbuntuShape {
+        id: quickMenu
         objectName: "touchSelectionActions"
-        visible: _webview.activeFocus
-                 && _webview.touchSelectionController.active
-                 && !_webview.touchSelectionController.handleDragInProgress
-                 && !selectionOutOfSight
+        visible: false
+        opacity: (_webview.activeFocus
+                  && (_webview.touchSelectionController.status != Oxide.TouchSelectionController.StatusInactive)
+                  && !_webview.touchSelectionController.handleDragInProgress
+                  && !selectionOutOfSight) ? 1.0 : 0.0
         aspect: UbuntuShape.DropShadow
         backgroundColor: "white"
         readonly property int padding: units.gu(1)
