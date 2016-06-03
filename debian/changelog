@@ -1,3 +1,9 @@
+webbrowser-app (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
+
+  * Use new oxide 1.15 APIs to fix bugs and implement new features:
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 03 Jun 2016 10:29:42 +0000
+
 webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
 
   [ Alexandre Abreu ]
