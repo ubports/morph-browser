@@ -17,6 +17,7 @@
  */
 
 import QtQml 2.0
+import com.canonical.Oxide 1.15
 
 /*
  * Useful documentation:
@@ -54,11 +55,7 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    // See chromium/src/chrome/VERSION in oxide’s source tree.
-    // Note: the actual version number probably doesn’t matter that much,
-    //       however its format does, so we probably don’t need to bump it
-    //       every time we rebase on a newer chromium.
-    readonly property string _chromiumVersion: "35.0.1870.2"
+    readonly property string _chromiumVersion: Oxide.chromiumVersion
 
     readonly property string _formFactor: smallScreen ? "Mobile" : ""
 
