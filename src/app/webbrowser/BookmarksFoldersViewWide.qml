@@ -194,7 +194,6 @@ FocusScope {
             }
         }
 
-        Keys.onReturnPressed: bookmarksFoldersViewWideItem.bookmarkClicked(currentItem.url)
         Keys.onDeletePressed: {
             if (currentItem.removable) {
                 bookmarksFoldersViewWideItem.bookmarkRemoved(currentItem.url)
