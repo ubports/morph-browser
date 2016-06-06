@@ -18,21 +18,20 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "." as Local
 
-FocusScope {
+BrowserPage {
     id: historyView
 
     signal seeMoreEntriesClicked(var model)
     signal newTabRequested()
-    signal done()
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#f6f6f6"
-    }
+    title: domainsListView.ViewItems.selectMode ? "" : i18n.tr("History")
+
+    showBackAction: !domainsListView.ViewItems.selectMode
+    leadingActions: [closeAction]
+    trailingActions: domainsListView.ViewItems.selectMode ? [selectAllAction, deleteAction] : []
 
     Timer {
         // Set the model asynchronously to ensure
@@ -52,7 +51,7 @@ FocusScope {
         currentIndex: 0
 
         anchors {
-            top: topBar.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
             bottom: toolbar.top
@@ -101,8 +100,6 @@ FocusScope {
             }
         }
 
-        highlight: ListViewHighlight {}
-
         Keys.onEnterPressed: currentItem.clicked()
         Keys.onReturnPressed: currentItem.clicked()
         Keys.onDeletePressed: currentItem.removed()
@@ -130,7 +127,7 @@ FocusScope {
 
             text: i18n.tr("Done")
 
-            onClicked: historyView.done()
+            onClicked: historyView.back()
         }
 
         ToolbarAction {
@@ -147,101 +144,49 @@ FocusScope {
 
             onClicked: {
                 historyView.newTabRequested()
-                historyView.done()
+                historyView.back()
             }
         }
     }
 
-    Local.Toolbar {
-        id: topBar
+    Action {
+        id: closeAction
+        objectName: "close"
+        iconName: "close"
+        onTriggered: domainsListView.ViewItems.selectMode = false
+    }
 
-        visible: domainsListView.ViewItems.selectMode
-        height: visible ? units.gu(7) : 0
-        color: "#f7f7f7"
-
-        Behavior on height {
-            UbuntuNumberAnimation {}
-        }
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-        }
-
-        ToolbarAction {
-            iconName: "close"
-            objectName: "closeButton"
-            text: i18n.tr("Cancel")
-
-            onClicked: domainsListView.ViewItems.selectMode = false
-
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-            }
-
-            height: parent.height - units.gu(2)
-        }
-
-        ToolbarAction {
-            iconName: "select"
-            objectName: "selectAllButton"
-            text: i18n.tr("Select all")
-
-            onClicked: {
-                if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
-                    domainsListView.ViewItems.selectedIndices = []
-                } else {
-                    var indices = []
-                    for (var i = 0; i < domainsListView.count; ++i) {
-                        indices.push(i)
-                    }
-                    domainsListView.ViewItems.selectedIndices = indices
+    Action {
+        id: selectAllAction
+        objectName: "selectAll"
+        iconName: "select"
+        onTriggered: {
+            if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
+                domainsListView.ViewItems.selectedIndices = []
+            } else {
+                var indices = []
+                for (var i = 0; i < domainsListView.count; ++i) {
+                    indices.push(i)
                 }
+                domainsListView.ViewItems.selectedIndices = indices
             }
-
-            anchors {
-                right: deleteButton.left
-                rightMargin: units.gu(2)
-            }
-
-            height: parent.height - units.gu(2)
         }
+    }
 
-        ToolbarAction {
-            id: deleteButton
-            objectName: "deleteButton"
-
-            iconName: "delete"
-            text: i18n.tr("Delete")
-            enabled: domainsListView.ViewItems.selectedIndices.length > 0
-
-            onClicked: {
-                var indices = domainsListView.ViewItems.selectedIndices
-                var domains = []
-                for (var i in indices) {
-                    domains.push(domainsListView.model.get(indices[i]).domain)
-                }
-                domainsListView.ViewItems.selectMode = false
-                for (var j in domains) {
-                    HistoryModel.removeEntriesByDomain(domains[j])
-                }
+    Action {
+        id: deleteAction
+        objectName: "delete"
+        iconName: "delete"
+        enabled: domainsListView.ViewItems.selectedIndices.length > 0
+        onTriggered: {
+            var indices = domainsListView.ViewItems.selectedIndices
+            var domains = []
+            for (var i in indices) {
+                domains.push(domainsListView.model.get(indices[i]).domain)
             }
-
-            anchors {
-                right: parent.right
-                rightMargin: units.gu(2)
-            }
-
-            height: parent.height - units.gu(2)
-        }
-
-        ListItems.ThinDivider {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+            domainsListView.ViewItems.selectMode = false
+            for (var j in domains) {
+                HistoryModel.removeEntriesByDomain(domains[j])
             }
         }
     }

@@ -18,34 +18,80 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "Highlight.js" as Highlight
 import "." as Local
 
-FocusScope {
+BrowserPage {
     id: historyViewWide
 
     property bool searchMode: false
     readonly property bool selectMode: urlsListView.ViewItems.selectMode
-    onSearchModeChanged: {
-        if (searchMode) searchQuery.focus = true
-        else {
-            searchQuery.text = ""
-            urlsListView.focus = true
-        }
-    }
 
     signal done()
     signal historyEntryClicked(url url)
     signal newTabRequested()
 
+    title: (selectMode || searchMode) ? "" : i18n.tr("History")
+    headerContents: searchMode ? searchQuery : null
+
+    showBackAction: !searchMode && !selectMode
+
+    onBack: {
+        if (searchMode) {
+            searchMode = false
+            lastVisitDateListView.forceActiveFocus()
+        } else if (selectMode) {
+            urlsListView.ViewItems.selectMode = false
+            lastVisitDateListView.forceActiveFocus()
+        } else {
+            done()
+        }
+    }
+
+    leadingActions: [
+        Action {
+            objectName: "close"
+            iconName: "close"
+            onTriggered: {
+                if (historyViewWide.searchMode) {
+                    historyViewWide.searchMode = false
+                } else if (historyViewWide.selectMode) {
+                    urlsListView.ViewItems.selectMode = false
+                }
+                lastVisitDateListView.forceActiveFocus()
+            }
+        }
+    ]
+
+    trailingActions: [
+        Action {
+            objectName: "selectAll"
+            iconName: "select"
+            visible: historyViewWide.selectMode
+            onTriggered: internal.toggleSelectAll()
+        },
+        Action {
+            objectName: "delete"
+            iconName: "delete"
+            visible: historyViewWide.selectMode
+            enabled: urlsListView.ViewItems.selectedIndices.length > 0
+            onTriggered: internal.removeSelected()
+        },
+        Action {
+            objectName: "search"
+            iconName: "search"
+            visible: !historyViewWide.searchMode && !historyViewWide.selectMode
+            onTriggered: historyViewWide.searchMode = true
+        }
+    ]
+
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
     Keys.onRightPressed: urlsListView.forceActiveFocus()
-    Keys.onUpPressed: if (searchMode) searchQuery.focus = true
+    Keys.onUpPressed: if (searchMode) searchQuery.forceActiveFocus()
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F) {
-            if (searchMode) searchQuery.focus = true
+            if (searchMode) searchQuery.forceActiveFocus()
             else if (!selectMode) searchMode = true
             event.accepted = true
         }
@@ -77,10 +123,6 @@ FocusScope {
         }
     }
 
-    Rectangle {
-        anchors.fill: parent
-    }
-
     Timer {
         // Set the model asynchronously to ensure
         // the view is displayed as early as possible.
@@ -97,10 +139,44 @@ FocusScope {
         terms: searchQuery.terms
     }
 
+    TextField {
+        id: searchQuery
+        objectName: "searchQuery"
+        parent: null
+        anchors {
+            verticalCenter: parent ? parent.verticalCenter : undefined
+            right: parent ? parent.right : undefined
+            rightMargin: units.gu(2)
+        }
+        width: urlsListView.width
+
+        inputMethodHints: Qt.ImhNoPredictiveText
+        primaryItem: Icon {
+           height: parent.height - units.gu(2)
+           width: height
+           name: "search"
+        }
+        hasClearButton: true
+        placeholderText: i18n.tr("search history")
+        readonly property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+        Keys.onDownPressed: urlsListView.forceActiveFocus()
+        Keys.onEscapePressed: historyViewWide.searchMode = false
+
+        onParentChanged: {
+            if (historyViewWide.searchMode) {
+                forceActiveFocus()
+            } else if (urlsListView) {
+                text = ""
+                urlsListView.forceActiveFocus()
+            }
+        }
+    }
+
     Row {
         id: historyViewWideRow
         anchors {
-            top: topBar.bottom
+            top: parent.top
             left: parent.left
             bottom: bottomToolbar.top
             leftMargin: units.gu(2)
@@ -109,7 +185,7 @@ FocusScope {
 
         spacing: units.gu(1)
 
-        Item {
+        FocusScope {
             width: units.gu(40)
             height: parent.height
 
@@ -118,54 +194,17 @@ FocusScope {
                 objectName: "lastVisitDateListView"
 
                 anchors.fill: parent
+                focus: true
 
                 currentIndex: 0
-                onCurrentIndexChanged: {
-                    if (currentItem) {
-                        historyLastVisitDateModel.lastVisitDate = currentItem.lastVisitDate
-                    }
-                    urlsListView.ViewItems.selectedIndices = []
-                }
-
-                // Manually track the current date, so that we can detect when
-                // the ListView automatically changes the currentItem as result
-                // of a change in the model that removes the currentItem.
-                // When this happens, we reset the currentItem to "all dates".
-                property date currentDate
-
-                // Ignore currentItemChanged signals while we are changing the
-                // currentIndex manually (as a result of either UP and DOWN key
-                // presses, or clicking on items)
-                // Any other emission of currentItemChanged will therefore be
-                // from ListView changing it automatically.
-                function explicitlyChangeCurrentIndex(changeAction) {
-                    explicitlySettingCurrentIndex = true
-                    changeAction()
-                    explicitlySettingCurrentIndex = false
-                    currentDate = currentItem.lastVisitDate
-                }
-                property bool explicitlySettingCurrentIndex: false
-                Keys.onDownPressed: explicitlyChangeCurrentIndex(incrementCurrentIndex)
-                Keys.onUpPressed: explicitlyChangeCurrentIndex(function() {
-                    if (lastVisitDateListView.currentIndex == 0 && searchMode) {
-                        searchQuery.focus = true
-                    } else {
-                        lastVisitDateListView.decrementCurrentIndex()
-                    }
-                })
-
-                onCurrentItemChanged: {
-                    if (explicitlySettingCurrentIndex) return;
-                    if (currentItem.lastVisitDate.valueOf() !== currentDate.valueOf()) {
-                        currentIndex = 0
-                    }
-                }
+                onCurrentIndexChanged: urlsListView.ViewItems.selectedIndices = []
 
                 model: HistoryLastVisitDateListModel {
                     sourceModel: historyLastVisitDateModel.model
                 }
 
                 delegate: ListItem {
+                    id: lastVisitDateDelegate
                     objectName: "lastVisitDateDelegate"
 
                     property var lastVisitDate: model.lastVisitDate
@@ -215,22 +254,35 @@ FocusScope {
                         }
 
                         fontSize: "small"
-                        color: (!lastVisitDateListView.activeFocus && (lastVisitDateListView.currentIndex == index)) ? UbuntuColors.orange : UbuntuColors.darkGrey
+                        color: (!lastVisitDateListView.activeFocus && lastVisitDateDelegate.ListView.isCurrentItem) ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
 
-                    divider {
-                        // Hide the divider so that the highlight doesn’t overlap it
-                        // Do not set visible to false, otherwise the content item is resized.
-                        opacity: (!ListView.view.activeFocus ||
-                                  (index > ListView.view.currentIndex) ||
-                                  (index < (ListView.view.currentIndex - 1))) ? 1 : 0
-                        Behavior on opacity { UbuntuNumberAnimation {} }
-                    }
+                    onClicked: ListView.view.currentIndex = index
 
-                    onClicked: ListView.view.explicitlyChangeCurrentIndex(function() { ListView.view.currentIndex = index })
+                    ListView.onRemove: {
+                        if (ListView.isCurrentItem) {
+                            // For some reason, setting the current index here
+                            // results in it being reset to its previous value
+                            // right away. Delaying it with a timer so the
+                            // operation is queued does the trick.
+                            resetIndexTimer.restart()
+                        }
+                    }
                 }
 
-                highlight: ListViewHighlight {}
+                Timer {
+                    id: resetIndexTimer
+                    interval: 0
+                    onTriggered: lastVisitDateListView.currentIndex = 0
+                }
+            }
+
+            Keys.onUpPressed: {
+                if (searchMode) {
+                    searchQuery.forceActiveFocus()
+                } else {
+                    event.accepted = false
+                }
             }
 
             Scrollbar {
@@ -254,7 +306,7 @@ FocusScope {
 
                 model: SortFilterModel {
                     id: historyLastVisitDateModel
-                    property date lastVisitDate
+                    readonly property date lastVisitDate: lastVisitDateListView.currentItem ? lastVisitDateListView.currentItem.lastVisitDate : ""
                     filter {
                         property: "lastVisitDateString"
                         pattern: new RegExp(lastVisitDate.isValid() ? "^%1$".arg(Qt.formatDate(lastVisitDate, "yyyy-MM-dd")) : "")
@@ -334,152 +386,11 @@ FocusScope {
                         }
                     }
                 }
-
-                highlight: ListViewHighlight {}
             }
 
             Scrollbar {
                 flickableItem: urlsListView
                 align: Qt.AlignTrailing
-            }
-        }
-    }
-
-    Local.Toolbar {
-        id: topBar
-
-        height: units.gu(7)
-        color: "#f7f7f7"
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-        }
-
-        Label {
-            visible: !urlsListView.ViewItems.selectMode &&
-                     !historyViewWide.searchMode
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                topMargin: units.gu(2)
-                leftMargin: units.gu(2)
-            }
-
-            text: i18n.tr("History")
-        }
-
-        ToolbarAction {
-            objectName: "backButton"
-
-            visible: historyViewWide.selectMode || historyViewWide.searchMode
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                leftMargin: units.gu(2)
-            }
-            height: parent.height - units.gu(2)
-
-            iconName: "back"
-            text: i18n.tr("Cancel")
-
-            onClicked: {
-                if (historyViewWide.searchMode) {
-                    historyViewWide.searchMode = false
-                } else {
-                    urlsListView.ViewItems.selectMode = false
-                }
-                lastVisitDateListView.forceActiveFocus()
-            }
-        }
-
-        ToolbarAction {
-            objectName: "selectButton"
-
-            visible: urlsListView.ViewItems.selectMode
-
-            anchors {
-                top: parent.top
-                right: deleteButton.left
-                rightMargin: units.gu(2)
-            }
-            height: parent.height - units.gu(2)
-
-            iconName: "select"
-            text: i18n.tr("Select all")
-
-            onClicked: internal.toggleSelectAll()
-        }
-
-        ToolbarAction {
-            id: deleteButton
-            objectName: "deleteButton"
-
-            visible: urlsListView.ViewItems.selectMode
-
-            anchors {
-                top: parent.top
-                right: parent.right
-                rightMargin: units.gu(2)
-            }
-            height: parent.height - units.gu(2)
-
-            iconName: "delete"
-            text: i18n.tr("Delete")
-            enabled: urlsListView.ViewItems.selectedIndices.length > 0
-            onClicked: internal.removeSelected()
-        }
-
-        TextField {
-            id: searchQuery
-            objectName: "searchQuery"
-            anchors {
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-                rightMargin: units.gu(2)
-            }
-            width: urlsListView.width
-            inputMethodHints: Qt.ImhNoPredictiveText
-            primaryItem: Icon {
-               height: parent.height - units.gu(2)
-               width: height
-               name: "search"
-            }
-            hasClearButton: true
-            placeholderText: i18n.tr("search history")
-            visible: historyViewWide.searchMode
-            readonly property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
-
-            Keys.onEscapePressed: historyViewWide.searchMode = false
-            Keys.onDownPressed: urlsListView.focus = true
-        }
-
-        ToolbarAction {
-            id: searchButton
-            iconName: "search"
-            objectName: "searchButton"
-            visible: !urlsListView.ViewItems.selectMode &&
-                     !historyViewWide.searchMode
-            anchors {
-                verticalCenter: parent.verticalCenter
-                right: parent.right
-                rightMargin: units.gu(3.5)
-            }
-            height: parent.height - units.gu(2)
-            onClicked: {
-                historyViewWide.searchMode = true
-                searchQuery.forceActiveFocus()
-            }
-        }
-
-        ListItems.ThinDivider {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
             }
         }
     }
@@ -521,10 +432,7 @@ FocusScope {
             text: i18n.tr("New tab")
             iconName: "tab-new"
 
-            onClicked: {
-                historyViewWide.newTabRequested()
-                historyViewWide.done()
-            }
+            onClicked: historyViewWide.newTabRequested()
         }
     }
 

@@ -47,6 +47,7 @@ BrowserView {
     property alias runningLocalApplication: containerWebView.runningLocalApplication
     property alias openExternalUrlInOverlay: containerWebView.openExternalUrlInOverlay
     property alias defaultVideoCaptureCameraPosition: containerWebView.defaultVideoCaptureCameraPosition
+    property alias popupBlockerEnabled: containerWebView.popupBlockerEnabled
 
     property string webappName: ""
 
@@ -270,6 +271,7 @@ BrowserView {
         id: unityWebapps
         name: webappName
         bindee: containerWebView.currentWebview
+        embeddedUiComponentParent: webapp
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication

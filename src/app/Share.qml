@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -41,17 +41,17 @@ Item {
     QtObject {
         id: internal
 
-        function share(name, url, text, contentType) {
+        function share(url, text, contentType) {
             var sharePopup = PopupUtils.open(shareDialog, shareItem, {"contentType" : contentType})
-            sharePopup.items.push(contentItemComponent.createObject(shareItem, {"name" : name, "url" : url, "text": text}))
+            sharePopup.items.push(contentItemComponent.createObject(shareItem, {"url" : url, "text": text}))
         }
     }
 
     function shareLink(url, title) {
-        internal.share(title, url, "", ContentType.Links)
+        internal.share(url, title, ContentType.Links)
     }
 
     function shareText(text) {
-        internal.share("", "", text, ContentType.Text)
+        internal.share("", text, ContentType.Text)
     }
 }

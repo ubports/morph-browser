@@ -25,118 +25,109 @@ import webbrowserapp.private 0.1
 
 import "../UrlUtils.js" as UrlUtils
 
-Item {
+FocusScope {
     id: settingsItem
 
     property QtObject settingsObject
 
     signal done()
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#f6f6f6"
-    }
-
     SearchEngines {
         id: searchEngines
         searchPaths: searchEnginesSearchPaths
     }
 
-    BrowserPageHeader {
-        id: title
+    BrowserPage {
+        title: i18n.tr("Settings")
+
+        anchors.fill: parent
+        visible: !subpageContainer.visible
+        focus: true
 
         onBack: settingsItem.done()
-        text: i18n.tr("Settings")
-        visible: !subpageContainer.visible
-    }
 
-    Flickable {
-        anchors {
-            top: title.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
+        Flickable {
+            anchors.fill: parent
+            contentHeight: settingsCol.height
 
-        visible: !subpageContainer.visible
-        clip: true
-        contentHeight: settingsCol.height
+            Column {
+                id: settingsCol
 
-        Column {
-            id: settingsCol
+                width: parent.width
 
-            width: parent.width
+                ListItem {
+                    id: searchEngineListItem
+                    objectName: "searchengine"
+                    readonly property string currentSearchEngineDisplayName: currentSearchEngine.name
 
-            ListItem {
-                id: searchEngineListItem
-                objectName: "searchengine"
-                readonly property string currentSearchEngineDisplayName: currentSearchEngine.name
+                    SearchEngine {
+                        id: currentSearchEngine
+                        searchPaths: searchEngines.searchPaths
+                        filename: settingsObject.searchEngine
+                    }
 
-                SearchEngine {
-                    id: currentSearchEngine
-                    searchPaths: searchEngines.searchPaths
-                    filename: settingsObject.searchEngine
+                    ListItemLayout {
+                        title.text: i18n.tr("Search engine")
+                        subtitle.text: searchEngineListItem.currentSearchEngineDisplayName
+                        ProgressionSlot {}
+                    }
+
+                    visible: searchEngines.engines.count > 1
+                    onClicked: searchEngineComponent.createObject(subpageContainer)
                 }
 
-                ListItemLayout {
-                    title.text: i18n.tr("Search engine")
-                    subtitle.text: searchEngineListItem.currentSearchEngineDisplayName
+                ListItem {
+                    id: homepageListItem
+                    objectName: "homepage"
+                    readonly property url currentHomepage: settingsObject.homepage
+
+                    ListItemLayout {
+                        title.text: i18n.tr("Homepage")
+                        subtitle.text: homepageListItem.currentHomepage
+                    }
+
+                    onClicked: PopupUtils.open(homepageDialog)
                 }
 
-                visible: searchEngines.engines.count > 1
-                onClicked: searchEngineComponent.createObject(subpageContainer)
-            }
+                ListItem {
+                    objectName: "restoreSession"
 
-            ListItem {
-                id: homepageListItem
-                objectName: "homepage"
-                readonly property url currentHomepage: settingsObject.homepage
+                    ListItemLayout {
+                        title.text: i18n.tr("Restore previous session at startup")
+                        CheckBox {
+                            id: restoreSessionCheckbox
+                            SlotsLayout.position: SlotsLayout.Trailing
+                            onTriggered: settingsObject.restoreSession = checked
+                        }
+                    }
 
-                ListItemLayout {
-                    title.text: i18n.tr("Homepage")
-                    subtitle.text: homepageListItem.currentHomepage
-                }
-
-                onClicked: PopupUtils.open(homepageDialog)
-            }
-
-            ListItem {
-                objectName: "restoreSession"
-
-                ListItemLayout {
-                    title.text: i18n.tr("Restore previous session at startup")
-                    CheckBox {
-                        id: restoreSessionCheckbox
-                        SlotsLayout.position: SlotsLayout.Trailing
-                        onTriggered: settingsObject.restoreSession = checked
+                    Binding {
+                        target: restoreSessionCheckbox
+                        property: "checked"
+                        value: settingsObject.restoreSession
                     }
                 }
 
-                Binding {
-                    target: restoreSessionCheckbox
-                    property: "checked"
-                    value: settingsObject.restoreSession
-                }
-            }
+                ListItem {
+                    objectName: "privacy"
 
-            ListItem {
-                objectName: "privacy"
+                    ListItemLayout {
+                        title.text: i18n.tr("Privacy & permissions")
+                        ProgressionSlot {}
+                    }
 
-                ListItemLayout {
-                    title.text: i18n.tr("Privacy & permissions")
+                    onClicked: privacyComponent.createObject(subpageContainer)
                 }
 
-                onClicked: privacyComponent.createObject(subpageContainer)
-            }
+                ListItem {
+                    objectName: "reset"
 
-            ListItem {
-                objectName: "reset"
+                    ListItemLayout {
+                        title.text: i18n.tr("Reset browser settings")
+                    }
 
-                ListItemLayout {
-                    title.text: i18n.tr("Reset browser settings")
+                    onClicked: settingsObject.restoreDefaults()
                 }
-
-                onClicked: settingsObject.restoreDefaults()
             }
         }
     }
@@ -150,31 +141,16 @@ Item {
         Component {
             id: searchEngineComponent
 
-            Item {
+            BrowserPage {
                 id: searchEngineItem
                 objectName: "searchEnginePage"
                 anchors.fill: parent
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: "#f6f6f6"
-                }
-
-                BrowserPageHeader {
-                    id: searchEngineTitle
-
-                    onBack: searchEngineItem.destroy()
-                    text: i18n.tr("Search engine")
-                }
+                onBack: searchEngineItem.destroy()
+                title: i18n.tr("Search engine")
 
                 ListView {
-                    anchors {
-                        top: searchEngineTitle.bottom
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-                    clip: true
+                    anchors.fill: parent
 
                     model: searchEngines.engines
 
@@ -207,33 +183,17 @@ Item {
         Component {
             id: privacyComponent
 
-            Item {
+            BrowserPage {
                 id: privacyItem
                 objectName: "privacySettings"
 
                 anchors.fill: parent
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: "#f6f6f6"
-                }
-
-                BrowserPageHeader {
-                    id: privacyTitle
-                    onBack: privacyItem.destroy()
-                    text: i18n.tr("Privacy & permissions")
-                }
+                onBack: privacyItem.destroy()
+                title: i18n.tr("Privacy & permissions")
 
                 Flickable {
-                    anchors {
-                        top: privacyTitle.bottom
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-
-                    clip: true
-
+                    anchors.fill: parent
                     contentHeight: privacyCol.height
 
                     Column {
@@ -244,6 +204,7 @@ Item {
                             objectName: "privacy.mediaAccess"
                             ListItemLayout {
                                 title.text: i18n.tr("Camera & microphone")
+                                ProgressionSlot {}
                             }
                             onClicked: mediaAccessComponent.createObject(subpageContainer)
                         }
@@ -372,33 +333,16 @@ Item {
     Component {
         id: mediaAccessComponent
 
-        Item {
+        BrowserPage {
             id: mediaAccessItem
             objectName: "mediaAccessSettings"
             anchors.fill: parent
 
-            Rectangle {
-                anchors.fill: parent
-                color: "#f6f6f6"
-            }
-
-            BrowserPageHeader {
-                id: mediaAccessTitle
-
-                onBack: mediaAccessItem.destroy()
-                text: i18n.tr("Camera & microphone")
-            }
+            onBack: mediaAccessItem.destroy()
+            title: i18n.tr("Camera & microphone")
 
             Flickable {
-                anchors {
-                    top: mediaAccessTitle.bottom
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-
-                clip: true
-
+                anchors.fill: parent
                 contentHeight: mediaAccessCol.height
 
                 Column {
@@ -451,4 +395,3 @@ Item {
         }
     }
 }
-

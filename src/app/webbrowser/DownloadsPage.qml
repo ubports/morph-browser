@@ -23,9 +23,8 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 
 import "../MimeTypeMapper.js" as MimeTypeMapper
-import ".."
 
-FocusScope {
+BrowserPage {
     id: downloadsItem
 
     property var downloadManager
@@ -43,124 +42,144 @@ FocusScope {
 
     signal done()
 
+    title: i18n.tr("Downloads")
+
+    showBackAction: !selectMode
+
+    leadingActions: [
+        Action {
+            objectName: "close"
+            iconName: "close"
+            onTriggered: downloadsItem.selectMode = false
+        }
+    ]
+
+    trailingActions: [
+        Action {
+            text: i18n.tr("Confirm selection")
+            iconName: "tick"
+            visible: pickingMode
+            enabled: downloadsListView.ViewItems.selectedIndices.length > 0
+            onTriggered: {
+                var results = []
+                if (internalFilePicker) {
+                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                        results.push(selectedDownload.path)
+                    }
+                    internalFilePicker.accept(results)
+                } else {
+                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                        results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+                    }
+                    activeTransfer.items = results
+                    activeTransfer.state = ContentTransfer.Charged
+                }
+                downloadsItem.done()
+            }
+        },
+        Action {
+            text: i18n.tr("Select all")
+            iconName: "select"
+            visible: selectMode
+            onTriggered: {
+                if (downloadsListView.ViewItems.selectedIndices.length === downloadsListView.count) {
+                    downloadsListView.ViewItems.selectedIndices = []
+                } else {
+                    var indices = []
+                    for (var i = 0; i < downloadsListView.count; ++i) {
+                        indices.push(i)
+                    }
+                    downloadsListView.ViewItems.selectedIndices = indices
+                }
+            }
+        },
+        Action {
+            text: i18n.tr("Delete")
+            iconName: "delete"
+            visible: selectMode
+            enabled: downloadsListView.ViewItems.selectedIndices.length > 0
+            onTriggered: {
+                var toDelete = []
+                for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                    var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                    toDelete.push(selectedDownload.path)
+                }
+                for (var i = 0; i < toDelete.length; i++) {
+                    DownloadsModel.deleteDownload(toDelete[i])
+                }
+                downloadsListView.ViewItems.selectedIndices = []
+                downloadsItem.selectMode = false
+            }
+        },
+        Action {
+            iconName: "edit"
+            visible: !selectMode && !pickingMode
+            enabled: downloadsListView.count > 0
+            onTriggered: {
+                selectMode = true
+                multiSelect = true
+            }
+        }
+    ]
+
+    onBack: {
+        if (selectMode) {
+            selectMode = false
+        } else {
+            if (activeTransfer) {
+                activeTransfer.state = ContentTransfer.Aborted
+            }
+            if (internalFilePicker) {
+                internalFilePicker.reject()
+            }
+            done()
+        }
+    }
+
     Loader {
         id: thumbnailLoader
         source: "Thumbnailer.qml"
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#fbfbfb"
-    }
-
-    BrowserPageHeader {
-        id: title
-        text: i18n.tr("Downloads")
-        color: "#f7f7f7"
-        actions: [
-            Action {
-                text: i18n.tr("Confirm selection")
-                iconName: "tick"
-                visible: pickingMode
-                enabled: downloadsListView.ViewItems.selectedIndices.length > 0
-                onTriggered: {
-                    var results = []
-                    if (internalFilePicker) {
-                        for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                            var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                            results.push(selectedDownload.path)
-                        }
-                        internalFilePicker.accept(results)
-                    } else {
-                        for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                            var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                            results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
-                        }
-                        activeTransfer.items = results
-                        activeTransfer.state = ContentTransfer.Charged
-                    }
-                    downloadsItem.done()
-                }
-            },
-            Action {
-                text: i18n.tr("Select all")
-                iconName: "select"
-                visible: selectMode
-                onTriggered: {
-                    if (downloadsListView.ViewItems.selectedIndices.length === downloadsListView.count) {
-                        downloadsListView.ViewItems.selectedIndices = []
-                    } else {
-                        var indices = []
-                        for (var i = 0; i < downloadsListView.count; ++i) {
-                            indices.push(i)
-                        }
-                        downloadsListView.ViewItems.selectedIndices = indices
-                    }
-                }
-            },
-            Action {
-                text: i18n.tr("Delete")
-                iconName: "delete"
-                visible: selectMode
-                enabled: downloadsListView.ViewItems.selectedIndices.length > 0
-                onTriggered: {
-                    var toDelete = []
-                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                        toDelete.push(selectedDownload.path)
-                    }
-                    for (var i = 0; i < toDelete.length; i++) {
-                        DownloadsModel.deleteDownload(toDelete[i])
-                    }
-                    downloadsListView.ViewItems.selectedIndices = []
-                    downloadsItem.selectMode = false
-                }
-            },
-            Action {
-                iconName: "edit" 
-                visible: !selectMode && !pickingMode
-                enabled: downloadsListView.count > 0
-                onTriggered: {
-                    selectMode = true
-                    multiSelect = true
-                }
-            }
-        ]
-        onBack: {
-            if (selectMode) {
-                selectMode = false
-            } else {
-                if (activeTransfer) {
-                    activeTransfer.state = ContentTransfer.Aborted
-                }
-                if (internalFilePicker) {
-                    internalFilePicker.reject()
-                }
-                downloadsItem.done()
-            }
-        }
-    }
-
     Component {
         id: resultComponent
-        ContentItem { }
+        ContentItem {}
     }
 
     ListView {
         id: downloadsListView
-        clip: true
+        anchors.fill: parent
         focus: !exportPeerPicker.focus
-
-        anchors {
-            fill: parent
-            topMargin: title.height
-        }
 
         model: SortFilterModel {
             model: DownloadsModel
             filter { 
                 id: downloadModelFilter
                 property: "mimetype"
+            }
+        }
+
+        property int selectedIndex: -1
+        ViewItems.selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
+        ViewItems.onSelectedIndicesChanged: {
+            if (downloadsItem.multiSelect) {
+                return
+            }
+            // Enforce single selection mode to work around
+            // the lack of such a feature in the UITK.
+            if (ViewItems.selectedIndices.length > 1 && selectedIndex != -1) {
+                var selection = ViewItems.selectedIndices
+                selection.splice(selection.indexOf(selectedIndex), 1)
+                selectedIndex = selection[0]
+                ViewItems.selectedIndices = selection
+                return
+            }
+            if (ViewItems.selectedIndices.length > 0) {
+                selectedIndex = ViewItems.selectedIndices[0]
+            } else {
+                selectedIndex = -1
             }
         }
 
@@ -175,33 +194,22 @@ FocusScope {
                                   ? "image://thumbnailer/file://" + model.path : ""
             icon: MimeDatabase.iconForMimetype(model.mimetype)
             incomplete: !model.complete
-            selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
             visible: !(selectMode && incomplete)
             errorMessage: model.error
             paused: model.paused
-            // Work around bug #1493880
-            property bool lastSelected
-
-            onSelectedChanged: {
-                if (!multiSelect && selected && lastSelected != selected) {
-                    downloadsListView.ViewItems.selectedIndices = [index]
-                }
-                lastSelected = selected
-            }
 
             onClicked: {
-                if (model.complete) {
-                    if (selectMode) {
-                        selected = !selected
-                    } else {
-                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                        exportPeerPicker.visible = true
-                        exportPeerPicker.path = model.path
-                    }
+                if (model.complete && !selectMode) {
+                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+                    exportPeerPicker.visible = true
+                    exportPeerPicker.path = model.path
                 }
             }
 
             onPressAndHold: {
+                if (downloadsItem.selectMode || downloadsItem.pickingMode) {
+                    return
+                }
                 downloadsItem.selectMode = true
                 downloadsItem.multiSelect = true
                 if (downloadsItem.selectMode) {
@@ -219,8 +227,6 @@ FocusScope {
                 DownloadsModel.cancelDownload(model.downloadId)
             }
         }
-
-        highlight: ListViewHighlight {}
 
         Keys.onEnterPressed: currentItem.clicked()
         Keys.onReturnPressed: currentItem.clicked()

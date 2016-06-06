@@ -215,8 +215,6 @@ FocusScope {
                             onRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)
                         }
 
-                        highlight: ListViewHighlight {}
-
                         Keys.onUpPressed: {
                             if (currentIndex > 0) {
                                 --currentIndex

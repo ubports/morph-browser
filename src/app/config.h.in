@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,7 +23,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QString>
 
-#define APP_ID "webbrowser-app"
 #define REMOTE_INSPECTOR_PORT 9221
 
 inline bool isRunningInstalled()
@@ -35,15 +34,15 @@ inline bool isRunningInstalled()
 inline QString UbuntuBrowserDirectory()
 {
     if (isRunningInstalled()) {
-        return QString("@CMAKE_INSTALL_FULL_DATADIR@/webbrowser-app");
+        return QStringLiteral("@CMAKE_INSTALL_FULL_DATADIR@/webbrowser-app");
     } else {
-        return QString("@CMAKE_SOURCE_DIR@/src/app");
+        return QStringLiteral("@CMAKE_SOURCE_DIR@/src/app");
     }
 }
 
 inline QString UbuntuBrowserImportsDirectory()
 {
-    return QString("@CMAKE_BINARY_DIR@/src");
+    return QStringLiteral("@CMAKE_BINARY_DIR@/src");
 }
 
 #endif // __CONFIG_H__

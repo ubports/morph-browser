@@ -218,6 +218,28 @@ setTimeout(function() {
 </html>
         """
 
+    def timer_based_window_open_content(self, count):
+        return """
+<html>
+<head>
+<title>open-close</title>
+<script>
+var idx = 0;
+var count = %s;
+window.setInterval(function() {
+    if (idx < count) {
+        window.open('/open-close-content')
+    }
+    ++idx
+}, 1000);
+</script>
+</head>
+<body>
+    Test
+</body>
+</html>
+""" % count
+
     base64_png_data = \
         "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwE" \
         "AmpwYAAAAOUlEQVRYw+3OAQ0AAAgDoGv/zlpDN0hATS7qaGlpaWlpaWlpaWlpaWlpaW" \
@@ -317,6 +339,13 @@ setTimeout(function() {
             self.send_response(200)
             self.serve_content(
                 self.external_href_with_link_content(qs['path'][0]))
+        elif self.path.startswith('/timer-window-open-content'):
+            qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            count = 1
+            if 'count' in qs:
+                count = int(qs['count'][0])
+            self.send_response(200)
+            self.serve_content(self.timer_based_window_open_content(count))
         else:
             self.send_error(404)
 

@@ -4,8 +4,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-export DEB_BUILD_HARDENING=1
 export DPKG_GENSYMBOLS_CHECK_LEVEL=4
+
+BUILDHOME=/tmp/home
 
 %:
 	dh $@ --parallel --with translations
@@ -32,3 +33,12 @@ override_dh_translations:
 	# Unfortunately, the default build directory is not exposed
 	# (see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=601774).
 	$(MAKE) -C obj-$(DEB_HOST_GNU_TYPE) webbrowser-app.pot
+
+override_dh_clean:
+	dh_clean
+	rm -rf $(BUILDHOME)
+
+override_dh_auto_test:
+	mkdir -p $(BUILDHOME)
+	HOME=$(BUILDHOME) dh_auto_test
+

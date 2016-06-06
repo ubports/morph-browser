@@ -1,3 +1,168 @@
+webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix account logic translation typo
+  * Fix container/webbrowser app_id; Properly set applicationname based
+    on package name and app name (LP: #1574884, #1577806)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Thu, 26 May 2016 17:01:10 +0000
+
+webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
+
+  * Display the currently hovered hyperlink’s target URL in an overlay.
+    (LP: #1499775)
+  * Introduce a BrowserPage type for consistency between all pages, and
+    use the UITK Page and PageHeader types. (LP: #1511137)
+  * Keep the securityStatus property of the address bar always in sync
+    with the current webview. (LP: #1581025)
+  * Minor packaging updates.
+  * Only load the current tab when the session is restored. (LP:
+    #1580290)
+  * Set a minimum width and height on the browser window. (LP: #1581259)
+  * Use QStringLiteral instead of QString in config.h.in.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 19 May 2016 18:39:35 +0000
+
+webbrowser-app (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Fine-tune the custom memory-pressure handler, from data gathered on
+    several devices. (LP: #1576639)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 09 May 2016 17:56:03 +0000
+
+webbrowser-app (0.23+16.04.20160429.1-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add facebook UA override that fixes photos not being displayed with
+    the right size, and improves the UIs and features (add photos etc.)
+    (LP: #1538056, #1457661)
+  * Specify a parent for embedded uis being launched by webapps (LP:
+    #1550397)
+  * Tweak container context menu open in browser string (LP: #1532937)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 29 Apr 2016 20:19:40 +0000
+
+webbrowser-app (0.23+16.04.20160428-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Read the ubuntu version at build time, instead of hardcoding it.
+    (LP: #1466427)
+  * Skip geolocation autopilot tests because they are now failing with
+    oxide 1.14.
+  * Use the UITK’s SwipeArea component for the bottom edge gesture
+    recognition. This requires oxide 1.14 to work well (because of bug
+    #1459362). (LP: #1459362, #1458037, #1474533, #1491806)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 28 Apr 2016 14:39:25 +0000
+
+webbrowser-app (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Autopkgtest fixes.
+  * When sharing a link, correctly share its URL and title. (LP:
+    #1571361)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 27 Apr 2016 09:50:28 +0000
+
+webbrowser-app (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix invalid variable reference popupWindowController (LP: #1572673)
+  * Track SAML requests that are part of redirection chains and do not
+    trigger a navigation requested delegate. (LP: #1573017)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- David Barth <david.barth@canonical.com>  Mon, 25 Apr 2016 17:38:08 +0000
+
+webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add UA overrides for google hangouts to work on desktop, tablet and
+    phone. (LP: #1565055)
+  * Add a progression symbol to list items that open new pages in
+    settings. (LP: #1517206)
+  * Remove duplicated list view focus rects, and update the styling of
+    the remaining ones to match that of the UITK. (LP: #1570807)
+  * Simplify focus handling in various places.
+
+  [ Timo Jyrinki ]
+  * Fix FTBFS on Qt 5.6 by adding a dependency on qttools5-dev-tools for
+    qdoc (LP: #1565502)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 15 Apr 2016 11:38:13 +0000
+
+webbrowser-app (0.23+16.04.20160413-0ubuntu1) xenial; urgency=medium
+
+  * Do not handle backspace as a window-level shortcut, as it would take
+    precedence over backspace events in HTML text fields. (LP: #1569938)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 13 Apr 2016 15:22:11 +0000
+
+webbrowser-app (0.23+16.04.20160408.1-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Loïc Molinari ]
+  * Made AddressBar height scalable with regards to the grid units
+    system.
+
+  [ Olivier Tilloy ]
+  * Add dep8 tests and instructions to run them in qemu or on a phone.
+    Original work by Leo Arias and Vincent Ladeuil. added: debian/tests/
+    debian/tests/control debian/tests/touch-session-autopilot
+  * Catch ESC key event one level up to ensure that it’s not incorrectly
+    bubbled up to the outer component. (LP: #1557016)
+  * Customize the contents of the media permission dialog to avoid
+    truncated text. (LP: #1554220)
+  * Do not write the session to a temporary file when no target file is
+    defined.
+  * Fix a failing unit test with Qt 5.6. (LP: #1565507)
+  * Fix broken webapp container autopilot tests. (LP: #1557019)
+  * Fix issues with item selection in the downloads page: do not allow
+    selecting multiple files when only one is expected do not allow
+    entering delete mode (with a long press on an item) while in picker
+    mode (LP: #1534112, #1561575)
+  * Fix unit tests when run under an sbuild chroot. (LP: #1567294)
+  * Import QQuickShortcut from Qt 5.5 to properly handle window-level
+    keyboard shortcuts. We cannot bump the dependency on Qt to 5.5 as
+    the stable overlay PPA for devices currently has Qt 5.4.1. (LP:
+    #1542224, #1545802, #1537782)
+  * Make the autopilot tests more reliable when dragging the bottom
+    edge. (LP: #1560109)
+  * Remove workaround for bug #1526940 that was fixed in the latest
+    release of the UITK. (LP: #1526940)
+  * Rename debian packages to follow new QML module naming convention.
+    (LP: #1342031)
+  * Simplify the implementation of HistoryViewWide quite a bit, and as a
+    side effect fix a unit test failure when run against the staging
+    branch of the UITK. (LP: #1567337)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 08 Apr 2016 17:07:04 +0000
+
 webbrowser-app (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
 
   * Add --open-external-url-in-overlay option to allow externals urls

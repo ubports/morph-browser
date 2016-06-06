@@ -103,7 +103,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(2)
         self.main_window.press_key('Ctrl+Page_Down')
         self.check_tab_number(0)
-        self.main_window.press_key('Shift+Ctrl+Tab')
+        self.main_window.press_key('Ctrl+Shift+Tab')
         if self.main_window.wide:
             self.check_tab_number(2)
         else:
@@ -276,6 +276,16 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
+    def test_backspace_does_not_go_back_when_html_text_field_focused(self):
+        # Regression test for https://launchpad.net/bugs/1569938
+        url = self.base_url + "/textarea"
+        self.main_window.go_to_url(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.main_window.press_key('Backspace')
+        time.sleep(2)
+        self.assertThat(webview.url, Equals(url))
+
     def test_toggle_bookmarks(self):
         self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
         self.main_window.press_key('Ctrl+Shift+o')
@@ -360,7 +370,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.main_window.press_key('Escape')
         self.assertThat(history_view.searchMode, Eventually(Equals(False)))
-        self.assertThat(search_field.visible, Equals(False))
+        search_field.wait_until_destroyed()
 
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
@@ -493,3 +503,24 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.main_window.press_key('Ctrl+w')
         self.assert_number_webviews_eventually(1)
+
+    def test_addressbar_cleared_when_opening_new_tab(self):
+        # Verify that when opening a new tab while the address bar was focused,
+        # the address bar is cleared.
+        self.main_window.press_key('Ctrl+l')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals(self.url)))
+        self.main_window.press_key('Ctrl+t')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals("")))
+
+    def test_addressbar_cleared_when_switching_between_new_tabs(self):
+        # Verify that when opening a new tab while a new tab was already open
+        # with text input in the address bar, the address bar is cleared.
+        self.main_window.press_key('Ctrl+t')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals("")))
+        self.address_bar.write("abc")
+        self.main_window.press_key('Ctrl+t')
+        self.address_bar.activeFocus.wait_for(True)
+        self.assertThat(self.address_bar.text, Eventually(Equals("")))

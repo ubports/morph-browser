@@ -49,7 +49,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(searchengine)
         searchengine_page = settings.get_searchengine_page()
         searchengine_header = searchengine_page.select_single(
-            browser.BrowserPageHeader)
+            browser.PageHeader)
         searchengine_header.click_back_button()
         searchengine_page.wait_until_destroyed()
         self.assertThat(searchengine.currentSearchEngineDisplayName,
@@ -123,7 +123,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         privacy = settings.get_privacy_entry()
         self.pointing_device.click_object(privacy)
         privacy_page = settings.get_privacy_page()
-        privacy_header = privacy_page.select_single(browser.BrowserPageHeader)
+        privacy_header = privacy_page.select_single(browser.PageHeader)
         privacy_header.click_back_button()
         privacy_page.wait_until_destroyed()
 

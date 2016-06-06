@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,20 +17,12 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Gestures 0.1
+import Ubuntu.Components 1.3
 
-DirectionalDragArea {
-    direction: Direction.Upwards
+SwipeArea {
+    direction: SwipeArea.Upwards
 
-    // default values taken from unity8’s EdgeDragArea component
-    maxDeviation: units.gu(3)
-    wideningAngle: 50
-    distanceThreshold: units.gu(1.5)
-    minSpeed: 0
-    maxSilenceTime: 200
-    compositionTime: 60
-
-    readonly property real dragFraction: dragging ? Math.min(1.0, Math.max(0.0, sceneDistance / parent.height)) : 0.0
+    readonly property real dragFraction: dragging ? Math.min(1.0, Math.max(0.0, distance / parent.height)) : 0.0
     readonly property var thresholds: [0.05, 0.18, 0.36, 0.54, 1.0]
     readonly property int stage: thresholds.map(function(t) { return dragFraction <= t }).indexOf(true)
 }

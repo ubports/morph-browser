@@ -47,6 +47,7 @@ BrowserWindow {
     property bool blockOpenExternalUrls: false
     property bool openExternalUrlInOverlay: false
     property string defaultVideoCaptureCameraPosition: ""
+    property bool popupBlockerEnabled: true
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
@@ -91,6 +92,7 @@ BrowserWindow {
             blockOpenExternalUrls: root.blockOpenExternalUrls
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
             defaultVideoCaptureCameraPosition: root.defaultVideoCaptureCameraPosition
+            popupBlockerEnabled: root.popupBlockerEnabled
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 

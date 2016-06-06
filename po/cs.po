@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-25 21:16+0100\n"
+"POT-Creation-Date: 2016-06-02 19:24+0200\n"
 "PO-Revision-Date: 2015-07-07 10:46+0000\n"
 "Last-Translator: Vojtěch Daněk <vdanek@outlook.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-03-26 05:41+0000\n"
-"X-Generator: Launchpad (build 17967)\n"
+"X-Launchpad-Export-Date: 2016-06-03 06:14+0000\n"
+"X-Generator: Launchpad (build 18086)\n"
 "Language: cs\n"
 
 #: src/app/AlertDialog.qml:23
@@ -51,14 +51,12 @@ msgstr "Heslo"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContentDownloadDialog.qml:113
+#: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/HistoryView.qml:175
-#: src/app/webbrowser/HistoryViewWide.qml:397
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:275
-#: src/app/webbrowser/SettingsPage.qml:329
+#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -316,6 +314,36 @@ msgstr ""
 "Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
 "certifikát, který neprošel bezpečnostní kontrolou z neznámého důvodu."
 
+#: src/app/MediaAccessDialog.qml:31
+msgid "Permission"
+msgstr "Oprávnění"
+
+#: src/app/MediaAccessDialog.qml:38
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Povolit této doméně přístup ke kameře a mikrofonu?"
+
+#: src/app/MediaAccessDialog.qml:39
+msgid "Allow this domain to access your camera?"
+msgstr "Povolit této doméně přístup ke kameře?"
+
+#: src/app/MediaAccessDialog.qml:40
+msgid "Allow this domain to access your microphone?"
+msgstr "Povolit této doméně přístup k mikrofonu?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/MediaAccessDialog.qml:48
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (přistupuje z %2)"
+
+#: src/app/MediaAccessDialog.qml:72
+msgid "Yes"
+msgstr "Ano"
+
+#: src/app/MediaAccessDialog.qml:83
+msgid "No"
+msgstr "Ne"
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "Výzva JavaScriptu"
@@ -384,7 +412,7 @@ msgstr "Vyjmout"
 msgid "Erase"
 msgstr "Smazat"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:552
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
 msgid "Find in page"
 msgstr "Najít na stránce"
 
@@ -414,7 +442,7 @@ msgstr "Přejít na"
 msgid "Address;URL;www"
 msgstr "Adresa;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:435
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Nový panel"
@@ -428,6 +456,10 @@ msgstr "Otevřít v novém panelu"
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
 msgstr "Otevřít obrázek v novém panelu"
+
+#: src/app/actions/OpenLinkInBrowser.qml:22
+msgid "Open link in default browser"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -472,13 +504,11 @@ msgstr "Uložit odkaz"
 msgid "Save video"
 msgstr "Uložit video"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
-#: src/app/webbrowser/HistoryView.qml:190
-#: src/app/webbrowser/HistoryViewWide.qml:422
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 msgid "Select all"
 msgstr "Zvolit vše"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:532
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
 msgid "Share"
 msgstr "Sdílet"
 
@@ -487,16 +517,16 @@ msgid "Undo"
 msgstr "Zpět"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:208
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:246
+#: src/app/webbrowser/AddressBar.qml:244
 msgid "find in page"
 msgstr "najít na stránce"
 
-#: src/app/webbrowser/AddressBar.qml:247
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "search or enter an address"
 msgstr "hledat nebo zadat adresu"
 
@@ -530,86 +560,87 @@ msgid "Create new folder"
 msgstr "Vytvořit nový adresář"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:339
+#: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "Uložit"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
-#: src/app/webbrowser/BookmarksFoldersViewWide.qml:159
-#: src/app/webbrowser/NewTabView.qml:258 src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:303
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
+#: src/app/webbrowser/NewTabView.qml:253
+#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "Domovská stránka"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:540 src/app/webbrowser/NewTabView.qml:135
+#: src/app/webbrowser/BookmarksView.qml:32
+#: src/app/webbrowser/BookmarksViewWide.qml:32
+#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:421 src/app/webbrowser/HistoryView.qml:131
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/BookmarksView.qml:70
+#: src/app/webbrowser/BookmarksViewWide.qml:69
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
+#: src/app/webbrowser/HistoryViewWide.qml:418
 msgid "Done"
 msgstr "Hotovo"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:126
-#: src/app/webbrowser/HistoryView.qml:145
-#: src/app/webbrowser/HistoryViewWide.qml:531
+#: src/app/webbrowser/BookmarksView.qml:84
+#: src/app/webbrowser/BookmarksViewWide.qml:83
+#: src/app/webbrowser/HistoryView.qml:142
+#: src/app/webbrowser/HistoryViewWide.qml:432
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nový panel"
 
-#: src/app/webbrowser/Browser.qml:546
-#: src/app/webbrowser/HistoryViewWide.qml:381
+#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Historie"
 
-#: src/app/webbrowser/Browser.qml:559 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Stahování"
 
-#: src/app/webbrowser/Browser.qml:566
+#: src/app/webbrowser/Browser.qml:582
 msgid "Leave Private Mode"
 msgstr "Opustit anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:566
+#: src/app/webbrowser/Browser.qml:582
 msgid "Private Mode"
 msgstr "Anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Nastavení"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:756 src/app/webbrowser/Browser.qml:791
+#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1345
+#: src/app/webbrowser/Browser.qml:1366
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Přejeďte prstem nahoru pro ukončení módu celé obrazovky"
 
-#: src/app/webbrowser/Browser.qml:1346
+#: src/app/webbrowser/Browser.qml:1367
 msgid "Press ESC To Exit Full Screen"
 msgstr "Stiskněte ESC pro ukončení módu celé obrazovky"
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:82
+#: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
 "Zvolte aplikaci která má otevírat soubory tohoto typu nebo ji přidejte do "
 "složky pro stažení."
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:88
+#: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Vyberte aplikaci"
 
-#: src/app/webbrowser/ContentDownloadDialog.qml:101
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
 msgstr "Stáhnout"
 
@@ -621,21 +652,19 @@ msgstr "Stahování selhalo"
 msgid "Resume"
 msgstr "Pokračovat"
 
-#: src/app/webbrowser/DownloadsPage.qml:61
+#: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Potvrdit výběr"
 
-#: src/app/webbrowser/DownloadsPage.qml:101
-#: src/app/webbrowser/HistoryView.qml:217
-#: src/app/webbrowser/HistoryViewWide.qml:441
+#: src/app/webbrowser/DownloadsPage.qml:99
 msgid "Delete"
 msgstr "Smazat"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:259
 msgid "No downloads available"
 msgstr "Stahování je nedostupné"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -643,8 +672,8 @@ msgstr[0] "%1 stránka"
 msgstr[1] "%1 stránky"
 msgstr[2] "%1 stránek"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:136
-#: src/app/webbrowser/NewTabView.qml:148
+#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Méně"
 
@@ -653,52 +682,26 @@ msgid "Last Visited"
 msgstr "Poslední navštívené"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
 msgstr "Včera"
 
-#: src/app/webbrowser/HistoryViewWide.qml:196
+#: src/app/webbrowser/HistoryViewWide.qml:160
+msgid "search history"
+msgstr "hledání v historii"
+
+#: src/app/webbrowser/HistoryViewWide.qml:235
 msgid "All History"
 msgstr "Celá historie"
 
-#: src/app/webbrowser/HistoryViewWide.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:295
+#: src/app/webbrowser/HistoryViewWide.qml:249
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Today"
 msgstr "dnes"
-
-#: src/app/webbrowser/HistoryViewWide.qml:462
-msgid "search history"
-msgstr "hledání v historii"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Přechodem do veřejného režimu zavřete všechna anonymní okna."
-
-#: src/app/webbrowser/MediaAccessDialog.qml:28
-msgid "Allow this domain to access your camera and microphone?"
-msgstr "Povolit této doméně přístup ke kameře a mikrofonu?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:29
-msgid "Allow this domain to access your camera?"
-msgstr "Povolit této doméně přístup ke kameře?"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:30
-msgid "Allow this domain to access your microphone?"
-msgstr "Povolit této doméně přístup k mikrofonu?"
-
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/webbrowser/MediaAccessDialog.qml:39
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (přistupuje z %2)"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:48
-msgid "Yes"
-msgstr "Ano"
-
-#: src/app/webbrowser/MediaAccessDialog.qml:60
-msgid "No"
-msgstr "Ne"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -712,16 +715,16 @@ msgstr ""
 "Stránky, které budete prohlížet se neobjeví v historii prohlížení.\n"
 "Ovšem záložky, které vytvoříte, zůstanou zachovány."
 
-#: src/app/webbrowser/NewTabView.qml:148
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
 msgstr "Více"
 
-#: src/app/webbrowser/NewTabView.qml:335
+#: src/app/webbrowser/NewTabView.qml:328
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Nejnavštěvovanější stránky"
 
-#: src/app/webbrowser/NewTabView.qml:366
+#: src/app/webbrowser/NewTabView.qml:359
 msgid "You haven't visited any site yet"
 msgstr "Nebyly navštíveny žádné stránky"
 
@@ -804,17 +807,17 @@ msgstr "Který spravuje"
 msgid "Default"
 msgstr "Výchozí"
 
-#: src/app/webbrowser/SettingsPage.qml:80
-#: src/app/webbrowser/SettingsPage.qml:156
+#: src/app/webbrowser/SettingsPage.qml:70
+#: src/app/webbrowser/SettingsPage.qml:150
 msgid "Search engine"
 msgstr "Vyhledávač"
 
-#: src/app/webbrowser/SettingsPage.qml:100
+#: src/app/webbrowser/SettingsPage.qml:96
 msgid "Restore previous session at startup"
 msgstr "Obnovit předchozí relaci při startu"
 
-#: src/app/webbrowser/SettingsPage.qml:118
-#: src/app/webbrowser/SettingsPage.qml:208
+#: src/app/webbrowser/SettingsPage.qml:115
+#: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
 msgstr "Soukromí & oprávnění"
 
@@ -822,36 +825,36 @@ msgstr "Soukromí & oprávnění"
 msgid "Reset browser settings"
 msgstr "Obnovit nastavení prohlížeče"
 
-#: src/app/webbrowser/SettingsPage.qml:229
-#: src/app/webbrowser/SettingsPage.qml:367
+#: src/app/webbrowser/SettingsPage.qml:206
+#: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
 msgstr "Kamera & mikrofón"
 
-#: src/app/webbrowser/SettingsPage.qml:235
+#: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
 msgstr "Smazat historii procházení"
 
-#: src/app/webbrowser/SettingsPage.qml:238
+#: src/app/webbrowser/SettingsPage.qml:219
 msgid "Clear Browsing History?"
 msgstr "Smazat historii?"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
 msgstr "Vymazat Cache"
 
-#: src/app/webbrowser/SettingsPage.qml:247
+#: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
 msgstr "Vyčistit vyrovnávací paměť?"
 
-#: src/app/webbrowser/SettingsPage.qml:282
+#: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
 msgstr "Vyčistit"
 
-#: src/app/webbrowser/SettingsPage.qml:387
+#: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: src/app/webbrowser/SettingsPage.qml:406
+#: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "Kamera"
 
@@ -869,13 +872,13 @@ msgstr "Odebrat"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:69
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Internetový prohlížeč Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:69
+#: src/app/webcontainer/webapp-container.qml:71
 msgid "Ubuntu Web Browser"
 msgstr "Internetový prohlížeč Ubuntu"
 
@@ -910,6 +913,10 @@ msgid ""
 msgstr ""
 "Okno účtu nemůže být otevřeno. Můžete vytvářet pouze jeden účet současně, "
 "prosím zkuste to znova po zavření všech ostatních oken účtů."
+
+#: src/app/webcontainer/AccountsLogic.qml:214
+msgid "Authentication failed"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45

@@ -39,6 +39,7 @@ WebappWebview {
     property var mediaAccessDialogComponent
     property bool openExternalUrlInOverlay: false
     property string defaultVideoCaptureCameraPosition: ""
+    property bool popupBlockerEnabled: true
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -54,6 +55,14 @@ WebappWebview {
     signal openExternalUrlTriggered(string url)
     signal gotRedirectionUrl(string url)
     property bool runningLocalApplication: false
+
+    onLoadEvent: {
+        var url = event.url.toString()
+        if (event.type === Oxide.LoadEvent.TypeRedirected
+                && url.indexOf("SAMLRequest") > 0) {
+            handleSamlRequestNavigation(url)
+        }
+    }
 
     function openOverlayForUrl(overlayUrl) {
         if (popupController) {
@@ -72,6 +81,7 @@ WebappWebview {
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
 
         cameraPositionVideoCaptureDefault: webview.defaultVideoCaptureCameraPosition
+        popupBlockerEnabled: webview.popupBlockerEnabled
 
         userScripts: [
             Oxide.UserScript {
@@ -179,6 +189,18 @@ WebappWebview {
         return false;
     }
 
+    function handleSamlRequestNavigation(url) {
+        var urlRegExp = new RegExp("https?://([^?/]+)")
+        var match = urlRegExp.exec(url)
+        var host = match[1]
+        var escapeDotsRegExp = new RegExp("\\.", "g")
+        var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
+
+        console.log("SAML request detected. Adding host pattern: " + hostPattern)
+
+        handleSAMLRequestPattern(hostPattern)
+    }
+
     function navigationRequestedDelegate(request) {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
@@ -189,13 +211,13 @@ WebappWebview {
 
         request.action = Oxide.NavigationRequest.ActionReject
         if (isNewForegroundWebViewDisposition(request.disposition)) {
-            request.action = Oxide.NavigationRequest.ActionAccept
             var shouldAcceptRequest =
-                    popupWindowController.handleNewForegroundNavigationRequest(
+                    popupController.handleNewForegroundNavigationRequest(
                           url, request, true);
             if (shouldAcceptRequest) {
                 request.action = Oxide.NavigationRequest.ActionAccept
             }
+            return
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
@@ -214,18 +236,9 @@ WebappWebview {
         // query parameter called "SAMLRequest".
         // Besides letting the request through, we must also add the SAML
         // domain to the list of the allowed hosts.
-        if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab &&
-            url.indexOf("SAMLRequest") > 0) {
-            var urlRegExp = new RegExp("https?://([^?/]+)")
-            var match = urlRegExp.exec(url)
-            var host = match[1]
-            var escapeDotsRegExp = new RegExp("\\.", "g")
-            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
-
-            console.log("SAML request detected. Adding host pattern: " + hostPattern)
-
-            handleSAMLRequestPattern(hostPattern)
-
+        if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab
+                && url.indexOf("SAMLRequest") > 0) {
+            handleSamlRequestNavigation(url)
             request.action = Oxide.NavigationRequest.ActionAccept
         }
 

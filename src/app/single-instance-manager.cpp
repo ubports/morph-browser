@@ -33,12 +33,48 @@
 #include "single-instance-manager.h"
 
 namespace {
+
 const int kWaitForRunningInstanceToRespondMs = 1000;
 const int kWaitForRunningInstanceToAckMs = 1000;
 const int kDataStreamVersion = QDataStream::Qt_5_0;
 const QString kHeaderToken = QStringLiteral("MESSAGE");
 const QString kAckToken = QStringLiteral("ACK");
+
+QString getProfilePathFromAppId(const QString& appId)
+{
+    QString profilePath =
+            QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+
+    QStringList appIdParts = appId.split('_', QString::SkipEmptyParts);
+
+    QString appDesktopName;
+
+    // We try to get the "short app name" to try to uniquely identify
+    // the single instance profile path.
+
+    // In cases where you have a single click with multiple apps in it,
+    // the "app name" as defined in the click manifest.json file will be
+    // a proper way to distinguish a unique instance, it needs to take
+    // the desktop name into account.
+
+    // At the moment there is no clean way to get those click app name
+    // paths, see:
+    //  https://launchpad.net/bugs/1555542
+
+    if (appIdParts.size() >= 3) {
+        // Assume that we have a APP_ID that corresponds to:
+        // <manifest app name>_<desktop app name>_<version>
+        appDesktopName = appIdParts[1];
+    } else {
+        // We either run on desktop or as the webbrowser
+        appDesktopName = appIdParts.first();
+    }
+
+    return profilePath + QDir::separator() + appDesktopName;
 }
+
+}
+
 
 SingleInstanceManager::SingleInstanceManager(QObject* parent)
     : QObject(parent)
@@ -54,13 +90,13 @@ bool SingleInstanceManager::listen(const QString& name)
     return false;
 }
 
-bool SingleInstanceManager::run(const QStringList& arguments)
+bool SingleInstanceManager::run(const QStringList& arguments, const QString& appId)
 {
     if (m_server.isListening()) {
         return false;
     }
 
-    QDir profile(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    QDir profile(getProfilePathFromAppId(appId));
     if (!profile.exists()) {
         if (!QDir::root().mkpath(profile.absolutePath())) {
             qCritical() << "Failed to create profile directory,"
@@ -69,6 +105,8 @@ bool SingleInstanceManager::run(const QStringList& arguments)
         }
     }
     QString name = profile.absoluteFilePath(QStringLiteral("SingletonSocket"));
+    // XXX: Unix domain sockets limit the length of the pathname to 108 characters.
+    //  We should probably handle QAbstractSocket::HostNotFoundError explicitly.
 
     if (listen(name)) {
         return true;

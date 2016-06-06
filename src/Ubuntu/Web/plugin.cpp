@@ -49,6 +49,7 @@ class UbuntuWebPluginContext : public QObject
                READ webcontextDefaultVideoCaptureCameraPosition
                WRITE setWebcontextDefaultVideoCaptureCameraPosition
                NOTIFY webcontextDefaultVideoCaptureCameraPositionChanged)
+    Q_PROPERTY(QString ubuntuVersion READ ubuntuVersion CONSTANT)
 
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
@@ -62,6 +63,7 @@ public:
     QStringList hostMappingRules();
     QString webcontextDefaultVideoCaptureCameraPosition() const;
     void setWebcontextDefaultVideoCaptureCameraPosition(const QString & defaultPosition);
+    QString ubuntuVersion() const;
 
 Q_SIGNALS:
     void cacheLocationChanged() const;
@@ -227,6 +229,11 @@ int UbuntuWebPluginContext::devtoolsPort()
         }
     }
     return m_devtoolsPort;
+}
+
+QString UbuntuWebPluginContext::ubuntuVersion() const
+{
+    return QStringLiteral(UBUNTU_VERSION);
 }
 
 void UbuntuWebPluginContext::onFocusWindowChanged(QWindow* window)

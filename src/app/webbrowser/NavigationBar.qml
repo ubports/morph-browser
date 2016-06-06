@@ -107,6 +107,7 @@ FocusScope {
 
             findInPageMode: findInPageMode
             findController: internal.webview ? internal.webview.findController : null
+            securityStatus: internal.webview ? internal.webview.securityStatus : null
 
             anchors {
                 left: parent.left
@@ -115,7 +116,8 @@ FocusScope {
                 leftMargin: Math.round(backButton.width + forwardButton.width + units.gu(1))
                 right: rightButtonsBar.left
                 rightMargin: units.gu(1)
-                verticalCenter: parent.verticalCenter
+                top: parent.top
+                bottom: parent.bottom
             }
 
             icon: (internal.webview && internal.webview.certificateError) ? "" : tab ? tab.icon : ""
@@ -220,15 +222,16 @@ FocusScope {
         id: internal
         property var openDrawer: null
         readonly property var webview: tab ? tab.webview : null
+    }
 
-        onWebviewChanged: {
-            if (webview) {
-                addressbar.actualUrl = webview.url
-                addressbar.securityStatus = webview.securityStatus
-            } else {
-                addressbar.actualUrl = ""
-                addressbar.securityStatus = null
+    onTabChanged: {
+        if (tab) {
+            addressbar.actualUrl = tab.url
+            if (!tab.url.toString() && editing) {
+                addressbar.text = ""
             }
+        } else {
+            addressbar.actualUrl = ""
         }
     }
 

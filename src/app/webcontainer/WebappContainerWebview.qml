@@ -42,6 +42,7 @@ Item {
     property bool wide: false
     property bool openExternalUrlInOverlay: false
     property string defaultVideoCaptureCameraPosition: ""
+    property bool popupBlockerEnabled: true
 
     signal samlRequestUrlPatternReceived(string urlPattern)
     signal themeColorMetaInformationDetected(string theme_color)
@@ -128,7 +129,8 @@ Item {
                     , wide: containerWebview.wide
                     , mediaAccessDialogComponent: mediaAccessDialogComponent
                     , openExternalUrlInOverlay: containerWebview.openExternalUrlInOverlay
-                    , defaultVideoCaptureCameraPosition: containerWebview.defaultVideoCaptureCameraPosition})
+                    , defaultVideoCaptureCameraPosition: containerWebview.defaultVideoCaptureCameraPosition
+                    , popupBlockerEnabled: containerWebview.popupBlockerEnabled})
     }
 }
 

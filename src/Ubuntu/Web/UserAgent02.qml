@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -47,9 +47,6 @@ QtObject {
     //   difference in the content served by certain sites (e.g. gmail.com)
     readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 %6Safari/%7%8"
 
-    // FIXME: compute at build time (using lsb_release)
-    readonly property string _ubuntuVersion: "14.04"
-
     readonly property string _attributes: smallScreen ? "like Android 4.4" : ""
 
     readonly property string _hardwareID: ""
@@ -69,7 +66,7 @@ QtObject {
 
     property string defaultUA: {
         var ua = _template
-        ua = ua.arg(_ubuntuVersion) // %1
+        ua = ua.arg(ubuntuVersion) // %1
         ua = ua.arg((_attributes !== "") ? " %1".arg(_attributes) : "") // %2
         ua = ua.arg((_hardwareID !== "") ? "; %1".arg(_hardwareID) : "") // %3
         ua = ua.arg(_webkitVersion) // %4

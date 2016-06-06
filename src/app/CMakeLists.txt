@@ -27,13 +27,14 @@ set(COMMONLIB_SRC
     session-storage.cpp
     single-instance-manager.cpp
     webbrowser-window.cpp
+    qquickshortcut.cpp
 )
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-include_directories(${unity8_SOURCE_DIR}/libs/UbuntuGestures
-                    ${unity8_SOURCE_DIR}/plugins
-                    ${LIBAPPARMOR_INCLUDE_DIRS})
+include_directories(${unity8_SOURCE_DIR}/plugins
+                    ${LIBAPPARMOR_INCLUDE_DIRS}
+                    ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 target_link_libraries(${COMMONLIB}
     Qt5::Core
     Qt5::Gui
@@ -41,7 +42,6 @@ target_link_libraries(${COMMONLIB}
     Qt5::Qml
     Qt5::Quick
     Qt5::Widgets
-    UbuntuGesturesQml
     InputInfo
     ${LIBAPPARMOR_LDFLAGS}
 )

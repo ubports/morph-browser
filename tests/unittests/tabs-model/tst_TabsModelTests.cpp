@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -33,11 +33,11 @@ class TabsModelTests : public QObject
     Q_OBJECT
 
 private:
+    QQmlEngine engine;
     TabsModel* model;
 
     QQuickItem* createTab()
     {
-        QQmlEngine engine;
         QQmlComponent component(&engine);
         QByteArray data("import QtQuick 2.4\nItem {\nproperty url url\n"
                         "property string title\nproperty url icon\n}");

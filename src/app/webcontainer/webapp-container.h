@@ -54,6 +54,7 @@ private:
     bool shouldNotValidateCommandLineUrls() const;
     bool isValidLocalIntentFilterFile(const QString& filename) const;
     void setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath);
+    QString appId() const;
 
 private:
     QString m_webappName;

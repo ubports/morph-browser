@@ -26,9 +26,10 @@ class WebappContainerSAMLUrlPatternsTestCase(
         args = ["--webappUrlPatterns=\
 http://www.test.com/saml/*,{}/saml/*".format(self.base_url)]
 
-        samlRequestRedirectsCount = 1
+        expectedSamlRequestRedirectPatternsCount = 1
+        samlRequestNavigationCount = 3
         target_path = '/saml/?\
-loopcount={}'.format(str(samlRequestRedirectsCount))
+loopcount={}'.format(str(samlRequestNavigationCount))
 
         self.launch_webcontainer_app_with_local_http_server(
             args,
@@ -38,6 +39,8 @@ loopcount={}'.format(str(samlRequestRedirectsCount))
         self.get_webcontainer_window().visible.wait_for(True)
         self.assert_page_eventually_loaded(self.base_url+target_path)
 
+        saml_url_navigations_detected_watcher = self.get_webview(
+            ).watch_signal('samlRequestUrlPatternReceived(QString)')
         webcontainer_webview = self.get_webcontainer_webview()
         url_patterns_settings_watcher = webcontainer_webview.watch_signal(
             'generatedUrlPatternsChanged()')
@@ -55,7 +58,10 @@ loopcount={}'.format(str(samlRequestRedirectsCount))
             Eventually(Equals(True)))
         self.assertThat(
             lambda: url_patterns_settings_watcher.num_emissions,
-            Eventually(Equals(samlRequestRedirectsCount)))
+            Eventually(Equals(expectedSamlRequestRedirectPatternsCount)))
+        self.assertThat(
+            lambda: saml_url_navigations_detected_watcher.num_emissions,
+            Eventually(Equals(samlRequestNavigationCount+1)))
 
         saved_patterns = webcontainer_webview.generatedUrlPatterns
 

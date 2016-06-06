@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,74 +18,31 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 import "." as Local
 
-FocusScope {
+BrowserPage {
     id: bookmarksViewWide
 
     property alias homepageUrl: bookmarksFoldersViewWide.homeBookmarkUrl
 
     signal bookmarkEntryClicked(url url)
-    signal done()
     signal newTabClicked()
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#f6f6f6"
-    }
+    title: i18n.tr("Bookmarks")
 
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
 
-        anchors {
-            top: topBar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: toolbar.top
-        }
-
+        anchors.fill: parent
         focus: true
 
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
         onBookmarkRemoved: {
             if (BookmarksModel.count == 1) {
-                done()
+                bookmarksViewWide.back()
             }
             BookmarksModel.remove(url)
-        }
-    }
-
-    Local.Toolbar {
-        id: topBar
-
-        height: units.gu(7)
-        color: "#f7f7f7"
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-        }
-
-        Label {
-            anchors {
-                top: parent.top
-                left: parent.left
-                topMargin: units.gu(2)
-                leftMargin: units.gu(2)
-            }
-
-            text: i18n.tr("Bookmarks")
-        }
-
-        ListItems.ThinDivider {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
         }
     }
 
@@ -111,7 +68,7 @@ FocusScope {
 
             text: i18n.tr("Done")
 
-            onClicked: bookmarksViewWide.done()
+            onClicked: bookmarksViewWide.back()
         }
 
         ToolbarAction {

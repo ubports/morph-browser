@@ -76,7 +76,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
 
-    if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
+    if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", QStringLiteral("webbrowser-app"))) {
         QStringList searchEnginesSearchPaths;
         searchEnginesSearchPaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/searchengines";
         searchEnginesSearchPaths << UbuntuBrowserDirectory() + "/webbrowser/searchengines";

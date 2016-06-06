@@ -147,7 +147,7 @@ class TestContextMenuLink(TestContextMenuBase):
             'openUrlExternallyRequested(QString)')
         self.assertThat(signal.was_emitted, Equals(False))
 
-        self.menu.click_action("OpenLinkInWebBrowser")
+        self.menu.click_action("OpenLinkInBrowser")
 
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
@@ -234,7 +234,7 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
             'openUrlExternallyRequested(QString)')
         self.assertThat(signal.was_emitted, Equals(False))
 
-        self.menu.click_action("OpenLinkInWebBrowser")
+        self.menu.click_action("OpenLinkInBrowser")
 
         self.assertThat(lambda: signal.was_emitted, Eventually(Equals(True)))
         self.assertThat(signal.num_emissions, Equals(1))
@@ -298,7 +298,6 @@ class TestContextMenuImageAndLinkOverlayWebView(TestContextMenuImageAndLink):
         self._test_copy_image()
 
 
-@testtools.skipIf(model() != "Desktop", "on desktop only")
 class TestContextMenuTextArea(TestContextMenuBase):
 
     def _test_actions(self):
@@ -316,6 +315,7 @@ class TestContextMenuTextArea(TestContextMenuBase):
             self.menu = self._open_context_menu(webview)
 
 
+@testtools.skipIf(model() != "Desktop", "on desktop only")
 class TestContextMenuTextAreaMainWebView(TestContextMenuTextArea):
 
     def setUp(self):
@@ -327,6 +327,7 @@ class TestContextMenuTextAreaMainWebView(TestContextMenuTextArea):
         self._test_actions()
 
 
+@testtools.skipIf(model() != "Desktop", "on desktop only")
 class TestContextMenuTextAreaOverlayWebView(TestContextMenuTextArea):
 
     def setUp(self):

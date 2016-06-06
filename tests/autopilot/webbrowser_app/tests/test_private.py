@@ -16,6 +16,7 @@
 
 from testtools.matchers import Equals, NotEquals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -30,7 +31,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assert_number_incognito_webviews_eventually(1)
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.assertThat(address_bar.activeFocus,
-                        Eventually(Equals(self.main_window.wide)))
+                        Eventually(Equals(model() == 'Desktop')))
         self.assertThat(address_bar.text, Eventually(Equals("")))
 
         self.main_window.leave_private_mode()

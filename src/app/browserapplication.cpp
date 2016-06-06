@@ -38,12 +38,10 @@
 #include "favicon-fetcher.h"
 #include "meminfo.h"
 #include "mime-database.h"
+#include "qquickshortcut_p.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
-#include "TouchRegistry.h"
-#include "Ubuntu/Gestures/Direction.h"
-#include "Ubuntu/Gestures/DirectionalDragArea.h"
 #include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
@@ -97,16 +95,6 @@ QString BrowserApplication::inspectorHost() const
     return host;
 }
 
-QString BrowserApplication::appId() const
-{
-    Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--app-id=")) {
-            return argument.split("--app-id=")[1];
-        }
-    }
-    return QString();
-}
-
 #define MAKE_SINGLETON_FACTORY(type) \
     static QObject* type##_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine) { \
         Q_UNUSED(engine); \
@@ -116,38 +104,55 @@ QString BrowserApplication::appId() const
 
 MAKE_SINGLETON_FACTORY(MemInfo)
 MAKE_SINGLETON_FACTORY(MimeDatabase)
-MAKE_SINGLETON_FACTORY(Direction)
 
-
-bool BrowserApplication::initialize(const QString& qmlFileSubPath)
+bool BrowserApplication::initialize(const QString& qmlFileSubPath
+                                    , const QString& appId)
 {
     Q_ASSERT(m_window == 0);
+
+    if (appId.isEmpty()) {
+        qCritical() << "Cannot initialize the runtime environment: "
+                       "no application id detected.";
+        return false;
+    }
 
     if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
         printUsage();
         return false;
     }
 
-    // Handle legacy platforms (i.e. current desktop versions, where
-    // applications are not started by the Ubuntu ApplicationManager).
-    if (qgetenv("APP_ID").isEmpty()) {
-        QString id = appId();
-        if (id.isEmpty()) {
-            id = QStringLiteral(APP_ID);
-        }
-        qputenv("APP_ID", id.toUtf8());
-    }
     // Ensure that application-specific data is written where it ought to.
-    QStringList appIdParts =
-        QString::fromUtf8(qgetenv("APP_ID")).split('_');
+    QStringList appIdParts = appId.split('_');
+
     QCoreApplication::setApplicationName(appIdParts.first());
     QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
+
     // Get also the the first two components of the app ID: <package>_<app>,
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
     // Ensure only one instance of the app is running.
-    if (m_singleton.run(m_arguments)) {
+    // For webapps using the container as a launcher, the predicate that
+    // is used to determine if this running instance is a duplicate of
+    // a running one, is based on the current APP_ID.
+    // The app id is formed as: <package name>_<app name>_<version>
+
+    // Where the <package name> is specified in the the manifest.json as
+    // "appName" and is specific for the whole click package.
+
+    // The <app name> portion is based on the desktop file name and is a short
+    // app name. This name is meaningful when more than one desktop file is
+    // found in a given click package.
+
+    // IMPORTANT:
+    // 1. When a click application contains more than one desktop file
+    // the bundle is considered a single app from the point of view of the
+    // cache and resource file locations. THOSE FILES ARE THEN SHARED between
+    // the instances.
+    // 2. To make sure that if more than one desktop file is found in a click package,
+    // those apps are not considered the same instance, the instance existance predicate
+    // is based on the <package name> AND the <app name> detailed above.
+    if (m_singleton.run(m_arguments, appId)) {
         connect(&m_singleton, SIGNAL(newInstanceLaunched(const QStringList&)),
                 SLOT(onNewInstanceLaunched(const QStringList&)));
     } else {
@@ -179,10 +184,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
-
-    const char* gesturesUri = "Ubuntu.Gestures";
-    qmlRegisterSingletonType<Direction>(gesturesUri, 0, 1, "Direction", Direction_singleton_factory);
-    qmlRegisterType<DirectionalDragArea>(gesturesUri, 0, 1, "DirectionalDragArea");
+    qmlRegisterType<QQuickShortcut>(uri, 0, 1, "Shortcut");
 
     const char* inputInfoUri = "Unity.InputInfo";
     qmlRegisterType<QDeclarativeInputDeviceModel>(inputInfoUri, 0, 1, "InputDeviceModel");
@@ -212,8 +214,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
-
-    m_window->installEventFilter(new TouchRegistry(this));
 
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
     browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));

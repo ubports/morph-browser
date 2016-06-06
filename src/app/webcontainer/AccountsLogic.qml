@@ -211,7 +211,7 @@ Item {
 
         login(__account, function(authenticated) {
             if (!authenticated) {
-                errorScreenRequested(i18n.it("Authentication failed"))
+                errorScreenRequested(i18n.tr("Authentication failed"))
             } else {
                 console.log("Authentication succeeded, moving cookies")
                 var accountsCookieStore = onlineAccountStoreComponent.createObject(root, {
