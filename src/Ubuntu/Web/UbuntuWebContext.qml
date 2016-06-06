@@ -100,35 +100,54 @@ Oxide.WebContext {
 
     hostMappingRules: webviewHostMappingRules
 
-    property string cameraPositionVideoCaptureDefault: "frontface"
+    /**
+     *
+     *
+     */
+    property QtObject __internal : QtObject {
+        readonly property string cameraNamePrefixVideoCaptureDefault: (cameraPositionVideoCaptureDefault === "frontface") ? i18n.tr("Front") : ""
+        readonly property string cameraPositionUnspecified: "unspecified"
+    }
+
+    readonly property string cameraPositionVideoCaptureDefault: webcontextDefaultVideoCaptureCameraPosition
     Component.onCompleted: {
-        var OxideGlobal = Oxide.Oxide
+        var OxideGlobals = Oxide.Oxide
 
         function updateDefaultVideoCaptureDevice() {
-            var devices = OxideGlobal.availableVideoCaptureDevices
-            if (! OxideGlobal.defaultVideoCaptureDeviceId) {
+            var devices = OxideGlobals.availableVideoCaptureDevices
+
+            if (cameraPositionVideoCaptureDefault
+                    && ! oxideContext.defaultVideoCaptureDeviceId
+                    && devices
+                    && devices.length > 0) {
+
                 for (var i = 0; i < devices.length; ++i) {
                     if (devices[i].position === cameraPositionVideoCaptureDefault) {
-                        OxideGlobal.defaultVideoCaptureDeviceId = devices[i].id
+                        oxideContext.defaultVideoCaptureDeviceId = devices[i].id
+                        break
+                    }
+
+                    /**
+                     *
+                     */
+                    var displayName = devices[i].displayName
+                    if (__internal.cameraNamePrefixVideoCaptureDefault
+                            && __internal.cameraPositionUnspecified === devices[i].position
+                            && displayName.indexOf(
+                                __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
+                        oxideContext.defaultVideoCaptureDeviceId = devices[i].id
                         break
                     }
                 }
             }
-
-            //TODO handle the case of a non existant (removed) Oxide.defaultVideoCaptureDeviceId
         }
 
-        if (cameraPositionVideoCaptureDefault) {
-            var devices = OxideGlobal.availableVideoCaptureDevices
-            if (! devices || devices.length === 0) {
-                OxideGlobal.availableVideoCaptureDevicesChanged.connect(function(){
-                    updateDefaultVideoCaptureDevice()
-
-                    //TODO disconnect?
-                })
-            } else {
-                updateDefaultVideoCaptureDevice()
-            }
+        var devices = OxideGlobals.availableVideoCaptureDevices
+        if (devices.length !== 0) {
+            updateDefaultVideoCaptureDevice()
         }
+        OxideGlobals.availableVideoCaptureDevicesChanged.connect(function(){
+            updateDefaultVideoCaptureDevice()
+        })
     }
 }
