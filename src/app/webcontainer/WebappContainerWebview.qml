@@ -41,6 +41,7 @@ Item {
     property bool runningLocalApplication: false
     property bool wide: false
     property bool openExternalUrlInOverlay: false
+    property string defaultVideoCaptureCameraPosition: ""
     property bool popupBlockerEnabled: true
 
     signal samlRequestUrlPatternReceived(string urlPattern)
@@ -128,6 +129,7 @@ Item {
                     , wide: containerWebview.wide
                     , mediaAccessDialogComponent: mediaAccessDialogComponent
                     , openExternalUrlInOverlay: containerWebview.openExternalUrlInOverlay
+                    , defaultVideoCaptureCameraPosition: containerWebview.defaultVideoCaptureCameraPosition
                     , popupBlockerEnabled: containerWebview.popupBlockerEnabled})
     }
 }

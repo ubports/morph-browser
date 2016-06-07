@@ -99,4 +99,55 @@ Oxide.WebContext {
     devtoolsIp: webviewDevtoolsDebugHost
 
     hostMappingRules: webviewHostMappingRules
+
+    /**
+     *
+     *
+     */
+    property QtObject __internal : QtObject {
+        readonly property string cameraNamePrefixVideoCaptureDefault: (cameraPositionVideoCaptureDefault === "frontface") ? i18n.tr("Front") : ""
+        readonly property string cameraPositionUnspecified: "unspecified"
+    }
+
+    readonly property string cameraPositionVideoCaptureDefault: webcontextDefaultVideoCaptureCameraPosition
+    Component.onCompleted: {
+        var OxideGlobals = Oxide.Oxide
+
+        function updateDefaultVideoCaptureDevice() {
+            var devices = OxideGlobals.availableVideoCaptureDevices
+
+            if (cameraPositionVideoCaptureDefault
+                    && ! oxideContext.defaultVideoCaptureDeviceId
+                    && devices
+                    && devices.length > 0) {
+
+                for (var i = 0; i < devices.length; ++i) {
+                    if (devices[i].position === cameraPositionVideoCaptureDefault) {
+                        oxideContext.defaultVideoCaptureDeviceId = devices[i].id
+                        break
+                    }
+
+                    /**
+                     *
+                     */
+                    var displayName = devices[i].displayName
+                    if (__internal.cameraNamePrefixVideoCaptureDefault
+                            && __internal.cameraPositionUnspecified === devices[i].position
+                            && displayName.indexOf(
+                                __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
+                        oxideContext.defaultVideoCaptureDeviceId = devices[i].id
+                        break
+                    }
+                }
+            }
+        }
+
+        var devices = OxideGlobals.availableVideoCaptureDevices
+        if (devices.length !== 0) {
+            updateDefaultVideoCaptureDevice()
+        }
+        OxideGlobals.availableVideoCaptureDevicesChanged.connect(function(){
+            updateDefaultVideoCaptureDevice()
+        })
+    }
 }

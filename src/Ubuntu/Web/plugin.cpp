@@ -45,6 +45,10 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
     Q_PROPERTY(QStringList webviewHostMappingRules READ hostMappingRules CONSTANT)
+    Q_PROPERTY(QString webcontextDefaultVideoCaptureCameraPosition
+               READ webcontextDefaultVideoCaptureCameraPosition
+               WRITE setWebcontextDefaultVideoCaptureCameraPosition
+               NOTIFY webcontextDefaultVideoCaptureCameraPositionChanged)
     Q_PROPERTY(QString ubuntuVersion READ ubuntuVersion CONSTANT)
 
 public:
@@ -57,6 +61,8 @@ public:
     QString devtoolsHost();
     int devtoolsPort();
     QStringList hostMappingRules();
+    QString webcontextDefaultVideoCaptureCameraPosition() const;
+    void setWebcontextDefaultVideoCaptureCameraPosition(const QString & defaultPosition);
     QString ubuntuVersion() const;
 
 Q_SIGNALS:
@@ -64,6 +70,7 @@ Q_SIGNALS:
     void dataLocationChanged() const;
     void screenDiagonalChanged() const;
     void cacheSizeHintChanged() const;
+    void webcontextDefaultVideoCaptureCameraPositionChanged() const;
 
 private Q_SLOTS:
     void onFocusWindowChanged(QWindow* window);
@@ -75,6 +82,7 @@ private:
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
     bool m_hostMappingRulesQueried;
+    QString m_webcontextDefaultVideoCaptureCameraPosition;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
@@ -82,6 +90,7 @@ UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     , m_screenDiagonal(0)
     , m_devtoolsPort(-2)
     , m_hostMappingRulesQueried(false)
+    , m_webcontextDefaultVideoCaptureCameraPosition("frontface")
 {
     connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(cacheLocationChanged()));
     connect(qApp, SIGNAL(applicationNameChanged()), SIGNAL(dataLocationChanged()));
@@ -104,6 +113,21 @@ void UbuntuWebPluginContext::updateScreen()
             }
         }
     }
+}
+
+QString UbuntuWebPluginContext::webcontextDefaultVideoCaptureCameraPosition() const
+{
+    return m_webcontextDefaultVideoCaptureCameraPosition;
+}
+
+void UbuntuWebPluginContext::setWebcontextDefaultVideoCaptureCameraPosition(
+        const QString & defaultPosition)
+{
+    if (m_webcontextDefaultVideoCaptureCameraPosition == defaultPosition) {
+        return;
+    }
+    m_webcontextDefaultVideoCaptureCameraPosition = defaultPosition;
+    Q_EMIT webcontextDefaultVideoCaptureCameraPositionChanged();
 }
 
 QString UbuntuWebPluginContext::cacheLocation() const

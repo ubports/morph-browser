@@ -38,6 +38,7 @@ WebappWebview {
     property var overlayViewsParent: webview.parent
     property var mediaAccessDialogComponent
     property bool openExternalUrlInOverlay: false
+    property string defaultVideoCaptureCameraPosition: ""
     property bool popupBlockerEnabled: true
 
     // Mostly used for testing & avoid external urls to
@@ -79,6 +80,7 @@ WebappWebview {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
 
+        cameraPositionVideoCaptureDefault: webview.defaultVideoCaptureCameraPosition
         popupBlockerEnabled: webview.popupBlockerEnabled
 
         userScripts: [

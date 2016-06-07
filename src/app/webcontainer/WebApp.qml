@@ -46,6 +46,7 @@ BrowserView {
     property alias dataPath: containerWebView.dataPath
     property alias runningLocalApplication: containerWebView.runningLocalApplication
     property alias openExternalUrlInOverlay: containerWebView.openExternalUrlInOverlay
+    property alias defaultVideoCaptureCameraPosition: containerWebView.defaultVideoCaptureCameraPosition
     property alias popupBlockerEnabled: containerWebView.popupBlockerEnabled
 
     property string webappName: ""
