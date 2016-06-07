@@ -1,3 +1,9 @@
+webbrowser-app (0.23+16.10.20160526-0ubuntu3) yakkety; urgency=medium
+
+  * Overriding UA for nytimes (LP:  #1573620)
+
+ -- Santosh Mahto <santosh.mahto@canonical.com>  Tue, 07 Jun 2016 09:49:12 +0530
+
 webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
 
   [ Alexandre Abreu ]
