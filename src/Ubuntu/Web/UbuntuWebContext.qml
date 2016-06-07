@@ -101,8 +101,20 @@ Oxide.WebContext {
     hostMappingRules: webviewHostMappingRules
 
     /**
+     * The goal of this chunk of code is to allow one to setup
+     * a default selection for the camera based on its position.
+     * As requested by:
+     *   https://launchpad.net/bugs/1563398
      *
+     * At the moment though, there is an Oxide bug that prevents
+     * camera positions to be properly reported.
      *
+     *   https://launchpad.net/bugs/1568145
+     *
+     * In order to workaround this for now, we use a hack based on the fact
+     * that in hybris backed systems, the various video capture devices' names
+     * are reported as "Front Camera" & "Back Camera", the string being translated.
+     * We used this dirty heuristic instead of the position as a fallback for now.
      */
     property QtObject __internal : QtObject {
         readonly property string cameraNamePrefixVideoCaptureDefault: (cameraPositionVideoCaptureDefault === "frontface") ? i18n.tr("Front") : ""
@@ -128,7 +140,8 @@ Oxide.WebContext {
                     }
 
                     /**
-                     *
+                     * This is only there to act as a fallback with a reasonnable
+                     * heuristic that tracks the case described above.
                      */
                     var displayName = devices[i].displayName
                     if (__internal.cameraNamePrefixVideoCaptureDefault
