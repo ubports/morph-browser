@@ -79,8 +79,6 @@ FocusScope {
             onRemoved: expandedHistoryView.historyEntryRemoved(model.url)
         }
 
-        Keys.onEnterPressed: currentItem.clicked()
-        Keys.onReturnPressed: currentItem.clicked()
         Keys.onDeletePressed: currentItem.removed()
         Keys.onEscapePressed: done()
     }
