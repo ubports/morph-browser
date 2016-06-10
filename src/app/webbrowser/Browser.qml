@@ -85,7 +85,7 @@ BrowserView {
     Component.onCompleted: {
         if (settings.defaultVideoDevice) {
             webcontextDefaultVideoCaptureCameraPosition = ""
-            SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = settings.defaultVideoDevice
+            webcontextDefaultCameraIdVideoCapture = settings.defaultVideoDevice
         }
     }
 

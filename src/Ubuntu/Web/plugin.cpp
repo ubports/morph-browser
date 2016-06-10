@@ -49,6 +49,10 @@ class UbuntuWebPluginContext : public QObject
                READ webcontextDefaultVideoCaptureCameraPosition
                WRITE setWebcontextDefaultVideoCaptureCameraPosition
                NOTIFY webcontextDefaultVideoCaptureCameraPositionChanged)
+    Q_PROPERTY(QString webcontextDefaultCameraIdVideoCapture
+               READ webcontextDefaultCameraIdVideoCapture
+               WRITE setWebcontextDefaultCameraIdVideoCapture
+               NOTIFY webcontextDefaultCameraIdVideoCaptureChanged)
     Q_PROPERTY(QString ubuntuVersion READ ubuntuVersion CONSTANT)
 
 public:
@@ -63,6 +67,8 @@ public:
     QStringList hostMappingRules();
     QString webcontextDefaultVideoCaptureCameraPosition() const;
     void setWebcontextDefaultVideoCaptureCameraPosition(const QString & defaultPosition);
+    QString webcontextDefaultCameraIdVideoCapture() const;
+    void setWebcontextDefaultCameraIdVideoCapture(const QString & defaultCameraId);
     QString ubuntuVersion() const;
 
 Q_SIGNALS:
@@ -71,6 +77,7 @@ Q_SIGNALS:
     void screenDiagonalChanged() const;
     void cacheSizeHintChanged() const;
     void webcontextDefaultVideoCaptureCameraPositionChanged() const;
+    void webcontextDefaultCameraIdVideoCaptureChanged() const;
 
 private Q_SLOTS:
     void onFocusWindowChanged(QWindow* window);
@@ -83,6 +90,7 @@ private:
     QStringList m_hostMappingRules;
     bool m_hostMappingRulesQueried;
     QString m_webcontextDefaultVideoCaptureCameraPosition;
+    QString m_webcontextDefaultCameraIdVideoCapture;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
@@ -128,6 +136,21 @@ void UbuntuWebPluginContext::setWebcontextDefaultVideoCaptureCameraPosition(
     }
     m_webcontextDefaultVideoCaptureCameraPosition = defaultPosition;
     Q_EMIT webcontextDefaultVideoCaptureCameraPositionChanged();
+}
+
+QString UbuntuWebPluginContext::webcontextDefaultCameraIdVideoCapture() const
+{
+    return m_webcontextDefaultCameraIdVideoCapture;
+}
+
+void UbuntuWebPluginContext::setWebcontextDefaultCameraIdVideoCapture(
+        const QString & defaultCameraId)
+{
+    if (m_webcontextDefaultCameraIdVideoCapture == defaultCameraId) {
+        return;
+    }
+    m_webcontextDefaultCameraIdVideoCapture = defaultCameraId;
+    Q_EMIT webcontextDefaultCameraIdVideoCaptureChanged();
 }
 
 QString UbuntuWebPluginContext::cacheLocation() const

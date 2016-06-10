@@ -121,6 +121,7 @@ Oxide.WebContext {
         readonly property string cameraPositionUnspecified: "unspecified"
     }
 
+    property string cameraIdVideoCaptureDefault: webcontextDefaultCameraIdVideoCapture
     property string cameraPositionVideoCaptureDefault: webcontextDefaultVideoCaptureCameraPosition
     Component.onCompleted: {
         var OxideGlobals = Oxide.Oxide
@@ -128,28 +129,39 @@ Oxide.WebContext {
         function updateDefaultVideoCaptureDevice() {
             var devices = OxideGlobals.availableVideoCaptureDevices
 
-            if (cameraPositionVideoCaptureDefault
-                    && ! oxideContext.defaultVideoCaptureDeviceId
+            if (! oxideContext.defaultVideoCaptureDeviceId
                     && devices
                     && devices.length > 0) {
 
                 for (var i = 0; i < devices.length; ++i) {
-                    if (devices[i].position === cameraPositionVideoCaptureDefault) {
+                    /**
+                     * cameraIdVideoCaptureDefault has precedence
+                     */
+
+                    if (cameraIdVideoCaptureDefault
+                            && devices[i].id === cameraIdVideoCaptureDefault) {
                         oxideContext.defaultVideoCaptureDeviceId = devices[i].id
                         break
                     }
 
-                    /**
-                     * This is only there to act as a fallback with a reasonnable
-                     * heuristic that tracks the case described above.
-                     */
-                    var displayName = devices[i].displayName
-                    if (__internal.cameraNamePrefixVideoCaptureDefault
-                            && __internal.cameraPositionUnspecified === devices[i].position
-                            && displayName.indexOf(
-                                __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
-                        oxideContext.defaultVideoCaptureDeviceId = devices[i].id
-                        break
+                    if (cameraPositionVideoCaptureDefault) {
+                        if (devices[i].position === cameraPositionVideoCaptureDefault) {
+                            oxideContext.defaultVideoCaptureDeviceId = devices[i].id
+                            break
+                        }
+
+                        /**
+                         * This is only there to act as a fallback with a reasonnable
+                         * heuristic that tracks the case described above.
+                         */
+                        var displayName = devices[i].displayName
+                        if (__internal.cameraNamePrefixVideoCaptureDefault
+                                && __internal.cameraPositionUnspecified === devices[i].position
+                                && displayName.indexOf(
+                                    __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
+                            oxideContext.defaultVideoCaptureDeviceId = devices[i].id
+                            break
+                        }
                     }
                 }
             }
