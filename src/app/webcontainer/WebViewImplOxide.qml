@@ -80,7 +80,9 @@ WebappWebview {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
 
-        cameraPositionVideoCaptureDefault: webview.defaultVideoCaptureCameraPosition
+        cameraPositionVideoCaptureDefault: webview.defaultVideoCaptureCameraPosition ?
+                                               webview.defaultVideoCaptureCameraPosition
+                                             : webcontextDefaultVideoCaptureCameraPosition
         popupBlockerEnabled: webview.popupBlockerEnabled
 
         userScripts: [

@@ -121,7 +121,7 @@ Oxide.WebContext {
         readonly property string cameraPositionUnspecified: "unspecified"
     }
 
-    readonly property string cameraPositionVideoCaptureDefault: webcontextDefaultVideoCaptureCameraPosition
+    property string cameraPositionVideoCaptureDefault: webcontextDefaultVideoCaptureCameraPosition
     Component.onCompleted: {
         var OxideGlobals = Oxide.Oxide
 
