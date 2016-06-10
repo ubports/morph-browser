@@ -19,7 +19,7 @@ import sqlite3
 import time
 import testtools
 
-from testtools.matchers import Equals, NotEquals, GreaterThan
+from testtools.matchers import Equals, Mismatch, NotEquals, GreaterThan
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -55,6 +55,19 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
         connection.commit()
         connection.close()
+
+
+class AlmostEquals(object):
+
+    def __init__(self, expected):
+        self.expected = expected
+
+    def match(self, actual):
+        if round(actual - self.expected, 3) == 0:
+            return None
+        else:
+            msg = "{} is not almost equal to {}"
+            return Mismatch(msg.format(actual, self.expected))
 
 
 @testtools.skipIf(model() != "Desktop", "on desktop only")
@@ -524,3 +537,38 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+t')
         self.address_bar.activeFocus.wait_for(True)
         self.assertThat(self.address_bar.text, Eventually(Equals("")))
+
+    def test_zoom_in_and_out(self):
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
+        zooms = [1.1, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0, 5.0]
+        for zoom in zooms:
+            self.main_window.press_key('Ctrl+plus')
+            self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(zoom)))
+
+        self.main_window.press_key('Ctrl+0')
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
+        zooms = [0.9, 0.75, 0.666, 0.5, 0.333, 0.25]
+        for zoom in zooms:
+            self.main_window.press_key('Ctrl+minus')
+            self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(zoom)))
+
+        self.main_window.press_key('Ctrl+0')
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
+    def test_zoom_affects_domain(self):
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
+        self.open_tabs(1)
+        self.check_tab_number(1)
+        self.main_window.press_key('Ctrl+plus')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.1)))
+
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(0)
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.1)))
