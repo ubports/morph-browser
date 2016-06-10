@@ -1,3 +1,11 @@
+webbrowser-app (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
+
+  [ Olivier Tilloy ]
+  * The UITK now handles Enter/Return/Space key presses to activate list
+    items, (LP: #1581027, #1589424)
+
+ -- Zoltán Balogh <zoltan.balogh@canonical.com>  Fri, 10 Jun 2016 07:54:39 +0000
+
 webbrowser-app (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
 
   * Use new oxide 1.15 APIs to fix bugs and implement new features:
