@@ -23,5 +23,10 @@ execute_process(COMMAND lsb_release --short --release
     OUTPUT_VARIABLE UBUNTU_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
 add_definitions(-DUBUNTU_VERSION="${UBUNTU_VERSION}")
 
+execute_process(COMMAND qmlscene --quit ${CMAKE_CURRENT_SOURCE_DIR}/chromium-version.qml
+    ERROR_VARIABLE CHROMIUM_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
+string(REGEX MATCH "\\[(.*)\\]" _ ${CHROMIUM_VERSION})
+set(CHROMIUM_VERSION ${CMAKE_MATCH_1})
+
 add_subdirectory(Components)
 add_subdirectory(Web)
