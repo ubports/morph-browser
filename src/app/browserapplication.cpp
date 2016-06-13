@@ -44,6 +44,12 @@
 
 #include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
+// static
+bool BrowserApplication::isPrintHelpLaunch(const QStringList& arguments)
+{
+    return arguments.contains("--help") || arguments.contains("-h");
+}
+
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_engine(0)
@@ -110,14 +116,14 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
 {
     Q_ASSERT(m_window == 0);
 
-    if (appId.isEmpty()) {
-        qCritical() << "Cannot initialize the runtime environment: "
-                       "no application id detected.";
+    if (isPrintHelpLaunch(m_arguments)) {
+        printUsage();
         return false;
     }
 
-    if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
-        printUsage();
+    if (appId.isEmpty()) {
+        qCritical() << "Cannot initialize the runtime environment: "
+                       "no application id detected.";
         return false;
     }
 
