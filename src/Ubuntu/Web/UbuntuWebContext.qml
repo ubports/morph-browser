@@ -113,7 +113,7 @@ Oxide.WebContext {
      *
      * In order to workaround this for now, we use a hack based on the fact
      * that in hybris backed systems, the various video capture devices' names
-     * are reported as "Front Camera" & "Back Camera", the string being translated.
+     * are reported as "Front camera" & "Back camera", the string being translated.
      * We used this dirty heuristic instead of the position as a fallback for now.
      */
     property QtObject __internal : QtObject {
