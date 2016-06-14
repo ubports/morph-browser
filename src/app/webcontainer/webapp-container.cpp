@@ -391,7 +391,7 @@ void WebappContainer::parseCommandLine()
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
         } else if (argument == "--open-external-url-in-overlay") {
             m_openExternalUrlInOverlay = true;
-        } else if (argument == "--camera-capture-default") {
+        } else if (argument.startsWith("--camera-capture-default=")) {
             m_defaultVideoCaptureCameraPosition = argument.split("--camera-capture-default=")[1];
         }
     }

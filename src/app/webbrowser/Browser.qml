@@ -82,12 +82,8 @@ BrowserView {
         onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
     }
 
-    Component.onCompleted: {
-        if (settings.defaultVideoDevice) {
-            webcontextDefaultVideoCaptureCameraPosition = ""
-            webcontextDefaultCameraIdVideoCapture = settings.defaultVideoDevice
-        }
-    }
+    currentWebviewContext: SharedWebContext.sharedContext
+    cameraIdVideoCaptureDefault: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     InputDeviceModel {
         id: miceModel

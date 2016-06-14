@@ -46,7 +46,6 @@ BrowserView {
     property alias dataPath: containerWebView.dataPath
     property alias runningLocalApplication: containerWebView.runningLocalApplication
     property alias openExternalUrlInOverlay: containerWebView.openExternalUrlInOverlay
-    property alias defaultVideoCaptureCameraPosition: containerWebView.defaultVideoCaptureCameraPosition
     property alias popupBlockerEnabled: containerWebView.popupBlockerEnabled
 
     property string webappName: ""
@@ -62,6 +61,8 @@ BrowserView {
     // to be introspectable from AP which makes directly accessing the settings object
     // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
     property alias generatedUrlPatterns: urlPatternSettings.generatedUrlPatterns
+
+    currentWebviewContext: currentWebview ? currentWebview.context : null
 
     actions: [
         Actions.Back {
