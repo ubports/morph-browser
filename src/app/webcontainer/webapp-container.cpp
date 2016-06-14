@@ -104,8 +104,6 @@ QString WebappContainer::appId() const
 
 bool WebappContainer::initialize()
 {
-    earlyEnvironment();
-
     if (!isPrintHelpLaunch(m_arguments) && qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
@@ -119,6 +117,8 @@ bool WebappContainer::initialize()
         }
         qputenv("APP_ID", id.toUtf8());
     }
+
+    earlyEnvironment();
 
     if (BrowserApplication::initialize(
                 "webcontainer/webapp-container.qml",
