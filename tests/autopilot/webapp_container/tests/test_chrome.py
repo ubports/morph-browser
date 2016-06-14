@@ -15,6 +15,7 @@
 
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
+from autopilot import input
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
@@ -27,6 +28,7 @@ class WebappContainerChromeSetupTestCase(
         self.assertIsNotNone(self.get_webcontainer_proxy())
         webview = self.get_webcontainer_webview()
         self.assertThat(webview.chromeless, Equals(True))
+        self.keyboard = input.Keyboard.create()
 
     def test_enable_chrome_back_forward(self):
         args = ['--enable-back-forward']
@@ -48,6 +50,58 @@ class WebappContainerChromeSetupTestCase(
         self.assertIsNotNone(self.get_webcontainer_proxy())
         webview = self.get_webcontainer_webview()
         self.assertThat(webview.chromeless, Equals(False))
+
+    def press_key(self, key):
+        self.keyboard.press_and_release(key)
+
+    def test_shortcut_backforward(self):
+        args = ["--webappUrlPatterns=http://*"]
+        self.launch_webcontainer_app_with_local_http_server(args)
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        webview = self.get_oxide_webview()
+        watcher = webview.watch_signal('loadingStateChanged()')
+
+        previous = self.get_oxide_webview().url
+        url2 = self.base_url + "/test2"
+        self.browse_to(url2);
+
+        self.press_key("Alt+Left");
+        self.assert_page_eventually_loaded(previous)
+        self.assertThat(lambda:self.get_oxide_webview(),
+                        Eventually(Equals(previous)))
+
+        self.press_key("Alt+Right");
+        self.assert_page_eventually_loaded(url2)
+        self.assertThat(lambda:self.get_oxide_webview(),
+                        Eventually(Equals(url2)))
+
+    def test_shortcut_reload(self):
+        args = ['']
+        self.launch_webcontainer_app_with_local_http_server(args)
+        self.get_webcontainer_window().visible.wait_for(True)
+        self.assert_page_eventually_loaded(self.url)
+
+        webview = self.get_oxide_webview()
+        watcher = webview.watch_signal('loadingStateChanged()')
+        self.assertThat(webview.loading, Eventually(Equals(False)))
+        previous = watcher.num_emissions
+
+        self.press_key('Ctrl+r')
+        self.assertThat(
+            lambda: watcher.num_emissions,
+            Eventually(GreaterThan(previous)))
+
+        self.assertThat(webview.loading, Eventually(Equals(False)))
+
+        previous = watcher.num_emissions
+
+        self.press_key('F5')
+        self.assertThat(
+            lambda: watcher.num_emissions,
+            Eventually(GreaterThan(previous)))
+
+        self.assertThat(webview.loading, Eventually(Equals(False)))
 
     def test_reload(self):
         args = ['--enable-back-forward']

@@ -276,4 +276,30 @@ BrowserView {
         injectExtraUbuntuApis: runningLocalApplication
         injectExtraContentShareCapabilities: !runningLocalApplication
     }
+
+    // F5 or Ctrl+R: Reload current Tab
+    Shortcut {
+        sequence: StandardKey.Refresh
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+    Shortcut {
+        sequence: "F5"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+
+    // Alt+← or Backspace: Goes to the previous page
+    Shortcut {
+        sequence: StandardKey.Back
+        enabled: currentWebview && currentWebview.canGoBack
+        onActivated: currentWebview.goBack()
+    }
+
+    // Alt+→ or Shift+Backspace: Goes to the next page
+    Shortcut {
+        sequence: StandardKey.Forward
+        enabled: currentWebview && currentWebview.canGoForward
+        onActivated: currentWebview.goForward()
+    }
 }
