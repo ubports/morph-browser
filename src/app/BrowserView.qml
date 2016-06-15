@@ -75,7 +75,7 @@ FocusScope {
 
     property var currentWebviewContext
     property string cameraIdVideoCaptureDefault
-    property string cameraPositionVideoCaptureDefault
+    property string cameraPositionVideoCaptureDefault: "frontface"
 
     property QtObject __internal : QtObject {
         readonly property string cameraNamePrefixVideoCaptureDefault:
