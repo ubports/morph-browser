@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
+
+  * Fix the anchoring of the contents in the bookmarks views. (LP:
+    #1584385)
+  * Various favicon optimizations. (LP: #1585285)
+  * Load top site previews asynchronously to speed up the instantiation
+    of the grid view. (LP: #1585285)
+  * Fix cross-compilation for armhf on a x86* host. (LP: #1588788)
+  * Update UA overrides (mobile) for youtube and gmail.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 15 Jun 2016 09:35:09 +0000
+
 webbrowser-app (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
 
   [ Olivier Tilloy ]
