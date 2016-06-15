@@ -199,6 +199,11 @@ WebappWebview {
         handleSAMLRequestPattern(hostPattern)
     }
 
+    function navigateToUrl(targetUrl) {
+        webview.forceActiveFocus()
+        webview.url = targetUrl
+    }
+
     function navigationRequestedDelegate(request) {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
