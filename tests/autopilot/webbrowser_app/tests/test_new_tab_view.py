@@ -282,13 +282,14 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         self.assertThat(bookmarks.count, Eventually(Equals(5)))
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
-    def _remove_first_bookmark(self):
+    def _remove_first_bookmark(self, expect_count_change):
         bookmark = self.new_tab_view.get_bookmark_delegates()[1]
         url = bookmark.url
         bookmark.trigger_leading_action("leadingAction.delete", lambda: None)
-        self.assertThat(
-            lambda: self.new_tab_view.get_bookmark_delegates()[1].url,
-            Eventually(NotEquals(url)))
+        if expect_count_change:
+            bookmark.wait_until_destroyed()
+        else:
+            self.assertThat(bookmark.url, Eventually(NotEquals(url)))
 
     def _remove_first_bookmark_from_folder(self, folder):
         folders = self.new_tab_view.get_bookmarks_folder_list_view()
@@ -314,7 +315,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         self.assertThat(bookmarks.count, Eventually(Equals(5)))
         more_button = self.new_tab_view.get_bookmarks_more_button()
         for i in range(3):
-            self._remove_first_bookmark()
+            self._remove_first_bookmark(i == 2)
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
             self.assertThat(bookmarks.count, Equals(5 if (i < 2) else 4))
 
