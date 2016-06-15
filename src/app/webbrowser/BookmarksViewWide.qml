@@ -34,7 +34,13 @@ BrowserPage {
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
 
-        anchors.fill: parent
+        anchors {
+            top: parent.top
+            bottom: toolbar.top
+            left: parent.left
+            right: parent.right
+        }
+
         focus: true
 
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
