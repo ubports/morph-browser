@@ -1,9 +1,3 @@
-webbrowser-app (0.23+16.10.20160603.1-0ubuntu2) yakkety; urgency=medium
-
-  * Adding shortcut(back/forward and reload) for webapp-conatiner
-
- -- Santosh Mahto <santosh.mahto@canonical.com>  Tue, 14 Jun 2016 17:28:54 +0530
-
 webbrowser-app (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
 
   * Use new oxide 1.15 APIs to fix bugs and implement new features:

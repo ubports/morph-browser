@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import webbrowsercommon.private 0.1
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
@@ -270,7 +271,7 @@ BrowserView {
         id: unityWebapps
         name: webappName
         bindee: containerWebView.currentWebview
-        embeddedUiComponentParent: webapp
+        //embeddedUiComponentParent: webapp
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication

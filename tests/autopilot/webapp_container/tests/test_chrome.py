@@ -64,6 +64,9 @@ class WebappContainerChromeSetupTestCase(
 
         previous = self.get_oxide_webview().url
         url2 = self.base_url + "/test2"
+        # TODO : loading this url2 is blocked by webapp-conatiner.
+        # I just choose url from another code. not sure which 
+        # may be something to do with --webappUrlPatterns= args
         self.browse_to(url2);
 
         self.press_key("Alt+Left");
@@ -84,9 +87,8 @@ class WebappContainerChromeSetupTestCase(
 
         webview = self.get_oxide_webview()
         watcher = webview.watch_signal('loadingStateChanged()')
-        self.assertThat(webview.loading, Eventually(Equals(False)))
-        previous = watcher.num_emissions
 
+        previous = watcher.num_emissions
         self.press_key('Ctrl+r')
         self.assertThat(
             lambda: watcher.num_emissions,
@@ -95,7 +97,6 @@ class WebappContainerChromeSetupTestCase(
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
         previous = watcher.num_emissions
-
         self.press_key('F5')
         self.assertThat(
             lambda: watcher.num_emissions,
