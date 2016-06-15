@@ -56,6 +56,8 @@ FocusScope {
         }
     }
 
+    signal defaultVideoCaptureMediaIdUpdated(string defaultVideoCaptureDeviceId)
+
     /**
      * The goal of this chunk of code is to allow one to setup
      * a default selection for the camera based on its position.
@@ -106,12 +108,14 @@ FocusScope {
                         if (cameraIdVideoCaptureDefault
                                 && devices[i].id === cameraIdVideoCaptureDefault) {
                             currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                            defaultVideoCaptureMediaIdUpdated(devices[i].id)
                             break
                         }
 
                         if (cameraPositionVideoCaptureDefault) {
                             if (devices[i].position === cameraPositionVideoCaptureDefault) {
                                 currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                                defaultVideoCaptureMediaIdUpdated(devices[i].id)
                                 break
                             }
 
@@ -125,6 +129,7 @@ FocusScope {
                                     && displayName.indexOf(
                                         __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
                                 currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                                defaultVideoCaptureMediaIdUpdated(devices[i].id)
                                 break
                             }
                         }

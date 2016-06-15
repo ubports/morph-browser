@@ -85,6 +85,12 @@ BrowserView {
     currentWebviewContext: SharedWebContext.sharedContext
     cameraIdVideoCaptureDefault: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
+    onDefaultVideoCaptureMediaIdUpdated: {
+        if (!settings.defaultVideoDevice) {
+            settings.defaultVideoDevice = defaultVideoCaptureDeviceId
+        }
+    }
+
     InputDeviceModel {
         id: miceModel
         deviceFilter: InputInfo.Mouse
