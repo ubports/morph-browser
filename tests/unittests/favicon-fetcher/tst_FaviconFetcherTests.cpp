@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -193,7 +193,7 @@ private Q_SLOTS:
         QCOMPARE(cache.count(), (uint) 0);
     }
 
-    void shouldNotCacheInvalidIcon()
+    void shouldFailToDownloadInvalidIcon()
     {
         // First fetch a valid icon to ensure localUrl is initially not empty
         QUrl url(server->baseURL() + "/favicon1.ico");
@@ -201,7 +201,7 @@ private Q_SLOTS:
         QVERIFY(fetcherSpy->wait());
         QVERIFY(!fetcher->localUrl().isEmpty());
         // Then request an invalid one
-        url = QUrl(server->baseURL() + "/invalid");
+        url = QUrl(server->baseURL() + "/invalid.png");
         fetcher->setUrl(url);
         QVERIFY(serverSpy->wait());
         QVERIFY(fetcher->localUrl().isEmpty());
