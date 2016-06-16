@@ -55,7 +55,7 @@ class WebappContainerChromeSetupTestCase(
         self.keyboard.press_and_release(key)
 
     def test_shortcut_backforward(self):
-        args = ["--webappUrlPatterns=http://*"]
+        args = [""]
         self.launch_webcontainer_app_with_local_http_server(args)
         self.get_webcontainer_window().visible.wait_for(True)
 
@@ -64,19 +64,14 @@ class WebappContainerChromeSetupTestCase(
 
         previous = self.get_oxide_webview().url
         url2 = self.base_url + "/test2"
-        # TODO : loading this url2 is blocked by webapp-conatiner.
-        # I just choose url from another code. not sure which 
-        # may be something to do with --webappUrlPatterns= args
         self.browse_to(url2);
 
-        self.press_key("Alt+Left");
-        self.assert_page_eventually_loaded(previous)
-        self.assertThat(lambda:self.get_oxide_webview(),
+        self.press_key("Alt+Left")
+        self.assertThat(lambda:self.get_oxide_webview().url,
                         Eventually(Equals(previous)))
 
-        self.press_key("Alt+Right");
-        self.assert_page_eventually_loaded(url2)
-        self.assertThat(lambda:self.get_oxide_webview(),
+        self.press_key("Alt+Right")
+        self.assertThat(lambda:self.get_oxide_webview().url,
                         Eventually(Equals(url2)))
 
     def test_shortcut_reload(self):
