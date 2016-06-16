@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2016-06-14 06:19+0000\n"
+"X-Launchpad-Export-Date: 2016-06-16 04:58+0000\n"
 "X-Generator: Launchpad (build 18097)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -580,15 +580,15 @@ msgstr "Záložky"
 
 #: src/app/webbrowser/BookmarksView.qml:70
 #: src/app/webbrowser/BookmarksViewWide.qml:69
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Hotovo"
 
 #: src/app/webbrowser/BookmarksView.qml:84
 #: src/app/webbrowser/BookmarksViewWide.qml:83
-#: src/app/webbrowser/HistoryView.qml:142
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nová karta"
@@ -659,11 +659,11 @@ msgstr "Potvrdiť výber"
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: src/app/webbrowser/DownloadsPage.qml:259
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "Žiadne stiahnuté súbory"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -671,7 +671,7 @@ msgstr[0] "%1 stránok"
 msgstr[1] "%1 stránka"
 msgstr[2] "%1 stránky"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Menej"
@@ -694,7 +694,7 @@ msgid "All History"
 msgstr "Celá história"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Dnes"
 
@@ -719,12 +719,12 @@ msgstr ""
 msgid "More"
 msgstr "Viac"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Top stránky"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
 msgstr "Nenavštívili ste ešte žiadnu stránku"
 
