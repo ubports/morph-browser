@@ -54,7 +54,7 @@ protected:
 
     virtual void qmlEngineCreated(QQmlEngine*);
 
-    static bool isPrintHelpLaunch(const QStringList& arguments);
+    bool helpRequested();
 
     QStringList m_arguments;
     QQmlEngine* m_engine;

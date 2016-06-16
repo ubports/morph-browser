@@ -44,12 +44,6 @@
 
 #include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
-// static
-bool BrowserApplication::isPrintHelpLaunch(const QStringList& arguments)
-{
-    return arguments.contains("--help") || arguments.contains("-h");
-}
-
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_engine(0)
@@ -116,7 +110,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
 {
     Q_ASSERT(m_window == 0);
 
-    if (isPrintHelpLaunch(m_arguments)) {
+    if (helpRequested()) {
         printUsage();
         return false;
     }
@@ -279,4 +273,9 @@ QList<QUrl> BrowserApplication::urls() const
         }
     }
     return urls;
+}
+
+bool BrowserApplication::helpRequested()
+{
+    return m_arguments.contains("--help") || m_arguments.contains("-h");
 }

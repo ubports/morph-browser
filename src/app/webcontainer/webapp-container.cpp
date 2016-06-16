@@ -104,7 +104,7 @@ QString WebappContainer::appId() const
 
 bool WebappContainer::initialize()
 {
-    if (!isPrintHelpLaunch(m_arguments) && qgetenv("APP_ID").isEmpty()) {
+    if (!helpRequested() && qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
             qCritical() << "The application has been launched with no "
