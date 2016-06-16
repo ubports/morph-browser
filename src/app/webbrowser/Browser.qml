@@ -82,7 +82,7 @@ BrowserView {
         onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
     }
 
-    currentWebviewContext: SharedWebContext.sharedContext
+    currentWebcontext: SharedWebContext.sharedContext
     defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     onDefaultVideoCaptureMediaIdUpdated: {

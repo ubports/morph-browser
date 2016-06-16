@@ -22,8 +22,6 @@ import Ubuntu.Unity.Action 1.1 as UnityActions
 import com.canonical.Oxide 1.15 as Oxide
 
 FocusScope {
-    id: browserView
-
     property bool developerExtrasEnabled: false
 
     property var currentWebview: null
@@ -77,27 +75,30 @@ FocusScope {
      * We used this dirty heuristic instead of the position as a fallback for now.
      */
 
-    property var currentWebviewContext
+    property var currentWebcontext
     property string defaultVideoCaptureDeviceId
     property string defaultVideoCaptureDevicePosition: "frontface"
 
     QtObject {
-        id: __internal
+        id: internal
 
-        readonly property string cameraNamePrefixVideoCaptureDefault:
+        // "Front camera" is the user facing string returned by oxide
+        // https://git.launchpad.net/oxide/tree/shared/browser/media/oxide_video_capture_device_factory_linux.cc#n49
+        // It should be kept in sync.
+        readonly property string defaultVideoCaptureDeviceUserName:
             (defaultVideoCaptureDevicePosition === "frontface") ?
-                i18n.dtr("oxide-qt", "Front") : ""
+                i18n.dtr("oxide-qt", "Front camera") : ""
 
         readonly property string cameraPositionUnspecified: "unspecified"
 
         function setupDefaultVideoCaptureDevice() {
-            if ( ! currentWebviewContext) {
+            if ( ! currentWebcontext) {
                 return
             }
 
             var devices = Oxide.Oxide.availableVideoCaptureDevices
 
-            if (! currentWebviewContext.defaultVideoCaptureDeviceId
+            if (! currentWebcontext.defaultVideoCaptureDeviceId
                     && devices
                     && devices.length > 0) {
 
@@ -108,14 +109,14 @@ FocusScope {
 
                     if (defaultVideoCaptureDeviceId
                             && devices[i].id === defaultVideoCaptureDeviceId) {
-                        currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                        currentWebcontext.defaultVideoCaptureDeviceId = devices[i].id
                         defaultVideoCaptureMediaIdUpdated(devices[i].id)
                         break
                     }
 
                     if (defaultVideoCaptureDevicePosition) {
                         if (devices[i].position === defaultVideoCaptureDevicePosition) {
-                            currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                            currentWebcontext.defaultVideoCaptureDeviceId = devices[i].id
                             defaultVideoCaptureMediaIdUpdated(devices[i].id)
                             break
                         }
@@ -125,11 +126,11 @@ FocusScope {
                          * heuristic that tracks the case described above.
                          */
                         var displayName = devices[i].displayName
-                        if (__internal.cameraNamePrefixVideoCaptureDefault
-                                && __internal.cameraPositionUnspecified === devices[i].position
+                        if (internal.defaultVideoCaptureDeviceUserName
+                                && internal.cameraPositionUnspecified === devices[i].position
                                 && displayName.indexOf(
-                                    __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
-                            currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                                    internal.defaultVideoCaptureDeviceUserName) === 0) {
+                            currentWebcontext.defaultVideoCaptureDeviceId = devices[i].id
                             defaultVideoCaptureMediaIdUpdated(devices[i].id)
                             break
                         }
@@ -141,6 +142,6 @@ FocusScope {
 
     Connections {
         target: Oxide.Oxide
-        onAvailableVideoCaptureDevicesChanged: __internal.setupDefaultVideoCaptureDevice()
+        onAvailableVideoCaptureDevicesChanged: internal.setupDefaultVideoCaptureDevice()
     }
 }

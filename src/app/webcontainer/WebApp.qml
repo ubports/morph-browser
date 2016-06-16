@@ -62,7 +62,7 @@ BrowserView {
     // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
     property alias generatedUrlPatterns: urlPatternSettings.generatedUrlPatterns
 
-    currentWebviewContext: currentWebview ? currentWebview.context : null
+    currentWebcontext: currentWebview ? currentWebview.context : null
 
     actions: [
         Actions.Back {
