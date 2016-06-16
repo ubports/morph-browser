@@ -91,9 +91,9 @@ BrowserWindow {
             webappUrlPatterns: root.webappUrlPatterns
             blockOpenExternalUrls: root.blockOpenExternalUrls
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
-            cameraPositionVideoCaptureDefault: root.defaultVideoCaptureCameraPosition ?
+            defaultVideoCaptureDevicePosition: root.defaultVideoCaptureCameraPosition ?
                                                    root.defaultVideoCaptureCameraPosition
-                                                 : browser.cameraPositionVideoCaptureDefault
+                                                 : browser.defaultVideoCaptureDevicePosition
             popupBlockerEnabled: root.popupBlockerEnabled
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern

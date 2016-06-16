@@ -22,6 +22,8 @@ import Ubuntu.Unity.Action 1.1 as UnityActions
 import com.canonical.Oxide 1.15 as Oxide
 
 FocusScope {
+    id: browserView
+
     property bool developerExtrasEnabled: false
 
     property var currentWebview: null
@@ -76,13 +78,15 @@ FocusScope {
      */
 
     property var currentWebviewContext
-    property string cameraIdVideoCaptureDefault
-    property string cameraPositionVideoCaptureDefault: "frontface"
+    property string defaultVideoCaptureDeviceId
+    property string defaultVideoCaptureDevicePosition: "frontface"
 
-    property QtObject __internal : QtObject {
+    QtObject {
+        id: __internal
+
         readonly property string cameraNamePrefixVideoCaptureDefault:
-            (cameraPositionVideoCaptureDefault === "frontface") ?
-                i18n.tr("Front") : ""
+            (defaultVideoCaptureDevicePosition === "frontface") ?
+                i18n.dtr("oxide-qt", "Front") : ""
 
         readonly property string cameraPositionUnspecified: "unspecified"
 
@@ -91,76 +95,52 @@ FocusScope {
                 return
             }
 
-            var OxideGlobals = Oxide.Oxide
+            var devices = Oxide.Oxide.availableVideoCaptureDevices
 
-            function updateDefaultVideoCaptureDevice(thisSlot) {
-                var devices = OxideGlobals.availableVideoCaptureDevices
+            if (! currentWebviewContext.defaultVideoCaptureDeviceId
+                    && devices
+                    && devices.length > 0) {
 
-                if (! currentWebviewContext.defaultVideoCaptureDeviceId
-                        && devices
-                        && devices.length > 0) {
+                for (var i = 0; i < devices.length; ++i) {
+                    /**
+                     * defaultVideoCaptureDeviceId has precedence
+                     */
 
-                    for (var i = 0; i < devices.length; ++i) {
-                        /**
-                         * cameraIdVideoCaptureDefault has precedence
-                         */
+                    if (defaultVideoCaptureDeviceId
+                            && devices[i].id === defaultVideoCaptureDeviceId) {
+                        currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                        defaultVideoCaptureMediaIdUpdated(devices[i].id)
+                        break
+                    }
 
-                        if (cameraIdVideoCaptureDefault
-                                && devices[i].id === cameraIdVideoCaptureDefault) {
+                    if (defaultVideoCaptureDevicePosition) {
+                        if (devices[i].position === defaultVideoCaptureDevicePosition) {
                             currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
                             defaultVideoCaptureMediaIdUpdated(devices[i].id)
                             break
                         }
 
-                        if (cameraPositionVideoCaptureDefault) {
-                            if (devices[i].position === cameraPositionVideoCaptureDefault) {
-                                currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
-                                defaultVideoCaptureMediaIdUpdated(devices[i].id)
-                                break
-                            }
-
-                            /**
-                             * This is only there to act as a fallback with a reasonnable
-                             * heuristic that tracks the case described above.
-                             */
-                            var displayName = devices[i].displayName
-                            if (__internal.cameraNamePrefixVideoCaptureDefault
-                                    && __internal.cameraPositionUnspecified === devices[i].position
-                                    && displayName.indexOf(
-                                        __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
-                                currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
-                                defaultVideoCaptureMediaIdUpdated(devices[i].id)
-                                break
-                            }
+                        /**
+                         * This is only there to act as a fallback with a reasonnable
+                         * heuristic that tracks the case described above.
+                         */
+                        var displayName = devices[i].displayName
+                        if (__internal.cameraNamePrefixVideoCaptureDefault
+                                && __internal.cameraPositionUnspecified === devices[i].position
+                                && displayName.indexOf(
+                                    __internal.cameraNamePrefixVideoCaptureDefault) === 0) {
+                            currentWebviewContext.defaultVideoCaptureDeviceId = devices[i].id
+                            defaultVideoCaptureMediaIdUpdated(devices[i].id)
+                            break
                         }
                     }
-
-                    if (i < devices.length && thisSlot) {
-                        OxideGlobals.availableVideoCaptureDevicesChanged.disconnect(
-                                    thisSlot)
-                    }
                 }
-            }
-
-            var devices = OxideGlobals.availableVideoCaptureDevices
-            if (devices.length !== 0) {
-                updateDefaultVideoCaptureDevice()
-            } else {
-                var onVideoDevicesChanges = function(){
-                    updateDefaultVideoCaptureDevice(
-                                onVideoDevicesChanges)
-                }
-                OxideGlobals.availableVideoCaptureDevicesChanged.connect(onVideoDevicesChanges)
             }
         }
     }
 
-
-    Component.onCompleted: {
-        if (! currentWebviewContext) {
-            currentWebviewContextChanged.connect(__internal.setupDefaultVideoCaptureDevice)
-        } else {
-            __internal.setupDefaultVideoCaptureDevice()
-        }
+    Connections {
+        target: Oxide.Oxide
+        onAvailableVideoCaptureDevicesChanged: __internal.setupDefaultVideoCaptureDevice()
     }
 }

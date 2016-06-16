@@ -83,7 +83,7 @@ BrowserView {
     }
 
     currentWebviewContext: SharedWebContext.sharedContext
-    cameraIdVideoCaptureDefault: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
+    defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     onDefaultVideoCaptureMediaIdUpdated: {
         if (!settings.defaultVideoDevice) {
