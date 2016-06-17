@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,7 +21,9 @@ import Ubuntu.Components 1.3
 import webbrowsercommon.private 0.1
 
 Item {
-    property alias source: fetcher.url
+    id: favicon
+
+    property url source
     property bool fallbackIcon: true
     property alias shouldCache: fetcher.shouldCache
 
@@ -36,6 +38,7 @@ Item {
 
     FaviconFetcher {
         id: fetcher
+        url: favicon.visible ? favicon.source : ""
     }
 
     Icon {

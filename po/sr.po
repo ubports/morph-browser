@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-06-02 19:24+0200\n"
-"PO-Revision-Date: 2016-05-04 19:43+0000\n"
+"PO-Revision-Date: 2016-06-14 20:39+0000\n"
 "Last-Translator: Bojan Bogdanović <Unknown>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-06-03 06:14+0000\n"
-"X-Generator: Launchpad (build 18086)\n"
+"X-Launchpad-Export-Date: 2016-06-16 04:58+0000\n"
+"X-Generator: Launchpad (build 18097)\n"
 "Language: sr\n"
 
 #: src/app/AlertDialog.qml:23
@@ -582,15 +582,15 @@ msgstr "Обележивачи"
 
 #: src/app/webbrowser/BookmarksView.qml:70
 #: src/app/webbrowser/BookmarksViewWide.qml:69
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Готово"
 
 #: src/app/webbrowser/BookmarksView.qml:84
 #: src/app/webbrowser/BookmarksViewWide.qml:83
-#: src/app/webbrowser/HistoryView.qml:142
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Нови лист"
@@ -661,11 +661,11 @@ msgstr "Потврдите избор"
 msgid "Delete"
 msgstr "Обриши"
 
-#: src/app/webbrowser/DownloadsPage.qml:259
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "Нема доступних преузимања"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -673,7 +673,7 @@ msgstr[0] "%1 страница"
 msgstr[1] "%1 странице"
 msgstr[2] "%1 страница"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Сажетије"
@@ -696,7 +696,7 @@ msgid "All History"
 msgstr "Сав историјат"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Данас"
 
@@ -721,12 +721,12 @@ msgstr ""
 msgid "More"
 msgstr "Још"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Главне странице"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
 msgstr "До сада нисте посетили ни једну страницу"
 
@@ -918,7 +918,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Аутентификација није успела"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45

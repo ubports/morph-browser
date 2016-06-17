@@ -228,18 +228,11 @@ BrowserPage {
             }
         }
 
-        Keys.onEnterPressed: currentItem.clicked()
-        Keys.onReturnPressed: currentItem.clicked()
         Keys.onEscapePressed: {
             if (selectMode) {
                 selectMode = false
             } else {
                 event.accepted = false
-            }
-        }
-        Keys.onSpacePressed: {
-            if (selectMode || pickingMode) {
-                currentItem.clicked()
             }
         }
         Keys.onDeletePressed: {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -62,6 +62,7 @@ private Q_SLOTS:
 
 private:
     void setLocalUrl(const QUrl& url);
+    void cacheEmptyFile() const;
 
     bool m_shouldCache;
     QString m_cacheLocation;

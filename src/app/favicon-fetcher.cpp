@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -96,7 +96,9 @@ void FaviconFetcher::setUrl(const QUrl& url)
 
         QFileInfo fileinfo(m_filepath);
         if (fileinfo.exists() && (fileinfo.lastModified().daysTo(QDateTime::currentDateTime()) < CACHE_EXPIRATION_DAYS)) {
-            setLocalUrl(QUrl::fromLocalFile(m_filepath));
+            if (fileinfo.size() > 0) {
+                setLocalUrl(QUrl::fromLocalFile(m_filepath));
+            }
         } else {
             m_redirections = 0;
             download(url);
@@ -150,6 +152,13 @@ void FaviconFetcher::download(const QUrl& url)
     m_reply = m_manager->get(request);
 }
 
+void FaviconFetcher::cacheEmptyFile() const
+{
+    // Write an empty file to the cache to avoid subsequent attempts
+    // to download an inexistent icon over and over again.
+    QFile(m_filepath).open(QIODevice::WriteOnly);
+}
+
 void FaviconFetcher::downloadFinished(QNetworkReply* reply)
 {
     if (reply->error() == QNetworkReply::OperationCanceledError) {
@@ -171,6 +180,8 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
                     setLocalUrl(QUrl("data:image/png;base64," + ba.toBase64()));
                 }
             }
+        } else {
+            cacheEmptyFile();
         }
         reply->deleteLater();
         m_reply = 0;
@@ -185,6 +196,7 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
             qWarning() << "Failed to download"
                        << m_url.toString().toUtf8().data()
                        << ": too many redirections";
+            cacheEmptyFile();
         }
     }
 }
