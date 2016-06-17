@@ -19,12 +19,13 @@
 .pragma library
 
 var overrides = [
-    ["^https?:\/\/mail\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4) AppleWebKit/537.36 Chromium/35.0.1870.2 Mobile Safari"],
-    ["^https?:\/\/(www|m)\.youtube\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chromium/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1228415, http://pad.lv/1415107, http://pad.lv/1417258, http://pad.lv/1499394
+    ["^https?:\/\/mail\.google\.com\/", "Mozilla/5.0 (Linux; Android 5.0;) AppleWebKit/537.36 Chrome/51.0.2704.79 Mobile Safari/537.36"], // http://pad.lv/1375889
+    ["^https?:\/\/(www|m)\.youtube\.com\/", "Mozilla/5.0 (Linux; Android 5.0;) AppleWebKit/537.36 Chrome/51.0.2704.79 Mobile Safari/537.36"], // http://pad.lv/1228415, http://pad.lv/1415107, http://pad.lv/1417258, http://pad.lv/1499394, http://pad.lv/1408760, http://pad.lv/1437485
     ["^http:\/\/chrome\.angrybirds\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1284158
     ["^https?:\/\/(\w+\.)*hsbc\.com\.br\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1380657
     ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1316259
     ["^https?:\/\/(www|m)\.facebook\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.102 Mobile Safari/537.36"], // http://pad.lv/1538056, http://pad.lv/1457661
+    ["^https?:\/\/(mobile\.)?nytimes\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.102 Mobile Safari/537.36"], // http://pad.lv/1573620
     // Google hangouts (https://launchpad.net/bugs/1565055)
     ["^https?:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],
     ["^https?:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/49.0.2623.87 Mobile Safari/537.36"],

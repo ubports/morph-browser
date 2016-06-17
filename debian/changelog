@@ -1,3 +1,47 @@
+webbrowser-app (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
+
+  * Fix the anchoring of the contents in the bookmarks views. (LP:
+    #1584385)
+  * Various favicon optimizations. (LP: #1585285)
+  * Load top site previews asynchronously to speed up the instantiation
+    of the grid view. (LP: #1585285)
+  * Fix cross-compilation for armhf on a x86* host. (LP: #1588788)
+  * Update UA overrides (mobile) for youtube and gmail.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 15 Jun 2016 09:35:09 +0000
+
+webbrowser-app (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
+
+  [ Olivier Tilloy ]
+  * The UITK now handles Enter/Return/Space key presses to activate list
+    items, (LP: #1581027, #1589424)
+
+ -- Zoltán Balogh <zoltan.balogh@canonical.com>  Fri, 10 Jun 2016 07:54:39 +0000
+
+webbrowser-app (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
+
+  * Use new oxide 1.15 APIs to fix bugs and implement new features:
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 03 Jun 2016 10:29:42 +0000
+
+webbrowser-app (0.23+16.10.20160526-0ubuntu3) yakkety; urgency=medium
+
+  * Overriding UA for nytimes (LP:  #1573620)
+
+ -- Santosh Mahto <santosh.mahto@canonical.com>  Tue, 07 Jun 2016 09:49:12 +0530
+
+webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix account logic translation typo
+  * Fix container/webbrowser app_id; Properly set applicationname based
+    on package name and app name (LP: #1574884, #1577806)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Thu, 26 May 2016 17:01:10 +0000
+
 webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
 
   * Display the currently hovered hyperlink’s target URL in an overlay.

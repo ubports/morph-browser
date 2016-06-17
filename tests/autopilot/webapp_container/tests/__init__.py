@@ -57,6 +57,10 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             args.append(
                 '--desktop_file_hint=/usr/share/applications/'
                 'webbrowser-app.desktop')
+
+        if next(filter(lambda e: e.startswith('--appid'), args), None) is None:
+            args.append('--app-id=running.test')
+
         if envvars:
             for envvar_key in envvars:
                 self.useFixture(fixtures.EnvironmentVariable(

@@ -1458,6 +1458,18 @@ BrowserView {
         readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
         readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
+        // Ref: https://code.google.com/p/chromium/codesearch#chromium/src/components/ui/zoom/page_zoom_constants.cc
+        readonly property var zoomFactors: [0.25, 0.333, 0.5, 0.666, 0.75, 0.9, 1.0,
+                                            1.1, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0, 5.0]
+        function changeZoomFactor(offset) {
+            for (var i = 0; i < zoomFactors.length; ++i) {
+                if (Math.abs(zoomFactors[i] - currentWebview.zoomFactor) <= 0.001) {
+                    currentWebview.zoomFactor = zoomFactors[i + offset]
+                    return
+                }
+            }
+        }
+
         function getOpenPages() {
             var urls = []
             for (var i = 0; i < tabsModel.count; i++) {
@@ -2113,6 +2125,29 @@ BrowserView {
         sequence: StandardKey.FindPrevious
         enabled: currentWebview && chrome.findInPageMode
         onActivated: currentWebview.findController.previous()
+    }
+
+    // Ctrl+Plus: zoom in
+    Shortcut {
+        sequence: StandardKey.ZoomIn
+        enabled: currentWebview &&
+                 ((currentWebview.maximumZoomFactor - currentWebview.zoomFactor) > 0.001)
+        onActivated: internal.changeZoomFactor(1)
+    }
+
+    // Ctrl+Minus: zoom out
+    Shortcut {
+        sequence: StandardKey.ZoomOut
+        enabled: currentWebview &&
+                 ((currentWebview.zoomFactor - currentWebview.minimumZoomFactor) > 0.001)
+        onActivated: internal.changeZoomFactor(-1)
+    }
+
+    // Ctrl+0: reset zoom factor to 1.0
+    Shortcut {
+        sequence: "Ctrl+0"
+        enabled: currentWebview && (currentWebview.zoomFactor != 1.0)
+        onActivated: currentWebview.zoomFactor = 1.0
     }
 
     Loader {

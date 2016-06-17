@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-02 14:39+0200\n"
-"PO-Revision-Date: 2016-05-03 19:03+0000\n"
+"POT-Creation-Date: 2016-06-02 19:24+0200\n"
+"PO-Revision-Date: 2016-06-04 07:43+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-05-04 05:54+0000\n"
-"X-Generator: Launchpad (build 17995)\n"
+"X-Launchpad-Export-Date: 2016-06-09 06:22+0000\n"
+"X-Generator: Launchpad (build 18097)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -53,11 +53,9 @@ msgstr "Mot de passe"
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:369
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:300
-#: src/app/webbrowser/SettingsPage.qml:354
+#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -416,7 +414,7 @@ msgstr "Couper"
 msgid "Erase"
 msgstr "Effacer"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:556
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
 msgid "Find in page"
 msgstr "Trouver dans la page"
 
@@ -446,7 +444,7 @@ msgstr "Aller à"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:439
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Nouvel onglet"
@@ -508,13 +506,11 @@ msgstr "Enregistrer le lien"
 msgid "Save video"
 msgstr "Enregistrer la vidéo"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
-#: src/app/webbrowser/HistoryView.qml:188
-#: src/app/webbrowser/HistoryViewWide.qml:394
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 msgid "Select all"
 msgstr "Tout sélectionner"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:536
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
 msgid "Share"
 msgstr "Partager"
 
@@ -566,72 +562,72 @@ msgid "Create new folder"
 msgstr "Créer un nouveau dossier"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:364
+#: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "Enregistrer"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
 #: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:97
-#: src/app/webbrowser/SettingsPage.qml:328
+#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "Page d’accueil"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:544 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:32
+#: src/app/webbrowser/BookmarksViewWide.qml:32
+#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Favoris"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:425 src/app/webbrowser/HistoryView.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:488
+#: src/app/webbrowser/BookmarksView.qml:70
+#: src/app/webbrowser/BookmarksViewWide.qml:69
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
+#: src/app/webbrowser/HistoryViewWide.qml:418
 msgid "Done"
 msgstr "Terminé"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:126
-#: src/app/webbrowser/HistoryView.qml:143
-#: src/app/webbrowser/HistoryViewWide.qml:502
+#: src/app/webbrowser/BookmarksView.qml:84
+#: src/app/webbrowser/BookmarksViewWide.qml:83
+#: src/app/webbrowser/HistoryView.qml:142
+#: src/app/webbrowser/HistoryViewWide.qml:432
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nouvel onglet"
 
-#: src/app/webbrowser/Browser.qml:550
-#: src/app/webbrowser/HistoryViewWide.qml:353
+#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Historique"
 
-#: src/app/webbrowser/Browser.qml:563 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Téléchargements"
 
-#: src/app/webbrowser/Browser.qml:570
+#: src/app/webbrowser/Browser.qml:582
 msgid "Leave Private Mode"
 msgstr "Quitter le mode privé"
 
-#: src/app/webbrowser/Browser.qml:570
+#: src/app/webbrowser/Browser.qml:582
 msgid "Private Mode"
 msgstr "Mode privé"
 
-#: src/app/webbrowser/Browser.qml:588 src/app/webbrowser/SettingsPage.qml:49
+#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Paramètres"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/Browser.qml:798
+#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1363
+#: src/app/webbrowser/Browser.qml:1366
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Faites glisser vers le haut pour sortir du plein écran"
 
-#: src/app/webbrowser/Browser.qml:1364
+#: src/app/webbrowser/Browser.qml:1367
 msgid "Press ESC To Exit Full Screen"
 msgstr "Appuyez sur Échap pour sortir du plein écran"
 
@@ -658,17 +654,15 @@ msgstr "Échec du téléchargement"
 msgid "Resume"
 msgstr "Reprendre"
 
-#: src/app/webbrowser/DownloadsPage.qml:61
+#: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Confirmer la sélection"
 
-#: src/app/webbrowser/DownloadsPage.qml:101
-#: src/app/webbrowser/HistoryView.qml:215
-#: src/app/webbrowser/HistoryViewWide.qml:413
+#: src/app/webbrowser/DownloadsPage.qml:99
 msgid "Delete"
 msgstr "Supprimer"
 
-#: src/app/webbrowser/DownloadsPage.qml:261
+#: src/app/webbrowser/DownloadsPage.qml:259
 msgid "No downloads available"
 msgstr "Aucun téléchargement disponible"
 
@@ -689,22 +683,22 @@ msgid "Last Visited"
 msgstr "Visités récemment"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
 msgstr "Hier"
 
-#: src/app/webbrowser/HistoryViewWide.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:160
+msgid "search history"
+msgstr "chercher dans l'historique"
+
+#: src/app/webbrowser/HistoryViewWide.qml:235
 msgid "All History"
 msgstr "Tout l'historique"
 
-#: src/app/webbrowser/HistoryViewWide.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:271
+#: src/app/webbrowser/HistoryViewWide.qml:249
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Today"
 msgstr "Aujourd'hui"
-
-#: src/app/webbrowser/HistoryViewWide.qml:434
-msgid "search history"
-msgstr "chercher dans l'historique"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -818,54 +812,54 @@ msgstr "Qui est géré par"
 msgid "Default"
 msgstr "Par défaut"
 
-#: src/app/webbrowser/SettingsPage.qml:82
-#: src/app/webbrowser/SettingsPage.qml:169
+#: src/app/webbrowser/SettingsPage.qml:70
+#: src/app/webbrowser/SettingsPage.qml:150
 msgid "Search engine"
 msgstr "Moteur de recherche"
 
-#: src/app/webbrowser/SettingsPage.qml:108
+#: src/app/webbrowser/SettingsPage.qml:96
 msgid "Restore previous session at startup"
 msgstr "Restaurer la session précédente au démarrage"
 
-#: src/app/webbrowser/SettingsPage.qml:127
-#: src/app/webbrowser/SettingsPage.qml:226
+#: src/app/webbrowser/SettingsPage.qml:115
+#: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
 msgstr "Vie privée & permissions"
 
-#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
 msgstr "Réinitialiser les paramètres du navigateur"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:392
+#: src/app/webbrowser/SettingsPage.qml:206
+#: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
 msgstr "Caméra & microphone"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
 msgstr "Supprimer l’historique de navigation"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:219
 msgid "Clear Browsing History?"
 msgstr "Effacer l'historique de navigation ?"
 
-#: src/app/webbrowser/SettingsPage.qml:269
+#: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
 msgstr "Vider le cache"
 
-#: src/app/webbrowser/SettingsPage.qml:272
+#: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
 msgstr "Effacer le cache ?"
 
-#: src/app/webbrowser/SettingsPage.qml:307
+#: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
 msgstr "Effacer"
 
-#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
 msgstr "Microphone"
 
-#: src/app/webbrowser/SettingsPage.qml:434
+#: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "Caméra"
 
@@ -925,6 +919,10 @@ msgstr ""
 "La fenêtre des comptes n’a pas pu être ouverte. Il n’est possible de créer "
 "qu’un seul compte à la fois ; veuillez essayer à nouveau après avoir fermé "
 "les autres fenêtres de comptes."
+
+#: src/app/webcontainer/AccountsLogic.qml:214
+msgid "Authentication failed"
+msgstr "L'authentification a échoué"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
