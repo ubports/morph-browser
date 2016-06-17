@@ -23,7 +23,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import ".."
 
-Item {
+FocusScope {
     id: popup
 
     property var popupWindowController
@@ -35,6 +35,8 @@ Item {
     property alias wide: popupWebview.wide
 
     signal webviewUrlChanged(url webviewUrl)
+
+    focus: true
 
     Rectangle {
         color: "#F2F1F0"
@@ -167,6 +169,8 @@ Item {
         context: webContext
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
+
+        focus: true
 
         Connections {
             target: popupWebview.visible ? popupWebview : null

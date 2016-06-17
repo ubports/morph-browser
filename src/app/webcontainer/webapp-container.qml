@@ -92,6 +92,8 @@ BrowserWindow {
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
             popupBlockerEnabled: root.popupBlockerEnabled
 
+            focus: true
+
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
             localUserAgentOverride: getLocalUserAgentOverrideIfAny()
@@ -164,6 +166,8 @@ BrowserWindow {
 
         property var webContextSessionCookieMode: ""
         property var webappDataLocation
+
+        focus: true
 
         onLoaded: {
             var context = item.currentWebview.context
