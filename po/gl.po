@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-06-03 06:14+0000\n"
-"X-Generator: Launchpad (build 18086)\n"
+"X-Launchpad-Export-Date: 2016-06-18 06:00+0000\n"
+"X-Generator: Launchpad (build 18097)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -578,17 +578,17 @@ msgstr "Páxina de inicio"
 msgid "Bookmarks"
 msgstr "Marcadores"
 
-#: src/app/webbrowser/BookmarksView.qml:70
-#: src/app/webbrowser/BookmarksViewWide.qml:69
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/BookmarksView.qml:76
+#: src/app/webbrowser/BookmarksViewWide.qml:75
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Feito"
 
-#: src/app/webbrowser/BookmarksView.qml:84
-#: src/app/webbrowser/BookmarksViewWide.qml:83
-#: src/app/webbrowser/HistoryView.qml:142
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/BookmarksView.qml:90
+#: src/app/webbrowser/BookmarksViewWide.qml:89
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nova lapela"
@@ -659,18 +659,18 @@ msgstr "Confirmar selección"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/app/webbrowser/DownloadsPage.qml:259
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "Non hai descargas dispoñíbeis"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 páxina"
 msgstr[1] "%1 páxinas"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Menos"
@@ -693,7 +693,7 @@ msgid "All History"
 msgstr "Todo o historial"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Hoxe"
 
@@ -717,12 +717,12 @@ msgstr ""
 msgid "More"
 msgstr "Máis"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Sitios destacados"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
 msgstr "Aínda non visitou ningunha páxina"
 
@@ -865,7 +865,7 @@ msgstr "Toque para ver"
 msgid "Close Tab"
 msgstr "Pechar a lapela"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+#: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -915,7 +915,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Produciuse un fallo na autenticación"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45

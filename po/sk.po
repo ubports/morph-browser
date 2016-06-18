@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2016-06-16 04:58+0000\n"
+"X-Launchpad-Export-Date: 2016-06-18 06:01+0000\n"
 "X-Generator: Launchpad (build 18097)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -578,15 +578,15 @@ msgstr "Domovská stránka"
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: src/app/webbrowser/BookmarksView.qml:70
-#: src/app/webbrowser/BookmarksViewWide.qml:69
+#: src/app/webbrowser/BookmarksView.qml:76
+#: src/app/webbrowser/BookmarksViewWide.qml:75
 #: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Hotovo"
 
-#: src/app/webbrowser/BookmarksView.qml:84
-#: src/app/webbrowser/BookmarksViewWide.qml:83
+#: src/app/webbrowser/BookmarksView.qml:90
+#: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
@@ -865,7 +865,7 @@ msgstr "Kliknutím zobrazíte"
 msgid "Close Tab"
 msgstr "Zavrieť kartu"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+#: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
 msgstr "Odstrániť"
 

@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-06-03 06:14+0000\n"
-"X-Generator: Launchpad (build 18086)\n"
+"X-Launchpad-Export-Date: 2016-06-18 06:01+0000\n"
+"X-Generator: Launchpad (build 18097)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -576,17 +576,17 @@ msgstr "Hemsida"
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
-#: src/app/webbrowser/BookmarksView.qml:70
-#: src/app/webbrowser/BookmarksViewWide.qml:69
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/BookmarksView.qml:76
+#: src/app/webbrowser/BookmarksViewWide.qml:75
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Klar"
 
-#: src/app/webbrowser/BookmarksView.qml:84
-#: src/app/webbrowser/BookmarksViewWide.qml:83
-#: src/app/webbrowser/HistoryView.qml:142
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/BookmarksView.qml:90
+#: src/app/webbrowser/BookmarksViewWide.qml:89
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Ny flik"
@@ -656,18 +656,18 @@ msgstr "Bekräfta val"
 msgid "Delete"
 msgstr "Ta bort"
 
-#: src/app/webbrowser/DownloadsPage.qml:259
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "Inga hämtningar tillgängliga"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 sida"
 msgstr[1] "%1 sidor"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Färre"
@@ -690,7 +690,7 @@ msgid "All History"
 msgstr "All historik"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Idag"
 
@@ -715,12 +715,12 @@ msgstr ""
 msgid "More"
 msgstr "Fler"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Favoritsidor"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
 msgstr "Du har inte besökt någon webbsida än"
 
@@ -864,7 +864,7 @@ msgstr "Tryck för att visa"
 msgid "Close Tab"
 msgstr "Stäng flik"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+#: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
 msgstr "Ta bort"
 
