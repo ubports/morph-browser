@@ -1,3 +1,14 @@
+webbrowser-app (0.23+16.10.20160620-0ubuntu1) yakkety; urgency=medium
+
+  * Set the front camera as the default for video media requests (LP:
+    #1563398)
+  * Handle theme color change and properly update browsing widgets (LP:
+    #1567430)
+  * Properly propagate touchscreen detection flag (LP: #1585689)
+  * Print help when no app-id is present (LP: #1591306)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 20 Jun 2016 15:08:41 +0000
+
 webbrowser-app (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
 
   * Fix the anchoring of the contents in the bookmarks views. (LP:
