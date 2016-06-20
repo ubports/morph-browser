@@ -280,7 +280,7 @@ BrowserView {
 
     // F5 or Ctrl+R: Reload current Tab
     Shortcut {
-        sequence: StandardKey.Refresh
+        sequence: "Ctrl+r"
         enabled: currentWebview && currentWebview.visible
         onActivated: currentWebview.reload()
     }
