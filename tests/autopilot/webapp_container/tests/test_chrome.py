@@ -15,7 +15,6 @@
 
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
-from autopilot import input
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
@@ -28,7 +27,6 @@ class WebappContainerChromeSetupTestCase(
         self.assertIsNotNone(self.get_webcontainer_proxy())
         webview = self.get_webcontainer_webview()
         self.assertThat(webview.chromeless, Equals(True))
-        self.keyboard = input.Keyboard.create()
 
     def test_enable_chrome_back_forward(self):
         args = ['--enable-back-forward']
