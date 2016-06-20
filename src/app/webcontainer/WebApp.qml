@@ -150,11 +150,12 @@ BrowserView {
                 var color = webappContainerHelper.rgbColorFromCSSColor(theme_color)
                 if (!webapp.chromeless && chromeLoader.item && color.length) {
                     chromeLoader.item.backgroundColor = theme_color
-                    chromeLoader.item.chromeTextLabelColor =
+                    chromeLoader.item.updateChromeElementsColor(
                             ColorUtils.getMostConstrastedColor(
                                 color,
                                 Qt.darker(theme_color, themeColorTextContrastFactor),
                                 Qt.lighter(theme_color, themeColorTextContrastFactor))
+                            )
                 }
             }
             onSamlRequestUrlPatternReceived: {
