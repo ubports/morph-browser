@@ -95,6 +95,7 @@ BrowserWindow {
                                                    root.defaultVideoCaptureCameraPosition
                                                  : browser.defaultVideoCaptureDevicePosition
             popupBlockerEnabled: root.popupBlockerEnabled
+            hasTouchScreen: root.hasTouchScreen
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
