@@ -62,6 +62,8 @@ BrowserView {
     // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
     property alias generatedUrlPatterns: urlPatternSettings.generatedUrlPatterns
 
+    currentWebcontext: currentWebview ? currentWebview.context : null
+
     actions: [
         Actions.Back {
             enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoBack

@@ -19,6 +19,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
+import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
@@ -79,6 +80,15 @@ BrowserView {
            creating one of these new dialogs.
         */
         onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
+
+    currentWebcontext: SharedWebContext.sharedContext
+    defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
+
+    onDefaultVideoCaptureMediaIdUpdated: {
+        if (!settings.defaultVideoDevice) {
+            settings.defaultVideoDevice = defaultVideoCaptureDeviceId
+        }
     }
 
     InputDeviceModel {
