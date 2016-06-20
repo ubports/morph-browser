@@ -110,14 +110,14 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
 {
     Q_ASSERT(m_window == 0);
 
-    if (appId.isEmpty()) {
-        qCritical() << "Cannot initialize the runtime environment: "
-                       "no application id detected.";
+    if (helpRequested()) {
+        printUsage();
         return false;
     }
 
-    if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
-        printUsage();
+    if (appId.isEmpty()) {
+        qCritical() << "Cannot initialize the runtime environment: "
+                       "no application id detected.";
         return false;
     }
 
@@ -273,4 +273,9 @@ QList<QUrl> BrowserApplication::urls() const
         }
     }
     return urls;
+}
+
+bool BrowserApplication::helpRequested()
+{
+    return m_arguments.contains("--help") || m_arguments.contains("-h");
 }

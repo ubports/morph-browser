@@ -54,6 +54,8 @@ protected:
 
     virtual void qmlEngineCreated(QQmlEngine*);
 
+    bool helpRequested();
+
     QStringList m_arguments;
     QQmlEngine* m_engine;
     QQuickWindow* m_window;

@@ -104,9 +104,7 @@ QString WebappContainer::appId() const
 
 bool WebappContainer::initialize()
 {
-    earlyEnvironment();
-
-    if (qgetenv("APP_ID").isEmpty()) {
+    if (!helpRequested() && qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
             qCritical() << "The application has been launched with no "
@@ -119,6 +117,8 @@ bool WebappContainer::initialize()
         }
         qputenv("APP_ID", id.toUtf8());
     }
+
+    earlyEnvironment();
 
     if (BrowserApplication::initialize(
                 "webcontainer/webapp-container.qml",
