@@ -58,18 +58,18 @@ class WebappContainerChromeSetupTestCase(
         self.get_webcontainer_window().visible.wait_for(True)
 
         webview = self.get_oxide_webview()
-        watcher = webview.watch_signal('loadingStateChanged()')
+        webview.watch_signal('loadingStateChanged()')
 
         previous = self.get_oxide_webview().url
         url2 = self.base_url + "/test2"
-        self.browse_to(url2);
+        self.browse_to(url2)
 
         self.press_key("Alt+Left")
-        self.assertThat(lambda:self.get_oxide_webview().url,
+        self.assertThat(lambda: self.get_oxide_webview().url,
                         Eventually(Equals(previous)))
 
         self.press_key("Alt+Right")
-        self.assertThat(lambda:self.get_oxide_webview().url,
+        self.assertThat(lambda: self.get_oxide_webview().url,
                         Eventually(Equals(url2)))
 
     def test_shortcut_reload(self):
