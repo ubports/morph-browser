@@ -76,7 +76,9 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
 
         if not is_local_app:
             webview = self.get_oxide_webview()
-            self.assertThat(lambda: webview.activeFocus, Eventually(Equals(True)))
+            self.assertThat(
+                lambda: webview.activeFocus,
+                Eventually(Equals(True)))
 
     def get_webcontainer_proxy(self):
         return self.app
