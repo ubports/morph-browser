@@ -62,7 +62,12 @@ enable_testing()
 add_subdirectory(tests)
 
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
-file(GLOB_RECURSE NON_COMPILED_FILES *.qml *.js *.png *.sci *.py *.pot *.po *.qdoc *.qdocconf *.css)
+file(GLOB_RECURSE NON_COMPILED_FILES
+     *.png
+     doc/*.css doc/*.qdoc doc/*.qdocconf
+     po/*.po po/*.pot
+     src/*.js src/*.qml src/*.sci
+     tests/*.py tests/*.qml)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_FILES})
 
 # for dh_translations to extract the domain
