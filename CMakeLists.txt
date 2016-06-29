@@ -63,7 +63,10 @@ add_subdirectory(tests)
 
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
 file(GLOB_RECURSE NON_COMPILED_FILES
-     *.png
+     *.png .bzrignore COPYING README
+     debian/*.dirs debian/*.install debian/*.lintian-overrides debian/*.manifest
+     debian/compat debian/control debian/copyright debian/rules debian/source/format
+     debian/tests/*
      doc/*.css doc/*.qdoc doc/*.qdocconf
      po/*.po po/*.pot
      src/*.js src/*.qml src/*.sci
