@@ -62,16 +62,16 @@ enable_testing()
 add_subdirectory(tests)
 
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
-file(GLOB_RECURSE NON_COMPILED_FILES
-     *.png .bzrignore COPYING README
+file(GLOB NON_COMPILED_ROOT *.png .bzrignore COPYING README)
+file(GLOB_RECURSE NON_COMPILED_SUBDIRS
      debian/*.dirs debian/*.install debian/*.lintian-overrides debian/*.manifest
      debian/compat debian/control debian/copyright debian/rules debian/source/format
      debian/tests/*
      doc/*.css doc/*.qdoc doc/*.qdocconf
      po/*.po po/*.pot
-     src/*.js src/*.qml src/*.sci
+     src/*.js src/*.qml src/*.sci src/README
      tests/*.py tests/*.qml)
-add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_FILES})
+add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COMPILED_SUBDIRS})
 
 # for dh_translations to extract the domain
 # (regarding syntax consistency, see http://pad.lv/1181187)
