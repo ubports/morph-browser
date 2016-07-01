@@ -766,6 +766,7 @@ BrowserView {
         }
         visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
+        asynchronous: true
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }

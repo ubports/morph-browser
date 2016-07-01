@@ -48,6 +48,7 @@ Rectangle {
                 name: "security-alert"
                 width: units.gu(4)
                 height: width
+                asynchronous: true
             }
 
             Label {
