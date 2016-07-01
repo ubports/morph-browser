@@ -23,8 +23,13 @@ execute_process(COMMAND lsb_release --short --release
     OUTPUT_VARIABLE UBUNTU_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
 add_definitions(-DUBUNTU_VERSION="${UBUNTU_VERSION}")
 
-execute_process(COMMAND qmlscene --quit ${CMAKE_CURRENT_SOURCE_DIR}/chromium-version.qml
-    ERROR_VARIABLE CHROMIUM_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
+find_program(XVFBRUN xvfb-run)
+if(NOT XVFBRUN)
+  message(FATAL_ERROR "xvfb-run not found")
+endif()
+set(XVFB_COMMAND ${XVFBRUN} -s "-screen 0 640x480x24" -a)
+execute_process(COMMAND ${XVFB_COMMAND} qmlscene --quit ${CMAKE_CURRENT_SOURCE_DIR}/chromium-version.qml
+    OUTPUT_VARIABLE CHROMIUM_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
 string(REGEX MATCH "\\[(.*)\\]" _ ${CHROMIUM_VERSION})
 set(CHROMIUM_VERSION ${CMAKE_MATCH_1})
 
