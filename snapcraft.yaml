@@ -1,0 +1,46 @@
+name: webbrowser-app
+version: 0.23+16.10.20160620-0ubuntu1
+summary: Ubuntu web browser
+description: A lightweight web browser tailored for Ubuntu, based on the Oxide browser engine and using the Ubuntu UI components.
+confinement: devmode
+
+apps:
+  webbrowser-app:
+    command: desktop-launch launcher-no-sandbox webbrowser-app
+    plugs: [x11, unity7, opengl, network]
+
+parts:
+  webbrowser-app:
+    plugin: cmake
+    source: .
+    build-packages:
+      - libapparmor-dev
+      - libevdev-dev
+      - libudev-dev
+      - lsb-release
+      - pkg-config
+      - qt5-qmake
+      - qtbase5-dev
+      - qtbase5-dev-tools
+      - qtbase5-private-dev
+      - qtdeclarative5-dev
+      - qttools5-dev-tools
+      - xvfb
+    stage-packages:
+      - fonts-liberation
+      - liboxideqt-qmlplugin
+      - libqt5sql5-sqlite
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qt-labs-settings
+      - qml-module-qtquick2
+      - qml-module-qtquick-layouts
+      - qml-module-qtquick-window2
+      - qml-module-ubuntu-components
+      - qtdeclarative5-unity-action-plugin
+    after: [desktop/qt5]
+
+  launcher-no-sandbox:
+    plugin: copy
+    source: snap
+    files:
+      launcher-no-sandbox: bin/launcher-no-sandbox
