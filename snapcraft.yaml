@@ -7,7 +7,7 @@ confinement: devmode
 apps:
   webbrowser-app:
     command: desktop-launch launcher-no-sandbox webbrowser-app
-    plugs: [x11, unity7, opengl, network]
+    plugs: [unity7, opengl, network]
 
 parts:
   webbrowser-app:
