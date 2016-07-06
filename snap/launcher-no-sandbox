@@ -4,4 +4,7 @@
 # Rely on snapd’s security policy instead.
 export OXIDE_NO_SANDBOX=1
 
+# Explicitly set APP_ID.
+export APP_ID=webbrowser-app
+
 exec $@
