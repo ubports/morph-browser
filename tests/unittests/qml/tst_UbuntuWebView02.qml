@@ -71,7 +71,7 @@ Item {
             webview.loadHtml(html, "file:///")
             // Ridiculously high timeout, but this appears to be needed when
             // running the tests in CI (https://launchpad.net/bugs/1599630).
-            tryCompare(webview, "loading", false, 60000)
+            tryCompare(webview, "loading", false, 120000)
         }
 
         function rightClickWebview() {
