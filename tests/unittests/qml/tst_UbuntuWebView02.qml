@@ -45,7 +45,7 @@ Item {
         }
     }
 
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "UbuntuWebView02"
         when: windowShown
 
@@ -77,8 +77,6 @@ Item {
         function rightClickWebview() {
             var center = centerOf(webview)
             mouseClick(webview, center.x, center.y, Qt.RightButton)
-            // give the context menu a chance to appear before carrying on
-            wait(500)
         }
 
         function getContextMenu() {
@@ -86,22 +84,23 @@ Item {
         }
 
         function dismissContextMenu() {
+            verify(getContextMenu() != null)
             var center = centerOf(webview)
             mouseClick(webview, center.x, center.y)
-            wait(500)
-            compare(getContextMenu(), null)
+            verify(waitFor(function() { return getContextMenu() == null }))
         }
 
         function test_no_contextual_actions() {
             loadHtmlWithHyperlink()
             rightClickWebview()
-            compare(getContextMenu(), null)
+            compare(waitFor(getContextMenu), null)
         }
 
         function test_contextual_actions() {
             webview.contextualActions = actionList
             loadHtmlWithHyperlink()
             rightClickWebview()
+            verify(waitFor(getContextMenu) != null)
             compare(getContextMenu().actions, actionList)
             compare(webview.contextualData.href, "http://example.org/")
             dismissContextMenu()
@@ -114,7 +113,7 @@ Item {
             action2.enabled = false
             loadHtmlWithHyperlink()
             rightClickWebview()
-            compare(getContextMenu(), null)
+            compare(waitFor(getContextMenu), null)
             action1.enabled = true
             action2.enabled = true
         }
