@@ -71,9 +71,7 @@ Item {
             var html = '<html><body style="margin: 0"><a href="http://example.org/">'
             html += '<div style="height: 100%"></div></a></body></html>'
             webview.loadHtml(html, "file:///")
-            // Ridiculously high timeout, but this appears to be needed when
-            // running the tests in CI (https://launchpad.net/bugs/1599630).
-            tryCompare(webview, "loading", false, 120000)
+            tryCompare(webview, "loading", false)
         }
 
         function rightClickWebview() {
