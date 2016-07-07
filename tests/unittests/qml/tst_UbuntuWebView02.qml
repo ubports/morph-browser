@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -45,8 +45,6 @@ Item {
         }
     }
 
-    readonly property string htmlWithHyperlink: '<html><body style="margin: 0"><a href="http://example.org/"><div style="height: 100%"></div></a></body></html>'
-
     UbuntuTestCase {
         name: "UbuntuWebView02"
         when: windowShown
@@ -65,6 +63,15 @@ Item {
             var other = webviewComponent.createObject(root)
             compare(other.context, webview.context)
             other.destroy()
+        }
+
+        function loadHtmlWithHyperlink() {
+            var html = '<html><body style="margin: 0"><a href="http://example.org/">'
+            html += '<div style="height: 100%"></div></a></body></html>'
+            webview.loadHtml(html, "file:///")
+            // Ridiculously high timeout, but this appears to be needed when
+            // running the tests in CI (https://launchpad.net/bugs/1599630).
+            tryCompare(webview, "loading", false, 60000)
         }
 
         function rightClickWebview() {
@@ -86,16 +93,14 @@ Item {
         }
 
         function test_no_contextual_actions() {
-            webview.loadHtml(root.htmlWithHyperlink, "file:///")
-            tryCompare(webview, "loading", false)
+            loadHtmlWithHyperlink()
             rightClickWebview()
             compare(getContextMenu(), null)
         }
 
         function test_contextual_actions() {
             webview.contextualActions = actionList
-            webview.loadHtml(root.htmlWithHyperlink, "file:///")
-            tryCompare(webview, "loading", false)
+            loadHtmlWithHyperlink()
             rightClickWebview()
             compare(getContextMenu().actions, actionList)
             compare(webview.contextualData.href, "http://example.org/")
@@ -107,8 +112,7 @@ Item {
             webview.contextualActions = actionList
             action1.enabled = false
             action2.enabled = false
-            webview.loadHtml(root.htmlWithHyperlink, "file:///")
-            tryCompare(webview, "loading", false)
+            loadHtmlWithHyperlink()
             rightClickWebview()
             compare(getContextMenu(), null)
             action1.enabled = true
