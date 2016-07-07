@@ -53,6 +53,8 @@ Item {
 
         function init() {
             webview = webviewComponent.createObject(root)
+            verify(webview != null)
+            verify(waitForRendering(webview))
         }
 
         function cleanup() {
