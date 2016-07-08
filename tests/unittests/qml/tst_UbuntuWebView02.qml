@@ -115,7 +115,8 @@ Item {
             action2.enabled = false
             loadHtmlWithHyperlink()
             rightClickWebview()
-            compare(waitFor(getContextMenu), null)
+            waitFor(getContextMenu)
+            verify(waitFor(function() { return getContextMenu() == null }))
             action1.enabled = true
             action2.enabled = true
         }
