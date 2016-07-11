@@ -288,14 +288,16 @@ void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& p
         QString suffix = fi.completeSuffix();
         QString filename = fi.fileName();
         QString filenameWithoutSuffix = filename.left(filename.size() - suffix.size());
-        QString dir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
-        QString destination = dir + QDir::separator() + filenameWithoutSuffix + suffix;
+        QDir dir(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
+        if (!dir.exists()) {
+            QDir::root().mkpath(dir.absolutePath());
+        }
+        QString destination = dir.absoluteFilePath(filenameWithoutSuffix + suffix);
         // Avoid filename collision by automatically inserting an incremented
         // number into the filename if the original name already exists.
         int append = 1;
         while (QFile::exists(destination)) {
-            destination = QString("%1%2.%3").arg(dir + QDir::separator() + filenameWithoutSuffix, QString::number(append), suffix);
-            ++append;
+            destination = dir.absoluteFilePath(QString("%1%2.%3").arg(filenameWithoutSuffix, QString::number(append++), suffix));
         }
         if (file.rename(destination)) {
             setPath(downloadId, destination);
