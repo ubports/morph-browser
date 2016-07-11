@@ -1,3 +1,15 @@
+webbrowser-app (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
+
+  [ Florian Boucault ]
+  * Debian packaging crossbuild fixes:
+
+  [ Olivier Tilloy ]
+  * Create Downloads folder if it doesn’t exist. (LP: #1599436)
+  * Increase timeout a lot to cope with flaky tests in CI. (LP:
+    #1599630)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 11 Jul 2016 15:20:04 +0000
+
 webbrowser-app (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
 
   * Generate UA override list files at build time to un-hardcode ubuntu
