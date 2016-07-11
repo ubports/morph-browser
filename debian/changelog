@@ -1,3 +1,9 @@
+webbrowser-app (0.23+16.10.20160701.1-0ubuntu2) UNRELEASED; urgency=medium
+
+  * Fix for issue where many tabs causes close button to overlap other tabs (LP: #1473630)
+
+ -- Andrew Hayzen <ahayzen@gmail.com>  Mon, 11 Jul 2016 15:46:19 +0100
+
 webbrowser-app (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
 
   * Generate UA override list files at build time to un-hardcode ubuntu

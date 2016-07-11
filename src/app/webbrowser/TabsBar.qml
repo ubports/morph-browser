@@ -131,7 +131,28 @@ Item {
 
                 anchors.top: tabsContainer.top
                 property real rightMargin: units.dp(1)
-                width: tabWidth + rightMargin
+                
+                // Whether there will be one larger tab or not
+                property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
+                
+                // Minimum size of the larger tab
+                property real minActiveTabWidth: units.gu(10)
+                
+                // When there is a larger tab, calc the smaller tab size
+                property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(root.model.count - 1, 1)
+                
+                width: {
+                    if (unevenTabWidth) {
+                        // Uneven tabs so use large or small depending which index
+                        if (tabIndex === root.model.currentIndex) {
+                            minActiveTabWidth
+                        } else {
+                            nonActiveTabWidth
+                        }
+                    } else {
+                        tabWidth + rightMargin
+                    }
+                }
                 height: tabsContainer.height
 
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
@@ -171,7 +192,19 @@ Item {
 
                 Binding on x {
                     when: !dragging
-                    value: index * width
+                    value: {
+                        if (unevenTabWidth) {
+                            if (tabIndex > root.model.currentIndex) {
+                                // count width for small tabs and one large one
+                                minActiveTabWidth + (nonActiveTabWidth * (index - 1))
+                            } else {
+                                // use small tab width as we are not after the wider one
+                                nonActiveTabWidth * index
+                            }
+                        } else {
+                            (tabWidth + rightMargin) * index
+                        }
+                    }
                 }
 
                 Behavior on x { NumberAnimation { duration: 250 } }

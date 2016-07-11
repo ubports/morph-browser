@@ -55,8 +55,13 @@ Item {
             id: favicon
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: units.gu(2)
+            // Scale leftMargin when tabs becomes small so it is in the centre
+            anchors.leftMargin: Math.min(tabItem.width / 4, units.gu(2))
             shouldCache: !incognito
+            
+            // Scale width and height of favicon when tabWidth becomes small
+            height: width
+            width: Math.min(units.dp(16), tabItem.width - (anchors.leftMargin * 2))
         }
 
         Item {
@@ -131,6 +136,7 @@ Item {
             anchors.bottom: touchEnabled ? parent.bottom : undefined
             anchors.right: touchEnabled ? parent.right : undefined
             width: touchEnabled ? units.gu(4) : closeIcon.width
+            visible: closeIcon.visible
 
             onClicked: closed()
 
@@ -150,6 +156,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             name: "close"
             color: tabItem.fgColor
+            visible: x >= favicon.x + favicon.width
         }
     }
 }
