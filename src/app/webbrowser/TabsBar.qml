@@ -30,6 +30,12 @@ Item {
     property real maxTabWidth: units.gu(20)
     property real tabWidth: model ? Math.max(Math.min(tabsContainer.maxWidth / model.count, maxTabWidth), minTabWidth) : 0
 
+    // Minimum size of the larger tab
+    property real minActiveTabWidth: units.gu(10)
+    
+    // When there is a larger tab, calc the smaller tab size
+    property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(model.count - 1, 1)
+
     property bool incognito: false
 
     property color fgColor: Theme.palette.normal.baseText
@@ -134,12 +140,6 @@ Item {
                 
                 // Whether there will be one larger tab or not
                 property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
-                
-                // Minimum size of the larger tab
-                property real minActiveTabWidth: units.gu(10)
-                
-                // When there is a larger tab, calc the smaller tab size
-                property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(root.model.count - 1, 1)
                 
                 width: {
                     if (unevenTabWidth) {
