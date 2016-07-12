@@ -74,6 +74,7 @@ file(GLOB_RECURSE NON_COMPILED_SUBDIRS
      debian/tests/*
      doc/*.css doc/*.qdoc doc/*.qdocconf
      po/*.po po/*.pot
+     snap/launcher
      src/*.js src/*.qml src/*.sci src/README
      tests/*.py tests/*.qml)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COMPILED_SUBDIRS})

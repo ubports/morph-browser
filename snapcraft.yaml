@@ -6,7 +6,7 @@ confinement: devmode
 
 apps:
   webbrowser-app:
-    command: desktop-launch launcher-no-sandbox webbrowser-app
+    command: desktop-launch launcher webbrowser-app
     plugs: [unity7, opengl, network]
 
 parts:
@@ -42,8 +42,8 @@ parts:
       - qtdeclarative5-unity-action-plugin
     after: [desktop/qt5]
 
-  launcher-no-sandbox:
+  launcher:
     plugin: copy
     source: snap
     files:
-      launcher-no-sandbox: bin/launcher-no-sandbox
+      launcher: bin/launcher
