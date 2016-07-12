@@ -36,6 +36,12 @@ Item {
     // When there is a larger tab, calc the smaller tab size
     property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(model.count - 1, 1)
 
+    // The size of the right margin of the tab
+    property real rightMargin: units.dp(1)
+                
+    // Whether there will be one larger tab or not
+    property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
+
     property bool incognito: false
 
     property color fgColor: Theme.palette.normal.baseText
@@ -136,10 +142,6 @@ Item {
                 readonly property int tabIndex: index
 
                 anchors.top: tabsContainer.top
-                property real rightMargin: units.dp(1)
-                
-                // Whether there will be one larger tab or not
-                property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
                 
                 width: {
                     if (unevenTabWidth) {
@@ -177,7 +179,7 @@ Item {
 
                     touchEnabled: root.touchEnabled
 
-                    rightMargin: tabDelegate.rightMargin
+                    rightMargin: root.rightMargin
 
                     onClosed: root.tabClosed(index)
                     onSelected: root.switchToTab(index)
