@@ -7,7 +7,7 @@ confinement: devmode
 apps:
   webbrowser-app:
     command: desktop-launch launcher webbrowser-app
-    plugs: [unity7, opengl, network, pulseaudio]
+    plugs: [unity7, opengl, network, network-bind, pulseaudio]
 
 parts:
   webbrowser-app:
