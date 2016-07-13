@@ -1,3 +1,14 @@
+webbrowser-app (0.23+16.10.20160713-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix container AP tests browse_to function
+  * Set container webview as active focus (LP: #1532739)
+
+  [ Santosh Mahto ]
+  * Support keyboard shortcuts in webapp containers (LP: #1579101)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 13 Jul 2016 16:24:06 +0000
+
 webbrowser-app (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
 
   [ Florian Boucault ]
