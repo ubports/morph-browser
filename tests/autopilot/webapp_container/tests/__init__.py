@@ -52,7 +52,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             return LOCAL_BROWSER_CONTAINER_PATH_NAME
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
-    def launch_webcontainer_app(self, args, envvars={}):
+    def launch_webcontainer_app(self, args, envvars={}, is_local_app=False):
         if model() != 'Desktop':
             args.append(
                 '--desktop_file_hint=/usr/share/applications/'
@@ -73,6 +73,12 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                 emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         except:
             self.app = None
+
+        if not is_local_app:
+            webview = self.get_oxide_webview()
+            self.assertThat(
+                lambda: webview.activeFocus,
+                Eventually(Equals(True)))
 
     def get_webcontainer_proxy(self):
         return self.app

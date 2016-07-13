@@ -79,6 +79,8 @@ BrowserView {
         }
     ]
 
+    focus: true
+
     Settings {
         id: urlPatternSettings
         property string generatedUrlPatterns
@@ -146,6 +148,8 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+
+            focus: true
 
             onThemeColorMetaInformationDetected: {
                 var color = webappContainerHelper.rgbColorFromCSSColor(theme_color)

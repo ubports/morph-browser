@@ -23,7 +23,7 @@ import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
 import ".."
 
-Item {
+FocusScope {
     id: containerWebview
 
     property string url: ""
@@ -98,6 +98,7 @@ Item {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
         anchors.fill: parent
+        focus: true
     }
 
     onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url

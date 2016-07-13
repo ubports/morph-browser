@@ -73,6 +73,8 @@ WebappWebview {
         }
     }
 
+    focus: true
+
     currentWebview: webview
 
     context: WebContext {
