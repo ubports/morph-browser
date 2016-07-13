@@ -124,7 +124,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
 
     def browse_to(self, url):
         webview = self.get_oxide_webview()
-        webview.url = url
+        webview.slots.navigateToUrl(url)
         self.assert_page_eventually_loaded(url)
 
     def kill_app(self, signal=signal.SIGKILL):
