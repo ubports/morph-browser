@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import webbrowsercommon.private 0.1
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
@@ -278,5 +279,31 @@ BrowserView {
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication
         injectExtraContentShareCapabilities: !runningLocalApplication
+    }
+
+    // F5 or Ctrl+R: Reload current Tab
+    Shortcut {
+        sequence: "Ctrl+r"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+    Shortcut {
+        sequence: "F5"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+
+    // Alt+← or Backspace: Goes to the previous page
+    Shortcut {
+        sequence: StandardKey.Back
+        enabled: currentWebview && currentWebview.canGoBack
+        onActivated: currentWebview.goBack()
+    }
+
+    // Alt+→ or Shift+Backspace: Goes to the next page
+    Shortcut {
+        sequence: StandardKey.Forward
+        enabled: currentWebview && currentWebview.canGoForward
+        onActivated: currentWebview.goForward()
     }
 }
