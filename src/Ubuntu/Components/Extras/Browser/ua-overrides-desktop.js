@@ -1,1 +1,0 @@
-../../../Web/ua-overrides-desktop.js

@@ -1,3 +1,26 @@
+webbrowser-app (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
+
+  [ Florian Boucault ]
+  * Debian packaging crossbuild fixes:
+
+  [ Olivier Tilloy ]
+  * Create Downloads folder if it doesn’t exist. (LP: #1599436)
+  * Increase timeout a lot to cope with flaky tests in CI. (LP:
+    #1599630)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 11 Jul 2016 15:20:04 +0000
+
+webbrowser-app (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
+
+  * Generate UA override list files at build time to un-hardcode ubuntu
+    and chromium version numbers. (LP: #1591220)
+  * Fix one flaky autopilot test. (LP: #1591120)
+  * Temporarily skip tests on arm64 to unblock package build without
+    oxide. (LP: #1585942)
+  * Update the target that lists non-compiled files.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 01 Jul 2016 13:10:14 +0000
+
 webbrowser-app (0.23+16.10.20160620-0ubuntu1) yakkety; urgency=medium
 
   * Set the front camera as the default for video media requests (LP:
