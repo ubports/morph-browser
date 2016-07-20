@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 
 Dialog {
+    objectName: "leavePrivateModeDialog"
     title: i18n.tr("Going to public mode will close all private tabs")
 
     signal cancelButtonClicked()

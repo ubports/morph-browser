@@ -77,6 +77,9 @@ Popover {
 
             delegate: OptionSelectorDelegate { text: folder === "" ? i18n.tr("All Bookmarks") : folder }
             containerHeight: itemHeight * 3
+            model: BookmarksFolderListModel {
+                sourceModel: BookmarksModel
+            }
         }
 
         Item {

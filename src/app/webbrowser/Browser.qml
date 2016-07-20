@@ -79,7 +79,7 @@ BrowserView {
            tabs will have their mediaAccessPermissionRequested signal handled by
            creating one of these new dialogs.
         */
-        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+        onMediaAccessPermissionRequested: PopupUtils.open("../MediaAccessDialog.qml", null, { request: request })
     }
 
     currentWebcontext: SharedWebContext.sharedContext
@@ -108,11 +108,6 @@ BrowserView {
 
     FilteredKeyboardModel {
         id: keyboardModel
-    }
-
-    Component {
-        id: mediaAccessDialogComponent
-        MediaAccessDialog { }
     }
 
     actions: [
@@ -222,12 +217,16 @@ BrowserView {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
-            sourceComponent: ErrorSheet {
-                visible: currentWebview ? currentWebview.lastLoadFailed : false
-                url: currentWebview ? currentWebview.url : ""
+            Component.onCompleted: setSource("../ErrorSheet.qml", {
+                                                 "visible": Qt.binding(function(){ return currentWebview ? currentWebview.lastLoadFailed : false }),
+                                                 "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
+                                             })
+            Connections {
+                target: errorSheetLoader.item ? errorSheetLoader.item : null
                 onRefreshClicked: currentWebview.reload()
             }
-            focus: item.visible
+
+            focus: item ? item.visible : false
             asynchronous: true
         }
 
@@ -237,9 +236,12 @@ BrowserView {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
-            sourceComponent: InvalidCertificateErrorSheet {
-                visible: currentWebview && currentWebview.certificateError != null
-                certificateError: currentWebview ? currentWebview.certificateError : null
+            Component.onCompleted: setSource("../InvalidCertificateErrorSheet.qml", {
+                                                 "visible": Qt.binding(function(){ return currentWebview && currentWebview.certificateError != null }),
+                                                 "certificateError": Qt.binding(function(){ return currentWebview ? currentWebview.certificateError : null })
+                                             })
+            Connections {
+                target: invalidCertificateErrorSheetLoader.item ? invalidCertificateErrorSheetLoader.item : null
                 onAllowed: {
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
@@ -250,7 +252,7 @@ BrowserView {
                     currentWebview.resetCertificateError()
                 }
             }
-            focus: item.visible
+            focus: item ? item.visible : false
             asynchronous: true
         }
 
@@ -283,59 +285,46 @@ BrowserView {
                         newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
                     }
                 }
+                onIncognitoChanged: newTabViewLoader.selectTabView()
+                onWideChanged: newTabViewLoader.selectTabView()
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabView :
-                             (browser.wide ? newTabViewWide : newTabView)
-
-            Component {
-                id: newTabView
-
-                NewTabView {
-                    anchors.fill: parent
-                    settingsObject: settings
-                    focus: true
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
+            function selectTabView() {
+                if (browser.incognito) {
+                    newTabViewLoader.setSource("NewPrivateTabView.qml", {
+                                                "anchors.fill": parent,
+                    })
+                } else {
+                    if (browser.wide) {
+                        newTabViewLoader.setSource("NewTabViewWide.qml", {
+                                                       "anchors.fill": parent,
+                                                       "settingsObject": settings,
+                                                       "focus": true
+                        })
+                    } else {
+                        newTabViewLoader.setSource("NewTabView.qml", {
+                                                       "anchors.fill": parent,
+                                                       "settingsObject": settings,
+                                                       "focus": true
+                        })
                     }
-                    onBookmarkRemoved: BookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    Keys.onUpPressed: chrome.focus = true
                 }
             }
 
-            Component {
-                id: newTabViewWide
-
-                NewTabViewWide {
-                    anchors.fill: parent
-                    settingsObject: settings
-                    focus: true
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    onBookmarkRemoved: BookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    Keys.onUpPressed: chrome.focus = true
+            Connections {
+                target: newTabViewLoader.item && !browser.incognito ? newTabViewLoader.item : null
+                onBookmarkClicked: {
+                    chrome.requestedUrl = url
+                    currentWebview.url = url
+                    tabContainer.forceActiveFocus()
                 }
-            }
-
-            Component {
-                id: newPrivateTabView
-
-                NewPrivateTabView { anchors.fill: parent }
+                onBookmarkRemoved: BookmarksModel.remove(url)
+                onHistoryEntryClicked: {
+                    chrome.requestedUrl = url
+                    currentWebview.url = url
+                    tabContainer.forceActiveFocus()
+                }
+                Keys.onUpPressed: chrome.focus = true
             }
         }
 
@@ -349,8 +338,11 @@ BrowserView {
             active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
             focus: active
 
-            sourceComponent: SadTab {
-                webview: currentWebview
+            Component.onCompleted: setSource("SadTab.qml", {
+                                                 "webview": currentWebview
+                                             })
+            Connections {
+                target: sadTabLoader.item ? sadTabLoader.item : null
                 onCloseTabRequested: internal.closeCurrentTab()
             }
 
@@ -595,7 +587,7 @@ BrowserView {
                 onTriggered: {
                     if (browser.incognito) {
                         if (tabsModel.count > 1) {
-                            PopupUtils.open(leavePrivateModeDialog)
+                            leavePrivateModeDialog = PopupUtils.open("LeavePrivateModeDialog.qml")
                         } else {
                             browser.incognito = false
                             internal.resetFocus()
@@ -612,6 +604,29 @@ BrowserView {
                 onTriggered: settingsViewLoader.active = true
             }
         ]
+
+        property var leavePrivateModeDialog: null
+        Connections {
+            target: chrome.leavePrivateModeDialog ? chrome.leavePrivateModeDialog : null
+
+            // This dialog inherits from PopupBase, which has a restoreActiveFocus
+            // function that is called when the dialog is hidden. That keeps the
+            // focus in the address bar/webview when we leave private mode. So any
+            // change on the active focus should be done after the run of such
+            // function
+            Component.onDestruction: {
+                chrome.leavePrivateModeDialog = null
+                if (!browser.incognito) {
+                    internal.resetFocus()
+                }
+            }
+
+            onCancelButtonClicked: PopupUtils.close(leavePrivateModeDialog)
+            onOkButtonClicked: {
+                PopupUtils.close(leavePrivateModeDialog)
+                browser.incognito = false
+            }
+        }
 
         canSimplifyText: !browser.wide
         editing: activeFocus || suggestionsList.activeFocus
@@ -827,7 +842,27 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: browser.wide ? bookmarksViewWideComponent : bookmarksViewComponent
+        asynchronous: true
+        Connections {
+            target: browser
+            onWideChanged: bookmarksViewLoader.selectBookmarksView()
+        }
+
+        function selectBookmarksView() {
+            if (browser.wide) {
+                bookmarksViewLoader.setSource("BookmarksViewWide.qml", {
+                                                  "anchors.fill": parent,
+                                                  "focus": true,
+                                                  "homepageUrl": settings.homepage
+                })
+            } else {
+                bookmarksViewLoader.setSource("BookmarksView.qml", {
+                                                  "anchors.fill": parent,
+                                                  "focus": true,
+                                                  "homepageUrl": settings.homepage
+                })
+            }
+        }
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -851,26 +886,6 @@ BrowserView {
                 bookmarksViewLoader.active = false
             }
         }
-
-        Component {
-            id: bookmarksViewComponent
-
-            BookmarksView {
-                anchors.fill: parent
-                focus: true
-                homepageUrl: settings.homepage
-            }
-        }
-
-        Component {
-            id: bookmarksViewWideComponent
-
-            BookmarksViewWide {
-                anchors.fill: parent
-                focus: true
-                homepageUrl: settings.homepage
-            }
-        }
     }
 
     Loader {
@@ -878,7 +893,41 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
+        asynchronous: true
+        Connections {
+            target: browser
+            onWideChanged: historyViewLoader.selectHistoryView()
+        }
+
+        function selectHistoryView() {
+            if (browser.wide) {
+                historyViewLoader.setSource("HistoryViewWide.qml", {
+                                                  "anchors.fill": parent,
+                                                  "focus": true
+                })
+            } else {
+                historyViewLoader.setSource("HistoryViewWithExpansion.qml", {
+                                                  "focus": true
+                })
+            }
+        }
+
+        Connections {
+            target: historyViewLoader.item ? historyViewLoader.item : null
+            onHistoryEntryClicked: {
+                historyViewLoader.active = false
+                browser.openUrlInNewTab(url, true)
+            }
+            onNewTabRequested: {
+                historyViewLoader.active = false
+                browser.openUrlInNewTab("", true)
+            }
+            onDone: {
+                historyViewLoader.active = false
+                internal.resetFocus()
+            }
+            onBack: historyViewLoader.active = false
+        }
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -889,75 +938,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-
-        Component {
-            id: historyViewComponent
-
-            FocusScope {
-                focus: true
-
-                signal loadModel()
-                onLoadModel: children[0].loadModel()
-
-                HistoryView {
-                    anchors.fill: parent
-                    focus: !expandedHistoryViewLoader.focus
-                    visible: focus
-                    onSeeMoreEntriesClicked: {
-                        expandedHistoryViewLoader.model = model
-                        expandedHistoryViewLoader.active = true
-                    }
-                    onNewTabRequested: browser.openUrlInNewTab("", true)
-                    onBack: historyViewLoader.active = false
-                }
-
-                Loader {
-                    id: expandedHistoryViewLoader
-                    asynchronous: true
-                    anchors.fill: parent
-                    active: false
-                    focus: active
-                    property var model: null
-                    sourceComponent: ExpandedHistoryView {
-                        focus: true
-                        model: expandedHistoryViewLoader.model
-                        onHistoryEntryClicked: {
-                            browser.openUrlInNewTab(url, true)
-                            historyViewLoader.active = false
-                        }
-                        onHistoryEntryRemoved: {
-                            if (count == 1) {
-                                done()
-                            }
-                            HistoryModel.removeEntryByUrl(url)
-                        }
-                        onDone: expandedHistoryViewLoader.active = false
-                    }
-                }
-            }
-        }
-
-        Component {
-            id: historyViewWideComponent
-
-            HistoryViewWide {
-                anchors.fill: parent
-                focus: true
-
-                onHistoryEntryClicked: {
-                    historyViewLoader.active = false
-                    browser.openUrlInNewTab(url, true)
-                }
-                onNewTabRequested: {
-                    historyViewLoader.active = false
-                    browser.openUrlInNewTab("", true)
-                }
-                onDone: {
-                    historyViewLoader.active = false
-                    internal.resetFocus()
-                }
-            }
-        }
     }
 
     Loader {
@@ -965,6 +945,7 @@ BrowserView {
 
         anchors.fill: parent
         active: false
+        asynchronous: true
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -975,10 +956,13 @@ BrowserView {
             }
         }
 
-        sourceComponent: SettingsPage {
-            anchors.fill: parent
-            focus: true
-            settingsObject: settings
+        Component.onCompleted: setSource("SettingsPage.qml", {
+                                             "anchors.fill": parent,
+                                             "focus": true,
+                                             "settingsObject": settings
+                                         })
+        Connections {
+            target: settingsViewLoader.item ? settingsViewLoader.item : null
             onDone: settingsViewLoader.active = false
         }
     }
@@ -988,6 +972,7 @@ BrowserView {
 
         anchors.fill: parent
         active: false
+        asynchronous: true
         source: "DownloadsPage.qml"
 
         Binding {
@@ -1021,6 +1006,7 @@ BrowserView {
     Loader {
         id: privateTabsModelLoader
 
+        asynchronous: true
         sourceComponent: browser.incognito ? privateTabsModelComponent : undefined
 
         Component {
@@ -1045,6 +1031,7 @@ BrowserView {
         asynchronous: true
     }
 
+    // FIXME: get rid of Component
     Component {
         id: tabComponent
 
@@ -1244,6 +1231,7 @@ BrowserView {
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
+                    print ("NEW VIEW REQUESTED", request)
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
@@ -1421,35 +1409,6 @@ BrowserView {
                 }
 
             }
-        }
-    }
-
-    Component {
-        id: bookmarkOptionsComponent
-        BookmarkOptions {
-            folderModel: BookmarksFolderListModel {
-                sourceModel: BookmarksModel
-            }
-
-            Component.onCompleted: forceActiveFocus()
-
-            onVisibleChanged: {
-                if (!visible) {
-                    BookmarksModel.remove(bookmarkUrl)
-                }
-            }
-
-            Component.onDestruction: {
-                if (BookmarksModel.contains(bookmarkUrl)) {
-                    BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
-                }
-            }
-
-            // Fragile workaround for https://launchpad.net/bugs/1546677.
-            // By destroying the popover, its visibility isn’t changed to
-            // false, and thus the bookmark is not removed.
-            Keys.onEnterPressed: destroy()
-            Keys.onReturnPressed: destroy()
         }
     }
 
@@ -1659,8 +1618,34 @@ BrowserView {
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
-            currentBookmarkOptionsDialog = PopupUtils.open(bookmarkOptionsComponent,
+            currentBookmarkOptionsDialog = PopupUtils.open("BookmarkOptions.qml",
                                                            location, properties)
+            currentBookmarkOptionsDialog.forceActiveFocus()
+        }
+
+        property var dialogConnections: Connections {
+            target: internal.currentBookmarkOptionsDialog ? internal.currentBookmarkOptionsDialog : null
+
+            onVisibleChanged: {
+                if (!internal.currentBookmarkOptionsDialog.visible) {
+                    BookmarksModel.remove(internal.currentBookmarkOptionsDialog.bookmarkUrl)
+                }
+            }
+
+            Component.onDestruction: {
+                if (BookmarksModel.contains(internal.currentBookmarkOptionsDialog.bookmarkUrl)) {
+                    BookmarksModel.update(internal.currentBookmarkOptionsDialog.bookmarkUrl,
+                                          internal.currentBookmarkOptionsDialog.bookmarkTitle,
+                                          internal.currentBookmarkOptionsDialog.bookmarkFolder)
+                }
+                internal.currentBookmarkOptionsDialog = null
+            }
+
+            // Fragile workaround for https://launchpad.net/bugs/1546677.
+            // By destroying the popover, its visibility isn’t changed to
+            // false, and thus the bookmark is not removed.
+            Keys.onEnterPressed: internal.currentBookmarkOptionsDialog.destroy()
+            Keys.onReturnPressed: internal.currentBookmarkOptionsDialog.destroy()
         }
     }
 
@@ -1673,6 +1658,7 @@ BrowserView {
     }
 
     function openUrlInNewTab(url, setCurrent, load, index) {
+        print("OPEN URL IN NEW TAB", url, setCurrent, load, index)
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent, index)
@@ -1758,6 +1744,7 @@ BrowserView {
                 properties['restoreState'] = state.savedState
                 properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
             }
+            print("CREATE TAB FROM STATE", state, properties)
             return tabComponent.createObject(tabContainer, properties)
         }
     }
@@ -1934,32 +1921,6 @@ BrowserView {
                 } else if (browser.wide) {
                     Qt.quit()
                 }
-            }
-        }
-    }
-
-    Component {
-        id: leavePrivateModeDialog
-
-        LeavePrivateModeDialog {
-            id: dialogue
-            objectName: "leavePrivateModeDialog"
-
-            // This dialog inherits from PopupBase, which has a restoreActiveFocus
-            // function that is called when the dialog is hidden. That keeps the
-            // focus in the address bar/webview when we leave private mode. So any
-            // change on the active focus should be done after the run of such
-            // function
-            Component.onDestruction: {
-                if (!browser.incognito) {
-                    internal.resetFocus()
-                }
-            }
-
-            onCancelButtonClicked: PopupUtils.close(dialogue)
-            onOkButtonClicked: {
-                PopupUtils.close(dialogue)
-                browser.incognito = false
             }
         }
     }
