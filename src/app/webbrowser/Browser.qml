@@ -79,7 +79,7 @@ BrowserView {
            tabs will have their mediaAccessPermissionRequested signal handled by
            creating one of these new dialogs.
         */
-        onMediaAccessPermissionRequested: PopupUtils.open("../MediaAccessDialog.qml", null, { request: request })
+        onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
     }
 
     currentWebcontext: SharedWebContext.sharedContext
@@ -288,22 +288,19 @@ BrowserView {
                 onIncognitoChanged: newTabViewLoader.selectTabView()
                 onWideChanged: newTabViewLoader.selectTabView()
             }
+            Component.onCompleted: newTabViewLoader.selectTabView()
 
             function selectTabView() {
                 if (browser.incognito) {
-                    newTabViewLoader.setSource("NewPrivateTabView.qml", {
-                                                "anchors.fill": parent,
-                    })
+                    newTabViewLoader.setSource("NewPrivateTabView.qml")
                 } else {
                     if (browser.wide) {
                         newTabViewLoader.setSource("NewTabViewWide.qml", {
-                                                       "anchors.fill": parent,
                                                        "settingsObject": settings,
                                                        "focus": true
                         })
                     } else {
                         newTabViewLoader.setSource("NewTabView.qml", {
-                                                       "anchors.fill": parent,
                                                        "settingsObject": settings,
                                                        "focus": true
                         })
@@ -587,7 +584,7 @@ BrowserView {
                 onTriggered: {
                     if (browser.incognito) {
                         if (tabsModel.count > 1) {
-                            leavePrivateModeDialog = PopupUtils.open("LeavePrivateModeDialog.qml")
+                            leavePrivateModeDialog = PopupUtils.open(Qt.resolvedUrl("LeavePrivateModeDialog.qml"))
                         } else {
                             browser.incognito = false
                             internal.resetFocus()
@@ -847,17 +844,16 @@ BrowserView {
             target: browser
             onWideChanged: bookmarksViewLoader.selectBookmarksView()
         }
+        Component.onCompleted: bookmarksViewLoader.selectBookmarksView()
 
         function selectBookmarksView() {
             if (browser.wide) {
                 bookmarksViewLoader.setSource("BookmarksViewWide.qml", {
-                                                  "anchors.fill": parent,
                                                   "focus": true,
                                                   "homepageUrl": settings.homepage
                 })
             } else {
                 bookmarksViewLoader.setSource("BookmarksView.qml", {
-                                                  "anchors.fill": parent,
                                                   "focus": true,
                                                   "homepageUrl": settings.homepage
                 })
@@ -898,11 +894,11 @@ BrowserView {
             target: browser
             onWideChanged: historyViewLoader.selectHistoryView()
         }
+        Component.onCompleted: historyViewLoader.selectHistoryView()
 
         function selectHistoryView() {
             if (browser.wide) {
                 historyViewLoader.setSource("HistoryViewWide.qml", {
-                                                  "anchors.fill": parent,
                                                   "focus": true
                 })
             } else {
@@ -957,7 +953,6 @@ BrowserView {
         }
 
         Component.onCompleted: setSource("SettingsPage.qml", {
-                                             "anchors.fill": parent,
                                              "focus": true,
                                              "settingsObject": settings
                                          })
@@ -1243,7 +1238,7 @@ BrowserView {
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
-            currentBookmarkOptionsDialog = PopupUtils.open("BookmarkOptions.qml",
+            currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
                                                            location, properties)
             currentBookmarkOptionsDialog.forceActiveFocus()
         }
@@ -1283,7 +1278,6 @@ BrowserView {
     }
 
     function openUrlInNewTab(url, setCurrent, load, index) {
-        print("OPEN URL IN NEW TAB", url, setCurrent, load, index)
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent, index)
@@ -1369,7 +1363,6 @@ BrowserView {
                 properties['restoreState'] = state.savedState
                 properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
             }
-            print("CREATE TAB FROM STATE", state, properties)
             return tabComponent.createObject(tabContainer, properties)
         }
     }
