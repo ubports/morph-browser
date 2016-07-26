@@ -1,3 +1,9 @@
+webbrowser-app (0.23+16.10.20160713-0ubuntu2~1) yakkety; urgency=medium
+
+  * Rebuild against Qt 5.6.
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Mon, 25 Jul 2016 10:25:39 +0300
+
 webbrowser-app (0.23+16.10.20160713-0ubuntu1) yakkety; urgency=medium
 
   [ Alexandre Abreu ]
