@@ -281,7 +281,7 @@ BrowserView {
         Component.onCompleted: {
             // Delay bind the property to add a bit of backward compatibility with
             // other unity-webapps-qml modules
-            if (unityWebapps.embeddedUiComponentParent) {
+            if (unityWebapps.embeddedUiComponentParent !== undefined) {
                 unityWebapps.embeddedUiComponentParent = webapp
             }
         }
