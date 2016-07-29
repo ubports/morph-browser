@@ -95,7 +95,7 @@ bool ensureNameProfilePathExists(const QString& profilePath) {
     return true;
 }
 
-bool isValidLocalServerNameLength(const QString& serverName) {
+bool isLocalServerNameLengthValid(const QString& serverName) {
 #if defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
     struct ::sockaddr_un addr;
     const QByteArray encodedServerName =
@@ -149,7 +149,7 @@ bool SingleInstanceManager::run(const QStringList& arguments, const QString& app
     // In this case, the return error ends up being UnknownError
     // https://github.com/qt/qtbase/blob/dev/src/network/socket/qlocalserver_unix.cpp#L310
 
-    if (!isValidLocalServerNameLength(serverName)){
+    if (!isLocalServerNameLengthValid(serverName)){
         profilePath = parts.first;
 
         qWarning() << "Could not create a local singleton name server with name"
