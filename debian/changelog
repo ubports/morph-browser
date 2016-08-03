@@ -1,3 +1,14 @@
+webbrowser-app (0.23+16.10.20160803.1-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Deprecate ubuntu-html5-container (LP: #1587505)
+  * Delay bind UnityWebapps property embeddedUiComponentParent to be a
+    bit more backward compatible
+  * Properly handle long app id names for single instance manager (LP:
+    #1607287)
+
+ -- Alberto Mardegan <mardy@users.sourceforge.net>  Wed, 03 Aug 2016 09:29:26 +0000
+
 webbrowser-app (0.23+16.10.20160713-0ubuntu2~1) yakkety; urgency=medium
 
   * Rebuild against Qt 5.6.
