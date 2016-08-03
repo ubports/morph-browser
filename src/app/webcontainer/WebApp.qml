@@ -278,11 +278,18 @@ BrowserView {
         id: unityWebapps
         name: webappName
         bindee: containerWebView.currentWebview
-        embeddedUiComponentParent: webapp
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication
         injectExtraContentShareCapabilities: !runningLocalApplication
+
+        Component.onCompleted: {
+            // Delay bind the property to add a bit of backward compatibility with
+            // other unity-webapps-qml modules
+            if (unityWebapps.embeddedUiComponentParent !== undefined) {
+                unityWebapps.embeddedUiComponentParent = webapp
+            }
+        }
     }
 
     // F5 or Ctrl+R: Reload current Tab
