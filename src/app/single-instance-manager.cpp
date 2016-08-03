@@ -29,6 +29,11 @@
 #include <QtCore/QStringList>
 #include <QtNetwork/QLocalSocket>
 
+#if defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+#  include <sys/socket.h>
+#  include <sys/un.h>
+#endif
+
 // local
 #include "single-instance-manager.h"
 
@@ -40,7 +45,12 @@ const int kDataStreamVersion = QDataStream::Qt_5_0;
 const QString kHeaderToken = QStringLiteral("MESSAGE");
 const QString kAckToken = QStringLiteral("ACK");
 
-QString getProfilePathFromAppId(const QString& appId)
+/*
+ *
+ */
+typedef QPair<QString, QString> ProfilePathParts;
+
+ProfilePathParts getProfilePathPartsFromAppId(const QString& appId)
 {
     QString profilePath =
             QStandardPaths::writableLocation(QStandardPaths::DataLocation);
@@ -70,7 +80,33 @@ QString getProfilePathFromAppId(const QString& appId)
         appDesktopName = appIdParts.first();
     }
 
-    return profilePath + QDir::separator() + appDesktopName;
+    return ProfilePathParts(profilePath + QDir::separator(), appDesktopName);
+}
+
+bool ensureNameProfilePathExists(const QString& profilePath) {
+    QDir profile(profilePath);
+    if (!profile.exists()) {
+        if (!QDir::root().mkpath(profile.absolutePath())) {
+            qCritical() << "Failed to create profile directory,"
+                           "unable to ensure a single instance of the application";
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isLocalServerNameLengthValid(const QString& serverName) {
+#if defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+    struct ::sockaddr_un addr;
+    const QByteArray encodedServerName =
+        QFile::encodeName(serverName);
+    return (sizeof(addr.sun_path) >= (uint)encodedServerName.size() + 1);
+#endif
+    return true;
+}
+
+QString localServerNameFromProfilePath(const QString& profilePath) {
+    return QDir(profilePath).absoluteFilePath(QStringLiteral("SingletonSocket"));
 }
 
 }
@@ -96,24 +132,48 @@ bool SingleInstanceManager::run(const QStringList& arguments, const QString& app
         return false;
     }
 
-    QDir profile(getProfilePathFromAppId(appId));
-    if (!profile.exists()) {
-        if (!QDir::root().mkpath(profile.absolutePath())) {
-            qCritical() << "Failed to create profile directory,"
-                           "unable to ensure a single instance of the application";
-            return false;
-        }
-    }
-    QString name = profile.absoluteFilePath(QStringLiteral("SingletonSocket"));
-    // XXX: Unix domain sockets limit the length of the pathname to 108 characters.
-    //  We should probably handle QAbstractSocket::HostNotFoundError explicitly.
+    ProfilePathParts parts =
+            getProfilePathPartsFromAppId(appId);
 
-    if (listen(name)) {
+    QString profilePath = parts.first + parts.second;
+
+    QString serverName = localServerNameFromProfilePath(profilePath);
+
+    // We cannot rely on QAbstractSocket::HostNotFoundError
+    //
+    // https://github.com/qt/qtbase/blob/dev/src/network/socket/qlocalserver_unix.cpp#L120
+    //
+    // to detect error caused by a server name that exceeds the limits (108 chars
+    // as stated here http://man7.org/linux/man-pages/man7/unix.7.html for unix domain sockets)
+    // A call to QLocalServer::listen() with too long of a name, does not cause errno to be set.
+    // In this case, the return error ends up being UnknownError
+    // https://github.com/qt/qtbase/blob/dev/src/network/socket/qlocalserver_unix.cpp#L310
+
+    if (!isLocalServerNameLengthValid(serverName)){
+        profilePath = parts.first;
+
+        qWarning() << "Could not create a local singleton name server with name"
+                   << "'" << serverName << "'"
+                   << ", which seems faulty.";
+
+        serverName = localServerNameFromProfilePath(profilePath);
+
+        qWarning() << "Trying with a shorter name"
+                   << "'" << serverName << "', beware that it might cause some unintended"
+                   << "behaviors in the application's cache management. To avoid that"
+                   << "you could use a shorter application name.";
+    }
+    
+    if (!ensureNameProfilePathExists(profilePath)) {
+        return false;
+    }
+
+    if (listen(serverName)) {
         return true;
     }
 
     QLocalSocket socket;
-    socket.connectToServer(name);
+    socket.connectToServer(serverName);
     if (socket.waitForConnected(kWaitForRunningInstanceToRespondMs)) {
         qWarning() << "Passing arguments to already running instance";
         QByteArray block;
@@ -141,8 +201,8 @@ bool SingleInstanceManager::run(const QStringList& arguments, const QString& app
         socket.disconnectFromServer();
     } else {
         // Failed to talk to already running instance, assume it crashed.
-        if (QLocalServer::removeServer(name)) {
-            if (listen(name)) {
+        if (QLocalServer::removeServer(serverName)) {
+            if (listen(serverName)) {
                 return true;
             } else {
                 qCritical() << "Failed to launch single instance:"
