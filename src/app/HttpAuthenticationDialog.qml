@@ -24,7 +24,7 @@ Popups.Dialog {
     id: dialog
     title: i18n.tr("Authentication required.")
     // TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
-    text: request ? i18n.tr('The website at %1 requires authentication. The website says "%2"').arg(request.host).arg(request.realm) : ""
+    text: request ? i18n.tr("The website at %1 requires authentication. The website says \"%2\"").arg(request.host).arg(request.realm) : ""
 
     property QtObject request: null
 
