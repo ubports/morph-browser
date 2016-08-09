@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
+import com.canonical.Oxide 1.15 as Oxide
 
 FocusScope {
     property bool developerExtrasEnabled: false
@@ -52,5 +53,94 @@ FocusScope {
         KeyboardRectangle {
             id: _osk
         }
+    }
+
+    signal defaultVideoCaptureMediaIdUpdated(string defaultVideoCaptureDeviceId)
+
+    /**
+     * The goal of this chunk of code is to allow one to setup
+     * a default selection for the camera based on its position.
+     * As requested by:
+     *   https://launchpad.net/bugs/1563398
+     *
+     * At the moment though, there is an Oxide bug that prevents
+     * camera positions to be properly reported.
+     *
+     *   https://launchpad.net/bugs/1568145
+     *
+     * In order to workaround this for now, we use a hack based on the fact
+     * that in hybris backed systems, the various video capture devices' names
+     * are reported as "Front camera" & "Back camera", the string being translated.
+     * We used this dirty heuristic instead of the position as a fallback for now.
+     */
+
+    property var currentWebcontext
+    property string defaultVideoCaptureDeviceId
+    property string defaultVideoCaptureDevicePosition: "frontface"
+
+    QtObject {
+        id: internal
+
+        // "Front camera" is the user facing string returned by oxide
+        // https://git.launchpad.net/oxide/tree/shared/browser/media/oxide_video_capture_device_factory_linux.cc#n49
+        // It should be kept in sync.
+        readonly property string defaultVideoCaptureDeviceUserName:
+            (defaultVideoCaptureDevicePosition === "frontface") ?
+                i18n.dtr("oxide-qt", "Front camera") : ""
+
+        readonly property string cameraPositionUnspecified: "unspecified"
+
+        function setupDefaultVideoCaptureDevice() {
+            if ( ! currentWebcontext) {
+                return
+            }
+
+            var devices = Oxide.Oxide.availableVideoCaptureDevices
+
+            if (! currentWebcontext.defaultVideoCaptureDeviceId
+                    && devices
+                    && devices.length > 0) {
+
+                for (var i = 0; i < devices.length; ++i) {
+                    /**
+                     * defaultVideoCaptureDeviceId has precedence
+                     */
+
+                    if (defaultVideoCaptureDeviceId
+                            && devices[i].id === defaultVideoCaptureDeviceId) {
+                        currentWebcontext.defaultVideoCaptureDeviceId = devices[i].id
+                        defaultVideoCaptureMediaIdUpdated(devices[i].id)
+                        break
+                    }
+
+                    if (defaultVideoCaptureDevicePosition) {
+                        if (devices[i].position === defaultVideoCaptureDevicePosition) {
+                            currentWebcontext.defaultVideoCaptureDeviceId = devices[i].id
+                            defaultVideoCaptureMediaIdUpdated(devices[i].id)
+                            break
+                        }
+
+                        /**
+                         * This is only there to act as a fallback with a reasonnable
+                         * heuristic that tracks the case described above.
+                         */
+                        var displayName = devices[i].displayName
+                        if (internal.defaultVideoCaptureDeviceUserName
+                                && internal.cameraPositionUnspecified === devices[i].position
+                                && displayName.indexOf(
+                                    internal.defaultVideoCaptureDeviceUserName) === 0) {
+                            currentWebcontext.defaultVideoCaptureDeviceId = devices[i].id
+                            defaultVideoCaptureMediaIdUpdated(devices[i].id)
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: Oxide.Oxide
+        onAvailableVideoCaptureDevicesChanged: internal.setupDefaultVideoCaptureDevice()
     }
 }

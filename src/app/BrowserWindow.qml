@@ -26,6 +26,7 @@ Window {
     property bool developerExtrasEnabled: false
     property bool forceFullscreen: false
     property var currentWebview: null
+    property bool hasTouchScreen: false
 
     signal openUrls(var urls)
 

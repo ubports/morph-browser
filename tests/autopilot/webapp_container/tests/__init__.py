@@ -52,11 +52,15 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             return LOCAL_BROWSER_CONTAINER_PATH_NAME
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
-    def launch_webcontainer_app(self, args, envvars={}):
+    def launch_webcontainer_app(self, args, envvars={}, is_local_app=False):
         if model() != 'Desktop':
             args.append(
                 '--desktop_file_hint=/usr/share/applications/'
                 'webbrowser-app.desktop')
+
+        if next(filter(lambda e: e.startswith('--appid'), args), None) is None:
+            args.append('--app-id=running.test')
+
         if envvars:
             for envvar_key in envvars:
                 self.useFixture(fixtures.EnvironmentVariable(
@@ -69,6 +73,12 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                 emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         except:
             self.app = None
+
+        if not is_local_app:
+            webview = self.get_oxide_webview()
+            self.assertThat(
+                lambda: webview.activeFocus,
+                Eventually(Equals(True)))
 
     def get_webcontainer_proxy(self):
         return self.app
@@ -96,9 +106,10 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             objectName='containerWebviewLoader')
         return container.wait_select_single('WebViewImplOxide')
 
-    def assert_page_eventually_loaded(self, url):
+    def assert_page_eventually_loaded(self, url=''):
         webview = self.get_oxide_webview()
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        if url:
+            self.assertThat(webview.url, Eventually(Equals(url)))
         # loadProgress == 100 ensures that a page has actually loaded
         self.assertThat(webview.loadProgress,
                         Eventually(Equals(100), timeout=20))
@@ -119,7 +130,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
 
     def browse_to(self, url):
         webview = self.get_oxide_webview()
-        webview.url = url
+        webview.slots.navigateToUrl(url)
         self.assert_page_eventually_loaded(url)
 
     def kill_app(self, signal=signal.SIGKILL):

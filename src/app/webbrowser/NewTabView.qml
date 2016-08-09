@@ -261,8 +261,6 @@ FocusScope {
                         }
                     }
 
-                    Keys.onEnterPressed: currentItem.clicked()
-                    Keys.onReturnPressed: currentItem.clicked()
                     Keys.onDeletePressed: currentItem.removed()
 
                     // Setting 'interactive' to false to prevent flicks also disables

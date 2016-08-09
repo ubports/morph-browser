@@ -50,18 +50,18 @@ private Q_SLOTS:
 
     void test_cannot_run_twice_same_instance()
     {
-        QVERIFY(singleton->run(QStringList()));
-        QVERIFY(!singleton->run(QStringList()));
+        QVERIFY(singleton->run(QStringList(), "appid"));
+        QVERIFY(!singleton->run(QStringList(), "appid"));
         QVERIFY(newInstanceSpy->isEmpty());
     }
 
     void test_arguments_passed_to_already_running_instance()
     {
-        QVERIFY(singleton->run(QStringList()));
+        QVERIFY(singleton->run(QStringList(), "appid"));
         SingleInstanceManager other;
         QStringList args;
         args << QStringLiteral("foo") << QStringLiteral("bar") << QStringLiteral("baz");
-        QVERIFY(!other.run(args));
+        QVERIFY(!other.run(args, "appid"));
         newInstanceSpy->wait();
         QCOMPARE(newInstanceSpy->first().at(0).toStringList(), args);
     }

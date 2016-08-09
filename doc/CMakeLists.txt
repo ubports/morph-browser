@@ -5,7 +5,7 @@ if(QDOC_EXECUTABLE STREQUAL "QDOC_EXECUTABLE-NOTFOUND")
     message(WARNING "qdoc not found, documentation cannot be built")
 else()
     add_custom_target(doc ALL
-                      COMMAND ${QDOC_EXECUTABLE}
+                      COMMAND ${QDOC_EXECUTABLE} -qt5
                       -outputdir ${CMAKE_CURRENT_BINARY_DIR}/html
                       ${CMAKE_CURRENT_SOURCE_DIR}/ubuntu-web.qdocconf)
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html

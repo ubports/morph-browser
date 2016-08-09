@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from autopilot.matchers import Eventually
 from autopilot.platform import model
 import testtools
 from testtools.matchers import Equals, MatchesAny
@@ -26,8 +27,7 @@ class TestTouchSelectionBase(StartOpenRemotePageTestCaseBase):
 
     def get_actions(self):
         webview = self.main_window.get_current_webview()
-        return webview.wait_select_single(objectName="touchSelectionActions",
-                                          visible=True)
+        return webview.select_single(objectName="touchSelectionActions")
 
     def long_press_webview(self):
         webview = self.main_window.get_current_webview()
@@ -39,7 +39,9 @@ class TestTouchSelectionBase(StartOpenRemotePageTestCaseBase):
         self.pointing_device.press()
         time.sleep(1.5)
         self.pointing_device.release()
-        return self.get_actions()
+        actions = self.get_actions()
+        actions.visible.wait_for(True)
+        return actions
 
     def get_visible_actions(self, actions):
         return actions.select_many(styleName="ToolbarButtonStyle",
@@ -85,6 +87,14 @@ class TestTouchInsertion(TestTouchSelectionBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         actions = self.get_actions()
+        self.assertThat(actions.visible, Equals(False))
+        handles = self.get_handles()
+        self.assertThat(len(handles), Equals(1))
+        handle = handles[0]
+        center = 1  # Oxide.TouchSelectionController.HandleOrientationCenter
+        self.assertThat(handle.handleOrientation, Equals(center))
+        self.pointing_device.click_object(handle)
+        self.assertThat(actions.visible, Eventually(Equals(True)))
         self.assertThat(len(self.get_visible_actions(actions)),
                         MatchesAny(Equals(1), Equals(2)))
         actions.select_single(objectName="touchSelectionAction_selectall",
@@ -92,11 +102,8 @@ class TestTouchInsertion(TestTouchSelectionBase):
         if len(self.get_visible_actions(actions)) == 2:
             actions.select_single(objectName="touchSelectionAction_paste",
                                   visible=True)
-
-        handles = self.get_handles()
-        self.assertThat(len(handles), Equals(1))
-        center = 1  # Oxide.TouchSelectionController.HandleOrientationCenter
-        self.assertThat(handles[0].handleOrientation, Equals(center))
+        self.pointing_device.click_object(handle)
+        self.assertThat(actions.visible, Eventually(Equals(False)))
 
 
 # TODO: add tests for selection resizing, and activation of the contextual

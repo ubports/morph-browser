@@ -17,6 +17,14 @@ target_link_libraries(${PLUGIN}
     Qt5::Qml
 )
 
+file(GLOB UA_OVERRIDES_IN RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ua-overrides-*.js.in)
+foreach(_file ${UA_OVERRIDES_IN})
+  string(REGEX REPLACE "\\.in$" "" OUTFILE ${_file})
+  configure_file(${_file} ${CMAKE_CURRENT_BINARY_DIR}/${OUTFILE} @ONLY)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${OUTFILE}
+          DESTINATION ${UBUNTU_WEB_IMPORTS_DIR})
+endforeach(_file)
+
 file(GLOB PLUGIN_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml qmldir *.js *.png)
 install(TARGETS ${PLUGIN} DESTINATION ${UBUNTU_WEB_IMPORTS_DIR})
 install(FILES ${PLUGIN_FILES} DESTINATION ${UBUNTU_WEB_IMPORTS_DIR})

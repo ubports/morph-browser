@@ -43,7 +43,7 @@ public:
     BrowserApplication(int& argc, char** argv);
     ~BrowserApplication();
 
-    bool initialize(const QString& qmlFileSubPath);
+    bool initialize(const QString& qmlFileSubPath, const QString& appId);
     int run();
 
 protected:
@@ -51,6 +51,8 @@ protected:
     virtual QList<QUrl> urls() const;
 
     virtual void qmlEngineCreated(QQmlEngine*);
+
+    bool helpRequested();
 
     QStringList m_arguments;
     QQmlEngine* m_engine;
@@ -61,7 +63,6 @@ private Q_SLOTS:
     void onNewInstanceLaunched(const QStringList& arguments) const;
 
 private:
-    QString appId() const;
     QString inspectorPort() const;
     QString inspectorHost() const;
 

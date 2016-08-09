@@ -46,6 +46,7 @@ BrowserWindow {
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
     property bool openExternalUrlInOverlay: false
+    property string defaultVideoCaptureCameraPosition: ""
     property bool popupBlockerEnabled: true
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
@@ -90,7 +91,13 @@ BrowserWindow {
             webappUrlPatterns: root.webappUrlPatterns
             blockOpenExternalUrls: root.blockOpenExternalUrls
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
+            defaultVideoCaptureDevicePosition: root.defaultVideoCaptureCameraPosition ?
+                                                   root.defaultVideoCaptureCameraPosition
+                                                 : browser.defaultVideoCaptureDevicePosition
             popupBlockerEnabled: root.popupBlockerEnabled
+            hasTouchScreen: root.hasTouchScreen
+
+            focus: true
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
@@ -164,6 +171,8 @@ BrowserWindow {
 
         property var webContextSessionCookieMode: ""
         property var webappDataLocation
+
+        focus: true
 
         onLoaded: {
             var context = item.currentWebview.context

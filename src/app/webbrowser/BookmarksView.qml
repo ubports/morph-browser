@@ -34,7 +34,12 @@ BrowserPage {
     BookmarksFoldersView {
         id: bookmarksFoldersView
 
-        anchors.fill: parent
+        anchors {
+            top: parent.top
+            bottom: toolbar.top
+            left: parent.left
+            right: parent.right
+        }
 
         interactive: true
         focus: true
@@ -49,6 +54,7 @@ BrowserPage {
     }
 
     Local.Toolbar {
+        id: toolbar
         height: units.gu(7)
 
         anchors {

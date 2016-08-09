@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-02 14:39+0200\n"
-"PO-Revision-Date: 2015-07-11 16:20+0000\n"
-"Last-Translator: Ibai Oihanguren Sala <Unknown>\n"
+"POT-Creation-Date: 2016-06-02 19:24+0200\n"
+"PO-Revision-Date: 2016-06-24 21:57+0000\n"
+"Last-Translator: Jon Intxaurbe <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-05-03 05:38+0000\n"
-"X-Generator: Launchpad (build 17995)\n"
+"X-Launchpad-Export-Date: 2016-07-26 05:34+0000\n"
+"X-Generator: Launchpad (build 18153)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -53,11 +53,9 @@ msgstr "Pasahitza"
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:369
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:300
-#: src/app/webbrowser/SettingsPage.qml:354
+#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:141
 msgid "Cancel"
@@ -115,7 +113,7 @@ msgstr "Badirudi arazoak dituzula orri hau ikusteko: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "Mesedez, begiratu sarearen ezarpenak eta saiatu orria freskatzen."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -317,25 +315,25 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "Baimena"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Baimena eman domeinu honi kamera eta mikrofonoa atzitzeko?"
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Baimena eman domeinu hori kamera atzitzeko?"
 
 #: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Baimena eman domeinu hori mikrofonoa atzitzeko?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/MediaAccessDialog.qml:48
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (%2(e)an txertatuta)"
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
@@ -407,21 +405,21 @@ msgstr "Kopiatu lotura"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Moztu"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Ezabatu"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:556
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
 msgid "Find in page"
-msgstr ""
+msgstr "Aurkitu orrian"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Bilatu orrian"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -443,7 +441,7 @@ msgstr "Joan hona"
 msgid "Address;URL;www"
 msgstr "Helbidea;URLa;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:439
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Fitxa berria"
@@ -472,15 +470,15 @@ msgstr "Ireki lotura fitxa berrian"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Zabaldu bideo fitxa berri batean"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Itsatsi"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Berregin"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
@@ -499,35 +497,33 @@ msgstr "Gorde irudia"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Gorde esteka"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Gorde bideoa"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:85
-#: src/app/webbrowser/HistoryView.qml:188
-#: src/app/webbrowser/HistoryViewWide.qml:394
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 msgid "Select all"
 msgstr "Hautatu dena"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:536
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
 msgid "Share"
 msgstr "Partekatu"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Desegin"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:208
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%2/%1"
 
 #: src/app/webbrowser/AddressBar.qml:244
 msgid "find in page"
-msgstr ""
+msgstr "aurkitu orrian"
 
 #: src/app/webbrowser/AddressBar.qml:245
 msgid "search or enter an address"
@@ -563,72 +559,72 @@ msgid "Create new folder"
 msgstr "Sortu karpeta berria"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:364
+#: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "Gorde"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
 #: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:97
-#: src/app/webbrowser/SettingsPage.qml:328
+#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "Hasiera-orria"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:80
-#: src/app/webbrowser/Browser.qml:544 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:32
+#: src/app/webbrowser/BookmarksViewWide.qml:32
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:112
-#: src/app/webbrowser/Browser.qml:425 src/app/webbrowser/HistoryView.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:488
+#: src/app/webbrowser/BookmarksView.qml:76
+#: src/app/webbrowser/BookmarksViewWide.qml:75
+#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Eginda"
 
-#: src/app/webbrowser/BookmarksView.qml:127
-#: src/app/webbrowser/BookmarksViewWide.qml:126
-#: src/app/webbrowser/HistoryView.qml:143
-#: src/app/webbrowser/HistoryViewWide.qml:502
+#: src/app/webbrowser/BookmarksView.qml:90
+#: src/app/webbrowser/BookmarksViewWide.qml:89
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Fitxa berria"
 
-#: src/app/webbrowser/Browser.qml:550
-#: src/app/webbrowser/HistoryViewWide.qml:353
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:563 src/app/webbrowser/DownloadsPage.qml:57
+#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
-msgstr ""
+msgstr "Deskargak"
 
-#: src/app/webbrowser/Browser.qml:570
+#: src/app/webbrowser/Browser.qml:592
 msgid "Leave Private Mode"
 msgstr "Utzi modu pribatua"
 
-#: src/app/webbrowser/Browser.qml:570
+#: src/app/webbrowser/Browser.qml:592
 msgid "Private Mode"
 msgstr "Modu pribatua"
 
-#: src/app/webbrowser/Browser.qml:588 src/app/webbrowser/SettingsPage.qml:49
+#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Ezarpenak"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/Browser.qml:798
+#: src/app/webbrowser/Browser.qml:782 src/app/webbrowser/Browser.qml:820
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1363
+#: src/app/webbrowser/Browser.qml:1376
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Pasa hatza gorantz pantaila osotik irteteko"
 
-#: src/app/webbrowser/Browser.qml:1364
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Press ESC To Exit Full Screen"
 msgstr "Sakatu IHES tekla pantaila osotik irteteko"
 
@@ -636,45 +632,45 @@ msgstr "Sakatu IHES tekla pantaila osotik irteteko"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Aukeratu aplikazio bat fitxategia zabaltzeko edo deskarga karpetan "
+"gordetzeko."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
-msgstr ""
+msgstr "Aukeratu aplikazio bat"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "Deskargatu"
 
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
-msgstr ""
+msgstr "Deskargak huts egin du"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr ""
+msgstr "Berrekin"
 
-#: src/app/webbrowser/DownloadsPage.qml:61
+#: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Konfirmatu aukera"
 
-#: src/app/webbrowser/DownloadsPage.qml:101
-#: src/app/webbrowser/HistoryView.qml:215
-#: src/app/webbrowser/HistoryViewWide.qml:413
+#: src/app/webbrowser/DownloadsPage.qml:99
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/app/webbrowser/DownloadsPage.qml:261
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
-msgstr ""
+msgstr "Ez dago deskargarik eskuragarri"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "orri %1"
 msgstr[1] "%1 orri"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Gutxiago"
@@ -684,22 +680,22 @@ msgid "Last Visited"
 msgstr "Azkena bisitatuak"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:175
+#: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
 msgstr "Atzo"
 
-#: src/app/webbrowser/HistoryViewWide.qml:159
-msgid "All History"
-msgstr ""
-
-#: src/app/webbrowser/HistoryViewWide.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:271
-msgid "Today"
-msgstr ""
-
-#: src/app/webbrowser/HistoryViewWide.qml:434
+#: src/app/webbrowser/HistoryViewWide.qml:160
 msgid "search history"
-msgstr ""
+msgstr "Bilatu historian"
+
+#: src/app/webbrowser/HistoryViewWide.qml:235
+msgid "All History"
+msgstr "Historia guztia"
+
+#: src/app/webbrowser/HistoryViewWide.qml:249
+#: src/app/webbrowser/HistoryViewWide.qml:336
+msgid "Today"
+msgstr "Gaur"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -714,39 +710,44 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Fitxa honetan ikusi dituzun orriak ez dira nabigatzailearen historian "
+"agertuko.\n"
+"Hala ere, sortutako laster-markak gordeko dira.."
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
 msgstr "Gehiago"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Gune nagusiak"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Oraindik ez duzu webgunerik bisitatu"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Fitxa honetako emate prozesua itxi da."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Zerbait txarto atera da %1 erakusterakoan."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Sistemak memoria gutxi dauka eta ezin du webgune hau erakutsi. Saiatu behar "
+"ez diren fitxak ixten eta berriro kargatzen."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Itxi fitxa"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -754,43 +755,45 @@ msgstr "Gune honek eduki ez segurua dauka"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identitatea ez da egiaztatu"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Webgune honen identitatea ez da egiaztatu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Zerbitzariaren ziurtagiria eta gunearen identitatea ez datoz bat."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Zerbitzariaren ziurtagiria iraungi da."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Zerbitzariaren ziurtagiriak datu baliogabeak ditu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Entitate ez fidagarri batek zerbitzariaren ziurtagiria eman zuen."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Zerbitzariaren ziurtagiria baliogabetua izan da."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Zerbitzariaren ziurtagiria baliogabea da."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Zerbitzariaren ziurtagiria ez da segurua."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Zerbitzariaren ziurtagiria ez ditu gure ziurtasun egiaztapenak, ez ezagun "
+"arrazoi batengatik."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -802,58 +805,58 @@ msgstr "Honek kudeatuta:"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Lehenetsia"
 
-#: src/app/webbrowser/SettingsPage.qml:82
-#: src/app/webbrowser/SettingsPage.qml:169
+#: src/app/webbrowser/SettingsPage.qml:70
+#: src/app/webbrowser/SettingsPage.qml:150
 msgid "Search engine"
 msgstr "Bilaketa-motorra"
 
-#: src/app/webbrowser/SettingsPage.qml:108
+#: src/app/webbrowser/SettingsPage.qml:96
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Hasterakoan berreskuratu saioa"
 
-#: src/app/webbrowser/SettingsPage.qml:127
-#: src/app/webbrowser/SettingsPage.qml:226
+#: src/app/webbrowser/SettingsPage.qml:115
+#: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Pribatutasuna eta baimenak"
 
-#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
 msgstr "Berrezarri nabigatzailearen ezarpenak"
 
-#: src/app/webbrowser/SettingsPage.qml:248
-#: src/app/webbrowser/SettingsPage.qml:392
+#: src/app/webbrowser/SettingsPage.qml:206
+#: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Kamera eta mikrofonoa"
 
-#: src/app/webbrowser/SettingsPage.qml:257
+#: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
 msgstr "Garbitu nabigatze-historia"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:219
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Garbitu nabigazio historia?"
 
-#: src/app/webbrowser/SettingsPage.qml:269
+#: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
 msgstr "Garbitu cache-a"
 
-#: src/app/webbrowser/SettingsPage.qml:272
+#: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Garbitu cachea?"
 
-#: src/app/webbrowser/SettingsPage.qml:307
+#: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
 msgstr "Garbitu"
 
-#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofonoa"
 
-#: src/app/webbrowser/SettingsPage.qml:434
+#: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
@@ -861,21 +864,21 @@ msgstr "Sakatu ikusteko"
 
 #: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
-msgstr ""
+msgstr "Itxi fitxa"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+#: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "Ezabatu"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:69
+#: src/app/webcontainer/webapp-container.qml:70
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubunturen web-nabigatzailea"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:71
+#: src/app/webcontainer/webapp-container.qml:72
 msgid "Ubuntu Web Browser"
 msgstr "Ubunturen web-nabigatzailea"
 
@@ -884,6 +887,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Web aplikazio honi ez zaio konturik elkartu; beheko elementua sakatu kontu "
+"bat gehitzeko."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -906,23 +911,31 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Kontuen leihoa ezin izan da zabaldu. Bakarrik kontu bat bakoitzean sor "
+"dezakezu; saiatu berriro beste kontuen leihoak itxi eta gero."
+
+#: src/app/webcontainer/AccountsLogic.qml:214
+msgid "Authentication failed"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> zure %2 lineako kontua erabili behar du."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> zure %2 lineako kontua erabili nahi du."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Aukeratu kontu bat orain, edo ez egin orain eta aukeratu lineako kontu bat "
+"gero."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
@@ -938,7 +951,7 @@ msgstr "Hautatu kontua"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Oh, zerbait txarto atera da."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

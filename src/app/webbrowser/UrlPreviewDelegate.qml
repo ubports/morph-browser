@@ -89,6 +89,7 @@ AbstractButton {
                 source: previewShape.hasPreview ? previewShape.previewUrl : ""
                 sourceSize.width: previewShape.width
                 cache: false
+                asynchronous: true
             }
             sourceFillMode: UbuntuShape.PreserveAspectCrop
             sourceHorizontalAlignment: UbuntuShape.AlignLeft
@@ -114,6 +115,7 @@ AbstractButton {
                 height: units.gu(2.5)
                 source: previewShape.hasPreview ? "" : "assets/stock_website.png"
                 fillMode: Image.PreserveAspectFit
+                asynchronous: true
             }
         }
     }

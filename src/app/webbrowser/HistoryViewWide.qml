@@ -301,9 +301,6 @@ BrowserPage {
 
                 anchors.fill: parent
 
-                Keys.onReturnPressed: historyEntrySelected()
-                Keys.onEnterPressed: historyEntrySelected()
-
                 model: SortFilterModel {
                     id: historyLastVisitDateModel
                     readonly property date lastVisitDate: lastVisitDateListView.currentItem ? lastVisitDateListView.currentItem.lastVisitDate : ""
@@ -327,14 +324,6 @@ BrowserPage {
                         urlsListView.currentIndex = -1
                     } else {
                         urlsListView.currentIndex = 0
-                    }
-                }
-
-                function historyEntrySelected() {
-                    if (urlsListView.ViewItems.selectMode) {
-                        currentItem.selected = !currentItem.selected
-                    } else {
-                        historyViewWide.historyEntryClicked(currentItem.siteUrl)
                     }
                 }
 

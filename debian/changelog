@@ -1,3 +1,98 @@
+webbrowser-app (0.23+16.10.20160713-0ubuntu2~1) yakkety; urgency=medium
+
+  * Rebuild against Qt 5.6.
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Mon, 25 Jul 2016 10:25:39 +0300
+
+webbrowser-app (0.23+16.10.20160713-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix container AP tests browse_to function
+  * Set container webview as active focus (LP: #1532739)
+
+  [ Santosh Mahto ]
+  * Support keyboard shortcuts in webapp containers (LP: #1579101)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 13 Jul 2016 16:24:06 +0000
+
+webbrowser-app (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
+
+  [ Florian Boucault ]
+  * Debian packaging crossbuild fixes:
+
+  [ Olivier Tilloy ]
+  * Create Downloads folder if it doesn’t exist. (LP: #1599436)
+  * Increase timeout a lot to cope with flaky tests in CI. (LP:
+    #1599630)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 11 Jul 2016 15:20:04 +0000
+
+webbrowser-app (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
+
+  * Generate UA override list files at build time to un-hardcode ubuntu
+    and chromium version numbers. (LP: #1591220)
+  * Fix one flaky autopilot test. (LP: #1591120)
+  * Temporarily skip tests on arm64 to unblock package build without
+    oxide. (LP: #1585942)
+  * Update the target that lists non-compiled files.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 01 Jul 2016 13:10:14 +0000
+
+webbrowser-app (0.23+16.10.20160620-0ubuntu1) yakkety; urgency=medium
+
+  * Set the front camera as the default for video media requests (LP:
+    #1563398)
+  * Handle theme color change and properly update browsing widgets (LP:
+    #1567430)
+  * Properly propagate touchscreen detection flag (LP: #1585689)
+  * Print help when no app-id is present (LP: #1591306)
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 20 Jun 2016 15:08:41 +0000
+
+webbrowser-app (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
+
+  * Fix the anchoring of the contents in the bookmarks views. (LP:
+    #1584385)
+  * Various favicon optimizations. (LP: #1585285)
+  * Load top site previews asynchronously to speed up the instantiation
+    of the grid view. (LP: #1585285)
+  * Fix cross-compilation for armhf on a x86* host. (LP: #1588788)
+  * Update UA overrides (mobile) for youtube and gmail.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 15 Jun 2016 09:35:09 +0000
+
+webbrowser-app (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
+
+  [ Olivier Tilloy ]
+  * The UITK now handles Enter/Return/Space key presses to activate list
+    items, (LP: #1581027, #1589424)
+
+ -- Zoltán Balogh <zoltan.balogh@canonical.com>  Fri, 10 Jun 2016 07:54:39 +0000
+
+webbrowser-app (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
+
+  * Use new oxide 1.15 APIs to fix bugs and implement new features:
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 03 Jun 2016 10:29:42 +0000
+
+webbrowser-app (0.23+16.10.20160526-0ubuntu3) yakkety; urgency=medium
+
+  * Overriding UA for nytimes (LP:  #1573620)
+
+ -- Santosh Mahto <santosh.mahto@canonical.com>  Tue, 07 Jun 2016 09:49:12 +0530
+
+webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix account logic translation typo
+  * Fix container/webbrowser app_id; Properly set applicationname based
+    on package name and app name (LP: #1574884, #1577806)
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Thu, 26 May 2016 17:01:10 +0000
+
 webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
 
   * Display the currently hovered hyperlink’s target URL in an overlay.

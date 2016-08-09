@@ -92,12 +92,38 @@ WebappContainer::WebappContainer(int& argc, char** argv):
 {
 }
 
+QString WebappContainer::appId() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--app-id=")) {
+            return argument.split("--app-id=")[1];
+        }
+    }
+    return QString();
+}
 
 bool WebappContainer::initialize()
 {
+    if (!helpRequested() && qgetenv("APP_ID").isEmpty()) {
+        QString id = appId();
+        if (id.isEmpty()) {
+            qCritical() << "The application has been launched with no "
+                          "explicit or system provided app id. "
+                          "An application id can be set by using the --app-id "
+                          "command line parameter and setting it to a unique "
+                          "application specific value or using the APP_ID environment "
+                          "variable.";
+            return false;
+        }
+        qputenv("APP_ID", id.toUtf8());
+    }
+
     earlyEnvironment();
 
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
+    if (BrowserApplication::initialize(
+                "webcontainer/webapp-container.qml",
+                QString::fromUtf8(qgetenv("APP_ID")))) {
+
         parseCommandLine();
         parseExtraConfiguration();
 
@@ -128,6 +154,7 @@ bool WebappContainer::initialize()
         m_object->setProperty("accountProvider", m_accountProvider);
         m_object->setProperty("accountSwitcher", m_accountSwitcher);
         m_object->setProperty("openExternalUrlInOverlay", m_openExternalUrlInOverlay);
+        m_object->setProperty("defaultVideoCaptureCameraPosition", m_defaultVideoCaptureCameraPosition);
 
         m_object->setProperty("webappUrlPatterns", m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
@@ -298,6 +325,15 @@ void WebappContainer::printUsage() const
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "  --open-external-url-in-overlay      if url patterns are defined, all external urls are opened in overlay instead of browser" << endl;
+
+    // The options should be kept in sync with:
+    // http://bazaar.launchpad.net/~oxide-developers/oxide/oxide.trunk/view/head:/qt/quick/api/oxideqquickglobal.cc#L43
+    out << "  --camera-capture-default=position   set a default for the camera capture device in W3C Media API, 'position' should be"
+                                                 " 'frontface', 'backface' or 'none'. If 'none' is selected the default"
+                                                 " selection mechanism applied in Oxide is used. If this command line option"
+                                                 " is not used, the default is set to 'frontface'. If the position is not found"
+                                                 " the behavior is the same as if the option was not set."<< endl;
+
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -355,6 +391,8 @@ void WebappContainer::parseCommandLine()
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
         } else if (argument == "--open-external-url-in-overlay") {
             m_openExternalUrlInOverlay = true;
+        } else if (argument.startsWith("--camera-capture-default=")) {
+            m_defaultVideoCaptureCameraPosition = argument.split("--camera-capture-default=")[1];
         }
     }
 }
