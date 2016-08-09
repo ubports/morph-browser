@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 
@@ -26,8 +27,6 @@ FocusScope {
     property var currentWebview: null
     property string title: currentWebview ? currentWebview.title : ""
 
-    property var initialUrls
-
     property var webbrowserWindow: null
 
     property var osk: _osk
@@ -35,7 +34,7 @@ FocusScope {
     property bool hasTouchScreen: false
 
     // See http://design.canonical.com/2015/05/to-converge-onto-mobile-tablet-and-desktop-think-grid-units/
-    readonly property bool wide: width >= units.gu(90)
+    readonly property bool wide: Window.width >= units.gu(90)
 
     focus: true
 

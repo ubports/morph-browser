@@ -29,8 +29,8 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml/QQmlProperty>
 #include <QtQml/QtQml>
-#include <QtQuick/QQuickWindow>
 
 // local
 #include "browserapplication.h"
@@ -40,16 +40,14 @@
 #include "mime-database.h"
 #include "qquickshortcut_p.h"
 #include "session-storage.h"
-#include "webbrowser-window.h"
 
 #include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_engine(0)
-    , m_window(0)
     , m_component(0)
-    , m_webbrowserWindowProxy(0)
+    , m_object(nullptr)
 {
     m_arguments = arguments();
     m_arguments.removeFirst();
@@ -57,11 +55,7 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 
 BrowserApplication::~BrowserApplication()
 {
-    if (m_webbrowserWindowProxy) {
-        m_webbrowserWindowProxy->setWindow(NULL);
-    }
-    delete m_window;
-    delete m_webbrowserWindowProxy;
+    delete m_object;
     delete m_component;
     delete m_engine;
 }
@@ -118,7 +112,7 @@ MAKE_SINGLETON_FACTORY(MimeDatabase)
 
 bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
-    Q_ASSERT(m_window == 0);
+    Q_ASSERT(m_object == nullptr);
 
     if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
         printUsage();
@@ -187,7 +181,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     if (!isRunningInstalled()) {
         m_engine->addImportPath(UbuntuBrowserImportsDirectory());
     }
-
     qmlEngineCreated(m_engine);
 
     QQmlContext* context = m_engine->rootContext();
@@ -200,15 +193,11 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         qWarning() << m_component->errorString();
         return false;
     }
-    m_webbrowserWindowProxy = new WebBrowserWindow();
-    context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
 
-    QObject* browser = m_component->beginCreate(context);
-    m_window = qobject_cast<QQuickWindow*>(browser);
-    m_webbrowserWindowProxy->setWindow(m_window);
+    m_object = m_component->beginCreate(context);
 
-    browser->setProperty("developerExtrasEnabled", inspectorEnabled);
-    browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
+    QQmlProperty::write(m_object, QStringLiteral("developerExtrasEnabled"), inspectorEnabled);
+    QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_arguments.contains("--fullscreen"));
 
     bool hasTouchScreen = false;
     Q_FOREACH(const QTouchDevice* device, QTouchDevice::devices()) {
@@ -216,7 +205,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
             hasTouchScreen = true;
         }
     }
-    browser->setProperty("hasTouchScreen", hasTouchScreen);
+    QQmlProperty::write(m_object, QStringLiteral("hasTouchScreen"), hasTouchScreen);
 
     return true;
 }
@@ -232,8 +221,8 @@ void BrowserApplication::onNewInstanceLaunched(const QStringList& arguments) con
             }
         }
     }
-    QMetaObject::invokeMethod(m_window, "openUrls", Q_ARG(QVariant, QVariant(urls)));
-    m_window->requestActivate();
+    QMetaObject::invokeMethod(m_object, "openUrls", Q_ARG(QVariant, QVariant(urls)));
+    QMetaObject::invokeMethod(m_object, "requestActivate");
 }
 
 void BrowserApplication::qmlEngineCreated(QQmlEngine*)
@@ -241,14 +230,14 @@ void BrowserApplication::qmlEngineCreated(QQmlEngine*)
 
 int BrowserApplication::run()
 {
-    Q_ASSERT(m_window != 0);
+    Q_ASSERT(m_object != nullptr);
 
     if (m_arguments.contains("--fullscreen")) {
-        m_window->showFullScreen();
+        //m_window->showFullScreen();
     } else if (m_arguments.contains("--maximized")) {
-        m_window->showMaximized();
+        //m_window->showMaximized();
     } else {
-        m_window->show();
+        //m_window->show();
     }
     return exec();
 }

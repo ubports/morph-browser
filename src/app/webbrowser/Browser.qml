@@ -37,29 +37,35 @@ BrowserView {
     // Should be true when the containing window is fullscreen.
     property bool fullscreen: false
 
+    property Settings settings
+
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
-
-    readonly property var downloadManager: (downloadHandlerLoader.status == Loader.Ready) ? downloadHandlerLoader.item : null
-
-    property bool newSession: false
 
     property bool incognito: false
 
-    readonly property var tabsModel: incognito ? privateTabsModelLoader.item : publicTabsModel
+    property var tabsModel: TabsModel {}
 
-    // Restore only the n most recent tabs at startup,
-    // to limit the overhead of instantiating too many
-    // tab objects (see http://pad.lv/1376433).
-    readonly property int maxTabsToRestore: 10
+    function serializeTabState(tab) {
+        var state = {}
+        state.uniqueId = tab.uniqueId
+        state.url = tab.url.toString()
+        state.title = tab.title
+        state.icon = tab.icon.toString()
+        state.preview = tab.preview.toString()
+        state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
+        return state
+    }
 
-    onTabsModelChanged: {
-        if (incognito && privateTabsModelLoader.item) {
-            browser.openUrlInNewTab("", true)
-        } else if (!incognito && tabsModel.currentTab) {
-            // If the system is low on memory, the current public tab might
-            // have been unloaded while browsing incognito, so reload it.
-            tabsModel.currentTab.load()
-        }
+    function restoreTabState(state) {
+        var properties = {'initialUrl': state.url, 'initialTitle': state.title,
+                          'uniqueId': state.uniqueId, 'initialIcon': state.icon,
+                          'preview': state.preview, 'restoreState': state.savedState,
+                          'restoreType': Oxide.WebView.RestoreLastSessionExitedCleanly}
+        return createTab(properties)
+    }
+
+    function createTab(properties) {
+        return tabComponent.createObject(tabContainer, properties)
     }
 
     Connections {
@@ -102,7 +108,7 @@ BrowserView {
 
     Component {
         id: mediaAccessDialogComponent
-        MediaAccessDialog { }
+        MediaAccessDialog {}
     }
 
     actions: [
@@ -126,7 +132,7 @@ BrowserView {
             onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
-            onTriggered: browser.openUrlInNewTab("", true)
+            onTriggered: internal.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
             onTriggered: HistoryModel.clearAll()
@@ -139,37 +145,6 @@ BrowserView {
             }
         }
     ]
-
-    Settings {
-        id: settings
-
-        property url homepage: settingsDefaults.homepage
-        property string searchEngine: settingsDefaults.searchEngine
-        property bool restoreSession: settingsDefaults.restoreSession
-        property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
-        property string defaultAudioDevice
-        property string defaultVideoDevice
-
-        function restoreDefaults() {
-            homepage  = settingsDefaults.homepage
-            searchEngine = settingsDefaults.searchEngine
-            restoreSession = settingsDefaults.restoreSession
-            newTabDefaultSection = settingsDefaults.newTabDefaultSection
-            defaultAudioDevice = settingsDefaults.defaultAudioDevice
-            defaultVideoDevice = settingsDefaults.defaultVideoDevice
-        }
-    }
-
-    QtObject {
-        id: settingsDefaults
-
-        readonly property url homepage: "http://start.ubuntu.com"
-        readonly property string searchEngine: "google"
-        readonly property bool restoreSession: true
-        readonly property int newTabDefaultSection: 0
-        readonly property string defaultAudioDevice: ""
-        readonly property string defaultVideoDevice: ""
-    }
 
     FocusScope {
         id: contentsContainer
@@ -455,7 +430,7 @@ BrowserView {
 
                 onClicked: {
                     recentView.reset()
-                    browser.openUrlInNewTab("", true)
+                    internal.openUrlInNewTab("", true)
                 }
             }
         }
@@ -529,7 +504,7 @@ BrowserView {
         }
 
         onSwitchToTab: internal.switchToTab(index, true)
-        onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
+        onRequestNewTab: internal.openUrlInNewTab("", makeCurrent, true, index)
         onTabClosed: internal.closeTab(index)
 
         onFindInPageModeChanged: {
@@ -577,7 +552,7 @@ BrowserView {
                 enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
                 onTriggered: downloadsViewLoader.active = true
             },
-            Action {
+            /*Action {
                 objectName: "privatemode"
                 text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
                 iconName: "private-browsing"
@@ -594,7 +569,7 @@ BrowserView {
                         browser.incognito = true
                     }
                 }
-            },
+            },*/
             Action {
                 objectName: "settings"
                 text: i18n.tr("Settings")
@@ -831,12 +806,12 @@ BrowserView {
             target: bookmarksViewLoader.item
 
             onBookmarkEntryClicked: {
-                browser.openUrlInNewTab(url, true)
+                internal.openUrlInNewTab(url, true)
                 bookmarksViewLoader.active = false
             }
             onBack: bookmarksViewLoader.active = false
             onNewTabClicked: {
-                browser.openUrlInNewTab("", true)
+                internal.openUrlInNewTab("", true)
                 bookmarksViewLoader.active = false
             }
         }
@@ -896,7 +871,7 @@ BrowserView {
                         expandedHistoryViewLoader.model = model
                         expandedHistoryViewLoader.active = true
                     }
-                    onNewTabRequested: browser.openUrlInNewTab("", true)
+                    onNewTabRequested: internal.openUrlInNewTab("", true)
                     onBack: historyViewLoader.active = false
                 }
 
@@ -911,7 +886,7 @@ BrowserView {
                         focus: true
                         model: expandedHistoryViewLoader.model
                         onHistoryEntryClicked: {
-                            browser.openUrlInNewTab(url, true)
+                            internal.openUrlInNewTab(url, true)
                             historyViewLoader.active = false
                         }
                         onHistoryEntryRemoved: {
@@ -935,11 +910,11 @@ BrowserView {
 
                 onHistoryEntryClicked: {
                     historyViewLoader.active = false
-                    browser.openUrlInNewTab(url, true)
+                    internal.openUrlInNewTab(url, true)
                 }
                 onNewTabRequested: {
                     historyViewLoader.active = false
-                    browser.openUrlInNewTab("", true)
+                    internal.openUrlInNewTab("", true)
                 }
                 onDone: {
                     historyViewLoader.active = false
@@ -982,7 +957,7 @@ BrowserView {
         Binding {
             target: downloadsViewLoader.item
             property: "downloadManager"
-            value: browser.downloadManager
+            value: downloadHandlerLoader.item
         }
         Binding {
             target: downloadsViewLoader.item
@@ -999,31 +974,6 @@ BrowserView {
                 forceActiveFocus()
             } else {
                 internal.resetFocus()
-            }
-        }
-    }
-
-    TabsModel {
-        id: publicTabsModel
-    }
-
-    Loader {
-        id: privateTabsModelLoader
-
-        sourceComponent: browser.incognito ? privateTabsModelComponent : undefined
-
-        Component {
-            id: privateTabsModelComponent
-
-            TabsModel {
-                Component.onDestruction: {
-                    while (count > 0) {
-                        var tab = remove(count - 1)
-                        if (tab) {
-                            tab.close()
-                        }
-                    }
-                }
             }
         }
     }
@@ -1075,12 +1025,12 @@ BrowserView {
                     Actions.OpenLinkInNewTab {
                         objectName: "OpenLinkInNewTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
+                        onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
                         objectName: "OpenLinkInNewBackgroundTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
+                        onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
                         objectName: "BookmarkLinkContextualAction"
@@ -1123,7 +1073,7 @@ BrowserView {
                         enabled: contextModel &&
                                  (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                                  contextModel.srcUrl.toString()
-                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
+                        onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
                         objectName: "CopyImageContextualAction"
@@ -1145,7 +1095,7 @@ BrowserView {
                         enabled: contextModel &&
                                  (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
                                  contextModel.srcUrl.toString()
-                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
+                        onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.SaveVideo {
                         objectName: "SaveVideoContextualAction"
@@ -1252,7 +1202,7 @@ BrowserView {
                             tab.close()
                         }
                         if (tabsModel.count === 0) {
-                            browser.openUrlInNewTab("", true, true)
+                            internal.openUrlInNewTab("", true, true)
                         }
                     }
                 }
@@ -1457,15 +1407,6 @@ BrowserView {
         readonly property bool hasMouse: (miceModel.count + touchPadModel.count) > 0
         readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
-        function getOpenPages() {
-            var urls = []
-            for (var i = 0; i < tabsModel.count; i++) {
-                var url = tabsModel.get(i).url
-                if (url.toString()) urls.push(url) // exclude "new tab" tabs
-            }
-            return urls
-        }
-
         function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
@@ -1486,6 +1427,18 @@ BrowserView {
             if (share) share.shareText(text)
         }
 
+        function openUrlInNewTab(url, setCurrent, load, index) {
+            load = typeof load !== 'undefined' ? load : true
+            var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
+            addTab(tab, setCurrent, index)
+            if (load) {
+                tab.load()
+            }
+            if (!url.toString()) {
+                maybeFocusAddressBar()
+            }
+        }
+
         function addTab(tab, setCurrent, index) {
             if (index === undefined) index = tabsModel.add(tab)
             else index = tabsModel.insert(tab, index)
@@ -1496,24 +1449,18 @@ BrowserView {
         }
 
         function closeTab(index) {
-            // Save the incognito state before removing the tab, because
-            // removing the last tab in the model will switch out incognito
-            // mode, thus causing the check below to fail and save the tab
-            // into the undo stack when it should be forgotten instead.
-            var wasIncognito = incognito
             var tab = tabsModel.remove(index)
             if (tab) {
-                if (!wasIncognito && tab.url.toString().length > 0) {
+                if (!incognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
-                        state: session.serializeTabState(tab),
+                        state: serializeTabState(tab),
                         index: index
                     })
                 }
                 tab.close()
             }
-            if (tabsModel.count === 0) {
-                browser.openUrlInNewTab("", true)
-                recentView.reset()
+            if (tabsModel.currentTab) {
+                tabsModel.currentTab.load()
             }
         }
 
@@ -1526,7 +1473,7 @@ BrowserView {
         function undoCloseTab() {
             if (!incognito && closedTabHistory.length > 0) {
                 var tabInfo = closedTabHistory.pop()
-                var tab = session.createTabFromState(tabInfo.state)
+                var tab = restoreTabState(tabInfo.state)
                 addTab(tab, true, tabInfo.index)
             }
         }
@@ -1649,245 +1596,21 @@ BrowserView {
         onTriggered: internal.switchToTab(internal.nextTabIndex, false)
     }
 
-    function openUrlInNewTab(url, setCurrent, load, index) {
-        load = typeof load !== 'undefined' ? load : true
-        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
-        internal.addTab(tab, setCurrent, index)
-        if (load) {
-            tab.load()
-        }
-        if (!url.toString()) {
-            internal.maybeFocusAddressBar()
-        }
-    }
-
-    SessionStorage {
-        id: session
-
-        dataFile: dataLocation + "/session.json"
-
-        function save() {
-            if (!locked) {
-                return
-            }
-            var tabs = []
-            for (var i = 0; i < publicTabsModel.count; ++i) {
-                var tab = publicTabsModel.get(i)
-                tabs.push(serializeTabState(tab))
-            }
-            store(JSON.stringify({tabs: tabs, currentIndex: publicTabsModel.currentIndex}))
-        }
-
-        property bool restoring: false
-        function restore() {
-            restoring = true
-            _doRestore()
-            restoring = false
-        }
-        function _doRestore() {
-            if (!locked) {
-                return
-            }
-            var state = null
-            try {
-                state = JSON.parse(retrieve())
-            } catch (e) {
-                return
-            }
-            if (state) {
-                var tabs = state.tabs
-                if (tabs) {
-                    for (var i = 0; i < Math.min(tabs.length, browser.maxTabsToRestore); ++i) {
-                        var tab = createTabFromState(tabs[i])
-                        internal.addTab(tab, false)
-                    }
-                }
-                if ('currentIndex' in state) {
-                    internal.switchToTab(state.currentIndex, false)
-                }
-            }
-        }
-
-        // Those two functions are used to save/restore the current state of a tab.
-        function serializeTabState(tab) {
-            var state = {}
-            state.uniqueId = tab.uniqueId
-            state.url = tab.url.toString()
-            state.title = tab.title
-            state.icon = tab.icon.toString()
-            state.preview = tab.preview.toString()
-            state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
-            return state
-        }
-
-        function createTabFromState(state) {
-            var properties = {'initialUrl': state.url, 'initialTitle': state.title}
-            if ('uniqueId' in state) {
-                properties["uniqueId"] = state.uniqueId
-            }
-            if ('icon' in state) {
-                properties["initialIcon"] = state.icon
-            }
-            if ('preview' in state) {
-                properties["preview"] = state.preview
-            }
-            if ('savedState' in state) {
-                properties['restoreState'] = state.savedState
-                properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
-            }
-            return tabComponent.createObject(tabContainer, properties)
-        }
-    }
-    Timer {
-        id: delayedSessionSaver
-        interval: 500
-        onTriggered: session.save()
-    }
-    Timer {
-        // Save session periodically to mitigate state loss when the application crashes
-        interval: 60000 // every minute
-        repeat: true
-        running: !browser.incognito
-        onTriggered: delayedSessionSaver.restart()
-    }
-    Timer {
-        id: exitFullscreenOnLostFocus
-        interval: 500
-        onTriggered: {
-            if (browser.currentWebview) browser.currentWebview.fullscreen = false
-        }
-    }
-    Connections {
-        target: Qt.application
-        onStateChanged: {
-            if (Qt.application.state != Qt.ApplicationActive) {
-                if (!browser.incognito) {
-                    session.save()
-                }
-                if (browser.currentWebview) {
-                    // Workaround for a desktop bug where changing volume causes
-                    // the app to briefly lose focus to notify-osd, and therefore
-                    // exit fullscreen mode. We prevent this by exiting fullscreen
-                    // only if the focus remains lost for longer than a certain
-                    // threshold. See: https://launchpad.net/bugs/694224.
-                    if (__platformName == "xcb") exitFullscreenOnLostFocus.start()
-                    else browser.currentWebview.fullscreen = false
-                }
-            } else exitFullscreenOnLostFocus.stop()
-        }
-        onAboutToQuit: {
-            if (!browser.incognito) {
-                session.save()
-            }
-        }
-    }
-    Connections {
-        target: browser.incognito ? null : publicTabsModel
-        onCurrentTabChanged: delayedSessionSaver.restart()
-        onCountChanged: delayedSessionSaver.restart()
-    }
-    onIncognitoChanged: {
-        if (incognito) {
-            // When going incognito, save the current session right
-            // away, as periodic session saving is disabled.
-            session.save()
-        }
-    }
-
-    // Schedule various expensive tasks to a point after the initialization and
-    // first rendering of the application have already happened.
-    //
-    // Scheduling a Timer with the shortest non-zero interval possible (1ms) will
-    // effectively queue its onTriggered function to run immediately after anything
-    // that is currently in the event loop queue at the moment the Timer starts.
-    //
-    // The tasks are:
-    // - creating the webviews for all initial tabs. This should ideally be done
-    //   asynchronously via object incubation, but http://pad.lv/1359911 prevents it
-    // - loading the HistoryModel and BookmarksModel from the database
-    // - deleting any page screenshots that are no longer needed
     Timer {
         running: true
         interval: 1
         onTriggered: {
-            if (!browser.newSession && settings.restoreSession) {
-                session.restore()
-            }
-
-            // Sanity check
-            console.assert(tabsModel.count <= browser.maxTabsToRestore,
-                           "WARNING: too many tabs were restored")
-            for (var i in browser.initialUrls) {
-                browser.openUrlInNewTab(browser.initialUrls[i], true, false)
-            }
-            if (tabsModel.count == 0) {
-                browser.openUrlInNewTab(settings.homepage, true, false)
-            }
-            if (!delayedTabSwitcher.running) {
+            /*if (!delayedTabSwitcher.running) {
                 tabsModel.currentTab.load()
-            }
+            }*/
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
                 internal.maybeFocusAddressBar()
             }
-
-            BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
-            HistoryModel.databasePath = dataLocation + "/history.sqlite"
-            DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
-
-            // Note that the property setter for databasePath won't return until
-            // the entire model has been loaded, so it is safe to call this here
-            PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
         }
     }
 
     Connections {
-        target: MemInfo
-        onFreeChanged: {
-            var freeMemRatio = (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
-            // Under that threshold, available memory is considered "low", and the
-            // browser is going to try and free up memory from unused tabs. This
-            // value was chosen empirically, it is subject to change to better
-            // reflect what a system under memory pressure might look like.
-            var lowOnMemory = (freeMemRatio < 0.2)
-            if (lowOnMemory) {
-                // Unload an inactive tab to (hopefully) free up some memory
-                function getCandidate(model) {
-                    // Naive implementation that only takes into account the
-                    // last time a tab was current. In the future we might
-                    // want to take into account other parameters such as
-                    // whether the tab is currently playing audio/video.
-                    var candidate = null
-                    for (var i = 0; i < model.count; ++i) {
-                        var tab = model.get(i)
-                        if (tab.current || !tab.webview) {
-                            continue
-                        }
-                        if (!candidate || (candidate.lastCurrent > tab.lastCurrent)) {
-                            candidate = tab
-                        }
-                    }
-                    return candidate
-                }
-                var candidate = getCandidate(publicTabsModel)
-                if (candidate) {
-                    console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))
-                    candidate.unload()
-                    return
-                } else if (browser.incognito) {
-                    candidate = getCandidate(privateTabsModelLoader.item)
-                    if (candidate) {
-                        console.warn("Unloading a background incognito tab to free up some memory")
-                        candidate.unload()
-                        return
-                    }
-                }
-                console.warn("System low on memory, but unable to pick a tab to unload")
-            }
-        }
-    }
-
-    Connections {
-        target: session.restoring ? null : tabsModel
+        target: tabsModel
         onCurrentIndexChanged: {
             // In narrow mode, the tabslist is a stack:
             // the current tab is always at the top.
@@ -1897,47 +1620,11 @@ BrowserView {
         }
         onCurrentTabChanged: {
             chrome.findInPageMode = false
-            var tab = tabsModel.currentTab
+            /*var tab = tabsModel.currentTab
             if (tab) {
                 tab.load()
-            }
+            }*/
             internal.resetFocus()
-        }
-        onCountChanged: {
-            if (tabsModel.count == 0) {
-                if (browser.incognito) {
-                    browser.incognito = false
-                    internal.resetFocus()
-                } else if (browser.wide) {
-                    Qt.quit()
-                }
-            }
-        }
-    }
-
-    Component {
-        id: leavePrivateModeDialog
-
-        LeavePrivateModeDialog {
-            id: dialogue
-            objectName: "leavePrivateModeDialog"
-
-            // This dialog inherits from PopupBase, which has a restoreActiveFocus
-            // function that is called when the dialog is hidden. That keeps the
-            // focus in the address bar/webview when we leave private mode. So any
-            // change on the active focus should be done after the run of such
-            // function
-            Component.onDestruction: {
-                if (!browser.incognito) {
-                    internal.resetFocus()
-                }
-            }
-
-            onCancelButtonClicked: PopupUtils.close(dialogue)
-            onOkButtonClicked: {
-                PopupUtils.close(dialogue)
-                browser.incognito = false
-            }
         }
     }
 
@@ -2002,7 +1689,7 @@ BrowserView {
         enabled: tabContainer.visible || recentView.visible ||
                  bookmarksViewLoader.active || historyViewLoader.active
         onActivated: {
-            openUrlInNewTab("", true)
+            internal.openUrlInNewTab("", true)
             if (recentView.visible) recentView.reset()
             bookmarksViewLoader.active = false
             historyViewLoader.active = false

@@ -39,6 +39,7 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QtGlobal>
 #include <QtCore/QVariant>
+#include <QtQml/QQmlProperty>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
@@ -84,15 +85,18 @@ bool WebbrowserApp::initialize()
 
         m_engine->rootContext()->setContextProperty("__platformName", platformName());
 
-        m_window->setProperty("newSession", m_arguments.contains("--new-session"));
+        QQmlProperty::write(m_object, QStringLiteral("newSession"), m_arguments.contains("--new-session"));
 
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
         }
-        m_window->setProperty("urls", urls);
+        QQmlProperty::write(m_object, QStringLiteral("urls"), urls);
 
         m_component->completeCreate();
+
+        QMetaObject::invokeMethod(m_object, "init");
+
         return true;
     } else {
         return false;

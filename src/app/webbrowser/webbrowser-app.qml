@@ -18,57 +18,356 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
+import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
+import Ubuntu.Web 0.2
 import ".."
+import webbrowsercommon.private 0.1
+import webbrowserapp.private 0.1
 
-BrowserWindow {
-    id: window
+QtObject {
+    id: webbrowserapp
 
-    property alias urls: browser.initialUrls
-    property alias newSession: browser.newSession
+    property var urls: []
+    property bool newSession: false
 
-    currentWebview: browser.currentWebview
+    function init() {
+        i18n.domain = "webbrowser-app"
+        if (!newSession && settings.restoreSession) {
+            session.restore()
+        }
+        if (allWindows.length == 0) {
+            windowFactory.createObject(null).show()
+        }
+        var window = allWindows[allWindows.length - 1]
+        for (var i in urls) {
+            window.addTab(urls[i]).load()
+            window.tabsModel.currentIndex = window.tabsModel.count - 1
+        }
+        if (window.tabsModel.count == 0) {
+            window.addTab(settings.homepage).load()
+            window.tabsModel.currentIndex = 0
+        }
+        window.tabsModel.currentTab.load()
 
-    title: {
-        if (browser.title) {
-            // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
-        } else {
-            return i18n.tr("Ubuntu Web Browser")
+        // FIXME: do this async
+        BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
+        HistoryModel.databasePath = dataLocation + "/history.sqlite"
+        DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
+        //PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
+    }
+
+    // Array of all windows, sorted chronologically (most recently active last)
+    readonly property var allWindows: []
+
+    function getLastActiveNonIncognitoWindow() {
+        for (var i = allWindows.length - 1; i >= 0; --i) {
+            var window = allWindows[i]
+            if (!window.incognito) {
+                return window
+            }
+        }
+        return null
+    }
+
+    function requestActivate() {
+        var window = getLastActiveNonIncognitoWindow()
+        if (window) {
+            window.requestActivate()
         }
     }
 
-    Browser {
-        id: browser
-        anchors.fill: parent
-        webbrowserWindow: webbrowserWindowProxy
-        developerExtrasEnabled: window.developerExtrasEnabled
+    property var windowFactory: Component {
+        BrowserWindow {
+            id: window
 
-        fullscreen: window.visibility === Window.FullScreen
+            property alias incognito: browser.incognito
+            readonly property var tabsModel: browser.tabsModel
 
-        Component.onCompleted: i18n.domain = "webbrowser-app"
+            onActiveChanged: {
+                if (active) {
+                    var index = allWindows.indexOf(this)
+                    if (index > -1) {
+                        allWindows.push(allWindows.splice(index, 1)[0])
+                    }
+                }
+            }
 
-        Keys.onPressed: {
-            if ((event.key === Qt.Key_F11) && (event.modifiers === Qt.NoModifier)) {
-                // F11 to toggle application-level fullscreen
-                window.setFullscreen(window.visibility !== Window.FullScreen)
-                if (currentWebview.fullscreen) {
-                    currentWebview.fullscreen = false
+            onClosing: {
+                if (allWindows.length == 1) {
+                    if (tabsModel.count > 0) {
+                        session.save()
+                    } else {
+                        session.clear()
+                    }
+                }
+                destroy()
+            }
+
+            function toggleApplicationLevelFullscreen() {
+                setFullscreen(visibility !== Window.FullScreen)
+                if (browser.currentWebview.fullscreen) {
+                    browser.currentWebview.fullscreen = false
+                }
+            }
+
+            Shortcut {
+                sequence: StandardKey.FullScreen
+                onActivated: window.toggleApplicationLevelFullscreen()
+            }
+
+            Shortcut {
+                sequence: "F11"
+                onActivated: window.toggleApplicationLevelFullscreen()
+            }
+
+            Shortcut {
+                sequence: StandardKey.Cancel
+                onActivated: {
+                    // ESC to exit fullscreen, regardless of whether it was requested
+                    // by the page or toggled on by the user.
+                    window.setFullscreen(false)
+                    browser.currentWebview.fullscreen = false
+                }
+            }
+
+            Component.onCompleted: allWindows.push(this)
+            Component.onDestruction: {
+                for (var w in allWindows) {
+                    if (this === allWindows[w]) {
+                        allWindows.splice(w, 1)
+                        return
+                    }
+                }
+            }
+
+            Browser {
+                id: browser
+                anchors.fill: parent
+                settings: webbrowserapp.settings
+            }
+
+            Connections {
+                target: window.tabsModel
+                onCountChanged: {
+                    if (window.tabsModel.count == 0) {
+                        window.close()
+                    }
+                }
+            }
+
+            Connections {
+                target: window.incognito ? null : window.tabsModel
+                onCurrentIndexChanged: delayedSessionSaver.restart()
+                onCountChanged: delayedSessionSaver.restart()
+            }
+
+            function serializeTabState(tab) {
+                return browser.serializeTabState(tab)
+            }
+
+            function restoreTabState(state) {
+                return browser.restoreTabState(state)
+            }
+
+            function addTab(url) {
+                var tab = browser.createTab({"initialUrl": url})
+                tabsModel.add(tab)
+                return tab
+            }
+        }
+    }
+
+    property var settings: Settings {
+        property url homepage: "http://start.ubuntu.com"
+        property string searchEngine: "google"
+        property bool restoreSession: true
+        property int newTabDefaultSection: 0
+        property string defaultAudioDevice: ""
+        property string defaultVideoDevice: ""
+
+        function restoreDefaults() {
+            homepage  = "http://start.ubuntu.com"
+            searchEngine = "google"
+            restoreSession = true
+            newTabDefaultSection = 0
+            defaultAudioDevice = ""
+            defaultVideoDevice = ""
+        }
+    }
+
+    // Handle runtime requests to open urls as defined
+    // by the freedesktop application dbus interface's open
+    // method for DBUS application activation:
+    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
+    // The dispatch on the org.freedesktop.Application if is done per appId at the
+    // url-dispatcher/upstart level.
+    property var openUrlsHandler: Connections {
+        target: UriHandler
+        onOpened: {
+            var window = getLastActiveNonIncognitoWindow()
+            if (!window) {
+                // XXX: can that ever happen? if so, open a new window
+            }
+            for (var i = 0; i < uris.length; ++i) {
+                window.addTab(uris[i]).load()
+            }
+            if (uris.length > 0) {
+                window.tabsModel.currentIndex = window.tabsModel.count - 1
+            }
+        }
+    }
+
+    property var session: SessionStorage {
+        dataFile: dataLocation + "/session.json"
+
+        // TODO: do we want to save/restore window positions too (https://launchpad.net/bugs/1312892)?
+
+        function save() {
+            if (!locked) {
+                return
+            }
+            var windows = []
+            for (var w in allWindows) {
+                var window = allWindows[w]
+                if (window.incognito) {
+                    continue
+                }
+                windows.push(serializeWindowState(window))
+            }
+            store(JSON.stringify({windows: windows}))
+        }
+
+        property bool restoring: false
+        function restore() {
+            restoring = true
+            _doRestore()
+            restoring = false
+        }
+        function _doRestore() {
+            if (!locked) {
+                return
+            }
+            var state = null
+            try {
+                state = JSON.parse(retrieve())
+            } catch (e) {
+                return
+            }
+            if (state) {
+                var windows = state.windows
+                if (windows) {
+                    for (var w in windows) {
+                        restoreWindowState(windows[w])
+                    }
+                } else if (state.tabs) {
+                    // One-off code path: when launching the app for the first time
+                    // after the upgrade that adds support for multiple windows, the
+                    // saved session contains a list of tabs, not windows.
+                    restoreWindowState(state)
+                }
+                if (allWindows.length > 0) {
+                    var window = allWindows[allWindows.length - 1]
+                    window.requestActivate()
+                    window.raise()
                 }
             }
         }
-        Keys.onEscapePressed: {
-            // ESC to exit fullscreen, regardless of whether it was requested
-            // by the page or toggled on by the user.
-            window.setFullscreen(false)
-            currentWebview.fullscreen = false
+
+        function serializeWindowState(window) {
+            var tabs = []
+            for (var i = 0; i < window.tabsModel.count; ++i) {
+                tabs.push(window.serializeTabState(window.tabsModel.get(i)))
+            }
+            return {tabs: tabs, currentIndex: window.tabsModel.currentIndex}
+        }
+
+        function restoreWindowState(state) {
+            var window = windowFactory.createObject(null)
+            for (var i in state.tabs) {
+                window.tabsModel.add(window.restoreTabState(state.tabs[i]))
+            }
+            window.tabsModel.currentIndex = state.currentIndex
+            window.show()
+        }
+
+        function clear() {
+            if (!locked) {
+                return
+            }
+            store("")
         }
     }
 
-    onOpenUrls: {
-        for (var i = 0; i < urls.length; ++i) {
-            var setCurrent = (i == urls.length - 1)
-            browser.openUrlInNewTab(urls[i], setCurrent, setCurrent)
+    property var delayedSessionSaver: Timer {
+        interval: 500
+        onTriggered: session.save()
+    }
+
+    property var periodicSessionSaver: Timer {
+        // Save session periodically to mitigate state loss when the application crashes
+        interval: 60000 // every minute
+        repeat: true
+        running: true
+        onTriggered: delayedSessionSaver.restart()
+    }
+
+    property var applicationMonitor: Connections {
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state != Qt.ApplicationActive) {
+                session.save()
+            }
+        }
+        onAboutToQuit: {
+            if (allWindows.length > 0) {
+                session.save()
+            }
+        }
+    }
+
+    property var memoryPressureMonitor: Connections {
+        target: MemInfo
+        onFreeChanged: {
+            var freeMemRatio = (MemInfo.total > 0) ? (MemInfo.free / MemInfo.total) : 1.0
+            // Under that threshold, available memory is considered "low", and the
+            // browser is going to try and free up memory from unused tabs. This
+            // value was chosen empirically, it is subject to change to better
+            // reflect what a system under memory pressure might look like.
+            var lowOnMemory = (freeMemRatio < 0.2)
+            if (lowOnMemory) {
+                // Unload an inactive tab to (hopefully) free up some memory
+                function getCandidate(model) {
+                    // Naive implementation that only takes into account the
+                    // last time a tab was current. In the future we might
+                    // want to take into account other parameters such as
+                    // whether the tab is currently playing audio/video.
+                    var candidate = null
+                    for (var i = 0; i < model.count; ++i) {
+                        var tab = model.get(i)
+                        if (tab.current || !tab.webview) {
+                            continue
+                        }
+                        if (!candidate || (candidate.lastCurrent > tab.lastCurrent)) {
+                            candidate = tab
+                        }
+                    }
+                    return candidate
+                }
+                for (var w in allWindows) {
+                    var candidate = getCandidate(allWindows[w].tabsModel)
+                    if (candidate) {
+                        if (browser.incognito) {
+                            console.warn("Unloading a background incognito tab to free up some memory")
+                        } else {
+                            console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))
+                        }
+                        candidate.unload()
+                        return
+                    }
+                }
+                console.warn("System low on memory, but unable to pick a tab to unload")
+            }
         }
     }
 }
