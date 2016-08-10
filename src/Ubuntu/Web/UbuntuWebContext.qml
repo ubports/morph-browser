@@ -76,6 +76,9 @@ Oxide.WebContext {
         property string _target: ""
 
         function reloadOverrides() {
+            if (screenDiagonal == 0) {
+                return
+            }
             var target = smallScreen ? "mobile" : "desktop"
             if (target == _target) return
             _target = target
