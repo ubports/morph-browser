@@ -69,6 +69,8 @@ BrowserView {
         return tabComponent.createObject(tabContainer, properties)
     }
 
+    signal newWindowRequested()
+
     Connections {
         target: currentWebview
 
@@ -528,6 +530,12 @@ BrowserView {
         }
 
         drawerActions: [
+            Action {
+                objectName: "newwindow"
+                text: i18n.tr("New window")
+                iconName: "browser-tabs"
+                onTriggered: browser.newWindowRequested()
+            },
             Action {
                 objectName: "share"
                 text: i18n.tr("Share")

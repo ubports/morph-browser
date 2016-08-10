@@ -145,6 +145,13 @@ QtObject {
                 id: browser
                 anchors.fill: parent
                 settings: webbrowserapp.settings
+                onNewWindowRequested: {
+                    var window = windowFactory.createObject(null)
+                    window.addTab()
+                    window.tabsModel.currentIndex = 0
+                    window.tabsModel.currentTab.load()
+                    window.show()
+                }
             }
 
             Connections {
