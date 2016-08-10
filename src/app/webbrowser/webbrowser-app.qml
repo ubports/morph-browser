@@ -48,7 +48,9 @@ QtObject {
             window.addTab(settings.homepage).load()
             window.tabsModel.currentIndex = 0
         }
-        window.tabsModel.currentTab.load()
+        for (var w in allWindows) {
+            allWindows[w].tabsModel.currentTab.load()
+        }
 
         // FIXME: do this async
         BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
