@@ -148,7 +148,7 @@ QtObject {
                 anchors.fill: parent
                 settings: webbrowserapp.settings
                 onNewWindowRequested: {
-                    var window = windowFactory.createObject(null)
+                    var window = windowFactory.createObject(null, {"incognito": incognito})
                     window.addTab()
                     window.tabsModel.currentIndex = 0
                     window.tabsModel.currentTab.load()

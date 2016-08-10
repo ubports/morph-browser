@@ -69,7 +69,7 @@ BrowserView {
         return tabComponent.createObject(tabContainer, properties)
     }
 
-    signal newWindowRequested()
+    signal newWindowRequested(bool incognito)
 
     Connections {
         target: currentWebview
@@ -534,7 +534,13 @@ BrowserView {
                 objectName: "newwindow"
                 text: i18n.tr("New window")
                 iconName: "browser-tabs"
-                onTriggered: browser.newWindowRequested()
+                onTriggered: browser.newWindowRequested(false)
+            },
+            Action {
+                objectName: "newprivatewindow"
+                text: i18n.tr("New private window")
+                iconName: "private-browsing"
+                onTriggered: browser.newWindowRequested(true)
             },
             Action {
                 objectName: "share"
