@@ -576,24 +576,6 @@ BrowserView {
                 enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
                 onTriggered: downloadsViewLoader.active = true
             },
-            /*Action {
-                objectName: "privatemode"
-                text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
-                iconName: "private-browsing"
-                iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
-                onTriggered: {
-                    if (browser.incognito) {
-                        if (tabsModel.count > 1) {
-                            PopupUtils.open(leavePrivateModeDialog)
-                        } else {
-                            browser.incognito = false
-                            internal.resetFocus()
-                        }
-                    } else {
-                        browser.incognito = true
-                    }
-                }
-            },*/
             Action {
                 objectName: "settings"
                 text: i18n.tr("Settings")
