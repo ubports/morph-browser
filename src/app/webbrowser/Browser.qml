@@ -1013,6 +1013,7 @@ BrowserView {
 
         BrowserTab {
             anchors.fill: parent
+            incognito: browser.incognito
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
@@ -1217,7 +1218,7 @@ BrowserView {
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
-                    var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
+                    var tab = tabComponent.createObject(tabContainer, {"request": request})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
                     if (setCurrent) tabContainer.forceActiveFocus()
@@ -1475,7 +1476,7 @@ BrowserView {
 
         function openUrlInNewTab(url, setCurrent, load, index) {
             load = typeof load !== 'undefined' ? load : true
-            var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
+            var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
             addTab(tab, setCurrent, index)
             if (load) {
                 tab.load()
