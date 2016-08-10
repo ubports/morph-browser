@@ -149,7 +149,7 @@ QtObject {
                 settings: webbrowserapp.settings
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(null, {"incognito": incognito})
-                    window.addTab()
+                    window.addTab(url)
                     window.tabsModel.currentIndex = 0
                     window.tabsModel.currentTab.load()
                     window.show()

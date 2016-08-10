@@ -69,7 +69,7 @@ BrowserView {
         return tabComponent.createObject(tabContainer, properties)
     }
 
-    signal newWindowRequested(bool incognito)
+    signal newWindowRequested(bool incognito, url url)
 
     Connections {
         target: currentWebview
@@ -534,13 +534,13 @@ BrowserView {
                 objectName: "newwindow"
                 text: i18n.tr("New window")
                 iconName: "browser-tabs"
-                onTriggered: browser.newWindowRequested(false)
+                onTriggered: browser.newWindowRequested(false, null)
             },
             Action {
                 objectName: "newprivatewindow"
                 text: i18n.tr("New private window")
                 iconName: "private-browsing"
-                onTriggered: browser.newWindowRequested(true)
+                onTriggered: browser.newWindowRequested(true, null)
             },
             Action {
                 objectName: "share"
@@ -1055,6 +1055,16 @@ BrowserView {
                         objectName: "OpenLinkInNewBackgroundTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false)
+                    }
+                    Actions.OpenLinkInNewWindow {
+                        objectName: "OpenLinkInNewWindowContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.newWindowRequested(false, contextModel.linkUrl)
+                    }
+                    Actions.OpenLinkInNewPrivateWindow {
+                        objectName: "OpenLinkInNewPrivateWindowContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.newWindowRequested(true, contextModel.linkUrl)
                     }
                     Actions.BookmarkLink {
                         objectName: "BookmarkLinkContextualAction"
