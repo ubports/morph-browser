@@ -62,10 +62,10 @@ QtObject {
     // Array of all windows, sorted chronologically (most recently active last)
     readonly property var allWindows: []
 
-    function getLastActiveNonIncognitoWindow() {
+    function getLastActiveWindow(incognito) {
         for (var i = allWindows.length - 1; i >= 0; --i) {
             var window = allWindows[i]
-            if (!window.incognito) {
+            if (window.incognito == incognito) {
                 return window
             }
         }
@@ -73,7 +73,7 @@ QtObject {
     }
 
     function requestActivate() {
-        var window = getLastActiveNonIncognitoWindow()
+        var window = getLastActiveWindow(false)
         if (window) {
             window.requestActivate()
         }
@@ -149,10 +149,24 @@ QtObject {
                 settings: webbrowserapp.settings
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(null, {"incognito": incognito})
-                    window.addTab(url)
+                    window.addTab()
                     window.tabsModel.currentIndex = 0
                     window.tabsModel.currentTab.load()
                     window.show()
+                }
+                onOpenLinkInWindowRequested: {
+                    var window = null
+                    if (incognito) {
+                        window = getLastActiveWindow(true)
+                    }
+                    if (!window) {
+                        window = windowFactory.createObject(null, {"incognito": incognito})
+                    }
+                    window.addTab(url)
+                    window.tabsModel.currentIndex = window.tabsModel.count - 1
+                    window.tabsModel.currentTab.load()
+                    window.show()
+                    window.requestActivate()
                 }
             }
 
@@ -214,7 +228,7 @@ QtObject {
     property var openUrlsHandler: Connections {
         target: UriHandler
         onOpened: {
-            var window = getLastActiveNonIncognitoWindow()
+            var window = getLastActiveWindow(false)
             if (!window) {
                 // XXX: can that ever happen? if so, open a new window
             }
