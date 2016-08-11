@@ -300,7 +300,7 @@ BrowserWindow {
         return uri
     }
 
-    onOpenUrls: {
+    function openUrls(urls) {
         // only consider the first one (if multiple)
         if (urls.length === 0 || !root.currentWebview) {
             return;

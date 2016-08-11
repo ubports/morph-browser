@@ -28,8 +28,6 @@ Window {
     property var currentWebview: null
     property bool hasTouchScreen: false
 
-    signal openUrls(var urls)
-
     contentOrientation: Screen.orientation
 
     minimumWidth: units.gu(50)
