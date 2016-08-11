@@ -1479,7 +1479,7 @@ BrowserView {
         }
 
         function closeTab(index) {
-            var tab = tabsModel.remove(index)
+            var tab = tabsModel.get(index)
             if (tab) {
                 if (!incognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
@@ -1489,6 +1489,7 @@ BrowserView {
                 }
                 tab.close()
             }
+            tabsModel.remove(index)
             if (tabsModel.currentTab) {
                 tabsModel.currentTab.load()
             }
