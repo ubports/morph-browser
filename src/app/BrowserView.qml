@@ -28,8 +28,6 @@ FocusScope {
     property var currentWebview: null
     property string title: currentWebview ? currentWebview.title : ""
 
-    property var webbrowserWindow: null
-
     property var osk: _osk
 
     property bool hasTouchScreen: false

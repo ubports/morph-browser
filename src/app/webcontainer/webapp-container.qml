@@ -108,8 +108,6 @@ BrowserWindow {
 
             anchors.fill: parent
 
-            webbrowserWindow: webbrowserWindowProxy
-
             onWebappNameChanged: {
                 if (root.webappName !== browser.webappName) {
                     root.webappName = browser.webappName;
@@ -215,6 +213,7 @@ BrowserWindow {
 
     Component.onCompleted: {
         i18n.domain = "webbrowser-app"
+        show()
     }
 
     function showWebView() {

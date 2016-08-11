@@ -261,13 +261,15 @@ WebappWebview {
     function getUnityWebappsProxies() {
         var eventHandlers = {
             onAppRaised: function () {
-                if (webbrowserWindow) {
+                // FIXME: re-implement. Ideally, we would get to the window with
+                // the Window.window attached property, but it is new in Qt 5.7.
+                /*if (webbrowserWindow) {
                     try {
                         webbrowserWindow.raise();
                     } catch (e) {
                         console.debug('Error while raising: ' + e);
                     }
-                }
+                }*/
             }
         };
         return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
