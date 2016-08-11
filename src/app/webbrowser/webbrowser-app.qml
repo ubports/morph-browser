@@ -72,6 +72,21 @@ QtObject {
         return null
     }
 
+    function openUrls(urls) {
+        if (urls.length == 0) {
+            return
+        }
+        var window = getLastActiveWindow(false)
+        if (!window) {
+            window = windowFactory.createObject(null, {"incognito": false})
+        }
+        for (var i in urls) {
+            window.addTab(urls[i]).load()
+        }
+        window.tabsModel.currentIndex = window.tabsModel.count - 1
+        window.show()
+    }
+
     function requestActivate() {
         var window = getLastActiveWindow(false)
         if (window) {
@@ -227,18 +242,7 @@ QtObject {
     // url-dispatcher/upstart level.
     property var openUrlsHandler: Connections {
         target: UriHandler
-        onOpened: {
-            var window = getLastActiveWindow(false)
-            if (!window) {
-                // XXX: can that ever happen? if so, open a new window
-            }
-            for (var i = 0; i < uris.length; ++i) {
-                window.addTab(uris[i]).load()
-            }
-            if (uris.length > 0) {
-                window.tabsModel.currentIndex = window.tabsModel.count - 1
-            }
-        }
+        onOpened: webbrowserapp.openUrls(uris)
     }
 
     property var session: SessionStorage {
