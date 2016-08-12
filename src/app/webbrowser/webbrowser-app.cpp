@@ -116,6 +116,31 @@ void WebbrowserApp::printUsage() const
     out << "  --inspector[=PORT] run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID    run the application with a specific APP_ID" << endl;
     out << "  --new-session      do not restore open tabs from the last session" << endl;
+    out << "  --new-window       open (the passed URLs in) a new browser window" << endl;
+    out << "  --incognito        open (the passed URLs in) an incognito window" << endl;
+}
+
+void WebbrowserApp::onNewInstanceLaunched(const QStringList& arguments) const
+{
+    bool newWindow = false;
+    bool incognito = false;
+    QVariantList urls;
+    Q_FOREACH(const QString& argument, arguments) {
+        if (argument == QStringLiteral("--new-window")) {
+            newWindow = true;
+        } else if (argument == QStringLiteral("--incognito")) {
+            incognito = true;
+        } else if (!argument.startsWith(QStringLiteral("-"))) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    QMetaObject::invokeMethod(m_object, "openUrls",
+                              Q_ARG(QVariant, QVariant(urls)),
+                              Q_ARG(QVariant, newWindow),
+                              Q_ARG(QVariant, incognito));
 }
 
 int main(int argc, char** argv)

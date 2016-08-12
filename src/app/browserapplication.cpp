@@ -218,21 +218,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     return true;
 }
 
-void BrowserApplication::onNewInstanceLaunched(const QStringList& arguments) const
-{
-    QVariantList urls;
-    Q_FOREACH(const QString& argument, arguments) {
-        if (!argument.startsWith(QStringLiteral("-"))) {
-            QUrl url = QUrl::fromUserInput(argument);
-            if (url.isValid()) {
-                urls.append(url);
-            }
-        }
-    }
-    QMetaObject::invokeMethod(m_object, "openUrls", Q_ARG(QVariant, QVariant(urls)));
-    QMetaObject::invokeMethod(m_object, "requestActivate");
-}
-
 void BrowserApplication::qmlEngineCreated(QQmlEngine*)
 {}
 

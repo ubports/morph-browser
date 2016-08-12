@@ -72,26 +72,20 @@ QtObject {
         return null
     }
 
-    function openUrls(urls) {
-        if (urls.length == 0) {
-            return
-        }
-        var window = getLastActiveWindow(false)
-        if (!window) {
-            window = windowFactory.createObject(null, {"incognito": false})
+    function openUrls(urls, newWindow, incognito) {
+        var window = getLastActiveWindow(incognito)
+        if (!window || newWindow) {
+            window = windowFactory.createObject(null, {"incognito": incognito})
         }
         for (var i in urls) {
             window.addTab(urls[i]).load()
         }
+        if (window.tabsModel.count == 0) {
+            window.addTab().load()
+        }
         window.tabsModel.currentIndex = window.tabsModel.count - 1
         window.show()
-    }
-
-    function requestActivate() {
-        var window = getLastActiveWindow(false)
-        if (window) {
-            window.requestActivate()
-        }
+        window.requestActivate()
     }
 
     property var windowFactory: Component {
@@ -242,7 +236,7 @@ QtObject {
     // url-dispatcher/upstart level.
     property var openUrlsHandler: Connections {
         target: UriHandler
-        onOpened: webbrowserapp.openUrls(uris)
+        onOpened: webbrowserapp.openUrls(uris, false, false)
     }
 
     property var session: SessionStorage {

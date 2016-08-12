@@ -59,8 +59,8 @@ protected:
     QQmlComponent* m_component;
     QObject* m_object;
 
-private Q_SLOTS:
-    void onNewInstanceLaunched(const QStringList& arguments) const;
+protected Q_SLOTS:
+    virtual void onNewInstanceLaunched(const QStringList& arguments) const = 0;
 
 private:
     QString inspectorPort() const;
