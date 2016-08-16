@@ -85,17 +85,18 @@ bool WebbrowserApp::initialize()
 
         m_engine->rootContext()->setContextProperty("__platformName", platformName());
 
-        QQmlProperty::write(m_object, QStringLiteral("newSession"), m_arguments.contains("--new-session"));
+        m_component->completeCreate();
 
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
         }
-        QQmlProperty::write(m_object, QStringLiteral("urls"), urls);
-
-        m_component->completeCreate();
-
-        QMetaObject::invokeMethod(m_object, "init");
+        bool newSession = m_arguments.contains(QStringLiteral("--new-session"));
+        bool incognito = m_arguments.contains(QStringLiteral("--incognito"));
+        QMetaObject::invokeMethod(m_object, "init",
+                                  Q_ARG(QVariant, QVariant(urls)),
+                                  Q_ARG(QVariant, newSession),
+                                  Q_ARG(QVariant, incognito));
 
         return true;
     } else {

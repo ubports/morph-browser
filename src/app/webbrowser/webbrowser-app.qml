@@ -28,16 +28,13 @@ import webbrowserapp.private 0.1
 QtObject {
     id: webbrowserapp
 
-    property var urls: []
-    property bool newSession: false
-
-    function init() {
+    function init(urls, newSession, incognito) {
         i18n.domain = "webbrowser-app"
-        if (!newSession && settings.restoreSession) {
+        if (!newSession && settings.restoreSession && !incognito) {
             session.restore()
         }
         if (allWindows.length == 0) {
-            windowFactory.createObject(null).show()
+            windowFactory.createObject(null, {"incognito": incognito}).show()
         }
         var window = allWindows[allWindows.length - 1]
         for (var i in urls) {
@@ -45,7 +42,7 @@ QtObject {
             window.tabsModel.currentIndex = window.tabsModel.count - 1
         }
         if (window.tabsModel.count == 0) {
-            window.addTab(settings.homepage).load()
+            window.addTab(incognito ? "" : settings.homepage).load()
             window.tabsModel.currentIndex = 0
         }
         for (var w in allWindows) {
@@ -256,7 +253,9 @@ QtObject {
                 }
                 windows.push(serializeWindowState(window))
             }
-            store(JSON.stringify({windows: windows}))
+            if (windows.length > 0) {
+                store(JSON.stringify({windows: windows}))
+            }
         }
 
         property bool restoring: false
