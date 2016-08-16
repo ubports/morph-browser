@@ -73,6 +73,8 @@ WebappWebview {
         }
     }
 
+    focus: true
+
     currentWebview: webview
 
     context: WebContext {
@@ -197,6 +199,11 @@ WebappWebview {
         console.log("SAML request detected. Adding host pattern: " + hostPattern)
 
         handleSAMLRequestPattern(hostPattern)
+    }
+
+    function navigateToUrl(targetUrl) {
+        webview.forceActiveFocus()
+        webview.url = targetUrl
     }
 
     function navigationRequestedDelegate(request) {

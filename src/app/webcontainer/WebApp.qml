@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import webbrowsercommon.private 0.1
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
@@ -77,6 +78,8 @@ BrowserView {
             onTriggered: containerWebView.currentWebview.reload()
         }
     ]
+
+    focus: true
 
     Settings {
         id: urlPatternSettings
@@ -145,6 +148,8 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+
+            focus: true
 
             onThemeColorMetaInformationDetected: {
                 var color = webappContainerHelper.rgbColorFromCSSColor(theme_color)
@@ -273,10 +278,43 @@ BrowserView {
         id: unityWebapps
         name: webappName
         bindee: containerWebView.currentWebview
-        embeddedUiComponentParent: webapp
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication
         injectExtraContentShareCapabilities: !runningLocalApplication
+
+        Component.onCompleted: {
+            // Delay bind the property to add a bit of backward compatibility with
+            // other unity-webapps-qml modules
+            if (unityWebapps.embeddedUiComponentParent !== undefined) {
+                unityWebapps.embeddedUiComponentParent = webapp
+            }
+        }
+    }
+
+    // F5 or Ctrl+R: Reload current Tab
+    Shortcut {
+        sequence: "Ctrl+r"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+    Shortcut {
+        sequence: "F5"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+
+    // Alt+← or Backspace: Goes to the previous page
+    Shortcut {
+        sequence: StandardKey.Back
+        enabled: currentWebview && currentWebview.canGoBack
+        onActivated: currentWebview.goBack()
+    }
+
+    // Alt+→ or Shift+Backspace: Goes to the next page
+    Shortcut {
+        sequence: StandardKey.Forward
+        enabled: currentWebview && currentWebview.canGoForward
+        onActivated: currentWebview.goForward()
     }
 }
