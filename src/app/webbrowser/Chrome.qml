@@ -71,10 +71,10 @@ ChromeBase {
 
             Component.onCompleted: {
                 tabsBar.setSource("TabsBar.qml", {
-                                      "model": tabsModel,
-                                      "incognito": chrome.incognito,
-                                      "fgColor": navigationBar.fgColor,
-                                      "touchEnabled": chrome.touchEnabled
+                                      "model": Qt.binding(function () {return chrome.tabsModel}),
+                                      "incognito": Qt.binding(function () {return chrome.incognito}),
+                                      "fgColor": Qt.binding(function () {return navigationBar.fgColor}),
+                                      "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
                 })
             }
 

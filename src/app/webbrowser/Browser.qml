@@ -584,7 +584,7 @@ BrowserView {
                 onTriggered: {
                     if (browser.incognito) {
                         if (tabsModel.count > 1) {
-                            leavePrivateModeDialog = PopupUtils.open(Qt.resolvedUrl("LeavePrivateModeDialog.qml"))
+                            chrome.leavePrivateModeDialog = PopupUtils.open(Qt.resolvedUrl("LeavePrivateModeDialog.qml"), chrome)
                         } else {
                             browser.incognito = false
                             internal.resetFocus()
@@ -618,9 +618,9 @@ BrowserView {
                 }
             }
 
-            onCancelButtonClicked: PopupUtils.close(leavePrivateModeDialog)
+            onCancelButtonClicked: PopupUtils.close(chrome.leavePrivateModeDialog)
             onOkButtonClicked: {
-                PopupUtils.close(leavePrivateModeDialog)
+                PopupUtils.close(chrome.leavePrivateModeDialog)
                 browser.incognito = false
             }
         }
@@ -850,12 +850,12 @@ BrowserView {
             if (browser.wide) {
                 bookmarksViewLoader.setSource("BookmarksViewWide.qml", {
                                                   "focus": true,
-                                                  "homepageUrl": settings.homepage
+                                                  "homepageUrl": Qt.binding(function () {return settings.homepage})
                 })
             } else {
                 bookmarksViewLoader.setSource("BookmarksView.qml", {
                                                   "focus": true,
-                                                  "homepageUrl": settings.homepage
+                                                  "homepageUrl": Qt.binding(function () {return settings.homepage})
                 })
             }
         }
@@ -1238,9 +1238,9 @@ BrowserView {
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
-            currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
+            internal.currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
                                                            location, properties)
-            currentBookmarkOptionsDialog.forceActiveFocus()
+            internal.currentBookmarkOptionsDialog.forceActiveFocus()
         }
 
         property var dialogConnections: Connections {
