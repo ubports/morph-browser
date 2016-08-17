@@ -32,6 +32,24 @@ Popover {
 
     contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(2)
 
+    onVisibleChanged: {
+        if (!visible) {
+            BookmarksModel.remove(bookmarkUrl)
+        }
+    }
+
+    Component.onDestruction: {
+        if (BookmarksModel.contains(bookmarkUrl)) {
+            BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
+        }
+    }
+
+    // Fragile workaround for https://launchpad.net/bugs/1546677.
+    // By destroying the popover, its visibility isn’t changed to
+    // false, and thus the bookmark is not removed.
+    Keys.onEnterPressed: bookmarkOptions.destroy()
+    Keys.onReturnPressed: bookmarkOptions.destroy()
+
     Column {
         id: bookmarkOptionsColumn
 

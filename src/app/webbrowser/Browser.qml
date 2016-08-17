@@ -1242,31 +1242,6 @@ BrowserView {
                                                            location, properties)
             internal.currentBookmarkOptionsDialog.forceActiveFocus()
         }
-
-        property var dialogConnections: Connections {
-            target: internal.currentBookmarkOptionsDialog ? internal.currentBookmarkOptionsDialog : null
-
-            onVisibleChanged: {
-                if (!internal.currentBookmarkOptionsDialog.visible) {
-                    BookmarksModel.remove(internal.currentBookmarkOptionsDialog.bookmarkUrl)
-                }
-            }
-
-            Component.onDestruction: {
-                if (BookmarksModel.contains(internal.currentBookmarkOptionsDialog.bookmarkUrl)) {
-                    BookmarksModel.update(internal.currentBookmarkOptionsDialog.bookmarkUrl,
-                                          internal.currentBookmarkOptionsDialog.bookmarkTitle,
-                                          internal.currentBookmarkOptionsDialog.bookmarkFolder)
-                }
-                internal.currentBookmarkOptionsDialog = null
-            }
-
-            // Fragile workaround for https://launchpad.net/bugs/1546677.
-            // By destroying the popover, its visibility isn’t changed to
-            // false, and thus the bookmark is not removed.
-            Keys.onEnterPressed: internal.currentBookmarkOptionsDialog.destroy()
-            Keys.onReturnPressed: internal.currentBookmarkOptionsDialog.destroy()
-        }
     }
 
     // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
