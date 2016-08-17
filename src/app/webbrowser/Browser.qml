@@ -336,7 +336,7 @@ BrowserView {
             focus: active
 
             Component.onCompleted: setSource("SadTab.qml", {
-                                                 "webview": currentWebview
+                                                 "webview": Qt.binding(function () {return browser.currentWebview})
                                              })
             Connections {
                 target: sadTabLoader.item ? sadTabLoader.item : null
