@@ -53,6 +53,8 @@ BrowserWindow {
 
     property bool runningLocalApplication: false
 
+    property bool startMaximized: false
+
     title: getWindowTitle()
 
     // Used for testing
@@ -215,6 +217,8 @@ BrowserWindow {
         i18n.domain = "webbrowser-app"
         if (forceFullscreen) {
             showFullScreen()
+        } else if (startMaximized) {
+            showMaximized()
         } else {
             show()
         }

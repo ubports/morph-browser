@@ -90,7 +90,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_localWebappManifest(false),
     m_openExternalUrlInOverlay(false),
     m_webappContainerHelper(new WebappContainerHelper()),
-    m_fullscreen(false)
+    m_fullscreen(false),
+    m_maximized(false)
 {
 }
 
@@ -232,6 +233,7 @@ bool WebappContainer::initialize()
         }
 
         QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_fullscreen);
+        QQmlProperty::write(m_object, QStringLiteral("startMaximized"), m_maximized);
 
         m_component->completeCreate();
 
@@ -399,6 +401,8 @@ void WebappContainer::parseCommandLine()
             m_defaultVideoCaptureCameraPosition = argument.split("--camera-capture-default=")[1];
         } else if (argument == QStringLiteral("--fullscreen")) {
             m_fullscreen = true;
+        } else if (argument == QStringLiteral("--maximized")) {
+            m_maximized = true;
         }
     }
 }
