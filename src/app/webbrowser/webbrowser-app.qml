@@ -92,6 +92,8 @@ QtObject {
             property alias incognito: browser.incognito
             readonly property var tabsModel: browser.tabsModel
 
+            currentWebview: browser.currentWebview
+
             onActiveChanged: {
                 if (active) {
                     var index = allWindows.indexOf(this)
@@ -130,7 +132,7 @@ QtObject {
             }
 
             Shortcut {
-                sequence: StandardKey.Cancel
+                sequence: "Escape"
                 onActivated: {
                     // ESC to exit fullscreen, regardless of whether it was requested
                     // by the page or toggled on by the user.
