@@ -213,7 +213,11 @@ BrowserWindow {
 
     Component.onCompleted: {
         i18n.domain = "webbrowser-app"
-        show()
+        if (forceFullscreen) {
+            showFullScreen()
+        } else {
+            show()
+        }
     }
 
     function showWebView() {

@@ -77,6 +77,7 @@ private:
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
     QScopedPointer<SchemeFilter> m_schemeFilter;
     QString m_defaultVideoCaptureCameraPosition;
+    bool m_fullscreen;
 
     static const QString URL_PATTERN_SEPARATOR;
     static const QString LOCAL_SCHEME_FILTER_FILENAME;

@@ -41,6 +41,7 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml/QQmlProperty>
 #include <QtQml>
 #include <QtQuick/QQuickWindow>
 
@@ -88,7 +89,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_addressBarVisible(false),
     m_localWebappManifest(false),
     m_openExternalUrlInOverlay(false),
-    m_webappContainerHelper(new WebappContainerHelper())
+    m_webappContainerHelper(new WebappContainerHelper()),
+    m_fullscreen(false)
 {
 }
 
@@ -228,6 +230,8 @@ bool WebappContainer::initialize()
                 && QString(qgetenv("WEBAPP_CONTAINER_BLOCKER_DISABLED")) == "1") {
             m_object->setProperty("popupBlockerEnabled", false);
         }
+
+        QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_fullscreen);
 
         m_component->completeCreate();
 
@@ -393,6 +397,8 @@ void WebappContainer::parseCommandLine()
             m_openExternalUrlInOverlay = true;
         } else if (argument.startsWith("--camera-capture-default=")) {
             m_defaultVideoCaptureCameraPosition = argument.split("--camera-capture-default=")[1];
+        } else if (argument == QStringLiteral("--fullscreen")) {
+            m_fullscreen = true;
         }
     }
 }

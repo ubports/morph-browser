@@ -205,7 +205,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     m_object = m_component->beginCreate(context);
 
     QQmlProperty::write(m_object, QStringLiteral("developerExtrasEnabled"), inspectorEnabled);
-    QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_arguments.contains("--fullscreen"));
 
     bool hasTouchScreen = false;
     Q_FOREACH(const QTouchDevice* device, QTouchDevice::devices()) {
@@ -224,14 +223,6 @@ void BrowserApplication::qmlEngineCreated(QQmlEngine*)
 int BrowserApplication::run()
 {
     Q_ASSERT(m_object != nullptr);
-
-    if (m_arguments.contains("--fullscreen")) {
-        //m_window->showFullScreen();
-    } else if (m_arguments.contains("--maximized")) {
-        //m_window->showMaximized();
-    } else {
-        //m_window->show();
-    }
     return exec();
 }
 
