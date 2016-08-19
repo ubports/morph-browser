@@ -20,7 +20,6 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
-import Ubuntu.Web 0.2
 import ".."
 import webbrowsercommon.private 0.1
 import webbrowserapp.private 0.1
