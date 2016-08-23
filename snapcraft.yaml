@@ -7,7 +7,7 @@ confinement: strict
 apps:
   webbrowser-app:
     command: desktop-launch launcher webbrowser-app
-    plugs: [browser-sandbox, unity7, opengl, network, pulseaudio]
+    plugs: [browser-sandbox, network-bind, unity7, opengl, network, pulseaudio]
 
 plugs:
   browser-sandbox:
