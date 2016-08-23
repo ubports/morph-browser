@@ -140,6 +140,16 @@ QtObject {
                 }
             }
 
+            Shortcut {
+                sequence: "Ctrl+N"
+                onActivated: browser.newWindowRequested(false)
+            }
+
+            Shortcut {
+                sequence: "Ctrl+Shift+N"
+                onActivated: browser.newWindowRequested(true)
+            }
+
             Component.onCompleted: allWindows.push(this)
             Component.onDestruction: {
                 for (var w in allWindows) {
