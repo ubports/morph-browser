@@ -2,12 +2,17 @@ name: webbrowser-app
 version: 0.23+16.10.20160620-0ubuntu1
 summary: Ubuntu web browser
 description: A lightweight web browser tailored for Ubuntu, based on the Oxide browser engine and using the Ubuntu UI components.
-confinement: devmode
+confinement: strict
 
 apps:
   webbrowser-app:
     command: desktop-launch launcher webbrowser-app
-    plugs: [unity7, opengl, network, network-bind, pulseaudio]
+    plugs: [browser-sandbox, unity7, opengl, network, pulseaudio]
+
+plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: true
 
 parts:
   webbrowser-app:
