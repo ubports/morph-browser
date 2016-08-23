@@ -48,7 +48,7 @@ parts:
     after: [desktop/qt5]
 
   launcher:
-    plugin: copy
+    plugin: dump
     source: snap
-    files:
+    organize:
       launcher: bin/launcher
