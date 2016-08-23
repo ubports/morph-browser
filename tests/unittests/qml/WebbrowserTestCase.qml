@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -58,5 +58,17 @@ UbuntuTestCase {
         flick(listitem, listitem.width / 10, listitem.height / 2, listitem.width / 2, 0)
         var confirm = findChild(listitem, "actionbutton_leadingAction.delete")
         clickItem(confirm)
+    }
+
+    function waitFor(predicate, timeout) {
+        timeout = timeout || 5000
+        var now = Date.now()
+        var end = now + timeout
+        var c = now
+        while (c < end && !predicate()) {
+            wait(50)
+            c = Date.now()
+        }
+        return predicate()
     }
 }

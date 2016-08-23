@@ -65,6 +65,22 @@ private Q_SLOTS:
         newInstanceSpy->wait();
         QCOMPARE(newInstanceSpy->first().at(0).toStringList(), args);
     }
+
+    void test_long_appid_arguments_passed_to_already_running_instance()
+    {
+        QString longAppId =
+            "very-very-avery-avery-avery-avery-avery"
+            "-avery-avery-avery-avery-avery-avery"
+            "-_avery-avery-avery-avery-avery--long-aappid_1";
+        QVERIFY(singleton->run(QStringList(), longAppId));
+        SingleInstanceManager other;
+        QStringList args;
+        args << QStringLiteral("foo") << QStringLiteral("bar") << QStringLiteral("baz");
+        QVERIFY(!other.run(args, longAppId));
+        newInstanceSpy->wait();
+        qDebug() << newInstanceSpy->first();
+        QCOMPARE(newInstanceSpy->first().at(0).toStringList(), args);
+    }
 };
 
 QTEST_MAIN(SingleInstanceManagerTests)

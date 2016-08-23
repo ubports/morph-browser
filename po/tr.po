@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-06-18 06:01+0000\n"
-"X-Generator: Launchpad (build 18097)\n"
+"X-Launchpad-Export-Date: 2016-08-17 05:47+0000\n"
+"X-Generator: Launchpad (build 18169)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -113,7 +113,7 @@ msgstr "Görüntülerken bir sorun yaşıyormuşsunuz gibi görünüyor: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "Ağ ayarlarınız denetleyip sayfayı yenilemeyi deneyin."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -315,25 +315,25 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "İzin"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Bu alanadının kamera ve mikrofon erişimine izin verilsin mi?"
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Bu alanadının kamera erişimine izin verilsin mi?"
 
 #: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Bu alanadının mikrofon erişimine izin verilsin mi?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/MediaAccessDialog.qml:48
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (%2 içinde gömülü)"
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
@@ -411,7 +411,7 @@ msgstr "Kes"
 msgid "Erase"
 msgstr "Sil"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
 msgid "Find in page"
 msgstr "Sayfa içinde bul"
 
@@ -441,7 +441,7 @@ msgstr "Git"
 msgid "Address;URL;www"
 msgstr "Adres;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Yeni Sekme"
@@ -470,7 +470,7 @@ msgstr "Bağlantıyı yeni sekmede aç"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Videoyu yeni sekmede aç"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -501,13 +501,13 @@ msgstr "Bağlantıyı kaydet"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Videoyu kaydet"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 msgid "Select all"
 msgstr "Tümünü seç"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
 msgid "Share"
 msgstr "Paylaş"
 
@@ -573,14 +573,14 @@ msgstr "Anasayfa"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Yer İmleri"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Tamamlandı"
@@ -593,38 +593,38 @@ msgstr "Tamamlandı"
 msgid "New tab"
 msgstr "Yeni sekme"
 
-#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Geçmiş"
 
-#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "İndirilenler"
 
-#: src/app/webbrowser/Browser.qml:582
+#: src/app/webbrowser/Browser.qml:592
 msgid "Leave Private Mode"
 msgstr "Gizli Moddan Çık"
 
-#: src/app/webbrowser/Browser.qml:582
+#: src/app/webbrowser/Browser.qml:592
 msgid "Private Mode"
 msgstr "Gizli Mod"
 
-#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Ayarlar"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
+#: src/app/webbrowser/Browser.qml:782 src/app/webbrowser/Browser.qml:820
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1366
+#: src/app/webbrowser/Browser.qml:1376
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Tam Ekrandan Çıkmak İçin Yukarı Sürükleyin"
 
-#: src/app/webbrowser/Browser.qml:1367
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Press ESC To Exit Full Screen"
 msgstr "Tam Ekrandan Çıkmak İçin ESC tuşuna Basınız"
 
@@ -644,11 +644,11 @@ msgstr "İndir"
 
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
-msgstr ""
+msgstr "İndirme başarısız"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr ""
+msgstr "Sürdür"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
@@ -728,13 +728,13 @@ msgstr "Henüz hiçbir siteyi ziyaret etmediniz."
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Bu sekme için sayfa işlemesi kapatıldı."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "%1 görüntülenirken bir hata oluştu."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
@@ -803,7 +803,7 @@ msgstr "Çalıştıran:"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Varsayılan"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
@@ -817,7 +817,7 @@ msgstr "Başlagıçta bir önceki oturumu geri yükle"
 #: src/app/webbrowser/SettingsPage.qml:115
 #: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Gizlilik & izinler"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
@@ -826,7 +826,7 @@ msgstr "Tarayıcı ayarlarını sıfırlayın"
 #: src/app/webbrowser/SettingsPage.qml:206
 #: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Kamera & mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
@@ -850,11 +850,11 @@ msgstr "Temizle"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
@@ -866,17 +866,17 @@ msgstr "Sekmeyi Kapat"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "Kaldır"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:69
+#: src/app/webcontainer/webapp-container.qml:70
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web Tarayıcısı"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:71
+#: src/app/webcontainer/webapp-container.qml:72
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web Tarayıcısı"
 
@@ -949,7 +949,7 @@ msgstr "Hesap Seçin"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Bir şeylerde bir terslik var."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
