@@ -11,11 +11,6 @@ find_program(INTLTOOL_EXTRACT intltool-extract)
 if(NOT INTLTOOL_EXTRACT)
     message(FATAL_ERROR "Could not find intltool-extract, please install the intltool package")
 endif()
-find_program(XVFBRUN xvfb-run)
-if(NOT XVFBRUN)
-  message(FATAL_ERROR "Could not find xvfb-run, please install the xvfb package")
-endif()
-set(XVFB_COMMAND ${XVFBRUN} -s "-screen 0 640x480x24" -a)
 
 # Standard install paths
 include(GNUInstallDirs)
