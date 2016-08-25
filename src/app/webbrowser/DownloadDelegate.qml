@@ -145,7 +145,7 @@ ListItem {
                         height: width
                         anchors.verticalCenter: parent.verticalCenter
                         name: "dialog-warning-symbolic"
-                        color: UbuntuColors.red
+                        color: theme.palette.normal.negative
                     }
 
                     Label {
@@ -154,7 +154,7 @@ ListItem {
                         anchors.leftMargin: units.gu(1)
                         anchors.verticalCenter: errorIcon.verticalCenter
                         fontSize: "x-small"
-                        color: UbuntuColors.red
+                        color: theme.palette.normal.negative
                         text: errorMessage !== "" ? errorMessage 
                                                   : (incomplete && download === undefined) ? i18n.tr("Download failed") 
                                                                                            : ""

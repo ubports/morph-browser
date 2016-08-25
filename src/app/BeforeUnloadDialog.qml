@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,6 +24,7 @@ ModalDialog {
 
     Button {
         text: i18n.tr("Leave")
+        color: theme.palette.normal.negative
         onClicked: model.accept()
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -57,7 +57,7 @@ Popups.Dialog {
     Button {
         objectName: "allow"
         text: i18n.tr("OK")
-        color: UbuntuColors.green
+        color: theme.palette.normal.positive
         onClicked: {
             request.allow(usernameInput.text, passwordInput.text)
             PopupUtils.close(dialog)
@@ -67,7 +67,6 @@ Popups.Dialog {
     Button {
         objectName: "deny"
         text: i18n.tr("Cancel")
-        color: UbuntuColors.coolGrey
         onClicked: {
             request.deny()
             PopupUtils.close(dialog)
