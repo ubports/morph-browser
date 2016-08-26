@@ -226,7 +226,7 @@ BrowserView {
                 onRefreshClicked: currentWebview.reload()
             }
 
-            focus: item ? item.visible : false
+            focus: item && item.visible
             asynchronous: true
         }
 
@@ -252,7 +252,7 @@ BrowserView {
                     currentWebview.resetCertificateError()
                 }
             }
-            focus: item ? item.visible : false
+            focus: item && item.visible
             asynchronous: true
         }
 
