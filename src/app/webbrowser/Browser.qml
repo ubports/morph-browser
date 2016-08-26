@@ -291,21 +291,13 @@ BrowserView {
             Component.onCompleted: newTabViewLoader.selectTabView()
 
             function selectTabView() {
-                if (browser.incognito) {
-                    newTabViewLoader.setSource("NewPrivateTabView.qml")
-                } else {
-                    if (browser.wide) {
-                        newTabViewLoader.setSource("NewTabViewWide.qml", {
-                                                       "settingsObject": settings,
-                                                       "focus": true
-                        })
-                    } else {
-                        newTabViewLoader.setSource("NewTabView.qml", {
-                                                       "settingsObject": settings,
-                                                       "focus": true
-                        })
-                    }
-                }
+                var source = browser.incognito ? "NewPrivateTabView.qml" :
+                                                 (browser.wide ? "NewTabViewWide.qml" :
+                                                                 "NewTabView.qml");
+                var properties = browser.incognito ? {} : {"settingsObject": settings,
+                                                           "focus": true};
+
+                newTabViewLoader.setSource(source, properties);
             }
 
             Connections {
@@ -847,17 +839,10 @@ BrowserView {
         Component.onCompleted: bookmarksViewLoader.selectBookmarksView()
 
         function selectBookmarksView() {
-            if (browser.wide) {
-                bookmarksViewLoader.setSource("BookmarksViewWide.qml", {
-                                                  "focus": true,
-                                                  "homepageUrl": Qt.binding(function () {return settings.homepage})
-                })
-            } else {
-                bookmarksViewLoader.setSource("BookmarksView.qml", {
-                                                  "focus": true,
-                                                  "homepageUrl": Qt.binding(function () {return settings.homepage})
-                })
-            }
+            bookmarksViewLoader.setSource(browser.wide ? "BookmarksViewWide.qml" : "BookmarksView.qml",
+                                          {"focus": true,
+                                           "homepageUrl": Qt.binding(function () {return settings.homepage})
+            });
         }
 
         onStatusChanged: {
@@ -897,15 +882,8 @@ BrowserView {
         Component.onCompleted: historyViewLoader.selectHistoryView()
 
         function selectHistoryView() {
-            if (browser.wide) {
-                historyViewLoader.setSource("HistoryViewWide.qml", {
-                                                  "focus": true
-                })
-            } else {
-                historyViewLoader.setSource("HistoryViewWithExpansion.qml", {
-                                                  "focus": true
-                })
-            }
+            historyViewLoader.setSource(browser.wide ? "HistoryViewWide.qml" : "HistoryViewWithExpansion.qml",
+                                        {"focus": true});
         }
 
         Connections {
