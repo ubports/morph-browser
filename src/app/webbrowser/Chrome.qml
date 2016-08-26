@@ -79,7 +79,7 @@ ChromeBase {
             }
 
             Connections {
-                target: tabsBar.item ? tabsBar.item : null
+                target: tabsBar.item
 
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
