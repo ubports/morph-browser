@@ -33,7 +33,7 @@ FocusScope {
     property bool hasTouchScreen: false
 
     // See http://design.canonical.com/2015/05/to-converge-onto-mobile-tablet-and-desktop-think-grid-units/
-    readonly property bool wide: Window.width >= units.gu(90)
+    readonly property bool wide: Window.contentItem.width >= units.gu(90)
 
     focus: true
 
