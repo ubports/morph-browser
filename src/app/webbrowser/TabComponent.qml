@@ -225,7 +225,6 @@ Component {
             contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
             
             onNewViewRequested: {
-                print ("NEW VIEW REQUESTED", request)
                 var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(tab, setCurrent)
