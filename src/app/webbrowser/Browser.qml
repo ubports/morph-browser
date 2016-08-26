@@ -222,7 +222,7 @@ BrowserView {
                                                  "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
                                              })
             Connections {
-                target: errorSheetLoader.item ? errorSheetLoader.item : null
+                target: errorSheetLoader.item
                 onRefreshClicked: currentWebview.reload()
             }
 
@@ -241,7 +241,7 @@ BrowserView {
                                                  "certificateError": Qt.binding(function(){ return currentWebview ? currentWebview.certificateError : null })
                                              })
             Connections {
-                target: invalidCertificateErrorSheetLoader.item ? invalidCertificateErrorSheetLoader.item : null
+                target: invalidCertificateErrorSheetLoader.item
                 onAllowed: {
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
@@ -339,7 +339,7 @@ BrowserView {
                                                  "webview": Qt.binding(function () {return browser.currentWebview})
                                              })
             Connections {
-                target: sadTabLoader.item ? sadTabLoader.item : null
+                target: sadTabLoader.item
                 onCloseTabRequested: internal.closeCurrentTab()
             }
 
@@ -909,7 +909,7 @@ BrowserView {
         }
 
         Connections {
-            target: historyViewLoader.item ? historyViewLoader.item : null
+            target: historyViewLoader.item
             onHistoryEntryClicked: {
                 historyViewLoader.active = false
                 browser.openUrlInNewTab(url, true)
@@ -957,7 +957,7 @@ BrowserView {
                                              "settingsObject": settings
                                          })
         Connections {
-            target: settingsViewLoader.item ? settingsViewLoader.item : null
+            target: settingsViewLoader.item
             onDone: settingsViewLoader.active = false
         }
     }
