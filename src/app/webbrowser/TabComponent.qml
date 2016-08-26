@@ -17,13 +17,11 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Web 0.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 import "../actions" as Actions
-import "."
 import ".."
 
 Component {
