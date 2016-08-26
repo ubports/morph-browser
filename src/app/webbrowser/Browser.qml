@@ -1240,7 +1240,6 @@ BrowserView {
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
             internal.currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
                                                            location, properties)
-            internal.currentBookmarkOptionsDialog.forceActiveFocus()
         }
     }
 
