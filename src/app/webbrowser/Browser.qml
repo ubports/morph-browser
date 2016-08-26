@@ -596,7 +596,7 @@ BrowserView {
 
         property var leavePrivateModeDialog: null
         Connections {
-            target: chrome.leavePrivateModeDialog ? chrome.leavePrivateModeDialog : null
+            target: chrome.leavePrivateModeDialog
 
             // This dialog inherits from PopupBase, which has a restoreActiveFocus
             // function that is called when the dialog is hidden. That keeps the
