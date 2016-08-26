@@ -321,8 +321,8 @@ BrowserView {
                     currentWebview.url = url
                     tabContainer.forceActiveFocus()
                 }
-                Keys.onUpPressed: chrome.focus = true
             }
+            Keys.onUpPressed: chrome.focus = true
         }
 
         Loader {
