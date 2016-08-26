@@ -131,16 +131,6 @@ QtObject {
             }
 
             Shortcut {
-                sequence: "Escape"
-                onActivated: {
-                    // ESC to exit fullscreen, regardless of whether it was requested
-                    // by the page or toggled on by the user.
-                    window.setFullscreen(false)
-                    browser.currentWebview.fullscreen = false
-                }
-            }
-
-            Shortcut {
                 sequence: "Ctrl+N"
                 onActivated: browser.newWindowRequested(false)
             }
@@ -184,6 +174,15 @@ QtObject {
                     window.tabsModel.currentTab.load()
                     window.show()
                     window.requestActivate()
+                }
+
+                // Not handled as a window-level shortcut as it would take
+                // precedence over key events in web content.
+                Keys.onEscapePressed: {
+                    // ESC to exit fullscreen, regardless of whether it was
+                    // requested by the page or toggled on by the user.
+                    window.setFullscreen(false)
+                    browser.currentWebview.fullscreen = false
                 }
             }
 
