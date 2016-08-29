@@ -35,6 +35,7 @@ AbstractButton {
         anchors.centerIn: parent
         width: parent.iconSize
         height: width
+        asynchronous: true
     }
 
     opacity: enabled ? 1.0 : 0.3

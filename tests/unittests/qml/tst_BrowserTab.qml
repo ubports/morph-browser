@@ -42,6 +42,7 @@ Item {
                 property string currentState
                 property bool incognito: tab.incognito
                 property int reloaded: 0
+                property bool loadingState: false
                 function reload() { reloaded++ }
             }
             readonly property bool webviewPresent: webview

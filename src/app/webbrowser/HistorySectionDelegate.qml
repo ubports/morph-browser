@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -52,7 +52,7 @@ Item {
         }
 
         fontSize: "small"
-        color: UbuntuColors.darkGrey
+        color: theme.palette.normal.backgroundSecondaryText
     }
 
     ListItem.ThinDivider {

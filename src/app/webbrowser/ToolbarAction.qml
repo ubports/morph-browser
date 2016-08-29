@@ -49,6 +49,7 @@ AbstractButton {
                 horizontalCenter: parent.horizontalCenter
             }
             color: toolbarAction.color
+            asynchronous: true
         }
     }
 
