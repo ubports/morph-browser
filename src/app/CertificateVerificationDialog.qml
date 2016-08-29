@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -27,13 +27,13 @@ Popups.Dialog {
 
     Button {
         text: i18n.tr("Proceed anyway")
-        color: "red"
+        color: theme.palette.normal.negative
         onClicked: model.accept()
     }
 
     Button {
         text: i18n.tr("Back to safety")
-        color: "green"
+        color: theme.palette.normal.positive
         onClicked: model.reject()
     }
 

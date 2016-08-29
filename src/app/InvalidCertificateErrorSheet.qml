@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -176,7 +176,7 @@ Rectangle {
                     certificateError.deny()
                     denied()
                 }
-                color: UbuntuColors.orange
+                color: theme.palette.normal.positive
             }
         }
     }

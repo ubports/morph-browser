@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,7 +38,7 @@ Dialog {
         objectName: "leavePrivateModeDialog.okButton"
         anchors { left: parent.left; right: parent.right }
         text: i18n.tr("OK")
-        color: UbuntuColors.green
+        color: theme.palette.normal.positive
         onClicked: okButtonClicked()
     }
 }
