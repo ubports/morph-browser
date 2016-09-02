@@ -68,7 +68,7 @@ ListItem {
                     right: parent.right
                 }
                 fontSize: "x-small"
-                color: UbuntuColors.darkGrey
+                color: theme.palette.normal.backgroundSecondaryText
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1
@@ -81,7 +81,7 @@ ListItem {
                     right: parent.right
                 }
                 fontSize: "xx-small"
-                color: UbuntuColors.darkGrey
+                color: theme.palette.normal.backgroundTertiaryText
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1

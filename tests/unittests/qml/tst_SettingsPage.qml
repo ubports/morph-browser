@@ -44,6 +44,8 @@ Item {
                 property url homepage
                 property string searchEngine
                 property int newTabDefaultSection: 0
+                property int defaultAudioDevice: 0
+                property int defaultVideoDevice: 0
             }
         }
     }

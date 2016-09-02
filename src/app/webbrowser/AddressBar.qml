@@ -108,6 +108,7 @@ FocusScope {
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
+                    asynchronous: true
 
                     readonly property bool reload: addressbar.activeFocus && addressbar.text &&
                                                    (addressbar.text == addressbar.actualUrl)
@@ -145,6 +146,7 @@ FocusScope {
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.secureConnection
+                    asynchronous: true
                 }
 
                 Image {
@@ -153,6 +155,7 @@ FocusScope {
                     height: parent.height
                     fillMode: Image.PreserveAspectFit
                     visible: internal.idle && internal.securityError
+                    asynchronous: true
                 }
 
                 Icon {
@@ -162,6 +165,7 @@ FocusScope {
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.securityWarning
+                    asynchronous: true
                 }
             }
 
