@@ -1,3 +1,35 @@
+webbrowser-app (0.23+16.10.20160825-0ubuntu1) yakkety; urgency=medium
+
+  [ Florian Boucault ]
+  * Load images needed at startup asynchronously.
+
+  [ Michael Terry ]
+  * Use less hard-coded colors in favor of theme colors. (LP: #1581047)
+
+  [ Olivier Tilloy ]
+  * Relax one unit test’s expectations to cater for different behaviours
+    in different Qt versions (LP: #1611403)
+  * Revert the workaround for bug #1585942 now that the bug has been
+    properly fixed. (LP: #1585942)
+  * Skip webapp container autopilot tests that exercise keyboard
+    shortcuts when not run on desktop. (LP: #1611832)
+  * Add missing string to translation template. (LP: #1607713)
+  * Fix a handful of harmless warnings in QML unit tests.
+  * Add user agent overrides for Google recaptcha. (LP: #1599146)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 25 Aug 2016 09:53:50 +0000
+
+webbrowser-app (0.23+16.10.20160803.1-0ubuntu1) yakkety; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Deprecate ubuntu-html5-container (LP: #1587505)
+  * Delay bind UnityWebapps property embeddedUiComponentParent to be a
+    bit more backward compatible
+  * Properly handle long app id names for single instance manager (LP:
+    #1607287)
+
+ -- Alberto Mardegan <mardy@users.sourceforge.net>  Wed, 03 Aug 2016 09:29:26 +0000
+
 webbrowser-app (0.23+16.10.20160713-0ubuntu2~1) yakkety; urgency=medium
 
   * Rebuild against Qt 5.6.

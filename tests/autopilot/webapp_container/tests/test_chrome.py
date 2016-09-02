@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2014-2015 Canonical
+# Copyright 2014-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -13,8 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import testtools
+
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
@@ -52,6 +55,7 @@ class WebappContainerChromeSetupTestCase(
     def press_key(self, key):
         self.keyboard.press_and_release(key)
 
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_shortcut_backforward(self):
         args = [""]
         self.launch_webcontainer_app_with_local_http_server(args)
@@ -72,6 +76,7 @@ class WebappContainerChromeSetupTestCase(
         self.assertThat(lambda: self.get_oxide_webview().url,
                         Eventually(Equals(url2)))
 
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_shortcut_reload(self):
         args = ['']
         self.launch_webcontainer_app_with_local_http_server(args)

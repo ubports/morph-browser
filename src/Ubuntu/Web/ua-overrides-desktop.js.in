@@ -29,4 +29,7 @@ var overrides = [
       ["^https?:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/@CHROMIUM_VERSION@ Safari/537.36"],
       ["^https?:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/@CHROMIUM_VERSION@ Safari/537.36"],
       ["^https?:\/\/plus\.google\.com\/hangouts\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/@CHROMIUM_VERSION@ Safari/537.36"],
+
+      // Google recaptcha (https://launchpad.net/bugs/1599146)
+      ["^https:\/\/www\.google\.com\/recaptcha\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/@CHROMIUM_VERSION@ Safari/537.36"],
 ];

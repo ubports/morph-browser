@@ -9,7 +9,6 @@ Build-Depends: apparmor:native,
                debhelper (>= 9),
                dh-apparmor,
                dh-translations,
-               dpkg-dev,
                libapparmor-dev,
                libevdev-dev,
                liboxideqt-qmlplugin (>= 1.15),
@@ -82,6 +81,8 @@ Depends: ${misc:Depends},
          qtdeclarative5-unity-action-plugin,
          unity-webapps-qml,
          webbrowser-app (= ${binary:Version}),
+Conflicts: ubuntu-html5-container
+Replaces: ubuntu-html5-container
 Suggests: qml-module-ubuntu-onlineaccounts-client (>= 0.3),
 Description: Ubuntu web applications container
  A lightweight webapp container tailored for Ubuntu, based on the Oxide browser

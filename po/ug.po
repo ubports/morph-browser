@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
 "PO-Revision-Date: 2015-10-21 13:32+0000\n"
 "Last-Translator: Eltikin <eltikinuyghur@hotmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-07-26 05:35+0000\n"
-"X-Generator: Launchpad (build 18153)\n"
+"X-Launchpad-Export-Date: 2016-08-28 06:40+0000\n"
+"X-Generator: Launchpad (build 18179)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,7 +47,7 @@ msgstr "ئىشلەتكۈچى ئاتى"
 msgid "Password"
 msgstr "ئىم"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
@@ -69,7 +69,7 @@ msgstr "يېتەكلەشنى جەزملە"
 msgid "Leave"
 msgstr "چىقىپ كەت"
 
-#: src/app/BeforeUnloadDialog.qml:31
+#: src/app/BeforeUnloadDialog.qml:32
 msgid "Stay"
 msgstr "چىقىپ كەتمە"
 
@@ -88,12 +88,12 @@ msgstr ""
 "بىخەتەرلىك ئىسپاتنامىسى ئىشەنچلىك ئەمەس."
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:160
+#: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
 msgstr "يەنىلا داۋاملاشتۇر"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:173
+#: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
 msgstr "بىخەتەر ئۇلىنىشقا قايت"
 
@@ -131,20 +131,26 @@ msgstr "مەزكۇر بەت ئۈسكۈنىڭىزنىڭ ئورنىڭىزنى بى
 msgid "Deny"
 msgstr "رەت قىل"
 
-#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
 msgstr "ئىجازەت"
 
-#: src/app/InvalidCertificateErrorSheet.qml:55
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
 msgstr "بۇ تورتۇرانىڭ بىخەتەرلىك گۇۋاھنامىسى ئىشەنچسىز.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:63
+#: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
 msgstr "تېخىمۇ كوپ مەزمۇنلار"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:87
+#: src/app/InvalidCertificateErrorSheet.qml:88
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -154,7 +160,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:94
+#: src/app/InvalidCertificateErrorSheet.qml:95
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -164,7 +170,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:102
+#: src/app/InvalidCertificateErrorSheet.qml:103
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -174,7 +180,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:113
+#: src/app/InvalidCertificateErrorSheet.qml:114
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -184,7 +190,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:121
+#: src/app/InvalidCertificateErrorSheet.qml:122
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -194,7 +200,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:132
+#: src/app/InvalidCertificateErrorSheet.qml:133
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -204,7 +210,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:139
+#: src/app/InvalidCertificateErrorSheet.qml:140
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -214,7 +220,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:146
+#: src/app/InvalidCertificateErrorSheet.qml:147
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -223,7 +229,7 @@ msgstr ""
 "بارماق ئىزى(SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:153
+#: src/app/InvalidCertificateErrorSheet.qml:154
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -232,7 +238,7 @@ msgstr ""
 "بولسىڭىز داۋاملاشتۇرماڭ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:187
+#: src/app/InvalidCertificateErrorSheet.qml:188
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -242,7 +248,7 @@ msgstr ""
 "كىملىكى ماس كەلمىدى دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:190
+#: src/app/InvalidCertificateErrorSheet.qml:191
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -252,7 +258,7 @@ msgstr ""
 "دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:193
+#: src/app/InvalidCertificateErrorSheet.qml:194
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -262,7 +268,7 @@ msgstr ""
 "ئىناۋەتسىز دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:196
+#: src/app/InvalidCertificateErrorSheet.qml:197
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -272,7 +278,7 @@ msgstr ""
 "ئىشەنگىلى بولمايدۇ دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:199
+#: src/app/InvalidCertificateErrorSheet.qml:200
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -282,7 +288,7 @@ msgstr ""
 "قالدۇرۇلۇپتىكەن دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:202
+#: src/app/InvalidCertificateErrorSheet.qml:203
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
@@ -292,7 +298,7 @@ msgstr ""
 "دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:205
+#: src/app/InvalidCertificateErrorSheet.qml:206
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
@@ -302,7 +308,7 @@ msgstr ""
 "دەۋاتىدۇ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
+#: src/app/InvalidCertificateErrorSheet.qml:209
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -516,16 +522,16 @@ msgid "Undo"
 msgstr "يېنىۋال"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:244
+#: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:245
+#: src/app/webbrowser/AddressBar.qml:249
 msgid "search or enter an address"
 msgstr "ئىزدەڭ ياكى بىر ئادرېسنى كىرگۈزۈڭ"
 
@@ -565,8 +571,7 @@ msgstr "ساقلا"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "باش بەت"
@@ -615,16 +620,16 @@ msgid "Settings"
 msgstr "تەڭشەكلەر"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:782 src/app/webbrowser/Browser.qml:820
+#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1376
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Up بېسىپ تۇلۇق ئىكىران قىلىش"
 
-#: src/app/webbrowser/Browser.qml:1377
+#: src/app/webbrowser/Browser.qml:1378
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC بېسىپ تۇلۇق ئىكىراندىن چېكىنىش"
 

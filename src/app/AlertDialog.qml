@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,6 +24,7 @@ ModalDialog {
 
     Button {
         text: i18n.tr("OK")
+        color: theme.palette.normal.positive
         onClicked: model.accept()
     }
 }

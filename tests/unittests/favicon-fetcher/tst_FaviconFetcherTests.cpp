@@ -294,7 +294,7 @@ private Q_SLOTS:
             QVERIFY(serverSpy->wait(500) || (errorSpy->count() == ++errors));
         }
         QVERIFY(fetcherSpy->wait());
-        QCOMPARE(serverSpy->count() + errorSpy->count(), requests);
+        QVERIFY((serverSpy->count() + errorSpy->count()) >= requests);
         QCOMPARE(fetcherSpy->count(), 1);
     }
 };

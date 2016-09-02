@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,7 +24,7 @@ Popups.Dialog {
     id: dialog
     title: i18n.tr("Authentication required.")
     // TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
-    text: request ? i18n.tr('The website at %1 requires authentication. The website says "%2"').arg(request.host).arg(request.realm) : ""
+    text: request ? i18n.tr("The website at %1 requires authentication. The website says \"%2\"").arg(request.host).arg(request.realm) : ""
 
     property QtObject request: null
 
@@ -57,7 +57,7 @@ Popups.Dialog {
     Button {
         objectName: "allow"
         text: i18n.tr("OK")
-        color: UbuntuColors.green
+        color: theme.palette.normal.positive
         onClicked: {
             request.allow(usernameInput.text, passwordInput.text)
             PopupUtils.close(dialog)
@@ -67,7 +67,6 @@ Popups.Dialog {
     Button {
         objectName: "deny"
         text: i18n.tr("Cancel")
-        color: UbuntuColors.coolGrey
         onClicked: {
             request.deny()
             PopupUtils.close(dialog)
