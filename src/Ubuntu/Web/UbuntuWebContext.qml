@@ -76,10 +76,10 @@ Oxide.WebContext {
         property string _target: ""
 
         function reloadOverrides() {
-            if (screenDiagonal == 0) {
+            if (smallScreen === "unknown") {
                 return
             }
-            var target = smallScreen ? "mobile" : "desktop"
+            var target = smallScreen === "small" ? "mobile" : "desktop"
             if (target == _target) return
             _target = target
             var script = "ua-overrides-%1.js".arg(target)

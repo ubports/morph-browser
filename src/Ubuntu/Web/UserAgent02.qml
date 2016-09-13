@@ -31,7 +31,15 @@ import com.canonical.Oxide 1.15
 QtObject {
     // Empirical value: screens smaller than 19cm are considered small enough that a
     // mobile UA string is used, screens bigger than that will get desktop content.
-    readonly property bool smallScreen: screenDiagonal < 190
+    readonly property string smallScreen: {
+        if (screenDiagonal === 0) {
+            "unknown"
+        } else if (screenDiagonal > 0 && screenDiagonal < 190) {
+            "small"
+        } else {
+            "large"
+        }
+    }
 
     // %1: Ubuntu version, e.g. "14.04"
     // %2: optional token to specify further attributes of the platform, e.g. "like Android"
@@ -48,7 +56,7 @@ QtObject {
     //   difference in the content served by certain sites (e.g. gmail.com)
     readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 %6Safari/%7%8"
 
-    readonly property string _attributes: smallScreen ? "like Android 4.4" : ""
+    readonly property string _attributes: smallScreen === "small" ? "like Android 4.4" : ""
 
     readonly property string _hardwareID: ""
 
@@ -57,7 +65,7 @@ QtObject {
 
     readonly property string _chromiumVersion: Oxide.chromiumVersion
 
-    readonly property string _formFactor: smallScreen ? "Mobile" : ""
+    readonly property string _formFactor: smallScreen === "small" ? "Mobile" : ""
 
     readonly property string _more: ""
 
