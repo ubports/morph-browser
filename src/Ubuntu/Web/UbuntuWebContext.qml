@@ -70,16 +70,16 @@ Oxide.WebContext {
     ]
 
     property QtObject __ua: UserAgent02 {
-        onSmallScreenChanged: reloadOverrides()
+        onScreenSizeChanged: reloadOverrides()
         Component.onCompleted: reloadOverrides()
 
         property string _target: ""
 
         function reloadOverrides() {
-            if (smallScreen === "unknown") {
+            if (screenSize === "unknown") {
                 return
             }
-            var target = smallScreen === "small" ? "mobile" : "desktop"
+            var target = screenSize === "small" ? "mobile" : "desktop"
             if (target == _target) return
             _target = target
             var script = "ua-overrides-%1.js".arg(target)
