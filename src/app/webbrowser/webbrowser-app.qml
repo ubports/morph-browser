@@ -172,7 +172,14 @@ QtObject {
                 anchors.fill: parent
                 settings: webbrowserapp.settings
                 onNewWindowRequested: {
-                    var window = windowFactory.createObject(null, {"incognito": incognito})
+                    var window = windowFactory.createObject(
+                        null,
+                        {
+                            "incognito": incognito,
+                            "height": parent.height,
+                            "width": parent.width,
+                        }
+                    )
                     window.addTab()
                     window.tabsModel.currentIndex = 0
                     window.tabsModel.currentTab.load()
@@ -184,7 +191,14 @@ QtObject {
                         window = getLastActiveWindow(true)
                     }
                     if (!window) {
-                        window = windowFactory.createObject(null, {"incognito": incognito})
+                        window = windowFactory.createObject(
+                            null,
+                            {
+                                "incognito": incognito,
+                                "height": parent.height,
+                                "width": parent.width,
+                            }
+                        )
                     }
                     window.addTab(url)
                     window.tabsModel.currentIndex = window.tabsModel.count - 1
