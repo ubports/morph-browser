@@ -92,6 +92,23 @@ QtObject {
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
+            
+            readonly property string baseTitle: {
+                if (tabsModel && tabsModel.currentTab) {
+                    if (tabsModel.currentTab.title) {
+                        tabsModel.currentTab.title + " - "
+                    } else {
+                        if (tabsModel.currentTab.url.toString()) {
+                            tabsModel.currentTab.url + " - "
+                        } else {
+                            i18n.tr("New tab") + " - "
+                        }
+                    }
+                } else {
+                    ""
+                }
+            }
+            title: baseTitle + i18n.tr("Browser")
 
             onActiveChanged: {
                 if (active) {
