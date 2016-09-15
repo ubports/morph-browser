@@ -93,22 +93,14 @@ QtObject {
 
             currentWebview: browser.currentWebview
             
-            readonly property string baseTitle: {
-                if (tabsModel && tabsModel.currentTab) {
-                    if (tabsModel.currentTab.title) {
-                        tabsModel.currentTab.title + " - "
-                    } else {
-                        if (tabsModel.currentTab.url.toString()) {
-                            tabsModel.currentTab.url + " - "
-                        } else {
-                            i18n.tr("New tab") + " - "
-                        }
-                    }
+            title: {
+                if (browser.title) {
+                    // TRANSLATORS: %1 refers to the current page’s title
+                    return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
                 } else {
-                    ""
+                    return i18n.tr("Ubuntu Web Browser")
                 }
             }
-            title: baseTitle + i18n.tr("Browser")
 
             onActiveChanged: {
                 if (active) {
