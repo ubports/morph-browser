@@ -122,6 +122,11 @@ QtObject {
                 destroy()
             }
 
+            Shortcut {
+                sequence: StandardKey.Quit
+                onActivated: Qt.quit()
+            }
+
             function toggleApplicationLevelFullscreen() {
                 setFullscreen(visibility !== Window.FullScreen)
                 if (browser.currentWebview.fullscreen) {
