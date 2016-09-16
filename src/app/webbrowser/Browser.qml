@@ -1016,7 +1016,10 @@ BrowserView {
                 filePicker: filePickerLoader.item
 
                 anchors.fill: parent
-                focus: true
+                
+                // set to true once loaded otherwise text fields do not have
+                // visual focus on startup and require setting focus elsewhere
+                focus: false
 
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
@@ -1233,6 +1236,8 @@ BrowserView {
                     property string title: ""
                 }
                 onLoadEvent: {
+                    focus = true;
+                
                     if (event.type == Oxide.LoadEvent.TypeCommitted) {
                         chrome.findInPageMode = false
                         webviewInternal.titleSet = false
