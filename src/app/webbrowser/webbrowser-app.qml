@@ -112,26 +112,13 @@ QtObject {
             }
 
             onClosing: {
-                // If the closingPeriodSaver is running another window has
-                // recently closed so do not save the session as all windows
-                // maybe closing rapidly (Application Quit)
-                if (closingPeriodSaver.running) {
-                    closingPeriodSaver.restart();
-                } else {
-                    // This is the first window to close recently so save
-                    // If this is the only window remaining and there are no
-                    // tabs then clear the session otherwise save the session
-                    if (allWindows.length == 1 && tabsModel.count == 0) {
-                        session.clear();
+                if (allWindows.length == 1) {
+                    if (tabsModel.count > 0) {
+                        session.save()
                     } else {
-                        session.save();
+                        session.clear()
                     }
-                    
-                    // Start a timer so we can determine if the application
-                    // is quiting and block saves that lose info about windows
-                    closingPeriodSaver.restart();
                 }
-                
                 destroy()
             }
 
@@ -376,15 +363,6 @@ QtObject {
         repeat: true
         running: true
         onTriggered: delayedSessionSaver.restart()
-    }
-    
-    property var closingPeriodSaver: Timer {
-        // a timer which tells us if another window has closed recently
-        // which can be used to determine when multiple windows are shut
-        // rapidly, eg Application Quit
-        interval: 500
-        // if triggered multiple windows were closed but the app was not quit
-        onTriggered: session.save()  
     }
 
     property var applicationMonitor: Connections {
