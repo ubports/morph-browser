@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
+import "."
 import ".."
 import webbrowsercommon.private 0.1
 import webbrowserapp.private 0.1
@@ -48,11 +49,19 @@ QtObject {
             allWindows[w].tabsModel.currentTab.load()
         }
 
-        // FIXME: do this async
+        // FIXME: do this asynchronously
         BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
         HistoryModel.databasePath = dataLocation + "/history.sqlite"
         DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
-        //PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
+
+        var doNotCleanUrls = []
+        for (var x in allWindows) {
+            var tabs = allWindows[x].tabsModel
+            for (var t = 0; t < tabs.count; ++t) {
+                doNotCleanUrls.push(tabs.get(t).url)
+            }
+        }
+        PreviewManager.cleanUnusedPreviews(doNotCleanUrls)
     }
 
     // Array of all windows, sorted chronologically (most recently active last)
