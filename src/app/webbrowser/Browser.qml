@@ -1494,6 +1494,10 @@ BrowserView {
             if (tabsModel.currentTab) {
                 tabsModel.currentTab.load()
             }
+            if (tabsModel.count === 0) {
+                internal.openUrlInNewTab("", true)
+                recentView.reset()
+            }
         }
 
         function closeCurrentTab() {

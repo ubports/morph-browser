@@ -226,7 +226,7 @@ QtObject {
             Connections {
                 target: window.tabsModel
                 onCountChanged: {
-                    if (window.tabsModel.count == 0) {
+                    if ((window.tabsModel.count === 0) && browser.wide) {
                         window.close()
                     }
                 }
