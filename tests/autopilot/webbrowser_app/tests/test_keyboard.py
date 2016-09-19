@@ -558,6 +558,17 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+0')
         self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
 
+    def test_zoom_qwerty_compatibility_shortcuts(self):
+        # Ref: https://launchpad.net/bugs/1624381
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
+        self.main_window.press_key('Ctrl+equal')
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.1)))
+
+        self.main_window.press_key('Ctrl+underscore')
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
     def test_zoom_affects_domain(self):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
