@@ -289,7 +289,7 @@ QtObject {
         // TODO: do we want to save/restore window positions too (https://launchpad.net/bugs/1312892)?
 
         function save() {
-            if (!locked) {
+            if (!locked || restoring) {
                 return
             }
             var windows = []
