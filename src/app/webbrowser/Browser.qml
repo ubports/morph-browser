@@ -1016,7 +1016,11 @@ BrowserView {
                 filePicker: filePickerLoader.item
 
                 anchors.fill: parent
-                focus: true
+
+                // Initially set to false and changed to true on first load event
+                // to work around an issue where caret and active focus ring are
+                // not drawn, despite the webview initially having active focus.
+                focus: false
 
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
@@ -1233,6 +1237,12 @@ BrowserView {
                     property string title: ""
                 }
                 onLoadEvent: {
+                    // Set focus to true on first load event to work around an issue
+                    // where caret and active focus ring are not drawn, despite the
+                    // webview initially having active focus.
+                    // This is a no-op on subsequent loads.
+                    focus = true
+
                     if (event.type == Oxide.LoadEvent.TypeCommitted) {
                         chrome.findInPageMode = false
                         webviewInternal.titleSet = false
