@@ -1633,19 +1633,6 @@ BrowserView {
         onTriggered: internal.switchToTab(internal.nextTabIndex, false)
     }
 
-    Timer {
-        running: true
-        interval: 1
-        onTriggered: {
-            /*if (!delayedTabSwitcher.running) {
-                tabsModel.currentTab.load()
-            }*/
-            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState) {
-                internal.maybeFocusAddressBar()
-            }
-        }
-    }
-
     Connections {
         target: tabsModel
         onCurrentTabChanged: {
