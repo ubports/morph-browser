@@ -238,6 +238,15 @@ QtObject {
                 onCountChanged: delayedSessionSaver.restart()
             }
 
+            Connections {
+                target: (session.restoring || !window.visible || browser.wide) ? null : window.tabsModel
+                onCurrentIndexChanged: {
+                    // In narrow mode, the tabslist is a stack:
+                    // the current tab is always at the top.
+                    window.tabsModel.move(window.tabsModel.currentIndex, 0)
+                }
+            }
+
             function serializeTabState(tab) {
                 return browser.serializeTabState(tab)
             }

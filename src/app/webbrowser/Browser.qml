@@ -1648,13 +1648,6 @@ BrowserView {
 
     Connections {
         target: tabsModel
-        onCurrentIndexChanged: {
-            // In narrow mode, the tabslist is a stack:
-            // the current tab is always at the top.
-            if (!browser.wide) {
-                tabsModel.move(tabsModel.currentIndex, 0)
-            }
-        }
         onCurrentTabChanged: {
             chrome.findInPageMode = false
             internal.resetFocus()
