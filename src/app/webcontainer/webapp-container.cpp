@@ -138,34 +138,33 @@ bool WebappContainer::initialize()
             QDir searchDir(m_webappModelSearchPath);
             searchDir.makeAbsolute();
             if (searchDir.exists()) {
-                m_object->setProperty("webappModelSearchPath", searchDir.path());
+                QQmlProperty::write(m_object, QStringLiteral("webappModelSearchPath"), searchDir.path());
             }
         }
         if ( ! m_localCookieStoreDbPath.isEmpty()) {
-            m_object->setProperty("localCookieStoreDbPath", m_localCookieStoreDbPath);
+            QQmlProperty::write(m_object, QStringLiteral("localCookieStoreDbPath"), m_localCookieStoreDbPath);
         }
 
-        m_object->setProperty("webappName", m_webappName);
+        QQmlProperty::write(m_object, QStringLiteral("webappName"), m_webappName);
         QFileInfo iconInfo(m_webappIcon);
         QUrl iconUrl;
         if (iconInfo.isReadable()) {
             iconUrl = QUrl::fromLocalFile(iconInfo.absoluteFilePath());
         }
-        m_object->setProperty("webappIcon", iconUrl);
-        m_object->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
-        m_object->setProperty("chromeVisible", m_addressBarVisible);
-        m_object->setProperty("accountProvider", m_accountProvider);
-        m_object->setProperty("accountSwitcher", m_accountSwitcher);
-        m_object->setProperty("openExternalUrlInOverlay", m_openExternalUrlInOverlay);
-        m_object->setProperty("defaultVideoCaptureCameraPosition", m_defaultVideoCaptureCameraPosition);
-
-        m_object->setProperty("webappUrlPatterns", m_webappUrlPatterns);
+        QQmlProperty::write(m_object, QStringLiteral("webappIcon"), iconUrl);
+        QQmlProperty::write(m_object, QStringLiteral("backForwardButtonsVisible"), m_backForwardButtonsVisible);
+        QQmlProperty::write(m_object, QStringLiteral("chromeVisible"), m_addressBarVisible);
+        QQmlProperty::write(m_object, QStringLiteral("accountProvider"), m_accountProvider);
+        QQmlProperty::write(m_object, QStringLiteral("accountSwitcher"), m_accountSwitcher);
+        QQmlProperty::write(m_object, QStringLiteral("openExternalUrlInOverlay"), m_openExternalUrlInOverlay);
+        QQmlProperty::write(m_object, QStringLiteral("defaultVideoCaptureCameraPosition"), m_defaultVideoCaptureCameraPosition);
+        QQmlProperty::write(m_object, QStringLiteral("webappUrlPatterns"), m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
         if (m_storeSessionCookies) {
             QString sessionCookieMode = SessionUtils::firstRun(m_webappName) ?
                 QStringLiteral("persistent") : QStringLiteral("restored");
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
-            m_object->setProperty("webContextSessionCookieMode", sessionCookieMode);
+            QQmlProperty::write(m_object, QStringLiteral("webContextSessionCookieMode"), sessionCookieMode);
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
@@ -173,35 +172,36 @@ bool WebappContainer::initialize()
         if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
             const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
                 qgetenv("WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL");
-            m_object->setProperty(
-                        "popupRedirectionUrlPrefixPattern",
-                        WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
-                        ? m_popupRedirectionUrlPrefixPattern
-                        : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
-                              m_popupRedirectionUrlPrefixPattern, false));
+            QQmlProperty::write(
+                m_object, QStringLiteral("popupRedirectionUrlPrefixPattern"),
+                WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
+                    ? m_popupRedirectionUrlPrefixPattern
+                    : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                        m_popupRedirectionUrlPrefixPattern, false));
         }
 
         if (!m_userAgentOverride.isEmpty()) {
-            m_object->setProperty("localUserAgentOverride", m_userAgentOverride);
+            QQmlProperty::write(m_object, QStringLiteral("localUserAgentOverride"), m_userAgentOverride);
         }
 
         // Experimental, unsupported API, to override the webview
         QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
-            m_object->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
+            QQmlProperty::write(m_object, QStringLiteral("webviewOverrideFile"),
+                                QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
         }
 
         const QString WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR =
             qgetenv("WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY");
         if (WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR == "1") {
-            m_object->setProperty("blockOpenExternalUrls", true);
+            QQmlProperty::write(m_object, QStringLiteral("blockOpenExternalUrls"), true);
         }
 
         bool runningLocalApp = false;
         QList<QUrl> urls = this->urls();
         if (!urls.isEmpty()) {
             QUrl homeUrl = urls.last();
-            m_object->setProperty("url", homeUrl);
+            QQmlProperty::write(m_object, QStringLiteral("url"), homeUrl);
             if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
                 qDebug() << "Started as a local application container.";
                 runningLocalApp = true;
@@ -216,7 +216,7 @@ bool WebappContainer::initialize()
         // webapp-properties.json file pulled from the webapp model element
         // or from a default local system install (if any).
 
-        m_object->setProperty("runningLocalApplication", runningLocalApp);
+        QQmlProperty::write(m_object, QStringLiteral("runningLocalApplication"), runningLocalApp);
 
         // Handle the invalid runtime conditions for the local apps
         if (runningLocalApp && !isValidLocalApplicationRunningContext()) {
@@ -229,7 +229,7 @@ bool WebappContainer::initialize()
 
         if (qEnvironmentVariableIsSet("WEBAPP_CONTAINER_BLOCKER_DISABLED")
                 && QString(qgetenv("WEBAPP_CONTAINER_BLOCKER_DISABLED")) == "1") {
-            m_object->setProperty("popupBlockerEnabled", false);
+            QQmlProperty::write(m_object, QStringLiteral("popupBlockerEnabled"), false);
         }
 
         QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_fullscreen);
