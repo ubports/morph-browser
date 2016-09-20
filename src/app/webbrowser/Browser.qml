@@ -1666,10 +1666,6 @@ BrowserView {
         }
         onCurrentTabChanged: {
             chrome.findInPageMode = false
-            /*var tab = tabsModel.currentTab
-            if (tab) {
-                tab.load()
-            }*/
             internal.resetFocus()
         }
     }
