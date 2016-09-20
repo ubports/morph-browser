@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
@@ -25,6 +26,8 @@ import ".."
 
 FocusScope {
     id: containerWebview
+
+    property Window window
 
     property string url: ""
     property bool developerExtrasEnabled: false
@@ -115,7 +118,8 @@ FocusScope {
 
         webappContainerWebViewLoader.setSource(
                     webappEngineSource,
-                    { localUserAgentOverride: containerWebview.localUserAgentOverride
+                    { window: containerWebView.window
+                    , localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
                     , dataPath: dataPath

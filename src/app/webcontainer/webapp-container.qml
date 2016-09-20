@@ -81,6 +81,8 @@ BrowserWindow {
         WebApp {
             id: browser
 
+            window: root
+
             url: accountProvider.length !== 0 ? "" : root.url
 
             accountSwitcher: root.accountSwitcher

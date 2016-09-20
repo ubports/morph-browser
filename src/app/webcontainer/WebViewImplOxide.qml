@@ -28,6 +28,10 @@ import ".."
 WebappWebview {
     id: webview
 
+    // XXX: Ideally, we would use the Window.window
+    // attached property, but it is new in Qt 5.7.
+    property Window window
+
     property bool developerExtrasEnabled: false
     property string webappName: ""
     property string localUserAgentOverride: ""
@@ -261,15 +265,7 @@ WebappWebview {
     function getUnityWebappsProxies() {
         var eventHandlers = {
             onAppRaised: function () {
-                // FIXME: re-implement. Ideally, we would get to the window with
-                // the Window.window attached property, but it is new in Qt 5.7.
-                /*if (webbrowserWindow) {
-                    try {
-                        webbrowserWindow.raise();
-                    } catch (e) {
-                        console.debug('Error while raising: ' + e);
-                    }
-                }*/
+                window.raise();
             }
         };
         return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
