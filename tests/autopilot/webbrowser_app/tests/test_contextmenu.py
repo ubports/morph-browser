@@ -58,11 +58,14 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(self.app.get_windows(incognito=incognito)),
                         Eventually(Equals(1 if incognito else 2)))
         windows = self.app.get_windows()
-        for window in windows:
-            url = self.base_url + "/test1" if window.activeFocus else self.url
-            self.assertThat(window.get_current_webview().url, Equals(url))
-            if incognito:
-                self.assertThat(window.activeFocus, Equals(window.incognito))
+        urls = [window.get_current_webview().url for window in windows]
+        self.assertThat(sorted(urls),
+                        Equals(sorted([self.base_url + "/test1", self.url])))
+        if incognito:
+            windows = self.app.get_windows(incognito=True)
+            self.assertThat(len(windows), Equals(1))
+            self.assertThat(windows[0].get_current_webview().url,
+                            Equals(self.base_url + "/test1"))
 
 
 class TestContextMenuLink(TestContextMenuBase):
