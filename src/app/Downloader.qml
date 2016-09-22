@@ -62,12 +62,6 @@ Item {
         singleDownload.download(url)
     }
 
-    function downloadPicture(url, headers) {
-        var metadata = metadataComponent.createObject(downloadItem)
-        downloadItem.mimeType = "image/*"
-        download(url, ContentType.Pictures, headers, metadata)
-    }
-
     function downloadMimeType(url, mimeType, headers, filename) {
         var metadata = metadataComponent.createObject(downloadItem)
         var contentType = MimeTypeMapper.mimeTypeToContentType(mimeType)
