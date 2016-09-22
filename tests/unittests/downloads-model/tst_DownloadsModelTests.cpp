@@ -17,6 +17,8 @@
  */
 
 #include <QtCore/QDir>
+#include <QtCore/QFileInfo>
+#include <QtCore/QTemporaryDir>
 #include <QtCore/QTemporaryFile>
 #include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
@@ -27,11 +29,16 @@ class DownloadsModelTests : public QObject
     Q_OBJECT
 
 private:
+    QTemporaryDir homeDir;
     DownloadsModel* model;
 
 private Q_SLOTS:
     void init()
     {
+        // QStandardPaths::setTestModeEnabled() doesn't affect
+        // QStandardPaths::DownloadLocation, so we must override $HOME to
+        // ensure the test won't write data to the user's home directory.
+        qputenv("HOME", homeDir.path().toUtf8());
         model = new DownloadsModel;
         model->setDatabasePath(":memory:");
     }
@@ -39,6 +46,7 @@ private Q_SLOTS:
     void cleanup()
     {
         delete model;
+        qunsetenv("HOME");
     }
 
     void shouldBeInitiallyEmpty()
@@ -58,6 +66,7 @@ private Q_SLOTS:
         QVERIFY(roleNames.contains("paused"));
         QVERIFY(roleNames.contains("error"));
         QVERIFY(roleNames.contains("created"));
+        QVERIFY(roleNames.contains("incognito"));
     }
 
     void shouldContainAddedEntries()
@@ -108,12 +117,12 @@ private Q_SLOTS:
 
     void shouldCompleteDownloads()
     {
-        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-        qRegisterMetaType<QVector<int> >();
         model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
         QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Complete).toBool());
-        QVERIFY(spy.isEmpty());
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+
         model->setComplete(QStringLiteral("testid"), true);
+        QVERIFY(model->data(model->index(0, 0), DownloadsModel::Complete).toBool());
         QCOMPARE(spy.count(), 1);
         QVariantList args = spy.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
@@ -121,6 +130,82 @@ private Q_SLOTS:
         QVector<int> roles = args.at(2).value<QVector<int> >();
         QCOMPARE(roles.size(), 1);
         QCOMPARE(roles.at(0), (int) DownloadsModel::Complete);
+
+        model->setComplete(QStringLiteral("testid"), true);
+        QVERIFY(model->data(model->index(0, 0), DownloadsModel::Complete).toBool());
+        QVERIFY(spy.isEmpty());
+
+        model->setComplete(QStringLiteral("testid"), false);
+        QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Complete).toBool());
+        QCOMPARE(spy.count(), 1);
+        args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QCOMPARE(roles.at(0), (int) DownloadsModel::Complete);
+    }
+
+    void shouldSetError()
+    {
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        QVERIFY(model->data(model->index(0, 0), DownloadsModel::Error).toString().isEmpty());
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+
+        model->setError(QStringLiteral("testid"), QStringLiteral("foo"));
+        QCOMPARE(model->data(model->index(0, 0), DownloadsModel::Error).toString(), QStringLiteral("foo"));
+        QCOMPARE(spy.count(), 1);
+        QVariantList args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        QVector<int> roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QCOMPARE(roles.at(0), (int) DownloadsModel::Error);
+
+        model->setError(QStringLiteral("testid"), QStringLiteral("foo"));
+        QCOMPARE(model->data(model->index(0, 0), DownloadsModel::Error).toString(), QStringLiteral("foo"));
+        QVERIFY(spy.isEmpty());
+
+        model->setError(QStringLiteral("testid"), QString("bar"));
+        QCOMPARE(model->data(model->index(0, 0), DownloadsModel::Error).toString(), QStringLiteral("bar"));
+        QCOMPARE(spy.count(), 1);
+        args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QCOMPARE(roles.at(0), (int) DownloadsModel::Error);
+    }
+
+    void shouldPauseAndResumeDownload()
+    {
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Paused).toBool());
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+
+        model->pauseDownload(QStringLiteral("testid"));
+        QVERIFY(model->data(model->index(0, 0), DownloadsModel::Paused).toBool());
+        QCOMPARE(spy.count(), 1);
+        QVariantList args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        QVector<int> roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QCOMPARE(roles.at(0), (int) DownloadsModel::Paused);
+
+        model->pauseDownload(QStringLiteral("testid"));
+        QVERIFY(model->data(model->index(0, 0), DownloadsModel::Paused).toBool());
+        QVERIFY(spy.isEmpty());
+
+        model->resumeDownload(QStringLiteral("testid"));
+        QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Paused).toBool());
+        QCOMPARE(spy.count(), 1);
+        args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 1);
+        QCOMPARE(roles.at(0), (int) DownloadsModel::Paused);
     }
 
     void shouldKeepEntriesSortedChronologically()
@@ -145,6 +230,8 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), DownloadsModel::Mimetype).toString(), QStringLiteral("text/plain"));
         QVERIFY(model->data(model->index(0, 0), DownloadsModel::Created).toDateTime() <= QDateTime::currentDateTime());
         QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Complete).toBool());
+        QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Incognito).toBool());
+        QVERIFY(!model->data(model->index(0, 0), -1).isValid());
     }
 
     void shouldReturnDatabasePath()
@@ -216,6 +303,112 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(1), DownloadsModel::DownloadId).toString(), QStringLiteral("testid1"));
         QCOMPARE(spyRowsRemoved.count(), 2);
         QCOMPARE(spyRowCountChanged.count(), 2);
+    }
+
+    void shouldFailToMoveInvalidDownload()
+    {
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        QTemporaryFile tempFile;
+        tempFile.open();
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        model->moveToDownloads(QStringLiteral("foobar"), tempFile.fileName());
+        QVERIFY(spy.isEmpty());
+    }
+
+    void shouldFailToMoveNonExistentFile()
+    {
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        QTemporaryFile tempFile;
+        tempFile.open();
+        QString fileName = tempFile.fileName();
+        tempFile.remove();
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        QTest::ignoreMessage(QtWarningMsg, QString("Download not found: \"%1\"").arg(fileName).toUtf8().constData());
+        model->moveToDownloads(QStringLiteral("testid"), fileName);
+        QVERIFY(spy.isEmpty());
+    }
+
+    void shouldMoveFile()
+    {
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("application/pdf"), false);
+        QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
+        tempFile.open();
+        tempFile.write(QByteArray("foo bar baz"));
+        tempFile.close();
+        QString filePath = tempFile.fileName();
+        QString fileName = QFileInfo(filePath).fileName();
+        QVERIFY(QFile::exists(filePath));
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        model->moveToDownloads(QStringLiteral("testid"), filePath);
+        QCOMPARE(spy.count(), 1);
+        QVariantList args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        QVector<int> roles = args.at(2).value<QVector<int> >();
+        QCOMPARE(roles.size(), 2);
+        QVERIFY(roles.contains(DownloadsModel::Mimetype));
+        QVERIFY(roles.contains(DownloadsModel::Path));
+        QCOMPARE(model->data(model->index(0), DownloadsModel::Mimetype).toString(), QStringLiteral("text/plain"));
+        QCOMPARE(model->data(model->index(0), DownloadsModel::Path).toString(), QString("%1/Downloads/%2").arg(homeDir.path(), fileName));
+        QVERIFY(!QFile::exists(filePath));
+    }
+
+    void shouldRenameFileToAvoidFilenameCollision()
+    {
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
+        tempFile.open();
+        tempFile.write(QByteArray("foo"));
+        tempFile.close();
+        QString filePath = tempFile.fileName();
+        QString fileName = QFileInfo(filePath).fileName();
+        QVERIFY(QFile::exists(filePath));
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        QString path = QString("%1/Downloads/%2").arg(homeDir.path(), fileName);
+        QFile file(path);
+        QVERIFY(file.open(QIODevice::WriteOnly));
+        QVERIFY(file.write("bar") != -1);
+        file.close();
+        model->moveToDownloads(QStringLiteral("testid"), filePath);
+        QString otherPath = QString("%1/Downloads/%2").arg(homeDir.path(), fileName.replace(QStringLiteral("."), QStringLiteral(".1.")));
+        QCOMPARE(model->data(model->index(0), DownloadsModel::Path).toString(), otherPath);
+        QVERIFY(!QFile::exists(filePath));
+        QVERIFY(QFile::exists(path));
+        QVERIFY(QFile::exists(otherPath));
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        QCOMPARE(file.readAll(), QByteArray("bar"));
+        file.close();
+        QFile file2(otherPath);
+        QVERIFY(file2.open(QIODevice::ReadOnly));
+        QCOMPARE(file2.readAll(), QByteArray("foo"));
+        file2.close();
+    }
+
+    void shouldDeleteDownload()
+    {
+        // Need a file saved on disk to allow deleting it
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
+        tempFile.open();
+        tempFile.write(QByteArray("foo bar baz"));
+        tempFile.close();
+        QString filePath = tempFile.fileName();
+        QString fileName = QFileInfo(filePath).fileName();
+        model->moveToDownloads(QStringLiteral("testid"), filePath);
+        QString path = model->data(model->index(0), DownloadsModel::Path).toString();
+        QVERIFY(QFile::exists(path));
+
+        QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
+        QSignalSpy spyRowCount(model, SIGNAL(rowCountChanged()));
+        model->deleteDownload(path);
+        QCOMPARE(spyRowsRemoved.count(), 1);
+        QVariantList args = spyRowsRemoved.takeFirst();
+        QVERIFY(!args.at(0).toModelIndex().isValid());
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
+        QCOMPARE(spyRowCount.count(), 1);
+        QCOMPARE(model->rowCount(), 0);
+        QVERIFY(!QFile::exists(path));
     }
 };
 
