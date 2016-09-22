@@ -1415,7 +1415,7 @@ BrowserView {
                 }
 
                 function startDownload(downloadId, download, mimeType) {
-                    DownloadsModel.add(downloadId, download.url, mimeType)
+                    DownloadsModel.add(downloadId, download.url, mimeType, incognito)
                     download.start()
                     downloadsViewLoader.active = true
                 }
@@ -1814,6 +1814,8 @@ BrowserView {
             // When going incognito, save the current session right
             // away, as periodic session saving is disabled.
             session.save()
+        } else {
+            DownloadsModel.pruneIncognitoDownloads()
         }
     }
 

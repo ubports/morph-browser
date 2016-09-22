@@ -155,7 +155,7 @@ BrowserPage {
 
         model: SortFilterModel {
             model: DownloadsModel
-            filter { 
+            filter {
                 id: downloadModelFilter
                 property: "mimetype"
             }
