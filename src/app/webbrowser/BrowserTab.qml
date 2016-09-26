@@ -187,9 +187,10 @@ FocusScope {
         }
     }
     Connections {
-        target: webview
-        onLoadingStateChanged: {
-            if (!webview.loading && !webview.incognito) {
+        target: incognito ? null : webview
+        onLoadEvent: {
+            if ((event.type == Oxide.LoadEvent.TypeSucceeded) ||
+                (event.type == Oxide.LoadEvent.TypeFailed)) {
                 delayedCapture.restart()
             }
         }
