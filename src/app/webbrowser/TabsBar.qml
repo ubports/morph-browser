@@ -19,6 +19,10 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+
+import webbrowserapp.private 0.1
+
+import "."
 import ".."
 
 Item {
@@ -128,20 +132,27 @@ Item {
                 objectName: "tabDelegate"
 
                 readonly property int tabIndex: index
+                readonly property BrowserTab tab: tabsModel.get(index)
+                readonly property BrowserWindow tabWindow: window
 
-                anchors.top: tabsContainer.top
                 property real rightMargin: units.dp(1)
                 width: tabWidth + rightMargin
                 height: tabsContainer.height
+                y: tabsContainer.y  // don't use anchor otherwise drag doesn't work
 
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 readonly property bool dragging: drag.active
                 drag {
                     target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
-                    axis: Drag.XAxis
+                    axis: Drag.XAndYAxis
                     minimumX: 0
                     maximumX: root.width - tabDelegate.width
                     filterChildren: true
+                }
+                
+                DragHelper {
+                    id: dragHelper
+                    source: tabDelegate                
                 }
 
                 TabItem {
@@ -175,7 +186,61 @@ Item {
                 }
 
                 Behavior on x { NumberAnimation { duration: 250 } }
+                
+                NumberAnimation {
+                    id: resetVerticalAnimation
+                    target: tabDelegate
+                    duration: 250
+                    property: "y"
+                    to: 0
+                }
+                
+                onPositionChanged: {
+                    if (Math.abs(y) > height) {
+                        // Reset visual position of tab delegate
+                        resetVerticalAnimation.start();
+                    
+                        if (mouse.buttons === Qt.LeftButton) {
+                            // Generate tab preview for drag handle
+                            dragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url); 
+                        
+                            var dropAction = dragHelper.execDrag(tab.url);
+                            
+                            if (dropAction === Qt.MoveAction) {
+                                // Moved into another window
+                                console.debug("Moved to another window, closing tab");
+                                
+                                // drag.active does not become false when
+                                // closing the tab so set reordering back
+                                repeater.reordering = false;
 
+                                // Just remove from model and do not destory
+                                // as webview is used in other window                                
+                                tabsModel.remove(index);
+                            } else if (dropAction === Qt.CopyAction) {
+                                // Moved into the same window
+                                
+                                // So no action
+                                console.debug("No action, dropped in same window");
+                            } else if (dropAction === Qt.IgnoreAction) {
+                                // Moved outside of any window
+                                console.debug("Moved outside, generating new window");
+                                
+                                // drag.active does not become false when
+                                // closing the tab so set reordering back
+                                repeater.reordering = false;
+
+                                // callback function only removes from model
+                                // and not destroy as webview is in new window
+                                browser.newWindowFromTab(tab, function() { tabsModel.remove(index); })
+                            } else {
+                                // Unknown state
+                                console.debug("Unknown drop action:", dropAction);
+                            }
+                        }
+                    }
+                }
+                onReleased: resetVerticalAnimation.start();
                 onXChanged: {
                     if (!dragging) return
                     if (x < (index * width - width / 2)) {

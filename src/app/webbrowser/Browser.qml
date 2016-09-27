@@ -70,6 +70,7 @@ BrowserView {
     }
 
     signal newWindowRequested(bool incognito)
+    signal newWindowFromTab(var tab, var closeMethod)
     signal openLinkInWindowRequested(url url, bool incognito)
 
     Connections {
@@ -1866,5 +1867,46 @@ BrowserView {
         id: filePickerLoader
         source: "ContentPickerDialog.qml"
         asynchronous: true
+    }
+    
+    DropArea {
+        anchors {
+            fill: parent
+        }
+        keys: ["webbrowser/tab"]
+
+        onEntered: item.opacity = 0.5
+        onExited: item.opacity = 0
+        onDropped: {
+            if (drag.source.tabWindow === window) {
+                console.debug("Dropped in same window");
+                drop.accept(Qt.CopyAction);
+            } else {
+                console.debug("Dropped in new window, moving tab");
+                
+                window.addTab(drop.getDataAsString("webbrowser/tab"));
+                window.tabsModel.currentIndex = window.tabsModel.count - 1;
+                window.tabsModel.currentTab.loadExisting(drag.source.tab);
+                
+                drop.accept(Qt.MoveAction);
+            }
+            
+            item.opacity = 0;
+        }
+
+        Rectangle {
+            id: item
+            anchors {
+                fill: parent
+            }
+            color: "#0F0"
+            opacity: 0
+            
+            Behavior on opacity {
+                NumberAnimation {
+                
+                }
+            }
+        }
     }
 }

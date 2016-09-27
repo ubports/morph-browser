@@ -177,6 +177,24 @@ QtObject {
                 id: browser
                 anchors.fill: parent
                 settings: webbrowserapp.settings
+                onNewWindowFromTab: {
+                    var window = windowFactory.createObject(
+                        null,
+                        {
+                            "incognito": tab.incognito,
+                            "height": parent.height,
+                            "width": parent.width,
+                        }
+                    );
+                    
+                    window.addTab(tab.url);
+                    window.tabsModel.currentIndex = window.tabsModel.count - 1;
+                    window.tabsModel.currentTab.loadExisting(tab)
+                    window.show();
+                    window.requestActivate();
+                    
+                    closeMethod();
+                }
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,
