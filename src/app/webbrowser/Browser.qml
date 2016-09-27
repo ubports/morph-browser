@@ -1300,8 +1300,10 @@ BrowserView {
                         // to achieve an ugly "scrolling title" effect to flood the
                         // history database with updates.
                         webviewInternal.titleSet = true
-                        webviewInternal.title = title
-                        HistoryModel.update(webviewInternal.storedUrl, title, icon)
+                        if (webviewInternal.title != title) {
+                            webviewInternal.title = title
+                            HistoryModel.update(webviewInternal.storedUrl, title, icon)
+                        }
                     }
                 }
                 onIconChanged: {
