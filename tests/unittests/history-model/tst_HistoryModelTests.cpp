@@ -252,7 +252,7 @@ private Q_SLOTS:
         model->setDatabasePath("");
         QCOMPARE(spyPath.count(), 1);
         QCOMPARE(spyReset.count(), 1);
-        QCOMPARE(model->databasePath(), QString(":memory:"));
+        QCOMPARE(model->databasePath(), QString(""));
     }
 
     void shouldSerializeOnDisk()

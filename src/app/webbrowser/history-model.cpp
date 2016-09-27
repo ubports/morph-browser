@@ -20,10 +20,12 @@
 #include "history-model.h"
 
 // Qt
-#include <QtCore/QMutexLocker>
+#include <QtCore/QTimer>
+#include <QtCore/QWriteLocker>
 #include <QtSql/QSqlQuery>
 
-#define CONNECTION_NAME "webbrowser-app-history"
+#define SQL_DRIVER QStringLiteral("QSQLITE")
+#define CONNECTION_NAME QStringLiteral("webbrowser-app-history")
 
 /*!
     \class HistoryModel
@@ -39,46 +41,63 @@
     The database is read at startup to populate the model, and whenever a new
     entry is added to the model the database is updated.
     However the model doesn’t monitor the database for external changes.
+    Data is written back to the database in a separate thread in order not to
+    block the UI thread.
 */
 HistoryModel::HistoryModel(QObject* parent)
     : QAbstractListModel(parent)
-{
-    m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
-}
+    , m_dbWriter(nullptr)
+{}
 
 HistoryModel::~HistoryModel()
 {
-    m_database.close();
-    m_database = QSqlDatabase();
-    QSqlDatabase::removeDatabase(CONNECTION_NAME);
+    if (m_dbWriter) {
+        m_dbWriter->deleteLater();
+        m_dbWriterThread.quit();
+        m_dbWriterThread.wait();
+    }
 }
 
 void HistoryModel::resetDatabase(const QString& databaseName)
 {
+    if (m_dbWriter) {
+        m_dbWriter->deleteLater();
+        m_dbWriterThread.quit();
+        m_dbWriterThread.wait();
+    }
+
     beginResetModel();
     m_hiddenEntries.clear();
     m_entries.clear();
-    m_database.close();
-    m_database.setDatabaseName(databaseName);
-    m_database.open();
-    createOrAlterDatabaseSchema();
+
+    QSqlDatabase database = QSqlDatabase::addDatabase(SQL_DRIVER, CONNECTION_NAME);
+    database.setDatabaseName(databaseName);
+    database.open();
+
+    createOrAlterDatabaseSchema(database);
     endResetModel();
-    populateFromDatabase();
+    populateFromDatabase(database);
+    database.close();
+    database = QSqlDatabase();
+    QSqlDatabase::removeDatabase(CONNECTION_NAME);
+
+    m_dbWriter = new DbWriter(databaseName);
+    m_dbWriter->moveToThread(&m_dbWriterThread);
+    m_dbWriterThread.start(QThread::LowPriority);
 }
 
-void HistoryModel::createOrAlterDatabaseSchema()
+void HistoryModel::createOrAlterDatabaseSchema(const QSqlDatabase& database)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery createQuery(m_database);
-    QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history "
-                                  "(url VARCHAR, domain VARCHAR, title VARCHAR,"
-                                  " icon VARCHAR, visits INTEGER, lastVisit DATETIME);");
+    QSqlQuery createQuery(database);
+    QString query = QStringLiteral("CREATE TABLE IF NOT EXISTS history "
+                                   "(url VARCHAR, domain VARCHAR, title VARCHAR,"
+                                   " icon VARCHAR, visits INTEGER, lastVisit DATETIME);");
     createQuery.prepare(query);
     createQuery.exec();
 
     // The first version of the database schema didn’t have a 'domain' column
-    QSqlQuery tableInfoQuery(m_database);
-    query = QLatin1String("PRAGMA TABLE_INFO(history);");
+    QSqlQuery tableInfoQuery(database);
+    query = QStringLiteral("PRAGMA TABLE_INFO(history);");
     tableInfoQuery.prepare(query);
     tableInfoQuery.exec();
     while (tableInfoQuery.next()) {
@@ -87,8 +106,8 @@ void HistoryModel::createOrAlterDatabaseSchema()
         }
     }
     if (!tableInfoQuery.isValid()) {
-        QSqlQuery addDomainColumnQuery(m_database);
-        query = QLatin1String("ALTER TABLE history ADD COLUMN domain VARCHAR;");
+        QSqlQuery addDomainColumnQuery(database);
+        query = QStringLiteral("ALTER TABLE history ADD COLUMN domain VARCHAR;");
         addDomainColumnQuery.prepare(query);
         addDomainColumnQuery.exec();
         // Updating all the entries in the database to add the domain is a
@@ -96,22 +115,22 @@ void HistoryModel::createOrAlterDatabaseSchema()
         // do not do it here.
     }
 
-    QSqlQuery createHiddenQuery(m_database);
-    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
+    QSqlQuery createHiddenQuery(database);
+    query = QStringLiteral("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
     createHiddenQuery.prepare(query);
     createHiddenQuery.exec();
 }
 
-void HistoryModel::populateFromDatabase()
+void HistoryModel::populateFromDatabase(const QSqlDatabase& database)
 {
-    QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, domain, title, icon, visits, lastVisit "
-                                  "FROM history ORDER BY lastVisit DESC;");
+    QSqlQuery populateQuery(database);
+    QString query = QStringLiteral("SELECT url, domain, title, icon, visits, lastVisit "
+                                   "FROM history ORDER BY lastVisit DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
 
-    QSqlQuery populateHiddenQuery(m_database);
-    query = QLatin1String("SELECT url FROM history_hidden;");
+    QSqlQuery populateHiddenQuery(database);
+    query = QStringLiteral("SELECT url FROM history_hidden;");
     populateHiddenQuery.prepare(query);
     populateHiddenQuery.exec();
 
@@ -194,12 +213,13 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
 
 const QString HistoryModel::databasePath() const
 {
-    return m_database.databaseName();
+    return m_databaseName;
 }
 
 void HistoryModel::setDatabasePath(const QString& path)
 {
-    if (path != databasePath()) {
+    if (path != m_databaseName) {
+        m_databaseName = path;
         if (path.isEmpty()) {
             resetDatabase(":memory:");
         } else {
@@ -399,86 +419,55 @@ void HistoryModel::removeByIndex(int index)
 
 void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history (url, domain, title, icon, "
-                                                   "visits, lastVisit) VALUES (?, ?, ?, ?, 1, ?);");
-    query.prepare(insertStatement);
-    query.addBindValue(entry.url.toString());
-    query.addBindValue(entry.domain);
-    query.addBindValue(entry.title);
-    query.addBindValue(entry.icon.toString());
-    query.addBindValue(entry.lastVisit.toTime_t());
-    query.exec();
+    QVariantList values;
+    values << entry.url.toString();
+    values << entry.domain;
+    values << entry.title;
+    values << entry.icon.toString();
+    values << entry.lastVisit.toTime_t();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::InsertNewEntry, values);
 }
 
 void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url) VALUES (?);");
-    query.prepare(insertStatement);
-    query.addBindValue(url.toString());
-    query.exec();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::InsertNewHiddenEntry, QVariantList() << url.toString());
 }
 
 void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE history SET domain=?, title=?, icon=?, "
-                                                   "visits=?, lastVisit=? WHERE url=?;");
-    query.prepare(updateStatement);
-    query.addBindValue(entry.domain);
-    query.addBindValue(entry.title);
-    query.addBindValue(entry.icon.toString());
-    query.addBindValue(entry.visits);
-    query.addBindValue(entry.lastVisit.toTime_t());
-    query.addBindValue(entry.url.toString());
-    query.exec();
+    QVariantList values;
+    values << entry.domain;
+    values << entry.title;
+    values << entry.icon.toString();
+    values << entry.visits;
+    values << entry.lastVisit.toTime_t();
+    values << entry.url.toString();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::UpdateExistingEntry, values);
 }
 
 void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString deleteStatement = QLatin1String("DELETE FROM history WHERE url=?;");
-    query.prepare(deleteStatement);
-    query.addBindValue(url.toString());
-    query.exec();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::RemoveEntryByUrl, QVariantList() << url.toString());
 }
 
 void HistoryModel::removeEntryFromHiddenDatabaseByUrl(const QUrl& url)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString deleteStatement = QLatin1String("DELETE FROM history_hidden WHERE url=?;");
-    query.prepare(deleteStatement);
-    query.addBindValue(url.toString());
-    query.exec();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::RemoveHiddenEntryByUrl, QVariantList() << url.toString());
 }
 
 void HistoryModel::removeEntriesFromDatabaseByDate(const QDate& date)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString deleteStatement = QLatin1String("DELETE FROM history WHERE lastVisit BETWEEN ? AND ?;");
-    query.prepare(deleteStatement);
+    QVariantList values;
     QDateTime dateTime = QDateTime(date);
-    query.addBindValue(dateTime.toTime_t());
+    values << dateTime.toTime_t();
     dateTime.setTime(QTime(23, 59, 59, 999));
-    query.addBindValue(dateTime.toTime_t());
-    query.exec();
+    values << dateTime.toTime_t();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::RemoveEntriesByDate, values);
 }
 
 void HistoryModel::removeEntriesFromDatabaseByDomain(const QString& domain)
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery query(m_database);
-    static QString deleteStatement = QLatin1String("DELETE FROM history WHERE domain=?;");
-    query.prepare(deleteStatement);
-    query.addBindValue(domain);
-    query.exec();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::RemoveEntriesByDomain, QVariantList() << domain);
 }
 
 void HistoryModel::clearAll()
@@ -495,16 +484,8 @@ void HistoryModel::clearAll()
 
 void HistoryModel::clearDatabase()
 {
-    QMutexLocker ml(&m_dbMutex);
-    QSqlQuery deleteQuery(m_database);
-    QString deleteStatement = QLatin1String("DELETE FROM history;");
-    deleteQuery.prepare(deleteStatement);
-    deleteQuery.exec();
-
-    QSqlQuery deleteHiddenQuery(m_database);
-    deleteStatement = QLatin1String("DELETE FROM history_hidden;");
-    deleteHiddenQuery.prepare(deleteStatement);
-    deleteHiddenQuery.exec();
+    Q_EMIT m_dbWriter->enqueue(DbWriter::Clear, QVariantList() << QStringLiteral("history"));
+    Q_EMIT m_dbWriter->enqueue(DbWriter::Clear, QVariantList() << QStringLiteral("history_hidden"));
 }
 
 /*!
@@ -576,4 +557,98 @@ QVariantMap HistoryModel::get(int i) const
         }
     }
     return item;
+}
+
+DbWriter::DbWriter(const QString& databaseName)
+    : QObject()
+    , m_databaseName(databaseName)
+    , m_flush(nullptr)
+{
+    // Ensure enqueuing and dequeuing is done on the same thread
+    qRegisterMetaType<Operation>("Operation");
+    connect(this, SIGNAL(enqueue(Operation, QVariantList)),
+            SLOT(doEnqueue(Operation, QVariantList)), Qt::QueuedConnection);
+}
+
+DbWriter::~DbWriter()
+{
+    if (m_flush) {
+        m_flush->stop();
+        delete m_flush;
+        m_flush = nullptr;
+    }
+    doFlush();
+    if (m_database.isValid()) {
+        m_database.close();
+        m_database = QSqlDatabase();
+        QSqlDatabase::removeDatabase(CONNECTION_NAME);
+    }
+}
+
+void DbWriter::doEnqueue(DbWriter::Operation operation, QVariantList values)
+{
+    if (!m_database.isValid()) {
+        m_database = QSqlDatabase::addDatabase(SQL_DRIVER, CONNECTION_NAME);
+        m_database.setDatabaseName(m_databaseName);
+        m_database.open();
+    }
+    if (!m_flush) {
+        m_flush = new QTimer;
+        m_flush->setInterval(1000);
+        m_flush->setSingleShot(true);
+        connect(m_flush, SIGNAL(timeout()), SLOT(doFlush()));
+    }
+    QWriteLocker locker(&m_lock);
+    m_pending.enqueue(qMakePair(operation, values));
+    m_flush->start();
+}
+
+void DbWriter::doFlush()
+{
+    QWriteLocker locker(&m_lock);
+    while (!m_pending.isEmpty()) {
+        QPair<Operation, QVariantList> args = m_pending.dequeue();
+        QString statement;
+        switch (args.first) {
+        case InsertNewEntry:
+            statement = QStringLiteral("INSERT INTO history (url, domain, title, icon, "
+                                       "visits, lastVisit) VALUES (?, ?, ?, ?, 1, ?);");
+            break;
+        case InsertNewHiddenEntry:
+            statement = QStringLiteral("INSERT INTO history_hidden (url) VALUES (?);");
+            break;
+        case UpdateExistingEntry:
+            statement = QStringLiteral("UPDATE history SET domain=?, title=?, icon=?, "
+                                       "visits=?, lastVisit=? WHERE url=?;");
+            break;
+        case RemoveEntryByUrl:
+            statement = QStringLiteral("DELETE FROM history WHERE url=?;");
+            break;
+        case RemoveHiddenEntryByUrl:
+            statement = QStringLiteral("DELETE FROM history_hidden WHERE url=?;");
+            break;
+        case RemoveEntriesByDate:
+            statement = QStringLiteral("DELETE FROM history WHERE lastVisit BETWEEN ? AND ?;");
+            break;
+        case RemoveEntriesByDomain:
+            statement = QStringLiteral("DELETE FROM history WHERE domain=?;");
+            break;
+        case Clear:
+            statement = QStringLiteral("DELETE FROM %1;").arg(args.second.takeFirst().toString());
+            break;
+        default:
+            Q_UNREACHABLE();
+        }
+        if (statement.isEmpty()) {
+            return;
+        }
+        QSqlQuery query(m_database);
+        if (!query.prepare(statement)) {
+            continue;
+        }
+        Q_FOREACH(const QVariant& value, args.second) {
+            query.addBindValue(value);
+        }
+        query.exec();
+    }
 }

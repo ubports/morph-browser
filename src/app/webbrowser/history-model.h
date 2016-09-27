@@ -23,10 +23,18 @@
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QDateTime>
 #include <QtCore/QList>
-#include <QtCore/QMutex>
+#include <QtCore/QPair>
+#include <QtCore/QQueue>
+#include <QtCore/QReadWriteLock>
 #include <QtCore/QString>
+#include <QtCore/QThread>
 #include <QtCore/QUrl>
+#include <QtCore/QVariant>
 #include <QtSql/QSqlDatabase>
+
+class QTimer;
+
+class DbWriter;
 
 class HistoryModel : public QAbstractListModel
 {
@@ -90,14 +98,13 @@ protected:
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
 
 private:
-    QMutex m_dbMutex;
-    QSqlDatabase m_database;
+    QString m_databaseName;
 
     QList<QUrl> m_hiddenEntries;
 
     void resetDatabase(const QString& databaseName);
-    void createOrAlterDatabaseSchema();
-    void populateFromDatabase();
+    void createOrAlterDatabaseSchema(const QSqlDatabase& database);
+    void populateFromDatabase(const QSqlDatabase& database);
     void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void insertNewEntryInHiddenDatabase(const QUrl& url);
@@ -106,6 +113,44 @@ private:
     void removeEntriesFromDatabaseByDate(const QDate& date);
     void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
+
+    QThread m_dbWriterThread;
+    DbWriter* m_dbWriter;
+};
+
+class DbWriter : public QObject {
+    Q_OBJECT
+
+    Q_ENUMS(Operation)
+
+public:
+    DbWriter(const QString& databaseName);
+    ~DbWriter();
+
+    enum Operation {
+        InsertNewEntry,
+        InsertNewHiddenEntry,
+        UpdateExistingEntry,
+        RemoveEntryByUrl,
+        RemoveHiddenEntryByUrl,
+        RemoveEntriesByDate,
+        RemoveEntriesByDomain,
+        Clear,
+    };
+
+Q_SIGNALS:
+    void enqueue(Operation operation, QVariantList values);
+
+private Q_SLOTS:
+    void doEnqueue(Operation operation, QVariantList values);
+    void doFlush();
+
+private:
+    QString m_databaseName;
+    QSqlDatabase m_database;
+    QReadWriteLock m_lock;
+    QQueue<QPair<Operation, QVariantList>> m_pending;
+    QTimer* m_flush;
 };
 
 #endif // __HISTORY_MODEL_H__
