@@ -25,7 +25,7 @@ ChromeBase {
 
     property var tabsModel
     property alias tab: navigationBar.tab
-    property var webview: tab ? tab.webview : null
+    readonly property var webview: tab ? tab.webview : null
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
