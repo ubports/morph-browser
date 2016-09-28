@@ -239,6 +239,7 @@ BrowserView {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
+            clip: true  // prevents component from overlapping bottom edge etc
 
             // Avoid loading the new tab view if the webview is about to load
             // content. Since WebView.restoreState is not a notifyable property,
