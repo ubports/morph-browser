@@ -92,6 +92,10 @@ QtObject {
         window.show()
         window.requestActivate()
     }
+    
+    property Reparenter reparenter: Reparenter {
+    
+    }
 
     property var windowFactory: Component {
         BrowserWindow {
@@ -187,11 +191,12 @@ QtObject {
                         }
                     );
                     
-                    window.addTab(tab.url);
+                    window.addExistingTab(tab);
                     window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                    window.tabsModel.currentTab.loadExisting(tab)
                     window.show();
                     window.requestActivate();
+                    
+                    window.tabsModel.currentTab.load();
                     
                     closeMethod();
                 }
@@ -277,6 +282,14 @@ QtObject {
                 var tab = browser.createTab({"initialUrl": url})
                 tabsModel.add(tab)
                 return tab
+            }
+            
+            function addExistingTab(tab) {
+                tabsModel.add(tab);
+                
+                browser.bindExistingTab(tab);
+                
+                return tab;
             }
         }
     }

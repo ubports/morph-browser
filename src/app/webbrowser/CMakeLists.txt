@@ -35,6 +35,7 @@ set(WEBBROWSER_APP_SRC
     cache-deleter.cpp
     drag-helper.cpp
     file-operations.cpp
+    reparenter.cpp
     searchengine.cpp
     webbrowser-app.cpp
 )

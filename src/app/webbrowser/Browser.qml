@@ -68,6 +68,16 @@ BrowserView {
     function createTab(properties) {
         return tabComponent.createObject(tabContainer, properties)
     }
+    
+    function bindExistingTab(tab) {
+        reparenter.reparent(tab, tabContainer);
+        
+        tab.current = tabsModel && tabsModel.currentTab === tab;
+        tab.focus = tab.current;
+        
+        tab.webview.currentWebview = browser.currentWebview;
+        tab.webview.filePicker = filePickerLoader.item;
+    }
 
     signal newWindowRequested(bool incognito)
     signal newWindowFromTab(var tab, var closeMethod)

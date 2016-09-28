@@ -27,6 +27,7 @@
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
 #include "limit-proxy-model.h"
+#include "reparenter.h"
 #include "searchengine.h"
 #include "text-search-filter-model.h"
 #include "tabs-model.h"
@@ -78,6 +79,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
     qmlRegisterType<DragHelper>(uri, 0, 1, "DragHelper");
+    qmlRegisterType<Reparenter>(uri, 0, 1, "Reparenter");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", QStringLiteral("webbrowser-app"))) {
         QStringList searchEnginesSearchPaths;
