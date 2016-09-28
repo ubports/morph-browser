@@ -34,8 +34,8 @@ Popups.Popover {
 
         readonly property int lastEnabledActionIndex: {
             var last = -1
-            for (var i in actions.actions) {
-                if (actions.actions[i].enabled) {
+            for (var i in actions.children) {
+                if (actions.children[i].enabled) {
                     last = i
                 }
             }
@@ -85,9 +85,9 @@ Popups.Popover {
         }
 
         Repeater {
-            model: actions.actions
+            model: actions.children
             delegate: ListItems.Empty {
-                action: actions.actions[index]
+                action: modelData
                 objectName: action.objectName + "_item"
                 visible: action.enabled
                 showDivider: false

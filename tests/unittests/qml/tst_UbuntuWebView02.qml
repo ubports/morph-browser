@@ -103,7 +103,7 @@ Item {
             loadHtmlWithHyperlink()
             rightClickWebview()
             verify(waitFor(getContextMenu) != null)
-            compare(getContextMenu().actions, actionList)
+            compare(getContextMenu().actions.children, actionList.children)
             compare(webview.contextualData.href, "http://example.org/")
             dismissContextMenu()
             compare(webview.contextualData.href, "")
