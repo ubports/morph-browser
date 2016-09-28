@@ -41,7 +41,7 @@
     The database is read at startup to populate the model, and whenever a new
     entry is added to the model the database is updated.
     However the model doesn’t monitor the database for external changes.
-    Data is written back to the database in a separate thread in order not to
+    All database operations are performed on a separate thread in order not to
     block the UI thread.
 */
 HistoryModel::HistoryModel(QObject* parent)
