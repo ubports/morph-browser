@@ -79,7 +79,7 @@ void HistoryModel::resetDatabase(const QString& databaseName)
 
 void HistoryModel::onHiddenEntryFetched(const QUrl& url)
 {
-    m_hiddenEntries.append(url);
+    m_hiddenEntries.insert(url);
 }
 
 void HistoryModel::onEntryFetched(const QUrl& url, const QString& domain, const QString& title,
@@ -445,7 +445,7 @@ void HistoryModel::hide(const QUrl& url)
         return;
     }
 
-    m_hiddenEntries.append(url);
+    m_hiddenEntries.insert(url);
 
     QVector<int> roles;
     roles << Hidden;
@@ -473,7 +473,7 @@ void HistoryModel::unHide(const QUrl& url)
         return;
     }
 
-    m_hiddenEntries.removeAll(url);
+    m_hiddenEntries.remove(url);
 
     QVector<int> roles;
     roles << Hidden;

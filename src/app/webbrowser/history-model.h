@@ -26,6 +26,7 @@
 #include <QtCore/QPair>
 #include <QtCore/QQueue>
 #include <QtCore/QReadWriteLock>
+#include <QtCore/QSet>
 #include <QtCore/QString>
 #include <QtCore/QThread>
 #include <QtCore/QUrl>
@@ -104,7 +105,7 @@ private Q_SLOTS:
 
 private:
     QString m_databasePath;
-    QList<QUrl> m_hiddenEntries;
+    QSet<QUrl> m_hiddenEntries;
 
     void resetDatabase(const QString& databaseName);
     void removeByIndex(int index);
