@@ -24,6 +24,7 @@ FocusScope {
     id: root
 
     property var tab
+    property alias loading: addressbar.loading
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
@@ -121,8 +122,6 @@ FocusScope {
             }
 
             icon: (internal.webview && internal.webview.certificateError) ? "" : tab ? tab.icon : ""
-
-            loading: internal.webview ? internal.webview.loading : false
 
             onValidated: {
                 if (!findInPageMode) {

@@ -25,6 +25,7 @@ ChromeBase {
 
     property var tabsModel
     property alias tab: navigationBar.tab
+    property var webview: tab ? tab.webview : null
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
@@ -90,6 +91,7 @@ ChromeBase {
         NavigationBar {
             id: navigationBar
 
+            loading: chrome.loading
             fgColor: "#111111"
             iconColor: (incognito && !showTabsBar) ? "white" : fgColor
 
@@ -105,4 +107,19 @@ ChromeBase {
             onToggleBookmark: chrome.toggleBookmark()
         }
     }
+
+    // Delay changing the 'loading' state, to allow for very brief load
+    // sequences to not update the UI, which would result in inelegant
+    // flickering (https://launchpad.net/bugs/1611680).
+    Connections {
+        target: webview
+        onLoadingStateChanged: delayedLoadingNotifier.restart()
+    }
+    Timer {
+        id: delayedLoadingNotifier
+        interval: 100
+        onTriggered: loading = webview.loading
+    }
+
+    loadProgress: (loading && webview) ? webview.loadProgress : 0
 }

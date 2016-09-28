@@ -498,7 +498,6 @@ BrowserView {
         id: chrome
 
         tab: internal.nextTab || tabsModel.currentTab
-        webview: tab ? tab.webview : null
         tabsModel: browser.tabsModel
         searchUrl: currentSearchEngine.urlTemplate
 

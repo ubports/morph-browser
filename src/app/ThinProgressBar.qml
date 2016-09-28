@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,11 +20,8 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 ProgressBar {
-    property var webview
-
     height: units.dp(3)
-
     showProgressPercentage: false
-    value: webview ? webview.loadProgress / 100 : 0.0
-    visible: webview ? webview.loading : false
+    minimumValue: 0
+    maximumValue: 100
 }
