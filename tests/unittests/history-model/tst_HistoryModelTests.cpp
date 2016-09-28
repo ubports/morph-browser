@@ -267,6 +267,7 @@ private Q_SLOTS:
         QTest::qWait(1001);
         model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
         model->hide(QUrl("http://example.com/"));
+        QTest::qWait(100);
         delete model;
         model = new HistoryModel;
         model->setDatabasePath(fileName);
