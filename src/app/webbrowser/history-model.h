@@ -34,7 +34,7 @@
 
 class QTimer;
 
-class DbWriter;
+class DbWorker;
 
 class HistoryModel : public QAbstractListModel
 {
@@ -97,14 +97,16 @@ protected:
     int getEntryIndex(const QUrl& url) const;
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
 
-private:
-    QString m_databaseName;
+private Q_SLOTS:
+    void onHiddenEntryFetched(const QUrl& url);
+    void onEntryFetched(const QUrl& url, const QString& domain, const QString& title,
+                        const QUrl& icon, int visits, const QDateTime& lastVisit);
 
+private:
+    QString m_databasePath;
     QList<QUrl> m_hiddenEntries;
 
     void resetDatabase(const QString& databaseName);
-    void createOrAlterDatabaseSchema(const QSqlDatabase& database);
-    void populateFromDatabase(const QSqlDatabase& database);
     void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void insertNewEntryInHiddenDatabase(const QUrl& url);
@@ -114,18 +116,18 @@ private:
     void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
 
-    QThread m_dbWriterThread;
-    DbWriter* m_dbWriter;
+    QThread m_dbWorkerThread;
+    DbWorker* m_dbWorker;
 };
 
-class DbWriter : public QObject {
+class DbWorker : public QObject {
     Q_OBJECT
 
     Q_ENUMS(Operation)
 
 public:
-    DbWriter(const QString& databaseName);
-    ~DbWriter();
+    DbWorker();
+    ~DbWorker();
 
     enum Operation {
         InsertNewEntry,
@@ -139,14 +141,21 @@ public:
     };
 
 Q_SIGNALS:
+    void resetDatabase(const QString& databaseName);
+    void fetchEntries();
+    void hiddenEntryFetched(const QUrl& url);
+    void entryFetched(const QUrl& url, const QString& domain, const QString& title,
+                      const QUrl& icon, int visits, const QDateTime& lastVisit);
     void enqueue(Operation operation, QVariantList values);
 
 private Q_SLOTS:
+    void doResetDatabase(const QString& databaseName);
+    void doCreateOrAlterDatabaseSchema();
+    void doFetchEntries();
     void doEnqueue(Operation operation, QVariantList values);
     void doFlush();
 
 private:
-    QString m_databaseName;
     QSqlDatabase m_database;
     QReadWriteLock m_lock;
     QQueue<QPair<Operation, QVariantList>> m_pending;
