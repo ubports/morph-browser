@@ -129,11 +129,17 @@ FocusScope {
         }
     }
 
-    function close() {
+    function close(reparentDestroy) {
         var _url = url
         unload()
         if (_url.toString()) PreviewManager.checkDelete(_url)
-        destroy()
+
+        if (reparentDestroy || reparentDestroy === undefined) {
+            // Destroys context and object        
+            reparenter.destroyContextAndObject(tab);
+        } else {
+            destroy();
+        }
     }
 
     QtObject {

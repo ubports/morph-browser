@@ -26,6 +26,10 @@ Item {
 
     width: 200
     height: 200
+    
+    property Reparenter reparenter: Reparenter {
+    
+    }
 
     Component {
         id: tabComponent
@@ -163,9 +167,8 @@ Item {
             tab.current = false
             tryCompare(previewSavedSpy, "count", 1)
             verify(FileOperations.exists(path))
-            tab.close()
+            tab.close(false)
             verify(!FileOperations.exists(path))
-
             tab.destroy()
         }
     }

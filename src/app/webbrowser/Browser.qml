@@ -64,19 +64,43 @@ BrowserView {
                           'restoreType': Oxide.WebView.RestoreLastSessionExitedCleanly}
         return createTab(properties)
     }
-
+    
+    function buildContextProperties(properties) {
+        if (properties === undefined) {
+            properties = {};
+        }
+        
+        properties["bottomEdgeHandle"] = bottomEdgeHandle;
+        properties["browser"] = browser;
+        properties["chrome"] = chrome;
+        properties["chromeController"] = chromeController;
+        properties["contentHandlerLoader"] = contentHandlerLoader;
+        properties["downloadDialogLoader"] = downloadDialogLoader;
+        properties["downloadsViewLoader"] = downloadsViewLoader;
+        properties["filePickerLoader"] = filePickerLoader;
+        properties["internal"] = internal;
+        properties["recentView"] = recentView;
+        properties["tabsModel"] = tabsModel;
+        
+        return properties;
+    }
+    
+    function createTabHelper(properties) {
+        return builder(tabComponent, tabContainer, buildContextProperties(properties));
+    }
+    
     function createTab(properties) {
-        return tabComponent.createObject(tabContainer, properties)
+        return createTabHelper(properties)
     }
     
     function bindExistingTab(tab) {
         reparenter.reparent(tab, tabContainer);
         
-        tab.current = tabsModel && tabsModel.currentTab === tab;
-        tab.focus = tab.current;
+        var properties = buildContextProperties();
         
-        tab.webview.currentWebview = browser.currentWebview;
-        tab.webview.filePicker = filePickerLoader.item;
+        for (var prop in properties) {
+            tab[prop] = properties[prop];
+        }
     }
 
     signal newWindowRequested(bool incognito)
@@ -1007,10 +1031,23 @@ BrowserView {
         id: tabComponent
 
         BrowserTab {
+            id: browserTab
             anchors.fill: parent
-            incognito: browser.incognito
-            current: tabsModel && tabsModel.currentTab === this
+            incognito: browser ? browser.incognito : false
+            current: browser ? browser.tabsModel && browser.tabsModel.currentTab === this : false
             focus: current
+            
+            property var bottomEdgeHandle
+            property var browser
+            property var chrome
+            property var chromeController
+            property var contentHandlerLoader
+            property var downloadDialogLoader
+            property var downloadsViewLoader
+            property var filePickerLoader
+            property var internal
+            property var recentView
+            property var tabsModel
 
             Item {
                 id: contextualMenuTarget
@@ -1023,17 +1060,17 @@ BrowserView {
                 property BrowserTab tab
                 readonly property bool current: tab.current
 
-                currentWebview: browser.currentWebview
-                filePicker: filePickerLoader.item
+                currentWebview: browser ? browser.currentWebview : null
+                filePicker: filePickerLoader ? filePickerLoader.item : null
 
                 anchors.fill: parent
 
                 focus: true
-
+                
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
-                    height: chrome.height
+                    height: chrome ? chrome.height : 0
                     mode: chromeController.defaultMode
                 }
 
@@ -1089,7 +1126,7 @@ BrowserView {
                     }
                     Actions.Share {
                         objectName: "ShareContextualAction"
-                        enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
+                        enabled: (contentHandlerLoader && contentHandlerLoader.status == Loader.Ready) && contextModel &&
                                  (contextModel.linkUrl.toString() || contextModel.selectionText)
                         onTriggered: {
                             if (contextModel.linkUrl.toString()) {
@@ -1211,13 +1248,14 @@ BrowserView {
                         Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
-                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+                contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+
 
                 onNewViewRequested: {
-                    var tab = tabComponent.createObject(tabContainer, {"request": request})
+                    var tab = browser.createTabHelper({"request": request})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
-                    if (setCurrent) tabContainer.forceActiveFocus()
+                    if (setCurrent) parent.forceActiveFocus()
                 }
 
                 onCloseRequested: prepareToClose()
@@ -1389,7 +1427,6 @@ BrowserView {
                     download.start()
                     downloadsViewLoader.active = true
                 }
-
             }
         }
     }
@@ -1472,7 +1509,7 @@ BrowserView {
 
         function openUrlInNewTab(url, setCurrent, load, index) {
             load = typeof load !== 'undefined' ? load : true
-            var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
+            var tab = createTabHelper({"initialUrl": url})
             addTab(tab, setCurrent, index)
             if (load) {
                 tab.load()
@@ -1493,6 +1530,7 @@ BrowserView {
 
         function closeTab(index) {
             var tab = tabsModel.get(index)
+            tabsModel.remove(index)
             if (tab) {
                 if (!incognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
@@ -1502,7 +1540,6 @@ BrowserView {
                 }
                 tab.close()
             }
-            tabsModel.remove(index)
             if (tabsModel.currentTab) {
                 tabsModel.currentTab.load()
             }
@@ -1894,9 +1931,12 @@ BrowserView {
             } else {
                 console.debug("Dropped in new window, moving tab");
                 
-                window.addTab(drop.getDataAsString("webbrowser/tab"));
+                window.addExistingTab(drag.source.tab);
                 window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                window.tabsModel.currentTab.loadExisting(drag.source.tab);
+                window.show();
+                window.requestActivate();
+                
+                window.tabsModel.currentTab.load();
                 
                 drop.accept(Qt.MoveAction);
             }

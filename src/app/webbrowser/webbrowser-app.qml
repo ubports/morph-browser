@@ -96,7 +96,7 @@ QtObject {
     property Reparenter reparenter: Reparenter {
     
     }
-
+    
     property var windowFactory: Component {
         BrowserWindow {
             id: window
@@ -132,6 +132,7 @@ QtObject {
                         session.clear()
                     }
                 }
+                
                 destroy()
             }
 
@@ -279,7 +280,7 @@ QtObject {
             }
 
             function addTab(url) {
-                var tab = browser.createTab({"initialUrl": url})
+                var tab = browser.createTab({"initialUrl": url || ""})
                 tabsModel.add(tab)
                 return tab
             }
@@ -476,5 +477,18 @@ QtObject {
                 console.warn("System low on memory, but unable to pick a tab to unload")
             }
         }
+    }
+
+    // Builder for components which have a context set to reparenter
+    // so that when a window closes the context is still valid
+    function builder(comp, parent, properties) {
+        var obj = reparenter.createObject(comp);
+        obj.parent = parent;
+        
+        for (var prop in properties) {
+            obj[prop] = properties[prop];
+        }
+        
+        return obj;
     }
 }

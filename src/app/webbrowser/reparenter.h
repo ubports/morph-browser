@@ -20,6 +20,8 @@
 #define __REPARENTER_H__
 
 #include <QObject>
+#include <QQmlComponent>
+#include <QQmlContext>
 #include <QQuickItem>
 
 class Reparenter : public QQuickItem
@@ -29,6 +31,8 @@ class Reparenter : public QQuickItem
 public:
     Reparenter();
     
+    Q_INVOKABLE QObject *createObject(QQmlComponent *comp, QQuickItem *contextItem=NULL);
+    Q_INVOKABLE void destroyContextAndObject(QQuickItem *item);
     Q_INVOKABLE void reparent(QQuickItem *obj, QQuickItem *newParent);
 };
 

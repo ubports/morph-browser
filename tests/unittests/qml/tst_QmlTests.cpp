@@ -27,6 +27,7 @@
 // local
 #include "bookmarks-model.h"
 #include "bookmarks-folderlist-model.h"
+#include "drag-helper.h"
 #include "favicon-fetcher.h"
 #include "file-operations.h"
 #include "history-domain-model.h"
@@ -34,6 +35,7 @@
 #include "history-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "limit-proxy-model.h"
+#include "reparenter.h"
 #include "searchengine.h"
 #include "tabs-model.h"
 #include "text-search-filter-model.h"
@@ -183,6 +185,8 @@ int main(int argc, char** argv)
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
     qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
+    qmlRegisterType<DragHelper>(browserUri, 0, 1, "DragHelper");
+    qmlRegisterType<Reparenter>(browserUri, 0, 1, "Reparenter");
 
     const char* testUri = "webbrowsertest.private";
     qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);

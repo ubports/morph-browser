@@ -18,19 +18,46 @@
  
 #include "reparenter.h"
 
-#include <QDebug>
+#include <QQuickItem>
+#include <QQmlComponent>
+#include <QQmlContext>
+#include <QQmlEngine>
 
 Reparenter::Reparenter()
 {
 }
 
+QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
+{
+    if (contextItem == NULL) {
+        contextItem = this;
+    }
+
+    // Make context
+    QQmlContext *context = new QQmlContext(QQmlEngine::contextForObject(contextItem));
+    context->setContextObject(contextItem);
+    
+    // Make component
+    return comp->create(context);
+}
+
+void Reparenter::destroyContextAndObject(QQuickItem *item)
+{
+    // Get context for object
+    QQmlContext *context = QQmlEngine::contextForObject(item);
+    
+    // Disconnect everything
+    item->disconnect();
+    
+    // Delete context and object
+    delete context->parentContext();
+    delete item;
+}
+
 void Reparenter::reparent(QQuickItem *obj, QQuickItem *newParent)
 {
-    qDebug() << "Parent:" << obj->parent() << obj->parentItem();
-    
+    // Set object and visual parent    
     obj->setParent(newParent);
     obj->setParentItem(newParent);
-    
-    qDebug() << "Parent:" << obj->parent() << obj->parentItem();
 }
 
