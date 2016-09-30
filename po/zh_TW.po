@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
-"PO-Revision-Date: 2015-03-01 11:27+0000\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"PO-Revision-Date: 2016-09-13 10:16+0000\n"
+"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-07-09 06:20+0000\n"
-"X-Generator: Launchpad (build 18115)\n"
+"X-Launchpad-Export-Date: 2016-09-14 06:10+0000\n"
+"X-Generator: Launchpad (build 18186)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -132,6 +132,12 @@ msgstr "拒絕"
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
 msgstr "同意"
+
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr "位於 %1 的網站需要核對身分。網站的要求是「%2」"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -392,7 +398,7 @@ msgstr "切割"
 msgid "Erase"
 msgstr "擦除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
 msgid "Find in page"
 msgstr "在頁面尋找"
 
@@ -422,7 +428,7 @@ msgstr "前往"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;網址;網路;位址"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "新分頁"
@@ -439,7 +445,7 @@ msgstr "在新分頁開啟影像"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "在預設瀏覽器開啟連結"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -488,7 +494,7 @@ msgstr "儲存影片"
 msgid "Select all"
 msgstr "全選"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
 msgid "Share"
 msgstr "分享"
 
@@ -546,66 +552,65 @@ msgstr "儲存"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "首頁"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: src/app/webbrowser/BookmarksView.qml:76
-#: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
-#: src/app/webbrowser/HistoryViewWide.qml:407
+#: src/app/webbrowser/BookmarksView.qml:70
+#: src/app/webbrowser/BookmarksViewWide.qml:69
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
+#: src/app/webbrowser/HistoryViewWide.qml:418
 msgid "Done"
 msgstr "完成"
 
-#: src/app/webbrowser/BookmarksView.qml:90
-#: src/app/webbrowser/BookmarksViewWide.qml:89
-#: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421
+#: src/app/webbrowser/BookmarksView.qml:84
+#: src/app/webbrowser/BookmarksViewWide.qml:83
+#: src/app/webbrowser/HistoryView.qml:142
+#: src/app/webbrowser/HistoryViewWide.qml:432
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "新分頁"
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "歷史"
 
-#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "下載"
 
-#: src/app/webbrowser/Browser.qml:592
+#: src/app/webbrowser/Browser.qml:582
 msgid "Leave Private Mode"
 msgstr "離開私密模式"
 
-#: src/app/webbrowser/Browser.qml:592
+#: src/app/webbrowser/Browser.qml:582
 msgid "Private Mode"
 msgstr "私密模式"
 
-#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "設定"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:782 src/app/webbrowser/Browser.qml:820
+#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1376
+#: src/app/webbrowser/Browser.qml:1366
 msgid "Swipe Up To Exit Full Screen"
 msgstr "向上掃以結束全螢幕"
 
-#: src/app/webbrowser/Browser.qml:1377
+#: src/app/webbrowser/Browser.qml:1367
 msgid "Press ESC To Exit Full Screen"
 msgstr "按 ESC 以結束全螢幕"
 
@@ -638,17 +643,17 @@ msgstr "確認選擇"
 msgid "Delete"
 msgstr "刪除"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:259
 msgid "No downloads available"
 msgstr "無下載提供"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:117
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "共 %1 頁"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:132
+#: src/app/webbrowser/ExpandedHistoryView.qml:134
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "少"
@@ -671,7 +676,7 @@ msgid "All History"
 msgstr "所有歷史"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:336
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Today"
 msgstr "今天"
 
@@ -695,12 +700,12 @@ msgstr ""
 msgid "More"
 msgstr "詳細資訊"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:328
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "最常造訪"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:359
 msgid "You haven't visited any site yet"
 msgstr "還未瀏覽過網站"
 
@@ -839,19 +844,19 @@ msgstr "輕觸以檢視"
 msgid "Close Tab"
 msgstr "關閉分頁"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:137
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
 msgid "Remove"
 msgstr "移除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 網頁瀏覽器"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webcontainer/webapp-container.qml:71
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 網頁瀏覽器"
 
@@ -885,7 +890,7 @@ msgstr "無法開啟帳號視窗。您一次只能建立一個帳號；請先關
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "身分核對失敗"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45

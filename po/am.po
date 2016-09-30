@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
-"PO-Revision-Date: 2016-06-03 11:39+0000\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"PO-Revision-Date: 2016-09-02 14:02+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-07-09 06:19+0000\n"
-"X-Generator: Launchpad (build 18115)\n"
+"X-Launchpad-Export-Date: 2016-09-03 06:50+0000\n"
+"X-Generator: Launchpad (build 18179)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -134,6 +134,12 @@ msgstr "መከልከያ"
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
 msgstr "መፍቀጃ"
+
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr "ድህረ ገጹ በ %1 ማረጋገጫ ይፈላጋል: ድህረ ገጹ ይላል \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -401,7 +407,7 @@ msgstr "መቁረጫ"
 msgid "Erase"
 msgstr "መሰረዣ"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
 msgid "Find in page"
 msgstr "መፈለጊያ በ ገጽ"
 
@@ -431,7 +437,7 @@ msgstr "መሄጃ ወደ"
 msgid "Address;URL;www"
 msgstr "አድራሻ;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "አዲስ ንዑስ መስኮት"
@@ -497,7 +503,7 @@ msgstr "ቪዲዮ ማስቀመጫ"
 msgid "Select all"
 msgstr "ሁሉንም መምረጫ"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
 msgid "Share"
 msgstr "ማካፈያ"
 
@@ -555,66 +561,65 @@ msgstr "ማስቀመጫ"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "የ ቤት ገጽ"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "ምልክት ማድረጊያዎች"
 
-#: src/app/webbrowser/BookmarksView.qml:76
-#: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
-#: src/app/webbrowser/HistoryViewWide.qml:407
+#: src/app/webbrowser/BookmarksView.qml:70
+#: src/app/webbrowser/BookmarksViewWide.qml:69
+#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
+#: src/app/webbrowser/HistoryViewWide.qml:418
 msgid "Done"
 msgstr "ጨርሷል"
 
-#: src/app/webbrowser/BookmarksView.qml:90
-#: src/app/webbrowser/BookmarksViewWide.qml:89
-#: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421
+#: src/app/webbrowser/BookmarksView.qml:84
+#: src/app/webbrowser/BookmarksViewWide.qml:83
+#: src/app/webbrowser/HistoryView.qml:142
+#: src/app/webbrowser/HistoryViewWide.qml:432
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "ታሪክ"
 
-#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "የወረዱ"
 
-#: src/app/webbrowser/Browser.qml:592
+#: src/app/webbrowser/Browser.qml:582
 msgid "Leave Private Mode"
 msgstr "ከ ግል ዘዴ መውጫ"
 
-#: src/app/webbrowser/Browser.qml:592
+#: src/app/webbrowser/Browser.qml:582
 msgid "Private Mode"
 msgstr "የ ግል ዘዴ"
 
-#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "ማሰናጃዎች"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:782 src/app/webbrowser/Browser.qml:820
+#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1376
+#: src/app/webbrowser/Browser.qml:1366
 msgid "Swipe Up To Exit Full Screen"
 msgstr "ወደ ላይ ይጥረጉ ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
-#: src/app/webbrowser/Browser.qml:1377
+#: src/app/webbrowser/Browser.qml:1367
 msgid "Press ESC To Exit Full Screen"
 msgstr "ይጫኑ መዝለያውን ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
@@ -647,18 +652,18 @@ msgstr "ምርጫውን ያረጋግጡ"
 msgid "Delete"
 msgstr "ማጥፊያ"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:259
 msgid "No downloads available"
 msgstr "የወረዱ አልተገኙም"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:117
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 ገጽ"
 msgstr[1] "%1 ገጾች"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:132
+#: src/app/webbrowser/ExpandedHistoryView.qml:134
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "ትንሽ"
@@ -681,7 +686,7 @@ msgid "All History"
 msgstr "ሁሉንም ታሪክ"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:336
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Today"
 msgstr "ዛሬ"
 
@@ -705,12 +710,12 @@ msgstr ""
 msgid "More"
 msgstr "ተጨማሪ"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:328
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "ከፍተኛ ድሕረ ገጾች"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:359
 msgid "You haven't visited any site yet"
 msgstr "ምንም ድሕረ ገጽ አልጎበኙም"
 
@@ -851,19 +856,19 @@ msgstr "ለመመልከት መታ ያድርጉ"
 msgid "Close Tab"
 msgstr "ንዑስ መስኮቱን መዝጊያ"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:137
+#: src/app/webbrowser/UrlPreviewDelegate.qml:135
 msgid "Remove"
 msgstr "ማስወገጃ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - የ ኡቡንቱ ዌብ መቃኛ"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webcontainer/webapp-container.qml:71
 msgid "Ubuntu Web Browser"
 msgstr "የ ኡቡንቱ ዌብ መቃኛ"
 

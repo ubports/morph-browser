@@ -54,7 +54,7 @@ ListItem {
             id: title
 
             fontSize: "x-small"
-            color: UbuntuColors.darkGrey
+            color: theme.palette.normal.backgroundSecondaryText
             wrapMode: Text.Wrap
             elide: Text.ElideRight
             maximumLineCount: 1
@@ -64,7 +64,7 @@ ListItem {
             id: url
 
             fontSize: "xx-small"
-            color: UbuntuColors.darkGrey
+            color: theme.palette.normal.backgroundTertiaryText
             wrapMode: Text.Wrap
             elide: Text.ElideRight
             maximumLineCount: 1

@@ -34,6 +34,7 @@ Item {
         id: image
         source: fetcher.localUrl
         anchors.fill: parent
+        asynchronous: true
     }
 
     FaviconFetcher {
@@ -46,5 +47,6 @@ Item {
         name: "stock_website"
         visible: parent.fallbackIcon &&
                  ((image.status !== Image.Ready) || !image.source.toString())
+        asynchronous: true
     }
 }

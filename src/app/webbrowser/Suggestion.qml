@@ -52,6 +52,7 @@ ListItem.Base {
             width: units.gu(2)
             height: units.gu(2)
             color: UbuntuColors.darkGrey
+            asynchronous: true
         }
 
         Label {

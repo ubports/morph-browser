@@ -50,6 +50,7 @@ Item {
         source: "assets/tab-%1%2.sci".arg((active) ? "active" :
                                           (hoverArea.containsMouse ? "hover" : "non-active"))
                                      .arg(touchEnabled ? "" : "-desktop")
+        asynchronous: true
 
         Favicon {
             id: favicon
@@ -154,6 +155,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
+            asynchronous: true
             name: "close"
             color: tabItem.fgColor
             visible: x >= favicon.x + favicon.width

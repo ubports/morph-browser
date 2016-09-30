@@ -54,7 +54,7 @@ class WebappContainerAppLaunchTestCase(
         WebappContainerTestCaseWithLocalContentBase):
     def test_container_does_not_load_with_no_webapp_name_and_url(self):
         args = []
-        self.launch_webcontainer_app(args)
+        self.launch_webcontainer_app(args, {}, True)
         self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_loads_with_url(self):
@@ -67,21 +67,24 @@ class WebappContainerAppLaunchTestCase(
         args = ['--webappModelSearchPath=.', './index.html']
         self.launch_webcontainer_app(
             args,
-            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'})
+            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'},
+            True)
         self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_local_app_with_webapp_name(self):
         args = ['--webapp=DEADBEEF', './index.html']
         self.launch_webcontainer_app(
             args,
-            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'})
+            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'},
+            True)
         self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_local_app_with_urls_patterns(self):
         args = ['--webappUrlPatterns=https?://*.blabla.com/*', './index.html']
         self.launch_webcontainer_app(
             args,
-            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'})
+            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'},
+            True)
         self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_webapps_launch_default_search_path(self):

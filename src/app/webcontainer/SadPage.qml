@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -49,7 +49,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             objectName: "reloadButton"
             text: i18n.tr("Reload")
-            color: UbuntuColors.green
+            color: theme.palette.normal.positive
             onClicked: webview.reload()
         }
     }
