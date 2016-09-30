@@ -72,7 +72,7 @@ QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
 void Reparenter::destroyContextAndObject(QQuickItem *item)
 {
     // Get context for object
-    QQmlContext* context = QQmlEngine::contextForObject(item)->parentContext();
+    QQmlContext *context = QQmlEngine::contextForObject(item)->parentContext();
 
     // Remove from store
     m_contexts.remove(context);

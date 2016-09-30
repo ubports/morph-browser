@@ -1036,7 +1036,7 @@ BrowserView {
             incognito: browser ? browser.incognito : false
             current: browser ? browser.tabsModel && browser.tabsModel.currentTab === this : false
             focus: current
-            
+
             property var bottomEdgeHandle
             property var browser
             property var chrome
@@ -1925,7 +1925,10 @@ BrowserView {
         onEntered: item.opacity = 0.5
         onExited: item.opacity = 0
         onDropped: {
-            if (drag.source.tabWindow === window) {
+            if (drag.y > chrome.height) {
+                console.debug("Dropped in bottom area, creating new window");
+                drop.accept(Qt.IgnoreAction);
+            } else if (drag.source.tabWindow === window) {
                 console.debug("Dropped in same window");
                 drop.accept(Qt.CopyAction);
             } else {
@@ -1951,6 +1954,14 @@ BrowserView {
             }
             color: "#0F0"
             opacity: 0
+            
+            Rectangle {
+                anchors {
+                    fill: parent
+                    topMargin: chrome.height
+                }
+                color: "#00F"
+            }
             
             Behavior on opacity {
                 NumberAnimation {
