@@ -18,6 +18,7 @@
  
 #include "reparenter.h"
 
+#include <QPointer>
 #include <QQuickItem>
 #include <QQmlComponent>
 #include <QQmlContext>
@@ -27,6 +28,28 @@ Reparenter::Reparenter()
 {
 }
 
+Reparenter::~Reparenter()
+{
+    QMap<QPointer<QQmlContext>, QPointer<QObject>>::iterator i;
+    
+    for (i = m_contexts.begin(); i != m_contexts.end(); ++i) {
+        QPointer<QQmlContext> context = i.key();
+        QPointer<QObject> obj = i.value();
+        
+        // If there is valid object then delete
+        if (obj) {
+            delete obj;
+        }
+    
+        // If there is a valid contex then delete
+        if (context) {
+            delete context;
+        }
+    }
+    
+    m_contexts.clear();  // ensure contexts are removed
+}
+
 QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
 {
     if (contextItem == NULL) {
@@ -34,23 +57,31 @@ QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
     }
 
     // Make context
-    QQmlContext *context = new QQmlContext(QQmlEngine::contextForObject(contextItem));
+    QPointer<QQmlContext> context = new QQmlContext(QQmlEngine::contextForObject(contextItem));
     context->setContextObject(contextItem);
     
     // Make component
-    return comp->create(context);
+    QPointer<QObject> obj = comp->create(context);
+    
+    // Add to store
+    m_contexts.insert(context, obj);
+    
+    return obj;
 }
 
 void Reparenter::destroyContextAndObject(QQuickItem *item)
 {
     // Get context for object
-    QQmlContext *context = QQmlEngine::contextForObject(item);
+    QQmlContext* context = QQmlEngine::contextForObject(item)->parentContext();
+
+    // Remove from store
+    m_contexts.remove(context);
     
     // Disconnect everything
     item->disconnect();
     
     // Delete context and object
-    delete context->parentContext();
+    delete context;
     delete item;
 }
 

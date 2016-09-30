@@ -19,7 +19,9 @@
 #ifndef __REPARENTER_H__
 #define __REPARENTER_H__
 
+#include <QMap>
 #include <QObject>
+#include <QPointer>
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QQuickItem>
@@ -30,10 +32,13 @@ class Reparenter : public QQuickItem
 
 public:
     Reparenter();
+    ~Reparenter();
     
     Q_INVOKABLE QObject *createObject(QQmlComponent *comp, QQuickItem *contextItem=NULL);
     Q_INVOKABLE void destroyContextAndObject(QQuickItem *item);
     Q_INVOKABLE void reparent(QQuickItem *obj, QQuickItem *newParent);
+private:
+    QMap<QPointer<QQmlContext>, QPointer<QObject>> m_contexts;
 };
 
 #endif // __REPARENTER_H__
