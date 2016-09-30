@@ -186,8 +186,6 @@ Item {
                 }
 
                 Behavior on x {
-                    enabled: !dragging
-                    
                     NumberAnimation {
                         duration: 250
                     }
