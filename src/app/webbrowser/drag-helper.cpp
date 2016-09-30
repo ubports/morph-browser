@@ -55,7 +55,7 @@ Qt::DropAction DragHelper::execDrag(QString tabId)
         pixmap = pixmap.scaled(pixmapSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
 
-    drag->setHotSpot(QPoint(pixmapSize.width() / 2, pixmapSize.height() / 2));
+    drag->setHotSpot(QPoint(0, 0));
     drag->setMimeData(mimeData);
     drag->setPixmap(pixmap);
 

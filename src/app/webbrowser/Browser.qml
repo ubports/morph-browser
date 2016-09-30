@@ -1922,6 +1922,13 @@ BrowserView {
         }
         keys: ["webbrowser/tab"]
 
+        onPositionChanged: {
+            if (drag.source.tabWindow === window && drag.y < chrome.height) {
+                // tab drag is within same window and in chrome
+                // so reorder tabs by setting tabDelegate x position
+                drag.source.x = drag.x - (drag.source.width / 2);
+            }
+        }
         onEntered: item.opacity = 0.5
         onExited: item.opacity = 0
         onDropped: {

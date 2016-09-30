@@ -185,7 +185,13 @@ Item {
                     value: index * width
                 }
 
-                Behavior on x { NumberAnimation { duration: 250 } }
+                Behavior on x {
+                    enabled: !dragging
+                    
+                    NumberAnimation {
+                        duration: 250
+                    }
+                }
                 
                 NumberAnimation {
                     id: resetVerticalAnimation
