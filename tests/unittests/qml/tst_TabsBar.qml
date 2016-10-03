@@ -104,6 +104,10 @@ Item {
             }
             return null
         }
+        
+        function getTabItem(index) {
+            return findChild(getTabDelegate(index), "tabItem");
+        }
 
         function popupMenuOnTab(index) {
             var tab = getTabDelegate(index)
@@ -293,6 +297,26 @@ Item {
             compare(tabsModel.get(0).url, baseUrl + "1")
             compare(tabsModel.get(1).url, "")
             compare(tabsModel.get(2).url, baseUrl + "2")
+        }
+        
+        function test_close_icon_invisible() {
+            var count = 20;
+
+            // Add 2 tabs and check both have showCloseIcon            
+            tabs.appendTab("", "tab " + 0, "");
+            tabs.appendTab("", "tab " + 0, "");
+            
+            compare(getTabItem(0).showCloseIcon, true);
+            compare(getTabItem(1).showCloseIcon, true);
+
+            // Add new tabs and check that both icons are shown            
+            for (var i = 2; i < count; ++i) {
+                tabs.appendTab("", "tab " + i, "");
+                compare(getTabItem(i).showCloseIcon, true);
+            }
+            
+            // Check that middle non-selected tab icons are not shown
+            compare(getTabItem(count - 10).showCloseIcon, false);
         }
     }
 }

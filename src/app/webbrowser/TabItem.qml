@@ -22,6 +22,7 @@ import ".."
 
 Item {
     id: tabItem
+    objectName: "tabItem"
 
     property bool incognito: false
     property bool active: false
@@ -38,6 +39,8 @@ Item {
     property color fgColor: Theme.palette.normal.baseText
 
     property bool touchEnabled: true
+    
+    readonly property bool showCloseIcon: closeIcon.x > units.gu(1) + tabItem.width / 2
 
     signal selected()
     signal closed()
@@ -52,14 +55,12 @@ Item {
                                      .arg(touchEnabled ? "" : "-desktop")
         asynchronous: true
 
-        readonly property bool iconAndText: closeIcon.x > units.gu(1) + tabItem.width / 2
-
         Favicon {
             id: favicon
             anchors {
-                left: tabImage.iconAndText ? parent.left : undefined
+                left: tabItem.showCloseIcon ? parent.left : undefined
                 leftMargin: Math.min(tabItem.width / 4, units.gu(2))
-                horizontalCenter: tabImage.iconAndText ? undefined : parent.horizontalCenter
+                horizontalCenter: tabItem.showCloseIcon ? undefined : parent.horizontalCenter
                 verticalCenter: parent.verticalCenter
             }
             shouldCache: !incognito
@@ -162,7 +163,7 @@ Item {
             asynchronous: true
             name: "close"
             color: tabItem.fgColor
-            visible: tabImage.iconAndText
+            visible: tabItem.showCloseIcon
         }
     }
 }
