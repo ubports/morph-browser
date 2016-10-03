@@ -143,18 +143,7 @@ Item {
 
                 anchors.top: tabsContainer.top
                 
-                width: {
-                    if (unevenTabWidth) {
-                        // Uneven tabs so use large or small depending which index
-                        if (tabIndex === root.model.currentIndex) {
-                            minActiveTabWidth
-                        } else {
-                            nonActiveTabWidth
-                        }
-                    } else {
-                        tabWidth + rightMargin
-                    }
-                }
+                width: getSize(index)
                 height: tabsContainer.height
 
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
@@ -162,7 +151,7 @@ Item {
                 drag {
                     target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
                     axis: Drag.XAxis
-                    minimumX: 0
+                    minimumX: unevenTabWidth ? (nonActiveTabWidth - minActiveTabWidth) / 2 : 0
                     maximumX: root.width - tabDelegate.width
                     filterChildren: true
                 }
@@ -194,28 +183,44 @@ Item {
 
                 Binding on x {
                     when: !dragging
-                    value: {
-                        if (unevenTabWidth) {
-                            if (tabIndex > root.model.currentIndex) {
-                                // count width for small tabs and one large one
-                                minActiveTabWidth + (nonActiveTabWidth * (index - 1))
-                            } else {
-                                // use small tab width as we are not after the wider one
-                                nonActiveTabWidth * index
-                            }
-                        } else {
-                            (tabWidth + rightMargin) * index
-                        }
-                    }
+                    value: getLeftX(index)
                 }
 
                 Behavior on x { NumberAnimation { duration: 250 } }
 
+                function getLeftX(index) {
+                    if (unevenTabWidth) {
+                        if (index > root.model.currentIndex) {
+                            return minActiveTabWidth + (nonActiveTabWidth * (index - 1));
+                        } else {
+                            return nonActiveTabWidth * index;
+                        }
+                    } else {
+                        return index * width;
+                    }
+                }
+                
+                function getSize(index) {
+                    if (unevenTabWidth) {
+                        // Uneven tabs so use large or small depending which index
+                        if (index === root.model.currentIndex) {
+                            return minActiveTabWidth;
+                        } else {
+                            return nonActiveTabWidth;
+                        }
+                    } else {
+                        return tabWidth + rightMargin;
+                    }
+                }
+                
                 onXChanged: {
                     if (!dragging) return
-                    if (x < (index * width - width / 2)) {
+                    
+                    var leftX = getLeftX(index);
+                    
+                    if (x < (leftX - getSize(index - 1) / 2) && index >= 0) {
                         root.model.move(index, index - 1)
-                    } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {
+                    } else if ((x > (leftX + getSize(index + 1) / 2)) && (index < (root.model.count - 1))) {
                         root.model.move(index + 1, index)
                     }
                 }

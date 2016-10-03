@@ -52,12 +52,16 @@ Item {
                                      .arg(touchEnabled ? "" : "-desktop")
         asynchronous: true
 
+        readonly property bool iconAndText: closeIcon.x > units.gu(1) + tabItem.width / 2
+
         Favicon {
             id: favicon
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            // Scale leftMargin when tabs becomes small so it is in the centre
-            anchors.leftMargin: Math.min(tabItem.width / 4, units.gu(2))
+            anchors {
+                left: tabImage.iconAndText ? parent.left : undefined
+                leftMargin: Math.min(tabItem.width / 4, units.gu(2))
+                horizontalCenter: tabImage.iconAndText ? undefined : parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+            }
             shouldCache: !incognito
             
             // Scale width and height of favicon when tabWidth becomes small
@@ -158,7 +162,7 @@ Item {
             asynchronous: true
             name: "close"
             color: tabItem.fgColor
-            visible: x >= favicon.x + favicon.width
+            visible: tabImage.iconAndText
         }
     }
 }
