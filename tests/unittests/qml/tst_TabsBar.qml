@@ -312,7 +312,9 @@ Item {
             // Add new tabs and check that both icons are shown            
             for (var i = 2; i < count; ++i) {
                 tabs.appendTab("", "tab " + i, "")
-                compare(getTabItem(i).showCloseIcon, true)
+                compare(tabsModel.currentIndex, i)
+                
+                tryCompare(getTabItem(i), "showCloseIcon", true, 1000)
             }
             
             // Check that middle non-selected tab icons are not shown
