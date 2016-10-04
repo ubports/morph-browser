@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtQuick.Window 2.2
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
@@ -155,6 +156,11 @@ FocusScope {
             }
 
             if (url.toString().length === 0) {
+                visible = false
+                return
+            }
+
+            if (Window.visibility == Window.Hidden) {
                 visible = false
                 return
             }

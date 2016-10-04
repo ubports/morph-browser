@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,36 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QDebug>
-#include "webbrowser-window.h"
+import Ubuntu.Components 1.3
 
-
-WebBrowserWindow::WebBrowserWindow(QObject *parent) :
-    QObject(parent),
-    _window(0)
-{}
-
-QQuickWindow * WebBrowserWindow::window() const
-{
-    return _window;
+Action {
+    text: i18n.tr("Open link in new window")
 }
-
-void WebBrowserWindow::setWindow(QQuickWindow * window)
-{
-    if (_window != window)
-    {
-        _window = window;
-        Q_EMIT windowChanged(window);
-    }
-}
-
-void WebBrowserWindow::raise()
-{
-    if ( ! _window)
-        return;
-
-    _window->raise();
-    _window->show();
-}
-
-

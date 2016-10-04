@@ -31,7 +31,10 @@ public:
     bool initialize();
 
 private:
-    virtual void printUsage() const;
+    void printUsage() const final;
+
+private Q_SLOTS:
+    void onNewInstanceLaunched(const QStringList& arguments) const final;
 };
 
 #endif // __WEBBROWSER_APP_H__
