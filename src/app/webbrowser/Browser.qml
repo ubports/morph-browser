@@ -1928,9 +1928,14 @@ BrowserView {
                 // so reorder tabs by setting tabDelegate x position
                 drag.source.x = drag.x - (drag.source.width / 2);
             }
+            
+            dropChromeShade.opacity = drag.y <= chrome.height ? 0.7 : 0.4
         }
-        onEntered: item.opacity = 0.5
-        onExited: item.opacity = 0
+        onEntered: {
+            window.raise()
+            dropShade.opacity = 1
+        }
+        onExited: dropShade.opacity = 0
         onDropped: {
             if (drag.y > chrome.height) {
                 console.debug("Dropped in bottom area, creating new window");
@@ -1951,23 +1956,46 @@ BrowserView {
                 drop.accept(Qt.MoveAction);
             }
             
-            item.opacity = 0;
+            dropShade.opacity = 0
         }
-
-        Rectangle {
-            id: item
+        
+        Item {
+            id: dropShade
             anchors {
                 fill: parent
             }
-            color: "#0F0"
             opacity: 0
             
             Rectangle {
+                id: dropChromeShade
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                }
+                border {
+                    color: UbuntuColors.orange
+                    width: units.gu(1)
+                }
+                color: "transparent"
+                height: chrome.height
+                opacity: 0.4
+                
+                Behavior on opacity {
+                    NumberAnimation {
+                    
+                    }
+                }
+            }
+            
+            Rectangle {
+                id: dropTabShade
                 anchors {
                     fill: parent
                     topMargin: chrome.height
                 }
-                color: "#00F"
+                color: "#FFF"
+                opacity: 0.7
             }
             
             Behavior on opacity {

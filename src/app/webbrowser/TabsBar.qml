@@ -102,6 +102,15 @@ Item {
                     onTriggered: menu.tab.reload()
                 }
                 Action {
+                    objectName: "tab_action_move_to_new_window"
+                    text: i18n.tr("Move to New Window")
+                    onTriggered: {
+                        // callback function only removes from model
+                        // and not destroy as webview is in new window
+                        browser.newWindowFromTab(menu.tab, function() { tabsModel.remove(menu.targetIndex); })
+                    }
+                }
+                Action {
                     objectName: "tab_action_close_tab"
                     text: i18n.tr("Close Tab")
                     onTriggered: root.tabClosed(menu.targetIndex)
