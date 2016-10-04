@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 15:32+0100\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -409,7 +409,7 @@ msgid "Address;URL;www"
 msgstr ""
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:440
-#: src/app/webbrowser/TabsBar.qml:103
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr ""
 
@@ -563,7 +563,7 @@ msgstr ""
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:165 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgstr ""
 msgid "Tap to view"
 msgstr ""
 
-#: src/app/webbrowser/TabsBar.qml:114
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr ""
 
