@@ -31,8 +31,6 @@
 
 class QQmlComponent;
 class QQmlEngine;
-class QQuickWindow;
-class WebBrowserWindow;
 
 // We want the browser to be QApplication based rather than QGuiApplication
 // to provide a widget based file picker on the desktop, rather than the
@@ -58,17 +56,15 @@ protected:
 
     QStringList m_arguments;
     QQmlEngine* m_engine;
-    QQuickWindow* m_window;
     QQmlComponent* m_component;
+    QObject* m_object;
 
-private Q_SLOTS:
-    void onNewInstanceLaunched(const QStringList& arguments) const;
+protected Q_SLOTS:
+    virtual void onNewInstanceLaunched(const QStringList& arguments) const = 0;
 
 private:
     QString inspectorPort() const;
     QString inspectorHost() const;
-
-    WebBrowserWindow *m_webbrowserWindowProxy;
 
     SingleInstanceManager m_singleton;
 };

@@ -52,39 +52,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def go_forward(self):
         self.chrome.go_forward()
 
-    @autopilot.logging.log_action(logger.info)
-    def enter_private_mode(self):
-        if not self.is_in_private_mode():
-            self.chrome.toggle_private_mode()
-        else:
-            logger.warning('The browser is already in private mode.')
-
-    def is_in_private_mode(self):
-        return self.get_current_webview().incognito
-
-    @autopilot.logging.log_action(logger.info)
-    def leave_private_mode(self):
-        if self.is_in_private_mode():
-            self.chrome.toggle_private_mode()
-        else:
-            logger.warning('The browser is not in private mode.')
-
-    @autopilot.logging.log_action(logger.info)
-    def leave_private_mode_with_confirmation(self, confirm=True):
-        if self.is_in_private_mode():
-            self.chrome.toggle_private_mode()
-            dialog = self._get_leave_private_mode_dialog()
-            if confirm:
-                dialog.confirm()
-            else:
-                dialog.cancel()
-            dialog.wait_until_destroyed()
-        else:
-            logger.warning('The browser is not in private mode.')
-
-    def _get_leave_private_mode_dialog(self):
-        return self.wait_select_single(LeavePrivateModeDialog, visible=True)
-
     # Since the NewPrivateTabView does not define any new QML property in its
     # extended file, it does not report itself to autopilot with the same name
     # as the extended file. (See http://pad.lv/1454394)
@@ -306,13 +273,6 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def is_forward_button_enabled(self):
         forward_button = self._get_forward_button()
         return forward_button.enabled
-
-    def toggle_private_mode(self):
-        drawer_button = self.get_drawer_button()
-        self.pointing_device.click_object(drawer_button)
-        self.get_drawer()
-        private_mode_action = self.get_drawer_action("privatemode")
-        self.pointing_device.click_object(private_mode_action)
 
     def get_drawer_button(self):
         return self.select_single("ChromeButton", objectName="drawerButton")
@@ -571,21 +531,6 @@ class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return sorted(self.select_many("UrlDelegate",
                                        objectName="entriesDelegate"),
                       key=lambda item: item.globalRect.y)
-
-
-class LeavePrivateModeDialog(uitk.Dialog):
-
-    @autopilot.logging.log_action(logger.info)
-    def confirm(self):
-        confirm_button = self.select_single(
-            "Button", objectName="leavePrivateModeDialog.okButton")
-        self.pointing_device.click_object(confirm_button)
-
-    @autopilot.logging.log_action(logger.info)
-    def cancel(self):
-        cancel_button = self.select_single(
-            "Button", objectName="leavePrivateModeDialog.cancelButton")
-        self.pointing_device.click_object(cancel_button)
 
 
 class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):

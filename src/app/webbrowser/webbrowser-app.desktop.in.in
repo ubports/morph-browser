@@ -16,3 +16,12 @@ X-Ubuntu-Single-Instance=true
 X-Ubuntu-Default-Department-ID=web-browsers
 X-Screenshot=@CMAKE_INSTALL_FULL_DATADIR@/webbrowser-app/screenshot.png
 X-Ubuntu-Splash-Color=#FFFFFF
+Actions=NewWindow;Incognito;
+
+[Desktop Action NewWindow]
+_Name=Open a New Window
+Exec=webbrowser-app --new-window
+
+[Desktop Action Incognito]
+_Name=Open a New Private Window
+Exec=webbrowser-app --incognito
