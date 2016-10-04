@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,42 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_WINDOW_H__
-#define __WEBBROWSER_WINDOW_H__
+import Ubuntu.Components 1.3
 
-#include <QObject>
-#include <QQuickWindow>
-
-
-class WebBrowserWindow : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(QQuickWindow *window READ window WRITE setWindow NOTIFY windowChanged)
-
-
-public:
-    explicit WebBrowserWindow(QObject *parent = 0);
-
-
-    QQuickWindow * window() const;
-    void setWindow(QQuickWindow *);
-
-
-public slots:
-
-    void raise();
-
-
-signals:
-
-    void windowChanged(QQuickWindow *);
-
-
-private:
-
-    QQuickWindow * _window;
-};
-
-
-#endif // __WEBBROWSER_WINDOW_H__
-
+Action {
+    text: i18n.tr("Open link in private window")
+}

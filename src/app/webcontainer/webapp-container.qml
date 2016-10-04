@@ -53,6 +53,8 @@ BrowserWindow {
 
     property bool runningLocalApplication: false
 
+    property bool startMaximized: false
+
     title: getWindowTitle()
 
     // Used for testing
@@ -78,6 +80,8 @@ BrowserWindow {
 
         WebApp {
             id: browser
+
+            window: root
 
             url: accountProvider.length !== 0 ? "" : root.url
 
@@ -107,8 +111,6 @@ BrowserWindow {
             webviewOverrideFile: root.webviewOverrideFile
 
             anchors.fill: parent
-
-            webbrowserWindow: webbrowserWindowProxy
 
             onWebappNameChanged: {
                 if (root.webappName !== browser.webappName) {
@@ -215,6 +217,13 @@ BrowserWindow {
 
     Component.onCompleted: {
         i18n.domain = "webbrowser-app"
+        if (forceFullscreen) {
+            showFullScreen()
+        } else if (startMaximized) {
+            showMaximized()
+        } else {
+            show()
+        }
     }
 
     function showWebView() {
@@ -300,7 +309,7 @@ BrowserWindow {
         return uri
     }
 
-    onOpenUrls: {
+    function openUrls(urls) {
         // only consider the first one (if multiple)
         if (urls.length === 0 || !root.currentWebview) {
             return;
