@@ -180,6 +180,8 @@ Item {
                     property: "reordering"
                     value: dragging
                 }
+                
+                Behavior on width { NumberAnimation { duration: 250 } }
 
                 Binding on x {
                     when: !dragging
@@ -196,7 +198,10 @@ Item {
                             return nonActiveTabWidth * index
                         }
                     } else {
-                        return index * width
+                        // Do not depend on width otherwise X updates after
+                        // Width causing the animation to be two stage
+                        // instead perform same calculation (tabWidth + rightMargin)
+                        return index * (tabWidth + rightMargin)
                     }
                 }
                 
