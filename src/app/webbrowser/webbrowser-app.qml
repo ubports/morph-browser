@@ -128,6 +128,20 @@ QtObject {
                         session.clear()
                     }
                 }
+                if (incognito) {
+                    // If the last incognito window is being closed,
+                    // prune incognito entries from the downloads model
+                    var incognitoWindows = []
+                    for (var i = allWindows.length - 1; i >= 0; --i) {
+                        var window = allWindows[i]
+                        if ((window !== this) && window.incognito) {
+                            incognitoWindows.push(window)
+                        }
+                    }
+                    if (incognitoWindows.length == 0) {
+                        DownloadsModel.pruneIncognitoDownloads()
+                    }
+                }
                 destroy()
             }
 
