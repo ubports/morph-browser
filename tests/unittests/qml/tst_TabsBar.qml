@@ -106,7 +106,7 @@ Item {
         }
         
         function getTabItem(index) {
-            return findChild(getTabDelegate(index), "tabItem");
+            return findChild(getTabDelegate(index), "tabItem")
         }
 
         function popupMenuOnTab(index) {
@@ -300,23 +300,23 @@ Item {
         }
         
         function test_close_icon_invisible() {
-            var count = 20;
+            var count = 20
 
             // Add 2 tabs and check both have showCloseIcon            
-            tabs.appendTab("", "tab " + 0, "");
-            tabs.appendTab("", "tab " + 0, "");
+            tabs.appendTab("", "tab " + 0, "")
+            tabs.appendTab("", "tab " + 0, "")
             
-            compare(getTabItem(0).showCloseIcon, true);
-            compare(getTabItem(1).showCloseIcon, true);
+            compare(getTabItem(0).showCloseIcon, true)
+            compare(getTabItem(1).showCloseIcon, true)
 
             // Add new tabs and check that both icons are shown            
             for (var i = 2; i < count; ++i) {
-                tabs.appendTab("", "tab " + i, "");
-                compare(getTabItem(i).showCloseIcon, true);
+                tabs.appendTab("", "tab " + i, "")
+                compare(getTabItem(i).showCloseIcon, true)
             }
             
             // Check that middle non-selected tab icons are not shown
-            compare(getTabItem(count - 10).showCloseIcon, false);
+            compare(getTabItem(count - 10).showCloseIcon, false)
         }
     }
 }

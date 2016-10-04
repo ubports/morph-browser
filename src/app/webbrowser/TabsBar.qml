@@ -31,16 +31,16 @@ Item {
     property real tabWidth: model ? Math.max(Math.min(tabsContainer.maxWidth / model.count, maxTabWidth), minTabWidth) : 0
 
     // Minimum size of the larger tab
-    property real minActiveTabWidth: units.gu(10)
+    readonly property real minActiveTabWidth: units.gu(10)
     
     // When there is a larger tab, calc the smaller tab size
-    property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(model.count - 1, 1)
+    readonly property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(model.count - 1, 1)
 
     // The size of the right margin of the tab
-    property real rightMargin: units.dp(1)
+    readonly property real rightMargin: units.dp(1)
                 
     // Whether there will be one larger tab or not
-    property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
+    readonly property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
 
     property bool incognito: false
 
@@ -191,12 +191,12 @@ Item {
                 function getLeftX(index) {
                     if (unevenTabWidth) {
                         if (index > root.model.currentIndex) {
-                            return minActiveTabWidth + (nonActiveTabWidth * (index - 1));
+                            return minActiveTabWidth + (nonActiveTabWidth * (index - 1))
                         } else {
-                            return nonActiveTabWidth * index;
+                            return nonActiveTabWidth * index
                         }
                     } else {
-                        return index * width;
+                        return index * width
                     }
                 }
                 
@@ -204,21 +204,21 @@ Item {
                     if (unevenTabWidth) {
                         // Uneven tabs so use large or small depending which index
                         if (index === root.model.currentIndex) {
-                            return minActiveTabWidth;
+                            return minActiveTabWidth
                         } else {
-                            return nonActiveTabWidth;
+                            return nonActiveTabWidth
                         }
                     } else {
-                        return tabWidth + rightMargin;
+                        return tabWidth + rightMargin
                     }
                 }
                 
                 onXChanged: {
                     if (!dragging) return
-                    
-                    var leftX = getLeftX(index);
-                    
-                    if (x < (leftX - getSize(index - 1) / 2) && index >= 0) {
+
+                    var leftX = getLeftX(index)
+
+                    if (x < (leftX - getSize(index - 1) / 2) && index > 0) {
                         root.model.move(index, index - 1)
                     } else if ((x > (leftX + getSize(index + 1) / 2)) && (index < (root.model.count - 1))) {
                         root.model.move(index + 1, index)
