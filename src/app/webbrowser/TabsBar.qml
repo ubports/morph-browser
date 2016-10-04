@@ -152,6 +152,7 @@ Item {
                 
                 DragHelper {
                     id: dragHelper
+                    mimeType: "webbrowser/tab-" + (window.incognito ? "incognito" : "public")
                     source: tabDelegate                
                 }
 

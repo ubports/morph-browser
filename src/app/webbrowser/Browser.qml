@@ -1071,7 +1071,7 @@ BrowserView {
 
                 locationBarController {
                     height: chrome ? chrome.height : 0
-                    mode: chromeController.defaultMode
+                    mode: chromeController ? chromeController.defaultMode : null
                 }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
@@ -1920,7 +1920,7 @@ BrowserView {
         anchors {
             fill: parent
         }
-        keys: ["webbrowser/tab"]
+        keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
 
         onPositionChanged: {
             if (drag.source.tabWindow === window && drag.y < chrome.height) {
