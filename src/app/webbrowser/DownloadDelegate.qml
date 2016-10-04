@@ -35,6 +35,7 @@ ListItem {
     property var download
     property int progress: download ? download.progress : 0
     property bool paused
+    property alias incognito: incognitoIcon.visible
 
     divider.visible: false
 
@@ -216,6 +217,20 @@ ListItem {
             }
 
         }
+    }
+
+    Icon {
+        id: incognitoIcon
+        anchors {
+            right: parent.right
+            rightMargin: units.gu(2)
+            bottom: parent.bottom
+            bottomMargin: units.gu(1)
+        }
+        width: units.gu(2)
+        height: units.gu(2)
+        asynchronous: true
+        name: "private-browsing"
     }
 
     leadingActions: error.visible || !downloadDelegate.incomplete ? deleteActionList : null

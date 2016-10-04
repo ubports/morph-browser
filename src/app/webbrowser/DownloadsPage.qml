@@ -204,6 +204,7 @@ BrowserPage {
             visible: !(selectMode && incomplete)
             errorMessage: model.error
             paused: model.paused
+            incognito: model.incognito
 
             onClicked: {
                 if (model.complete && !selectMode) {
