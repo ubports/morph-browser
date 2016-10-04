@@ -39,6 +39,7 @@ BrowserPage {
     property bool pickingMode
     property bool multiSelect
     property alias mimetypeFilter: downloadModelFilter.pattern
+    property bool incognito: false
 
     signal done()
 
@@ -154,7 +155,13 @@ BrowserPage {
         focus: !exportPeerPicker.focus
 
         model: SortFilterModel {
-            model: DownloadsModel
+            model: SortFilterModel {
+                model: DownloadsModel
+                filter {
+                    property: "incognito"
+                    pattern: RegExp(downloadsItem.incognito ? "" : "^false$")
+                }
+            }
             filter {
                 id: downloadModelFilter
                 property: "mimetype"

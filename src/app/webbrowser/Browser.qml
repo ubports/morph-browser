@@ -968,11 +968,19 @@ BrowserView {
             property: "downloadManager"
             value: downloadHandlerLoader.item
         }
+
+        Binding {
+            target: downloadsViewLoader.item
+            property: "incognito"
+            value: browser.incognito
+        }
+
         Binding {
             target: downloadsViewLoader.item
             property: "focus"
             value: true
         }
+
         Connections {
             target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
