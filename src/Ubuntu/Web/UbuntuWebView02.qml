@@ -96,8 +96,8 @@ Oxide.WebView {
             internal.contextModel = model
             var empty = true
             if (actions) {
-                for (var i in actions.actions) {
-                    if (actions.actions[i].enabled) {
+                for (var i in actions.children) {
+                    if (actions.children[i].enabled) {
                         empty = false
                         break
                     }
@@ -239,7 +239,7 @@ Oxide.WebView {
             height: units.gu(6)
 
             Repeater {
-                model: touchSelectionActions.actions.length
+                model: touchSelectionActions.children
                 AbstractButton {
                     objectName: "touchSelectionAction_" + action.name
                     anchors {
@@ -247,7 +247,7 @@ Oxide.WebView {
                         bottom: parent.bottom
                     }
                     width: Math.max(units.gu(5), implicitWidth) + units.gu(2)
-                    action: touchSelectionActions.actions[modelData]
+                    action: modelData
                     styleName: "ToolbarButtonStyle"
                     activeFocusOnPress: false
                     onClicked: _webview.touchSelectionController.hide()

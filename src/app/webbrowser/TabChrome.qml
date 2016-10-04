@@ -54,6 +54,7 @@ Item {
             anchors.bottomMargin: - units.gu(3)
             height: units.gu(8)
             source: "assets/tab-shadow-narrow.png"
+            asynchronous: true
         }
     }
 

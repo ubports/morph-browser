@@ -558,6 +558,17 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+0')
         self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
 
+    def test_zoom_qwerty_compatibility_shortcuts(self):
+        # Ref: https://launchpad.net/bugs/1624381
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
+        self.main_window.press_key('Ctrl+equal')
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.1)))
+
+        self.main_window.press_key('Ctrl+underscore')
+        self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
+
     def test_zoom_affects_domain(self):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.0)))
@@ -572,3 +583,25 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(0)
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.zoomFactor, Eventually(AlmostEquals(1.1)))
+
+    def test_new_window(self):
+        self.main_window.press_key('Ctrl+n')
+        self.assertThat(lambda: len(self.app.get_windows(incognito=False)),
+                        Eventually(Equals(2)))
+        window = self.app.get_windows(activeFocus=True)[0]
+        if window.wide:
+            window.press_key('Ctrl+w')
+            window.wait_until_destroyed()
+            windows = self.app.get_windows(activeFocus=True, incognito=False)
+            self.assertThat(len(windows), Equals(1))
+
+    def test_new_private_window(self):
+        self.main_window.press_key('Ctrl+Shift+n')
+        self.assertThat(lambda: len(self.app.get_windows(incognito=True)),
+                        Eventually(Equals(1)))
+        window = self.app.get_windows(activeFocus=True, incognito=True)[0]
+        if window.wide:
+            window.press_key('Ctrl+w')
+            window.wait_until_destroyed()
+            windows = self.app.get_windows(activeFocus=True, incognito=False)
+            self.assertThat(len(windows), Equals(1))

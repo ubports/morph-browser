@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
 "PO-Revision-Date: 2015-08-05 04:42+0000\n"
 "Last-Translator: Julio Alexander Sieg <julio.sieg@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-06-03 06:14+0000\n"
-"X-Generator: Launchpad (build 18086)\n"
+"X-Launchpad-Export-Date: 2016-08-28 06:41+0000\n"
+"X-Generator: Launchpad (build 18179)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,7 +47,7 @@ msgstr "Nome de usuário"
 msgid "Password"
 msgstr "Senha"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
@@ -69,7 +69,7 @@ msgstr "Confirmar navegação"
 msgid "Leave"
 msgstr "Sair"
 
-#: src/app/BeforeUnloadDialog.qml:31
+#: src/app/BeforeUnloadDialog.qml:32
 msgid "Stay"
 msgstr "Permanecer"
 
@@ -88,12 +88,12 @@ msgstr ""
 "deste site não é confiável."
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:160
+#: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
 msgstr "Continuar mesmo assim"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:173
+#: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
 msgstr "Voltar à segurança"
 
@@ -131,20 +131,26 @@ msgstr "Esta página quer saber a localização do seu dispositivo."
 msgid "Deny"
 msgstr "Negar"
 
-#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
 msgstr "Permitir"
 
-#: src/app/InvalidCertificateErrorSheet.qml:55
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
 msgstr "Este certificado de segurança do site não é confiável.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:63
+#: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
 msgstr "Saiba mais"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:87
+#: src/app/InvalidCertificateErrorSheet.qml:88
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -154,7 +160,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:94
+#: src/app/InvalidCertificateErrorSheet.qml:95
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -164,7 +170,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:102
+#: src/app/InvalidCertificateErrorSheet.qml:103
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -174,7 +180,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:113
+#: src/app/InvalidCertificateErrorSheet.qml:114
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -184,7 +190,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:121
+#: src/app/InvalidCertificateErrorSheet.qml:122
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -194,7 +200,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:132
+#: src/app/InvalidCertificateErrorSheet.qml:133
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -204,7 +210,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:139
+#: src/app/InvalidCertificateErrorSheet.qml:140
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -214,7 +220,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:146
+#: src/app/InvalidCertificateErrorSheet.qml:147
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -223,7 +229,7 @@ msgstr ""
 "Impressão digital (SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:153
+#: src/app/InvalidCertificateErrorSheet.qml:154
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -232,7 +238,7 @@ msgstr ""
 "antes neste site."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:187
+#: src/app/InvalidCertificateErrorSheet.qml:188
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -242,7 +248,7 @@ msgstr ""
 "que não coincide com a identidade do site."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:190
+#: src/app/InvalidCertificateErrorSheet.qml:191
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -252,7 +258,7 @@ msgstr ""
 "que expirou."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:193
+#: src/app/InvalidCertificateErrorSheet.qml:194
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -262,7 +268,7 @@ msgstr ""
 "que contém datas inválidas."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:196
+#: src/app/InvalidCertificateErrorSheet.qml:197
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -272,7 +278,7 @@ msgstr ""
 "emitido por uma entidade que não é confiável."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:199
+#: src/app/InvalidCertificateErrorSheet.qml:200
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -282,7 +288,7 @@ msgstr ""
 "que foi revogado."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:202
+#: src/app/InvalidCertificateErrorSheet.qml:203
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
@@ -292,7 +298,7 @@ msgstr ""
 "inválido."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:205
+#: src/app/InvalidCertificateErrorSheet.qml:206
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
@@ -302,7 +308,7 @@ msgstr ""
 "inseguro."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
+#: src/app/InvalidCertificateErrorSheet.qml:209
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -411,7 +417,7 @@ msgstr "Recortar"
 msgid "Erase"
 msgstr "Apagar"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
 msgid "Find in page"
 msgstr ""
 
@@ -441,7 +447,7 @@ msgstr "Ir para"
 msgid "Address;URL;www"
 msgstr "Endereço;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Nova aba"
@@ -507,7 +513,7 @@ msgstr ""
 msgid "Select all"
 msgstr "Selecionar todos"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
 msgid "Share"
 msgstr "Compartilhar"
 
@@ -516,16 +522,16 @@ msgid "Undo"
 msgstr "Desfazer"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:244
+#: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:245
+#: src/app/webbrowser/AddressBar.qml:249
 msgid "search or enter an address"
 msgstr "procurar ou digitar um endereço"
 
@@ -565,66 +571,65 @@ msgstr "Salvar"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "Página inicial"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Favoritos"
 
-#: src/app/webbrowser/BookmarksView.qml:70
-#: src/app/webbrowser/BookmarksViewWide.qml:69
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/BookmarksView.qml:76
+#: src/app/webbrowser/BookmarksViewWide.qml:75
+#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Concluído"
 
-#: src/app/webbrowser/BookmarksView.qml:84
-#: src/app/webbrowser/BookmarksViewWide.qml:83
-#: src/app/webbrowser/HistoryView.qml:142
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/BookmarksView.qml:90
+#: src/app/webbrowser/BookmarksViewWide.qml:89
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nova aba"
 
-#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Histórico"
 
-#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Downloads"
 
-#: src/app/webbrowser/Browser.qml:582
+#: src/app/webbrowser/Browser.qml:592
 msgid "Leave Private Mode"
 msgstr "Sair do modo privado"
 
-#: src/app/webbrowser/Browser.qml:582
+#: src/app/webbrowser/Browser.qml:592
 msgid "Private Mode"
 msgstr "Modo privado"
 
-#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Configurações"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
+#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1366
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Deslize para cima para sair da tela cheia"
 
-#: src/app/webbrowser/Browser.qml:1367
+#: src/app/webbrowser/Browser.qml:1378
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pressione ESC para sair da tela cheia"
 
@@ -657,18 +662,18 @@ msgstr "Confirmar seleção"
 msgid "Delete"
 msgstr "Deletar"
 
-#: src/app/webbrowser/DownloadsPage.qml:259
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 página"
 msgstr[1] "%1 páginas"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Menos"
@@ -691,7 +696,7 @@ msgid "All History"
 msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Hoje"
 
@@ -713,12 +718,12 @@ msgstr ""
 msgid "More"
 msgstr "Mais"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Sites mais visitados"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
 msgstr "Você não visitou nenhum site ainda"
 
@@ -860,19 +865,19 @@ msgstr "Toque para visualizar"
 msgid "Close Tab"
 msgstr "Fechar aba"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+#: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:69
+#: src/app/webcontainer/webapp-container.qml:70
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web do Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:71
+#: src/app/webcontainer/webapp-container.qml:72
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web do Ubuntu"
 

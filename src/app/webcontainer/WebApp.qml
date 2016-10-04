@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import webbrowsercommon.private 0.1
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
@@ -31,6 +32,8 @@ BrowserView {
     objectName: "webappBrowserView"
 
     currentWebview: containerWebView.currentWebview
+
+    property alias window: containerWebView.window
 
     property alias url: containerWebView.url
 
@@ -62,6 +65,8 @@ BrowserView {
     // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
     property alias generatedUrlPatterns: urlPatternSettings.generatedUrlPatterns
 
+    currentWebcontext: currentWebview ? currentWebview.context : null
+
     actions: [
         Actions.Back {
             enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoBack
@@ -75,6 +80,8 @@ BrowserView {
             onTriggered: containerWebView.currentWebview.reload()
         }
     ]
+
+    focus: true
 
     Settings {
         id: urlPatternSettings
@@ -144,15 +151,18 @@ BrowserView {
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
 
+            focus: true
+
             onThemeColorMetaInformationDetected: {
                 var color = webappContainerHelper.rgbColorFromCSSColor(theme_color)
                 if (!webapp.chromeless && chromeLoader.item && color.length) {
                     chromeLoader.item.backgroundColor = theme_color
-                    chromeLoader.item.chromeTextLabelColor =
+                    chromeLoader.item.updateChromeElementsColor(
                             ColorUtils.getMostConstrastedColor(
                                 color,
                                 Qt.darker(theme_color, themeColorTextContrastFactor),
                                 Qt.lighter(theme_color, themeColorTextContrastFactor))
+                            )
                 }
             }
             onSamlRequestUrlPatternReceived: {
@@ -270,10 +280,43 @@ BrowserView {
         id: unityWebapps
         name: webappName
         bindee: containerWebView.currentWebview
-        embeddedUiComponentParent: webapp
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication
         injectExtraContentShareCapabilities: !runningLocalApplication
+
+        Component.onCompleted: {
+            // Delay bind the property to add a bit of backward compatibility with
+            // other unity-webapps-qml modules
+            if (unityWebapps.embeddedUiComponentParent !== undefined) {
+                unityWebapps.embeddedUiComponentParent = webapp
+            }
+        }
+    }
+
+    // F5 or Ctrl+R: Reload current Tab
+    Shortcut {
+        sequence: "Ctrl+r"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+    Shortcut {
+        sequence: "F5"
+        enabled: currentWebview && currentWebview.visible
+        onActivated: currentWebview.reload()
+    }
+
+    // Alt+← or Backspace: Goes to the previous page
+    Shortcut {
+        sequence: StandardKey.Back
+        enabled: currentWebview && currentWebview.canGoBack
+        onActivated: currentWebview.goBack()
+    }
+
+    // Alt+→ or Shift+Backspace: Goes to the next page
+    Shortcut {
+        sequence: StandardKey.Forward
+        enabled: currentWebview && currentWebview.canGoForward
+        onActivated: currentWebview.goForward()
     }
 }

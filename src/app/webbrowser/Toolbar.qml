@@ -30,6 +30,7 @@ Rectangle {
         }
         source: "assets/toolbar-dropshadow.png"
         fillMode: Image.TileHorizontally
+        asynchronous: true
     }
 
     states: [

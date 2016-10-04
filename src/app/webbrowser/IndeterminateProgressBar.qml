@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -35,7 +35,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.top: parent.top
-        color: UbuntuColors.orange
+        color: theme.palette.normal.activity
         width: indeterminateProgress ? parent.width / 6 : (progress / 100) * parent.width
 
         SequentialAnimation {

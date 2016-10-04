@@ -70,7 +70,7 @@ Dialog {
         Button {
             objectName: "mediaAccessDialog.allowButton"
             text: i18n.tr("Yes")
-            color: UbuntuColors.green
+            color: theme.palette.normal.positive
             width: units.gu(10)
             onClicked: {
                 request.allow()
@@ -81,7 +81,6 @@ Dialog {
         Button {
             objectName: "mediaAccessDialog.denyButton"
             text: i18n.tr("No")
-            color: UbuntuColors.lightGrey
             width: units.gu(10)
             onClicked: {
                 request.deny()

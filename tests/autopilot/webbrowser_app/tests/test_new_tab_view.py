@@ -95,55 +95,6 @@ class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
         self.assertThat(new_tab_view.visible, Equals(True))
 
 
-class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
-
-    def test_new_private_tab_view_destroyed_when_browsing(self):
-        self.main_window.enter_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.main_window.go_to_url(self.base_url + "/test2")
-        new_private_tab_view.wait_until_destroyed()
-
-    def test_new_private_tab_view_destroyed_when_leaving_private_mode(self):
-        self.main_window.enter_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.main_window.leave_private_mode()
-        new_private_tab_view.wait_until_destroyed()
-
-    def test_new_private_tab_view_is_shared_between_tabs(self):
-        self.main_window.enter_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.main_window.go_to_url(self.base_url + "/test2")
-        new_private_tab_view.wait_until_destroyed()
-        # Open one new private tab
-        new_private_tab_view = self.open_new_tab(open_tabs_view=True)
-        # Open a second new private tab
-        new_private_tab_view_2 = self.open_new_tab(open_tabs_view=True)
-        # Verify that they share the same NewPrivateTabView instance
-        self.assertThat(new_private_tab_view_2.id,
-                        Equals(new_private_tab_view.id))
-        # Close the second new private tab, and verify that the
-        # NewPrivateTabView instance is still there
-        if self.main_window.wide:
-            self.main_window.chrome.get_tabs_bar().close_tab(2)
-        else:
-            tabs_view = self.open_tabs_view()
-            tabs_view.get_previews()[0].close()
-            toolbar = self.main_window.get_recent_view_toolbar()
-            toolbar.click_button("doneButton")
-            tabs_view.visible.wait_for(False)
-        self.assertThat(new_private_tab_view.visible, Equals(True))
-        # Close the first new private tab, and verify that the
-        # NewPrivateTabView instance is destroyed
-        if self.main_window.wide:
-            self.main_window.chrome.get_tabs_bar().close_tab(1)
-        else:
-            tabs_view = self.open_tabs_view()
-            tabs_view.get_previews()[0].close()
-            toolbar = self.main_window.get_recent_view_toolbar()
-            toolbar.click_button("doneButton")
-        new_private_tab_view.wait_until_destroyed()
-
-
 class TestNewTabViewContentsBase(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
@@ -282,13 +233,14 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         self.assertThat(bookmarks.count, Eventually(Equals(5)))
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
-    def _remove_first_bookmark(self):
+    def _remove_first_bookmark(self, expect_count_change):
         bookmark = self.new_tab_view.get_bookmark_delegates()[1]
         url = bookmark.url
         bookmark.trigger_leading_action("leadingAction.delete", lambda: None)
-        self.assertThat(
-            lambda: self.new_tab_view.get_bookmark_delegates()[1].url,
-            Eventually(NotEquals(url)))
+        if expect_count_change:
+            bookmark.wait_until_destroyed()
+        else:
+            self.assertThat(bookmark.url, Eventually(NotEquals(url)))
 
     def _remove_first_bookmark_from_folder(self, folder):
         folders = self.new_tab_view.get_bookmarks_folder_list_view()
@@ -314,7 +266,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         self.assertThat(bookmarks.count, Eventually(Equals(5)))
         more_button = self.new_tab_view.get_bookmarks_more_button()
         for i in range(3):
-            self._remove_first_bookmark()
+            self._remove_first_bookmark(i == 2)
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
             self.assertThat(bookmarks.count, Equals(5 if (i < 2) else 4))
 

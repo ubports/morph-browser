@@ -46,11 +46,14 @@ BrowserWindow {
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
     property bool openExternalUrlInOverlay: false
+    property string defaultVideoCaptureCameraPosition: ""
     property bool popupBlockerEnabled: true
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
     property bool runningLocalApplication: false
+
+    property bool startMaximized: false
 
     title: getWindowTitle()
 
@@ -78,6 +81,8 @@ BrowserWindow {
         WebApp {
             id: browser
 
+            window: root
+
             url: accountProvider.length !== 0 ? "" : root.url
 
             accountSwitcher: root.accountSwitcher
@@ -90,7 +95,13 @@ BrowserWindow {
             webappUrlPatterns: root.webappUrlPatterns
             blockOpenExternalUrls: root.blockOpenExternalUrls
             openExternalUrlInOverlay: root.openExternalUrlInOverlay
+            defaultVideoCaptureDevicePosition: root.defaultVideoCaptureCameraPosition ?
+                                                   root.defaultVideoCaptureCameraPosition
+                                                 : browser.defaultVideoCaptureDevicePosition
             popupBlockerEnabled: root.popupBlockerEnabled
+            hasTouchScreen: root.hasTouchScreen
+
+            focus: true
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
@@ -100,8 +111,6 @@ BrowserWindow {
             webviewOverrideFile: root.webviewOverrideFile
 
             anchors.fill: parent
-
-            webbrowserWindow: webbrowserWindowProxy
 
             onWebappNameChanged: {
                 if (root.webappName !== browser.webappName) {
@@ -165,6 +174,8 @@ BrowserWindow {
         property var webContextSessionCookieMode: ""
         property var webappDataLocation
 
+        focus: true
+
         onLoaded: {
             var context = item.currentWebview.context
             onlineAccountsController.setupWebcontextForAccount(context)
@@ -206,6 +217,13 @@ BrowserWindow {
 
     Component.onCompleted: {
         i18n.domain = "webbrowser-app"
+        if (forceFullscreen) {
+            showFullScreen()
+        } else if (startMaximized) {
+            showMaximized()
+        } else {
+            show()
+        }
     }
 
     function showWebView() {
@@ -291,7 +309,7 @@ BrowserWindow {
         return uri
     }
 
-    onOpenUrls: {
+    function openUrls(urls) {
         // only consider the first one (if multiple)
         if (urls.length === 0 || !root.currentWebview) {
             return;

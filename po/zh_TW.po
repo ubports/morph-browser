@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
-"PO-Revision-Date: 2015-03-01 11:27+0000\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"PO-Revision-Date: 2016-09-13 10:16+0000\n"
+"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-06-03 06:15+0000\n"
-"X-Generator: Launchpad (build 18086)\n"
+"X-Launchpad-Export-Date: 2016-09-14 06:10+0000\n"
+"X-Generator: Launchpad (build 18186)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -132,6 +132,12 @@ msgstr "拒絕"
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
 msgstr "同意"
+
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr "位於 %1 的網站需要核對身分。網站的要求是「%2」"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -439,7 +445,7 @@ msgstr "在新分頁開啟影像"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "在預設瀏覽器開啟連結"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -546,8 +552,7 @@ msgstr "儲存"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "首頁"
@@ -885,7 +890,7 @@ msgstr "無法開啟帳號視窗。您一次只能建立一個帳號；請先關
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "身分核對失敗"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45

@@ -176,6 +176,28 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
         return new_tab_view
 
+    def open_new_window(self):
+        windows = self.app.get_windows(incognito=False)
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        new_window_action = chrome.get_drawer_action("newwindow")
+        self.pointing_device.click_object(new_window_action)
+        self.assertThat(lambda: len(self.app.get_windows(incognito=False)),
+                        Eventually(Equals(len(windows) + 1)))
+
+    def open_new_private_window(self):
+        windows = self.app.get_windows(incognito=True)
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        new_window_action = chrome.get_drawer_action("newprivatewindow")
+        self.pointing_device.click_object(new_window_action)
+        self.assertThat(lambda: len(self.app.get_windows(incognito=True)),
+                        Eventually(Equals(len(windows) + 1)))
+
     def open_settings(self):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()

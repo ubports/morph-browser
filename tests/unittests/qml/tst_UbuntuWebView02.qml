@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -45,9 +45,7 @@ Item {
         }
     }
 
-    readonly property string htmlWithHyperlink: '<html><body style="margin: 0"><a href="http://example.org/"><div style="height: 100%"></div></a></body></html>'
-
-    UbuntuTestCase {
+    WebbrowserTestCase {
         name: "UbuntuWebView02"
         when: windowShown
 
@@ -55,6 +53,8 @@ Item {
 
         function init() {
             webview = webviewComponent.createObject(root)
+            verify(webview != null)
+            verify(waitForRendering(webview))
         }
 
         function cleanup() {
@@ -67,11 +67,18 @@ Item {
             other.destroy()
         }
 
+        function loadHtmlWithHyperlink() {
+            var html = '<html><body style="margin: 0"><a href="http://example.org/">'
+            html += '<div style="height: 100%"></div></a></body></html>'
+            webview.loadHtml(html, "file:///")
+            // Ridiculously high timeout, but this appears to be needed when
+            // running the tests in CI (https://launchpad.net/bugs/1599630).
+            tryCompare(webview, "loading", false, 120000)
+        }
+
         function rightClickWebview() {
             var center = centerOf(webview)
             mouseClick(webview, center.x, center.y, Qt.RightButton)
-            // give the context menu a chance to appear before carrying on
-            wait(500)
         }
 
         function getContextMenu() {
@@ -79,25 +86,24 @@ Item {
         }
 
         function dismissContextMenu() {
+            verify(getContextMenu() != null)
             var center = centerOf(webview)
             mouseClick(webview, center.x, center.y)
-            wait(500)
-            compare(getContextMenu(), null)
+            verify(waitFor(function() { return getContextMenu() == null }))
         }
 
         function test_no_contextual_actions() {
-            webview.loadHtml(root.htmlWithHyperlink, "file:///")
-            tryCompare(webview, "loading", false)
+            loadHtmlWithHyperlink()
             rightClickWebview()
-            compare(getContextMenu(), null)
+            compare(waitFor(getContextMenu), null)
         }
 
         function test_contextual_actions() {
             webview.contextualActions = actionList
-            webview.loadHtml(root.htmlWithHyperlink, "file:///")
-            tryCompare(webview, "loading", false)
+            loadHtmlWithHyperlink()
             rightClickWebview()
-            compare(getContextMenu().actions, actionList)
+            verify(waitFor(getContextMenu) != null)
+            compare(getContextMenu().actions.children, actionList.children)
             compare(webview.contextualData.href, "http://example.org/")
             dismissContextMenu()
             compare(webview.contextualData.href, "")
@@ -107,10 +113,10 @@ Item {
             webview.contextualActions = actionList
             action1.enabled = false
             action2.enabled = false
-            webview.loadHtml(root.htmlWithHyperlink, "file:///")
-            tryCompare(webview, "loading", false)
+            loadHtmlWithHyperlink()
             rightClickWebview()
-            compare(getContextMenu(), null)
+            waitFor(getContextMenu)
+            verify(waitFor(function() { return getContextMenu() == null }))
             action1.enabled = true
             action2.enabled = true
         }

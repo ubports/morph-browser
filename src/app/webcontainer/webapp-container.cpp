@@ -41,6 +41,7 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml/QQmlProperty>
 #include <QtQml>
 #include <QtQuick/QQuickWindow>
 
@@ -88,7 +89,9 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_addressBarVisible(false),
     m_localWebappManifest(false),
     m_openExternalUrlInOverlay(false),
-    m_webappContainerHelper(new WebappContainerHelper())
+    m_webappContainerHelper(new WebappContainerHelper()),
+    m_fullscreen(false),
+    m_maximized(false)
 {
 }
 
@@ -104,9 +107,7 @@ QString WebappContainer::appId() const
 
 bool WebappContainer::initialize()
 {
-    earlyEnvironment();
-
-    if (qgetenv("APP_ID").isEmpty()) {
+    if (!helpRequested() && qgetenv("APP_ID").isEmpty()) {
         QString id = appId();
         if (id.isEmpty()) {
             qCritical() << "The application has been launched with no "
@@ -119,6 +120,8 @@ bool WebappContainer::initialize()
         }
         qputenv("APP_ID", id.toUtf8());
     }
+
+    earlyEnvironment();
 
     if (BrowserApplication::initialize(
                 "webcontainer/webapp-container.qml",
@@ -135,33 +138,33 @@ bool WebappContainer::initialize()
             QDir searchDir(m_webappModelSearchPath);
             searchDir.makeAbsolute();
             if (searchDir.exists()) {
-                m_window->setProperty("webappModelSearchPath", searchDir.path());
+                QQmlProperty::write(m_object, QStringLiteral("webappModelSearchPath"), searchDir.path());
             }
         }
         if ( ! m_localCookieStoreDbPath.isEmpty()) {
-            m_window->setProperty("localCookieStoreDbPath", m_localCookieStoreDbPath);
+            QQmlProperty::write(m_object, QStringLiteral("localCookieStoreDbPath"), m_localCookieStoreDbPath);
         }
 
-        m_window->setProperty("webappName", m_webappName);
+        QQmlProperty::write(m_object, QStringLiteral("webappName"), m_webappName);
         QFileInfo iconInfo(m_webappIcon);
         QUrl iconUrl;
         if (iconInfo.isReadable()) {
             iconUrl = QUrl::fromLocalFile(iconInfo.absoluteFilePath());
         }
-        m_window->setProperty("webappIcon", iconUrl);
-        m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
-        m_window->setProperty("chromeVisible", m_addressBarVisible);
-        m_window->setProperty("accountProvider", m_accountProvider);
-        m_window->setProperty("accountSwitcher", m_accountSwitcher);
-        m_window->setProperty("openExternalUrlInOverlay", m_openExternalUrlInOverlay);
-
-        m_window->setProperty("webappUrlPatterns", m_webappUrlPatterns);
+        QQmlProperty::write(m_object, QStringLiteral("webappIcon"), iconUrl);
+        QQmlProperty::write(m_object, QStringLiteral("backForwardButtonsVisible"), m_backForwardButtonsVisible);
+        QQmlProperty::write(m_object, QStringLiteral("chromeVisible"), m_addressBarVisible);
+        QQmlProperty::write(m_object, QStringLiteral("accountProvider"), m_accountProvider);
+        QQmlProperty::write(m_object, QStringLiteral("accountSwitcher"), m_accountSwitcher);
+        QQmlProperty::write(m_object, QStringLiteral("openExternalUrlInOverlay"), m_openExternalUrlInOverlay);
+        QQmlProperty::write(m_object, QStringLiteral("defaultVideoCaptureCameraPosition"), m_defaultVideoCaptureCameraPosition);
+        QQmlProperty::write(m_object, QStringLiteral("webappUrlPatterns"), m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
         if (m_storeSessionCookies) {
             QString sessionCookieMode = SessionUtils::firstRun(m_webappName) ?
                 QStringLiteral("persistent") : QStringLiteral("restored");
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
-            m_window->setProperty("webContextSessionCookieMode", sessionCookieMode);
+            QQmlProperty::write(m_object, QStringLiteral("webContextSessionCookieMode"), sessionCookieMode);
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
@@ -169,35 +172,36 @@ bool WebappContainer::initialize()
         if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
             const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
                 qgetenv("WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL");
-            m_window->setProperty(
-                        "popupRedirectionUrlPrefixPattern",
-                        WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
-                        ? m_popupRedirectionUrlPrefixPattern
-                        : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
-                              m_popupRedirectionUrlPrefixPattern, false));
+            QQmlProperty::write(
+                m_object, QStringLiteral("popupRedirectionUrlPrefixPattern"),
+                WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
+                    ? m_popupRedirectionUrlPrefixPattern
+                    : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                        m_popupRedirectionUrlPrefixPattern, false));
         }
 
         if (!m_userAgentOverride.isEmpty()) {
-            m_window->setProperty("localUserAgentOverride", m_userAgentOverride);
+            QQmlProperty::write(m_object, QStringLiteral("localUserAgentOverride"), m_userAgentOverride);
         }
 
         // Experimental, unsupported API, to override the webview
         QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
-            m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
+            QQmlProperty::write(m_object, QStringLiteral("webviewOverrideFile"),
+                                QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
         }
 
         const QString WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR =
             qgetenv("WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY");
         if (WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR == "1") {
-            m_window->setProperty("blockOpenExternalUrls", true);
+            QQmlProperty::write(m_object, QStringLiteral("blockOpenExternalUrls"), true);
         }
 
         bool runningLocalApp = false;
         QList<QUrl> urls = this->urls();
         if (!urls.isEmpty()) {
             QUrl homeUrl = urls.last();
-            m_window->setProperty("url", homeUrl);
+            QQmlProperty::write(m_object, QStringLiteral("url"), homeUrl);
             if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
                 qDebug() << "Started as a local application container.";
                 runningLocalApp = true;
@@ -212,7 +216,7 @@ bool WebappContainer::initialize()
         // webapp-properties.json file pulled from the webapp model element
         // or from a default local system install (if any).
 
-        m_window->setProperty("runningLocalApplication", runningLocalApp);
+        QQmlProperty::write(m_object, QStringLiteral("runningLocalApplication"), runningLocalApp);
 
         // Handle the invalid runtime conditions for the local apps
         if (runningLocalApp && !isValidLocalApplicationRunningContext()) {
@@ -225,8 +229,11 @@ bool WebappContainer::initialize()
 
         if (qEnvironmentVariableIsSet("WEBAPP_CONTAINER_BLOCKER_DISABLED")
                 && QString(qgetenv("WEBAPP_CONTAINER_BLOCKER_DISABLED")) == "1") {
-            m_window->setProperty("popupBlockerEnabled", false);
+            QQmlProperty::write(m_object, QStringLiteral("popupBlockerEnabled"), false);
         }
+
+        QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_fullscreen);
+        QQmlProperty::write(m_object, QStringLiteral("startMaximized"), m_maximized);
 
         m_component->completeCreate();
 
@@ -324,6 +331,15 @@ void WebappContainer::printUsage() const
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "  --open-external-url-in-overlay      if url patterns are defined, all external urls are opened in overlay instead of browser" << endl;
+
+    // The options should be kept in sync with:
+    // http://bazaar.launchpad.net/~oxide-developers/oxide/oxide.trunk/view/head:/qt/quick/api/oxideqquickglobal.cc#L43
+    out << "  --camera-capture-default=position   set a default for the camera capture device in W3C Media API, 'position' should be"
+                                                 " 'frontface', 'backface' or 'none'. If 'none' is selected the default"
+                                                 " selection mechanism applied in Oxide is used. If this command line option"
+                                                 " is not used, the default is set to 'frontface'. If the position is not found"
+                                                 " the behavior is the same as if the option was not set."<< endl;
+
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -381,6 +397,12 @@ void WebappContainer::parseCommandLine()
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
         } else if (argument == "--open-external-url-in-overlay") {
             m_openExternalUrlInOverlay = true;
+        } else if (argument.startsWith("--camera-capture-default=")) {
+            m_defaultVideoCaptureCameraPosition = argument.split("--camera-capture-default=")[1];
+        } else if (argument == QStringLiteral("--fullscreen")) {
+            m_fullscreen = true;
+        } else if (argument == QStringLiteral("--maximized")) {
+            m_maximized = true;
         }
     }
 }
@@ -468,6 +490,21 @@ QList<QUrl> WebappContainer::urls() const
         }
     }
     return urls;
+}
+
+void WebappContainer::onNewInstanceLaunched(const QStringList& arguments) const
+{
+    QVariantList urls;
+    Q_FOREACH(const QString& argument, arguments) {
+        if (!argument.startsWith(QStringLiteral("-"))) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    QMetaObject::invokeMethod(m_object, "openUrls", Q_ARG(QVariant, QVariant(urls)));
+    QMetaObject::invokeMethod(m_object, "requestActivate");
 }
 
 int main(int argc, char** argv)

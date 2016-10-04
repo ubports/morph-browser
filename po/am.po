@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
-"PO-Revision-Date: 2016-06-03 11:39+0000\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"PO-Revision-Date: 2016-09-02 14:02+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-06-09 06:22+0000\n"
-"X-Generator: Launchpad (build 18097)\n"
+"X-Launchpad-Export-Date: 2016-09-03 06:50+0000\n"
+"X-Generator: Launchpad (build 18179)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -134,6 +134,12 @@ msgstr "መከልከያ"
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
 msgstr "መፍቀጃ"
+
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr "ድህረ ገጹ በ %1 ማረጋገጫ ይፈላጋል: ድህረ ገጹ ይላል \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -555,8 +561,7 @@ msgstr "ማስቀመጫ"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "የ ቤት ገጽ"

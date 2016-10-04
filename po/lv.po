@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-06-02 19:24+0200\n"
+"POT-Creation-Date: 2016-08-27 15:13+0200\n"
 "PO-Revision-Date: 2015-11-22 19:13+0000\n"
 "Last-Translator: Rūdolfs Mazurs <Unknown>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-06-03 06:14+0000\n"
-"X-Generator: Launchpad (build 18086)\n"
+"X-Launchpad-Export-Date: 2016-08-28 06:39+0000\n"
+"X-Generator: Launchpad (build 18179)\n"
 "Language: lv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -49,7 +49,7 @@ msgstr "Lietotājvārds"
 msgid "Password"
 msgstr "Parole"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
@@ -71,7 +71,7 @@ msgstr "Apstiprināt navigāciju"
 msgid "Leave"
 msgstr "Pamest"
 
-#: src/app/BeforeUnloadDialog.qml:31
+#: src/app/BeforeUnloadDialog.qml:32
 msgid "Stay"
 msgstr "Palikt"
 
@@ -90,12 +90,12 @@ msgstr ""
 "nav uzticams."
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:160
+#: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
 msgstr "Tomēr turpināt"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:173
+#: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
 msgstr "Atpakaļ drošībā"
 
@@ -133,20 +133,26 @@ msgstr "Šī lapa vēlās zināt jūs ierīces atrašanas vietu."
 msgid "Deny"
 msgstr "Noraidīt"
 
-#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
 msgstr "Atļaut"
 
-#: src/app/InvalidCertificateErrorSheet.qml:55
+#. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
+#: src/app/HttpAuthenticationDialog.qml:27
+#, qt-format
+msgid "The website at %1 requires authentication. The website says \"%2\""
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
 msgstr "Šīs vietnes drošības sertifikāts nav uzticams.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:63
+#: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
 msgstr "Uzzināt vairāk"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:87
+#: src/app/InvalidCertificateErrorSheet.qml:88
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -156,7 +162,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:94
+#: src/app/InvalidCertificateErrorSheet.qml:95
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -166,7 +172,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:102
+#: src/app/InvalidCertificateErrorSheet.qml:103
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -176,7 +182,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:113
+#: src/app/InvalidCertificateErrorSheet.qml:114
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -186,7 +192,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:121
+#: src/app/InvalidCertificateErrorSheet.qml:122
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -196,7 +202,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:132
+#: src/app/InvalidCertificateErrorSheet.qml:133
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -206,7 +212,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:139
+#: src/app/InvalidCertificateErrorSheet.qml:140
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -216,7 +222,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:146
+#: src/app/InvalidCertificateErrorSheet.qml:147
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -225,7 +231,7 @@ msgstr ""
 "Ciparnospiedums (SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:153
+#: src/app/InvalidCertificateErrorSheet.qml:154
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -234,7 +240,7 @@ msgstr ""
 "paziņojumu neesat redzējuši."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:187
+#: src/app/InvalidCertificateErrorSheet.qml:188
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -244,7 +250,7 @@ msgstr ""
 "neatbilst šīs vietas identitātei."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:190
+#: src/app/InvalidCertificateErrorSheet.qml:191
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -254,7 +260,7 @@ msgstr ""
 "ir beidzies termiņš."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:193
+#: src/app/InvalidCertificateErrorSheet.qml:194
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -264,7 +270,7 @@ msgstr ""
 "satur nederīgus datumus."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:196
+#: src/app/InvalidCertificateErrorSheet.qml:197
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -274,7 +280,7 @@ msgstr ""
 "izsniedza neuzticams izdevējs."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:199
+#: src/app/InvalidCertificateErrorSheet.qml:200
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -284,7 +290,7 @@ msgstr ""
 "ir atsaukts."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:202
+#: src/app/InvalidCertificateErrorSheet.qml:203
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
@@ -294,7 +300,7 @@ msgstr ""
 "sertifikātu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:205
+#: src/app/InvalidCertificateErrorSheet.qml:206
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
@@ -304,7 +310,7 @@ msgstr ""
 "sertifikātu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
+#: src/app/InvalidCertificateErrorSheet.qml:209
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -413,7 +419,7 @@ msgstr "Izgriezt"
 msgid "Erase"
 msgstr "Dzēst"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:568
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
 msgid "Find in page"
 msgstr "Meklēt lapā"
 
@@ -443,7 +449,7 @@ msgstr "Iet uz"
 msgid "Address;URL;www"
 msgstr "Adrese;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:451
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
 #: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Jauna cilne"
@@ -509,7 +515,7 @@ msgstr "Saglabāt video"
 msgid "Select all"
 msgstr "Izvēlēties visu"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:548
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
 msgid "Share"
 msgstr "Dalīties"
 
@@ -518,16 +524,16 @@ msgid "Undo"
 msgstr "Atsaukt"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:244
+#: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
 msgstr "meklēt lapā"
 
-#: src/app/webbrowser/AddressBar.qml:245
+#: src/app/webbrowser/AddressBar.qml:249
 msgid "search or enter an address"
 msgstr "meklējiet vai ievadiet adresi"
 
@@ -567,66 +573,65 @@ msgstr "Saglabāt"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253
-#: src/app/webbrowser/SettingsPage.qml:85
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
 msgstr "Mājas lapa"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:556 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Grāmatzīmes"
 
-#: src/app/webbrowser/BookmarksView.qml:70
-#: src/app/webbrowser/BookmarksViewWide.qml:69
-#: src/app/webbrowser/Browser.qml:437 src/app/webbrowser/HistoryView.qml:128
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/BookmarksView.qml:76
+#: src/app/webbrowser/BookmarksViewWide.qml:75
+#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Pabeigts"
 
-#: src/app/webbrowser/BookmarksView.qml:84
-#: src/app/webbrowser/BookmarksViewWide.qml:83
-#: src/app/webbrowser/HistoryView.qml:142
-#: src/app/webbrowser/HistoryViewWide.qml:432
+#: src/app/webbrowser/BookmarksView.qml:90
+#: src/app/webbrowser/BookmarksViewWide.qml:89
+#: src/app/webbrowser/HistoryView.qml:140
+#: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Jauna cilne"
 
-#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Vēsture"
 
-#: src/app/webbrowser/Browser.qml:575 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Lejupielādes"
 
-#: src/app/webbrowser/Browser.qml:582
+#: src/app/webbrowser/Browser.qml:592
 msgid "Leave Private Mode"
 msgstr "Pamest privāto režīmu"
 
-#: src/app/webbrowser/Browser.qml:582
+#: src/app/webbrowser/Browser.qml:592
 msgid "Private Mode"
 msgstr "Privātais režīms"
 
-#: src/app/webbrowser/Browser.qml:600 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Iestatījumi"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:772 src/app/webbrowser/Browser.qml:810
+#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1366
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Velciet uz augšu, lai izietu no pilnekrāna"
 
-#: src/app/webbrowser/Browser.qml:1367
+#: src/app/webbrowser/Browser.qml:1378
 msgid "Press ESC To Exit Full Screen"
 msgstr "Spiediet ESC, lai izietu no pilnekrāna"
 
@@ -661,11 +666,11 @@ msgstr "Apstiprināt izvēli"
 msgid "Delete"
 msgstr "Dzēst"
 
-#: src/app/webbrowser/DownloadsPage.qml:259
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "Nav pieejamu lejupielāžu"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -673,7 +678,7 @@ msgstr[0] "%1 lapa"
 msgstr[1] "%1 lapas"
 msgstr[2] "%1 lapu"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
 msgstr "Mazāk"
@@ -696,7 +701,7 @@ msgid "All History"
 msgstr "Visa vēsture"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Šodien"
 
@@ -720,12 +725,12 @@ msgstr ""
 msgid "More"
 msgstr "Vairāk"
 
-#: src/app/webbrowser/NewTabView.qml:328
+#: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Labākās vietnes"
 
-#: src/app/webbrowser/NewTabView.qml:359
+#: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
 msgstr "Jūs vēl neesat apmeklējuši nevienu vietni"
 
@@ -867,19 +872,19 @@ msgstr "Uzsitiet, lai skatītu"
 msgid "Close Tab"
 msgstr "Aizvērt cilni"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:135
+#: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
 msgstr "Izņemt"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:69
+#: src/app/webcontainer/webapp-container.qml:70
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu tīmekļa pārlūks"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:71
+#: src/app/webcontainer/webapp-container.qml:72
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu tīmekļa pārlūks"
 
