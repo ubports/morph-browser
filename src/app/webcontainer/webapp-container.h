@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -44,7 +44,7 @@ protected:
     virtual QList<QUrl> urls() const;
 
 private:
-    virtual void printUsage() const;
+    void printUsage() const final;
     void earlyEnvironment();
     void parseCommandLine();
     void parseExtraConfiguration();
@@ -55,6 +55,9 @@ private:
     bool isValidLocalIntentFilterFile(const QString& filename) const;
     void setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath);
     QString appId() const;
+
+private Q_SLOTS:
+    void onNewInstanceLaunched(const QStringList& arguments) const final;
 
 private:
     QString m_webappName;
@@ -74,6 +77,8 @@ private:
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
     QScopedPointer<SchemeFilter> m_schemeFilter;
     QString m_defaultVideoCaptureCameraPosition;
+    bool m_fullscreen;
+    bool m_maximized;
 
     static const QString URL_PATTERN_SEPARATOR;
     static const QString LOCAL_SCHEME_FILTER_FILENAME;

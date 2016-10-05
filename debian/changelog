@@ -1,3 +1,24 @@
+webbrowser-app (0.23+16.10.20160928-0ubuntu1) yakkety; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Change use of ActionList.actions to ActionList.children and use
+    modelData in Repeaters (LP: #1624470)
+  * Clip the Loader containing NewTabView so that it doesn't overlap the
+    bottom edge hint (LP: #1568740)
+  * Modify calendar ua-override to allow anything before google.com
+    (allowing calendar.google.com)
+
+  [ Olivier Tilloy ]
+  * Add "Ctrl+=" and "Ctrl+_" as shortcuts for zoom in and zoom out
+    actions, (LP: #1624381)
+  * Strip out problematic apparmor rule that prevents camera detection
+    on desktop (LP: #1626611)
+
+  [ Andrew Hayzen, Olivier Tilloy ]
+  * Multiple window support in webbrowser-app.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 28 Sep 2016 08:25:12 +0000
+
 webbrowser-app (0.23+16.10.20160825-0ubuntu1) yakkety; urgency=medium
 
   [ Florian Boucault ]

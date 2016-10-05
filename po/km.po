@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:39+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -478,6 +478,14 @@ msgstr "បើកតំណក្នុងផ្ទាំងខាងក្រោ
 msgid "Open link in new tab"
 msgstr "បើក​តំណ​ក្នុង​ផ្ទាំង​ថ្មី"
 
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
+
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "បើកវីដេអូក្នុងផ្ទាំងថ្មី"
@@ -602,6 +610,14 @@ msgstr "ធ្វើរួច"
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -610,14 +626,6 @@ msgstr "ប្រវត្តិ"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "ការ​ទាញយក"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "បិទ​របៀប​ឯកជន"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "របៀប​ឯកជន"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -702,10 +710,6 @@ msgstr "ប្រវត្តិ​ទាំងអស់"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "ថ្ងៃនេះ"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "ការ​ទៅកាន់​របៀប​សាធារណៈ វា​នឹង​បិទ​ផ្ទាំង​ឯកជន​ទាំងអស់"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -976,6 +980,14 @@ msgstr "រកមើល​វើលវ៉ាយវិប"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Browser;Web;Explorer"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr ""
@@ -1017,3 +1029,12 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "អនុញ្ញាត​ឱ្យ​មាន​ការ​បើក​ផ្ទាំង​ថ្មី​ក្នុង​​ខាង​ក្រោយ"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "បិទ​របៀប​ឯកជន"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "ការ​ទៅកាន់​របៀប​សាធារណៈ វា​នឹង​បិទ​ផ្ទាំង​ឯកជន​ទាំងអស់"
+
+#~ msgid "Private Mode"
+#~ msgstr "របៀប​ឯកជន"
