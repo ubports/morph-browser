@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: 2014-09-20 11:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:40+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:15+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -323,7 +323,7 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "Permission"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
@@ -467,7 +467,7 @@ msgstr "Dobrir l'imatge dins un onglet novèl"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Dobrir lo ligam dins lo navigador per defaut"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -476,6 +476,14 @@ msgstr "Dobrir lo ligam dins un novèl onglet en rèireplan"
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Dobrir lo ligam dins un onglet novèl"
+
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -601,6 +609,14 @@ msgstr "Acabat"
 msgid "New tab"
 msgstr "Onglet novèl"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -609,14 +625,6 @@ msgstr "Istoric"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Telecargaments"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "Quitar lo mòde privat"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "Mòde privat"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -705,10 +713,6 @@ msgstr "Tot l'istoric"
 msgid "Today"
 msgstr "Uèi"
 
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "Bascular en mòde public tamparà totes los onglets privats"
-
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "Aquò es un onglet privat"
@@ -718,6 +722,9 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Las paginas que consultatz dins aqueste onglet apareisseràn pas dins "
+"l'istoric de vòstre navigador.\n"
+"Pasmens, los marcapaginas que crearetz seràn conservats."
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
@@ -730,23 +737,25 @@ msgstr "Sites populars"
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Avètz pas encara visitat cap de site"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Lo processus de rendut es estat tampat per aqueste onglet."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Quicòm a trucat al moment de l'afichatge de %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Lo sistèma es tròp juste en memòria e pòt pas afichar aquesta pagina Web. "
+"Ensajatz de tampar los onglets inutils e de recargar."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
@@ -845,11 +854,11 @@ msgstr "Escafar l'istoric de navigacion ?"
 
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
-msgstr "Voidar l'escondedor"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
-msgstr "Escafar l'escondedor ?"
+msgstr "Escafar lo cache ?"
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
@@ -892,6 +901,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Cap de compte es pas estat associat a aquesta aplicacion Web ; clicatz "
+"çaijós per apondre un compte."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -899,7 +910,7 @@ msgstr "Apondre un compte"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Utilizar pas de compte"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
@@ -917,7 +928,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "L'autentificacion a fracassat"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -950,7 +961,7 @@ msgstr "Causissètz un compte"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr "Ops, una error s'es producha."
+msgstr "Ops, una error s'es produita."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -967,6 +978,14 @@ msgstr "Navigar sul Web"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Navigador;Web;Explorador"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
 
 #~ msgid "Please choose a file"
 #~ msgstr "Causissètz un fichièr"
@@ -1006,6 +1025,15 @@ msgstr "Internet;WWW;Navigador;Web;Explorador"
 
 #~ msgid "Privacy"
 #~ msgstr "Vida privada"
+
+#~ msgid "Private Mode"
+#~ msgstr "Mòde privat"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "Quitar lo mòde privat"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "Bascular en mòde public tamparà totes los onglets privats"
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "Autorizar la dobertura d'onglets novèls en rèireplan"
