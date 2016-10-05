@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
-"PO-Revision-Date: 2016-06-03 11:39+0000\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"PO-Revision-Date: 2016-09-02 14:02+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:38+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:13+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -139,7 +139,7 @@ msgstr "መፍቀጃ"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "ድህረ ገጹ በ %1 ማረጋገጫ ይፈላጋል: ድህረ ገጹ ይላል \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -464,6 +464,14 @@ msgstr "አገናኙን በ አዲስ ንዑስ መስኮት መደብ ውስጥ
 msgid "Open link in new tab"
 msgstr "አገናኝ በ አዲስ ንዑስ መስኮት መክፈቻ"
 
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
+
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "ቪዲዮ መክፈቻ በ አዲስ ንዑስ መስኮት"
@@ -588,6 +596,14 @@ msgstr "ጨርሷል"
 msgid "New tab"
 msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -596,14 +612,6 @@ msgstr "ታሪክ"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "የወረዱ"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "ከ ግል ዘዴ መውጫ"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "የ ግል ዘዴ"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -689,10 +697,6 @@ msgstr "ሁሉንም ታሪክ"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "ዛሬ"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "ወደ ሕዝብ ዘዴ ሲቀይሩ የ ግል ዘዴ በሙሉ ይዘጋል"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -955,6 +959,14 @@ msgstr "ኢንተርኔት መቃኛ"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "ኢንተርኔት;WWW;መቃኛ;ዌብ;መቃኛ"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid "Please choose a file"
 #~ msgstr "እባክዎን ፋይል ይምረጡ"
 
@@ -994,3 +1006,12 @@ msgstr "ኢንተርኔት;WWW;መቃኛ;ዌብ;መቃኛ"
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "አዲስ ንዑስ መስኮት ከ መደቡ ጀርባ መክፈት ማስቻያ"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "ወደ ሕዝብ ዘዴ ሲቀይሩ የ ግል ዘዴ በሙሉ ይዘጋል"
+
+#~ msgid "Private Mode"
+#~ msgstr "የ ግል ዘዴ"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "ከ ግል ዘዴ መውጫ"

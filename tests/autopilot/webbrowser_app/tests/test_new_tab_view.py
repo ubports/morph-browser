@@ -95,55 +95,6 @@ class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
         self.assertThat(new_tab_view.visible, Equals(True))
 
 
-class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
-
-    def test_new_private_tab_view_destroyed_when_browsing(self):
-        self.main_window.enter_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.main_window.go_to_url(self.base_url + "/test2")
-        new_private_tab_view.wait_until_destroyed()
-
-    def test_new_private_tab_view_destroyed_when_leaving_private_mode(self):
-        self.main_window.enter_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.main_window.leave_private_mode()
-        new_private_tab_view.wait_until_destroyed()
-
-    def test_new_private_tab_view_is_shared_between_tabs(self):
-        self.main_window.enter_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.main_window.go_to_url(self.base_url + "/test2")
-        new_private_tab_view.wait_until_destroyed()
-        # Open one new private tab
-        new_private_tab_view = self.open_new_tab(open_tabs_view=True)
-        # Open a second new private tab
-        new_private_tab_view_2 = self.open_new_tab(open_tabs_view=True)
-        # Verify that they share the same NewPrivateTabView instance
-        self.assertThat(new_private_tab_view_2.id,
-                        Equals(new_private_tab_view.id))
-        # Close the second new private tab, and verify that the
-        # NewPrivateTabView instance is still there
-        if self.main_window.wide:
-            self.main_window.chrome.get_tabs_bar().close_tab(2)
-        else:
-            tabs_view = self.open_tabs_view()
-            tabs_view.get_previews()[0].close()
-            toolbar = self.main_window.get_recent_view_toolbar()
-            toolbar.click_button("doneButton")
-            tabs_view.visible.wait_for(False)
-        self.assertThat(new_private_tab_view.visible, Equals(True))
-        # Close the first new private tab, and verify that the
-        # NewPrivateTabView instance is destroyed
-        if self.main_window.wide:
-            self.main_window.chrome.get_tabs_bar().close_tab(1)
-        else:
-            tabs_view = self.open_tabs_view()
-            tabs_view.get_previews()[0].close()
-            toolbar = self.main_window.get_recent_view_toolbar()
-            toolbar.click_button("doneButton")
-        new_private_tab_view.wait_until_destroyed()
-
-
 class TestNewTabViewContentsBase(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):

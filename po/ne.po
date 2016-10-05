@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
-"PO-Revision-Date: 2016-02-23 06:50+0000\n"
-"Last-Translator: Sanjog Sigdel <sigdelsanjog@gmail.com>\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"PO-Revision-Date: 2016-10-03 01:39+0000\n"
+"Last-Translator: sarojdhakal <Unknown>\n"
 "Language-Team: Nepali <ne@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:39+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -142,6 +142,7 @@ msgstr "अनुमति दिनुहोस्"
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr ""
+"%1 मा रहेको वेबसाइटले प्रमाणीकरण चाहेको छ। वेबसाइटले  पठाएक सन्देश \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -323,7 +324,7 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "अनुमति"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
@@ -466,7 +467,7 @@ msgstr "तस्विर नयाँ ट्याबमा खोल्नु
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "पूर्व निर्धारित ब्राउजरमा लिङ्क खोल्नुहोस्"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -475,6 +476,14 @@ msgstr "लिङ्कलाई नयाँ पृष्ठभूमि ट्
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "लिङ्कलाई नयाँ ट्याबमा खोल्नुहोस्"
+
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -600,6 +609,14 @@ msgstr "सम्पन्न भयो"
 msgid "New tab"
 msgstr "नयाँ ट्याब"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -608,14 +625,6 @@ msgstr "इतिहास"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "डाउनलोडहरू"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "निजी मोड छोड्नुहोस्"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "निजी मोड"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -703,10 +712,6 @@ msgstr "सबै इतिहास"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "आज"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "सार्वजनिक मोडमा जाँदै सबै निजी ट्याबहरू बन्द हुनेछन्"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -918,7 +923,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "प्रमाणीकरण असफल भयो"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -972,8 +977,22 @@ msgstr "वर्ल्ड वाइड वेब ब्राउज गर्�
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "इन्टरनेट;WWW; ब्राउजर; वेब; एक्सप्लोरर"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid "Please choose a file"
 #~ msgstr "एक फाइल छान्नुहोस्"
+
+#~ msgid "Private Mode"
+#~ msgstr "निजी मोड"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "निजी मोड छोड्नुहोस्"
 
 #~ msgid "Open tabs"
 #~ msgstr "खुल्ला ट्याबहरू"
@@ -986,3 +1005,6 @@ msgstr "इन्टरनेट;WWW; ब्राउजर; वेब; एक�
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "पृष्ठभूमिमा नयाँ ट्याबहरू खोल्न अनुमति दिनुहोस्"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "सार्वजनिक मोडमा जाँदै सबै निजी ट्याबहरू बन्द हुनेछन्"

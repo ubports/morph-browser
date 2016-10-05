@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
-"PO-Revision-Date: 2016-05-16 13:23+0000\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"PO-Revision-Date: 2016-09-28 16:21+0000\n"
 "Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:38+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:13+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
+"Language: ast\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -75,7 +76,7 @@ msgstr "Quedase"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Esta conexón nun ye de confianza"
+msgstr "Nun hai enfotu nesta conexón"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -84,13 +85,13 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Tas intentando acceder en mou seguru a %1, pero'l certificáu d'esti sitiu "
-"web nun ye confiable."
+"Tas tentando l'accesu en mou seguru a %1, pero nun hai enfotu nel certificáu "
+"d'esti sitiu web."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
-msgstr "Continuar de toes formes"
+msgstr "Siguir de toles maneres"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:174
@@ -114,7 +115,7 @@ msgstr "Paez qu'hai problemes pa ver: %1"
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Comprueba los tos axustes de rede ya intenta refrescar la páxina, por favor."
+"Comprueba la configuración de la rede ya intenta refrescar la páxina."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -126,7 +127,7 @@ msgstr "Solicitú de permisu"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Esta páxina solicita l'allugamientu del preséu."
+msgstr "Esta páxina quier saber l'allugamientu del preséu."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -140,15 +141,15 @@ msgstr "Permitir"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "El sitiu web de %1 rique autenticación. El sitiu web diz que «%2»"
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
-msgstr "El certificáu de seguridá d'esti sitiu nun ye de confianza.\n"
+msgstr "Nun hai enfotu nel certificáu de seguridá d'esti sitiu.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
-msgstr "Deprendi más"
+msgstr "Saber más"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:88
@@ -235,8 +236,8 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Nun tendríes de siguir, n'especial si nun visti enxamás esti avisu pa esti "
-"sitiu."
+"Nun tendríes de siguir, especialmente si nun visti enxamás esti avisu pa "
+"esti sitiu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:188
@@ -245,7 +246,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "que nun concasa cola identidá del sitiu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
@@ -255,7 +256,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "que caducó."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
@@ -265,8 +266,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
-"que nun contién dates válides."
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"que nun contien dates válides."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:197
@@ -275,8 +276,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
-"emitíu por una entidá que nun ye de confianza."
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"emitíu por una entidá na que nun hai enfotu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:200
@@ -285,7 +286,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "que se revocó."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
@@ -295,7 +296,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "non válidu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
@@ -305,7 +306,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "que nun ye seguru."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
@@ -316,8 +317,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"El certificáu de seguridá d'esti sitiu nun ye de confianza\n"
-"Intentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
+"Nun hai enfotu nel certificáu de seguridá d'esti sitiu\n"
+"Tentasti acceder a %1, pero'l sirvidor presentó un certificáu de seguridá "
 "que nun pasó los controles por una razón desconocida."
 
 #: src/app/MediaAccessDialog.qml:31
@@ -326,15 +327,15 @@ msgstr "Permisu"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
-msgstr "¿Premití-y a esti dominiu acceder a la to cámara y micrófonu?"
+msgstr "¿Permití-y a esti dominiu acceder a la cámara y micrófonu?"
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
-msgstr "¿Premití-y a esti dominiu acceder a la to cámara?"
+msgstr "¿Permití-y a esti dominiu acceder a la cámara?"
 
 #: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
-msgstr "¿Premití-y a esti dominiu acceder al to micrófonu?"
+msgstr "¿Permití-y a esti dominiu acceder al micrófonu?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/MediaAccessDialog.qml:48
@@ -386,7 +387,7 @@ msgstr "Amestar esta páxina a marcadores"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Amestar a marcadores"
+msgstr "Enllaz de marcador"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -396,7 +397,7 @@ msgstr "Llimpiar historial"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Llimpiar l'históricu de navegación"
+msgstr "Llimpiar l'historial de navegación"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -474,6 +475,14 @@ msgstr "Abrir enllaz en llingüeta en 2ᵁ planu"
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Abrir enllaz en llingüeta nueva"
+
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -599,6 +608,14 @@ msgstr "Fecho"
 msgid "New tab"
 msgstr "Llingüeta nueva"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -607,14 +624,6 @@ msgstr "Historial"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Descargues"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "Dexar el mou priváu"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "Mou priváu"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -655,7 +664,7 @@ msgstr "Falló la descarga"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
-msgstr "Resumir"
+msgstr "Siguir"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
@@ -679,7 +688,7 @@ msgstr[1] "%1 páxines"
 #: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
-msgstr "Menor"
+msgstr "Menos"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
@@ -702,10 +711,6 @@ msgstr "Tol historial"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Güei"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "Dir al mou públicu zarrará toles llingüetes privaes"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -748,7 +753,7 @@ msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
-"El sistema ta en memoria baxa y nun pue amosar esta páxina web. Intenta "
+"El sistema ta escosu de memoria y nun puede amosar esta páxina web. Intenta "
 "zarrar llingüetes innecesaries y recarga."
 
 #: src/app/webbrowser/SadTab.qml:80
@@ -777,11 +782,12 @@ msgstr "El certificáu del sirvidor caducó."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "El certificáu del sirvidor contién feches non válides."
+msgstr "El certificáu del sirvidor contien feches non válides."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "El certificáu del sirvidor espublizóse por una entidá non confiable."
+msgstr ""
+"El certificáu del sirvidor ta emitíu por una entidá na que nun hai enfotu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
@@ -798,8 +804,8 @@ msgstr "El certificáu del sirvidor nun ye seguru."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
-"El certificáu del sirvidor nun cumple coles nueses comprobaciones de "
-"seguridá por un motivu desconocíu."
+"El certificáu del sirvidor nun pasa les comprobaciones de seguridá por un "
+"motivu desconocíu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -811,7 +817,7 @@ msgstr "Que ta dirixíu por"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr "Por Defeutu"
+msgstr "Predetermináu"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
@@ -834,7 +840,7 @@ msgstr "Reaniciar les preferencies del restolador"
 #: src/app/webbrowser/SettingsPage.qml:206
 #: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
-msgstr "Cáma y micrófonu"
+msgstr "Cámara y micrófonu"
 
 #: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
@@ -917,13 +923,13 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"Nun pudo abrise la ventana de cuentes. Namái pues crear una cuenta nun "
-"tiempu; inténtalo de nueves dempués de zarrar toles otres ventanes de "
+"Nun pudo abrise la ventana de cuentes. Namái pues crear una cuenta cada "
+"vegada; inténtalo de nueves dempués de zarrar toles otres ventanes de "
 "cuentes por favor."
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Falló l'autenticación"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -976,6 +982,14 @@ msgstr "Restolar na Rede Global (www)"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Restolador;Web;Esplorador"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr ""
@@ -1010,6 +1024,15 @@ msgstr "Internet;WWW;Restolador;Web;Esplorador"
 
 #~ msgid "Delete all history?"
 #~ msgstr "Quies desaniciar tol historial?"
+
+#~ msgid "Private Mode"
+#~ msgstr "Mou priváu"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "Dexar el mou priváu"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "Dir al mou públicu zarrará toles llingüetes privaes"
 
 #~ msgid "Privacy"
 #~ msgstr "Intimidá"

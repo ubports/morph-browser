@@ -29,6 +29,7 @@ Component {
     
     BrowserTab {
         anchors.fill: parent
+        incognito: browser.incognito
         current: tabsModel && tabsModel.currentTab === this
         focus: current
         
@@ -47,6 +48,7 @@ Component {
             filePicker: filePickerLoader.item
             
             anchors.fill: parent
+
             focus: true
             
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
@@ -65,12 +67,22 @@ Component {
                 Actions.OpenLinkInNewTab {
                     objectName: "OpenLinkInNewTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
-                    onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true)
                 }
                 Actions.OpenLinkInNewBackgroundTab {
                     objectName: "OpenLinkInNewBackgroundTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
-                    onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
+                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false)
+                }
+                Actions.OpenLinkInNewWindow {
+                    objectName: "OpenLinkInNewWindowContextualAction"
+                    enabled: contextModel && contextModel.linkUrl.toString()
+                    onTriggered: browser.openLinkInWindowRequested(contextModel.linkUrl, false)
+                }
+                Actions.OpenLinkInPrivateWindow {
+                    objectName: "OpenLinkInPrivateWindowContextualAction"
+                    enabled: contextModel && contextModel.linkUrl.toString()
+                    onTriggered: browser.openLinkInWindowRequested(contextModel.linkUrl, true)
                 }
                 Actions.BookmarkLink {
                     objectName: "BookmarkLinkContextualAction"
@@ -113,7 +125,7 @@ Component {
                     enabled: contextModel &&
                              (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                              contextModel.srcUrl.toString()
-                    onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
                 }
                 Actions.CopyImage {
                     objectName: "CopyImageContextualAction"
@@ -135,7 +147,7 @@ Component {
                     enabled: contextModel &&
                              (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
                              contextModel.srcUrl.toString()
-                    onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
                 }
                 Actions.SaveVideo {
                     objectName: "SaveVideoContextualAction"
@@ -223,7 +235,7 @@ Component {
             contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
             
             onNewViewRequested: {
-                var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
+                var tab = tabComponent.createObject(tabContainer, {"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(tab, setCurrent)
                 if (setCurrent) tabContainer.forceActiveFocus()
@@ -242,7 +254,7 @@ Component {
                         tab.close()
                     }
                     if (tabsModel.count === 0) {
-                        browser.openUrlInNewTab("", true, true)
+                        internal.openUrlInNewTab("", true, true)
                     }
                 }
             }

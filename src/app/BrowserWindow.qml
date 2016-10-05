@@ -28,8 +28,6 @@ Window {
     property var currentWebview: null
     property bool hasTouchScreen: false
 
-    signal openUrls(var urls)
-
     contentOrientation: Screen.orientation
 
     minimumWidth: units.gu(50)
@@ -57,16 +55,5 @@ Window {
                 window.visibility = internal.currentWindowState
             }
         }
-    }
-
-    // Handle runtime requests to open urls as defined
-    // by the freedesktop application dbus interface's open
-    // method for DBUS application activation:
-    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
-    // The dispatch on the org.freedesktop.Application if is done per appId at the
-    // url-dispatcher/upstart level.
-    Connections {
-        target: UriHandler
-        onOpened: window.openUrls(uris)
     }
 }

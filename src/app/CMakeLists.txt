@@ -26,7 +26,6 @@ set(COMMONLIB_SRC
     mime-database.cpp
     session-storage.cpp
     single-instance-manager.cpp
-    webbrowser-window.cpp
     qquickshortcut.cpp
 )
 

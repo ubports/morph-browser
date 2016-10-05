@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
-"PO-Revision-Date: 2016-04-18 07:21+0000\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"PO-Revision-Date: 2016-08-29 09:50+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:38+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -466,7 +466,7 @@ msgstr "Digeriñ ar skeudenn en un ivinell nevez"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Digeriñ al liamm er merdeer dre ziouer"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -475,6 +475,14 @@ msgstr "Digeriñ al liamm en un ivinell nevez en drekleur"
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Digeriñ al liamm en un ivinell nevez"
+
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -600,6 +608,14 @@ msgstr "Graet eo"
 msgid "New tab"
 msgstr "Ivinell nevez"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -608,14 +624,6 @@ msgstr "Istor"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Pellgargadennoù"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "Kuitaat ar mod prevez"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "Mod prevez"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -703,10 +711,6 @@ msgstr "An holl istor"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Hiziv"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "Ma'z it d'ar mod e vo serret an holl ivinelloù prevez"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -926,7 +930,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "C'hwitet eo an dilesadur"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -979,6 +983,14 @@ msgstr "Merdeiñ war ar Web"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr ""
@@ -1020,3 +1032,12 @@ msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "Aotren digeriñ ivinelloù nevez en drekleur"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "Ma'z it d'ar mod e vo serret an holl ivinelloù prevez"
+
+#~ msgid "Private Mode"
+#~ msgstr "Mod prevez"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "Kuitaat ar mod prevez"

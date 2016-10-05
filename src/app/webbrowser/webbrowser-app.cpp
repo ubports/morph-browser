@@ -39,6 +39,7 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QtGlobal>
 #include <QtCore/QVariant>
+#include <QtQml/QQmlProperty>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
@@ -84,15 +85,19 @@ bool WebbrowserApp::initialize()
 
         m_engine->rootContext()->setContextProperty("__platformName", platformName());
 
-        m_window->setProperty("newSession", m_arguments.contains("--new-session"));
+        m_component->completeCreate();
 
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
         }
-        m_window->setProperty("urls", urls);
+        bool newSession = m_arguments.contains(QStringLiteral("--new-session"));
+        bool incognito = m_arguments.contains(QStringLiteral("--incognito"));
+        QMetaObject::invokeMethod(m_object, "init",
+                                  Q_ARG(QVariant, QVariant(urls)),
+                                  Q_ARG(QVariant, newSession),
+                                  Q_ARG(QVariant, incognito));
 
-        m_component->completeCreate();
         return true;
     } else {
         return false;
@@ -103,15 +108,38 @@ void WebbrowserApp::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector]"
+    out << "Usage: " << command << " [-h|--help] [--inspector]"
                                 << " [--app-id=APP_ID] [--new-session] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help         display this help message and exit" << endl;
-    out << "  --fullscreen       display full screen" << endl;
-    out << "  --maximized        opens the application maximized" << endl;
     out << "  --inspector[=PORT] run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID    run the application with a specific APP_ID" << endl;
     out << "  --new-session      do not restore open tabs from the last session" << endl;
+    out << "  --new-window       open (the passed URLs in) a new browser window" << endl;
+    out << "  --incognito        open (the passed URLs in) an incognito window" << endl;
+}
+
+void WebbrowserApp::onNewInstanceLaunched(const QStringList& arguments) const
+{
+    bool newWindow = false;
+    bool incognito = false;
+    QVariantList urls;
+    Q_FOREACH(const QString& argument, arguments) {
+        if (argument == QStringLiteral("--new-window")) {
+            newWindow = true;
+        } else if (argument == QStringLiteral("--incognito")) {
+            incognito = true;
+        } else if (!argument.startsWith(QStringLiteral("-"))) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    QMetaObject::invokeMethod(m_object, "openUrls",
+                              Q_ARG(QVariant, QVariant(urls)),
+                              Q_ARG(QVariant, newWindow),
+                              Q_ARG(QVariant, incognito));
 }
 
 int main(int argc, char** argv)
