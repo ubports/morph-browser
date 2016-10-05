@@ -151,7 +151,7 @@ Item {
                 drag {
                     target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
                     axis: Drag.XAxis
-                    minimumX: unevenTabWidth ? (nonActiveTabWidth - minActiveTabWidth) / 2 : 0
+                    minimumX: 0
                     maximumX: root.width - tabDelegate.width
                     filterChildren: true
                 }
