@@ -6,7 +6,7 @@ confinement: strict
 
 apps:
   webbrowser-app:
-    command: desktop-launch launcher webbrowser-app
+    command: webbrowser-app.launcher
     plugs:
       - browser-sandbox
       - camera
@@ -45,6 +45,7 @@ parts:
       - fonts-liberation
       - liboxideqt-qmlplugin
       - libqt5sql5-sqlite
+      - mir-graphics-drivers-desktop
       - qml-module-qt-labs-folderlistmodel
       - qml-module-qt-labs-settings
       - qml-module-qtquick2
@@ -55,10 +56,11 @@ parts:
       - qtdeclarative5-ubuntu-content1
       - qtdeclarative5-ubuntu-download-manager0.1
       - qtdeclarative5-unity-action-plugin
+      - qtubuntu-desktop
     after: [desktop-qt5]
 
   launcher:
     plugin: dump
     source: snap
     organize:
-      launcher: bin/launcher
+      webbrowser-app.launcher: bin/webbrowser-app.launcher

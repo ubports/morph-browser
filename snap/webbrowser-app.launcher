@@ -7,4 +7,4 @@ export OXIDE_NO_SANDBOX=1
 # Explicitly set APP_ID.
 export APP_ID=webbrowser-app
 
-exec $@
+exec "$SNAP/bin/desktop-launch" "webbrowser-app" --desktop_file_hint=unity8 "$@"
