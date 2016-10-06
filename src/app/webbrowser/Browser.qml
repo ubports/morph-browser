@@ -1290,6 +1290,16 @@ BrowserView {
                         webviewInternal.storedUrl = event.url
                         HistoryModel.add(event.url, title, icon)
                     }
+
+                    // If the page has stopped, redirected or errored
+                    // then clear the cache for the history update
+                    // Otherwise if no title change has occurred the next title
+                    // change will be the url of the next page causing the
+                    // history entry to be incorrect (pad.lv/1603835)
+                    if (event.type == Oxide.LoadEvent.TypeStopped || event.type == Oxide.LoadEvent.TypeRedirected || event.type == Oxide.LoadEvent.TypeError) {
+                        webviewInternal.titleSet = true
+                        webviewInternal.storedUrl = ""
+                    }
                 }
                 onTitleChanged: {
                     if (!webviewInternal.titleSet && webviewInternal.storedUrl.toString()) {
