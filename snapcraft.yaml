@@ -45,6 +45,7 @@ parts:
       - fonts-liberation
       - liboxideqt-qmlplugin
       - libqt5sql5-sqlite
+      - locales-all
       - mir-graphics-drivers-desktop
       - qml-module-qt-labs-folderlistmodel
       - qml-module-qt-labs-settings

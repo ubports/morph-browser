@@ -7,4 +7,7 @@ export OXIDE_NO_SANDBOX=1
 # Explicitly set APP_ID.
 export APP_ID=webbrowser-app
 
+# Ensure the app finds locale definitions
+export LOCPATH=$SNAP/usr/lib/locale
+
 exec "$SNAP/bin/desktop-launch" "webbrowser-app" --desktop_file_hint=unity8 "$@"
