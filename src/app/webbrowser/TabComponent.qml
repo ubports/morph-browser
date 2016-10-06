@@ -26,7 +26,8 @@ import ".."
 
 // FIXME: This component breaks encapsulation: it uses variables not defined in
 // itself. However this is an acceptable tradeoff with regards to
-// startup time performance
+// startup time performance. Indeed having this component defined as a separate
+// QML file as opposed to inline makes it possible to cache its compiled form.
 
 Component {
     id: tabComponent
