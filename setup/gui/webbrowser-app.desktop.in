@@ -6,7 +6,7 @@ _Comment=Browse the World Wide Web
 _Keywords=Internet;WWW;Browser;Web;Explorer
 Type=Application
 Icon=${SNAP}/meta/gui/icon.png
-Exec=webbrowser-app.webbrowser-app %u
+Exec=webbrowser-app %u
 Terminal=false
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
@@ -20,8 +20,8 @@ Actions=NewWindow;Incognito;
 
 [Desktop Action NewWindow]
 _Name=Open a New Window
-Exec=webbrowser-app.webbrowser-app --new-window
+Exec=webbrowser-app --new-window
 
 [Desktop Action Incognito]
 _Name=Open a New Private Window
-Exec=webbrowser-app.webbrowser-app --incognito
+Exec=webbrowser-app --incognito
