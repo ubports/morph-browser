@@ -24,6 +24,10 @@ import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
 
+// FIXME: This component breaks encapsulation: it uses variables not defined in
+// itself. However this is an acceptable tradeoff with regards to
+// startup time performance
+
 Component {
     id: tabComponent
 
