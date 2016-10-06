@@ -25,7 +25,7 @@ ListItem {
 
     property var downloadManager
 
-    property alias icon: mimeicon.name
+    property string icon
     property alias image: thumbimage.source
     property alias title: title.text
     property alias url: url.text
@@ -33,7 +33,7 @@ ListItem {
     property bool incomplete: false
     property string downloadId
     property var download
-    property int progress: download ? download.progress : 0
+    readonly property int progress: download ? download.progress : 0
     property bool paused
     property alias incognito: incognitoIcon.visible
 
@@ -42,7 +42,7 @@ ListItem {
     signal removed()
     signal cancelled()
 
-    height: visible ? (incomplete ? (paused ? units.gu(13) : units.gu(10)) : units.gu(7)) : 0
+    height: visible ? layout.height : 0
 
     QtObject {
         id: internal
@@ -61,161 +61,149 @@ ListItem {
     Component.onCompleted: internal.connectToDownloadObject()
     onDownloadManagerChanged: internal.connectToDownloadObject()
 
-    Item {
-        
-        anchors {
-            verticalCenter: parent.verticalCenter
-            left: parent.left
-            leftMargin: units.gu(2)
-            right: parent.right
-            rightMargin: units.gu(2)
-        }
+    SlotsLayout {
+        id: layout
 
         Item {
-            id: iconContainer
+            SlotsLayout.position: SlotsLayout.Leading
             width: units.gu(3)
-            height: width
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset: downloadDelegate.incomplete ? -units.gu(1) : 0
+            height: units.gu(3)
 
             Image {
                 id: thumbimage
                 asynchronous: true
-                width: parent.width
-                height: parent.height
+                anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
+                sourceSize.width: width
+                sourceSize.height: height
             }
 
             Image {
-                id: mimeicon
                 asynchronous: true
                 anchors.fill: parent
                 anchors.margins: units.gu(0.2)
-                source: "image://theme/%1".arg(name != "" ? name : "save")
+                source: "image://theme/%1".arg(downloadDelegate.icon || "save")
                 visible: thumbimage.status !== Image.Ready
                 cache: true
-                property string name
             }
         }
 
-        Item {
-            anchors.top: iconContainer.top
-            anchors.left: iconContainer.right
-            anchors.leftMargin: units.gu(2)
-            anchors.right: parent.right
-
-            Column {
-                id: detailsColumn
-                width: parent.width - cancelColumn.width
-                height: parent.height
-
-                Label {
-                    id: title
-                    fontSize: "x-small"
-                    color: "#5d5d5d"
-                    elide: Text.ElideRight
-                    width: parent.width
-                }
-
-                Label {
-                    id: url
-                    fontSize: "x-small"
-                    color: "#5d5d5d"
-                    elide: Text.ElideRight
-                    width: parent.width
-                }
-
-                Item {
-                    height: error.visible ? units.gu(1) : units.gu(2)
-                    width: parent.width
-                    visible: downloadDelegate.incomplete
-                }
-
-                Item {
-                    id: error
-                    visible: incomplete && download === undefined || errorMessage !== ""
-                    height: units.gu(3)
-                    width: parent.width
-
-                    Icon {
-                        id: errorIcon
-                        width: units.gu(2)
-                        height: width
-                        anchors.verticalCenter: parent.verticalCenter
-                        name: "dialog-warning-symbolic"
-                        color: theme.palette.normal.negative
-                    }
-
-                    Label {
-                        width: parent.width - errorIcon.width
-                        anchors.left: errorIcon.right
-                        anchors.leftMargin: units.gu(1)
-                        anchors.verticalCenter: errorIcon.verticalCenter
-                        fontSize: "x-small"
-                        color: theme.palette.normal.negative
-                        text: errorMessage !== "" ? errorMessage 
-                                                  : (incomplete && download === undefined) ? i18n.tr("Download failed") 
-                                                                                           : ""
-                        elide: Text.ElideRight
-                    }
-                }
-
-                IndeterminateProgressBar {
-                    id: progressBar
-                    width: parent.width
-                    height: units.gu(0.5)
-                    visible: downloadDelegate.incomplete && !error.visible
-                    progress: downloadDelegate.progress
-                    // Work around UDM bug #1450144
-                    indeterminateProgress: downloadDelegate.progress < 0 || downloadDelegate.progress > 100
+        mainSlot: Column {
+            Label {
+                id: title
+                fontSize: "x-small"
+                color: "#5d5d5d"
+                elide: Text.ElideRight
+                anchors {
+                    left: parent.left
+                    right: parent.right
                 }
             }
 
-            Column {
-                id: cancelColumn
-                spacing: units.gu(1)
-                anchors.top: detailsColumn.top
-                anchors.left: detailsColumn.right
-                anchors.leftMargin: units.gu(2)
-                width: downloadDelegate.incomplete && !error.visible ? cancelButton.width + units.gu(2) : 0
+            Label {
+                id: url
+                fontSize: "x-small"
+                color: "#5d5d5d"
+                elide: Text.ElideRight
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+            }
 
-                Button {
-                    visible: downloadDelegate.incomplete && !error.visible
-                    id: cancelButton
-                    text: i18n.tr("Cancel")
-                    onClicked: {
-                        if (download) {
-                            download.cancel()
-                            cancelled()
-                        }
-                    }
+            Item {
+                height: error.visible ? units.gu(1) : units.gu(2)
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                visible: incomplete
+            }
+
+            Item {
+                id: error
+                visible: (incomplete && (download === undefined)) || errorMessage
+                height: units.gu(3)
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                Icon {
+                    id: errorIcon
+                    width: units.gu(2)
+                    height: units.gu(2)
+                    anchors.verticalCenter: parent.verticalCenter
+                    name: "dialog-warning-symbolic"
+                    color: theme.palette.normal.negative
                 }
 
                 Label {
-                    visible: !progressBar.indeterminateProgress && downloadDelegate.incomplete
-                                                                && !error.visible 
-                                                                && !downloadDelegate.paused
-                    width: cancelButton.width
-                    horizontalAlignment: Text.AlignHCenter
+                    anchors {
+                        left: errorIcon.right
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        verticalCenter: parent.verticalCenter
+                    }
                     fontSize: "x-small"
-                    text: progressBar.progress + "%"
+                    color: theme.palette.normal.negative
+                    text: errorMessage ||
+                          ((incomplete && download === undefined) ? i18n.tr("Download failed") : "")
+                    elide: Text.ElideRight
                 }
+            }
 
-                Button {
-                    visible: downloadDelegate.paused
-                    text: i18n.tr("Resume")
-                    width: cancelButton.width
-                    onClicked: {
-                        if (download) {
-                            download.resume()
-                        }
+            IndeterminateProgressBar {
+                id: progressBar
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                height: units.gu(0.5)
+                visible: incomplete && !error.visible
+                progress: downloadDelegate.progress
+                // Work around UDM bug #1450144
+                indeterminateProgress: progress < 0 || progress > 100
+            }
+        }
+
+        Column {
+            SlotsLayout.position: SlotsLayout.Trailing
+            spacing: units.gu(1)
+            width: (incomplete && !error.visible) ? cancelButton.width : 0
+
+            Button {
+                id: cancelButton
+                visible: incomplete && !error.visible
+                text: i18n.tr("Cancel")
+                onClicked: {
+                    if (download) {
+                        download.cancel()
+                        cancelled()
                     }
                 }
             }
 
+            Label {
+                visible: !progressBar.indeterminateProgress && incomplete
+                            && !error.visible && !paused
+                width: cancelButton.width
+                horizontalAlignment: Text.AlignHCenter
+                fontSize: "x-small"
+                // TRANSLATORS: %1 is the percentage of the download completed so far
+                text: i18n.tr("%1%").arg(progressBar.progress)
+            }
+
+            Button {
+                visible: paused
+                text: i18n.tr("Resume")
+                width: cancelButton.width
+                onClicked: {
+                    if (download) {
+                        download.resume()
+                    }
+                }
+            }
         }
     }
 
@@ -233,7 +221,7 @@ ListItem {
         name: "private-browsing"
     }
 
-    leadingActions: error.visible || !downloadDelegate.incomplete ? deleteActionList : null
+    leadingActions: error.visible || !incomplete ? deleteActionList : null
 
     ListItemActions {
         id: deleteActionList
@@ -241,9 +229,8 @@ ListItem {
             Action {
                 objectName: "leadingAction.delete"
                 iconName: "delete"
-                enabled: error.visible || !downloadDelegate.incomplete
-                onTriggered: error.visible ? downloadDelegate.cancelled() 
-                                           : downloadDelegate.removed()
+                enabled: error.visible || !incomplete
+                onTriggered: error.visible ? cancelled() : removed()
             }
         ]
     }
