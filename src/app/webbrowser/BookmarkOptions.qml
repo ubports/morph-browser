@@ -26,9 +26,8 @@ Popover {
 
     property url bookmarkUrl
     property alias bookmarkTitle: titleTextField.text
-    property alias folderModel: folderOptionSelector.model
 
-    readonly property string bookmarkFolder: folderModel.get(folderOptionSelector.selectedIndex).folder
+    readonly property string bookmarkFolder: folderOptionSelector.model.get(folderOptionSelector.selectedIndex).folder
 
     contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(2)
 
@@ -142,8 +141,8 @@ Popover {
 
             function createNewFolder(folder) {
                 Qt.inputMethod.hide()
-                folderModel.createNewFolder(folder)
-                folderOptionSelector.selectedIndex = folderModel.indexOf(folder) 
+                folderOptionSelector.model.createNewFolder(folder)
+                folderOptionSelector.selectedIndex = folderOptionSelector.model.indexOf(folder)
                 folderOptionSelector.currentlyExpanded = false
                 PopupUtils.close(dialogue)
             }
