@@ -26,42 +26,42 @@ import ".."
 
 Component {
     id: tabComponent
-    
+
     BrowserTab {
         anchors.fill: parent
         incognito: browser.incognito
         current: tabsModel && tabsModel.currentTab === this
         focus: current
-        
+
         Item {
             id: contextualMenuTarget
             visible: false
         }
-        
+
         webviewComponent: WebViewImpl {
             id: webviewimpl
-            
+
             property BrowserTab tab
             readonly property bool current: tab.current
-            
+
             currentWebview: browser.currentWebview
             filePicker: filePickerLoader.item
-            
+
             anchors.fill: parent
 
             focus: true
-            
+
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
-            
+
             locationBarController {
                 height: chrome.height
                 mode: chromeController.defaultMode
             }
-            
+
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
             preferences.localStorageEnabled: true
             preferences.appCacheEnabled: true
-            
+
             property QtObject contextModel: null
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
@@ -200,7 +200,7 @@ Component {
                     onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
                 }
             }
-            
+
             function contextMenuOnCompleted(menu) {
                 contextModel = menu.contextModel
                 if (contextModel.linkUrl.toString() ||
@@ -215,7 +215,7 @@ Component {
                     contextModel.close()
                 }
             }
-            
+
             Component {
                 id: contextMenuNarrowComponent
                 ContextMenuMobile {
@@ -233,14 +233,14 @@ Component {
                 }
             }
             contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
-            
+
             onNewViewRequested: {
                 var tab = tabComponent.createObject(tabContainer, {"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(tab, setCurrent)
                 if (setCurrent) tabContainer.forceActiveFocus()
             }
-            
+
             onCloseRequested: prepareToClose()
             onPrepareToCloseResponse: {
                 if (proceed) {
@@ -258,7 +258,7 @@ Component {
                     }
                 }
             }
-            
+
             QtObject {
                 id: webviewInternal
                 property url storedUrl: ""
@@ -271,11 +271,11 @@ Component {
                     webviewInternal.titleSet = false
                     webviewInternal.title = title
                 }
-                
+
                 if (webviewimpl.incognito) {
                     return
                 }
-                
+
                 if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
                         !event.isError &&
                         (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
@@ -300,9 +300,9 @@ Component {
                     HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, icon)
                 }
             }
-            
+
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
-            
+
             property var certificateError
             function resetCertificateError() {
                 certificateError = null
@@ -320,7 +320,7 @@ Component {
                     error.onCancelled.connect(webviewimpl.resetCertificateError)
                 }
             }
-            
+
             onFullscreenChanged: {
                 if (fullscreen) {
                     fullscreenExitHintComponent.createObject(webviewimpl)
@@ -328,18 +328,18 @@ Component {
             }
             Component {
                 id: fullscreenExitHintComponent
-                
+
                 Rectangle {
                     id: fullscreenExitHint
                     objectName: "fullscreenExitHint"
-                    
+
                     anchors.centerIn: parent
                     height: units.gu(6)
                     width: Math.min(units.gu(50), parent.width - units.gu(12))
                     radius: units.gu(1)
                     color: "#3e3b39"
                     opacity: 0.85
-                    
+
                     Behavior on opacity {
                         UbuntuNumberAnimation {
                             duration: UbuntuAnimation.SlowDuration
@@ -350,7 +350,7 @@ Component {
                             fullscreenExitHint.destroy()
                         }
                     }
-                    
+
                     // Delay showing the hint to prevent it from jumping up while the
                     // webview is being resized (https://launchpad.net/bugs/1454097).
                     visible: false
@@ -359,7 +359,7 @@ Component {
                         interval: 250
                         onTriggered: fullscreenExitHint.visible = true
                     }
-                    
+
                     Label {
                         color: "white"
                         font.weight: Font.Light
@@ -368,13 +368,13 @@ Component {
                               ? i18n.tr("Swipe Up To Exit Full Screen")
                               : i18n.tr("Press ESC To Exit Full Screen")
                     }
-                    
+
                     Timer {
                         running: fullscreenExitHint.visible
                         interval: 2000
                         onTriggered: fullscreenExitHint.opacity = 0
                     }
-                    
+
                     Connections {
                         target: webviewimpl
                         onFullscreenChanged: {
@@ -383,12 +383,12 @@ Component {
                             }
                         }
                     }
-                    
+
                     Component.onCompleted: bottomEdgeHint.forceShow = true
                     Component.onDestruction: bottomEdgeHint.forceShow = false
                 }
             }
-            
+
             onShowDownloadDialog: {
                 if (downloadDialogLoader.status === Loader.Ready) {
                     var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
@@ -399,18 +399,18 @@ Component {
                     downloadDialog.startDownload.connect(startDownload)
                 }
             }
-            
+
             function showDownloadsPage() {
                 downloadsViewLoader.active = true
                 return downloadsViewLoader.item
             }
-            
+
             function startDownload(downloadId, download, mimeType) {
                 DownloadsModel.add(downloadId, download.url, mimeType)
                 download.start()
                 downloadsViewLoader.active = true
             }
-            
+
         }
     }
 }
