@@ -252,6 +252,20 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '50%; transform: translate(-50%, -50%); font-size: 500%">'
             html += 'Supercalifragilisticexpialidocious</div></body></html>'
             self.send_html(html)
+        elif self.path == "/redirect-no-title-header":
+            self.send_response(301)
+            self.send_header("Location", "/redirect-destination")
+            self.end_headers()
+        elif self.path == "/redirect-no-title-js":
+            self.send_response(200)
+            html = '<html><body><script type="text/javascript">'
+            html += 'window.location.href = "/redirect-destination"'
+            html += '</script></body></html>'
+            self.send_html(html)
+        elif self.path == "/redirect-destination":
+            self.send_response(200)
+            html = '<html><body><p>redirect-destination</p></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 

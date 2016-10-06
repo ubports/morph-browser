@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-06 12:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -380,7 +380,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:577
 msgid "Find in page"
 msgstr ""
 
@@ -476,7 +476,7 @@ msgstr ""
 msgid "Select all"
 msgstr ""
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:557
 msgid "Share"
 msgstr ""
 
@@ -541,7 +541,7 @@ msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:565 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr ""
@@ -561,38 +561,38 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:571 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:584 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:592
+#: src/app/webbrowser/Browser.qml:591
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:592
+#: src/app/webbrowser/Browser.qml:591
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:609 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
+#: src/app/webbrowser/Browser.qml:782 src/app/webbrowser/Browser.qml:820
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1377
+#: src/app/webbrowser/Browser.qml:1384
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1378
+#: src/app/webbrowser/Browser.qml:1385
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
