@@ -264,7 +264,6 @@ BrowserView {
                         newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
                     }
                 }
-                onIncognitoChanged: newTabViewLoader.selectTabView()
                 onWideChanged: newTabViewLoader.selectTabView()
             }
             Component.onCompleted: newTabViewLoader.selectTabView()
