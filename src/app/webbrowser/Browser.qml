@@ -895,18 +895,13 @@ BrowserView {
         anchors.fill: parent
         active: false
         asynchronous: true
-        source: "DownloadsPage.qml"
+        Component.onCompleted: {
+            downloadsViewLoader.setSource("DownloadsPage.qml", {
+                                  "downloadManager": Qt.binding(function () {return downloadHandlerLoader.item}),
+                                  "focus": true
+            })
+        }
 
-        Binding {
-            target: downloadsViewLoader.item
-            property: "downloadManager"
-            value: downloadHandlerLoader.item
-        }
-        Binding {
-            target: downloadsViewLoader.item
-            property: "focus"
-            value: true
-        }
         Connections {
             target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
