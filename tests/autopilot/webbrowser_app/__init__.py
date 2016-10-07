@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2015 Canonical
+# Copyright 2013-2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -39,3 +39,6 @@ class Webbrowser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @property
     def main_window(self):
         return self.select_single(browser.Browser)
+
+    def get_windows(self, **kwargs):
+        return self.select_many(browser.Browser, **kwargs)

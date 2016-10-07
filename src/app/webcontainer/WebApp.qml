@@ -33,6 +33,8 @@ BrowserView {
 
     currentWebview: containerWebView.currentWebview
 
+    property alias window: containerWebView.window
+
     property alias url: containerWebView.url
 
     property bool accountSwitcher

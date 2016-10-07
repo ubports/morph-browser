@@ -88,9 +88,9 @@ Popups.Dialog {
     }
 
     Repeater {
-        model: actions.actions
+        model: actions.children
         delegate: ListItems.Empty {
-            action: actions.actions[index]
+            action: modelData
             objectName: action.objectName + "_item"
             visible: action.enabled
             showDivider: false

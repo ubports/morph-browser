@@ -54,6 +54,19 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
         self.assertThat(webview.url,
                         Eventually(StartsWith(self.data_uri_prefix)))
 
+    def verify_link_opened_in_a_new_window(self, incognito):
+        self.assertThat(lambda: len(self.app.get_windows(incognito=incognito)),
+                        Eventually(Equals(1 if incognito else 2)))
+        windows = self.app.get_windows()
+        urls = [window.get_current_webview().url for window in windows]
+        self.assertThat(sorted(urls),
+                        Equals(sorted([self.base_url + "/test1", self.url])))
+        if incognito:
+            windows = self.app.get_windows(incognito=True)
+            self.assertThat(len(windows), Equals(1))
+            self.assertThat(windows[0].get_current_webview().url,
+                            Equals(self.base_url + "/test1"))
+
 
 class TestContextMenuLink(TestContextMenuBase):
 
@@ -65,6 +78,14 @@ class TestContextMenuLink(TestContextMenuBase):
     def test_open_link_in_new_tab(self):
         self.menu.click_action("OpenLinkInNewTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
+
+    def test_open_link_in_new_window(self):
+        self.menu.click_action("OpenLinkInNewWindowContextualAction")
+        self.verify_link_opened_in_a_new_window(False)
+
+    def test_open_link_in_private_window(self):
+        self.menu.click_action("OpenLinkInPrivateWindowContextualAction")
+        self.verify_link_opened_in_a_new_window(True)
 
     def test_bookmark_link(self):
         self.menu.click_action("BookmarkLinkContextualAction")
@@ -110,6 +131,14 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
     def test_open_link_in_new_tab(self):
         self.menu.click_action("OpenLinkInNewTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
+
+    def test_open_link_in_new_window(self):
+        self.menu.click_action("OpenLinkInNewWindowContextualAction")
+        self.verify_link_opened_in_a_new_window(False)
+
+    def test_open_link_in_private_window(self):
+        self.menu.click_action("OpenLinkInPrivateWindowContextualAction")
+        self.verify_link_opened_in_a_new_window(True)
 
     def test_bookmark_link(self):
         self.menu.click_action("BookmarkLinkContextualAction")

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: 2016-05-04 23:50+0000\n"
 "Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:40+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:15+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -141,6 +141,7 @@ msgstr "Permitir"
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr ""
+"El sitio web en %1 requiere autentificación. El sitio web dice \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -475,6 +476,14 @@ msgstr "Abrir enlace en una pestaña en segundo plano"
 msgid "Open link in new tab"
 msgstr "Abrir enlace en pestaña nueva"
 
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr "Abrir enlace en ventana nueva"
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr "Abrir enlace en ventana privada"
+
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "Abrir vídeo en pestaña nueva"
@@ -599,6 +608,14 @@ msgstr "Hecho"
 msgid "New tab"
 msgstr "Pestaña nueva"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr "Nueva ventana"
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr "Nueva ventana privada"
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -607,14 +624,6 @@ msgstr "Historial"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Descargas"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "Cerrar modo privado"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "Modo privado"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -702,10 +711,6 @@ msgstr "Todo el historial"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "Hoy"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "Al volver al modo público se cerrarán todas las pestañas privadas"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -974,6 +979,14 @@ msgstr "Navegue por la World Wide Web"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Navegador;Web;Explorador"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr "Abrir una ventana nueva"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr "Abrir una ventana privada nueva"
+
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr ""
@@ -1012,5 +1025,14 @@ msgstr "Internet;WWW;Navegador;Web;Explorador"
 #~ msgid "Privacy"
 #~ msgstr "Privacidad"
 
+#~ msgid "Private Mode"
+#~ msgstr "Modo privado"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "Al volver al modo público se cerrarán todas las pestañas privadas"
+
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "Permitir abrir pestañas en segundo plano"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "Cerrar modo privado"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: 2015-06-17 14:25+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:40+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:15+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -474,6 +474,14 @@ msgstr "ਨਵੀਂ ਬੈਕਗਰਾਂਉਡ ਟੈਬ ਵਿੱਚ ਲਿ�
 msgid "Open link in new tab"
 msgstr "ਲਿੰਕ ਨਵੀਂ ਟੈਬ ਵਿੱਚ ਖੋਲ੍ਹੋ"
 
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
+
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr ""
@@ -598,6 +606,14 @@ msgstr "ਮੁਕੰਮਲ"
 msgid "New tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -606,14 +622,6 @@ msgstr "ਅਤੀਤ"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr ""
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "ਨਿੱਜੀ ਮੋਡ ਤੋਂ ਵਿਦਾ ਲਓ"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "ਨਿੱਜੀ ਮੋਡ"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -699,10 +707,6 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "ਜਨਤਕ ਮੋਡ ਵਿੱਚ ਜਾਣਾ ਸਾਰੇ ਨਿੱਜੀ ਟੈਬ ਬੰਦ ਕਰ ਦੇਵੇਗਾ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -963,6 +967,14 @@ msgstr "ਵਰਲਡ ਵਾਈਡ ਵੈੱਬ ਨੂੰ ਬਰਾਉਜ਼ ਕ�
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈਕਸਪਲੋਰਰ"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid "Please choose a file"
 #~ msgstr "ਫਾਈਲ ਚੁਣੋ"
 
@@ -1004,3 +1016,12 @@ msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈ�
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "ਬੈਕਗਰਾਂਊਡ ਵਿੱਚ ਨਵੀਆਂ ਟੈਬਾਂ ਖੋਲ੍ਹਣ ਦੀ ਪ੍ਰਵਾਨਗੀ ਦਿਓ"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "ਜਨਤਕ ਮੋਡ ਵਿੱਚ ਜਾਣਾ ਸਾਰੇ ਨਿੱਜੀ ਟੈਬ ਬੰਦ ਕਰ ਦੇਵੇਗਾ"
+
+#~ msgid "Private Mode"
+#~ msgstr "ਨਿੱਜੀ ਮੋਡ"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "ਨਿੱਜੀ ਮੋਡ ਤੋਂ ਵਿਦਾ ਲਓ"
