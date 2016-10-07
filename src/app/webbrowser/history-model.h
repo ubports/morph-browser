@@ -83,6 +83,7 @@ public:
 Q_SIGNALS:
     void databasePathChanged() const;
     void rowCountChanged();
+    void loaded() const;
 
 protected:
     struct HistoryEntry {
@@ -147,6 +148,7 @@ Q_SIGNALS:
     void hiddenEntryFetched(const QUrl& url);
     void entryFetched(const QUrl& url, const QString& domain, const QString& title,
                       const QUrl& icon, int visits, const QDateTime& lastVisit);
+    void loaded();
     void enqueue(Operation operation, QVariantList values);
 
 private Q_SLOTS:

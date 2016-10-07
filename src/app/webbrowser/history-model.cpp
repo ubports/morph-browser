@@ -57,6 +57,7 @@ HistoryModel::HistoryModel(QObject* parent)
             SLOT(onEntryFetched(const QUrl&, const QString&, const QString&,
                                 const QUrl&, int, const QDateTime&)),
             Qt::QueuedConnection);
+    connect(m_dbWorker, SIGNAL(loaded()), SIGNAL(loaded()));
     m_dbWorkerThread.start(QThread::LowPriority);
 }
 
@@ -610,6 +611,7 @@ void DbWorker::doFetchEntries()
                             populateQuery.value(4).toInt(),
                             QDateTime::fromTime_t(populateQuery.value(5).toInt()));
     }
+    Q_EMIT loaded();
 }
 
 void DbWorker::doEnqueue(DbWorker::Operation operation, QVariantList values)
