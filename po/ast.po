@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-10-04 16:02+0200\n"
-"PO-Revision-Date: 2016-09-28 16:21+0000\n"
+"PO-Revision-Date: 2016-10-08 00:57+0000\n"
 "Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:13+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-08 06:46+0000\n"
+"X-Generator: Launchpad (build 18227)\n"
 "Language: ast\n"
 
 #: src/app/AlertDialog.qml:23
@@ -478,11 +478,11 @@ msgstr "Abrir enllaz en llingüeta nueva"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Abrir enllaz en ventana nueva"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Abrir enllaz en ventana privada"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -610,11 +610,11 @@ msgstr "Llingüeta nueva"
 
 #: src/app/webbrowser/Browser.qml:537
 msgid "New window"
-msgstr ""
+msgstr "Ventana nueva"
 
 #: src/app/webbrowser/Browser.qml:543
 msgid "New private window"
-msgstr ""
+msgstr "Ventana privada nueva"
 
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -984,11 +984,11 @@ msgstr "Internet;WWW;Restolador;Web;Esplorador"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "Open a New Window"
-msgstr ""
+msgstr "Abrir una ventana nueva"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
-msgstr ""
+msgstr "Abrir una ventana privada nueva"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
