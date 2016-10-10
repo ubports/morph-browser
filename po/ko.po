@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: 2015-05-19 19:42+0000\n"
 "Last-Translator: B. W. Knight <kbd0651@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:39+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -302,7 +302,7 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "권한"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
@@ -445,7 +445,7 @@ msgstr "새 탭에 이미지 열기"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "기본 브라우저로 링크 열기"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -454,6 +454,14 @@ msgstr "새 배경 탭에 링크 열기"
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "새 탭에 링크 열기"
+
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -579,6 +587,14 @@ msgstr "완료"
 msgid "New tab"
 msgstr "새 탭"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -587,14 +603,6 @@ msgstr "기록"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "다운로드"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "사생활 보호 모드 떠나기"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "사생활 보호 모드"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -679,10 +687,6 @@ msgstr "전체 기록"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "오늘"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "공개 모드를 사용하면 사생활 보호 모드의 모든 탭을 닫습니다."
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -891,7 +895,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "인증 실패"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -942,6 +946,14 @@ msgstr "웹을 돌아다닙니다"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;인터넷;WWW;Browser;브라우저;Web;Explorer;익스플로러"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr ""
@@ -982,3 +994,12 @@ msgstr "Internet;인터넷;WWW;Browser;브라우저;Web;Explorer;익스플로러
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "새 탭을 배경으로 여는 걸 허용하기"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "공개 모드를 사용하면 사생활 보호 모드의 모든 탭을 닫습니다."
+
+#~ msgid "Private Mode"
+#~ msgstr "사생활 보호 모드"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "사생활 보호 모드 떠나기"

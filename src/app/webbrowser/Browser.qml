@@ -274,6 +274,7 @@ BrowserView {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
+            clip: true  // prevents component from overlapping bottom edge etc
 
             // Avoid loading the new tab view if the webview is about to load
             // content. Since WebView.restoreState is not a notifyable property,
@@ -1869,10 +1870,26 @@ BrowserView {
                  ((currentWebview.maximumZoomFactor - currentWebview.zoomFactor) > 0.001)
         onActivated: internal.changeZoomFactor(1)
     }
+    // For improved compatibility with qwerty-based keyboard layouts, where "="
+    // and "+" are on the same key (see https://launchpad.net/bugs/1624381):
+    Shortcut {
+        sequence: "Ctrl+="
+        enabled: currentWebview &&
+                 ((currentWebview.maximumZoomFactor - currentWebview.zoomFactor) > 0.001)
+        onActivated: internal.changeZoomFactor(1)
+    }
 
     // Ctrl+Minus: zoom out
     Shortcut {
         sequence: StandardKey.ZoomOut
+        enabled: currentWebview &&
+                 ((currentWebview.zoomFactor - currentWebview.minimumZoomFactor) > 0.001)
+        onActivated: internal.changeZoomFactor(-1)
+    }
+    // For improved compatibility with qwerty-based keyboard layouts, where "-"
+    // and "_" are on the same key (see https://launchpad.net/bugs/1624381):
+    Shortcut {
+        sequence: "Ctrl+_"
         enabled: currentWebview &&
                  ((currentWebview.zoomFactor - currentWebview.minimumZoomFactor) > 0.001)
         onActivated: internal.changeZoomFactor(-1)

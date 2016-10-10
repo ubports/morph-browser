@@ -17,7 +17,8 @@ apparmor:
 	sed 's/@{APP_PKGNAME}_@{APP_APPNAME}_@{APP_VERSION}/@{APP_PKGNAME}/g' | \
 	sed 's#/run/shm/\.org\.chromium\.Chromium\.\*#/{dev,run}/shm/.org.chromium.Chromium.*#g' | \
 	egrep -v 'deny /run/udev/data/\*\* r,' | \
-	sed 's#^}$$#\n  /sys/class/ r,\n  /sys/class/input/ r,\n  /run/udev/data/** r,\n}#g' \
+	sed 's#^}$$#\n  /sys/class/ r,\n  /sys/class/input/ r,\n  /run/udev/data/** r,\n}#g' | \
+	egrep -v '^\s*deny /dev/ r,\s*$$' \
 	> ./debian/usr.bin.webbrowser-app
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	apparmor_parser -QTK ./debian/usr.bin.webbrowser-app

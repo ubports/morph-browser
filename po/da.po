@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-08-27 15:13+0200\n"
+"POT-Creation-Date: 2016-10-04 16:02+0200\n"
 "PO-Revision-Date: 2014-08-03 02:48+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-08-28 06:38+0000\n"
-"X-Generator: Launchpad (build 18179)\n"
+"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
+"X-Generator: Launchpad (build 18217)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -478,6 +478,14 @@ msgstr "Åbn linket i ny baggrundsfaneblad"
 msgid "Open link in new tab"
 msgstr "Åbn link i nyt faneblad"
 
+#: src/app/actions/OpenLinkInNewWindow.qml:22
+msgid "Open link in new window"
+msgstr ""
+
+#: src/app/actions/OpenLinkInPrivateWindow.qml:22
+msgid "Open link in private window"
+msgstr ""
+
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "Åbn video i ny fane"
@@ -602,6 +610,14 @@ msgstr "Færdig"
 msgid "New tab"
 msgstr "Nyt faneblad"
 
+#: src/app/webbrowser/Browser.qml:537
+msgid "New window"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:543
+msgid "New private window"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
@@ -610,14 +626,6 @@ msgstr "Historik"
 #: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Hentede filer"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Leave Private Mode"
-msgstr "Forlad privat tilstand"
-
-#: src/app/webbrowser/Browser.qml:592
-msgid "Private Mode"
-msgstr "Privat tilstand"
 
 #: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -705,10 +713,6 @@ msgstr "Hele historikken"
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
 msgstr "I dag"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
-msgid "Going to public mode will close all private tabs"
-msgstr "Overgangen til offentlig tilstand vil lukke alle private faner"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -975,6 +979,14 @@ msgstr "Gå på internettet"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;nettet;WWW;Browser;netlæser;Web;Explorer;stifinder"
 
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+msgid "Open a New Window"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+msgid "Open a New Private Window"
+msgstr ""
+
 #~ msgid "Please choose a file"
 #~ msgstr "Vælg venligst en fil"
 
@@ -1016,3 +1028,12 @@ msgstr "Internet;nettet;WWW;Browser;netlæser;Web;Explorer;stifinder"
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "Tillad åbning af nye faneblade i baggrunden"
+
+#~ msgid "Going to public mode will close all private tabs"
+#~ msgstr "Overgangen til offentlig tilstand vil lukke alle private faner"
+
+#~ msgid "Private Mode"
+#~ msgstr "Privat tilstand"
+
+#~ msgid "Leave Private Mode"
+#~ msgstr "Forlad privat tilstand"
