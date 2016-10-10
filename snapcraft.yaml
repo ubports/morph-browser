@@ -1,0 +1,67 @@
+name: webbrowser-app
+version: 0.23+16.10.20160928-0ubuntu1
+summary: Ubuntu web browser
+description: A lightweight web browser tailored for Ubuntu, based on the Oxide browser engine and using the Ubuntu UI components.
+confinement: strict
+
+apps:
+  webbrowser-app:
+    command: webbrowser-app.launcher
+    plugs:
+      - browser-sandbox
+      - camera
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - screen-inhibit-control
+      - unity7
+
+plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: true
+
+parts:
+  webbrowser-app:
+    plugin: cmake
+    source: .
+    build-packages:
+      - intltool
+      - libapparmor-dev
+      - libevdev-dev
+      - libudev-dev
+      - lsb-release
+      - pkg-config
+      - qt5-default
+      - qt5-qmake
+      - qtbase5-dev
+      - qtbase5-dev-tools
+      - qtbase5-private-dev
+      - qtdeclarative5-dev
+      - qttools5-dev-tools
+      - xvfb
+    stage-packages:
+      - fonts-liberation
+      - liboxideqt-qmlplugin
+      - libqt5sql5-sqlite
+      - locales-all
+      - mir-graphics-drivers-desktop
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qt-labs-settings
+      - qml-module-qtquick2
+      - qml-module-qtquick-layouts
+      - qml-module-qtquick-window2
+      - qml-module-ubuntu-components
+      - qml-module-ubuntu-thumbnailer0.1
+      - qtdeclarative5-ubuntu-content1
+      - qtdeclarative5-ubuntu-download-manager0.1
+      - qtdeclarative5-unity-action-plugin
+      - qtubuntu-desktop
+    after: [desktop-qt5]
+
+  launcher:
+    plugin: dump
+    source: snap
+    organize:
+      webbrowser-app.launcher: bin/webbrowser-app.launcher
