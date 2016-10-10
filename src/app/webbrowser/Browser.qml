@@ -896,9 +896,10 @@ BrowserView {
         active: false
         asynchronous: true
         Component.onCompleted: {
-            downloadsViewLoader.setSource("DownloadsPage.qml", {
-                                  "downloadManager": Qt.binding(function () {return downloadHandlerLoader.item}),
-                                  "focus": true
+            setSource("DownloadsPage.qml", {
+                          "downloadManager": Qt.binding(function () {return downloadHandlerLoader.item}),
+                          "incognito": incognito,
+                          "focus": true
             })
         }
 

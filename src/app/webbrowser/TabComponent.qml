@@ -411,7 +411,7 @@ Component {
             }
 
             function startDownload(downloadId, download, mimeType) {
-                DownloadsModel.add(downloadId, download.url, mimeType)
+                DownloadsModel.add(downloadId, download.url, mimeType, incognito)
                 download.start()
                 downloadsViewLoader.active = true
             }

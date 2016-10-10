@@ -49,7 +49,8 @@ public:
         Complete,
         Paused,
         Error,
-        Created
+        Created,
+        Incognito
     };
 
     // reimplemented from QAbstractListModel
@@ -63,23 +64,18 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE bool contains(const QString& downloadId) const;
-    Q_INVOKABLE void add(const QString& downloadId, const QUrl& url, const QString& mimetype);
+    Q_INVOKABLE void add(const QString& downloadId, const QUrl& url, const QString& mimetype, bool incognito);
     Q_INVOKABLE void moveToDownloads(const QString& downloadId, const QString& path);
-    Q_INVOKABLE void setPath(const QString& downloadId, const QString& path);
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);
     Q_INVOKABLE void deleteDownload(const QString& path);
     Q_INVOKABLE void cancelDownload(const QString& downloadId);
     Q_INVOKABLE void pauseDownload(const QString& downloadId);
     Q_INVOKABLE void resumeDownload(const QString& downloadId);
+    Q_INVOKABLE void pruneIncognitoDownloads();
 
 Q_SIGNALS:
     void databasePathChanged() const;
-    void added(const QString& downloadId, const QUrl& url, const QString& mimetype) const;
-    void pathChanged(const QString& downloadId, const QString& path) const;
-    void completeChanged(const QString& downloadId, const bool complete) const;
-    void errorChanged(const QString& downloadId, const QString& error) const;
-    void deleted(const QString& path) const;
     void rowCountChanged();
 
 private:
@@ -98,6 +94,7 @@ private:
         bool paused;
         QString error;
         QDateTime created;
+        bool incognito;
     };
     QList<DownloadEntry> m_orderedEntries;
 
@@ -105,7 +102,8 @@ private:
     void createOrAlterDatabaseSchema();
     void insertNewEntryInDatabase(const DownloadEntry& entry);
     void removeExistingEntryFromDatabase(const QString& path);
-    void reload();
+    void setPaused(const QString& downloadId, bool paused);
+    int getIndexForDownloadId(const QString& downloadId) const;
 };
 
 #endif // __DOWNLOADS_MODEL_H__
