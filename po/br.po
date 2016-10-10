@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-10-04 16:02+0200\n"
-"PO-Revision-Date: 2016-08-29 09:50+0000\n"
+"PO-Revision-Date: 2016-10-10 06:34+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-10 07:06+0000\n"
+"X-Generator: Launchpad (build 18227)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -141,6 +141,8 @@ msgstr "Aotren"
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr ""
+"Ret eo bezañ dilesaet evit mont d'al lec'hienn %1. Setu amañ ar pezh a lavar "
+"al lec'hienn : \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -478,11 +480,11 @@ msgstr "Digeriñ al liamm en un ivinell nevez"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Digeriñ al liamm en ur prenestr nevez"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "digeriñ al liamm en ur prenestr prevez"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -610,11 +612,11 @@ msgstr "Ivinell nevez"
 
 #: src/app/webbrowser/Browser.qml:537
 msgid "New window"
-msgstr ""
+msgstr "Prenestr nevez"
 
 #: src/app/webbrowser/Browser.qml:543
 msgid "New private window"
-msgstr ""
+msgstr "Prenestr prevez nevez"
 
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -985,11 +987,11 @@ msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "Open a New Window"
-msgstr ""
+msgstr "Digeriñ ur prenestr nevez"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
-msgstr ""
+msgstr "Digeriñ ur prenestr prevez nevez"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
