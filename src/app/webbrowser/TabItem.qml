@@ -67,7 +67,7 @@ Item {
             
             // Scale width and height of favicon when tabWidth becomes small
             height: width
-            width: Math.min(units.dp(16), tabItem.width - (anchors.leftMargin * 2))
+            width: Math.min(units.dp(16), Math.min(tabItem.width - anchors.leftMargin * 2, tabItem.height))
         }
 
         Item {
