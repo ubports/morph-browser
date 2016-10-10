@@ -69,15 +69,23 @@ ChromeBase {
         Loader {
             id: tabsBar
 
-            sourceComponent: TabsBar {
-                model: tabsModel
-                incognito: chrome.incognito
-                fgColor: navigationBar.fgColor
-                touchEnabled: chrome.touchEnabled
+            Component.onCompleted: {
+                tabsBar.setSource("TabsBar.qml", {
+                                      "model": Qt.binding(function () {return chrome.tabsModel}),
+                                      "incognito": Qt.binding(function () {return chrome.incognito}),
+                                      "fgColor": Qt.binding(function () {return navigationBar.fgColor}),
+                                      "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
+                })
+            }
+
+            Connections {
+                target: tabsBar.item
+
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
             }
+            asynchronous: true
 
             anchors {
                 top: parent.top
