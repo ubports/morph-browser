@@ -216,14 +216,17 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(bookmarks_action)
         return self.main_window.get_bookmarks_view()
 
-    def open_history(self):
-        chrome = self.main_window.chrome
+    def open_history(self, window=None):
+        if window is None:
+            window = self.main_window
+
+        chrome = window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
         history_action = chrome.get_drawer_action("history")
         self.pointing_device.click_object(history_action)
-        return self.main_window.get_history_view()
+        return window.get_history_view()
 
     def open_downloads(self):
         chrome = self.main_window.chrome

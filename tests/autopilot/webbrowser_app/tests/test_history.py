@@ -24,9 +24,12 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestHistory(StartOpenRemotePageTestCaseBase):
 
-    def expect_history_entries(self, ordered_urls):
-        history = self.main_window.get_history_view()
-        if self.main_window.wide:
+    def expect_history_entries(self, ordered_urls, window=None):
+        if window is None:
+            window = self.main_window
+
+        history = window.get_history_view()
+        if window.wide:
             self.assertThat(lambda: len(history.get_entries()),
                             Eventually(Equals(len(ordered_urls))))
             entries = history.get_entries()
@@ -34,7 +37,7 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
             self.assertThat(lambda: len(history.get_domain_entries()),
                             Eventually(Equals(1)))
             self.pointing_device.click_object(history.get_domain_entries()[0])
-            expanded_history = self.main_window.get_expanded_history_view()
+            expanded_history = window.get_expanded_history_view()
             self.assertThat(lambda: len(expanded_history.get_entries()),
                             Eventually(Equals(len(ordered_urls))))
             entries = expanded_history.get_entries()
@@ -124,3 +127,18 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.main_window.wait_until_page_loaded(pushed)
         self.open_history()
         self.expect_history_entries([pushed, url, self.url])
+
+    def test_private_window_no_history(self):
+        self.open_new_private_window()
+
+        public_window = self.app.get_windows(incognito=False)[0]
+        private_window = self.app.get_windows(incognito=True)[0]
+
+        # Open link in private window
+        url = self.base_url + "/test2"
+        private_window.go_to_url(url)
+        private_window.wait_until_page_loaded(url)
+
+        # Check link is not in history of public window
+        self.open_history(window=public_window)
+        self.expect_history_entries([self.url], window=public_window)
