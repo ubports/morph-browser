@@ -502,7 +502,9 @@ class SettingsPage(BrowserPage):
 
 class DownloadsPage(BrowserPage):
 
-    pass
+    def get_download_entries(self):
+        return sorted(self.select_many("DownloadDelegate"),
+                      key=lambda item: item.globalRect.y)
 
 
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
