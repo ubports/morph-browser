@@ -6,6 +6,12 @@ find_package(Qt5Quick REQUIRED)
 find_package(Qt5QuickTest REQUIRED)
 find_package(Qt5Sql REQUIRED)
 
+find_program(XVFBRUN xvfb-run)
+if(NOT XVFBRUN)
+  message(FATAL_ERROR "Could not find xvfb-run, please install the xvfb package")
+endif()
+set(XVFB_COMMAND ${XVFBRUN} -s "-screen 0 640x480x24" -a)
+
 set(TEST tst_QmlTests)
 set(SOURCES
     ${webbrowser-common_SOURCE_DIR}/favicon-fetcher.cpp
