@@ -1028,6 +1028,7 @@ BrowserView {
                 var tabInfo = closedTabHistory.pop()
                 var tab = restoreTabState(tabInfo.state)
                 addTab(tab, true, tabInfo.index)
+                tab.load()
             }
         }
 
