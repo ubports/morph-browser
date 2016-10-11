@@ -100,19 +100,7 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         self.assertThat(entries[0].incognito, Equals(True))
 
         # Focus public window
-        windows = [
-            window for window in self.process_manager.get_open_windows()
-            if window.application.desktop_file == "webbrowser-app.desktop" and
-            not window.is_focused
-        ]
-
-        # There should be 1 unfocused window
-        self.assertThat(len(windows), Equals(1))
-
-        # Focus first unfocused window
-        windows[0].set_focus()
-        self.assertThat(lambda: windows[0].is_focused,
-                        Eventually(Equals(True)))
+        self.switch_to_unfocused_window(public_window)
 
         # Open downloads page in public window
         public_downloads_page = self.open_downloads(public_window)
