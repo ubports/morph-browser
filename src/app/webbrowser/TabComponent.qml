@@ -56,7 +56,7 @@ Component {
 
             focus: true
 
-            enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
+            enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && tabContainer.focus
 
             locationBarController {
                 height: chrome.height
