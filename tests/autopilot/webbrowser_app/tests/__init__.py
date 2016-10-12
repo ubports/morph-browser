@@ -256,6 +256,34 @@ class BrowserTestCaseBase(AutopilotTestCase):
                         os.kill(child.pid, signal)
                         break
 
+    def switch_to_unfocused_window(self, target_window,
+                                   expected_number_unfocused_windows=1):
+        try:
+            windows = [
+                window for window in self.process_manager.get_open_windows()
+                if window.application.desktop_file ==
+                "webbrowser-app.desktop" and
+                not window.is_focused
+            ]
+
+            # There should be 1 unfocused window
+            self.assertThat(len(windows),
+                            Equals(expected_number_unfocused_windows))
+
+            # Cycle through possible windows until target gets focus
+            for window in windows:
+                window.set_focus()
+                self.assertThat(lambda: window.is_focused,
+                                Eventually(Equals(True)))
+
+                if target_window.activeFocus:
+                    break
+        except (RuntimeError, ImportError):
+            # Fallback to clicking on the window
+            self.pointing_device.click_object(target_window)
+
+        self.assertThat(target_window.activeFocus, Eventually(Equals(True)))
+
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
 

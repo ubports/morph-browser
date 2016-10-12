@@ -158,7 +158,7 @@ class TestMultipleWindowsDrag(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(1)))
 
         # Focus window 0
-        self.pointing_device.click_object(windows[0])
+        self.switch_to_unfocused_window(windows[0])
 
         # Move tab into window 1
         tab = self.get_tab_delegate(windows[0], 1)
@@ -181,7 +181,7 @@ class TestMultipleWindowsDrag(StartOpenRemotePageTestCaseBase):
         self.assertThat(len(windows), Equals(2))
 
         # Focus window 0
-        self.pointing_device.click_object(windows[0])
+        self.switch_to_unfocused_window(windows[0])
 
         # Move tab into window 1
         tab = self.get_tab_delegate(windows[0], 0)
@@ -206,7 +206,7 @@ class TestMultipleWindowsDrag(StartOpenRemotePageTestCaseBase):
         private_window = self.app.get_windows(incognito=True)[0]
 
         # Focus public window
-        self.pointing_device.click_object(public_window)
+        self.switch_to_unfocused_window(public_window)
 
         # Move tab into private window
         tab = self.get_tab_delegate(public_window, 0)
@@ -229,9 +229,6 @@ class TestMultipleWindowsDrag(StartOpenRemotePageTestCaseBase):
 
         public_window = self.app.get_windows(incognito=False)[0]
         private_window = self.app.get_windows(incognito=True)[0]
-
-        # Focus private window
-        self.pointing_device.click_object(private_window)
 
         # Move tab into public window
         tab = self.get_tab_delegate(private_window, 0)
