@@ -266,6 +266,40 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_response(200)
             html = '<html><body><p>redirect-destination</p></body></html>'
             self.send_html(html)
+        elif self.path == "/js-alert-dialog":
+            self.send_response(200)
+            html = '<html><body><script type="text/javascript">'
+            html += 'window.onload = function() {'
+            html += '  window.alert("Alert Dialog")'
+            html += '} </script></body></html>'
+            self.send_html(html)
+        elif self.path == "/js-before-unload-dialog":
+            self.send_response(200)
+            html = '<html><body><script type="text/javascript">'
+            html += 'window.onbeforeunload = function(e) {'
+            html += '  var dialogText = "Dialog text here";'
+            html += '  e.returnValue = dialogText;'
+            html += '  return dialogText;'
+            html += '}; </script></body></html>'
+            self.send_html(html)
+        elif self.path == "/js-confirm-dialog":
+            self.send_response(200)
+            html = '<html><body><script type="text/javascript">'
+            html += 'window.onload = function() {'
+            html += '  if (window.confirm("Confirm Dialog") == true) {'
+            html += '    document.title = "OK" } '
+            html += '  else { document.title = "CANCEL" }'
+            html += '} </script></body></html>'
+            self.send_html(html)
+        elif self.path == "/js-prompt-dialog":
+            self.send_response(200)
+            html = '<html><body><script type="text/javascript">'
+            html += 'window.onload = function() {'
+            html += '  var result = window.prompt("Prompt Dialog", "Default");'
+            html += '  if (result != null) { document.title = result; } '
+            html += '  else { document.title = "CANCEL" }'
+            html += '} </script></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
