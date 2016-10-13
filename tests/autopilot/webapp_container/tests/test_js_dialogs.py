@@ -95,8 +95,9 @@ class TestJSDialogs(WebappContainerTestCaseWithLocalContentBase):
         )
         dialog.visible.wait_for(True)
 
-        # Click leave and check that url changes
+        # Click leave, wait for dialog to close and check that url changes
         self.pointing_device.click_object(dialog.get_leave_button())
+        dialog.wait_until_destroyed()
 
         self.assertThat(self.get_oxide_webview().url,
                         Eventually(Equals(testUrl)))
@@ -118,8 +119,9 @@ class TestJSDialogs(WebappContainerTestCaseWithLocalContentBase):
         )
         dialog.visible.wait_for(True)
 
-        # Click stay and check url does not change
+        # Click stay, wait for dialog to close and check url does not change
         self.pointing_device.click_object(dialog.get_stay_button())
+        dialog.wait_until_destroyed()
 
         self.assertThat(self.get_oxide_webview().url,
                         Eventually(Equals(beforeUnloadUrl)))

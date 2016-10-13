@@ -49,8 +49,9 @@ class TestJSDialogs(StartOpenRemotePageTestCaseBase):
         dialog = self.main_window.get_before_unload_dialog()
         dialog.visible.wait_for(True)
 
-        # Click leave and check that url changes
+        # Click leave, wait for dialog to close and check that url changes
         self.pointing_device.click_object(dialog.get_leave_button())
+        dialog.wait_until_destroyed()
 
         self.assertThat(self.main_window.get_current_webview().url,
                         Eventually(Equals(testUrl)))
@@ -68,8 +69,9 @@ class TestJSDialogs(StartOpenRemotePageTestCaseBase):
         dialog = self.main_window.get_before_unload_dialog()
         dialog.visible.wait_for(True)
 
-        # Click stay and check url does not change
+        # Click stay, wait for dialog to close and check url does not change
         self.pointing_device.click_object(dialog.get_stay_button())
+        dialog.wait_until_destroyed()
 
         self.assertThat(self.main_window.get_current_webview().url,
                         Eventually(Equals(beforeUnloadUrl)))
