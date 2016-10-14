@@ -26,7 +26,7 @@ var overrides = [
     ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1316259
     ["^https?:\/\/(www|m)\.facebook\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1538056, http://pad.lv/1457661
     ["^https?:\/\/(mobile\.)?nytimes\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1573620
-    ["^https?:\/\/mobile\.twitter\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@;) AppleWebKit/537.36 Chrome/@CHROMIUM_VERSION@ Mobile Safari/537.36"], // http://pad.lv/1577834
+    ["^https?:\/\/mobile\.twitter\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1577834
 
     // Google hangouts (https://launchpad.net/bugs/1565055)
     ["^https?:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"],
