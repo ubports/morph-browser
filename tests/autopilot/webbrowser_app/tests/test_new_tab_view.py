@@ -440,14 +440,7 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         folder = folders[0]
         folder_cx = folder.globalRect.x + folder.width / 2
         folder_cy = folder.globalRect.y + folder.height / 2
-        # Work around https://launchpad.net/bugs/1499437 by dragging downwards
-        # a little bit first, then to the target folder.
-        self.pointing_device.move_to_object(grip)
-        pos = self.pointing_device.position()
-        self.pointing_device.press()
-        self.pointing_device.move(pos[0], pos[1] + 20)
-        self.pointing_device.move(folder_cx, folder_cy)
-        self.pointing_device.release()
+        self.pointing_device.drag(rect.x, rect.y, folder_cx, folder_cy)
         self.assertThat(grip.globalRect, Eventually(Equals(rect)))
 
         # Test that dragging an item to another folder removes it from this one

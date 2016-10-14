@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -76,7 +76,7 @@ WebView {
                     mimeType = MimeDatabase.filenameToMimeType(filename)
                 }
             }
-            downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename)
+            downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename, incognito)
         } else {
             // Desktop form factor case
             Qt.openUrlExternally(request.url)

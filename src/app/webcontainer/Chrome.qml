@@ -23,6 +23,7 @@ import ".."
 ChromeBase {
     id: chrome
 
+    property var webview: null
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
 

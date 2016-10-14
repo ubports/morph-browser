@@ -34,6 +34,18 @@ Item {
     property real maxTabWidth: units.gu(20)
     property real tabWidth: model ? Math.max(Math.min(tabsContainer.maxWidth / model.count, maxTabWidth), minTabWidth) : 0
 
+    // Minimum size of the larger tab
+    readonly property real minActiveTabWidth: units.gu(10)
+    
+    // When there is a larger tab, calc the smaller tab size
+    readonly property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(model.count - 1, 1)
+
+    // The size of the right margin of the tab
+    readonly property real rightMargin: units.dp(1)
+                
+    // Whether there will be one larger tab or not
+    readonly property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
+
     property bool incognito: false
 
     property color fgColor: Theme.palette.normal.baseText
@@ -145,7 +157,7 @@ Item {
                 readonly property BrowserWindow tabWindow: window
 
                 property real rightMargin: units.dp(1)
-                width: tabWidth + rightMargin
+                width: getSize(index)
                 height: tabsContainer.height
                 y: tabsContainer.y  // don't use anchor otherwise drag doesn't work
 
@@ -177,7 +189,7 @@ Item {
 
                     touchEnabled: root.touchEnabled
 
-                    rightMargin: tabDelegate.rightMargin
+                    rightMargin: root.rightMargin
 
                     onClosed: root.tabClosed(index)
                     onSelected: root.switchToTab(index)
@@ -189,10 +201,12 @@ Item {
                     property: "reordering"
                     value: dragging
                 }
+                
+                Behavior on width { NumberAnimation { duration: 250 } }
 
                 Binding on x {
                     when: !dragging
-                    value: index * width
+                    value: getLeftX(index)
                 }
 
                 Behavior on x {
@@ -255,11 +269,43 @@ Item {
                     }
                 }
                 onReleased: resetVerticalAnimation.start();
+
+                function getLeftX(index) {
+                    if (unevenTabWidth) {
+                        if (index > root.model.currentIndex) {
+                            return minActiveTabWidth + (nonActiveTabWidth * (index - 1))
+                        } else {
+                            return nonActiveTabWidth * index
+                        }
+                    } else {
+                        // Do not depend on width otherwise X updates after
+                        // Width causing the animation to be two stage
+                        // instead perform same calculation (tabWidth + rightMargin)
+                        return index * (tabWidth + rightMargin)
+                    }
+                }
+                
+                function getSize(index) {
+                    if (unevenTabWidth) {
+                        // Uneven tabs so use large or small depending which index
+                        if (index === root.model.currentIndex) {
+                            return minActiveTabWidth
+                        } else {
+                            return nonActiveTabWidth
+                        }
+                    } else {
+                        return tabWidth + rightMargin
+                    }
+                }
+                
                 onXChanged: {
                     if (!dragging) return
-                    if (x < (index * width - width / 2)) {
+
+                    var leftX = getLeftX(index)
+
+                    if (x < (leftX - getSize(index - 1) / 2) && index > 0) {
                         root.model.move(index, index - 1)
-                    } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {
+                    } else if ((x > (leftX + getSize(index + 1) / 2)) && (index < (root.model.count - 1))) {
                         root.model.move(index + 1, index)
                     }
                 }

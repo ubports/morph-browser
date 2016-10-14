@@ -22,6 +22,7 @@ import ".."
 
 Item {
     id: tabItem
+    objectName: "tabItem"
 
     property bool incognito: false
     property bool active: false
@@ -38,6 +39,8 @@ Item {
     property color fgColor: Theme.palette.normal.baseText
 
     property bool touchEnabled: true
+    
+    readonly property bool showCloseIcon: closeIcon.x > units.gu(1) + tabItem.width / 2
 
     signal selected()
     signal closed()
@@ -54,10 +57,17 @@ Item {
 
         Favicon {
             id: favicon
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: units.gu(2)
+            anchors {
+                left: tabItem.showCloseIcon ? parent.left : undefined
+                leftMargin: Math.min(tabItem.width / 4, units.gu(2))
+                horizontalCenter: tabItem.showCloseIcon ? undefined : parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+            }
             shouldCache: !incognito
+            
+            // Scale width and height of favicon when tabWidth becomes small
+            height: width
+            width: Math.min(units.dp(16), Math.min(tabItem.width - anchors.leftMargin * 2, tabItem.height))
         }
 
         Item {
@@ -132,6 +142,7 @@ Item {
             anchors.bottom: touchEnabled ? parent.bottom : undefined
             anchors.right: touchEnabled ? parent.right : undefined
             width: touchEnabled ? units.gu(4) : closeIcon.width
+            visible: closeIcon.visible
 
             onClicked: closed()
 
@@ -149,9 +160,10 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
+            asynchronous: true
             name: "close"
             color: tabItem.fgColor
-            asynchronous: true
+            visible: tabItem.showCloseIcon
         }
     }
 }

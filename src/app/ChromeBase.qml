@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,8 +25,10 @@ StyledItem {
 
     objectName: "chromeBase"
 
-    property var webview
     property alias backgroundColor: backgroundRect.color
+
+    property alias loading: progressBar.visible
+    property alias loadProgress: progressBar.value
 
     states: [
         State {
@@ -53,7 +55,7 @@ StyledItem {
     }
 
     ThinProgressBar {
-        webview: chrome.webview
+        id: progressBar
 
         anchors {
             left: parent.left

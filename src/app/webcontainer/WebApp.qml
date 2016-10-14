@@ -249,7 +249,8 @@ BrowserView {
                 id: progressbarComponent
 
                 ThinProgressBar {
-                    webview: webapp.currentWebview
+                    visible: webapp.currentWebview && webapp.currentWebview.loading
+                    value: visible ? webapp.currentWebview.loadProgress : 0
 
                     anchors {
                         left: parent.left
