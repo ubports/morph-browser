@@ -55,5 +55,3 @@ debian/stamp-*
 coverage-xml.cmake
 coverage.*
 coveragereport/
-tst_*Tests.xml
-tst_*Test.xml
