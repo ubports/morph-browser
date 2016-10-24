@@ -28,6 +28,7 @@ Reparenter::Reparenter()
 {
 }
 
+// Upon deconstruction ensure that all created contexts are destroyed
 Reparenter::~Reparenter()
 {
     QMap<QPointer<QQmlContext>, QPointer<QObject>>::iterator i;
@@ -50,9 +51,14 @@ Reparenter::~Reparenter()
     m_contexts.clear();  // ensure contexts are removed
 }
 
+// Create an object of the given component with the context given
+// if no context is given then the context is the instance of this class
+// this method is required so that a custom context can be created, so that
+// when tabs are moved between Windows and the window is destroyed, its context
+// it not also destroyed
 QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
 {
-    if (contextItem == NULL) {
+    if (contextItem == Q_NULLPTR) {
         contextItem = this;
     }
 
@@ -69,6 +75,8 @@ QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
     return obj;
 }
 
+// Contexts that have been created by us, must be destroyed by us
+// so this helper method destroys the context and object
 void Reparenter::destroyContextAndObject(QQuickItem *item)
 {
     // Get context for object
@@ -85,6 +93,7 @@ void Reparenter::destroyContextAndObject(QQuickItem *item)
     delete item;
 }
 
+// Reparent the actual objects parent and its visual parent
 void Reparenter::reparent(QQuickItem *obj, QQuickItem *newParent)
 {
     // Set object and visual parent    

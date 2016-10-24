@@ -165,7 +165,8 @@ Item {
                 readonly property bool dragging: drag.active
                 drag {
                     target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
-                    axis: Drag.XAndYAxis
+                    // FIXME: disable drag and drop on mir pad.lv/1627013
+                    axis: __platformName != "ubuntumirclient" ? Drag.XAndYAxis : Drag.XAxis
                     minimumX: 0
                     maximumX: root.width - tabDelegate.width
                     filterChildren: true
@@ -173,6 +174,7 @@ Item {
                 
                 DragHelper {
                     id: dragHelper
+                    expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
                     mimeType: "webbrowser/tab-" + (window.incognito ? "incognito" : "public")
                     source: tabDelegate                
                 }
@@ -224,7 +226,8 @@ Item {
                 }
                 
                 onPositionChanged: {
-                    if (Math.abs(y) > height) {
+                    // FIXME: disable drag and drop on mir pad.lv/1627013
+                    if (Math.abs(y) > height && __platformName != "ubuntumirclient") {
                         // Reset visual position of tab delegate
                         resetVerticalAnimation.start();
                     
@@ -233,6 +236,10 @@ Item {
                             dragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url); 
                         
                             var dropAction = dragHelper.execDrag(tab.url);
+                            
+                            // IgnoreAction - Same window in tabbar
+                            // MoveAction   - Different window
+                            // CopyAction   - New Window
                             
                             if (dropAction === Qt.MoveAction) {
                                 // Moved into another window
@@ -245,12 +252,12 @@ Item {
                                 // Just remove from model and do not destory
                                 // as webview is used in other window                                
                                 tabsModel.remove(index);
-                            } else if (dropAction === Qt.CopyAction) {
+                            } else if (dropAction === Qt.IgnoreAction) {
                                 // Moved into the same window
                                 
                                 // So no action
                                 console.debug("No action, dropped in same window");
-                            } else if (dropAction === Qt.IgnoreAction) {
+                            } else if (dropAction === Qt.CopyAction) {
                                 // Moved outside of any window
                                 console.debug("Moved outside, generating new window");
                                 

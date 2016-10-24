@@ -42,6 +42,7 @@ ChromeBase {
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
     property bool touchEnabled: true
+    readonly property int tabsBarHeight: tabsBar.height + content.anchors.topMargin
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)

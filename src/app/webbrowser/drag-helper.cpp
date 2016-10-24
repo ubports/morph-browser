@@ -28,20 +28,22 @@
 DragHelper::DragHelper()
 {
     m_active = false;
+    m_expected_action = Qt::IgnoreAction;
     m_mime_type = QStringLiteral("webbrowser/tab");
     m_preview_url = "";
-    m_source = NULL;
+    m_source = Q_NULLPTR;
 }
 
 Qt::DropAction DragHelper::execDrag(QString tabId)
 {
     QDrag *drag = new QDrag(m_source);
 
+    // Create a mimedata object to use for the drag
     QMimeData *mimeData = new QMimeData;
     mimeData->setData(mimeType(), tabId.toLatin1());
 
+    // Build a pixmap for the drag handle
     QSize pixmapSize(200, 150);
-
     QPixmap pixmap(previewUrl());
     
     if (pixmap.isNull()) {
@@ -55,11 +57,12 @@ Qt::DropAction DragHelper::execDrag(QString tabId)
         pixmap = pixmap.scaled(pixmapSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
 
+    // Setup the drag and then execute it
     drag->setHotSpot(QPoint(0, 0));
     drag->setMimeData(mimeData);
     drag->setPixmap(pixmap);
 
-    return drag->exec(Qt::CopyAction | Qt::MoveAction | Qt::IgnoreAction);
+    return drag->exec(expectedAction());
 }
 
 void DragHelper::setActive(bool active)
@@ -68,6 +71,15 @@ void DragHelper::setActive(bool active)
         m_active = active;
 
         Q_EMIT activeChanged(m_active);
+    }
+}
+
+void DragHelper::setExpectedAction(Qt::DropAction expectedAction)
+{
+    if (m_expected_action != expectedAction) {
+        m_expected_action = expectedAction;
+        
+        Q_EMIT expectedActionChanged(m_expected_action);
     }
 }
 

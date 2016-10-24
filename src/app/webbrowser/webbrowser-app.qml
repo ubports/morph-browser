@@ -471,7 +471,7 @@ QtObject {
                 for (var w in allWindows) {
                     var candidate = getCandidate(allWindows[w].tabsModel)
                     if (candidate) {
-                        if (browser.incognito) {
+                        if (allWindows[w].incognito) {
                             console.warn("Unloading a background incognito tab to free up some memory")
                         } else {
                             console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))

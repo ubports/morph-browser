@@ -114,7 +114,7 @@ Item {
             // Attempt to click on tab find that children of tab have been
             // destroyed as the context has gone
             mouseClick(root, 75, 50, Qt.LeftButton)
-            tryCompare(tab, "mouseArea", undefined, 1000)
+            tryCompare(tab, "mouseArea", undefined)
         }
     }
 }

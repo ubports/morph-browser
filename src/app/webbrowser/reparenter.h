@@ -34,7 +34,7 @@ public:
     Reparenter();
     ~Reparenter();
     
-    Q_INVOKABLE QObject *createObject(QQmlComponent *comp, QQuickItem *contextItem=NULL);
+    Q_INVOKABLE QObject *createObject(QQmlComponent *comp, QQuickItem *contextItem=Q_NULLPTR);
     Q_INVOKABLE void destroyContextAndObject(QQuickItem *item);
     Q_INVOKABLE void reparent(QQuickItem *obj, QQuickItem *newParent);
 private:

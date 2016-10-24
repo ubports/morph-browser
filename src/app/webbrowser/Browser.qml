@@ -1437,32 +1437,30 @@ BrowserView {
     }
     
     DropArea {
+        id: dropArea
         anchors {
             fill: parent
         }
         keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
 
+        readonly property int heightThreshold: chrome.tabsBarHeight
+
         onPositionChanged: {
-            if (drag.source.tabWindow === window && drag.y < chrome.height) {
+            if (drag.source.tabWindow === window && drag.y < heightThreshold) {
                 // tab drag is within same window and in chrome
                 // so reorder tabs by setting tabDelegate x position
                 drag.source.x = drag.x - (drag.source.width / 2);
             }
-            
-            dropChromeShade.opacity = drag.y <= chrome.height ? 0.7 : 0.4
         }
-        onEntered: {
-            window.raise()
-            dropShade.opacity = 1
-        }
-        onExited: dropShade.opacity = 0
+        onEntered: window.raise()
         onDropped: {
-            if (drag.y > chrome.height) {
+            // drop into narrow mode
+            if (drag.y > heightThreshold) {
                 console.debug("Dropped in bottom area, creating new window");
-                drop.accept(Qt.IgnoreAction);
+                drop.accept(Qt.CopyAction);
             } else if (drag.source.tabWindow === window) {
                 console.debug("Dropped in same window");
-                drop.accept(Qt.CopyAction);
+                drop.accept(Qt.IgnoreAction);
             } else {
                 console.debug("Dropped in new window, moving tab");
                 
@@ -1475,16 +1473,15 @@ BrowserView {
                 
                 drop.accept(Qt.MoveAction);
             }
-            
-            dropShade.opacity = 0
         }
+        
         
         Item {
             id: dropShade
             anchors {
                 fill: parent
             }
-            opacity: 0
+            opacity: dropArea.containsDrag ? 1 : 0
             
             Rectangle {
                 id: dropChromeShade
@@ -1494,12 +1491,12 @@ BrowserView {
                     top: parent.top
                 }
                 border {
-                    color: UbuntuColors.orange
+                    color: "#FF0"  // Yellow
                     width: units.gu(1)
                 }
                 color: "transparent"
-                height: chrome.height
-                opacity: 0.4
+                height: dropArea.heightThreshold
+                opacity: dropArea.drag.y <= dropArea.heightThreshold ? 0.7 : 0.4
                 
                 Behavior on opacity {
                     NumberAnimation {
@@ -1512,7 +1509,7 @@ BrowserView {
                 id: dropTabShade
                 anchors {
                     fill: parent
-                    topMargin: chrome.height
+                    topMargin: dropArea.heightThreshold
                 }
                 color: "#FFF"
                 opacity: 0.7
