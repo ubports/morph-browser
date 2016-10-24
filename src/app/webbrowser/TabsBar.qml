@@ -143,6 +143,10 @@ Item {
         width: tabWidth * root.model.count
         readonly property real maxWidth: root.width - newTabButton.width - units.gu(2)
 
+        readonly property int maxYDiff: height / 4
+
+        function sign(number) { return number / Math.abs(number); }
+
         Repeater {
             id: repeater
 
@@ -180,8 +184,6 @@ Item {
                 }
 
                 TabItem {
-                    anchors.fill: parent
-
                     active: tabIndex === root.model.currentIndex
                     hoverable: true
                     incognito: root.incognito
@@ -192,6 +194,13 @@ Item {
                     touchEnabled: root.touchEnabled
 
                     rightMargin: root.rightMargin
+                    
+                    height: parent.height
+                    width: parent.width
+                    x: 0
+                    // Keep the visual tabitem within maxYDiff of starting point when
+                    // dragging vertically so that it doesn't cover other elements
+                    y: Math.abs(parent.y) > tabsContainer.maxYDiff ? (tabsContainer.sign(parent.y) * tabsContainer.maxYDiff) - parent.y : 0
 
                     onClosed: root.tabClosed(index)
                     onSelected: root.switchToTab(index)
