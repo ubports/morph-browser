@@ -23,13 +23,5 @@ execute_process(COMMAND lsb_release --short --release
     OUTPUT_VARIABLE UBUNTU_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
 add_definitions(-DUBUNTU_VERSION="${UBUNTU_VERSION}")
 
-execute_process(COMMAND ${XVFB_COMMAND} qmlscene --quit ${CMAKE_CURRENT_SOURCE_DIR}/chromium-version.qml
-    OUTPUT_VARIABLE CHROMIUM_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
-string(REGEX MATCH "\\[(.*)\\]" _ ${CHROMIUM_VERSION})
-set(CHROMIUM_VERSION ${CMAKE_MATCH_1})
-if(NOT CHROMIUM_VERSION MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$")
-    message(FATAL_ERROR "Invalid chromium version: '${CHROMIUM_VERSION}'")
-endif()
-
 add_subdirectory(Components)
 add_subdirectory(Web)

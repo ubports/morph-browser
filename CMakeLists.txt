@@ -11,11 +11,6 @@ find_program(INTLTOOL_EXTRACT intltool-extract)
 if(NOT INTLTOOL_EXTRACT)
     message(FATAL_ERROR "Could not find intltool-extract, please install the intltool package")
 endif()
-find_program(XVFBRUN xvfb-run)
-if(NOT XVFBRUN)
-  message(FATAL_ERROR "Could not find xvfb-run, please install the xvfb package")
-endif()
-set(XVFB_COMMAND ${XVFBRUN} -s "-screen 0 640x480x24" -a)
 
 # Standard install paths
 include(GNUInstallDirs)
@@ -67,13 +62,15 @@ enable_testing()
 add_subdirectory(tests)
 
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
-file(GLOB NON_COMPILED_ROOT *.png .bzrignore COPYING README)
+file(GLOB NON_COMPILED_ROOT *.png .bzrignore COPYING make-snap.sh README snapcraft.yaml)
 file(GLOB_RECURSE NON_COMPILED_SUBDIRS
      debian/*.dirs debian/*.install debian/*.lintian-overrides debian/*.manifest
      debian/compat debian/control debian/copyright debian/rules debian/source/format
      debian/tests/*
      doc/*.css doc/*.qdoc doc/*.qdocconf
      po/*.po po/*.pot
+     setup/gui/*.png setup/gui/webbrowser-app.desktop.in
+     snap/webbrowser-app.launcher
      src/*.js src/*.qml src/*.sci src/README
      tests/*.py tests/*.qml)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COMPILED_SUBDIRS})

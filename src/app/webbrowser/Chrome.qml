@@ -25,6 +25,7 @@ ChromeBase {
 
     property var tabsModel
     property alias tab: navigationBar.tab
+    readonly property var webview: tab ? tab.webview : null
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
@@ -69,15 +70,23 @@ ChromeBase {
         Loader {
             id: tabsBar
 
-            sourceComponent: TabsBar {
-                model: tabsModel
-                incognito: chrome.incognito
-                fgColor: navigationBar.fgColor
-                touchEnabled: chrome.touchEnabled
+            Component.onCompleted: {
+                tabsBar.setSource("TabsBar.qml", {
+                                      "model": Qt.binding(function () {return chrome.tabsModel}),
+                                      "incognito": Qt.binding(function () {return chrome.incognito}),
+                                      "fgColor": Qt.binding(function () {return navigationBar.fgColor}),
+                                      "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
+                })
+            }
+
+            Connections {
+                target: tabsBar.item
+
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index)
             }
+            asynchronous: true
 
             anchors {
                 top: parent.top
@@ -90,6 +99,7 @@ ChromeBase {
         NavigationBar {
             id: navigationBar
 
+            loading: chrome.loading
             fgColor: "#111111"
             iconColor: (incognito && !showTabsBar) ? "white" : fgColor
 
@@ -105,4 +115,19 @@ ChromeBase {
             onToggleBookmark: chrome.toggleBookmark()
         }
     }
+
+    // Delay changing the 'loading' state, to allow for very brief load
+    // sequences to not update the UI, which would result in inelegant
+    // flickering (https://launchpad.net/bugs/1611680).
+    Connections {
+        target: webview
+        onLoadingStateChanged: delayedLoadingNotifier.restart()
+    }
+    Timer {
+        id: delayedLoadingNotifier
+        interval: 100
+        onTriggered: loading = webview.loading
+    }
+
+    loadProgress: (loading && webview) ? webview.loadProgress : 0
 }

@@ -52,7 +52,8 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             return LOCAL_BROWSER_CONTAINER_PATH_NAME
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
-    def launch_webcontainer_app(self, args, envvars={}, is_local_app=False):
+    def launch_webcontainer_app(self, args, envvars={}, is_local_app=False,
+                                ignore_focus=False):
         if model() != 'Desktop':
             args.append(
                 '--desktop_file_hint=/usr/share/applications/'
@@ -74,7 +75,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         except:
             self.app = None
 
-        if not is_local_app:
+        if not is_local_app and not ignore_focus:
             webview = self.get_oxide_webview()
             self.assertThat(
                 lambda: webview.activeFocus,
@@ -128,10 +129,12 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             'schemeUriHandleFilterResult(QString)')[-1][0]
         return result
 
-    def browse_to(self, url):
+    def browse_to(self, url, wait_for_load=True):
         webview = self.get_oxide_webview()
         webview.slots.navigateToUrl(url)
-        self.assert_page_eventually_loaded(url)
+
+        if wait_for_load:
+            self.assert_page_eventually_loaded(url)
 
     def kill_app(self, signal=signal.SIGKILL):
         os.kill(self.app.pid, signal)
@@ -161,9 +164,9 @@ class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
         return self.base_url[len(self.BASE_URL_SCHEME):]
 
     def launch_webcontainer_app_with_local_http_server(
-            self, args, path='/', envvars={}, homepage=''):
+            self, args, path='/', envvars={}, homepage='', ignore_focus=False):
         self.url = self.base_url + path
         if len(homepage) != 0:
             self.url = homepage
         args.append(self.url)
-        self.launch_webcontainer_app(args, envvars)
+        self.launch_webcontainer_app(args, envvars, ignore_focus=ignore_focus)

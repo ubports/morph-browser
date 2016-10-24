@@ -53,15 +53,6 @@ QtObject {
         BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
         HistoryModel.databasePath = dataLocation + "/history.sqlite"
         DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
-
-        var doNotCleanUrls = []
-        for (var x in allWindows) {
-            var tabs = allWindows[x].tabsModel
-            for (var t = 0; t < tabs.count; ++t) {
-                doNotCleanUrls.push(tabs.get(t).url)
-            }
-        }
-        PreviewManager.cleanUnusedPreviews(doNotCleanUrls)
     }
 
     // Array of all windows, sorted chronologically (most recently active last)
@@ -126,6 +117,20 @@ QtObject {
                         session.save()
                     } else {
                         session.clear()
+                    }
+                }
+                if (incognito && (allWindows.length > 1)) {
+                    // If the last incognito window is being closed,
+                    // prune incognito entries from the downloads model
+                    var incognitoWindows = 0
+                    for (var w in allWindows) {
+                        var window = allWindows[w]
+                        if ((window !== this) && window.incognito) {
+                            ++incognitoWindows
+                        }
+                    }
+                    if (incognitoWindows == 0) {
+                        DownloadsModel.pruneIncognitoDownloads()
                     }
                 }
                 destroy()
@@ -444,6 +449,20 @@ QtObject {
                 }
                 console.warn("System low on memory, but unable to pick a tab to unload")
             }
+        }
+    }
+
+    property var historyModelMonitor: Connections {
+        target: HistoryModel
+        onLoaded: {
+            var doNotCleanUrls = []
+            for (var x in allWindows) {
+                var tabs = allWindows[x].tabsModel
+                for (var t = 0; t < tabs.count; ++t) {
+                    doNotCleanUrls.push(tabs.get(t).url)
+                }
+            }
+            PreviewManager.cleanUnusedPreviews(doNotCleanUrls)
         }
     }
 }
