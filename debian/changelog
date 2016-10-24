@@ -1,4 +1,4 @@
-webbrowser-app (0.23+16.10.20161023-0ubuntu2) UNRELEASED; urgency=medium
+webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
   * Fix for issue where many tabs causes close button to overlap other
@@ -31,7 +31,7 @@ webbrowser-app (0.23+16.10.20161023-0ubuntu2) UNRELEASED; urgency=medium
   * Work around a limitation in the sound and microphone policy groups
     to "fix" sound in yakkety an zesty (LP: #1632620)
 
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Sun, 23 Oct 2016 22:18:57 +0200
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 24 Oct 2016 13:51:59 +0000
 
 webbrowser-app (0.23+16.10.20160928-0ubuntu1) yakkety; urgency=medium
 
