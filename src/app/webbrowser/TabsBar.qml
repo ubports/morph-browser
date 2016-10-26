@@ -185,6 +185,11 @@ Item {
 
                 TabItem {
                     active: tabIndex === root.model.currentIndex
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: tabsContainer.height
                     hoverable: true
                     incognito: root.incognito
                     title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
@@ -194,10 +199,7 @@ Item {
                     touchEnabled: root.touchEnabled
 
                     rightMargin: root.rightMargin
-                    
-                    height: parent.height
-                    width: parent.width
-                    x: 0
+
                     // Keep the visual tabitem within maxYDiff of starting point when
                     // dragging vertically so that it doesn't cover other elements
                     y: Math.abs(parent.y) > tabsContainer.maxYDiff ? (tabsContainer.sign(parent.y) * tabsContainer.maxYDiff) - parent.y : 0
