@@ -1475,44 +1475,28 @@ BrowserView {
             }
         }
         
-        
-        Item {
-            id: dropShade
+        Rectangle {
             anchors {
-                fill: parent
+                left: parent.left
+                right: parent.right
+                top: parent.top
             }
-            opacity: dropArea.containsDrag ? 1 : 0
-            
-            Rectangle {
-                id: dropChromeShade
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: parent.top
-                }
-                border {
-                    color: "#FF0"  // Yellow
-                    width: units.gu(1)
-                }
-                color: "transparent"
-                height: dropArea.heightThreshold
-                opacity: dropArea.drag.y <= dropArea.heightThreshold ? 0.7 : 0.4
-                
-                Behavior on opacity {
-                    NumberAnimation {
-                    
+            border {
+                color: "#FF0"  // Yellow
+                width: units.gu(1)
+            }
+            color: "transparent"
+            height: dropArea.heightThreshold
+            opacity: {
+                if (dropArea.containsDrag) {
+                    if (dropArea.drag.y <= dropArea.heightThreshold) {
+                        0.7
+                    } else {
+                        0.4
                     }
+                } else {
+                    0
                 }
-            }
-            
-            Rectangle {
-                id: dropTabShade
-                anchors {
-                    fill: parent
-                    topMargin: dropArea.heightThreshold
-                }
-                color: "#FFF"
-                opacity: 0.7
             }
             
             Behavior on opacity {
