@@ -22,16 +22,47 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QPainter>
+#include <QPen>
 #include <QPixmap>
 #include <QSize>
+#include <QSizeF>
 
 DragHelper::DragHelper()
 {
     m_active = false;
     m_expected_action = Qt::IgnoreAction;
     m_mime_type = QStringLiteral("webbrowser/tab");
+    m_preview_border_width = 8;
+    m_preview_size = QSizeF(200, 150);
+    m_preview_top_crop = 0;
     m_preview_url = "";
     m_source = Q_NULLPTR;
+}
+
+QPixmap DragHelper::drawPixmapWithBorder(QPixmap pixmap, int borderWidth, QColor color)
+{
+    // Create a transparent pixmap to draw to
+    QPixmap output(pixmap.width() + borderWidth * 2, pixmap.height() + borderWidth * 2);
+    output.fill(QColor(0, 0, 0, 0));
+    
+    // Draw the pixmap with space around the edge for a border
+    QPainter borderPainter(&output);
+    borderPainter.setRenderHint(QPainter::Antialiasing);
+    borderPainter.drawPixmap(borderWidth, borderWidth, pixmap);
+    
+    // Define a pen to use for the border
+    QPen borderPen;
+    borderPen.setColor(color);
+    borderPen.setJoinStyle(Qt::MiterJoin);
+    borderPen.setStyle(Qt::SolidLine);
+    borderPen.setWidth(borderWidth);
+    
+    // Set the pen and draw the border
+    borderPainter.setPen(borderPen);
+    borderPainter.drawRect(borderWidth / 2, borderWidth / 2,
+                           output.width() - borderWidth, output.height() - borderWidth);
+
+    return output;
 }
 
 Qt::DropAction DragHelper::execDrag(QString tabId)
@@ -42,8 +73,23 @@ Qt::DropAction DragHelper::execDrag(QString tabId)
     QMimeData *mimeData = new QMimeData;
     mimeData->setData(mimeType(), tabId.toLatin1());
 
-    // Build a pixmap for the drag handle
-    QSize pixmapSize(200, 150);
+    // Get a bordered pixmap of the previewUrl
+    QSize size = previewSize().toSize();
+    
+    QPixmap pixmap = drawPixmapWithBorder(getPreviewUrlAsPixmap(size.width(), size.height()),
+        previewBorderWidth(), QColor(205, 205, 205, 255 * 0.6));  // #cdcdcd
+    
+    // Setup the drag and then execute it
+    drag->setHotSpot(QPoint(size.width() * 0.1, size.height() * 0.1));
+    drag->setMimeData(mimeData);
+    drag->setPixmap(pixmap);
+
+    return drag->exec(expectedAction());
+}
+
+QPixmap DragHelper::getPreviewUrlAsPixmap(int width, int height)
+{
+    QSize pixmapSize(width, height);
     QPixmap pixmap(previewUrl());
     
     if (pixmap.isNull()) {
@@ -53,16 +99,14 @@ Qt::DropAction DragHelper::execDrag(QString tabId)
         painter.eraseRect(0, 0, pixmapSize.width(), pixmapSize.height());
         painter.fillRect(0, 0, pixmapSize.width(), pixmapSize.height(), QColor(255, 255, 255, 255));
     } else {
+        // Crop transparent part off the top of the image
+        pixmap = pixmap.copy(0, previewTopCrop(), pixmap.width(), pixmap.height() - previewTopCrop());
+
         // Scale image to fit the expected size
         pixmap = pixmap.scaled(pixmapSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
-
-    // Setup the drag and then execute it
-    drag->setHotSpot(QPoint(0, 0));
-    drag->setMimeData(mimeData);
-    drag->setPixmap(pixmap);
-
-    return drag->exec(expectedAction());
+    
+    return pixmap;
 }
 
 void DragHelper::setActive(bool active)
@@ -89,6 +133,33 @@ void DragHelper::setMimeType(QString mimeType)
         m_mime_type = mimeType;
 
         Q_EMIT mimeTypeChanged(m_mime_type);
+    }
+}
+
+void DragHelper::setPreviewBorderWidth(int previewBorderWidth)
+{
+    if (m_preview_border_width != previewBorderWidth) {
+        m_preview_border_width = previewBorderWidth;
+
+        Q_EMIT previewTopCropChanged(m_preview_border_width);
+    }
+}
+
+void DragHelper::setPreviewSize(QSizeF previewSize)
+{
+    if (m_preview_size != previewSize) {
+        m_preview_size = previewSize;
+
+        Q_EMIT previewSizeChanged(m_preview_size);
+    }
+}
+
+void DragHelper::setPreviewTopCrop(int previewTopCrop)
+{
+    if (m_preview_top_crop != previewTopCrop) {
+        m_preview_top_crop = previewTopCrop;
+
+        Q_EMIT previewTopCropChanged(m_preview_top_crop);
     }
 }
 

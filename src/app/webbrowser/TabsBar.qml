@@ -180,6 +180,9 @@ Item {
                     id: dragHelper
                     expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
                     mimeType: "webbrowser/tab-" + (window.incognito ? "incognito" : "public")
+                    previewBorderWidth: units.gu(1)
+                    previewSize: Qt.size(units.gu(35), units.gu(22.5))
+                    previewTopCrop: chrome.height
                     source: tabDelegate                
                 }
 

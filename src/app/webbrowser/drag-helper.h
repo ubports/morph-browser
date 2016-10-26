@@ -21,7 +21,9 @@
 
 #include <QQuickItem>
 #include <QMouseEvent>
+#include <QPixmap>
 #include <QRect>
+#include <QSizeF>
 
 class DragHelper : public QQuickItem
 {
@@ -30,6 +32,9 @@ class DragHelper : public QQuickItem
     Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(Qt::DropAction expectedAction READ expectedAction WRITE setExpectedAction NOTIFY expectedActionChanged)
     Q_PROPERTY(QString mimeType READ mimeType WRITE setMimeType NOTIFY mimeTypeChanged)
+    Q_PROPERTY(int previewBorderWidth READ previewBorderWidth WRITE setPreviewBorderWidth NOTIFY previewBorderWidthChanged)
+    Q_PROPERTY(QSizeF previewSize READ previewSize WRITE setPreviewSize NOTIFY previewSizeChanged)
+    Q_PROPERTY(int previewTopCrop READ previewTopCrop WRITE setPreviewTopCrop NOTIFY previewTopCropChanged)
     Q_PROPERTY(QString previewUrl READ previewUrl WRITE setPreviewUrl NOTIFY previewUrlChanged)
     Q_PROPERTY(QQuickItem* source READ source WRITE setSource NOTIFY sourceChanged)
 public:
@@ -37,12 +42,18 @@ public:
     bool active() { return m_active; }
     Qt::DropAction expectedAction() { return m_expected_action; }
     QString mimeType() { return m_mime_type; }
+    int previewBorderWidth() { return m_preview_border_width; }
+    QSizeF previewSize() { return m_preview_size; }
+    int previewTopCrop() { return m_preview_top_crop; }
     QString previewUrl() { return m_preview_url; }
     QQuickItem *source() { return m_source; }
 signals:
     void activeChanged(bool active);
     void expectedActionChanged(Qt::DropAction expectedAction);
     void mimeTypeChanged(QString mimeType);
+    void previewBorderWidthChanged(int previewBorderWidth);
+    void previewSizeChanged(QSizeF previewSize);
+    void previewTopCropChanged(int previewTopCrop);
     void previewUrlChanged(QString previewUrl);
     void sourceChanged(QQuickItem *source);
 public slots:
@@ -50,12 +61,21 @@ public slots:
     void setActive(bool active);
     void setExpectedAction(Qt::DropAction expectedAction);
     void setMimeType(QString mimeType);
+    void setPreviewBorderWidth(int previewBorderWidth);
+    void setPreviewSize(QSizeF previewSize);
+    void setPreviewTopCrop(int previewTopCrop);
     void setPreviewUrl(QString previewUrl);
     void setSource(QQuickItem *source);
 private:
+    QPixmap drawPixmapWithBorder(QPixmap pixmap, int borderWidth, QColor color);
+    QPixmap getPreviewUrlAsPixmap(int width, int height);
+
     bool m_active;
     Qt::DropAction m_expected_action;
     QString m_mime_type;
+    int m_preview_border_width;
+    QSizeF m_preview_size;
+    int m_preview_top_crop;
     QString m_preview_url;
     QQuickItem *m_source;
 };
