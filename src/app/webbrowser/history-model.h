@@ -23,10 +23,19 @@
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QDateTime>
 #include <QtCore/QList>
-#include <QtCore/QMutex>
+#include <QtCore/QPair>
+#include <QtCore/QQueue>
+#include <QtCore/QReadWriteLock>
+#include <QtCore/QSet>
 #include <QtCore/QString>
+#include <QtCore/QThread>
 #include <QtCore/QUrl>
+#include <QtCore/QVariant>
 #include <QtSql/QSqlDatabase>
+
+class QTimer;
+
+class DbWorker;
 
 class HistoryModel : public QAbstractListModel
 {
@@ -74,6 +83,7 @@ public:
 Q_SIGNALS:
     void databasePathChanged() const;
     void rowCountChanged();
+    void loaded() const;
 
 protected:
     struct HistoryEntry {
@@ -89,15 +99,16 @@ protected:
     int getEntryIndex(const QUrl& url) const;
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
 
-private:
-    QMutex m_dbMutex;
-    QSqlDatabase m_database;
+private Q_SLOTS:
+    void onHiddenEntryFetched(const QUrl& url);
+    void onEntryFetched(const QUrl& url, const QString& domain, const QString& title,
+                        const QUrl& icon, int visits, const QDateTime& lastVisit);
 
-    QList<QUrl> m_hiddenEntries;
+private:
+    QString m_databasePath;
+    QSet<QUrl> m_hiddenEntries;
 
     void resetDatabase(const QString& databaseName);
-    void createOrAlterDatabaseSchema();
-    void populateFromDatabase();
     void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void insertNewEntryInHiddenDatabase(const QUrl& url);
@@ -106,6 +117,52 @@ private:
     void removeEntriesFromDatabaseByDate(const QDate& date);
     void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
+
+    QThread m_dbWorkerThread;
+    DbWorker* m_dbWorker;
+};
+
+class DbWorker : public QObject {
+    Q_OBJECT
+
+    Q_ENUMS(Operation)
+
+public:
+    DbWorker();
+    ~DbWorker();
+
+    enum Operation {
+        InsertNewEntry,
+        InsertNewHiddenEntry,
+        UpdateExistingEntry,
+        RemoveEntryByUrl,
+        RemoveHiddenEntryByUrl,
+        RemoveEntriesByDate,
+        RemoveEntriesByDomain,
+        Clear,
+    };
+
+Q_SIGNALS:
+    void resetDatabase(const QString& databaseName);
+    void fetchEntries();
+    void hiddenEntryFetched(const QUrl& url);
+    void entryFetched(const QUrl& url, const QString& domain, const QString& title,
+                      const QUrl& icon, int visits, const QDateTime& lastVisit);
+    void loaded();
+    void enqueue(Operation operation, QVariantList values);
+
+private Q_SLOTS:
+    void doResetDatabase(const QString& databaseName);
+    void doCreateOrAlterDatabaseSchema();
+    void doFetchEntries();
+    void doEnqueue(Operation operation, QVariantList values);
+    void doFlush();
+
+private:
+    QSqlDatabase m_database;
+    QReadWriteLock m_lock;
+    QQueue<QPair<Operation, QVariantList>> m_pending;
+    QTimer* m_flush;
 };
 
 #endif // __HISTORY_MODEL_H__

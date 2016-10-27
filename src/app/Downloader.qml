@@ -34,9 +34,7 @@ Item {
 
     Component {
         id: metadataComponent
-        Metadata {
-            showInIndicator: true
-        }
+        Metadata {}
     }
 
     Component {
@@ -62,14 +60,8 @@ Item {
         singleDownload.download(url)
     }
 
-    function downloadPicture(url, headers) {
-        var metadata = metadataComponent.createObject(downloadItem)
-        downloadItem.mimeType = "image/*"
-        download(url, ContentType.Pictures, headers, metadata)
-    }
-
-    function downloadMimeType(url, mimeType, headers, filename) {
-        var metadata = metadataComponent.createObject(downloadItem)
+    function downloadMimeType(url, mimeType, headers, filename, incognito) {
+        var metadata = metadataComponent.createObject(downloadItem, {"showInIndicator": !incognito})
         var contentType = MimeTypeMapper.mimeTypeToContentType(mimeType)
         if (contentType == ContentType.Unknown && filename) {
             // If we can't determine the content type from the mime-type

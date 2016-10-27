@@ -23,8 +23,12 @@ import ".."
 ChromeBase {
     id: chrome
 
+    property var webview: null
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
+
+    loading: webview && webview.loading
+    loadProgress: loading ? webview.loadProgress : 0
 
     function updateChromeElementsColor(color) {
         chromeTextLabel.color = color

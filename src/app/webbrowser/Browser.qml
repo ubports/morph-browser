@@ -88,7 +88,7 @@ BrowserView {
            tabs will have their mediaAccessPermissionRequested signal handled by
            creating one of these new dialogs.
         */
-        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+        onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
     }
 
     currentWebcontext: SharedWebContext.sharedContext
@@ -117,11 +117,6 @@ BrowserView {
 
     FilteredKeyboardModel {
         id: keyboardModel
-    }
-
-    Component {
-        id: mediaAccessDialogComponent
-        MediaAccessDialog {}
     }
 
     actions: [
@@ -200,12 +195,16 @@ BrowserView {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
-            sourceComponent: ErrorSheet {
-                visible: currentWebview ? currentWebview.lastLoadFailed : false
-                url: currentWebview ? currentWebview.url : ""
+            Component.onCompleted: setSource("../ErrorSheet.qml", {
+                                                 "visible": Qt.binding(function(){ return currentWebview ? currentWebview.lastLoadFailed : false }),
+                                                 "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
+                                             })
+            Connections {
+                target: errorSheetLoader.item
                 onRefreshClicked: currentWebview.reload()
             }
-            focus: item.visible
+
+            focus: item && item.visible
             asynchronous: true
         }
 
@@ -215,9 +214,12 @@ BrowserView {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
-            sourceComponent: InvalidCertificateErrorSheet {
-                visible: currentWebview && currentWebview.certificateError != null
-                certificateError: currentWebview ? currentWebview.certificateError : null
+            Component.onCompleted: setSource("../InvalidCertificateErrorSheet.qml", {
+                                                 "visible": Qt.binding(function(){ return currentWebview && currentWebview.certificateError != null }),
+                                                 "certificateError": Qt.binding(function(){ return currentWebview ? currentWebview.certificateError : null })
+                                             })
+            Connections {
+                target: invalidCertificateErrorSheetLoader.item
                 onAllowed: {
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
@@ -228,7 +230,7 @@ BrowserView {
                     currentWebview.resetCertificateError()
                 }
             }
-            focus: item.visible
+            focus: item && item.visible
             asynchronous: true
         }
 
@@ -262,60 +264,35 @@ BrowserView {
                         newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
                     }
                 }
+                onWideChanged: newTabViewLoader.selectTabView()
+            }
+            Component.onCompleted: newTabViewLoader.selectTabView()
+
+            function selectTabView() {
+                var source = browser.incognito ? "NewPrivateTabView.qml" :
+                                                 (browser.wide ? "NewTabViewWide.qml" :
+                                                                 "NewTabView.qml");
+                var properties = browser.incognito ? {} : {"settingsObject": settings,
+                                                           "focus": true};
+
+                newTabViewLoader.setSource(source, properties);
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabView :
-                             (browser.wide ? newTabViewWide : newTabView)
-
-            Component {
-                id: newTabView
-
-                NewTabView {
-                    anchors.fill: parent
-                    settingsObject: settings
-                    focus: true
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    onBookmarkRemoved: BookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    Keys.onUpPressed: chrome.focus = true
+            Connections {
+                target: newTabViewLoader.item && !browser.incognito ? newTabViewLoader.item : null
+                onBookmarkClicked: {
+                    chrome.requestedUrl = url
+                    currentWebview.url = url
+                    tabContainer.forceActiveFocus()
+                }
+                onBookmarkRemoved: BookmarksModel.remove(url)
+                onHistoryEntryClicked: {
+                    chrome.requestedUrl = url
+                    currentWebview.url = url
+                    tabContainer.forceActiveFocus()
                 }
             }
-
-            Component {
-                id: newTabViewWide
-
-                NewTabViewWide {
-                    anchors.fill: parent
-                    settingsObject: settings
-                    focus: true
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    onBookmarkRemoved: BookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        tabContainer.forceActiveFocus()
-                    }
-                    Keys.onUpPressed: chrome.focus = true
-                }
-            }
-
-            Component {
-                id: newPrivateTabView
-
-                NewPrivateTabView { anchors.fill: parent }
-            }
+            Keys.onUpPressed: chrome.focus = true
         }
 
         Loader {
@@ -328,8 +305,11 @@ BrowserView {
             active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
             focus: active
 
-            sourceComponent: SadTab {
-                webview: currentWebview
+            Component.onCompleted: setSource("SadTab.qml", {
+                                                 "webview": Qt.binding(function () {return browser.currentWebview})
+                                             })
+            Connections {
+                target: sadTabLoader.item
                 onCloseTabRequested: internal.closeCurrentTab()
             }
 
@@ -477,7 +457,6 @@ BrowserView {
         id: chrome
 
         tab: internal.nextTab || tabsModel.currentTab
-        webview: tab ? tab.webview : null
         tabsModel: browser.tabsModel
         searchUrl: currentSearchEngine.urlTemplate
 
@@ -800,7 +779,19 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: browser.wide ? bookmarksViewWideComponent : bookmarksViewComponent
+        asynchronous: true
+        Connections {
+            target: browser
+            onWideChanged: bookmarksViewLoader.selectBookmarksView()
+        }
+        Component.onCompleted: bookmarksViewLoader.selectBookmarksView()
+
+        function selectBookmarksView() {
+            bookmarksViewLoader.setSource(browser.wide ? "BookmarksViewWide.qml" : "BookmarksView.qml",
+                                          {"focus": true,
+                                           "homepageUrl": Qt.binding(function () {return settings.homepage})
+            });
+        }
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -824,26 +815,6 @@ BrowserView {
                 bookmarksViewLoader.active = false
             }
         }
-
-        Component {
-            id: bookmarksViewComponent
-
-            BookmarksView {
-                anchors.fill: parent
-                focus: true
-                homepageUrl: settings.homepage
-            }
-        }
-
-        Component {
-            id: bookmarksViewWideComponent
-
-            BookmarksViewWide {
-                anchors.fill: parent
-                focus: true
-                homepageUrl: settings.homepage
-            }
-        }
     }
 
     Loader {
@@ -851,7 +822,34 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
+        asynchronous: true
+        Connections {
+            target: browser
+            onWideChanged: historyViewLoader.selectHistoryView()
+        }
+        Component.onCompleted: historyViewLoader.selectHistoryView()
+
+        function selectHistoryView() {
+            historyViewLoader.setSource(browser.wide ? "HistoryViewWide.qml" : "HistoryViewWithExpansion.qml",
+                                        {"focus": true});
+        }
+
+        Connections {
+            target: historyViewLoader.item
+            onHistoryEntryClicked: {
+                historyViewLoader.active = false
+                internal.openUrlInNewTab(url, true)
+            }
+            onNewTabRequested: {
+                historyViewLoader.active = false
+                internal.openUrlInNewTab("", true)
+            }
+            onDone: {
+                historyViewLoader.active = false
+                internal.resetFocus()
+            }
+            onBack: historyViewLoader.active = false
+        }
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -862,75 +860,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-
-        Component {
-            id: historyViewComponent
-
-            FocusScope {
-                focus: true
-
-                signal loadModel()
-                onLoadModel: children[0].loadModel()
-
-                HistoryView {
-                    anchors.fill: parent
-                    focus: !expandedHistoryViewLoader.focus
-                    visible: focus
-                    onSeeMoreEntriesClicked: {
-                        expandedHistoryViewLoader.model = model
-                        expandedHistoryViewLoader.active = true
-                    }
-                    onNewTabRequested: internal.openUrlInNewTab("", true)
-                    onBack: historyViewLoader.active = false
-                }
-
-                Loader {
-                    id: expandedHistoryViewLoader
-                    asynchronous: true
-                    anchors.fill: parent
-                    active: false
-                    focus: active
-                    property var model: null
-                    sourceComponent: ExpandedHistoryView {
-                        focus: true
-                        model: expandedHistoryViewLoader.model
-                        onHistoryEntryClicked: {
-                            internal.openUrlInNewTab(url, true)
-                            historyViewLoader.active = false
-                        }
-                        onHistoryEntryRemoved: {
-                            if (count == 1) {
-                                done()
-                            }
-                            HistoryModel.removeEntryByUrl(url)
-                        }
-                        onDone: expandedHistoryViewLoader.active = false
-                    }
-                }
-            }
-        }
-
-        Component {
-            id: historyViewWideComponent
-
-            HistoryViewWide {
-                anchors.fill: parent
-                focus: true
-
-                onHistoryEntryClicked: {
-                    historyViewLoader.active = false
-                    internal.openUrlInNewTab(url, true)
-                }
-                onNewTabRequested: {
-                    historyViewLoader.active = false
-                    internal.openUrlInNewTab("", true)
-                }
-                onDone: {
-                    historyViewLoader.active = false
-                    internal.resetFocus()
-                }
-            }
-        }
     }
 
     Loader {
@@ -938,6 +867,7 @@ BrowserView {
 
         anchors.fill: parent
         active: false
+        asynchronous: true
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -948,10 +878,12 @@ BrowserView {
             }
         }
 
-        sourceComponent: SettingsPage {
-            anchors.fill: parent
-            focus: true
-            settingsObject: settings
+        Component.onCompleted: setSource("SettingsPage.qml", {
+                                             "focus": true,
+                                             "settingsObject": settings
+                                         })
+        Connections {
+            target: settingsViewLoader.item
             onDone: settingsViewLoader.active = false
         }
     }
@@ -961,18 +893,15 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        source: "DownloadsPage.qml"
+        asynchronous: true
+        Component.onCompleted: {
+            setSource("DownloadsPage.qml", {
+                          "downloadManager": Qt.binding(function () {return downloadHandlerLoader.item}),
+                          "incognito": incognito,
+                          "focus": true
+            })
+        }
 
-        Binding {
-            target: downloadsViewLoader.item
-            property: "downloadManager"
-            value: downloadHandlerLoader.item
-        }
-        Binding {
-            target: downloadsViewLoader.item
-            property: "focus"
-            value: true
-        }
         Connections {
             target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
@@ -993,425 +922,10 @@ BrowserView {
         asynchronous: true
     }
 
-    Component {
-        id: tabComponent
-
-        BrowserTab {
-            anchors.fill: parent
-            incognito: browser.incognito
-            current: tabsModel && tabsModel.currentTab === this
-            focus: current
-
-            Item {
-                id: contextualMenuTarget
-                visible: false
-            }
-
-            webviewComponent: WebViewImpl {
-                id: webviewimpl
-
-                property BrowserTab tab
-                readonly property bool current: tab.current
-
-                currentWebview: browser.currentWebview
-                filePicker: filePickerLoader.item
-
-                anchors.fill: parent
-
-                focus: true
-
-                enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
-
-                locationBarController {
-                    height: chrome.height
-                    mode: chromeController.defaultMode
-                }
-
-                //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-                preferences.localStorageEnabled: true
-                preferences.appCacheEnabled: true
-
-                property QtObject contextModel: null
-                contextualActions: ActionList {
-                    Actions.OpenLinkInNewTab {
-                        objectName: "OpenLinkInNewTabContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true)
-                    }
-                    Actions.OpenLinkInNewBackgroundTab {
-                        objectName: "OpenLinkInNewBackgroundTabContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false)
-                    }
-                    Actions.OpenLinkInNewWindow {
-                        objectName: "OpenLinkInNewWindowContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: browser.openLinkInWindowRequested(contextModel.linkUrl, false)
-                    }
-                    Actions.OpenLinkInPrivateWindow {
-                        objectName: "OpenLinkInPrivateWindowContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: browser.openLinkInWindowRequested(contextModel.linkUrl, true)
-                    }
-                    Actions.BookmarkLink {
-                        objectName: "BookmarkLinkContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                                 && !BookmarksModel.contains(contextModel.linkUrl)
-                        onTriggered: {
-                            // position the menu target with a one-off assignement instead of a binding
-                            // since the contents of the contextModel have meaning only while the context
-                            // menu is active
-                            contextualMenuTarget.x = contextModel.position.x
-                            contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
-                            internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
-                                                 "", contextualMenuTarget)
-                        }
-                    }
-                    Actions.CopyLink {
-                        objectName: "CopyLinkContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
-                    }
-                    Actions.SaveLink {
-                        objectName: "SaveLinkContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString()
-                        onTriggered: contextModel.saveLink()
-                    }
-                    Actions.Share {
-                        objectName: "ShareContextualAction"
-                        enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
-                                 (contextModel.linkUrl.toString() || contextModel.selectionText)
-                        onTriggered: {
-                            if (contextModel.linkUrl.toString()) {
-                                internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
-                            } else if (contextModel.selectionText) {
-                                internal.shareText(contextModel.selectionText)
-                            }
-                        }
-                    }
-                    Actions.OpenImageInNewTab {
-                        objectName: "OpenImageInNewTabContextualAction"
-                        enabled: contextModel &&
-                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
-                                 contextModel.srcUrl.toString()
-                        onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
-                    }
-                    Actions.CopyImage {
-                        objectName: "CopyImageContextualAction"
-                        enabled: contextModel &&
-                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.hasImageContents
-                        onTriggered: contextModel.copyImage()
-                    }
-                    Actions.SaveImage {
-                        objectName: "SaveImageContextualAction"
-                        enabled: contextModel &&
-                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.hasImageContents
-                        onTriggered: contextModel.saveMedia()
-                    }
-                    Actions.OpenVideoInNewTab {
-                        objectName: "OpenVideoInNewTabContextualAction"
-                        enabled: contextModel &&
-                                 (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
-                                 contextModel.srcUrl.toString()
-                        onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
-                    }
-                    Actions.SaveVideo {
-                        objectName: "SaveVideoContextualAction"
-                        enabled: contextModel &&
-                                 (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
-                                 contextModel.srcUrl.toString()
-                        onTriggered: contextModel.saveMedia()
-                    }
-                    Actions.Undo {
-                        objectName: "UndoContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.UndoCapability)
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
-                    }
-                    Actions.Redo {
-                        objectName: "RedoContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.RedoCapability)
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
-                    }
-                    Actions.Cut {
-                        objectName: "CutContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.CutCapability)
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
-                    }
-                    Actions.Copy {
-                        objectName: "CopyContextualAction"
-                        enabled: contextModel && (contextModel.selectionText ||
-                                 (contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)))
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
-                    }
-                    Actions.Paste {
-                        objectName: "PasteContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.PasteCapability)
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
-                    }
-                    Actions.Erase {
-                        objectName: "EraseContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.EraseCapability)
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
-                    }
-                    Actions.SelectAll {
-                        objectName: "SelectAllContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
-                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
-                    }
-                }
-
-                function contextMenuOnCompleted(menu) {
-                    contextModel = menu.contextModel
-                    if (contextModel.linkUrl.toString() ||
-                        contextModel.srcUrl.toString() ||
-                        contextModel.selectionText ||
-                        (contextModel.isEditable && contextModel.editFlags) ||
-                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
-                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
-                         contextModel.hasImageContents)) {
-                        menu.show()
-                    } else {
-                        contextModel.close()
-                    }
-                }
-
-                Component {
-                    id: contextMenuNarrowComponent
-                    ContextMenuMobile {
-                        actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
-                    }
-                }
-                Component {
-                    id: contextMenuWideComponent
-                    ContextMenuWide {
-                        webview: webviewimpl
-                        parent: browser
-                        actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
-                    }
-                }
-                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
-
-                onNewViewRequested: {
-                    var tab = tabComponent.createObject(tabContainer, {"request": request})
-                    var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
-                    internal.addTab(tab, setCurrent)
-                    if (setCurrent) tabContainer.forceActiveFocus()
-                }
-
-                onCloseRequested: prepareToClose()
-                onPrepareToCloseResponse: {
-                    if (proceed) {
-                        if (tab) {
-                            for (var i = 0; i < tabsModel.count; ++i) {
-                                if (tabsModel.get(i) === tab) {
-                                    tabsModel.remove(i)
-                                    break
-                                }
-                            }
-                            tab.close()
-                        }
-                        if (tabsModel.count === 0) {
-                            internal.openUrlInNewTab("", true, true)
-                        }
-                    }
-                }
-
-                QtObject {
-                    id: webviewInternal
-                    property url storedUrl: ""
-                    property bool titleSet: false
-                    property string title: ""
-                }
-                onLoadEvent: {
-                    if (event.type == Oxide.LoadEvent.TypeCommitted) {
-                        chrome.findInPageMode = false
-                        webviewInternal.titleSet = false
-                        webviewInternal.title = title
-                    }
-
-                    if (webviewimpl.incognito) {
-                        return
-                    }
-
-                    if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
-                        !event.isError &&
-                        (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
-                        webviewInternal.storedUrl = event.url
-                        HistoryModel.add(event.url, title, icon)
-                    }
-                }
-                onTitleChanged: {
-                    if (!webviewInternal.titleSet && webviewInternal.storedUrl.toString()) {
-                        // Record the title to avoid updating the history database
-                        // every time the page dynamically updates its title.
-                        // We don’t want pages that update their title every second
-                        // to achieve an ugly "scrolling title" effect to flood the
-                        // history database with updates.
-                        webviewInternal.titleSet = true
-                        webviewInternal.title = title
-                        HistoryModel.update(webviewInternal.storedUrl, title, icon)
-                    }
-                }
-                onIconChanged: {
-                    if (webviewInternal.storedUrl.toString()) {
-                        HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, icon)
-                    }
-                }
-
-                onGeolocationPermissionRequested: requestGeolocationPermission(request)
-
-                property var certificateError
-                function resetCertificateError() {
-                    certificateError = null
-                }
-                onCertificateError: {
-                    if (!error.isMainFrame || error.isSubresource) {
-                        // Not a main frame document error, just block the content
-                        // (it’s not overridable anyway).
-                        return
-                    }
-                    if (internal.isCertificateErrorAllowed(error)) {
-                        error.allow()
-                    } else {
-                        certificateError = error
-                        error.onCancelled.connect(webviewimpl.resetCertificateError)
-                    }
-                }
-
-                onFullscreenChanged: {
-                    if (fullscreen) {
-                        fullscreenExitHintComponent.createObject(webviewimpl)
-                    }
-                }
-                Component {
-                    id: fullscreenExitHintComponent
-
-                    Rectangle {
-                        id: fullscreenExitHint
-                        objectName: "fullscreenExitHint"
-
-                        anchors.centerIn: parent
-                        height: units.gu(6)
-                        width: Math.min(units.gu(50), parent.width - units.gu(12))
-                        radius: units.gu(1)
-                        color: "#3e3b39"
-                        opacity: 0.85
-
-                        Behavior on opacity {
-                            UbuntuNumberAnimation {
-                                duration: UbuntuAnimation.SlowDuration
-                            }
-                        }
-                        onOpacityChanged: {
-                            if (opacity == 0.0) {
-                                fullscreenExitHint.destroy()
-                            }
-                        }
-
-                        // Delay showing the hint to prevent it from jumping up while the
-                        // webview is being resized (https://launchpad.net/bugs/1454097).
-                        visible: false
-                        Timer {
-                            running: true
-                            interval: 250
-                            onTriggered: fullscreenExitHint.visible = true
-                        }
-
-                        Label {
-                            color: "white"
-                            font.weight: Font.Light
-                            anchors.centerIn: parent
-                            text: bottomEdgeHandle.enabled
-                                      ? i18n.tr("Swipe Up To Exit Full Screen")
-                                      : i18n.tr("Press ESC To Exit Full Screen")
-                        }
-
-                        Timer {
-                            running: fullscreenExitHint.visible
-                            interval: 2000
-                            onTriggered: fullscreenExitHint.opacity = 0
-                        }
-
-                        Connections {
-                            target: webviewimpl
-                            onFullscreenChanged: {
-                                if (!webviewimpl.fullscreen) {
-                                    fullscreenExitHint.destroy()
-                                }
-                            }
-                        }
-
-                        Component.onCompleted: bottomEdgeHint.forceShow = true
-                        Component.onDestruction: bottomEdgeHint.forceShow = false
-                    }
-                }
-
-                onShowDownloadDialog: {
-                    if (downloadDialogLoader.status === Loader.Ready) {
-                        var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
-                                                                                                  "downloadId" : downloadId,
-                                                                                                  "singleDownload" : downloader,
-                                                                                                  "filename" : filename,
-                                                                                                  "mimeType" : mimeType})
-                        downloadDialog.startDownload.connect(startDownload)
-                    }
-                }
-
-                function showDownloadsPage() {
-                    downloadsViewLoader.active = true
-                    return downloadsViewLoader.item
-                }
-
-                function startDownload(downloadId, download, mimeType) {
-                    DownloadsModel.add(downloadId, download.url, mimeType)
-                    download.start()
-                    downloadsViewLoader.active = true
-                }
-
-            }
-        }
-    }
-
-    Component {
-        id: bookmarkOptionsComponent
-        BookmarkOptions {
-            folderModel: BookmarksFolderListModel {
-                sourceModel: BookmarksModel
-            }
-
-            Component.onCompleted: forceActiveFocus()
-
-            onVisibleChanged: {
-                if (!visible) {
-                    BookmarksModel.remove(bookmarkUrl)
-                }
-            }
-
-            Component.onDestruction: {
-                if (BookmarksModel.contains(bookmarkUrl)) {
-                    BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
-                }
-            }
-
-            // Fragile workaround for https://launchpad.net/bugs/1546677.
-            // By destroying the popover, its visibility isn’t changed to
-            // false, and thus the bookmark is not removed.
-            Keys.onEnterPressed: destroy()
-            Keys.onReturnPressed: destroy()
-        }
+    property Component tabComponent
+    Loader {
+        source: "TabComponent.qml"
+        onLoaded: tabComponent = item
     }
 
     QtObject {
@@ -1514,6 +1028,7 @@ BrowserView {
                 var tabInfo = closedTabHistory.pop()
                 var tab = restoreTabState(tabInfo.state)
                 addTab(tab, true, tabInfo.index)
+                tab.load()
             }
         }
 
@@ -1622,7 +1137,7 @@ BrowserView {
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
-            currentBookmarkOptionsDialog = PopupUtils.open(bookmarkOptionsComponent,
+            internal.currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
                                                            location, properties)
         }
     }

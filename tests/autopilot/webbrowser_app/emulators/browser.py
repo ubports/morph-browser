@@ -179,9 +179,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_history_view(self):
         try:
             if self.wide:
-                return self.select_single(HistoryViewWide)
+                return self.wait_select_single(HistoryViewWide)
             else:
-                return self.select_single(HistoryView)
+                return self.wait_select_single(HistoryView)
         except exceptions.StateNotFoundError:
             return None
 
@@ -237,6 +237,26 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
             # Dismiss by clicking the cancel action
             menu.click_cancel_action()
         menu.wait_until_destroyed()
+
+    def get_alert_dialog(self):
+        return AlertDialog(
+            self.wait_select_single("Dialog", objectName="alertDialog")
+        )
+
+    def get_before_unload_dialog(self):
+        return BeforeUnloadDialog(
+            self.wait_select_single("Dialog", objectName="beforeUnloadDialog")
+        )
+
+    def get_confirm_dialog(self):
+        return ConfirmDialog(
+            self.wait_select_single("Dialog", objectName="confirmDialog")
+        )
+
+    def get_prompt_dialog(self):
+        return PromptDialog(
+            self.wait_select_single("Dialog", objectName="promptDialog")
+        )
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -724,3 +744,45 @@ class ContextMenuMobile(ContextMenuBase):
     def click_cancel_action(self):
         action = self.select_single("Empty", objectName="cancelAction")
         self.pointing_device.click_object(action)
+
+
+class DialogWrapper(object):
+    def __init__(self, dialog):
+        self.dialog = dialog
+
+        self.text = self.dialog.text
+        self.wait_until_destroyed = self.dialog.wait_until_destroyed
+        self.visible = self.dialog.visible
+
+
+class AlertDialog(DialogWrapper):
+    def get_ok_button(self):
+        return self.dialog.select_single("Button", objectName="okButton")
+
+
+class BeforeUnloadDialog(DialogWrapper):
+    def get_leave_button(self):
+        return self.dialog.select_single("Button", objectName="leaveButton")
+
+    def get_stay_button(self):
+        return self.dialog.select_single("Button", objectName="stayButton")
+
+
+class ConfirmDialog(DialogWrapper):
+    def get_cancel_button(self):
+        return self.dialog.select_single("Button", objectName="cancelButton")
+
+    def get_ok_button(self):
+        return self.dialog.select_single("Button", objectName="okButton")
+
+
+class PromptDialog(DialogWrapper):
+    def get_cancel_button(self):
+        return self.dialog.select_single("Button", objectName="cancelButton")
+
+    def get_input_textfield(self):
+        return self.dialog.select_single("TextField",
+                                         objectName="inputTextField")
+
+    def get_ok_button(self):
+        return self.dialog.select_single("Button", objectName="okButton")

@@ -24,6 +24,7 @@ FocusScope {
     id: root
 
     property var tab
+    property alias loading: addressbar.loading
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
@@ -122,8 +123,6 @@ FocusScope {
 
             icon: (internal.webview && internal.webview.certificateError) ? "" : tab ? tab.icon : ""
 
-            loading: internal.webview ? internal.webview.loading : false
-
             onValidated: {
                 if (!findInPageMode) {
                     internal.webview.forceActiveFocus()
@@ -138,15 +137,8 @@ FocusScope {
             onToggleBookmark: root.toggleBookmark()
 
             Connections {
-                target: internal.webview
-                onUrlChanged: {
-                    // ensure that the URL actually changes so that the
-                    // address bar is updated in case the user has entered a
-                    // new address that redirects to where she previously was
-                    // (https://launchpad.net/bugs/1306615)
-                    addressbar.actualUrl = ""
-                    addressbar.actualUrl = internal.webview.url
-                }
+                target: tab
+                onUrlChanged: addressbar.actualUrl = tab.url
             }
         }
 

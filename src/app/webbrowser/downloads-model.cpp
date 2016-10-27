@@ -104,6 +104,7 @@ void DownloadsModel::fetchMore(const QModelIndex &parent)
     int count = 0; // size() isn't supported on the sqlite backend
     while (populateQuery.next()) {
         DownloadEntry entry;
+        entry.incognito = false;
         entry.downloadId = populateQuery.value(0).toString();
         entry.url = populateQuery.value(1).toUrl();
         entry.path = populateQuery.value(2).toString();
@@ -147,6 +148,7 @@ QHash<int, QByteArray> DownloadsModel::roleNames() const
         roles[Paused] = "paused";
         roles[Error] = "error";
         roles[Created] = "created";
+        roles[Incognito] = "incognito";
     }
     return roles;
 }
@@ -182,6 +184,8 @@ QVariant DownloadsModel::data(const QModelIndex& index, int role) const
         return entry.error;
     case Created:
         return entry.created;
+    case Incognito:
+        return entry.incognito;
     default:
         return QVariant();
     }
@@ -218,7 +222,7 @@ bool DownloadsModel::contains(const QString& downloadId) const
     Add a download to the database. This should happen as soon as the download
     is started.
 */
-void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& mimetype)
+void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& mimetype, bool incognito)
 {
     beginInsertRows(QModelIndex(), 0, 0);
     DownloadEntry entry;
@@ -227,82 +231,110 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
     entry.paused = false;
     entry.url = url;
     entry.mimetype = mimetype;
+    entry.incognito = incognito;
     m_orderedEntries.prepend(entry);
     m_numRows++;
-    m_fetchedCount++;
     endInsertRows();
-    Q_EMIT added(downloadId, url, mimetype);
-    insertNewEntryInDatabase(entry);
     Q_EMIT rowCountChanged();
-}
-
-void DownloadsModel::setPath(const QString& downloadId, const QString& path)
-{
-    QSqlQuery query(m_database);
-
-    // Override reported mimetype from server with detected mimetype from file once downloaded
-    QMimeDatabase mimeDatabase;
-    QString mimetype = mimeDatabase.mimeTypeForFile(path).name();
-
-    static QString updateStatement = QLatin1String("UPDATE downloads SET mimetype = ?, "
-                                                   "path = ? WHERE downloadId = ?");
-    query.prepare(updateStatement);
-    query.addBindValue(mimetype);
-    query.addBindValue(path);
-    query.addBindValue(downloadId);
-    query.exec();
-    Q_EMIT pathChanged(downloadId, path);
+    if (!incognito) {
+        insertNewEntryInDatabase(entry);
+        m_fetchedCount++;
+    }
 }
 
 void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
 {
-    QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE downloads SET complete = ? "
-                                                   "WHERE downloadId = ?");
-    query.prepare(updateStatement);
-    query.addBindValue(complete);
-    query.addBindValue(downloadId);
-    query.exec();
-    Q_EMIT completeChanged(downloadId, complete);
-    reload();
+    int index = getIndexForDownloadId(downloadId);
+    if (index != -1) {
+        DownloadEntry& entry = m_orderedEntries[index];
+        if (entry.complete == complete) {
+            return;
+        }
+        entry.complete = complete;
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << Complete);
+        if (!entry.incognito) {
+            QSqlQuery query(m_database);
+            static QString updateStatement = QLatin1String("UPDATE downloads SET complete=? WHERE downloadId=?;");
+            query.prepare(updateStatement);
+            query.addBindValue(complete);
+            query.addBindValue(downloadId);
+            query.exec();
+        }
+    }
 }
 
 void DownloadsModel::setError(const QString& downloadId, const QString& error)
 {
-    QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE downloads SET error = ? "
-                                                   "WHERE downloadId = ?");
-    query.prepare(updateStatement);
-    query.addBindValue(error);
-    query.addBindValue(downloadId);
-    query.exec();
-    Q_EMIT errorChanged(downloadId, error);
-    reload();
+    int index = getIndexForDownloadId(downloadId);
+    if (index != -1) {
+        DownloadEntry& entry = m_orderedEntries[index];
+        if (entry.error == error) {
+            return;
+        }
+        entry.error = error;
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << Error);
+        if (!entry.incognito) {
+            QSqlQuery query(m_database);
+            static QString updateStatement = QLatin1String("UPDATE downloads SET error=? WHERE downloadId=?;");
+            query.prepare(updateStatement);
+            query.addBindValue(error);
+            query.addBindValue(downloadId);
+            query.exec();
+        }
+    }
 }
 
 void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& path)
 {
+    int index = getIndexForDownloadId(downloadId);
+    if (index == -1) {
+        return;
+    }
     QFile file(path);
     if (file.exists()) {
         QFileInfo fi(path);
-        QString suffix = fi.completeSuffix();
-        QString filename = fi.fileName();
-        QString filenameWithoutSuffix = filename.left(filename.size() - suffix.size());
+        DownloadEntry& entry = m_orderedEntries[index];
+        QVector<int> updatedRoles;
+
+        // Override reported mimetype from server with detected mimetype from file once downloaded
+        QMimeDatabase mimeDatabase;
+        QString mimetype = mimeDatabase.mimeTypeForFile(fi).name();
+        if (mimetype != entry.mimetype) {
+            entry.mimetype = mimetype;
+            updatedRoles.append(Mimetype);
+        }
+
+        // Move file to XDG Downloads folder
         QDir dir(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
         if (!dir.exists()) {
             QDir::root().mkpath(dir.absolutePath());
         }
-        QString destination = dir.absoluteFilePath(filenameWithoutSuffix + suffix);
+        QString baseName = fi.baseName();
+        QString suffix = fi.completeSuffix();
+        QString destination = dir.absoluteFilePath(QString("%1.%2").arg(baseName, suffix));
         // Avoid filename collision by automatically inserting an incremented
         // number into the filename if the original name already exists.
         int append = 1;
         while (QFile::exists(destination)) {
-            destination = dir.absoluteFilePath(QString("%1%2.%3").arg(filenameWithoutSuffix, QString::number(append++), suffix));
+            destination = dir.absoluteFilePath(QString("%1.%2.%3").arg(baseName, QString::number(append++), suffix));
         }
         if (file.rename(destination)) {
-            setPath(downloadId, destination);
+            entry.path = destination;
+            updatedRoles.append(Path);
         } else {
             qWarning() << "Failed moving file from" << path << "to" << destination;
+        }
+
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), updatedRoles);
+        if (!entry.incognito && !updatedRoles.isEmpty()) {
+            QSqlQuery query(m_database);
+            static QString updateStatement = QLatin1String("UPDATE downloads SET mimetype = ?, "
+                                                           "path = ? WHERE downloadId = ?");
+            query.prepare(updateStatement);
+            query.addBindValue(mimetype);
+            query.addBindValue(destination);
+            query.addBindValue(downloadId);
+            query.exec();
         }
     } else {
         qWarning() << "Download not found:" << path;
@@ -331,15 +363,17 @@ void DownloadsModel::deleteDownload(const QString& path)
     int index = 0;
     Q_FOREACH(DownloadEntry entry, m_orderedEntries) {
         if (entry.path == path) {
+            bool incognito = entry.incognito;
             beginRemoveRows(QModelIndex(), index, index);
             m_orderedEntries.removeAt(index);
             endRemoveRows();
-            Q_EMIT deleted(path);
-            removeExistingEntryFromDatabase(path);
-            m_fetchedCount--;
             m_numRows--;
             Q_EMIT rowCountChanged();
             QFile::remove(path);
+            if (!incognito) {
+                removeExistingEntryFromDatabase(path);
+                m_fetchedCount--;
+            }
             return;
         } else {
             index++;
@@ -352,45 +386,69 @@ void DownloadsModel::deleteDownload(const QString& path)
 */
 void DownloadsModel::cancelDownload(const QString& downloadId)
 {
-    int index=0;
-    Q_FOREACH(DownloadEntry entry, m_orderedEntries) {
-        if (entry.downloadId == downloadId) {
-            beginRemoveRows(QModelIndex(), index, index);
-            m_orderedEntries.removeAt(index);
+    int index = getIndexForDownloadId(downloadId);
+    if (index != -1) {
+        const DownloadEntry& entry = m_orderedEntries.at(index);
+        bool incognito = entry.incognito;
+        beginRemoveRows(QModelIndex(), index, index);
+        m_orderedEntries.removeAt(index);
+        endRemoveRows();
+        m_numRows--;
+        Q_EMIT rowCountChanged();
+        if (!incognito) {
             QSqlQuery query(m_database);
             static QString deleteStatement = QLatin1String("DELETE FROM downloads WHERE downloadId=?;");
             query.prepare(deleteStatement);
             query.addBindValue(downloadId);
             query.exec();
-            endRemoveRows();
             m_fetchedCount--;
-            m_numRows--;
-            Q_EMIT rowCountChanged();
+        }
+    }
+}
+
+void DownloadsModel::setPaused(const QString& downloadId, bool paused)
+{
+    int index = getIndexForDownloadId(downloadId);
+    if (index != -1) {
+        DownloadEntry& entry = m_orderedEntries[index];
+        if (entry.paused == paused) {
             return;
-        } else {
-            index++;
+        }
+        entry.paused = paused;
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << Paused);
+        if (!entry.incognito) {
+            QSqlQuery query(m_database);
+            static QString pauseStatement = QLatin1String("UPDATE downloads SET paused=? WHERE downloadId=?;");
+            query.prepare(pauseStatement);
+            query.addBindValue(paused);
+            query.addBindValue(downloadId);
+            query.exec();
         }
     }
 }
 
 void DownloadsModel::pauseDownload(const QString& downloadId)
 {
-    QSqlQuery query(m_database);
-    static QString pauseStatement = QLatin1String("UPDATE downloads SET paused=1 WHERE downloadId=?;");
-    query.prepare(pauseStatement);
-    query.addBindValue(downloadId);
-    query.exec();
-    reload();
+    setPaused(downloadId, true);
 }
 
 void DownloadsModel::resumeDownload(const QString& downloadId)
 {
-    QSqlQuery query(m_database);
-    static QString resumeStatement = QLatin1String("UPDATE downloads SET paused=0 WHERE downloadId=?;");
-    query.prepare(resumeStatement);
-    query.addBindValue(downloadId);
-    query.exec();
-    reload();
+    setPaused(downloadId, false);
+}
+
+void DownloadsModel::pruneIncognitoDownloads()
+{
+    for (int i = m_orderedEntries.size() - 1; i >= 0; --i) {
+        const DownloadEntry& entry = m_orderedEntries.at(i);
+        if (entry.incognito) {
+            beginRemoveRows(QModelIndex(), i, i);
+            m_orderedEntries.removeAt(i);
+            endRemoveRows();
+            m_numRows--;
+            Q_EMIT rowCountChanged();
+        }
+    }
 }
 
 void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)
@@ -409,14 +467,15 @@ bool DownloadsModel::canFetchMore(const QModelIndex &parent) const
     return m_canFetchMore;
 }
 
-void DownloadsModel::reload()
+int DownloadsModel::getIndexForDownloadId(const QString& downloadId) const
 {
-    beginResetModel();
-    m_orderedEntries.clear();
-    m_canFetchMore = true;
-    m_fetchedCount = 0;
-    m_numRows = 0;
-    endResetModel();
-    fetchMore();
-    Q_EMIT rowCountChanged();
+    int index = 0;
+    Q_FOREACH(const DownloadEntry& entry, m_orderedEntries) {
+        if (entry.downloadId == downloadId) {
+            return index;
+        } else {
+            ++index;
+        }
+    }
+    return -1;
 }

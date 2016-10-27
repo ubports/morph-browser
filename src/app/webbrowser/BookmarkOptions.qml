@@ -19,17 +19,35 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import webbrowserapp.private 0.1
 
 Popover {
     id: bookmarkOptions
 
     property url bookmarkUrl
     property alias bookmarkTitle: titleTextField.text
-    property alias folderModel: folderOptionSelector.model
 
-    readonly property string bookmarkFolder: folderModel.get(folderOptionSelector.selectedIndex).folder
+    readonly property string bookmarkFolder: folderOptionSelector.model.get(folderOptionSelector.selectedIndex).folder
 
     contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(2)
+
+    onVisibleChanged: {
+        if (!visible) {
+            BookmarksModel.remove(bookmarkUrl)
+        }
+    }
+
+    Component.onDestruction: {
+        if (BookmarksModel.contains(bookmarkUrl)) {
+            BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
+        }
+    }
+
+    // Fragile workaround for https://launchpad.net/bugs/1546677.
+    // By destroying the popover, its visibility isn’t changed to
+    // false, and thus the bookmark is not removed.
+    Keys.onEnterPressed: bookmarkOptions.destroy()
+    Keys.onReturnPressed: bookmarkOptions.destroy()
 
     Column {
         id: bookmarkOptionsColumn
@@ -77,6 +95,9 @@ Popover {
 
             delegate: OptionSelectorDelegate { text: folder === "" ? i18n.tr("All Bookmarks") : folder }
             containerHeight: itemHeight * 3
+            model: BookmarksFolderListModel {
+                sourceModel: BookmarksModel
+            }
         }
 
         Item {
@@ -120,8 +141,8 @@ Popover {
 
             function createNewFolder(folder) {
                 Qt.inputMethod.hide()
-                folderModel.createNewFolder(folder)
-                folderOptionSelector.selectedIndex = folderModel.indexOf(folder) 
+                folderOptionSelector.model.createNewFolder(folder)
+                folderOptionSelector.selectedIndex = folderOptionSelector.model.indexOf(folder)
                 folderOptionSelector.currentlyExpanded = false
                 PopupUtils.close(dialogue)
             }
