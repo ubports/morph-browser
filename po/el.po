@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
 "PO-Revision-Date: 2016-03-15 20:00+0000\n"
 "Last-Translator: Aggelos Arnaoutis <angelosarn@hotmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -15,17 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-27 06:26+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
-#: src/app/AlertDialog.qml:23
+#: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
 msgstr "Ειδοποίηση JavaScript"
 
-#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr "Εντάξει"
 
@@ -47,13 +46,12 @@ msgstr "Όνομα χρήστη"
 msgid "Password"
 msgstr "Κωδικός"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
-#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
+#: src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/DownloadDelegate.qml:178
 #: src/app/webbrowser/SettingsPage.qml:258
 #: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
@@ -61,15 +59,15 @@ msgstr "Κωδικός"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/app/BeforeUnloadDialog.qml:23
+#: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
 msgstr "Επιβεβαίωση περιήγησης"
 
-#: src/app/BeforeUnloadDialog.qml:26
+#: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
 msgstr "Έξοδος"
 
-#: src/app/BeforeUnloadDialog.qml:32
+#: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
 msgstr "Παραμονή"
 
@@ -97,7 +95,7 @@ msgstr "Συνέχεια έτσι κι αλλιώς"
 msgid "Back to safety"
 msgstr "Επιστρέψτε σε ασφαλή σύνδεση"
 
-#: src/app/ConfirmDialog.qml:23
+#: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Επιβεβαίωση JavaScript"
 
@@ -354,7 +352,7 @@ msgstr "Ναι"
 msgid "No"
 msgstr "Όχι"
 
-#: src/app/PromptDialog.qml:23
+#: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
 msgstr "Προτροπή JavaScript"
 
@@ -422,7 +420,7 @@ msgstr "Αποκοπή"
 msgid "Erase"
 msgstr "Διαγραφή"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:548
 msgid "Find in page"
 msgstr "Εύρεση στη σελίδα"
 
@@ -452,8 +450,8 @@ msgstr "Μετάβαση στο"
 msgid "Address;URL;www"
 msgstr "Διεύθυνση;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
-#: src/app/webbrowser/TabsBar.qml:91
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:420
+#: src/app/webbrowser/TabsBar.qml:103
 msgid "New Tab"
 msgstr "Νέα καρτέλα"
 
@@ -500,7 +498,7 @@ msgid "Redo"
 msgstr "Επανάληψη"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:108 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Επαναφόρτωση"
 
@@ -522,11 +520,11 @@ msgstr "Αποθήκευση συνδέσμου"
 msgid "Save video"
 msgstr "Αποθήκευση βίντεο"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
 msgstr "Επιλογή όλων"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:528
 msgid "Share"
 msgstr "Κοινοποίηση"
 
@@ -548,36 +546,36 @@ msgstr "εύρεση στη σελίδα"
 msgid "search or enter an address"
 msgstr "αναζήτηση ή εισαγωγή διεύθυνσης"
 
-#: src/app/webbrowser/BookmarkOptions.qml:48
+#: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
 msgstr "Προστέθηκε ο σελιδοδείκτης"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
-#: src/app/webbrowser/BookmarkOptions.qml:53
+#: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
 msgstr "Όνομα"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
-#: src/app/webbrowser/BookmarkOptions.qml:71
+#: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
 msgstr "Αποθήκευση σε"
 
-#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "Όλοι οι σελιδοδείκτες"
 
-#: src/app/webbrowser/BookmarkOptions.qml:93
-#: src/app/webbrowser/BookmarkOptions.qml:133
+#: src/app/webbrowser/BookmarkOptions.qml:114
+#: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
 msgstr "Νέος φάκελος"
 
-#: src/app/webbrowser/BookmarkOptions.qml:115
+#: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
 msgstr "Δημιουργία νέου φακέλου"
 
-#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -591,14 +589,14 @@ msgstr "Αρχική σελίδα"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:536 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Σελιδοδείκτες"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:406 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Ολοκληρώθηκε"
@@ -607,44 +605,36 @@ msgstr "Ολοκληρώθηκε"
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:165 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Νέα καρτέλα"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:542 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Ιστορικό"
 
-#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:555 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
 msgstr "Λήψεις"
 
-#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
+#: src/app/webbrowser/Browser.qml:735 src/app/webbrowser/Browser.qml:773
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
-
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Σύρτε προς τα πάνω για Έξοδο από Πλήρη οθόνη"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "Πατήστε ESC για έξοδο από Πλήρη οθόνη"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -661,23 +651,29 @@ msgstr "Επιλέξτε μια εφαρμογή"
 msgid "Download"
 msgstr "Λήψη"
 
-#: src/app/webbrowser/DownloadDelegate.qml:159
+#: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
 msgstr "Αποτυχία λήψης"
 
-#: src/app/webbrowser/DownloadDelegate.qml:208
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
 msgstr "Συνέχιση"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
+#: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Επιβεβαίωση επιλογής"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
+#: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
 msgstr "Δεν υπάρχουν διαθέσιμες λήψεις"
 
@@ -877,11 +873,19 @@ msgstr "Μικρόφωνο"
 msgid "Camera"
 msgstr "Κάμερα"
 
+#: src/app/webbrowser/TabComponent.qml:388
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Σύρτε προς τα πάνω για Έξοδο από Πλήρη οθόνη"
+
+#: src/app/webbrowser/TabComponent.qml:389
+msgid "Press ESC To Exit Full Screen"
+msgstr "Πατήστε ESC για έξοδο από Πλήρη οθόνη"
+
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "Πατήστε για εμφάνιση"
 
-#: src/app/webbrowser/TabsBar.qml:102
+#: src/app/webbrowser/TabsBar.qml:114
 msgid "Close Tab"
 msgstr "Κλείσιμο Καρτέλας"
 
@@ -890,14 +894,14 @@ msgid "Remove"
 msgstr "Αφαίρεση"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webbrowser/webbrowser-app.qml:99
+#: src/app/webcontainer/webapp-container.qml:72
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Περιηγητής ιστού του Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:74
 msgid "Ubuntu Web Browser"
 msgstr "Περιηγητής ιστού του Ubuntu"
 
