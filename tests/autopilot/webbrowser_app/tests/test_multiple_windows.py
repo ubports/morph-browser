@@ -129,8 +129,10 @@ class TestMultipleWindowsDrag(StartOpenRemotePageTestCaseBase):
         tab = self.get_tab_delegate(window, 1)
         x2, y2, width, height = window.globalRect
 
-        x2 += width / 2
-        y2 += height + 10
+        if x2 > 20:
+            x2 -= 20
+        else:
+            x2 += width + 20
 
         self.drag_tab(tab, x2, y2)
 
