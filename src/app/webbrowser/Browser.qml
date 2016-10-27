@@ -1454,13 +1454,16 @@ BrowserView {
         }
         onEntered: window.raise()
         onDropped: {
-            // drop into narrow mode
+            // IgnoreAction - no DropArea accepted so New Window
+            // MoveAction   - DropArea accept but different window
+            // CopyAction   - DropArea accept but same window
+        
             if (drag.y > heightThreshold) {
                 console.debug("Dropped in bottom area, creating new window");
-                drop.accept(Qt.CopyAction);
+                drop.accept(Qt.IgnoreAction);
             } else if (drag.source.tabWindow === window) {
                 console.debug("Dropped in same window");
-                drop.accept(Qt.IgnoreAction);
+                drop.accept(Qt.CopyAction);
             } else {
                 console.debug("Dropped in new window, moving tab");
                 

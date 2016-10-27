@@ -70,7 +70,7 @@ void DragHelper::setActive(bool active)
     if (m_active != active) {
         m_active = active;
 
-        Q_EMIT activeChanged(m_active);
+        Q_EMIT activeChanged();
     }
 }
 
@@ -79,7 +79,7 @@ void DragHelper::setExpectedAction(Qt::DropAction expectedAction)
     if (m_expected_action != expectedAction) {
         m_expected_action = expectedAction;
         
-        Q_EMIT expectedActionChanged(m_expected_action);
+        Q_EMIT expectedActionChanged();
     }
 }
 
@@ -88,7 +88,7 @@ void DragHelper::setMimeType(QString mimeType)
     if (m_mime_type != mimeType) {
         m_mime_type = mimeType;
 
-        Q_EMIT mimeTypeChanged(m_mime_type);
+        Q_EMIT mimeTypeChanged();
     }
 }
 
@@ -97,7 +97,7 @@ void DragHelper::setPreviewUrl(QString previewUrl)
     if (m_preview_url != previewUrl) {
         m_preview_url = previewUrl;
 
-        Q_EMIT previewUrlChanged(m_preview_url);
+        Q_EMIT previewUrlChanged();
     }
 }
 
@@ -106,7 +106,7 @@ void DragHelper::setSource(QQuickItem *source)
     if (m_source != source) {
         m_source = source;
 
-        Q_EMIT sourceChanged(m_source);
+        Q_EMIT sourceChanged();
     }
 }
 
