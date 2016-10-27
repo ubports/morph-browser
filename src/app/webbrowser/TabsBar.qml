@@ -251,9 +251,9 @@ Item {
                         
                             var dropAction = dragHelper.execDrag(tab.url);
                             
-                            // IgnoreAction - Same window in tabbar
-                            // MoveAction   - Different window
-                            // CopyAction   - New Window
+                            // IgnoreAction - no DropArea accepted so New Window
+                            // MoveAction   - DropArea accept but different window
+                            // CopyAction   - DropArea accept but same window
                             
                             if (dropAction === Qt.MoveAction) {
                                 // Moved into another window
@@ -266,12 +266,12 @@ Item {
                                 // Just remove from model and do not destory
                                 // as webview is used in other window                                
                                 tabsModel.remove(index);
-                            } else if (dropAction === Qt.IgnoreAction) {
+                            } else if (dropAction === Qt.CopyAction) {
                                 // Moved into the same window
                                 
                                 // So no action
                                 console.debug("No action, dropped in same window");
-                            } else if (dropAction === Qt.CopyAction) {
+                            } else if (dropAction === Qt.IgnoreAction) {
                                 // Moved outside of any window
                                 console.debug("Moved outside, generating new window");
                                 

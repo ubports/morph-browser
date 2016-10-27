@@ -48,14 +48,14 @@ public:
     QString previewUrl() { return m_preview_url; }
     QQuickItem *source() { return m_source; }
 signals:
-    void activeChanged(bool active);
-    void expectedActionChanged(Qt::DropAction expectedAction);
-    void mimeTypeChanged(QString mimeType);
-    void previewBorderWidthChanged(int previewBorderWidth);
-    void previewSizeChanged(QSizeF previewSize);
-    void previewTopCropChanged(int previewTopCrop);
-    void previewUrlChanged(QString previewUrl);
-    void sourceChanged(QQuickItem *source);
+    void activeChanged();
+    void expectedActionChanged();
+    void mimeTypeChanged();
+    void previewBorderWidthChanged();
+    void previewSizeChanged();
+    void previewTopCropChanged();
+    void previewUrlChanged();
+    void sourceChanged();
 public slots:
     Q_INVOKABLE Qt::DropAction execDrag(QString tabId);
     void setActive(bool active);
