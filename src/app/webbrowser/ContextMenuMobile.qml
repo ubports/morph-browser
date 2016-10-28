@@ -23,6 +23,8 @@ import Ubuntu.Components.Popups 1.3 as Popups
 import com.canonical.Oxide 1.8 as Oxide
 
 Popups.Dialog {
+    id: contextMenu
+
     property QtObject contextModel: model
     property ActionList actions: null
 
@@ -119,7 +121,7 @@ Popups.Dialog {
                 }
             }
 
-            onTriggered: contextModel.close()
+            onTriggered: contextMenu.hide()
         }
     }
 
@@ -138,7 +140,13 @@ Popups.Dialog {
             fontSize: "x-small"
             text: i18n.tr("Cancel")
         }
-        onTriggered: contextModel.close()
+        onTriggered: contextMenu.hide()
+    }
+
+    onVisibleChanged: {
+        if (!visible) {
+            contextModel.close()
+        }
     }
 
     // adjust default dialog visuals to custom requirements for the context menu
