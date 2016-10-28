@@ -8,23 +8,24 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-10-27 07:09+0200\n"
-"PO-Revision-Date: 2016-05-04 23:50+0000\n"
-"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
+"PO-Revision-Date: 2016-10-27 16:57+0000\n"
+"Last-Translator: Olivier Tilloy <olivier.tilloy@canonical.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-10-27 06:27+0000\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
 "X-Generator: Launchpad (build 18246)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "Alerta de JavaScript"
 
-#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Aceptar"
 
@@ -46,12 +47,13 @@ msgstr "Usuario"
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
-#: src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:258
 #: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
@@ -59,15 +61,15 @@ msgstr "Contraseña"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr "Confirmar navegación"
 
-#: src/app/BeforeUnloadDialog.qml:27
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr "Salir"
 
-#: src/app/BeforeUnloadDialog.qml:35
+#: src/app/BeforeUnloadDialog.qml:32
 msgid "Stay"
 msgstr "Quedarse"
 
@@ -95,7 +97,7 @@ msgstr "Continuar de todos modos"
 msgid "Back to safety"
 msgstr "Volver para estar a salvo"
 
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "Confirmación JavaScript"
 
@@ -349,7 +351,7 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "Diálogo de JavaScript"
 
@@ -417,7 +419,7 @@ msgstr "Cortar"
 msgid "Erase"
 msgstr "Borrar"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:548
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
 msgid "Find in page"
 msgstr "Buscar en la página"
 
@@ -447,8 +449,8 @@ msgstr "Ir a"
 msgid "Address;URL;www"
 msgstr "Dirección;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:420
-#: src/app/webbrowser/TabsBar.qml:103
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "Pestaña nueva"
 
@@ -495,7 +497,7 @@ msgid "Redo"
 msgstr "Restaurar"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:108 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Recargar"
 
@@ -517,11 +519,11 @@ msgstr "Guardar el enlace"
 msgid "Save video"
 msgstr "Guardar vídeo"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 msgid "Select all"
 msgstr "Todos"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:528
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
 msgid "Share"
 msgstr "Compartir"
 
@@ -543,36 +545,36 @@ msgstr "buscar en la página"
 msgid "search or enter an address"
 msgstr "buscar o escribir una dirección"
 
-#: src/app/webbrowser/BookmarkOptions.qml:66
+#: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
 msgstr "Marcador añadido"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
-#: src/app/webbrowser/BookmarkOptions.qml:71
+#: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
 msgstr "Nombre"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
-#: src/app/webbrowser/BookmarkOptions.qml:89
+#: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
 msgstr "Guardar en"
 
-#: src/app/webbrowser/BookmarkOptions.qml:96
+#: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "Todos los marcadores"
 
-#: src/app/webbrowser/BookmarkOptions.qml:114
-#: src/app/webbrowser/BookmarkOptions.qml:154
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
 msgstr "Carpeta nueva"
 
-#: src/app/webbrowser/BookmarkOptions.qml:136
+#: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
 msgstr "Crear carpeta"
 
-#: src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "Guardar"
@@ -586,14 +588,14 @@ msgstr "Página de inicio"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:536 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Marcadores"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:406 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Hecho"
@@ -602,7 +604,7 @@ msgstr "Hecho"
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:165 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Pestaña nueva"
 
@@ -614,21 +616,21 @@ msgstr "Nueva ventana"
 msgid "New private window"
 msgstr "Nueva ventana privada"
 
-#: src/app/webbrowser/Browser.qml:542 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:555 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "Descargas"
 
-#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Configuración"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735 src/app/webbrowser/Browser.qml:773
+#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -648,7 +650,7 @@ msgstr "Elegir una aplicación"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/app/webbrowser/DownloadDelegate.qml:151
+#: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "Falló la descarga"
 
@@ -656,21 +658,21 @@ msgstr "Falló la descarga"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
 msgstr "Reanudar"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "Confirmar la selección"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/DownloadsPage.qml:99
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/app/webbrowser/DownloadsPage.qml:260
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "No hay descargas disponibles"
 
@@ -865,11 +867,11 @@ msgstr "Micrófono"
 msgid "Camera"
 msgstr "Cámara"
 
-#: src/app/webbrowser/TabComponent.qml:388
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Deslice hacia arriba para salir de pantalla completa"
 
-#: src/app/webbrowser/TabComponent.qml:389
+#: src/app/webbrowser/Browser.qml:1378
 msgid "Press ESC To Exit Full Screen"
 msgstr "Presione Esc para salir de pantalla completa"
 
@@ -877,7 +879,7 @@ msgstr "Presione Esc para salir de pantalla completa"
 msgid "Tap to view"
 msgstr "Toque para ver"
 
-#: src/app/webbrowser/TabsBar.qml:114
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "Cerrar pestaña"
 
@@ -886,14 +888,14 @@ msgid "Remove"
 msgstr "Eliminar"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:99
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:70
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:101
-#: src/app/webcontainer/webapp-container.qml:74
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:72
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
 

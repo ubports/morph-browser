@@ -15,16 +15,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-10-27 06:27+0000\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
 "X-Generator: Launchpad (build 18246)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "자바스크립트 알림"
 
-#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "확인"
 
@@ -46,12 +47,13 @@ msgstr "사용자 이름"
 msgid "Password"
 msgstr "비밀번호"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
-#: src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:178
+#: src/app/webbrowser/DownloadDelegate.qml:187
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:258
 #: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
@@ -59,15 +61,15 @@ msgstr "비밀번호"
 msgid "Cancel"
 msgstr "취소"
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr "탐색 확인"
 
-#: src/app/BeforeUnloadDialog.qml:27
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr "끝내기"
 
-#: src/app/BeforeUnloadDialog.qml:35
+#: src/app/BeforeUnloadDialog.qml:32
 msgid "Stay"
 msgstr "계속하기"
 
@@ -93,7 +95,7 @@ msgstr "무시하고 계속하기"
 msgid "Back to safety"
 msgstr "안전 페이지로 돌아가기"
 
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "자바 스크립트 확인"
 
@@ -328,7 +330,7 @@ msgstr "예"
 msgid "No"
 msgstr "아니요"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "자바스크립트 명령"
 
@@ -396,7 +398,7 @@ msgstr "잘라내기"
 msgid "Erase"
 msgstr "지우기"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:548
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
 msgid "Find in page"
 msgstr "페이지에서 찾기"
 
@@ -426,8 +428,8 @@ msgstr "가기"
 msgid "Address;URL;www"
 msgstr "주소"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:420
-#: src/app/webbrowser/TabsBar.qml:103
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
+#: src/app/webbrowser/TabsBar.qml:91
 msgid "New Tab"
 msgstr "새 탭"
 
@@ -474,7 +476,7 @@ msgid "Redo"
 msgstr "다시 실행"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:108 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "다시 읽기"
 
@@ -496,11 +498,11 @@ msgstr "링크 저장"
 msgid "Save video"
 msgstr "동영상 저장"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
 msgid "Select all"
 msgstr "모두 선택"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:528
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
 msgid "Share"
 msgstr "공유"
 
@@ -522,36 +524,36 @@ msgstr "페이지에서 찾기"
 msgid "search or enter an address"
 msgstr "검색할 단어나 주소를 입력하십시오."
 
-#: src/app/webbrowser/BookmarkOptions.qml:66
+#: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
 msgstr "책갈피 추가함"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
-#: src/app/webbrowser/BookmarkOptions.qml:71
+#: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
 msgstr "이름"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
-#: src/app/webbrowser/BookmarkOptions.qml:89
+#: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
 msgstr "다음 위치에 저장"
 
-#: src/app/webbrowser/BookmarkOptions.qml:96
+#: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "모든 책갈피"
 
-#: src/app/webbrowser/BookmarkOptions.qml:114
-#: src/app/webbrowser/BookmarkOptions.qml:154
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
 msgstr "새 폴더"
 
-#: src/app/webbrowser/BookmarkOptions.qml:136
+#: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
 msgstr "새 폴더 만들기"
 
-#: src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "저장하기"
@@ -565,14 +567,14 @@ msgstr "홈페이지"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:536 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "책갈피"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:406 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "완료"
@@ -581,7 +583,7 @@ msgstr "완료"
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:165 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "새 탭"
 
@@ -593,21 +595,21 @@ msgstr ""
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:542 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "기록"
 
-#: src/app/webbrowser/Browser.qml:555 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
 msgid "Downloads"
 msgstr "다운로드"
 
-#: src/app/webbrowser/Browser.qml:562 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "설정"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:735 src/app/webbrowser/Browser.qml:773
+#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -625,7 +627,7 @@ msgstr "프로그램 선택"
 msgid "Download"
 msgstr "다운로드"
 
-#: src/app/webbrowser/DownloadDelegate.qml:151
+#: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "다운로드 실패"
 
@@ -635,19 +637,19 @@ msgstr "다운로드 실패"
 msgid "%1%"
 msgstr ""
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
 msgstr "계속"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
 msgstr "선택 확인"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
+#: src/app/webbrowser/DownloadsPage.qml:99
 msgid "Delete"
 msgstr "삭제"
 
-#: src/app/webbrowser/DownloadsPage.qml:260
+#: src/app/webbrowser/DownloadsPage.qml:252
 msgid "No downloads available"
 msgstr "다운로드할 수 있는 항목 없음"
 
@@ -836,11 +838,11 @@ msgstr "마이크"
 msgid "Camera"
 msgstr "카메라"
 
-#: src/app/webbrowser/TabComponent.qml:388
+#: src/app/webbrowser/Browser.qml:1377
 msgid "Swipe Up To Exit Full Screen"
 msgstr "위로 쓸어 올리셔서 전체 화면을 종료하십시오"
 
-#: src/app/webbrowser/TabComponent.qml:389
+#: src/app/webbrowser/Browser.qml:1378
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 
@@ -848,7 +850,7 @@ msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 msgid "Tap to view"
 msgstr "볼 탭"
 
-#: src/app/webbrowser/TabsBar.qml:114
+#: src/app/webbrowser/TabsBar.qml:102
 msgid "Close Tab"
 msgstr "탭 닫기"
 
@@ -857,14 +859,14 @@ msgid "Remove"
 msgstr "제거"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:99
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:70
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - 우분투 웹 브라우저"
 
-#: src/app/webbrowser/webbrowser-app.qml:101
-#: src/app/webcontainer/webapp-container.qml:74
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:72
 msgid "Ubuntu Web Browser"
 msgstr "우분투 웹 브라우저"
 
