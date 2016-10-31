@@ -24,8 +24,6 @@ from testtools.matchers import Equals
 import testtools
 
 
-@testtools.skipIf(model() == "Desktop", "Don't run on desktop, as "
-                                        "dependencies aren't guaranteed")
 class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_open_close_downloads_page(self):
