@@ -18,12 +18,12 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
+import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -102,17 +102,17 @@ BrowserView {
 
     InputDeviceModel {
         id: miceModel
-        deviceFilter: InputInfo.Mouse
+        filter: InputInfo.Mouse
     }
 
     InputDeviceModel {
         id: touchPadModel
-        deviceFilter: InputInfo.TouchPad
+        filter: InputInfo.TouchPad
     }
 
     InputDeviceModel {
         id: touchScreenModel
-        deviceFilter: InputInfo.TouchScreen
+        filter: InputInfo.TouchScreen
     }
 
     FilteredKeyboardModel {

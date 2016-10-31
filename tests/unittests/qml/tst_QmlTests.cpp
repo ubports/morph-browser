@@ -37,7 +37,6 @@
 #include "searchengine.h"
 #include "tabs-model.h"
 #include "text-search-filter-model.h"
-#include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
 
 class TestContext : public QObject
 {
@@ -186,10 +185,6 @@ int main(int argc, char** argv)
 
     const char* testUri = "webbrowsertest.private";
     qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
-
-    const char* inputInfoUri = "Unity.InputInfo";
-    qmlRegisterType<QDeclarativeInputDeviceModel>(inputInfoUri, 0, 1, "InputDeviceModel");
-    qmlRegisterType<QInputDevice>(inputInfoUri, 0, 1, "InputInfo");
 
     return quick_test_main(argc, argv, "QmlTests", nullptr);
 }

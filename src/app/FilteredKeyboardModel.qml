@@ -17,12 +17,12 @@
  */
 
 import QtQuick 2.4
+import QtSystemInfo 5.5
 import Ubuntu.Components 1.3
-import Unity.InputInfo 0.1
 
 SortFilterModel {
     model: InputDeviceModel {
-        deviceFilter: InputInfo.Keyboard
+        filter: InputInfo.Keyboard
     }
     filter {
         // Filter out autopilot-emulated keyboards

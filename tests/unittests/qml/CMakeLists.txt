@@ -43,7 +43,6 @@ target_link_libraries(${TEST}
     Qt5::Quick
     Qt5::QuickTest
     Qt5::Sql
-    InputInfo
 )
 add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST}
          -input ${CMAKE_CURRENT_SOURCE_DIR}

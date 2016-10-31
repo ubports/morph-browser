@@ -29,8 +29,6 @@ parts:
     build-packages:
       - intltool
       - libapparmor-dev
-      - libevdev-dev
-      - libudev-dev
       - lsb-release
       - pkg-config
       - qt5-default
@@ -51,6 +49,7 @@ parts:
       - qml-module-qtquick2
       - qml-module-qtquick-layouts
       - qml-module-qtquick-window2
+      - qml-module-qtsysteminfo
       - qml-module-ubuntu-components
       - qml-module-ubuntu-thumbnailer0.1
       - qtdeclarative5-ubuntu-content1

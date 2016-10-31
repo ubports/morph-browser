@@ -41,8 +41,6 @@
 #include "qquickshortcut_p.h"
 #include "session-storage.h"
 
-#include "Unity/InputInfo/qdeclarativeinputdevicemodel_p.h"
-
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_engine(0)
@@ -179,10 +177,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
     qmlRegisterType<QQuickShortcut>(uri, 0, 1, "Shortcut");
-
-    const char* inputInfoUri = "Unity.InputInfo";
-    qmlRegisterType<QDeclarativeInputDeviceModel>(inputInfoUri, 0, 1, "InputDeviceModel");
-    qmlRegisterType<QInputDevice>(inputInfoUri, 0, 1, "InputInfo");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
