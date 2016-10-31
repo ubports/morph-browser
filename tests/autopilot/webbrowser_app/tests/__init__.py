@@ -267,8 +267,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         try:
             windows = [
                 window for window in self.process_manager.get_open_windows()
-                if window.application.desktop_file == "webbrowser-app.desktop"
-                and not window.is_focused
+                if window.application.desktop_file ==
+                "webbrowser-app.desktop" and
+                not window.is_focused
             ]
 
             # There should be 1 unfocused window
