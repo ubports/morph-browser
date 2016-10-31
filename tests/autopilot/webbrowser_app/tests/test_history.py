@@ -139,6 +139,9 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         private_window.go_to_url(url)
         private_window.wait_until_page_loaded(url)
 
+        # Focus public window
+        self.switch_to_unfocused_window(public_window)
+
         # Check link is not in history of public window
         self.open_history(window=public_window)
         self.expect_history_entries([self.url], window=public_window)
