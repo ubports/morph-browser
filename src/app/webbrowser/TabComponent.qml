@@ -56,7 +56,7 @@ Component {
 
             focus: true
 
-            enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
+            enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && tabContainer.focus
 
             locationBarController {
                 height: chrome.height
@@ -286,6 +286,19 @@ Component {
                         (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
                     webviewInternal.storedUrl = event.url
                     HistoryModel.add(event.url, title, icon)
+                }
+
+                // If the page has started, stopped, redirected, errored
+                // then clear the cache for the history update
+                // Otherwise if no title change has occurred the next title
+                // change will be the url of the next page causing the
+                // history entry to be incorrect (pad.lv/1603835)
+                if (event.type == Oxide.LoadEvent.TypeFailed ||
+                        event.type == Oxide.LoadEvent.TypeRedirected ||
+                        event.type == Oxide.LoadEvent.TypeStarted ||
+                        event.type == Oxide.LoadEvent.TypeStopped) {
+                    webviewInternal.titleSet = true
+                    webviewInternal.storedUrl = ""
                 }
             }
             onTitleChanged: {

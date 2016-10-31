@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
-"PO-Revision-Date: 2016-08-28 16:38+0000\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
+"PO-Revision-Date: 2016-10-27 09:57+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:48+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -476,11 +476,11 @@ msgstr "Hivatkozás megnyitása új lapon"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Hivatkozás megnyitása új ablakban"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Hivatkozás megnyitása új privát ablakban"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -606,13 +606,13 @@ msgstr "Kész"
 msgid "New tab"
 msgstr "Új lap"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
-msgstr ""
+msgstr "Új ablak"
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
-msgstr ""
+msgstr "Új privát ablak"
 
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -633,14 +633,6 @@ msgstr "Beállítások"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Felfelé húzással léphet ki a teljes képernyős módból"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "Az ESC billentyű lenyomásával léphet ki a teljes képernyős módból"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -659,6 +651,12 @@ msgstr "Letöltés"
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "A letöltés meghiúsult"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -867,6 +865,14 @@ msgstr "Mikrofon"
 msgid "Camera"
 msgstr "Kamera"
 
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Felfelé húzással léphet ki a teljes képernyős módból"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "Az ESC billentyű lenyomásával léphet ki a teljes képernyős módból"
+
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "Koppintson a megtekintéshez"
@@ -979,11 +985,11 @@ msgstr "Internet;WWW;Böngésző;Web"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "Open a New Window"
-msgstr ""
+msgstr "Új ablak nyitása"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
-msgstr ""
+msgstr "Új privát ablak nyitása"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."

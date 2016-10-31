@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
 "PO-Revision-Date: 2016-08-31 11:46+0000\n"
 "Last-Translator: P_E_T_O <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:15+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -476,11 +476,11 @@ msgstr "Otvoriť odkaz na novej karte"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Otvoriť adresu v novom okne"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Otvoriť adresu v súkromnom okne"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -606,13 +606,13 @@ msgstr "Hotovo"
 msgid "New tab"
 msgstr "Nová karta"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
-msgstr ""
+msgstr "Nové okno"
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
-msgstr ""
+msgstr "Nové súkromné okno"
 
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -633,14 +633,6 @@ msgstr "Nastavenia"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Prejdite prstom hore pre ukončenie režimu celej obrazovky"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "Stlačte ESC pre ukončenie režimu celej obrazovky"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -659,6 +651,12 @@ msgstr "Stiahnuť"
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "Sťahovanie zlyhalo"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -866,6 +864,14 @@ msgstr "Mikrofón"
 msgid "Camera"
 msgstr "Fotoaparát"
 
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Prejdite prstom hore pre ukončenie režimu celej obrazovky"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "Stlačte ESC pre ukončenie režimu celej obrazovky"
+
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
 msgstr "Kliknutím zobrazíte"
@@ -978,11 +984,11 @@ msgstr "Internet;WWW;Prehliadač;Web;Explorer"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "Open a New Window"
-msgstr ""
+msgstr "Otvoriť nové okno"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
-msgstr ""
+msgstr "Otvoriť nové súkromné okno"
 
 #~ msgid "Please choose a file"
 #~ msgstr "Prosím vyberte súbor"

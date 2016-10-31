@@ -142,3 +142,38 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         # Check link is not in history of public window
         self.open_history(window=public_window)
         self.expect_history_entries([self.url], window=public_window)
+
+    def test_title_correct_redirect_header(self):
+        # Regression test for https://launchpad.net/bugs/1603835
+        url_redirect = self.base_url + "/redirect-no-title-header"
+        url_destination = self.base_url + "/redirect-destination"
+        url_test = self.base_url + "/test1"
+
+        self.main_window.go_to_url(url_redirect)
+        self.main_window.wait_until_page_loaded(url_destination)
+
+        self.open_history()
+
+        entries = self.expect_history_entries(
+            [url_destination, url_test]
+        )
+        self.assertThat(entries[0].title, Equals("test/redirect-destination"))
+        self.assertThat(entries[1].title, Equals("test page 1"))
+
+    def test_title_correct_redirect_js(self):
+        # Regression test for https://launchpad.net/bugs/1603835
+        url_redirect = self.base_url + "/redirect-no-title-js"
+        url_destination = self.base_url + "/redirect-destination"
+        url_test = self.base_url + "/test1"
+
+        self.main_window.go_to_url(url_redirect)
+        self.main_window.wait_until_page_loaded(url_destination)
+
+        self.open_history()
+
+        entries = self.expect_history_entries(
+            [url_destination, url_redirect, url_test]
+        )
+        self.assertThat(entries[0].title, Equals("test/redirect-destination"))
+        self.assertThat(entries[1].title, Equals("test/redirect-no-title-js"))
+        self.assertThat(entries[2].title, Equals("test page 1"))

@@ -1,3 +1,38 @@
+webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Fix for issue where many tabs causes close button to overlap other
+    tabs (LP: #1473630)
+  * When page has started, stopped, redirected or errored clear cache for
+    history update - which prevents incorrect titles in being set
+    (LP: #1603835)
+  * Add autopilot tests javascript dialogs to webbrowser and
+    webapp-container - alertDialog, beforeUnloadDialog, confirmDialog and
+    promptDialog (LP: #1633040)
+  * Add user-agent override to display the new twitter mobile interface
+    (LP: #1577834)
+
+  [ Florian Boucault ]
+  * Improved startup time by 800ms by delaying QML compilation and making
+    it asynchronous
+
+  [ Olivier Tilloy ]
+  * Replace chromium version in UA overrides at runtime, not at build
+    time (LP: #1599695)
+  * Initial support for generating a snap package for webbrowser-app
+    (LP: #1629009)
+  * Do not persist references to incognito downloads on disk
+    (LP: #1625519)
+  * Increase test coverage (to 97.5%) for DownloadsModel (LP: #1534102)
+  * Various performance optimizations linked to load events
+    (LP: #1611680)
+  * Ensure a tab is loaded when re-opened (LP: #1632246)
+  * Fix drag'n'drop of bookmarks within the new tab view (LP: #1584868)
+  * Work around a limitation in the sound and microphone policy groups
+    to "fix" sound in yakkety an zesty (LP: #1632620)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 24 Oct 2016 13:51:59 +0000
+
 webbrowser-app (0.23+16.10.20160928-0ubuntu1) yakkety; urgency=medium
 
   [ Andrew Hayzen ]

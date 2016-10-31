@@ -20,10 +20,12 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 ModalDialog {
+    objectName: "promptDialog"
     title: i18n.tr("JavaScript Prompt")
 
     TextField {
         id: input
+        objectName: "inputTextField"
         text: model.defaultValue
         onAccepted: model.accept(input.text)
     }
@@ -31,10 +33,12 @@ ModalDialog {
     Button {
         text: i18n.tr("OK")
         color: theme.palette.normal.positive
+        objectName: "okButton"
         onClicked: model.accept(input.text)
     }
 
     Button {
+        objectName: "cancelButton"
         text: i18n.tr("Cancel")
         onClicked: model.reject()
     }
