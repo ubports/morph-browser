@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-10-27 07:09+0200\n"
-"PO-Revision-Date: 2016-06-06 07:56+0000\n"
+"PO-Revision-Date: 2016-10-30 17:44+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-10-31 06:23+0000\n"
 "X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -475,11 +475,11 @@ msgstr "Åpne lenke i ny fane"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Åpne lenke i nytt vindu"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Åpne lenke i privat vindu"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -607,11 +607,11 @@ msgstr "Ny fane"
 
 #: src/app/webbrowser/Browser.qml:516
 msgid "New window"
-msgstr ""
+msgstr "Nytt vindu"
 
 #: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
-msgstr ""
+msgstr "Nytt privat vindu"
 
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -654,7 +654,7 @@ msgstr "Nedlasting mislyktes"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -981,11 +981,11 @@ msgstr "Internett;WWW;Nettleser;Web;Utforsker"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "Open a New Window"
-msgstr ""
+msgstr "Åpne nytt vindu"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
-msgstr ""
+msgstr "Åpne nytt privat vindu"
 
 #~ msgid "Please choose a file"
 #~ msgstr "Velg en fil"
