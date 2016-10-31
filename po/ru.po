@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
 "PO-Revision-Date: 2015-07-06 09:31+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:15+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -140,7 +140,7 @@ msgstr "Разрешить"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "Веб-сайт %1 требует аутентификации. Веб-сайт сообщает: \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -606,11 +606,11 @@ msgstr "Готово"
 msgid "New tab"
 msgstr "Новая вкладка"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
 msgstr ""
 
@@ -633,14 +633,6 @@ msgstr "Настройки"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Смахните вверх для выхода из полноэкранного режима"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "Нажмите ESC для выхода из полноэкранного режима"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -659,6 +651,12 @@ msgstr "Загрузка"
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "Сбой при загрузке"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -866,6 +864,14 @@ msgstr "Микрофон"
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "Камера"
+
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Смахните вверх для выхода из полноэкранного режима"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "Нажмите ESC для выхода из полноэкранного режима"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"

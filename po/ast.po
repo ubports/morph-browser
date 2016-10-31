@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
 "PO-Revision-Date: 2016-10-08 00:57+0000\n"
 "Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-10-09 07:26+0000\n"
-"X-Generator: Launchpad (build 18227)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:48+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 "Language: ast\n"
 
 #: src/app/AlertDialog.qml:23
@@ -608,11 +608,11 @@ msgstr "Fecho"
 msgid "New tab"
 msgstr "Llingüeta nueva"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
 msgstr "Ventana nueva"
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
 msgstr "Ventana privada nueva"
 
@@ -635,14 +635,6 @@ msgstr "Preferencies"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Esliza arriba pa salir de pantalla completa"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "Calca ESC pa salir de pantalla completa"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -661,6 +653,12 @@ msgstr "Descargar"
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "Falló la descarga"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -869,6 +867,14 @@ msgstr "Micrófonu"
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "Cámara"
+
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Esliza arriba pa salir de pantalla completa"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "Calca ESC pa salir de pantalla completa"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
