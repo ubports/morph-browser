@@ -95,6 +95,7 @@ Item {
         function test_no_contextual_actions() {
             loadHtmlWithHyperlink()
             rightClickWebview()
+            wait(500)
             compare(waitFor(getContextMenu), null)
         }
 
