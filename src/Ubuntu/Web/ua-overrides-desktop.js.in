@@ -35,5 +35,5 @@ var overrides = [
       ["^https:\/\/www\.google\.com\/recaptcha\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
 
       // ESPN websites (https://launchpad.net/bugs/1637285)
-      ["^http:\/\/(.+\.)?espn(fc)?\.co(m|\.uk)\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+      ["^https?:\/\/(.+\.)?espn(fc)?\.co(m|\.uk)\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
 ];
