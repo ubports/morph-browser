@@ -133,6 +133,6 @@ ChromeBase {
 
     // If the webview changes the use the loading state of the new webview
     // otherwise opening a new tab/window while another webview was loading
-    // can cause a progress bar to be left behind at zero pecent pad.lv/1638337
+    // can cause a progress bar to be left behind at zero percent pad.lv/1638337
     onWebviewChanged: loading = webview ? webview.loading : false
 }
