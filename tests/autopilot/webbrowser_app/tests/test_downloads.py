@@ -18,6 +18,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from autopilot.matchers import Eventually
 from autopilot.platform import model
+
 from testtools.matchers import Equals
 
 from glob import glob
@@ -26,6 +27,7 @@ import testtools
 
 
 class TestDownloads(StartOpenRemotePageTestCaseBase):
+
     def test_open_close_downloads_page(self):
         downloads_page = self.open_downloads()
         downloads_page.get_header().click_back_button()
