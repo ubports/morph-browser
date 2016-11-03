@@ -17,15 +17,13 @@
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from autopilot.matchers import Eventually
-from autopilot.platform import model
-
 from testtools.matchers import Equals
 
-import testtools
+from glob import glob
+import subprocess
 
 
 class TestDownloads(StartOpenRemotePageTestCaseBase):
-
     def test_open_close_downloads_page(self):
         downloads_page = self.open_downloads()
         downloads_page.get_header().click_back_button()
@@ -58,14 +56,6 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.main_window.click_cancel_download_button()
 
-    def test_picker(self):
-        self.main_window.go_to_url(self.base_url + "/downloadpdf")
-        options_dialog = self.main_window.get_download_options_dialog()
-        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
-        self.main_window.click_choose_app_button()
-        picker = self.main_window.get_peer_picker()
-        self.assertThat(picker.visible, Eventually(Equals(True)))
-
     def test_download(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
         options_dialog = self.main_window.get_download_options_dialog()
@@ -73,3 +63,30 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         self.main_window.click_download_file_button()
         downloads_page = self.main_window.get_downloads_page()
         self.assertThat(downloads_page.visible, Eventually(Equals(True)))
+
+
+class TestDownloadsWithContentHubTestability(TestDownloads):
+    def setUp(self):
+        # Run content-hub-peer-hook-wrapper which ensures that
+        # content-hub-testability has been register for the ContentPeersModel
+
+        # Find arch path of content-hub-peer-hook-wrapper
+        path = glob("/usr/lib/*/content-hub/content-hub-peer-hook-wrapper")
+
+        if len(path) > 0:
+            proc = subprocess.run([path[0]])
+            self.assertThat(proc.returncode, Equals(0))
+        else:
+            raise FileNotFoundError(
+                "Could not find content-hub-peer-hook-wrapper, have you "
+                "installed content-hub-testability?")
+
+        super(TestDownloadsWithContentHubTestability, self).setUp()
+
+    def test_picker(self):
+        self.main_window.go_to_url(self.base_url + "/downloadpdf")
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.main_window.click_choose_app_button()
+        picker = self.main_window.get_peer_picker()
+        self.assertThat(picker.visible, Eventually(Equals(True)))

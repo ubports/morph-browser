@@ -168,6 +168,7 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          autopilot-qt5,
+         content-hub-testability,
          python3-autopilot,
          python3-fixtures,
          python3-psutil,
