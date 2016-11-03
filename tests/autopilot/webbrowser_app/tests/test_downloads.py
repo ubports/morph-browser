@@ -21,7 +21,8 @@ from autopilot.platform import model
 
 from testtools.matchers import Equals
 
-from glob import glob
+import ubuntuuitoolkit as uitk
+
 import subprocess
 import testtools
 
@@ -105,21 +106,17 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         self.assertThat(len(entries), Equals(0))
 
 
-class TestDownloadsWithContentHubTestability(TestDownloads):
+class TestDownloadsWithContentHubTestability(StartOpenRemotePageTestCaseBase):
     def setUp(self):
         # Run content-hub-peer-hook-wrapper which ensures that
         # content-hub-testability has been register for the ContentPeersModel
 
         # Find arch path of content-hub-peer-hook-wrapper
-        path = glob("/usr/lib/*/content-hub/content-hub-peer-hook-wrapper")
+        path = ("/usr/lib/%s/content-hub/content-hub-peer-hook-wrapper" %
+                uitk.base.get_host_multiarch())
 
-        if len(path) > 0:
-            proc = subprocess.run([path[0]])
-            self.assertThat(proc.returncode, Equals(0))
-        else:
-            raise FileNotFoundError(
-                "Could not find content-hub-peer-hook-wrapper, have you "
-                "installed content-hub-testability?")
+        proc = subprocess.run([path])
+        self.assertThat(proc.returncode, Equals(0))
 
         super(TestDownloadsWithContentHubTestability, self).setUp()
 
