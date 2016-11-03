@@ -19,10 +19,10 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Web 0.2
 import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -570,7 +570,7 @@ BrowserView {
 
         Keys.onDownPressed: {
             if (suggestionsList.count) suggestionsList.focus = true
-            else if (newTabViewLoader.status == Loader.Ready) {
+            else if (!incognito && (newTabViewLoader.status == Loader.Ready)) {
                 newTabViewLoader.forceActiveFocus()
             }
         }
