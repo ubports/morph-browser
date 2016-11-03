@@ -272,7 +272,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 not window.is_focused
             ]
 
-            # There should be 1 unfocused window
             self.assertThat(len(windows),
                             Equals(expected_number_unfocused_windows))
 
@@ -284,7 +283,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
                 if target_window.activeFocus:
                     break
-        except (RuntimeError, ImportError) as e:
+        except (RuntimeError, ImportError):
             # Fallback to clicking on the window
             self.pointing_device.click_object(target_window)
 

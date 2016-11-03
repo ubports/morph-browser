@@ -168,11 +168,3 @@ class TestSitePreviews(TestSitePreviewsBase):
         self.remove_top_site(new_tab_view, previous)
         self.assertThat(lambda: self.file_in_dir(capture, self.captures_dir),
                         Eventually(Equals(False)))
-
-    def test_private_window_uses_private_tab_view(self):
-        self.open_new_private_window()
-
-        private_window = self.app.get_windows(incognito=True)[0]
-
-        self.assertThat(private_window.get_new_private_tab_view().visible,
-                        Eventually(Equals(True)))
