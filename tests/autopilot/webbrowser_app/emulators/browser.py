@@ -316,6 +316,10 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("ChromeButton",
                                   objectName="findPreviousButton")
 
+    def get_progress_bar(self):
+        return self.select_single("ProgressBar",
+                                  objectName="chromeProgressBar")
+
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
