@@ -115,8 +115,8 @@ class TestDownloadsWithContentHubTestability(StartOpenRemotePageTestCaseBase):
         path = ("/usr/lib/%s/content-hub/content-hub-peer-hook-wrapper" %
                 uitk.base.get_host_multiarch())
 
-        proc = subprocess.run([path])
-        self.assertThat(proc.returncode, Equals(0))
+        return_code = subprocess.check_call([path])
+        self.assertThat(return_code, Equals(0))
 
         super(TestDownloadsWithContentHubTestability, self).setUp()
 
