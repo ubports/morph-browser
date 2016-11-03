@@ -21,11 +21,12 @@ from autopilot.platform import model
 
 from testtools.matchers import Equals
 
+import ubuntuuitoolkit as uitk
+
+import subprocess
 import testtools
 
 
-@testtools.skipIf(model() == "Desktop", "Don't run on desktop, as "
-                                        "dependencies aren't guaranteed")
 class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_open_close_downloads_page(self):
@@ -59,14 +60,6 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         options_dialog = self.main_window.get_download_options_dialog()
         self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.main_window.click_cancel_download_button()
-
-    def test_picker(self):
-        self.main_window.go_to_url(self.base_url + "/downloadpdf")
-        options_dialog = self.main_window.get_download_options_dialog()
-        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
-        self.main_window.click_choose_app_button()
-        picker = self.main_window.get_peer_picker()
-        self.assertThat(picker.visible, Eventually(Equals(True)))
 
     def test_download(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
@@ -111,3 +104,26 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         # Check that there are no entries in the public downloads window
         entries = public_downloads_page.get_download_entries()
         self.assertThat(len(entries), Equals(0))
+
+
+class TestDownloadsWithContentHubTestability(StartOpenRemotePageTestCaseBase):
+    def setUp(self):
+        # Run content-hub-peer-hook-wrapper which ensures that
+        # content-hub-testability has been register for the ContentPeersModel
+
+        # Find arch path of content-hub-peer-hook-wrapper
+        path = ("/usr/lib/%s/content-hub/content-hub-peer-hook-wrapper" %
+                uitk.base.get_host_multiarch())
+
+        return_code = subprocess.check_call([path])
+        self.assertThat(return_code, Equals(0))
+
+        super(TestDownloadsWithContentHubTestability, self).setUp()
+
+    def test_picker(self):
+        self.main_window.go_to_url(self.base_url + "/downloadpdf")
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.main_window.click_choose_app_button()
+        picker = self.main_window.get_peer_picker()
+        self.assertThat(picker.visible, Eventually(Equals(True)))
