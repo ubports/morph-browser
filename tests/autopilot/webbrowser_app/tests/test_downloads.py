@@ -76,6 +76,8 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         downloads_page = self.main_window.get_downloads_page()
         self.assertThat(downloads_page.visible, Eventually(Equals(True)))
 
+    @testtools.skipIf(model() != "Desktop",
+                      "Desktop only due to switch_to_unfocused_window")
     def test_private_download(self):
         self.open_new_private_window()
 

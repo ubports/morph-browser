@@ -18,8 +18,11 @@ import time
 
 from testtools.matchers import EndsWith, Equals, StartsWith
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
+
+import testtools
 
 
 class TestHistory(StartOpenRemotePageTestCaseBase):
@@ -128,6 +131,8 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.open_history()
         self.expect_history_entries([pushed, url, self.url])
 
+    @testtools.skipIf(model() != "Desktop",
+                      "Desktop only due to switch_to_unfocused_window")
     def test_private_window_no_history(self):
         self.open_new_private_window()
 
