@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
 "PO-Revision-Date: 2014-09-20 11:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:15+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -141,6 +141,7 @@ msgstr "Autorizar"
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr ""
+"Lo site Web %1 demanda una autentificacion. Aquí çò que ditz lo site : \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -609,11 +610,11 @@ msgstr "Acabat"
 msgid "New tab"
 msgstr "Onglet novèl"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
 msgstr ""
 
@@ -636,14 +637,6 @@ msgstr "Reglatges"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Fasètz lisar cap amont per sortir de l'ecran complet"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "Quichatz sus Escap per sortir de l'ecran complet"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -662,6 +655,12 @@ msgstr "Telecargar"
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "Fracàs del telecargament"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -854,7 +853,7 @@ msgstr "Escafar l'istoric de navigacion ?"
 
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
-msgstr ""
+msgstr "Escafar lo cache"
 
 #: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
@@ -871,6 +870,14 @@ msgstr "Microfòn"
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "Camèra"
+
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Fasètz lisar cap amont per sortir de l'ecran complet"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "Quichatz sus Escap per sortir de l'ecran complet"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
@@ -925,6 +932,9 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"La fenèstra dels comptes a pas pogut èsser dobèrta. Es pas possible de crear "
+"qu’un sol compte a l'encòp ; ensajatz tornamai aprèp aver tampat las autras "
+"fenèstras de comptes."
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
@@ -946,6 +956,8 @@ msgstr "<b>%1</b> vòl accedir a vòstre compte %2."
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Causissètz un compte ara, o ignoratz aquesta etapa per causir un compte pus "
+"tard."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"

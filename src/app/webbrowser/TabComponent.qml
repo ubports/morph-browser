@@ -147,9 +147,10 @@ Component {
                 Actions.CopyImage {
                     objectName: "CopyImageContextualAction"
                     enabled: contextModel &&
-                             (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
-                             contextModel.srcUrl.toString()
-                    onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
+                             ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                              (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                             contextModel.hasImageContents
+                    onTriggered: contextModel.copyImage()
                 }
                 Actions.SaveImage {
                     objectName: "SaveImageContextualAction"
