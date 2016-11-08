@@ -79,6 +79,10 @@ BrowserView {
         for (var prop in properties) {
             tab[prop] = properties[prop];
         }
+
+        // Ensure that we have switched to the tab
+        // otherwise chrome position can break
+        internal.switchToTab(tabsModel.count - 1, true);
     }
 
     signal newWindowRequested(bool incognito)

@@ -39,7 +39,7 @@ Item {
     property color fgColor: Theme.palette.normal.baseText
 
     property bool touchEnabled: true
-    
+
     readonly property bool showCloseIcon: closeIcon.x > units.gu(1) + tabItem.width / 2
 
     signal selected()
@@ -64,7 +64,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
             shouldCache: !incognito
-            
+
             // Scale width and height of favicon when tabWidth becomes small
             height: width
             width: Math.min(units.dp(16), Math.min(tabItem.width - anchors.leftMargin * 2, tabItem.height))
