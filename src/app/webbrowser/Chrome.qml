@@ -54,12 +54,6 @@ ChromeBase {
 
     implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
-    onWebviewChanged: {
-        if (webview) {
-            loading = webview.loading
-        }
-    }
-
     function selectAll() {
         navigationBar.selectAll()
     }

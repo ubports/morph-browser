@@ -1500,21 +1500,18 @@ BrowserView {
                 right: parent.right
                 top: parent.top
             }
-            border {
-                color: "#FF0"  // Yellow
-                width: units.gu(1)
-            }
-            color: "transparent"
+            color: "#FFF"
             height: dropArea.heightThreshold
             opacity: {
-                if (dropArea.containsDrag) {
-                    if (dropArea.drag.y <= dropArea.heightThreshold) {
-                        0.7
-                    } else {
-                        0.4
-                    }
-                } else {
+                // Unfocused windows that don't contain and drag
+                // and focused windows that do contain a drag but not in the
+                // tabs bar show the white shade
+                if (thisWindow.active && !dropArea.containsDrag) {
                     0
+                } else if (dropArea.containsDrag && dropArea.drag.y <= dropArea.heightThreshold) {
+                    0
+                } else {
+                    0.6
                 }
             }
 
