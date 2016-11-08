@@ -1503,7 +1503,7 @@ BrowserView {
             color: "#FFF"
             height: dropArea.heightThreshold
             opacity: {
-                // Unfocused windows that don't contain and drag
+                // Unfocused windows that don't contain a drag
                 // and focused windows that do contain a drag but not in the
                 // tabs bar show the white shade
                 if (thisWindow.active && !dropArea.containsDrag) {
