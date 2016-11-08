@@ -19,9 +19,9 @@
 #ifndef __DRAGHELPER_H__
 #define __DRAGHELPER_H__
 
-#include <QQuickItem>
-#include <QMouseEvent>
-#include <QRect>
+#include <QtCore/QString>
+#include <QtGui/QMouseEvent>
+#include <QtQuick/QQuickItem>
 
 class DragHelper : public QQuickItem
 {

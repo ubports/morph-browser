@@ -30,19 +30,21 @@ Item {
 
     property alias model: repeater.model
 
+    property BrowserWindow thisWindow
+
     property real minTabWidth: 0 //units.gu(6)
     property real maxTabWidth: units.gu(20)
     property real tabWidth: model ? Math.max(Math.min(tabsContainer.maxWidth / model.count, maxTabWidth), minTabWidth) : 0
 
     // Minimum size of the larger tab
     readonly property real minActiveTabWidth: units.gu(10)
-    
+
     // When there is a larger tab, calc the smaller tab size
     readonly property real nonActiveTabWidth: (tabsContainer.maxWidth - minActiveTabWidth) / Math.max(model.count - 1, 1)
 
     // The size of the right margin of the tab
     readonly property real rightMargin: units.dp(1)
-                
+
     // Whether there will be one larger tab or not
     readonly property bool unevenTabWidth: tabWidth + rightMargin < minActiveTabWidth
 
@@ -54,7 +56,8 @@ Item {
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
-    signal tabClosed(int index)
+    signal requestNewWindowFromTab(var tab, var callback)
+    signal tabClosed(int index, bool moving)
 
     MouseArea {
         anchors.fill: parent
@@ -119,13 +122,13 @@ Item {
                     onTriggered: {
                         // callback function only removes from model
                         // and not destroy as webview is in new window
-                        browser.newWindowFromTab(menu.tab, function() { tabsModel.remove(menu.targetIndex); })
+                        root.requestNewWindowFromTab(menu.tab, function() { root.tabClosed(menu.targetIndex, true); });
                     }
                 }
                 Action {
                     objectName: "tab_action_close_tab"
                     text: i18n.tr("Close Tab")
-                    onTriggered: root.tabClosed(menu.targetIndex)
+                    onTriggered: root.tabClosed(menu.targetIndex, false)
                 }
             }
         }
@@ -157,8 +160,8 @@ Item {
                 objectName: "tabDelegate"
 
                 readonly property int tabIndex: index
-                readonly property BrowserTab tab: tabsModel.get(index)
-                readonly property BrowserWindow tabWindow: window
+                readonly property BrowserTab tab: root.model.get(index)
+                readonly property BrowserWindow tabWindow: root.thisWindow
 
                 property real rightMargin: units.dp(1)
                 width: getSize(index)
@@ -175,12 +178,12 @@ Item {
                     maximumX: root.width - tabDelegate.width
                     filterChildren: true
                 }
-                
+
                 DragHelper {
                     id: dragHelper
                     expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
-                    mimeType: "webbrowser/tab-" + (window.incognito ? "incognito" : "public")
-                    source: tabDelegate                
+                    mimeType: "webbrowser/tab-" + (root.incognito ? "incognito" : "public")
+                    source: tabDelegate
                 }
 
                 TabItem {
@@ -204,7 +207,7 @@ Item {
                     // dragging vertically so that it doesn't cover other elements
                     y: Math.abs(parent.y) > tabsContainer.maxYDiff ? (tabsContainer.sign(parent.y) * tabsContainer.maxYDiff) - parent.y : 0
 
-                    onClosed: root.tabClosed(index)
+                    onClosed: root.tabClosed(index, false)
                     onSelected: root.switchToTab(index)
                     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                 }
@@ -214,7 +217,7 @@ Item {
                     property: "reordering"
                     value: dragging
                 }
-                
+
                 Behavior on width { NumberAnimation { duration: 250 } }
 
                 Binding on x {
@@ -227,7 +230,7 @@ Item {
                         duration: 250
                     }
                 }
-                
+
                 NumberAnimation {
                     id: resetVerticalAnimation
                     target: tabDelegate
@@ -235,50 +238,47 @@ Item {
                     property: "y"
                     to: 0
                 }
-                
+
                 onPositionChanged: {
                     // FIXME: disable drag and drop on mir pad.lv/1627013
                     if (Math.abs(y) > height && __platformName != "ubuntumirclient") {
                         // Reset visual position of tab delegate
                         resetVerticalAnimation.start();
-                    
+
                         if (mouse.buttons === Qt.LeftButton) {
                             // Generate tab preview for drag handle
                             dragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url); 
-                        
+
                             var dropAction = dragHelper.execDrag(tab.url);
-                            
+
                             // IgnoreAction - no DropArea accepted so New Window
                             // MoveAction   - DropArea accept but different window
                             // CopyAction   - DropArea accept but same window
-                            
+
                             if (dropAction === Qt.MoveAction) {
                                 // Moved into another window
-                                console.debug("Moved to another window, closing tab");
-                                
+
                                 // drag.active does not become false when
                                 // closing the tab so set reordering back
                                 repeater.reordering = false;
 
                                 // Just remove from model and do not destory
-                                // as webview is used in other window                                
-                                tabsModel.remove(index);
+                                // as webview is used in other window
+                                root.tabClosed(index, true);
                             } else if (dropAction === Qt.CopyAction) {
                                 // Moved into the same window
-                                
+
                                 // So no action
-                                console.debug("No action, dropped in same window");
                             } else if (dropAction === Qt.IgnoreAction) {
                                 // Moved outside of any window
-                                console.debug("Moved outside, generating new window");
-                                
+
                                 // drag.active does not become false when
                                 // closing the tab so set reordering back
                                 repeater.reordering = false;
 
                                 // callback function only removes from model
                                 // and not destroy as webview is in new window
-                                browser.newWindowFromTab(tab, function() { tabsModel.remove(index); })
+                                root.requestNewWindowFromTab(tab, function() { root.tabClosed(index, true); })
                             } else {
                                 // Unknown state
                                 console.debug("Unknown drop action:", dropAction);
@@ -302,7 +302,7 @@ Item {
                         return index * (tabWidth + rightMargin)
                     }
                 }
-                
+
                 function getSize(index) {
                     if (unevenTabWidth) {
                         // Uneven tabs so use large or small depending which index
@@ -315,7 +315,7 @@ Item {
                         return tabWidth + rightMargin
                     }
                 }
-                
+
                 onXChanged: {
                     if (!dragging) return
 

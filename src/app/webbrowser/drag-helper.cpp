@@ -18,12 +18,15 @@
 
 #include "drag-helper.h"
 
-#include <QDrag>
-#include <QDropEvent>
-#include <QMimeData>
-#include <QPainter>
-#include <QPixmap>
-#include <QSize>
+#include <QtCore/QMimeData>
+#include <QtCore/QPoint>
+#include <QtCore/QSize>
+#include <QtCore/QString>
+#include <QtGui/QColor>
+#include <QtGui/QDrag>
+#include <QtGui/QDropEvent>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 
 DragHelper::DragHelper()
 {
@@ -45,7 +48,7 @@ Qt::DropAction DragHelper::execDrag(QString tabId)
     // Build a pixmap for the drag handle
     QSize pixmapSize(200, 150);
     QPixmap pixmap(previewUrl());
-    
+
     if (pixmap.isNull()) {
         // If loading pixmap failed, draw a white rectangle
         pixmap = QPixmap(pixmapSize);
@@ -78,7 +81,7 @@ void DragHelper::setExpectedAction(Qt::DropAction expectedAction)
 {
     if (m_expected_action != expectedAction) {
         m_expected_action = expectedAction;
-        
+
         Q_EMIT expectedActionChanged();
     }
 }

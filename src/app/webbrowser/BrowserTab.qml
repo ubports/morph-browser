@@ -97,18 +97,18 @@ FocusScope {
             }
         }
     }
-    
+
     function loadExisting(existingTab) {
         if (!webview && !internal.incubator) {
             // Reparent the webview and any other vars
             existingTab.webview.parent = webviewContainer;
             existingTab.webview.tab = tab;
-            
+
             // Set the webview into this window
             webviewContainer.webview = existingTab.webview;
         }
     }
-    
+
     function unload() {
         if (webview) {
             initialUrl = webview.url
@@ -136,7 +136,7 @@ FocusScope {
 
         if (reparentDestroy || reparentDestroy === undefined) {
             // Destroys context and object        
-            reparenter.destroyContextAndObject(tab);
+            Reparenter.destroyContextAndObject(tab);
         } else {
             destroy();
         }
