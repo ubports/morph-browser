@@ -31,6 +31,7 @@ class DragHelper : public QQuickItem
     Q_OBJECT
 
     Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
+    Q_PROPERTY(bool dragging READ dragging NOTIFY draggingChanged)
     Q_PROPERTY(Qt::DropAction expectedAction READ expectedAction WRITE setExpectedAction NOTIFY expectedActionChanged)
     Q_PROPERTY(QString mimeType READ mimeType WRITE setMimeType NOTIFY mimeTypeChanged)
     Q_PROPERTY(int previewBorderWidth READ previewBorderWidth WRITE setPreviewBorderWidth NOTIFY previewBorderWidthChanged)
@@ -41,6 +42,7 @@ class DragHelper : public QQuickItem
 public:
     DragHelper();
     bool active() { return m_active; }
+    bool dragging() { return m_dragging; }
     Qt::DropAction expectedAction() { return m_expected_action; }
     QString mimeType() { return m_mime_type; }
     int previewBorderWidth() { return m_preview_border_width; }
@@ -50,6 +52,7 @@ public:
     QQuickItem *source() { return m_source; }
 signals:
     void activeChanged();
+    void draggingChanged();
     void expectedActionChanged();
     void mimeTypeChanged();
     void previewBorderWidthChanged();
@@ -70,8 +73,10 @@ public slots:
 private:
     QPixmap drawPixmapWithBorder(QPixmap pixmap, int borderWidth, QColor color);
     QPixmap getPreviewUrlAsPixmap(int width, int height);
+    void setDragging(bool dragging);
 
     bool m_active;
+    bool m_dragging;
     Qt::DropAction m_expected_action;
     QString m_mime_type;
     int m_preview_border_width;
