@@ -28,6 +28,7 @@ class DragHelper : public QQuickItem
     Q_OBJECT
 
     Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
+    Q_PROPERTY(bool dragging READ dragging NOTIFY draggingChanged)
     Q_PROPERTY(Qt::DropAction expectedAction READ expectedAction WRITE setExpectedAction NOTIFY expectedActionChanged)
     Q_PROPERTY(QString mimeType READ mimeType WRITE setMimeType NOTIFY mimeTypeChanged)
     Q_PROPERTY(QString previewUrl READ previewUrl WRITE setPreviewUrl NOTIFY previewUrlChanged)
@@ -35,12 +36,14 @@ class DragHelper : public QQuickItem
 public:
     DragHelper();
     bool active() { return m_active; }
+    bool dragging() { return m_dragging; }
     Qt::DropAction expectedAction() { return m_expected_action; }
     QString mimeType() { return m_mime_type; }
     QString previewUrl() { return m_preview_url; }
     QQuickItem *source() { return m_source; }
 signals:
     void activeChanged();
+    void draggingChanged();
     void expectedActionChanged();
     void mimeTypeChanged();
     void previewUrlChanged();
@@ -53,7 +56,10 @@ public slots:
     void setPreviewUrl(QString previewUrl);
     void setSource(QQuickItem *source);
 private:
+    void setDragging(bool dragging);
+
     bool m_active;
+    bool m_dragging;
     Qt::DropAction m_expected_action;
     QString m_mime_type;
     QString m_preview_url;

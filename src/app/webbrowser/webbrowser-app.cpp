@@ -63,6 +63,7 @@ MAKE_SINGLETON_FACTORY(BookmarksModel)
 MAKE_SINGLETON_FACTORY(HistoryModel)
 MAKE_SINGLETON_FACTORY(DownloadsModel)
 MAKE_SINGLETON_FACTORY(Reparenter)
+MAKE_SINGLETON_FACTORY(DragHelper)
 
 bool WebbrowserApp::initialize()
 {
@@ -79,7 +80,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
-    qmlRegisterType<DragHelper>(uri, 0, 1, "DragHelper");
+    qmlRegisterSingletonType<DragHelper>(uri, 0, 1, "DragHelper", DragHelper_singleton_factory);
     qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", QStringLiteral("webbrowser-app"))) {

@@ -179,13 +179,6 @@ Item {
                     filterChildren: true
                 }
 
-                DragHelper {
-                    id: dragHelper
-                    expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
-                    mimeType: "webbrowser/tab-" + (root.incognito ? "incognito" : "public")
-                    source: tabDelegate
-                }
-
                 TabItem {
                     active: tabIndex === root.model.currentIndex
                     anchors {
@@ -247,9 +240,12 @@ Item {
 
                         if (mouse.buttons === Qt.LeftButton) {
                             // Generate tab preview for drag handle
-                            dragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url); 
+                            DragHelper.expectedAction = Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
+                            DragHelper.mimeType = "webbrowser/tab-" + (root.incognito ? "incognito" : "public")
+                            DragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url); 
+                            DragHelper.source = tabDelegate
 
-                            var dropAction = dragHelper.execDrag(tab.url);
+                            var dropAction = DragHelper.execDrag(tab.url);
 
                             // IgnoreAction - no DropArea accepted so New Window
                             // MoveAction   - DropArea accept but different window

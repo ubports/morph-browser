@@ -1461,14 +1461,6 @@ BrowserView {
 
         readonly property real heightThreshold: chrome.tabsBarHeight
 
-        onPositionChanged: {
-            if (drag.source.tabWindow === thisWindow && drag.y < heightThreshold) {
-                // tab drag is within same window and in chrome
-                // so reorder tabs by setting tabDelegate x position
-                drag.source.x = drag.x - (drag.source.width / 2);
-            }
-        }
-        onEntered: thisWindow.raise()
         onDropped: {
             // IgnoreAction - no DropArea accepted so New Window
             // MoveAction   - DropArea accept but different window
@@ -1493,6 +1485,17 @@ BrowserView {
                 drop.accept(Qt.MoveAction);
             }
         }
+        onEntered: {
+            thisWindow.raise()
+            thisWindow.requestActivate();
+        }
+        onPositionChanged: {
+            if (drag.source.tabWindow === thisWindow && drag.y < heightThreshold) {
+                // tab drag is within same window and in chrome
+                // so reorder tabs by setting tabDelegate x position
+                drag.source.x = drag.x - (drag.source.width / 2);
+            }
+        }
 
         Rectangle {
             anchors {
@@ -1503,10 +1506,10 @@ BrowserView {
             color: "#FFF"
             height: dropArea.heightThreshold
             opacity: {
-                // Unfocused windows that don't contain a drag
-                // and focused windows that do contain a drag but not in the
-                // tabs bar show the white shade
-                if (thisWindow.active && !dropArea.containsDrag) {
+                // Only hide the white shade when this is the active window
+                // and there is no drag being performed or the drag event is
+                // over the tabs bar
+                if (thisWindow.active && !DragHelper.dragging) {
                     0
                 } else if (dropArea.containsDrag && dropArea.drag.y <= dropArea.heightThreshold) {
                     0
