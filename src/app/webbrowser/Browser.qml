@@ -19,10 +19,10 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Web 0.2
 import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -46,6 +46,8 @@ BrowserView {
 
     property var tabsModel: TabsModel {}
 
+    property BrowserWindow thisWindow
+
     function serializeTabState(tab) {
         var state = {}
         state.uniqueId = tab.uniqueId
@@ -64,47 +66,27 @@ BrowserView {
                           'restoreType': Oxide.WebView.RestoreLastSessionExitedCleanly}
         return createTab(properties)
     }
-    
-    function buildContextProperties(properties) {
-        if (properties === undefined) {
-            properties = {};
-        }
-        
-        properties["bottomEdgeHandle"] = bottomEdgeHandle;
-        properties["browser"] = browser;
-        properties["chrome"] = chrome;
-        properties["chromeController"] = chromeController;
-        properties["contentHandlerLoader"] = contentHandlerLoader;
-        properties["downloadDialogLoader"] = downloadDialogLoader;
-        properties["downloadsViewLoader"] = downloadsViewLoader;
-        properties["filePickerLoader"] = filePickerLoader;
-        properties["internal"] = internal;
-        properties["recentView"] = recentView;
-        properties["tabsModel"] = tabsModel;
-        
-        return properties;
-    }
-    
-    function createTabHelper(properties) {
-        return builder(tabComponent, tabContainer, buildContextProperties(properties));
-    }
-    
+
     function createTab(properties) {
-        return createTabHelper(properties)
+        return internal.createTabHelper(properties)
     }
-    
+
     function bindExistingTab(tab) {
-        reparenter.reparent(tab, tabContainer);
-        
-        var properties = buildContextProperties();
-        
+        Reparenter.reparent(tab, tabContainer);
+
+        var properties = internal.buildContextProperties();
+
         for (var prop in properties) {
             tab[prop] = properties[prop];
         }
+
+        // Ensure that we have switched to the tab
+        // otherwise chrome position can break
+        internal.switchToTab(tabsModel.count - 1, true);
     }
 
     signal newWindowRequested(bool incognito)
-    signal newWindowFromTab(var tab, var closeMethod)
+    signal newWindowFromTab(var tab, var callback)
     signal openLinkInWindowRequested(url url, bool incognito)
 
     Connections {
@@ -500,6 +482,8 @@ BrowserView {
         showTabsBar: browser.wide
         showFaviconInAddressBar: !browser.wide
 
+        thisWindow: browser.thisWindow
+
         availableHeight: tabContainer.height - height - y
 
         touchEnabled: internal.hasTouchScreen
@@ -533,7 +517,8 @@ BrowserView {
 
         onSwitchToTab: internal.switchToTab(index, true)
         onRequestNewTab: internal.openUrlInNewTab("", makeCurrent, true, index)
-        onTabClosed: internal.closeTab(index)
+        onRequestNewWindowFromTab: browser.newWindowFromTab(tab, callback)
+        onTabClosed: internal.closeTab(index, moving)
 
         onFindInPageModeChanged: {
             if (!chrome.findInPageMode) internal.resetFocus()
@@ -605,7 +590,7 @@ BrowserView {
 
         Keys.onDownPressed: {
             if (suggestionsList.count) suggestionsList.focus = true
-            else if (newTabViewLoader.status == Loader.Ready) {
+            else if (!incognito && (newTabViewLoader.status == Loader.Ready)) {
                 newTabViewLoader.forceActiveFocus()
             }
         }
@@ -1012,7 +997,7 @@ BrowserView {
 
         function openUrlInNewTab(url, setCurrent, load, index) {
             load = typeof load !== 'undefined' ? load : true
-            var tab = createTabHelper({"initialUrl": url})
+            var tab = internal.createTabHelper({"initialUrl": url})
             addTab(tab, setCurrent, index)
             if (load) {
                 tab.load()
@@ -1031,9 +1016,36 @@ BrowserView {
             }
         }
 
-        function closeTab(index) {
+        function buildContextProperties(properties) {
+            if (properties === undefined) {
+                properties = {};
+            }
+
+            properties["bottomEdgeHandle"] = bottomEdgeHandle;
+            properties["browser"] = browser;
+            properties["chrome"] = chrome;
+            properties["chromeController"] = chromeController;
+            properties["contentHandlerLoader"] = contentHandlerLoader;
+            properties["downloadDialogLoader"] = downloadDialogLoader;
+            properties["downloadsViewLoader"] = downloadsViewLoader;
+            properties["filePickerLoader"] = filePickerLoader;
+            properties["internal"] = internal;
+            properties["recentView"] = recentView;
+            properties["tabsModel"] = tabsModel;
+
+            return properties;
+        }
+
+        function createTabHelper(properties) {
+            return Reparenter.createObject(tabComponent, tabContainer, internal.buildContextProperties(properties));
+        }
+
+        function closeTab(index, moving) {
+            moving = moving === undefined ? false : moving;
+
             var tab = tabsModel.get(index)
             tabsModel.remove(index)
+
             if (tab) {
                 if (!incognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
@@ -1041,7 +1053,11 @@ BrowserView {
                         index: index
                     })
                 }
-                tab.close()
+
+                // When moving a tab between windows don't close the tab as it has been moved
+                if (!moving) {
+                    tab.close()
+                }
             }
             if (tabsModel.currentTab) {
                 tabsModel.currentTab.load()
@@ -1435,7 +1451,7 @@ BrowserView {
         source: "ContentPickerDialog.qml"
         asynchronous: true
     }
-    
+
     DropArea {
         id: dropArea
         anchors {
@@ -1443,68 +1459,65 @@ BrowserView {
         }
         keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
 
-        readonly property int heightThreshold: chrome.tabsBarHeight
+        readonly property real heightThreshold: chrome.tabsBarHeight
 
         onPositionChanged: {
-            if (drag.source.tabWindow === window && drag.y < heightThreshold) {
+            if (drag.source.tabWindow === thisWindow && drag.y < heightThreshold) {
                 // tab drag is within same window and in chrome
                 // so reorder tabs by setting tabDelegate x position
                 drag.source.x = drag.x - (drag.source.width / 2);
             }
         }
-        onEntered: window.raise()
+        onEntered: thisWindow.raise()
         onDropped: {
             // IgnoreAction - no DropArea accepted so New Window
             // MoveAction   - DropArea accept but different window
             // CopyAction   - DropArea accept but same window
-        
+
             if (drag.y > heightThreshold) {
-                console.debug("Dropped in bottom area, creating new window");
+                // Dropped in bottom area, creating new window
                 drop.accept(Qt.IgnoreAction);
-            } else if (drag.source.tabWindow === window) {
-                console.debug("Dropped in same window");
+            } else if (drag.source.tabWindow === thisWindow) {
+                // Dropped in same window
                 drop.accept(Qt.CopyAction);
             } else {
-                console.debug("Dropped in new window, moving tab");
-                
-                window.addExistingTab(drag.source.tab);
-                window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                window.show();
-                window.requestActivate();
-                
-                window.tabsModel.currentTab.load();
-                
+                // Dropped in new window, moving tab
+
+                thisWindow.addExistingTab(drag.source.tab);
+                thisWindow.tabsModel.currentIndex = window.tabsModel.count - 1;
+                thisWindow.show();
+                thisWindow.requestActivate();
+
+                thisWindow.tabsModel.currentTab.load();
+
                 drop.accept(Qt.MoveAction);
             }
         }
-        
+
         Rectangle {
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
             }
-            border {
-                color: "#FF0"  // Yellow
-                width: units.gu(1)
-            }
-            color: "transparent"
+            color: "#FFF"
             height: dropArea.heightThreshold
             opacity: {
-                if (dropArea.containsDrag) {
-                    if (dropArea.drag.y <= dropArea.heightThreshold) {
-                        0.7
-                    } else {
-                        0.4
-                    }
-                } else {
+                // Unfocused windows that don't contain a drag
+                // and focused windows that do contain a drag but not in the
+                // tabs bar show the white shade
+                if (thisWindow.active && !dropArea.containsDrag) {
                     0
+                } else if (dropArea.containsDrag && dropArea.drag.y <= dropArea.heightThreshold) {
+                    0
+                } else {
+                    0.6
                 }
             }
-            
+
             Behavior on opacity {
                 NumberAnimation {
-                
+
                 }
             }
         }

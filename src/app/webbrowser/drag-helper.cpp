@@ -18,14 +18,17 @@
 
 #include "drag-helper.h"
 
-#include <QDrag>
-#include <QDropEvent>
-#include <QMimeData>
-#include <QPainter>
-#include <QPen>
-#include <QPixmap>
-#include <QSize>
-#include <QSizeF>
+#include <QtCore/QMimeData>
+#include <QtCore/QPoint>
+#include <QtCore/QSize>
+#include <QtCore/QSizeF>
+#include <QtCore/QString>
+#include <QtGui/QColor>
+#include <QtGui/QDrag>
+#include <QtGui/QDropEvent>
+#include <QtGui/QPainter>
+#include <QtGui/QPen>
+#include <QtGui/QPixmap>
 
 DragHelper::DragHelper()
 {
@@ -44,19 +47,19 @@ QPixmap DragHelper::drawPixmapWithBorder(QPixmap pixmap, int borderWidth, QColor
     // Create a transparent pixmap to draw to
     QPixmap output(pixmap.width() + borderWidth * 2, pixmap.height() + borderWidth * 2);
     output.fill(QColor(0, 0, 0, 0));
-    
+
     // Draw the pixmap with space around the edge for a border
     QPainter borderPainter(&output);
     borderPainter.setRenderHint(QPainter::Antialiasing);
     borderPainter.drawPixmap(borderWidth, borderWidth, pixmap);
-    
+
     // Define a pen to use for the border
     QPen borderPen;
     borderPen.setColor(color);
     borderPen.setJoinStyle(Qt::MiterJoin);
     borderPen.setStyle(Qt::SolidLine);
     borderPen.setWidth(borderWidth);
-    
+
     // Set the pen and draw the border
     borderPainter.setPen(borderPen);
     borderPainter.drawRect(borderWidth / 2, borderWidth / 2,
@@ -75,10 +78,10 @@ Qt::DropAction DragHelper::execDrag(QString tabId)
 
     // Get a bordered pixmap of the previewUrl
     QSize size = previewSize().toSize();
-    
+
     QPixmap pixmap = drawPixmapWithBorder(getPreviewUrlAsPixmap(size.width(), size.height()),
         previewBorderWidth(), QColor(205, 205, 205, 255 * 0.6));  // #cdcdcd
-    
+
     // Setup the drag and then execute it
     drag->setHotSpot(QPoint(size.width() * 0.1, size.height() * 0.1));
     drag->setMimeData(mimeData);
@@ -91,7 +94,7 @@ QPixmap DragHelper::getPreviewUrlAsPixmap(int width, int height)
 {
     QSize pixmapSize(width, height);
     QPixmap pixmap(previewUrl());
-    
+
     if (pixmap.isNull()) {
         // If loading pixmap failed, draw a white rectangle
         pixmap = QPixmap(pixmapSize);
@@ -105,7 +108,7 @@ QPixmap DragHelper::getPreviewUrlAsPixmap(int width, int height)
         // Scale image to fit the expected size
         pixmap = pixmap.scaled(pixmapSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
-    
+
     return pixmap;
 }
 
@@ -122,7 +125,7 @@ void DragHelper::setExpectedAction(Qt::DropAction expectedAction)
 {
     if (m_expected_action != expectedAction) {
         m_expected_action = expectedAction;
-        
+
         Q_EMIT expectedActionChanged();
     }
 }

@@ -18,11 +18,13 @@
  
 #include "reparenter.h"
 
-#include <QPointer>
-#include <QQuickItem>
-#include <QQmlComponent>
-#include <QQmlContext>
-#include <QQmlEngine>
+#include <QtCore/QPointer>
+#include <QtCore/QVariantMap>
+#include <QtQml>
+#include <QtQml/QQmlComponent>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlEngine>
+#include <QtQuick/QQuickItem>
 
 Reparenter::Reparenter()
 {
@@ -32,22 +34,22 @@ Reparenter::Reparenter()
 Reparenter::~Reparenter()
 {
     QMap<QPointer<QQmlContext>, QPointer<QObject>>::iterator i;
-    
+
     for (i = m_contexts.begin(); i != m_contexts.end(); ++i) {
         QPointer<QQmlContext> context = i.key();
         QPointer<QObject> obj = i.value();
-        
+
         // If there is valid object then delete
         if (obj) {
             delete obj;
         }
-    
-        // If there is a valid contex then delete
+
+        // If there is a valid context then delete
         if (context) {
             delete context;
         }
     }
-    
+
     m_contexts.clear();  // ensure contexts are removed
 }
 
@@ -56,22 +58,34 @@ Reparenter::~Reparenter()
 // this method is required so that a custom context can be created, so that
 // when tabs are moved between Windows and the window is destroyed, its context
 // it not also destroyed
-QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *contextItem)
+QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *parent, QVariantMap properties, QQuickItem *contextItem)
 {
+    // Make context for the object
+    QPointer<QQmlContext> context;
+
     if (contextItem == Q_NULLPTR) {
-        contextItem = this;
+        // Build context from parent
+        context = new QQmlContext(qmlEngine(parent)->rootContext());
+        context->setContextObject(parent);
+    } else {
+        context = new QQmlContext(QQmlEngine::contextForObject(contextItem));
+        context->setContextObject(contextItem);
     }
 
-    // Make context
-    QPointer<QQmlContext> context = new QQmlContext(QQmlEngine::contextForObject(contextItem));
-    context->setContextObject(contextItem);
-    
     // Make component
     QPointer<QObject> obj = comp->create(context);
-    
+
+    // Set visual and actual parent
+    reparent(qobject_cast<QQuickItem *>(obj), parent);
+
+    // Load properties into object
+    for (QString key : properties.keys()) {
+        obj->setProperty(key.toStdString().c_str(), properties.value(key));
+    }
+
     // Add to store
     m_contexts.insert(context, obj);
-    
+
     return obj;
 }
 
@@ -84,10 +98,10 @@ void Reparenter::destroyContextAndObject(QQuickItem *item)
 
     // Remove from store
     m_contexts.remove(context);
-    
+
     // Disconnect everything
     item->disconnect();
-    
+
     // Delete context and object
     delete context;
     delete item;
@@ -96,7 +110,7 @@ void Reparenter::destroyContextAndObject(QQuickItem *item)
 // Reparent the actual objects parent and its visual parent
 void Reparenter::reparent(QQuickItem *obj, QQuickItem *newParent)
 {
-    // Set object and visual parent    
+    // Set object and visual parent
     obj->setParent(newParent);
     obj->setParentItem(newParent);
 }

@@ -19,11 +19,12 @@
 #ifndef __DRAGHELPER_H__
 #define __DRAGHELPER_H__
 
-#include <QQuickItem>
-#include <QMouseEvent>
-#include <QPixmap>
-#include <QRect>
-#include <QSizeF>
+#include <QtCore/QSizeF>
+#include <QtCore/QString>
+#include <QtGui/QColor>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPixmap>
+#include <QtQuick/QQuickItem>
 
 class DragHelper : public QQuickItem
 {

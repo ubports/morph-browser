@@ -83,11 +83,7 @@ QtObject {
         window.show()
         window.requestActivate()
     }
-    
-    property Reparenter reparenter: Reparenter {
-    
-    }
-    
+
     property var windowFactory: Component {
         BrowserWindow {
             id: window
@@ -96,7 +92,7 @@ QtObject {
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
-            
+
             title: {
                 if (browser.title) {
                     // TRANSLATORS: %1 refers to the current page’s title
@@ -187,6 +183,7 @@ QtObject {
             Browser {
                 id: browser
                 anchors.fill: parent
+                thisWindow: window
                 settings: webbrowserapp.settings
                 onNewWindowFromTab: {
                     var window = windowFactory.createObject(
@@ -197,15 +194,15 @@ QtObject {
                             "width": parent.width,
                         }
                     );
-                    
+
                     window.addExistingTab(tab);
                     window.tabsModel.currentIndex = window.tabsModel.count - 1;
                     window.show();
                     window.requestActivate();
-                    
+
                     window.tabsModel.currentTab.load();
-                    
-                    closeMethod();
+
+                    callback();
                 }
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
@@ -290,12 +287,12 @@ QtObject {
                 tabsModel.add(tab)
                 return tab
             }
-            
+
             function addExistingTab(tab) {
                 tabsModel.add(tab);
-                
+
                 browser.bindExistingTab(tab);
-                
+
                 return tab;
             }
         }
@@ -497,18 +494,5 @@ QtObject {
             }
             PreviewManager.cleanUnusedPreviews(doNotCleanUrls)
         }
-    }
-
-    // Builder for components which have a context set to reparenter
-    // so that when a window closes the context is still valid
-    function builder(comp, parent, properties) {
-        var obj = reparenter.createObject(comp);
-        obj.parent = parent;
-        
-        for (var prop in properties) {
-            obj[prop] = properties[prop];
-        }
-        
-        return obj;
     }
 }

@@ -21,11 +21,12 @@ from autopilot.platform import model
 
 from testtools.matchers import Equals
 
+import ubuntuuitoolkit as uitk
+
+import subprocess
 import testtools
 
 
-@testtools.skipIf(model() == "Desktop", "Don't run on desktop, as "
-                                        "dependencies aren't guaranteed")
 class TestDownloads(StartOpenRemotePageTestCaseBase):
 
     def test_open_close_downloads_page(self):
@@ -60,14 +61,6 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         self.assertThat(options_dialog.visible, Eventually(Equals(True)))
         self.main_window.click_cancel_download_button()
 
-    def test_picker(self):
-        self.main_window.go_to_url(self.base_url + "/downloadpdf")
-        options_dialog = self.main_window.get_download_options_dialog()
-        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
-        self.main_window.click_choose_app_button()
-        picker = self.main_window.get_peer_picker()
-        self.assertThat(picker.visible, Eventually(Equals(True)))
-
     def test_download(self):
         self.main_window.go_to_url(self.base_url + "/downloadpdf")
         options_dialog = self.main_window.get_download_options_dialog()
@@ -75,3 +68,62 @@ class TestDownloads(StartOpenRemotePageTestCaseBase):
         self.main_window.click_download_file_button()
         downloads_page = self.main_window.get_downloads_page()
         self.assertThat(downloads_page.visible, Eventually(Equals(True)))
+
+    @testtools.skipIf(model() != "Desktop",
+                      "Desktop only due to switch_to_unfocused_window")
+    def test_private_download(self):
+        self.open_new_private_window()
+
+        public_window = self.app.get_windows(incognito=False)[0]
+        private_window = self.app.get_windows(incognito=True)[0]
+        pdf_download_url = self.base_url + "/downloadpdf"
+
+        # Download pdf in private window
+        private_window.go_to_url(pdf_download_url)
+        options_dialog = private_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        private_window.click_download_file_button()
+
+        # Open downloads page in private window
+        private_downloads_page = private_window.get_downloads_page()
+        private_downloads_page.visible.wait_for(True)
+
+        # Check that there is one url in the private downloads window
+        entries = private_downloads_page.get_download_entries()
+        self.assertThat(len(entries), Equals(1))
+        self.assertThat(entries[0].url, Equals(pdf_download_url))
+        self.assertThat(entries[0].incognito, Equals(True))
+
+        # Focus public window
+        self.switch_to_unfocused_window(public_window)
+
+        # Open downloads page in public window
+        public_downloads_page = self.open_downloads(public_window)
+        public_downloads_page.visible.wait_for(True)
+
+        # Check that there are no entries in the public downloads window
+        entries = public_downloads_page.get_download_entries()
+        self.assertThat(len(entries), Equals(0))
+
+
+class TestDownloadsWithContentHubTestability(StartOpenRemotePageTestCaseBase):
+    def setUp(self):
+        # Run content-hub-peer-hook-wrapper which ensures that
+        # content-hub-testability has been register for the ContentPeersModel
+
+        # Find arch path of content-hub-peer-hook-wrapper
+        path = ("/usr/lib/%s/content-hub/content-hub-peer-hook-wrapper" %
+                uitk.base.get_host_multiarch())
+
+        return_code = subprocess.check_call([path])
+        self.assertThat(return_code, Equals(0))
+
+        super(TestDownloadsWithContentHubTestability, self).setUp()
+
+    def test_picker(self):
+        self.main_window.go_to_url(self.base_url + "/downloadpdf")
+        options_dialog = self.main_window.get_download_options_dialog()
+        self.assertThat(options_dialog.visible, Eventually(Equals(True)))
+        self.main_window.click_choose_app_button()
+        picker = self.main_window.get_peer_picker()
+        self.assertThat(picker.visible, Eventually(Equals(True)))

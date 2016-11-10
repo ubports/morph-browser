@@ -10,4 +10,4 @@ target_link_libraries(${TEST}
     Qt5::Test
     webbrowser-app-models
 )
-add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)
+add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST})

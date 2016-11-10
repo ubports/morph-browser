@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
-"PO-Revision-Date: 2016-10-05 13:15+0000\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
+"PO-Revision-Date: 2016-10-27 13:00+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-10-06 06:12+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:48+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -596,11 +596,11 @@ msgstr "ጨርሷል"
 msgid "New tab"
 msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
 msgstr "አዲሰ መስኮት"
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
 msgstr "አዲሰ የ ግል መስኮት"
 
@@ -623,14 +623,6 @@ msgstr "ማሰናጃዎች"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "ወደ ላይ ይጥረጉ ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "ይጫኑ መዝለያውን ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -647,6 +639,12 @@ msgstr "የወረዱ"
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
 msgstr "ማውረድ አልተቻለም"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -851,6 +849,14 @@ msgstr "ማይክሮፎን"
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "ካሜራ"
+
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "ወደ ላይ ይጥረጉ ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "ይጫኑ መዝለያውን ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"

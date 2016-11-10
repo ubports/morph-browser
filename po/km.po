@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-04 16:02+0200\n"
+"POT-Creation-Date: 2016-10-27 07:09+0200\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-10-05 06:14+0000\n"
-"X-Generator: Launchpad (build 18217)\n"
+"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -610,11 +610,11 @@ msgstr "ធ្វើរួច"
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
-#: src/app/webbrowser/Browser.qml:537
+#: src/app/webbrowser/Browser.qml:516
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:543
+#: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
 msgstr ""
 
@@ -637,14 +637,6 @@ msgstr "ការ​កំណត់"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1377
-msgid "Swipe Up To Exit Full Screen"
-msgstr "រុញ​ឡើង​លើ​ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
-
-#: src/app/webbrowser/Browser.qml:1378
-msgid "Press ESC To Exit Full Screen"
-msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
-
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
@@ -660,6 +652,12 @@ msgstr "ទាញ​យក"
 
 #: src/app/webbrowser/DownloadDelegate.qml:159
 msgid "Download failed"
+msgstr ""
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/webbrowser/DownloadDelegate.qml:194
+#, qt-format
+msgid "%1%"
 msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
@@ -868,6 +866,14 @@ msgstr "មីក្រូហ្វូន"
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
 msgstr "ម៉ាស៊ីន​ថត"
+
+#: src/app/webbrowser/Browser.qml:1377
+msgid "Swipe Up To Exit Full Screen"
+msgstr "រុញ​ឡើង​លើ​ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
+
+#: src/app/webbrowser/Browser.qml:1378
+msgid "Press ESC To Exit Full Screen"
+msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"

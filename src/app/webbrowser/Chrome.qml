@@ -43,20 +43,16 @@ ChromeBase {
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
     property bool touchEnabled: true
     readonly property real tabsBarHeight: tabsBar.height + content.anchors.topMargin
+    property BrowserWindow thisWindow
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
-    signal tabClosed(int index)
+    signal requestNewWindowFromTab(var tab, var callback)
+    signal tabClosed(int index, bool moving)
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : "#ffffff"
 
     implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
-
-    onWebviewChanged: {
-        if (webview) {
-            loading = webview.loading
-        }
-    }
 
     function selectAll() {
         navigationBar.selectAll()
@@ -82,6 +78,7 @@ ChromeBase {
                                       "model": Qt.binding(function () {return chrome.tabsModel}),
                                       "incognito": Qt.binding(function () {return chrome.incognito}),
                                       "fgColor": Qt.binding(function () {return navigationBar.fgColor}),
+                                      "thisWindow": Qt.binding(function () {return chrome.thisWindow}),
                                       "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
                 })
             }
@@ -91,7 +88,8 @@ ChromeBase {
 
                 onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
-                onTabClosed: chrome.tabClosed(index)
+                onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
+                onTabClosed: chrome.tabClosed(index, moving)
             }
             asynchronous: true
 
@@ -137,4 +135,9 @@ ChromeBase {
     }
 
     loadProgress: (loading && webview) ? webview.loadProgress : 0
+
+    // If the webview changes the use the loading state of the new webview
+    // otherwise opening a new tab/window while another webview was loading
+    // can cause a progress bar to be left behind at zero percent pad.lv/1638337
+    onWebviewChanged: loading = webview ? webview.loading : false
 }
