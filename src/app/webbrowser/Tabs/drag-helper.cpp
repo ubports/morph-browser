@@ -14,6 +14,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authored-by: Andrew Hayzen <andrew.hayzen@canonical.com>
  */
 
 #include "drag-helper.h"
@@ -35,7 +37,7 @@ DragHelper::DragHelper()
     m_active = false;
     m_dragging = false;
     m_expected_action = Qt::IgnoreAction;
-    m_mime_type = QStringLiteral("webbrowser/tab");
+    m_mime_type = QStringLiteral("x-tabsbar/tab");
     m_preview_border_width = 8;
     m_preview_size = QSizeF(200, 150);
     m_preview_top_crop = 0;

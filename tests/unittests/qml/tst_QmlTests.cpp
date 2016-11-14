@@ -27,7 +27,7 @@
 // local
 #include "bookmarks-model.h"
 #include "bookmarks-folderlist-model.h"
-#include "drag-helper.h"
+#include "Tabs/drag-helper.h"
 #include "favicon-fetcher.h"
 #include "file-operations.h"
 #include "history-domain-model.h"

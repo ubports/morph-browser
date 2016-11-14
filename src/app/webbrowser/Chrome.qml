@@ -18,7 +18,10 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "."
 import ".."
+
+import "Tabs" as Tabs
 
 ChromeBase {
     id: chrome
@@ -44,6 +47,7 @@ ChromeBase {
     property bool touchEnabled: true
     readonly property real tabsBarHeight: tabsBar.height + content.anchors.topMargin
     property BrowserWindow thisWindow
+    property DropArea dropArea
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
@@ -61,7 +65,6 @@ ChromeBase {
     FocusScope {
         id: content
         anchors.fill: parent
-        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
 
@@ -70,10 +73,52 @@ ChromeBase {
             color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
         }
 
+        // TODO: remove old tab bar and load this one async
+        Tabs.TabsBar {
+            id: tabsBarNew
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+                topMargin: units.gu(1)
+            }
+            dragAndDrop {
+                dropArea: chrome.dropArea
+                enabled: true
+                mimeType: "webbrowser/tab-" + (chrome.incognito ? "incognito" : "public")
+                previewTopCrop: chrome.height
+                previewUrlFromIndex: function(index) {
+                     return PreviewManager.previewPathFromUrl(tabsModel.get(index).url)
+                }
+                thisWindow: chrome.thisWindow
+            }
+            model: chrome.tabsModel
+
+            onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
+
+            function removeTabButMoving(index) {
+                model.removeTab(index, true);  // uses overloaded removeTab
+            }
+
+            function titleFromModelItem(modelItem) {
+                return modelItem.title ? modelItem.title : (modelItem.url.toString() ? modelItem.url : i18n.tr("New tab"))
+            }
+
+            actions: [
+                Action {
+                    // FIXME: icon from theme is fuzzy at many GUs
+//                     iconSource: Qt.resolvedUrl("Tabs/tab_add.png")
+                    iconName: "add"
+                    onTriggered: tabsBarNew.model.addTab()
+                }
+            ]
+        }
+
         Loader {
             id: tabsBar
 
             Component.onCompleted: {
+                /*
                 tabsBar.setSource("TabsBar.qml", {
                                       "model": Qt.binding(function () {return chrome.tabsModel}),
                                       "incognito": Qt.binding(function () {return chrome.incognito}),
@@ -81,6 +126,7 @@ ChromeBase {
                                       "thisWindow": Qt.binding(function () {return chrome.thisWindow}),
                                       "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
                 })
+                */
             }
 
             Connections {

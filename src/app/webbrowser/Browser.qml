@@ -32,6 +32,8 @@ import ".."
 import "."
 import "." as Local
 
+import "Tabs" as Tabs
+
 BrowserView {
     id: browser
 
@@ -44,7 +46,35 @@ BrowserView {
 
     property bool incognito: false
 
-    property var tabsModel: TabsModel {}
+    property var tabsModel: TabsModel {
+        // These methods are required by the TabsBar component
+        property int selectedIndex: currentIndex
+
+        function addTab() {
+            var tab = internal.createTabHelper({"initialUrl": ""})
+            currentIndex = add(tab);
+
+            tab.load();
+        }
+
+        function moveTab(from, to) {
+            move(Math.max(from, to), Math.min(from, to));
+        }
+
+        // Overload removeTab and add moving property so we can tell when
+        // the tab is closing due to moving to a new window
+        // This is required because we need to avoid destroying the content
+        // of that tab that is moved
+        function removeTab(index, moving) {
+            moving = moving === undefined ? false : moving;
+
+            internal.closeTab(index, moving);
+        }
+
+        function selectTab(index) {
+            currentIndex = index;
+        }
+    }
 
     property BrowserWindow thisWindow
 
@@ -482,6 +512,7 @@ BrowserView {
         showTabsBar: browser.wide
         showFaviconInAddressBar: !browser.wide
 
+        dropArea: tabsDropArea
         thisWindow: browser.thisWindow
 
         availableHeight: tabContainer.height - height - y
@@ -1452,77 +1483,22 @@ BrowserView {
         asynchronous: true
     }
 
-    DropArea {
-        id: dropArea
+    Tabs.TabDropArea {
+        id: tabsDropArea
         anchors {
             fill: parent
         }
-        keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
+        heightThreshold: chrome.tabsBarHeight
+        keys: ["webbrowser/tab-" + (chrome.incognito ? "incognito" : "public")]
+        thisWindow: browser.thisWindow
 
-        readonly property real heightThreshold: chrome.tabsBarHeight
-
-        onDropped: {
-            // IgnoreAction - no DropArea accepted so New Window
-            // MoveAction   - DropArea accept but different window
-            // CopyAction   - DropArea accept but same window
-
-            if (drag.y > heightThreshold) {
-                // Dropped in bottom area, creating new window
-                drop.accept(Qt.IgnoreAction);
-            } else if (drag.source.tabWindow === thisWindow) {
-                // Dropped in same window
-                drop.accept(Qt.CopyAction);
-            } else {
-                // Dropped in new window, moving tab
-
-                thisWindow.addExistingTab(drag.source.tab);
-                thisWindow.tabsModel.currentIndex = window.tabsModel.count - 1;
-                thisWindow.show();
-                thisWindow.requestActivate();
-
-                thisWindow.tabsModel.currentTab.load();
-
-                drop.accept(Qt.MoveAction);
-            }
-        }
-        onEntered: {
-            thisWindow.raise()
+        onAddExistingTab: {
+            thisWindow.addExistingTab(drag.source.thisTab);
+            tabsModel.currentIndex = thisWindow.tabsModel.count - 1;
+            thisWindow.show();
             thisWindow.requestActivate();
-        }
-        onPositionChanged: {
-            if (drag.source.tabWindow === thisWindow && drag.y < heightThreshold) {
-                // tab drag is within same window and in chrome
-                // so reorder tabs by setting tabDelegate x position
-                drag.source.x = drag.x - (drag.source.width / 2);
-            }
-        }
 
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-            }
-            color: "#FFF"
-            height: dropArea.heightThreshold
-            opacity: {
-                // Only hide the white shade when this is the active window
-                // and there is no drag being performed or the drag event is
-                // over the tabs bar
-                if (thisWindow.active && !DragHelper.dragging) {
-                    0
-                } else if (dropArea.containsDrag && dropArea.drag.y <= dropArea.heightThreshold) {
-                    0
-                } else {
-                    0.6
-                }
-            }
-
-            Behavior on opacity {
-                NumberAnimation {
-
-                }
-            }
+            tabsModel.currentTab.load();
         }
     }
 }
