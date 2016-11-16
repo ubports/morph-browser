@@ -13,6 +13,7 @@ apps:
       - network
       - network-bind
       - opengl
+      - platform
       - pulseaudio
       - screen-inhibit-control
       - unity7
@@ -21,6 +22,11 @@ plugs:
   browser-sandbox:
     interface: browser-support
     allow-sandbox: true
+  platform:
+    content: ubuntu-app-platform1
+    default-provider: ubuntu-app-platform
+    interface: content
+    target: ubuntu-app-platform
 
 parts:
   webbrowser-app:
@@ -43,21 +49,10 @@ parts:
       - xvfb
     stage-packages:
       - fonts-liberation
-      - liboxideqt-qmlplugin
-      - libqt5sql5-sqlite
-      - mir-graphics-drivers-desktop
-      - qml-module-qt-labs-folderlistmodel
-      - qml-module-qt-labs-settings
-      - qml-module-qtquick2
-      - qml-module-qtquick-layouts
-      - qml-module-qtquick-window2
-      - qml-module-ubuntu-components
       - qml-module-ubuntu-thumbnailer0.1
       - qtdeclarative5-ubuntu-content1
       - qtdeclarative5-ubuntu-download-manager0.1
-      - qtdeclarative5-unity-action-plugin
-      - qtubuntu-desktop
-    after: [desktop-qt5]
+    after: [desktop-ubuntu-app-platform]
 
   launcher:
     plugin: dump
