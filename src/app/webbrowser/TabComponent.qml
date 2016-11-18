@@ -253,7 +253,7 @@ Component {
             contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
             onNewViewRequested: {
-                var tab = browser.createTabHelper({"request": request})
+                var tab = browser.createTab({"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(tab, setCurrent)
                 if (setCurrent) tabContainer.forceActiveFocus()
