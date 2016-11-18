@@ -22,7 +22,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtGui/QMouseEvent>
-#include <QtQuick/QQuickItem>
+
+class QQuickItem;
 
 class DragHelper : public QObject
 {
