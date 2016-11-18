@@ -27,15 +27,17 @@
 #include <QtGui/QDropEvent>
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
+#include <QtQuick/QQuickItem>
 
 DragHelper::DragHelper()
+    : QObject(),
+    m_active(false),
+    m_dragging(false),
+    m_expected_action(Qt::IgnoreAction),
+    m_mime_type(QStringLiteral("webbrowser/tab")),
+    m_preview_url(""),
+    m_source(Q_NULLPTR)
 {
-    m_active = false;
-    m_dragging = false;
-    m_expected_action = Qt::IgnoreAction;
-    m_mime_type = QStringLiteral("webbrowser/tab");
-    m_preview_url = "";
-    m_source = Q_NULLPTR;
 }
 
 Qt::DropAction DragHelper::execDrag(QString tabId)

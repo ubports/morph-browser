@@ -24,6 +24,7 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml/QQmlProperty>
 #include <QtQuick/QQuickItem>
 
 Reparenter::Reparenter()
@@ -73,18 +74,20 @@ QObject *Reparenter::createObject(QQmlComponent *comp, QQuickItem *parent, QVari
     }
 
     // Make component
-    QPointer<QObject> obj = comp->create(context);
+    QPointer<QObject> obj = comp->beginCreate(context);
 
     // Set visual and actual parent
     reparent(qobject_cast<QQuickItem *>(obj), parent);
 
     // Load properties into object
     for (QString key : properties.keys()) {
-        obj->setProperty(key.toStdString().c_str(), properties.value(key));
+        QQmlProperty::write(obj, key, properties.value(key));
     }
 
     // Add to store
     m_contexts.insert(context, obj);
+
+    comp->completeCreate();
 
     return obj;
 }

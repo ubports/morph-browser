@@ -75,7 +75,7 @@ FocusScope {
             title: selected ? modelData.title : Highlight.highlightTerms(modelData.title, searchTerms)
             subtitle: modelData.displayUrl ? (selected ? modelData.url :
                                                          Highlight.highlightTerms(modelData.url, searchTerms)) : ""
-            icon: modelData.icon
+            icon: modelData.icon || ""
             selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
             onActivated: suggestions.activated(modelData.url)
