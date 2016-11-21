@@ -20,13 +20,14 @@
 #define __DRAGHELPER_H__
 
 #include <QtCore/QSizeF>
+#include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtGui/QColor>
 #include <QtGui/QMouseEvent>
-#include <QtGui/QPixmap>
-#include <QtQuick/QQuickItem>
 
-class DragHelper : public QQuickItem
+class QQuickItem;
+
+class DragHelper : public QObject
 {
     Q_OBJECT
 

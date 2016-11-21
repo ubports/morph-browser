@@ -160,7 +160,7 @@ Item {
                 objectName: "tabDelegate"
 
                 readonly property int tabIndex: index
-                readonly property BrowserTab tab: root.model.get(index)
+                readonly property var tab: root.model.get(index)
                 readonly property BrowserWindow tabWindow: root.thisWindow
 
                 property real rightMargin: units.dp(1)

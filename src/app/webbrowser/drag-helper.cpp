@@ -29,18 +29,21 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPen>
 #include <QtGui/QPixmap>
+#include <QtQuick/QQuickItem>
 
 DragHelper::DragHelper()
+    : QObject(),
+    m_active(false),
+    m_dragging(false),
+    m_expected_action(Qt::IgnoreAction),
+    m_mime_type(QStringLiteral("webbrowser/tab")),
+    m_preview_border_width(8),
+    m_preview_size(QSizeF(200, 150)),
+    m_preview_top_crop(0),
+    m_preview_url(""),
+    m_source(Q_NULLPTR)
 {
-    m_active = false;
-    m_dragging = false;
-    m_expected_action = Qt::IgnoreAction;
-    m_mime_type = QStringLiteral("webbrowser/tab");
-    m_preview_border_width = 8;
-    m_preview_size = QSizeF(200, 150);
-    m_preview_top_crop = 0;
-    m_preview_url = "";
-    m_source = Q_NULLPTR;
+
 }
 
 QPixmap DragHelper::drawPixmapWithBorder(QPixmap pixmap, int borderWidth, QColor color)
