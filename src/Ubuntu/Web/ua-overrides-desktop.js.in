@@ -39,4 +39,7 @@ var overrides = [
 
       // meet.jit.si (https://launchpad.net/bugs/1635971)
       ["^https:\/\/meet\.jit\.si\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+
+      // Google docs (https://launchpad.net/bugs/1643386)
+      ["^https:\/\/(docs|drive)\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
 ];
