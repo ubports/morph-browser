@@ -184,6 +184,7 @@ BrowserView {
                 top: parent.top
             }
             height: parent.height - osk.height - bottomEdgeBar.height
+            visible: !newTabViewLoader.active  // hide when newTabView is shown otherwise webview can capture drag events
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
