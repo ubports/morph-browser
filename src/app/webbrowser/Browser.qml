@@ -184,7 +184,10 @@ BrowserView {
                 top: parent.top
             }
             height: parent.height - osk.height - bottomEdgeBar.height
-            visible: !newTabViewLoader.active  // hide when newTabView is shown otherwise webview can capture drag events
+            // disable when newTabView is shown otherwise webview can capture drag events
+            // do not use visible otherwise when a new tab is opened the locationBarController.offset
+            // doesn't get updated, causing the Chrome to disappear
+            enabled: !newTabViewLoader.active
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
