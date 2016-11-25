@@ -269,9 +269,14 @@ Component {
                                 break
                             }
                         }
+
+                        // tab.close() destroys the context so add new tab before destroy if required
+                        if (tabsModel.count === 0) {
+                            internal.openUrlInNewTab("", true, true)
+                        }
+
                         tab.close()
-                    }
-                    if (tabsModel.count === 0) {
+                    } else if (tabsModel.count === 0) {
                         internal.openUrlInNewTab("", true, true)
                     }
                 }
