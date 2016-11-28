@@ -100,14 +100,18 @@ void Reparenter::destroyContextAndObject(QQuickItem *item)
     QQmlContext *context = QQmlEngine::contextForObject(item)->parentContext();
 
     // Remove from store
-    m_contexts.remove(context);
+    int removed = m_contexts.remove(context);
 
     // Disconnect everything
     item->disconnect();
 
-    // Delete context and object
-    delete context;
-    delete item;
+    // Delete context if it was removed from our store
+    if (removed > 0) {
+        context->deleteLater();
+    }
+
+    // Delete the object
+    item->deleteLater();
 }
 
 // Reparent the actual objects parent and its visual parent

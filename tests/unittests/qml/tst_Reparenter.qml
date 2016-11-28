@@ -85,7 +85,7 @@ Item {
 
             // Destroy object and check children have gone
             Reparenter.destroyContextAndObject(tab)
-            compare(tab.mouseArea, undefined)
+            tryCompare(tab, "mouseArea", undefined)
         }
 
         function test_reparenter_qml_expect_fail() {
