@@ -21,9 +21,7 @@
 #include <QtCore/QMimeData>
 #include <QtCore/QPoint>
 #include <QtCore/QSize>
-#include <QtCore/QSizeF>
 #include <QtCore/QString>
-#include <QtGui/QColor>
 #include <QtGui/QDrag>
 #include <QtGui/QDropEvent>
 #include <QtGui/QPainter>
@@ -163,7 +161,7 @@ void DragHelper::setPreviewBorderWidth(int previewBorderWidth)
     if (m_preview_border_width != previewBorderWidth) {
         m_preview_border_width = previewBorderWidth;
 
-        Q_EMIT previewTopCropChanged();
+        Q_EMIT previewBorderWidthChanged();
     }
 }
 
