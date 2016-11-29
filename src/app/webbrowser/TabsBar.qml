@@ -242,7 +242,10 @@ Item {
                             // Generate tab preview for drag handle
                             DragHelper.expectedAction = Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
                             DragHelper.mimeType = "webbrowser/tab-" + (root.incognito ? "incognito" : "public")
-                            DragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url); 
+                            DragHelper.previewBorderWidth = units.gu(1)
+                            DragHelper.previewSize = Qt.size(units.gu(35), units.gu(22.5))
+                            DragHelper.previewTopCrop = chrome.height
+                            DragHelper.previewUrl = PreviewManager.previewPathFromUrl(tab.url)
                             DragHelper.source = tabDelegate
 
                             var dropAction = DragHelper.execDrag(tab.url);
