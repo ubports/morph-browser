@@ -214,7 +214,7 @@ Item {
                 Behavior on width { NumberAnimation { duration: 250 } }
 
                 Binding on x {
-                    when: !dragging
+                    when: !dragging && !DragHelper.dragging
                     value: getLeftX(index)
                 }
 
