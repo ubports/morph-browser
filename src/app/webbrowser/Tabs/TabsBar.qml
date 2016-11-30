@@ -44,6 +44,8 @@ Rectangle {
     property var model
     property list<Action> actions
 
+    property Component iconComponent: null
+
     /* To enable drag and drop set to enabled
      *
      * Use expose to set any information you need the DropArea to access
@@ -59,6 +61,10 @@ Rectangle {
     }
 
     signal requestNewWindowFromTab(var tab, var callback)
+
+    function iconFromModelItem(modelItem) {
+        return modelItem.icon;
+    }
 
     /* When a tab is being removed due to it being moved to another window
      * This allows for different code to be run when moving, such as not
@@ -204,7 +210,7 @@ Rectangle {
                 height: tabs.height
 
                 // Reference the tab and window so that the dropArea can determine what to do
-                readonly property var thisTab: typeof(modelData) === "undefined" ? model : modelData
+                readonly property var thisTab: tabsBar.model.get(index)
                 readonly property var thisWindow: dragAndDrop.thisWindow
 
                 property bool isDragged: tabMouseArea.drag.active
@@ -239,6 +245,8 @@ Rectangle {
                 isHovered: tabMouseArea.containsMouse
                 isFocused: tabsBar.model.selectedIndex == index
                 isBeforeFocusedTab: index == tabsBar.model.selectedIndex - 1
+                icon: tabsBar.iconFromModelItem(typeof(modelData) === "undefined" ? model : modelData)
+                iconComponent: tabsBar.iconComponent
                 title: tabsBar.titleFromModelItem(typeof(modelData) === "undefined" ? model : modelData)
                 backgroundColor: tabsBar.backgroundColor
                 foregroundColor: tabsBar.foregroundColor
@@ -307,7 +315,7 @@ Rectangle {
 
                         // callback function only removes from model
                         // and not destroy as webview is in new window
-                        tabsBar.requestNewWindowFromTab(tabsBar.model.get(index), function() { tabsBar.removeTabButMoving(index); })
+                        tabsBar.requestNewWindowFromTab(tab.thisTab, function() { tabsBar.removeTabButMoving(index); })
                     } else {
                         // Unknown state
                         console.debug("Unknown drop action:", dropAction);

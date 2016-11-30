@@ -30,6 +30,8 @@ Item {
     property bool isFocused
     property bool isBeforeFocusedTab
     property bool isHovered: false
+    property url icon: ""
+    property alias iconComponent: iconContainer.sourceComponent
     signal close
 
     implicitHeight: units.gu(3)
@@ -108,10 +110,30 @@ Item {
         }
     }
 
+    Loader {
+        id: iconContainer
+        active: sourceComponent !== null
+        anchors {
+            left: tabCloseButton.right
+            verticalCenter: parent.verticalCenter
+        }
+        asynchronous: true
+        height: width
+        width: Math.min(units.dp(16), parent.height - units.gu(1))
+        visible: status === Loader.Ready
+ 
+        onStatusChanged: {
+            if (status === Loader.Ready) {
+                item.source = tab.icon;
+            }
+        }
+    }
+
     Label {
         textSize: Label.Small
         anchors {
-            left: tabCloseButton.right
+            left: iconContainer.visible ? iconContainer.right : tabCloseButton.right
+            leftMargin: iconContainer.visible ? units.gu(0.5) : 0
             verticalCenter: parent.verticalCenter
             right: parent.right
             rightMargin: units.gu(0.5)

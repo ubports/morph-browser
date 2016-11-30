@@ -53,6 +53,7 @@ FocusScope {
         anchors {
             fill: parent
             margins: units.gu(1)
+            topMargin: units.gu(2)
         }
 
         focus: true
@@ -65,7 +66,7 @@ FocusScope {
             iconSize: 0.4 * height
             iconColor: root.iconColor
 
-            height: root.height
+            height: parent.height
             width: height * 0.8
 
             anchors {
@@ -85,7 +86,7 @@ FocusScope {
             iconSize: 0.4 * height
             iconColor: root.iconColor
 
-            height: root.height
+            height: parent.height
             visible: enabled
             width: visible ? height * 0.8 : 0
 
@@ -158,7 +159,7 @@ FocusScope {
                 iconName: "up"
                 iconSize: 0.5 * height
 
-                height: root.height
+                height: parent.height
                 width: height * 0.8
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -176,7 +177,7 @@ FocusScope {
                 iconName: "down"
                 iconSize: 0.5 * height
 
-                height: root.height
+                height: parent.height
                 width: height * 0.8
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -195,7 +196,7 @@ FocusScope {
                 iconSize: 0.5 * height
                 iconColor: root.iconColor
 
-                height: root.height
+                height: parent.height
                 width: height * 0.8
 
                 anchors.verticalCenter: parent.verticalCenter

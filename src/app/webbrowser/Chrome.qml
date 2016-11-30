@@ -91,6 +91,11 @@ ChromeBase {
                 }
                 thisWindow: chrome.thisWindow
             }
+            iconComponent: Component {
+                Favicon {
+
+                }
+            }
             model: chrome.tabsModel
 
             onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
@@ -127,7 +132,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: units.gu(6)
+            height: units.gu(7)
 
             onToggleBookmark: chrome.toggleBookmark()
         }
