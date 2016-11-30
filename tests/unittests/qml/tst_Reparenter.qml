@@ -26,10 +26,6 @@ Item {
 
     property Item containerLeft
 
-    property Reparenter reparenter: Reparenter {
-
-    }
-
     Item {
         id: containerRight
         anchors {
@@ -45,13 +41,11 @@ Item {
     }
 
     function addExistingHelper(container, tab) {
-        reparenter.reparent(tab, container, {});        
+        Reparenter.reparent(tab, container, {});
     }
 
     function builder(component, container) {
-        var tab = reparenter.createObject(component)
-        tab.parent = container
-        return tab
+        return Reparenter.createObject(component, container)
     }
 
     TestCase {
@@ -90,10 +84,10 @@ Item {
             compare(tab.mouseArea.clickCount, 3)
 
             // Destroy object and check children have gone
-            reparenter.destroyContextAndObject(tab)
-            compare(tab.mouseArea, undefined)
+            Reparenter.destroyContextAndObject(tab)
+            tryCompare(tab, "mouseArea", undefined)
         }
-        
+
         function test_reparenter_qml_expect_fail() {
             var tab = containerLeft.makeTab()
 

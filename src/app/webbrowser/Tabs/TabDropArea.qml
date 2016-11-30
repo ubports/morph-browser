@@ -19,6 +19,7 @@ import QtQuick 2.4
 
 DropArea {
     id: dropArea
+    keys: ["x-tabsbar/tab"]
 
     property real heightThreshold
     readonly property bool inThreshold: containsDrag && drag.y <= heightThreshold

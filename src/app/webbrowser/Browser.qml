@@ -220,6 +220,10 @@ BrowserView {
                 top: parent.top
             }
             height: parent.height - osk.height - bottomEdgeBar.height
+            // disable when newTabView is shown otherwise webview can capture drag events
+            // do not use visible otherwise when a new tab is opened the locationBarController.offset
+            // doesn't get updated, causing the Chrome to disappear
+            enabled: !newTabViewLoader.active
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
@@ -1251,60 +1255,60 @@ BrowserView {
     // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
     Shortcut {
         sequence: StandardKey.NextChild
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToNextTab()
     }
     Shortcut {
         sequence: "Ctrl+PgDown"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToNextTab()
     }
 
     // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
     Shortcut {
         sequence: StandardKey.PreviousChild
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToPreviousTab()
     }
     Shortcut {
         sequence: "Ctrl+Shift+Tab"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToPreviousTab()
     }
     Shortcut {
         sequence: "Ctrl+PgUp"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToPreviousTab()
     }
 
     // Ctrl+W or Ctrl+F4: Close the current tab
     Shortcut {
         sequence: StandardKey.Close
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.closeCurrentTab()
     }
     Shortcut {
         sequence: "Ctrl+F4"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.closeCurrentTab()
     }
 
     // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
     Shortcut {
         sequence: "Ctrl+Shift+W"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.undoCloseTab()
     }
     Shortcut {
         sequence: "Ctrl+Shift+T"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.undoCloseTab()
     }
 
     // Ctrl+T: Open a new Tab
     Shortcut {
         sequence: StandardKey.AddTab
-        enabled: tabContainer.visible || recentView.visible ||
+        enabled: contentsContainer.visible || recentView.visible ||
                  bookmarksViewLoader.active || historyViewLoader.active
         onActivated: {
             internal.openUrlInNewTab("", true)
@@ -1317,24 +1321,24 @@ BrowserView {
     // F6 or Ctrl+L or Alt+D: Select the content in the address bar
     Shortcut {
         sequence: "F6"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.focusAddressBar(true)
     }
     Shortcut {
         sequence: "Ctrl+L"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.focusAddressBar(true)
     }
     Shortcut {
         sequence: "Alt+D"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.focusAddressBar(true)
     }
 
     // Ctrl+D: Toggle bookmarked state on current Tab
     Shortcut {
         sequence: "Ctrl+D"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: {
             if (internal.currentBookmarkOptionsDialog) {
                 internal.currentBookmarkOptionsDialog.hide()
@@ -1351,47 +1355,47 @@ BrowserView {
     // Ctrl+H: Show History
     Shortcut {
         sequence: "Ctrl+H"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: historyViewLoader.active = true
     }
 
     // Ctrl+Shift+O: Show Bookmarks
     Shortcut {
         sequence: "Ctrl+Shift+O"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: bookmarksViewLoader.active = true
     }
 
     // Alt+← or Backspace: Goes to the previous page in history
     Shortcut {
         sequence: StandardKey.Back
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.historyGoBack()
     }
 
     // Alt+→ or Shift+Backspace: Goes to the next page in history
     Shortcut {
         sequence: StandardKey.Forward
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.historyGoForward()
     }
 
     // F5 or Ctrl+R: Reload current Tab
     Shortcut {
         sequence: StandardKey.Refresh
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: if (currentWebview) currentWebview.reload()
     }
     Shortcut {
         sequence: "F5"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: if (currentWebview) currentWebview.reload()
     }
 
     // Ctrl+F: Find in Page
     Shortcut {
         sequence: StandardKey.Find
-        enabled: tabContainer.visible && !newTabViewLoader.active
+        enabled: contentsContainer.visible && !newTabViewLoader.active
         onActivated: chrome.findInPageMode = true
     }
 

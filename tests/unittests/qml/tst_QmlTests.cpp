@@ -21,6 +21,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QTemporaryDir>
+#include <QtQml/QQmlEngine>
 #include <QtQml/QtQml>
 #include <QtQuickTest/QtQuickTest>
 
@@ -167,6 +168,8 @@ MAKE_SINGLETON_FACTORY(FileOperations)
 MAKE_SINGLETON_FACTORY(BookmarksModel)
 MAKE_SINGLETON_FACTORY(HistoryModelMock)
 MAKE_SINGLETON_FACTORY(TestContext)
+MAKE_SINGLETON_FACTORY(Reparenter)
+MAKE_SINGLETON_FACTORY(DragHelper)
 
 int main(int argc, char** argv)
 {
@@ -185,8 +188,8 @@ int main(int argc, char** argv)
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
     qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
-    qmlRegisterType<DragHelper>(browserUri, 0, 1, "DragHelper");
-    qmlRegisterType<Reparenter>(browserUri, 0, 1, "Reparenter");
+    qmlRegisterSingletonType<DragHelper>(browserUri, 0, 1, "DragHelper", DragHelper_singleton_factory);
+    qmlRegisterSingletonType<Reparenter>(browserUri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 
     const char* testUri = "webbrowsertest.private";
     qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);

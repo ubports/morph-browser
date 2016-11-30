@@ -253,7 +253,7 @@ Component {
             contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
             onNewViewRequested: {
-                var tab = browser.createTabHelper({"request": request})
+                var tab = browser.createTab({"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(tab, setCurrent)
                 if (setCurrent) tabContainer.forceActiveFocus()
@@ -269,9 +269,14 @@ Component {
                                 break
                             }
                         }
+
+                        // tab.close() destroys the context so add new tab before destroy if required
+                        if (tabsModel.count === 0) {
+                            internal.openUrlInNewTab("", true, true)
+                        }
+
                         tab.close()
-                    }
-                    if (tabsModel.count === 0) {
+                    } else if (tabsModel.count === 0) {
                         internal.openUrlInNewTab("", true, true)
                     }
                 }

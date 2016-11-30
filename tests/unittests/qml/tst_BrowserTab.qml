@@ -26,10 +26,6 @@ Item {
 
     width: 200
     height: 200
-    
-    property Reparenter reparenter: Reparenter {
-    
-    }
 
     Component {
         id: tabComponent
@@ -48,6 +44,8 @@ Item {
                 property int reloaded: 0
                 property bool loadingState: false
                 function reload() { reloaded++ }
+
+                signal loadEvent()
             }
             readonly property bool webviewPresent: webview
         }
