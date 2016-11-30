@@ -60,6 +60,7 @@ Rectangle {
 
     }
 
+    signal contextMenu(var tabDelegate, int index)
     signal requestNewWindowFromTab(var tab, var callback)
 
     function iconFromModelItem(modelItem) {
@@ -160,6 +161,7 @@ Rectangle {
         delegate: MouseArea {
             id: tabMouseArea
 
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
             width: tab.width
             height: tab.height
             drag {
@@ -189,7 +191,13 @@ Rectangle {
                 to: 0
             }
 
-            onPressed: tabsBar.model.selectTab(index)
+            onPressed: {
+                if (mouse.button === Qt.LeftButton) {
+                    tabsBar.model.selectTab(index)
+                } else if (mouse.button === Qt.RightButton) {
+                    tabsBar.contextMenu(tabMouseArea, index)
+                }
+            }
             onReleased: resetVerticalAnimation.start()
             onWheel: {
                 if (wheel.angleDelta.y >= 0) {

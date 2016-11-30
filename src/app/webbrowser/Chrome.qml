@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import "."
 import ".."
 
@@ -98,6 +99,7 @@ ChromeBase {
             }
             model: chrome.tabsModel
 
+            onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
             onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
 
             function removeTabButMoving(index) {
@@ -157,4 +159,42 @@ ChromeBase {
     // otherwise opening a new tab/window while another webview was loading
     // can cause a progress bar to be left behind at zero percent pad.lv/1638337
     onWebviewChanged: loading = webview ? webview.loading : false
+
+    Component {
+        id: contextualOptionsComponent
+        ActionSelectionPopover {
+            id: menu
+            objectName: "tabContextualActions"
+            property int targetIndex
+            readonly property var tab: chrome.tabsModel.get(targetIndex)
+
+            actions: ActionList {
+                Action {
+                    objectName: "tab_action_new_tab"
+                    text: i18n.tr("New Tab")
+                    onTriggered: chrome.requestNewTab(menu.targetIndex + 1, false)
+                }
+                Action {
+                    objectName: "tab_action_reload"
+                    text: i18n.tr("Reload")
+                    enabled: menu.tab.url.toString().length > 0
+                    onTriggered: menu.tab.reload()
+                }
+                Action {
+                    objectName: "tab_action_move_to_new_window"
+                    text: i18n.tr("Move to New Window")
+                    onTriggered: {
+                        // callback function only removes from model
+                        // and not destroy as webview is in new window
+                        chrome.requestNewWindowFromTab(menu.tab, function() { chrome.tabClosed(menu.targetIndex, true); });
+                    }
+                }
+                Action {
+                    objectName: "tab_action_close_tab"
+                    text: i18n.tr("Close Tab")
+                    onTriggered: chrome.tabClosed(menu.targetIndex, false)
+                }
+            }
+        }
+    }
 }
