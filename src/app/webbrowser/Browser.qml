@@ -58,7 +58,13 @@ BrowserView {
         }
 
         function moveTab(from, to) {
-            move(Math.max(from, to), Math.min(from, to));
+            if (from == to
+                || from < 0 || from >= count
+                || to < 0 || to >= count) {
+                return;
+            }
+
+            move(from, to);
         }
 
         // Overload removeTab and add moving property so we can tell when
@@ -72,7 +78,7 @@ BrowserView {
         }
 
         function selectTab(index) {
-            currentIndex = index;
+            internal.switchToTab(index, true)
         }
     }
 

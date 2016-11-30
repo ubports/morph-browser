@@ -208,9 +208,25 @@ void TabsModel::move(int from, int to)
     if ((from == to) || !checkValidTabIndex(from) || !checkValidTabIndex(to)) {
         return;
     }
-    beginMoveRows(QModelIndex(), from, from, QModelIndex(), to);
-    m_tabs.move(from, to);
-    endMoveRows();
+
+    int diff = to - from;
+    int i=from;
+
+    // Shuffle index along until destination
+    while (i != to) {
+        if (diff > 0) {
+            beginMoveRows(QModelIndex(), i, i, QModelIndex(), i + 2);
+            m_tabs.move(i + 1, i);
+            i += 1;
+        } else {
+            beginMoveRows(QModelIndex(), i, i, QModelIndex(), i - 1);
+            m_tabs.move(i, i - 1);
+            i -= 1;
+        }
+
+        endMoveRows();
+    }
+
     if (m_currentIndex == from) {
         m_currentIndex = to;
         Q_EMIT currentIndexChanged();

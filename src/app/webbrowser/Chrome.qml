@@ -40,7 +40,7 @@ ChromeBase {
     property alias findInPageMode: navigationBar.findInPageMode
     property alias editing: navigationBar.editing
     property alias incognito: navigationBar.incognito
-    property alias showTabsBar: tabsBar.active
+    property alias showTabsBar: tabsBar.visible
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
@@ -73,9 +73,8 @@ ChromeBase {
             color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
         }
 
-        // TODO: remove old tab bar and load this one async
         Tabs.TabsBar {
-            id: tabsBarNew
+            id: tabsBar
             anchors {
                 left: parent.left
                 right: parent.right
@@ -109,42 +108,9 @@ ChromeBase {
                     // FIXME: icon from theme is fuzzy at many GUs
 //                     iconSource: Qt.resolvedUrl("Tabs/tab_add.png")
                     iconName: "add"
-                    onTriggered: tabsBarNew.model.addTab()
+                    onTriggered: tabsBar.model.addTab()
                 }
             ]
-        }
-
-        Loader {
-            id: tabsBar
-
-            Component.onCompleted: {
-                /*
-                tabsBar.setSource("TabsBar.qml", {
-                                      "model": Qt.binding(function () {return chrome.tabsModel}),
-                                      "incognito": Qt.binding(function () {return chrome.incognito}),
-                                      "fgColor": Qt.binding(function () {return navigationBar.fgColor}),
-                                      "thisWindow": Qt.binding(function () {return chrome.thisWindow}),
-                                      "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
-                })
-                */
-            }
-
-            Connections {
-                target: tabsBar.item
-
-                onSwitchToTab: chrome.switchToTab(index)
-                onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
-                onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
-                onTabClosed: chrome.tabClosed(index, moving)
-            }
-            asynchronous: true
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-            height: active ? (touchEnabled ? units.gu(4) : units.gu(3)) : 0
         }
 
         NavigationBar {

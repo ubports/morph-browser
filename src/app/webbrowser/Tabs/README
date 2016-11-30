@@ -1,0 +1,21 @@
+
+# Drag and Drop
+
+This code assumes that you have registered the drag-helper as a singleton
+in a similar way to the following code
+
+```
+#include "Tabs/drag-helper.h"
+
+#define MAKE_SINGLETON_FACTORY(type) \
+    static QObject* type##_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine) { \
+        Q_UNUSED(engine); \
+        Q_UNUSED(scriptEngine); \
+        return new type(); \
+    }
+
+MAKE_SINGLETON_FACTORY(DragHelper)
+
+qmlRegisterSingletonType<DragHelper>("Tabs.DragHelper", 0, 1, "DragHelper", DragHelper_singleton_factory);
+```
+
