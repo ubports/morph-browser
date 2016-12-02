@@ -151,7 +151,7 @@ Rectangle {
         property int maximumTabsCount: Math.floor((tabsBar.width - actions.width - units.gu(1)) / minimumTabWidth)
         property real availableWidth: tabsBar.width - actions.width - units.gu(1)
         property real maximumTabWidth: availableWidth / tabs.count
-        readonly property int maxYDiff: 2 //height / 8
+        readonly property int maxYDiff: Math.max(height / 16, 2)
         property bool overflow: tabs.count > maximumTabsCount
 
         displaced: Transition {
