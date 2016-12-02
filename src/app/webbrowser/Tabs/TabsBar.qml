@@ -139,10 +139,10 @@ Rectangle {
             var pos = tabs.contentX;
             var destPos;
             tabs.positionViewAtIndex(index, ListView.Contain);
-//             destPos = tabs.contentX;
-//             scrollAnimation.from = pos;
-//             scrollAnimation.to = destPos;
-//             scrollAnimation.running = true;
+            destPos = tabs.contentX;
+            scrollAnimation.from = pos;
+            scrollAnimation.to = destPos;
+            scrollAnimation.running = true;
         }
 
         property int indexFirstVisibleItem: indexAt(contentX+1, height / 2)
