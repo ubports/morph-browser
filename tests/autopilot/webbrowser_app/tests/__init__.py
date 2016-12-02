@@ -216,23 +216,29 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(bookmarks_action)
         return self.main_window.get_bookmarks_view()
 
-    def open_history(self):
-        chrome = self.main_window.chrome
+    def open_history(self, window=None):
+        if window is None:
+            window = self.main_window
+
+        chrome = window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
         history_action = chrome.get_drawer_action("history")
         self.pointing_device.click_object(history_action)
-        return self.main_window.get_history_view()
+        return window.get_history_view()
 
-    def open_downloads(self):
-        chrome = self.main_window.chrome
+    def open_downloads(self, window=None):
+        if window is None:
+            window = self.main_window
+
+        chrome = window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
         downloads_action = chrome.get_drawer_action("downloads")
         self.pointing_device.click_object(downloads_action)
-        return self.main_window.get_downloads_page()
+        return window.get_downloads_page()
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
@@ -255,6 +261,33 @@ class BrowserTestCaseBase(AutopilotTestCase):
                     if '--type=renderer' in arg:
                         os.kill(child.pid, signal)
                         break
+
+    def switch_to_unfocused_window(self, target_window,
+                                   expected_number_unfocused_windows=1):
+        try:
+            windows = [
+                window for window in self.process_manager.get_open_windows()
+                if window.application.desktop_file ==
+                "webbrowser-app.desktop" and
+                not window.is_focused
+            ]
+
+            self.assertThat(len(windows),
+                            Equals(expected_number_unfocused_windows))
+
+            # Cycle through possible windows until target gets focus
+            for window in windows:
+                window.set_focus()
+                self.assertThat(lambda: window.is_focused,
+                                Eventually(Equals(True)))
+
+                if target_window.activeFocus:
+                    break
+        except (RuntimeError, ImportError):
+            # Fallback to clicking on the window
+            self.pointing_device.click_object(target_window)
+
+        self.assertThat(target_window.activeFocus, Eventually(Equals(True)))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):

@@ -44,6 +44,8 @@ Item {
                 property int reloaded: 0
                 property bool loadingState: false
                 function reload() { reloaded++ }
+
+                signal loadEvent()
             }
             readonly property bool webviewPresent: webview
         }
@@ -163,9 +165,8 @@ Item {
             tab.current = false
             tryCompare(previewSavedSpy, "count", 1)
             verify(FileOperations.exists(path))
-            tab.close()
+            tab.close(false)
             verify(!FileOperations.exists(path))
-
             tab.destroy()
         }
     }

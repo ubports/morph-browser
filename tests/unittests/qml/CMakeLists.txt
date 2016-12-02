@@ -18,12 +18,14 @@ set(SOURCES
     ${webbrowser-app_SOURCE_DIR}/bookmarks-model.cpp
     ${webbrowser-app_SOURCE_DIR}/bookmarks-folder-model.cpp
     ${webbrowser-app_SOURCE_DIR}/bookmarks-folderlist-model.cpp
+    ${webbrowser-app_SOURCE_DIR}/drag-helper.cpp
     ${webbrowser-app_SOURCE_DIR}/file-operations.cpp
     ${webbrowser-app_SOURCE_DIR}/history-domain-model.cpp
     ${webbrowser-app_SOURCE_DIR}/history-domainlist-model.cpp
     ${webbrowser-app_SOURCE_DIR}/history-model.cpp
     ${webbrowser-app_SOURCE_DIR}/history-lastvisitdatelist-model.cpp
     ${webbrowser-app_SOURCE_DIR}/limit-proxy-model.cpp
+    ${webbrowser-app_SOURCE_DIR}/reparenter.cpp
     ${webbrowser-app_SOURCE_DIR}/searchengine.cpp
     ${webbrowser-app_SOURCE_DIR}/tabs-model.cpp
     ${webbrowser-app_SOURCE_DIR}/text-search-filter-model.cpp

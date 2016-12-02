@@ -19,10 +19,10 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Web 0.2
 import Unity.InputInfo 0.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -46,6 +46,8 @@ BrowserView {
 
     property var tabsModel: TabsModel {}
 
+    property BrowserWindow thisWindow
+
     function serializeTabState(tab) {
         var state = {}
         state.uniqueId = tab.uniqueId
@@ -66,10 +68,25 @@ BrowserView {
     }
 
     function createTab(properties) {
-        return tabComponent.createObject(tabContainer, properties)
+        return internal.createTabHelper(properties)
+    }
+
+    function bindExistingTab(tab) {
+        Reparenter.reparent(tab, tabContainer);
+
+        var properties = internal.buildContextProperties();
+
+        for (var prop in properties) {
+            tab[prop] = properties[prop];
+        }
+
+        // Ensure that we have switched to the tab
+        // otherwise chrome position can break
+        internal.switchToTab(tabsModel.count - 1, true);
     }
 
     signal newWindowRequested(bool incognito)
+    signal newWindowFromTab(var tab, var callback)
     signal openLinkInWindowRequested(url url, bool incognito)
 
     Connections {
@@ -167,6 +184,10 @@ BrowserView {
                 top: parent.top
             }
             height: parent.height - osk.height - bottomEdgeBar.height
+            // disable when newTabView is shown otherwise webview can capture drag events
+            // do not use visible otherwise when a new tab is opened the locationBarController.offset
+            // doesn't get updated, causing the Chrome to disappear
+            enabled: !newTabViewLoader.active
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
@@ -465,6 +486,8 @@ BrowserView {
         showTabsBar: browser.wide
         showFaviconInAddressBar: !browser.wide
 
+        thisWindow: browser.thisWindow
+
         availableHeight: tabContainer.height - height - y
 
         touchEnabled: internal.hasTouchScreen
@@ -498,7 +521,8 @@ BrowserView {
 
         onSwitchToTab: internal.switchToTab(index, true)
         onRequestNewTab: internal.openUrlInNewTab("", makeCurrent, true, index)
-        onTabClosed: internal.closeTab(index)
+        onRequestNewWindowFromTab: browser.newWindowFromTab(tab, callback)
+        onTabClosed: internal.closeTab(index, moving)
 
         onFindInPageModeChanged: {
             if (!chrome.findInPageMode) internal.resetFocus()
@@ -570,7 +594,7 @@ BrowserView {
 
         Keys.onDownPressed: {
             if (suggestionsList.count) suggestionsList.focus = true
-            else if (newTabViewLoader.status == Loader.Ready) {
+            else if (!incognito && (newTabViewLoader.status == Loader.Ready)) {
                 newTabViewLoader.forceActiveFocus()
             }
         }
@@ -977,7 +1001,7 @@ BrowserView {
 
         function openUrlInNewTab(url, setCurrent, load, index) {
             load = typeof load !== 'undefined' ? load : true
-            var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
+            var tab = internal.createTabHelper({"initialUrl": url})
             addTab(tab, setCurrent, index)
             if (load) {
                 tab.load()
@@ -996,8 +1020,36 @@ BrowserView {
             }
         }
 
-        function closeTab(index) {
+        function buildContextProperties(properties) {
+            if (properties === undefined) {
+                properties = {};
+            }
+
+            properties["bottomEdgeHandle"] = bottomEdgeHandle;
+            properties["browser"] = browser;
+            properties["chrome"] = chrome;
+            properties["chromeController"] = chromeController;
+            properties["contentHandlerLoader"] = contentHandlerLoader;
+            properties["downloadDialogLoader"] = downloadDialogLoader;
+            properties["downloadsViewLoader"] = downloadsViewLoader;
+            properties["filePickerLoader"] = filePickerLoader;
+            properties["internal"] = internal;
+            properties["recentView"] = recentView;
+            properties["tabsModel"] = tabsModel;
+
+            return properties;
+        }
+
+        function createTabHelper(properties) {
+            return Reparenter.createObject(tabComponent, tabContainer, internal.buildContextProperties(properties));
+        }
+
+        function closeTab(index, moving) {
+            moving = moving === undefined ? false : moving;
+
             var tab = tabsModel.get(index)
+            tabsModel.remove(index)
+
             if (tab) {
                 if (!incognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
@@ -1005,9 +1057,12 @@ BrowserView {
                         index: index
                     })
                 }
-                tab.close()
+
+                // When moving a tab between windows don't close the tab as it has been moved
+                if (!moving) {
+                    tab.close()
+                }
             }
-            tabsModel.remove(index)
             if (tabsModel.currentTab) {
                 tabsModel.currentTab.load()
             }
@@ -1163,60 +1218,60 @@ BrowserView {
     // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
     Shortcut {
         sequence: StandardKey.NextChild
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToNextTab()
     }
     Shortcut {
         sequence: "Ctrl+PgDown"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToNextTab()
     }
 
     // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
     Shortcut {
         sequence: StandardKey.PreviousChild
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToPreviousTab()
     }
     Shortcut {
         sequence: "Ctrl+Shift+Tab"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToPreviousTab()
     }
     Shortcut {
         sequence: "Ctrl+PgUp"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.switchToPreviousTab()
     }
 
     // Ctrl+W or Ctrl+F4: Close the current tab
     Shortcut {
         sequence: StandardKey.Close
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.closeCurrentTab()
     }
     Shortcut {
         sequence: "Ctrl+F4"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.closeCurrentTab()
     }
 
     // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
     Shortcut {
         sequence: "Ctrl+Shift+W"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.undoCloseTab()
     }
     Shortcut {
         sequence: "Ctrl+Shift+T"
-        enabled: tabContainer.visible || recentView.visible
+        enabled: contentsContainer.visible || recentView.visible
         onActivated: internal.undoCloseTab()
     }
 
     // Ctrl+T: Open a new Tab
     Shortcut {
         sequence: StandardKey.AddTab
-        enabled: tabContainer.visible || recentView.visible ||
+        enabled: contentsContainer.visible || recentView.visible ||
                  bookmarksViewLoader.active || historyViewLoader.active
         onActivated: {
             internal.openUrlInNewTab("", true)
@@ -1229,24 +1284,24 @@ BrowserView {
     // F6 or Ctrl+L or Alt+D: Select the content in the address bar
     Shortcut {
         sequence: "F6"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.focusAddressBar(true)
     }
     Shortcut {
         sequence: "Ctrl+L"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.focusAddressBar(true)
     }
     Shortcut {
         sequence: "Alt+D"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.focusAddressBar(true)
     }
 
     // Ctrl+D: Toggle bookmarked state on current Tab
     Shortcut {
         sequence: "Ctrl+D"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: {
             if (internal.currentBookmarkOptionsDialog) {
                 internal.currentBookmarkOptionsDialog.hide()
@@ -1263,47 +1318,47 @@ BrowserView {
     // Ctrl+H: Show History
     Shortcut {
         sequence: "Ctrl+H"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: historyViewLoader.active = true
     }
 
     // Ctrl+Shift+O: Show Bookmarks
     Shortcut {
         sequence: "Ctrl+Shift+O"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: bookmarksViewLoader.active = true
     }
 
     // Alt+← or Backspace: Goes to the previous page in history
     Shortcut {
         sequence: StandardKey.Back
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.historyGoBack()
     }
 
     // Alt+→ or Shift+Backspace: Goes to the next page in history
     Shortcut {
         sequence: StandardKey.Forward
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: internal.historyGoForward()
     }
 
     // F5 or Ctrl+R: Reload current Tab
     Shortcut {
         sequence: StandardKey.Refresh
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: if (currentWebview) currentWebview.reload()
     }
     Shortcut {
         sequence: "F5"
-        enabled: tabContainer.visible
+        enabled: contentsContainer.visible
         onActivated: if (currentWebview) currentWebview.reload()
     }
 
     // Ctrl+F: Find in Page
     Shortcut {
         sequence: StandardKey.Find
-        enabled: tabContainer.visible && !newTabViewLoader.active
+        enabled: contentsContainer.visible && !newTabViewLoader.active
         onActivated: chrome.findInPageMode = true
     }
 
@@ -1399,5 +1454,79 @@ BrowserView {
         id: filePickerLoader
         source: "ContentPickerDialog.qml"
         asynchronous: true
+    }
+
+    DropArea {
+        id: dropArea
+        anchors {
+            fill: parent
+        }
+        keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
+
+        readonly property real heightThreshold: chrome.tabsBarHeight
+
+        onDropped: {
+            // IgnoreAction - no DropArea accepted so New Window
+            // MoveAction   - DropArea accept but different window
+            // CopyAction   - DropArea accept but same window
+
+            if (drag.y > heightThreshold) {
+                // Dropped in bottom area, creating new window
+                drop.accept(Qt.IgnoreAction);
+            } else if (drag.source.tabWindow === thisWindow) {
+                // Dropped in same window
+                drop.accept(Qt.CopyAction);
+            } else {
+                // Dropped in new window, moving tab
+
+                thisWindow.addExistingTab(drag.source.tab);
+                thisWindow.tabsModel.currentIndex = window.tabsModel.count - 1;
+                thisWindow.show();
+                thisWindow.requestActivate();
+
+                thisWindow.tabsModel.currentTab.load();
+
+                drop.accept(Qt.MoveAction);
+            }
+        }
+        onEntered: {
+            thisWindow.raise()
+            thisWindow.requestActivate();
+        }
+        onPositionChanged: {
+            if (drag.source.tabWindow === thisWindow && drag.y < heightThreshold) {
+                // tab drag is within same window and in chrome
+                // so reorder tabs by setting tabDelegate x position
+                drag.source.x = drag.x - (drag.source.width / 2);
+            }
+        }
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            color: "#FFF"
+            height: dropArea.heightThreshold
+            opacity: {
+                // Only hide the white shade when this is the active window
+                // and there is no drag being performed or the drag event is
+                // over the tabs bar
+                if (thisWindow.active && !DragHelper.dragging) {
+                    0
+                } else if (dropArea.containsDrag && dropArea.drag.y <= dropArea.heightThreshold) {
+                    0
+                } else {
+                    0.6
+                }
+            }
+
+            Behavior on opacity {
+                NumberAnimation {
+
+                }
+            }
+        }
     }
 }
