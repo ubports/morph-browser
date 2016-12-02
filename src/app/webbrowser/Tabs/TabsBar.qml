@@ -72,7 +72,7 @@ Rectangle {
      * destroying the tab components
      */
     function removeTabButMoving(index) {
-        return removeTab(index);
+        return model.removeTab(index);
     }
 
     function titleFromModelItem(modelItem) {
@@ -130,6 +130,7 @@ Rectangle {
         orientation: ListView.Horizontal
         clip: true
         highlightMoveDuration: UbuntuAnimation.FastDuration
+        objectName: "tabListView"
 
         UbuntuNumberAnimation { id: scrollAnimation; target: tabs; property: "contentX" }
 
@@ -160,8 +161,9 @@ Rectangle {
         model: tabsBar.model
         delegate: MouseArea {
             id: tabMouseArea
+            objectName: "tabDelegate"
 
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
             width: tab.width
             height: tab.height
             drag {
@@ -196,6 +198,8 @@ Rectangle {
                     tabsBar.model.selectTab(index)
                 } else if (mouse.button === Qt.RightButton) {
                     tabsBar.contextMenu(tabMouseArea, index)
+                } else if (mouse.button === Qt.MiddleButton) {
+                    tabsBar.model.removeTab(index)
                 }
             }
             onReleased: resetVerticalAnimation.start()
@@ -211,6 +215,7 @@ Rectangle {
 
             LocalTabs.Tab {
                 id: tab
+                objectName: "tabItem"
 
                 anchors.left: tabMouseArea.left
                 implicitWidth: tabs.availableWidth / 2
@@ -377,6 +382,7 @@ Rectangle {
             model: tabsBar.actions
 
             LocalTabs.TabButton {
+                objectName: modelData.objectName
                 iconColor: tabsBar.actionColor
                 iconSource: modelData.iconSource
                 onClicked: modelData.trigger()

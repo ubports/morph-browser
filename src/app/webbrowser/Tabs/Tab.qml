@@ -76,6 +76,7 @@ Item {
 
     MouseArea {
         id: tabCloseButton
+        objectName: "tabCloseButton"
 
         anchors {
             top: parent.top

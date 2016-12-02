@@ -80,7 +80,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
-    qmlRegisterSingletonType<DragHelper>(uri, 0, 1, "DragHelper", DragHelper_singleton_factory);
     qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 
     qmlRegisterSingletonType<DragHelper>("Tabs.DragHelper", 0, 1, "DragHelper", DragHelper_singleton_factory);

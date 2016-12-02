@@ -115,6 +115,7 @@ ChromeBase {
                     // FIXME: icon from theme is fuzzy at many GUs
 //                     iconSource: Qt.resolvedUrl("Tabs/tab_add.png")
                     iconName: "add"
+                    objectName: "newTabButton"
                     onTriggered: tabsBar.model.addTab()
                 }
             ]

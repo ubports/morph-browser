@@ -188,8 +188,9 @@ int main(int argc, char** argv)
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
     qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
-    qmlRegisterSingletonType<DragHelper>(browserUri, 0, 1, "DragHelper", DragHelper_singleton_factory);
     qmlRegisterSingletonType<Reparenter>(browserUri, 0, 1, "Reparenter", Reparenter_singleton_factory);
+
+    qmlRegisterSingletonType<DragHelper>("Tabs.DragHelper", 0, 1, "DragHelper", DragHelper_singleton_factory);
 
     const char* testUri = "webbrowsertest.private";
     qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
