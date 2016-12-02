@@ -1,4 +1,4 @@
-webbrowser-app (0.23+17.04.20161130-0ubuntu1) UNRELEASED; urgency=medium
+webbrowser-app (0.23+17.04.20161202-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
   * Ensure if the webview changes that the loading visible state of the
@@ -21,7 +21,7 @@ webbrowser-app (0.23+17.04.20161130-0ubuntu1) UNRELEASED; urgency=medium
   * Use the ubuntu-app-platform content interface
   * Desktop UA override for google docs (LP: #1643386)
 
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 30 Nov 2016 13:43:16 +0100
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 02 Dec 2016 08:38:21 +0000
 
 webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
 
