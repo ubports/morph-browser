@@ -52,10 +52,7 @@ DropArea {
         if (drag.source.thisWindow === thisWindow && drag.y <= heightThreshold) {
             // tab drag is within same window and in chrome
             // so reorder tabs by setting tab x position
-            // set isDynamicDragging true to tell tab it is being moved
-            drag.source.isDynamicDragging = true
             drag.source.x = drag.x - (drag.source.width / 2);
-            drag.source.isDynamicDragging = false
         }
     }
 }

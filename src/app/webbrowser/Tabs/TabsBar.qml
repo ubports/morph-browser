@@ -58,10 +58,10 @@ Rectangle {
 
     }
 
+    property string fallbackIcon: ""
+
     signal contextMenu(var tabDelegate, int index)
     signal requestNewWindowFromTab(var tab, var callback)
-
-    property string fallbackIcon: ""
 
     function iconNameFromModelItem(modelItem, index) {
         return "";
@@ -234,7 +234,6 @@ Rectangle {
                 readonly property var thisWindow: dragAndDrop.thisWindow
 
                 property bool isDragged: tabMouseArea.drag.active
-                property bool isDynamicDragging: false  // used to track when tab is moved by dropArea
                 Drag.active: tab.isDragged
                 Drag.source: tabMouseArea
                 Drag.hotSpot.x: width / 2
@@ -262,12 +261,12 @@ Rectangle {
                     }
                 }
 
-                isHovered: tabMouseArea.containsMouse
-                isFocused: tabsBar.model.selectedIndex == index
-                isBeforeFocusedTab: index == tabsBar.model.selectedIndex - 1
                 fallbackIcon: tabsBar.fallbackIcon
                 iconName: tabsBar.iconNameFromModelItem(typeof(modelData) === "undefined" ? model : modelData, index)
                 iconSource: tabsBar.iconSourceFromModelItem(typeof(modelData) === "undefined" ? model : modelData, index)
+                isHovered: tabMouseArea.containsMouse
+                isFocused: tabsBar.model.selectedIndex == index
+                isBeforeFocusedTab: index == tabsBar.model.selectedIndex - 1
                 title: tabsBar.titleFromModelItem(typeof(modelData) === "undefined" ? model : modelData)
                 backgroundColor: tabsBar.backgroundColor
                 foregroundColor: tabsBar.foregroundColor
@@ -278,7 +277,6 @@ Rectangle {
             }
 
             DropArea {
-                id: myDropArea
                 anchors.fill: parent
                 onEntered: {
                     tabsBar.model.moveTab(drag.source.DelegateModel.itemsIndex,
@@ -404,7 +402,7 @@ Rectangle {
         anchors.fill: parent
         color: backgroundColor
         opacity: 0.4
+        // Show when the window is not active or drag and drop is enabled and a drag is being performed outside of the dropArea threshold
         visible: !Window.active || (dragAndDrop.enabled && dragAndDrop.dropArea ? (DragHelper.dragging && !dragAndDrop.dropArea.inThreshold) : false)
-        z: dragAndDrop.enabled && DragHelper.dragging ? 2 : 0
     }
 }

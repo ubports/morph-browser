@@ -75,15 +75,6 @@ ChromeBase {
             color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
         }
 
-        Instantiator {
-            id: instantiator
-            model: chrome.tabsModel
-            delegate: FaviconFetcher {
-                shouldCache: !incognito
-                url: model.icon
-            }
-        }
-
         Tabs.TabsBar {
             id: tabsBar
             anchors {
@@ -109,8 +100,21 @@ ChromeBase {
 
             fallbackIcon: "stock_website"
 
+            property Component faviconFactory: Component {
+                FaviconFetcher {
+
+                }
+            }
+
             function iconSourceFromModelItem(modelData, index) {
-                return instantiator.objectAt(index) ? instantiator.objectAt(index).localUrl : "";
+                var incubator = faviconFactory.incubateObject(
+                    parent,
+                    {
+                        "shouldCache": Qt.binding(function() { return !incognito; }),
+                        "url": Qt.binding(function() { return modelData.icon; })
+                    }
+                );
+                return incubator.status == Component.Ready ? incubator.object.localUrl || "" : "";
             }
 
             function removeTabButMoving(index) {
