@@ -51,10 +51,7 @@ BrowserView {
         property int selectedIndex: currentIndex
 
         function addTab() {
-            var tab = internal.createTabHelper({"initialUrl": ""})
-            currentIndex = add(tab);
-
-            tab.load();
+            internal.openUrlInNewTab("", true, true, count)
         }
 
         function moveTab(from, to) {
