@@ -111,7 +111,7 @@ ChromeBase {
                     parent,
                     {
                         "shouldCache": Qt.binding(function() { return !incognito; }),
-                        "url": Qt.binding(function() { return modelData.icon; })
+                        "url": Qt.binding(function() { return modelData.icon || ""; })
                     }
                 );
                 return incubator.status == Component.Ready ? incubator.object.localUrl || "" : "";
