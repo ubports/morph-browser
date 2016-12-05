@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "."
 import ".."
+import webbrowsercommon.private 0.1
 
 import "Tabs" as Tabs
 
@@ -74,6 +75,15 @@ ChromeBase {
             color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
         }
 
+        Instantiator {
+            id: instantiator
+            model: chrome.tabsModel
+            delegate: FaviconFetcher {
+                shouldCache: !incognito
+                url: model.icon
+            }
+        }
+
         Tabs.TabsBar {
             id: tabsBar
             anchors {
@@ -92,15 +102,16 @@ ChromeBase {
                 }
                 thisWindow: chrome.thisWindow
             }
-            iconComponent: Component {
-                Favicon {
-
-                }
-            }
             model: chrome.tabsModel
 
             onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
             onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
+
+            fallbackIcon: "stock_website"
+
+            function iconSourceFromModelItem(modelData, index) {
+                return instantiator.objectAt(index) ? instantiator.objectAt(index).localUrl : "";
+            }
 
             function removeTabButMoving(index) {
                 model.removeTab(index, true);  // uses overloaded removeTab

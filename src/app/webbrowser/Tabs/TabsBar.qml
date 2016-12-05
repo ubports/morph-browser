@@ -44,8 +44,6 @@ Rectangle {
     property var model
     property list<Action> actions
 
-    property Component iconComponent: null
-
     /* To enable drag and drop set to enabled
      *
      * Use expose to set any information you need the DropArea to access
@@ -63,8 +61,14 @@ Rectangle {
     signal contextMenu(var tabDelegate, int index)
     signal requestNewWindowFromTab(var tab, var callback)
 
-    function iconFromModelItem(modelItem) {
-        return modelItem.icon;
+    property string fallbackIcon: ""
+
+    function iconNameFromModelItem(modelItem, index) {
+        return "";
+    }
+
+    function iconSourceFromModelItem(modelItem, index) {
+        return "";
     }
 
     /* When a tab is being removed due to it being moved to another window
@@ -173,6 +177,9 @@ Rectangle {
                 maximumX: tab.isDragged ? tabs.width - tab.width/2 : Infinity
             }
             z: tab.isFocused ? 1 : 0
+
+            readonly property int tabIndex: index  // for autopilot
+
             Binding {
                 target: tabsBar
                 property: "selectedTabX"
@@ -258,8 +265,9 @@ Rectangle {
                 isHovered: tabMouseArea.containsMouse
                 isFocused: tabsBar.model.selectedIndex == index
                 isBeforeFocusedTab: index == tabsBar.model.selectedIndex - 1
-                icon: tabsBar.iconFromModelItem(typeof(modelData) === "undefined" ? model : modelData)
-                iconComponent: tabsBar.iconComponent
+                fallbackIcon: tabsBar.fallbackIcon
+                iconName: tabsBar.iconNameFromModelItem(typeof(modelData) === "undefined" ? model : modelData, index)
+                iconSource: tabsBar.iconSourceFromModelItem(typeof(modelData) === "undefined" ? model : modelData, index)
                 title: tabsBar.titleFromModelItem(typeof(modelData) === "undefined" ? model : modelData)
                 backgroundColor: tabsBar.backgroundColor
                 foregroundColor: tabsBar.foregroundColor
