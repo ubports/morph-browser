@@ -83,7 +83,7 @@ ChromeBase {
 
             Component.onCompleted: {
                 setSource(
-                    Qt.resolvedUrl("TabsBarComponent.qml"),
+                    Qt.resolvedUrl("TabsBar.qml"),
                     {
                         "model": Qt.binding(function() { return chrome.tabsModel; }),
                         "incognito": Qt.binding(function() { return chrome.incognito; }),
