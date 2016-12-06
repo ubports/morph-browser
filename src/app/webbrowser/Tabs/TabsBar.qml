@@ -155,7 +155,6 @@ Rectangle {
         property int maximumTabsCount: Math.floor((tabsBar.width - actions.width - units.gu(1)) / minimumTabWidth)
         property real availableWidth: tabsBar.width - actions.width - units.gu(1)
         property real maximumTabWidth: availableWidth / tabs.count
-        readonly property int maxYDiff: Math.max(height / 16, 2)
         property bool overflow: tabs.count > maximumTabsCount
 
         displaced: Transition {
@@ -254,7 +253,6 @@ Rectangle {
                             easing: UbuntuAnimation.StandardEasing
                         }
                     }
-
                     AnchorAnimation {
                         duration: UbuntuAnimation.FastDuration
                         easing: UbuntuAnimation.StandardEasing
@@ -297,7 +295,7 @@ Rectangle {
                 // Keep the visual tab within maxYDiff of starting point when
                 // dragging vertically so that it doesn't cover other elements
                 // or appear to be detached
-                tab.y = Math.abs(tab.y) > tabs.maxYDiff ? (tab.y > 0 ? 1 : -1) * tabs.maxYDiff : tab.y
+                tab.y = Math.abs(tab.y) > dragAndDrop.maxYDiff ? (tab.y > 0 ? 1 : -1) * dragAndDrop.maxYDiff : tab.y
 
                 // Initiate drag and drop if mouse y has gone further than the height from the object
                 if (mouse.y > height * 2 || mouse.y < -height) {

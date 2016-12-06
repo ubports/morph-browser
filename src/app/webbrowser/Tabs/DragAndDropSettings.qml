@@ -21,6 +21,7 @@ QtObject {
     property var dropArea: null
     property bool enabled: false
     property var expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
+    property int maxYDiff: parent.height / 16
     property string mimeType: "x-tabsbar/tab"
     property real previewBorderWidth: units.gu(1)
     property var previewSize: Qt.size(units.gu(35), units.gu(22.5))

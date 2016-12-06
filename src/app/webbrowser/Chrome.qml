@@ -18,12 +18,8 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 import "."
 import ".."
-import webbrowsercommon.private 0.1
-
-import "Tabs" as Tabs
 
 ChromeBase {
     id: chrome
@@ -75,7 +71,7 @@ ChromeBase {
             color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
         }
 
-        Tabs.TabsBar {
+        Loader {
             id: tabsBar
             anchors {
                 left: parent.left
@@ -83,57 +79,29 @@ ChromeBase {
                 top: parent.top
                 topMargin: units.gu(1)
             }
-            dragAndDrop {
-                dropArea: chrome.dropArea
-                enabled: true
-                mimeType: "webbrowser/tab-" + (chrome.incognito ? "incognito" : "public")
-                previewTopCrop: chrome.height
-                previewUrlFromIndex: function(index) {
-                     return PreviewManager.previewPathFromUrl(tabsModel.get(index).url)
-                }
-                thisWindow: chrome.thisWindow
-            }
-            model: chrome.tabsModel
+            asynchronous: true
+            height: units.gu(3)
 
-            onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
-            onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
-
-            fallbackIcon: "stock_website"
-
-            property Component faviconFactory: Component {
-                FaviconFetcher {
-
-                }
-            }
-
-            function iconSourceFromModelItem(modelData, index) {
-                var incubator = faviconFactory.incubateObject(
-                    parent,
+            Component.onCompleted: {
+                setSource(
+                    Qt.resolvedUrl("TabsBarComponent.qml"),
                     {
-                        "shouldCache": Qt.binding(function() { return !incognito; }),
-                        "url": Qt.binding(function() { return modelData.icon || ""; })
+                        "model": Qt.binding(function() { return chrome.tabsModel; }),
+                        "incognito": Qt.binding(function() { return chrome.incognito; }),
+                        "dragAndDrop.dropArea": Qt.binding(function() { return chrome.dropArea; }),
+                        "dragAndDrop.previewTopCrop": Qt.binding(function() { return chrome.height; }),
+                        "dragAndDrop.thisWindow": Qt.binding(function() { return chrome.thisWindow; }),
                     }
-                );
-                return incubator.status == Component.Ready ? incubator.object.localUrl || "" : "";
+                )
             }
 
-            function removeTabButMoving(index) {
-                model.removeTab(index, true);  // uses overloaded removeTab
-            }
+            Connections {
+                target: tabsBar.item
 
-            function titleFromModelItem(modelItem) {
-                return modelItem.title ? modelItem.title : (modelItem.url.toString() ? modelItem.url : i18n.tr("New tab"))
+                onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
+                onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
+                onTabClosed: chrome.tabClosed(index, moving)
             }
-
-            actions: [
-                Action {
-                    // FIXME: icon from theme is fuzzy at many GUs
-//                     iconSource: Qt.resolvedUrl("Tabs/tab_add.png")
-                    iconName: "add"
-                    objectName: "newTabButton"
-                    onTriggered: tabsBar.model.addTab()
-                }
-            ]
         }
 
         NavigationBar {
@@ -175,42 +143,4 @@ ChromeBase {
     // otherwise opening a new tab/window while another webview was loading
     // can cause a progress bar to be left behind at zero percent pad.lv/1638337
     onWebviewChanged: loading = webview ? webview.loading : false
-
-    Component {
-        id: contextualOptionsComponent
-        ActionSelectionPopover {
-            id: menu
-            objectName: "tabContextualActions"
-            property int targetIndex
-            readonly property var tab: chrome.tabsModel.get(targetIndex)
-
-            actions: ActionList {
-                Action {
-                    objectName: "tab_action_new_tab"
-                    text: i18n.tr("New Tab")
-                    onTriggered: chrome.requestNewTab(menu.targetIndex + 1, false)
-                }
-                Action {
-                    objectName: "tab_action_reload"
-                    text: i18n.tr("Reload")
-                    enabled: menu.tab.url.toString().length > 0
-                    onTriggered: menu.tab.reload()
-                }
-                Action {
-                    objectName: "tab_action_move_to_new_window"
-                    text: i18n.tr("Move to New Window")
-                    onTriggered: {
-                        // callback function only removes from model
-                        // and not destroy as webview is in new window
-                        chrome.requestNewWindowFromTab(menu.tab, function() { chrome.tabClosed(menu.targetIndex, true); });
-                    }
-                }
-                Action {
-                    objectName: "tab_action_close_tab"
-                    text: i18n.tr("Close Tab")
-                    onTriggered: chrome.tabClosed(menu.targetIndex, false)
-                }
-            }
-        }
-    }
 }
