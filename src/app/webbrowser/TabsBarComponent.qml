@@ -27,9 +27,6 @@ import "Tabs" as Tabs
 
 Tabs.TabsBar {
     id: tabsBar
-    anchors {
-        fill: parent
-    }
     dragAndDrop {
         enabled: true
         maxYDiff: height / 12

@@ -38,7 +38,7 @@ ChromeBase {
     property alias findInPageMode: navigationBar.findInPageMode
     property alias editing: navigationBar.editing
     property alias incognito: navigationBar.incognito
-    property alias showTabsBar: tabsBar.visible
+    property alias showTabsBar: tabsBar.active
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
@@ -63,6 +63,7 @@ ChromeBase {
     FocusScope {
         id: content
         anchors.fill: parent
+        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
 
@@ -77,10 +78,9 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
                 top: parent.top
-                topMargin: units.gu(1)
             }
             asynchronous: true
-            height: units.gu(3)
+            height: active ? units.gu(3) : 0
 
             Component.onCompleted: {
                 setSource(
@@ -118,7 +118,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: units.gu(7)
+            height: units.gu(6)
 
             onToggleBookmark: chrome.toggleBookmark()
         }
