@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-10-27 07:09+0200\n"
-"PO-Revision-Date: 2015-09-03 13:32+0000\n"
+"PO-Revision-Date: 2016-12-14 14:02+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2016-10-28 05:48+0000\n"
-"X-Generator: Launchpad (build 18246)\n"
+"X-Launchpad-Export-Date: 2016-12-15 04:54+0000\n"
+"X-Generator: Launchpad (build 18293)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -620,7 +620,7 @@ msgstr "Taba ùr"
 
 #: src/app/webbrowser/Browser.qml:516
 msgid "New window"
-msgstr ""
+msgstr "Uinneag ùr"
 
 #: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
@@ -668,7 +668,7 @@ msgstr "Dh’fhàillig an luchdadh a-nuas"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:208
 msgid "Resume"
@@ -1007,7 +1007,7 @@ msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "Open a New Window"
-msgstr ""
+msgstr "Fosgail uinneag ùr"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
