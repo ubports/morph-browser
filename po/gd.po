@@ -2,13 +2,13 @@
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
-# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2015.
+# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-10-27 07:09+0200\n"
-"PO-Revision-Date: 2016-12-14 14:02+0000\n"
+"PO-Revision-Date: 2016-12-15 12:12+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2016-12-15 04:54+0000\n"
+"X-Launchpad-Export-Date: 2016-12-16 05:42+0000\n"
 "X-Generator: Launchpad (build 18293)\n"
 "Language: gd\n"
 
@@ -488,11 +488,11 @@ msgstr "Fosgail an ceangal ann an taba ùr"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Fosgail an ceangal ann an uinneag ùr"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Fosgail an ceangal ann an uinneag phrìobhaideach"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -624,7 +624,7 @@ msgstr "Uinneag ùr"
 
 #: src/app/webbrowser/Browser.qml:522
 msgid "New private window"
-msgstr ""
+msgstr "Uinneag phrìobhaideach ùr"
 
 #: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -1011,7 +1011,7 @@ msgstr "Fosgail uinneag ùr"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "Open a New Private Window"
-msgstr ""
+msgstr "Fosgail uinneag phrìobhaideach ùr"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
