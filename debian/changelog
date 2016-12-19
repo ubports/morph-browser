@@ -1,3 +1,28 @@
+webbrowser-app (0.23+17.04.20161202-0ubuntu1) zesty; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Ensure if the webview changes that the loading visible state of the
+    progress bar is bound to the correct webview (LP: #1638337)
+  * Additional autopilot tests
+  * Add dependencies on qtdeclarative5-ubuntu-content1 and
+    qtdeclarative5-ubuntu-download-manager0.1 as they are now in main
+    (LP: #1491279)
+  * Add Drag and drop support of tabs between windows on non-mir clients
+
+  [ Olivier Tilloy ]
+  * Add a desktop UA override for ESPN websites (LP: #1637285)
+  * Add user agent overrides for meet.jit.si (LP: #1635971)
+  * Make QmlTests::UbuntuWebView02::test_no_contextual_actions() more
+    robust (LP: #1633528)
+  * Run unit tests with verbose output by default when building packages
+  * Do not transfer keyboard focus from the address bar to the new tab
+    view in incognito mode (LP: #1634463)
+  * Use new API in oxide 1.17 to copy image to clipboard (LP: #1585291)
+  * Use the ubuntu-app-platform content interface
+  * Desktop UA override for google docs (LP: #1643386)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 02 Dec 2016 08:38:21 +0000
+
 webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]

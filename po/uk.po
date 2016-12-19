@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-27 07:09+0200\n"
+"POT-Creation-Date: 2016-12-18 19:37+0100\n"
 "PO-Revision-Date: 2015-07-03 18:15+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -16,17 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
-"X-Generator: Launchpad (build 18246)\n"
+"X-Launchpad-Export-Date: 2016-12-19 05:31+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
-#: src/app/AlertDialog.qml:23
+#: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
 msgstr "Сповіщення JavaScript"
 
-#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr "Гаразд"
 
@@ -48,29 +47,28 @@ msgstr "Користувач"
 msgid "Password"
 msgstr "Пароль"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
-#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
+#: src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
-#: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/ContextMenuMobile.qml:141
+#: src/app/webbrowser/DownloadDelegate.qml:178
 #: src/app/webbrowser/SettingsPage.qml:258
 #: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
-#: src/app/webcontainer/ContextMenuMobile.qml:141
+#: src/app/webcontainer/ContextMenuMobile.qml:143
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/app/BeforeUnloadDialog.qml:23
+#: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
 msgstr "Підтвердити перехід"
 
-#: src/app/BeforeUnloadDialog.qml:26
+#: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
 msgstr "Вийти"
 
-#: src/app/BeforeUnloadDialog.qml:32
+#: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
 msgstr "Залишитися"
 
@@ -98,7 +96,7 @@ msgstr "Продовжити"
 msgid "Back to safety"
 msgstr "Повернутися до безпечного режиму"
 
-#: src/app/ConfirmDialog.qml:23
+#: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Підтвердження дій JavaScript"
 
@@ -142,7 +140,7 @@ msgstr "Дозволити"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "Сайт %1 потребує проходження розпізнавання. Повідомлення сайта: «%2»"
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -353,7 +351,7 @@ msgstr "Так"
 msgid "No"
 msgstr "Ні"
 
-#: src/app/PromptDialog.qml:23
+#: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
 msgstr "Запит JavaScript"
 
@@ -421,7 +419,7 @@ msgstr "Вирізати"
 msgid "Erase"
 msgstr "Витерти"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
 msgid "Find in page"
 msgstr "Знайти на сторінці"
 
@@ -451,8 +449,8 @@ msgstr "Перейти"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;адрес;інтернет"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
-#: src/app/webbrowser/TabsBar.qml:91
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
+#: src/app/webbrowser/TabsBar.qml:110
 msgid "New Tab"
 msgstr "Нова вкладка"
 
@@ -468,7 +466,7 @@ msgstr "Відкрити зображення у новій вкладці"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Відкрити посилання у типовому браузері"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -499,7 +497,7 @@ msgid "Redo"
 msgstr "Повторити"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Перезавантажити"
 
@@ -521,11 +519,11 @@ msgstr "Зберегти посилання"
 msgid "Save video"
 msgstr "Зберегти відео"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
 msgstr "Позначити все"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
 msgid "Share"
 msgstr "Поділитися"
 
@@ -547,36 +545,36 @@ msgstr "знайти на сторінці"
 msgid "search or enter an address"
 msgstr "пошук або введення адреси"
 
-#: src/app/webbrowser/BookmarkOptions.qml:48
+#: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
 msgstr "Додано закладку"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
-#: src/app/webbrowser/BookmarkOptions.qml:53
+#: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
 msgstr "Назва"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
-#: src/app/webbrowser/BookmarkOptions.qml:71
+#: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
 msgstr "Зберегти до"
 
-#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "Усі закладки"
 
-#: src/app/webbrowser/BookmarkOptions.qml:93
-#: src/app/webbrowser/BookmarkOptions.qml:133
+#: src/app/webbrowser/BookmarkOptions.qml:114
+#: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
 msgstr "Нова тека"
 
-#: src/app/webbrowser/BookmarkOptions.qml:115
+#: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
 msgstr "Створити нову теку"
 
-#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "Зберегти"
@@ -590,14 +588,14 @@ msgstr "Домашня сторінка"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Закладки"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Завершено"
@@ -606,33 +604,33 @@ msgstr "Завершено"
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Нова вкладка"
 
-#: src/app/webbrowser/Browser.qml:516
+#: src/app/webbrowser/Browser.qml:540
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:522
+#: src/app/webbrowser/Browser.qml:546
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Журнал"
 
-#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
 msgstr "Отримані"
 
-#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Параметри"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
+#: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -652,7 +650,7 @@ msgstr "Виберіть проґраму"
 msgid "Download"
 msgstr "Отримати"
 
-#: src/app/webbrowser/DownloadDelegate.qml:159
+#: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
 msgstr "Не вдалося завантажити"
 
@@ -662,19 +660,19 @@ msgstr "Не вдалося завантажити"
 msgid "%1%"
 msgstr ""
 
-#: src/app/webbrowser/DownloadDelegate.qml:208
+#: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
 msgstr "Поновити"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
+#: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Підтвердьте вибір"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
+#: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
 msgstr "Вилучити"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
 msgstr "Немає доступних завантажень"
 
@@ -869,11 +867,11 @@ msgstr "Мікрофон"
 msgid "Camera"
 msgstr "Відеокамера"
 
-#: src/app/webbrowser/Browser.qml:1377
+#: src/app/webbrowser/TabComponent.qml:406
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Проведіть пальцем вгору, щоб вийти з повноекранного режиму"
 
-#: src/app/webbrowser/Browser.qml:1378
+#: src/app/webbrowser/TabComponent.qml:407
 msgid "Press ESC To Exit Full Screen"
 msgstr "Натисніть клавішу Esc, щоб вийти з повноекранного режиму"
 
@@ -881,7 +879,11 @@ msgstr "Натисніть клавішу Esc, щоб вийти з повное
 msgid "Tap to view"
 msgstr "Натисніть, щоб переглянути"
 
-#: src/app/webbrowser/TabsBar.qml:102
+#: src/app/webbrowser/TabsBar.qml:121
+msgid "Move to New Window"
+msgstr ""
+
+#: src/app/webbrowser/TabsBar.qml:130
 msgid "Close Tab"
 msgstr "Закрити вкладку"
 
@@ -890,14 +892,14 @@ msgid "Remove"
 msgstr "Вилучити"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webbrowser/webbrowser-app.qml:99
+#: src/app/webcontainer/webapp-container.qml:72
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 — Переглядач Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:74
 msgid "Ubuntu Web Browser"
 msgstr "Переглядач інтернету Ubuntu"
 
@@ -936,7 +938,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Не вдалося пройти розпізнавання"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
