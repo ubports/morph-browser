@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -59,16 +59,22 @@
 
 /*!
     \qmlproperty bool WebView::canGoBack
+    \deprecated
 
     Whether the navigation history has a previous entry to navigate back.
+    This is now deprecated.
+    Use WebView::navigationHistory::canGoBack instead.
 
     \sa goBack, canGoForward
  */
 
 /*!
     \qmlproperty bool WebView::canGoForward
+    \deprecated
 
     Whether the navigation history has a next entry to navigate forward.
+    This is now deprecated.
+    Use WebView::navigationHistory::canGoForward instead.
 
     \sa goForward, canGoBack
  */
@@ -255,16 +261,22 @@
 
 /*!
     \qmlmethod void WebView::goBack()
+    \deprecated
 
     Go back one entry in the navigation history.
+    This is now deprecated.
+    Use WebView::navigationHistory::goBack instead.
 
     \sa canGoBack, goForward
  */
 
 /*!
     \qmlmethod void WebView::goForward()
+    \deprecated
 
     Go forward one entry in the navigation history.
+    This is now deprecated.
+    Use WebView::navigationHistory::goForward instead.
 
     \sa canGoForward, goBack
  */
