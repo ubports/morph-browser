@@ -18,7 +18,7 @@
 import QtQuick 2.4
 
 QtObject {
-    property var dropArea: null
+    property bool dragging: false
     property bool enabled: false
     property var expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
     property int maxYDiff: parent.height / 16
@@ -29,5 +29,5 @@ QtObject {
     property var previewUrlFromIndex: function(index) {
         return "";
     }
-    property var thisWindow: null
+    property var thisWindow: null  // Qt 5.7 retrieve from attached property
 }

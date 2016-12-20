@@ -42,13 +42,12 @@ ChromeBase {
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
     property bool touchEnabled: true
-    readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin
+    readonly property bool tabsBarDragging: tabsBar.item ? tabsBar.item.dragging : false
+    readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin + content.anchors.topMargin
     property BrowserWindow thisWindow
-    property DropArea dropArea
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
-    signal requestNewWindowFromTab(var tab, var callback)
     signal tabClosed(int index, bool moving)
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : "#ffffff"
@@ -87,7 +86,6 @@ ChromeBase {
                     {
                         "model": Qt.binding(function() { return chrome.tabsModel; }),
                         "incognito": Qt.binding(function() { return chrome.incognito; }),
-                        "dragAndDrop.dropArea": Qt.binding(function() { return chrome.dropArea; }),
                         "dragAndDrop.previewTopCrop": Qt.binding(function() { return chrome.height; }),
                         "dragAndDrop.thisWindow": Qt.binding(function() { return chrome.thisWindow; }),
                     }
@@ -98,7 +96,6 @@ ChromeBase {
                 target: tabsBar.item
 
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
-                onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
                 onTabClosed: chrome.tabClosed(index, moving)
             }
         }

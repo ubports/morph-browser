@@ -32,8 +32,6 @@ import ".."
 import "."
 import "." as Local
 
-import "Tabs" as Tabs
-
 BrowserView {
     id: browser
 
@@ -52,6 +50,13 @@ BrowserView {
 
         function addTab() {
             internal.openUrlInNewTab("", true, true, count)
+        }
+
+        function addExistingTab(tab) {
+            add(tab);
+
+            // TODO: move reparent code as well?
+            browser.bindExistingTab(tab);
         }
 
         function moveTab(from, to) {
@@ -220,7 +225,7 @@ BrowserView {
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
-            enabled: !newTabViewLoader.active
+            enabled: !newTabViewLoader.active && !chrome.tabsBarDragging
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
@@ -519,7 +524,6 @@ BrowserView {
         showTabsBar: browser.wide
         showFaviconInAddressBar: !browser.wide
 
-        dropArea: tabsDropArea
         thisWindow: browser.thisWindow
 
         availableHeight: tabContainer.height - height - y
@@ -555,7 +559,6 @@ BrowserView {
 
         onSwitchToTab: internal.switchToTab(index, true)
         onRequestNewTab: internal.openUrlInNewTab("", makeCurrent, true, index)
-        onRequestNewWindowFromTab: browser.newWindowFromTab(tab, callback)
         onTabClosed: internal.closeTab(index, moving)
 
         onFindInPageModeChanged: {
@@ -1490,22 +1493,16 @@ BrowserView {
         asynchronous: true
     }
 
-    Tabs.TabDropArea {
-        id: tabsDropArea
+    DropArea {
         anchors {
             fill: parent
+            topMargin: chrome.tabsBarHeight
         }
-        heightThreshold: chrome.tabsBarHeight
-        keys: ["webbrowser/tab-" + (chrome.incognito ? "incognito" : "public")]
-        thisWindow: browser.thisWindow
+        keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
 
-        onAddExistingTab: {
-            thisWindow.addExistingTab(drag.source.thisTab);
-            tabsModel.currentIndex = thisWindow.tabsModel.count - 1;
-            thisWindow.show();
-            thisWindow.requestActivate();
-
-            tabsModel.currentTab.load();
+        onEntered: {
+            window.raise()
+            window.requestActivate()
         }
     }
 }

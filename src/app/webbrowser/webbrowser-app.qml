@@ -89,6 +89,7 @@ QtObject {
             id: window
 
             property alias incognito: browser.incognito
+            readonly property alias model: browser.tabsModel
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
@@ -185,25 +186,6 @@ QtObject {
                 anchors.fill: parent
                 thisWindow: window
                 settings: webbrowserapp.settings
-                onNewWindowFromTab: {
-                    var window = windowFactory.createObject(
-                        null,
-                        {
-                            "incognito": tab.incognito,
-                            "height": parent.height,
-                            "width": parent.width,
-                        }
-                    );
-
-                    window.addExistingTab(tab);
-                    window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                    window.show();
-                    window.requestActivate();
-
-                    window.tabsModel.currentTab.load();
-
-                    callback();
-                }
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,
@@ -286,14 +268,6 @@ QtObject {
                 var tab = browser.createTab({"initialUrl": url || ""})
                 tabsModel.add(tab)
                 return tab
-            }
-
-            function addExistingTab(tab) {
-                tabsModel.add(tab);
-
-                browser.bindExistingTab(tab);
-
-                return tab;
             }
         }
     }

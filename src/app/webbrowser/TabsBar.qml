@@ -36,7 +36,14 @@ Tabs.TabsBar {
         }
     }
     fallbackIcon: "stock_website"
+    windowFactory: webbrowserapp.windowFactory
+    windowFactoryProperties: {
+        "incognito": tabsBar.incognito,
+        "height": window.height,
+        "width": window.width,
+    }
 
+    readonly property bool dragging: dragAndDrop.dragging
     property bool incognito
 
     signal requestNewTab(int index, bool makeCurrent)
@@ -61,7 +68,7 @@ Tabs.TabsBar {
         return incubator.status == Component.Ready ? incubator.object.localUrl || "" : "";
     }
 
-    function removeTabButMoving(index) {
+    function removeMovingTab(index) {
         model.removeTab(index, true);  // uses overloaded removeTab
     }
 
@@ -105,7 +112,15 @@ Tabs.TabsBar {
                     onTriggered: {
                         // callback function only removes from model
                         // and not destroy as webview is in new window
-                        tabsBar.requestNewWindowFromTab(menu.tab, function() { tabsBar.tabClosed(menu.targetIndex, true); });
+                        // Create new window and add existing tab
+                        var window = tabsBar.windowFactory.createObject(null, windowFactoryProperties);
+                        window.model.addExistingTab(menu.tab);
+                        window.model.selectTab(window.model.count - 1);
+                        window.show();
+
+                        // Just remove from model and do not destroy
+                        // as webview is used in other window
+                        tabsBar.removeTabButMoving(menu.targetIndex);
                     }
                 }
                 Action {

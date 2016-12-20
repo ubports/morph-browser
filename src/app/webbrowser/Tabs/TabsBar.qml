@@ -37,6 +37,7 @@ Rectangle {
     property color highlightColor: Qt.rgba(actionColor.r, actionColor.g, actionColor.b, 0.1)
     /* 'model' needs to have the following members:
          property int selectedIndex
+         function addExistingTab(var tab)
          function selectTab(int index)
          function removeTab(int index)
          function moveTab(int from, int to)
@@ -55,13 +56,15 @@ Rectangle {
      * and returns a url to an image, which will be shown in the handle
      */
     readonly property DragAndDropSettings dragAndDrop: DragAndDropSettings {
-
+        dragging: DragHelper.dragging
     }
 
     property string fallbackIcon: ""
 
+    property Component windowFactory: null
+    property var windowFactoryProperties: ({})
+
     signal contextMenu(var tabDelegate, int index)
-    signal requestNewWindowFromTab(var tab, var callback)
 
     function iconNameFromModelItem(modelItem, index) {
         return "";
@@ -75,7 +78,7 @@ Rectangle {
      * This allows for different code to be run when moving, such as not
      * destroying the tab components
      */
-    function removeTabButMoving(index) {
+    function removeMovingTab(index) {
         return model.removeTab(index);
     }
 
@@ -322,7 +325,7 @@ Rectangle {
 
                         // Just remove from model and do not destroy
                         // as webview is used in other window
-                        tabsBar.removeTabButMoving(index);
+                        tabsBar.removeMovingTab(index);
                     } else if (dropAction === Qt.CopyAction) {
                         // Moved into the same window
 
@@ -330,9 +333,15 @@ Rectangle {
                     } else if (dropAction === Qt.IgnoreAction) {
                         // Moved outside of any window
 
-                        // callback function only removes from model
-                        // and not destroy as webview is in new window
-                        tabsBar.requestNewWindowFromTab(tab.thisTab, function() { tabsBar.removeTabButMoving(index); })
+                        // Create new window and add existing tab
+                        var window = windowFactory.createObject(null, windowFactoryProperties);
+                        window.model.addExistingTab(tab.thisTab);
+                        window.model.selectTab(window.model.count - 1);
+                        window.show();
+
+                        // Just remove from model and do not destroy
+                        // as webview is used in other window
+                        tabsBar.removeMovingTab(index);
                     } else {
                         // Unknown state
                         console.debug("Unknown drop action:", dropAction);
@@ -401,6 +410,42 @@ Rectangle {
         color: backgroundColor
         opacity: 0.4
         // Show when the window is not active or drag and drop is enabled and a drag is being performed outside of the dropArea threshold
-        visible: !Window.active || (dragAndDrop.enabled && dragAndDrop.dropArea ? (DragHelper.dragging && !dragAndDrop.dropArea.inThreshold) : false)
+        visible: !Window.active || (dragAndDrop.enabled && DragHelper.dragging ? !dropArea.containsDrag : false)
+    }
+
+    // If a page is restored from the previous session at startup, cannot DnD back into tab bar it started on
+    DropArea {
+        id: dropArea
+        anchors {
+            fill: parent
+        }
+        keys: [dragAndDrop.mimeType]
+
+        onDropped: {
+            // IgnoreAction - no DropArea accepted so New Window
+            // MoveAction   - DropArea accept but different window
+            // CopyAction   - DropArea accept but same window
+            if (drag.source.thisWindow === dragAndDrop.thisWindow) {
+                // Dropped in same window
+                drop.accept(Qt.CopyAction);
+            } else {
+                // Dropped in new window, moving tab
+                tabsBar.model.addExistingTab(drag.source.thisTab);
+                tabsBar.model.selectTab(tabsBar.model.count - 1);
+
+                drop.accept(Qt.MoveAction);
+            }
+        }
+        onEntered: {
+            thisWindow.raise()
+            thisWindow.requestActivate();
+        }
+        onPositionChanged: {
+            if (drag.source.thisWindow === dragAndDrop.thisWindow) {
+                // tab drag is within same window and in chrome
+                // so reorder tabs by setting tab x position
+                drag.source.x = drag.x - (drag.source.width / 2);
+            }
+        }
     }
 }

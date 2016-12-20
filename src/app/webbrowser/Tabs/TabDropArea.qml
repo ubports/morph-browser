@@ -24,8 +24,9 @@ DropArea {
     property real heightThreshold
     readonly property bool inThreshold: containsDrag && drag.y <= heightThreshold
     property var thisWindow
+    property var model
 
-    signal addExistingTab(var tab)
+//     signal addExistingTab(var tab)
 
     onDropped: {
         // IgnoreAction - no DropArea accepted so New Window
@@ -39,7 +40,8 @@ DropArea {
             drop.accept(Qt.CopyAction);
         } else {
             // Dropped in new window, moving tab
-            dropArea.addExistingTab(drag.source.thisTab);
+            model.addExistingTab(drag.source.thisTab);
+            model.selectTab(model.count - 1);
 
             drop.accept(Qt.MoveAction);
         }
