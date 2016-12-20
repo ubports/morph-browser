@@ -80,7 +80,7 @@ BrowserView {
         }
 
         function selectTab(index) {
-            internal.switchToTab(index, true)
+            internal.switchToTab(index, true);
         }
     }
 
@@ -225,7 +225,7 @@ BrowserView {
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
-            enabled: !newTabViewLoader.active && !chrome.tabsBarDragging
+            enabled: !newTabViewLoader.active
 
             focus: !errorSheetLoader.focus &&
                    !invalidCertificateErrorSheetLoader.focus &&
@@ -1155,6 +1155,8 @@ BrowserView {
                         maybeFocusAddressBar()
                     } else {
                         tabContainer.forceActiveFocus()
+
+                        tab.load();
                     }
                 }
             }
@@ -1491,6 +1493,23 @@ BrowserView {
         id: filePickerLoader
         source: "ContentPickerDialog.qml"
         asynchronous: true
+    }
+
+    // Cover the webview (gaps around tabsbar) with DropArea so that webview doesn't steal events
+    DropArea {
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        height: units.gu(1)
+        keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
+        visible: chrome.showTabsBar
+
+        onEntered: {
+            window.raise()
+            window.requestActivate()
+        }
     }
 
     DropArea {

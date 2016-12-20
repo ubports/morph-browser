@@ -56,7 +56,7 @@ Rectangle {
      * and returns a url to an image, which will be shown in the handle
      */
     readonly property DragAndDropSettings dragAndDrop: DragAndDropSettings {
-        dragging: DragHelper.dragging
+
     }
 
     property string fallbackIcon: ""

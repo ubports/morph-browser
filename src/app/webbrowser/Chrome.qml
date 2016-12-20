@@ -42,7 +42,6 @@ ChromeBase {
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
     property bool touchEnabled: true
-    readonly property bool tabsBarDragging: tabsBar.item ? tabsBar.item.dragging : false
     readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin + content.anchors.topMargin
     property BrowserWindow thisWindow
 

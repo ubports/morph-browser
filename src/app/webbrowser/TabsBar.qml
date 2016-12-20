@@ -43,7 +43,6 @@ Tabs.TabsBar {
         "width": window.width,
     }
 
-    readonly property bool dragging: dragAndDrop.dragging
     property bool incognito
 
     signal requestNewTab(int index, bool makeCurrent)

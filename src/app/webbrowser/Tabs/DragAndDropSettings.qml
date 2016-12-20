@@ -18,7 +18,6 @@
 import QtQuick 2.4
 
 QtObject {
-    property bool dragging: false
     property bool enabled: false
     property var expectedAction: Qt.IgnoreAction | Qt.CopyAction | Qt.MoveAction
     property int maxYDiff: parent.height / 16
