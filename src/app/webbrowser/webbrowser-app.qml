@@ -186,6 +186,7 @@ QtObject {
                 anchors.fill: parent
                 thisWindow: window
                 settings: webbrowserapp.settings
+                windowFactory: webbrowserapp.windowFactory
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,

@@ -23,12 +23,12 @@ import "."
 import ".."
 import webbrowsercommon.private 0.1
 
-import "Tabs" as Tabs
+import Ubuntu.Components.Extras 0.3 as Extras
 
-Tabs.TabsBar {
+Extras.TabsBar {
     id: tabsBar
     dragAndDrop {
-        enabled: true
+        enabled: __platformName != "ubuntumirclient"
         maxYDiff: height / 12
         mimeType: "webbrowser/tab-" + (incognito ? "incognito" : "public")
         previewUrlFromIndex: function(index) {
@@ -36,7 +36,6 @@ Tabs.TabsBar {
         }
     }
     fallbackIcon: "stock_website"
-    windowFactory: webbrowserapp.windowFactory
     windowFactoryProperties: {
         "incognito": tabsBar.incognito,
         "height": window.height,
@@ -119,7 +118,7 @@ Tabs.TabsBar {
 
                         // Just remove from model and do not destroy
                         // as webview is used in other window
-                        tabsBar.removeTabButMoving(menu.targetIndex);
+                        tabsBar.removeMovingTab(menu.targetIndex);
                     }
                 }
                 Action {

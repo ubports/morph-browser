@@ -44,6 +44,7 @@ ChromeBase {
     property bool touchEnabled: true
     readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin + content.anchors.topMargin
     property BrowserWindow thisWindow
+    property Component windowFactory
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
@@ -87,6 +88,7 @@ ChromeBase {
                         "incognito": Qt.binding(function() { return chrome.incognito; }),
                         "dragAndDrop.previewTopCrop": Qt.binding(function() { return chrome.height; }),
                         "dragAndDrop.thisWindow": Qt.binding(function() { return chrome.thisWindow; }),
+                        "windowFactory": Qt.binding(function() { return chrome.windowFactory; }),
                     }
                 )
             }

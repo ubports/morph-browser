@@ -18,7 +18,6 @@ set(SOURCES
     ${webbrowser-app_SOURCE_DIR}/bookmarks-model.cpp
     ${webbrowser-app_SOURCE_DIR}/bookmarks-folder-model.cpp
     ${webbrowser-app_SOURCE_DIR}/bookmarks-folderlist-model.cpp
-    ${webbrowser-app_SOURCE_DIR}/Tabs/drag-helper.cpp
     ${webbrowser-app_SOURCE_DIR}/file-operations.cpp
     ${webbrowser-app_SOURCE_DIR}/history-domain-model.cpp
     ${webbrowser-app_SOURCE_DIR}/history-domainlist-model.cpp

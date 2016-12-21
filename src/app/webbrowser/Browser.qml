@@ -85,6 +85,7 @@ BrowserView {
     }
 
     property BrowserWindow thisWindow
+    property Component windowFactory
 
     function serializeTabState(tab) {
         var state = {}
@@ -525,6 +526,7 @@ BrowserView {
         showFaviconInAddressBar: !browser.wide
 
         thisWindow: browser.thisWindow
+        windowFactory: browser.windowFactory
 
         availableHeight: tabContainer.height - height - y
 

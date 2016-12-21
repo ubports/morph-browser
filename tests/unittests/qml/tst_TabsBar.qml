@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import QtTest 1.0
 import "../../../src/app/webbrowser"
-import "../../../src/app/webbrowser/Tabs" as Tabs
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
@@ -40,7 +39,7 @@ Item {
         property int selectedIndex: currentIndex
 
         function addTab() {
-            tabs.requestNewTab(count);
+            tabs.requestNewTab(count, true);
         }
 
         function moveTab(from, to) {
@@ -60,7 +59,7 @@ Item {
         // This is required because we need to avoid destroying the content
         // of that tab that is moved
         function removeTab(index, moving) {
-            tabs.tabClosed(index);
+            tabs.tabClosed(index, false);
         }
 
         function selectTab(index) {
@@ -80,7 +79,7 @@ Item {
         }
     }
 
-    Tabs.TabsBar {
+    TabsBar {
         id: tabs
 
         // Make the tabs bar smaller than the window and aligned in the middle
@@ -93,9 +92,6 @@ Item {
 
         model: tabsModel
         
-        signal requestNewTab(int index)
-        signal tabClosed(int index)
-        
         onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
         onRequestNewTab: insertTab("", "", "", index)
         
@@ -107,16 +103,6 @@ Item {
             var tab = tabComponent.createObject(root, {"url": url, "title": title, "icon": icon})
             model.insert(tab, index)
         }
-        
-        actions: [
-            Action {
-                // FIXME: icon from theme is fuzzy at many GUs
-//                     iconSource: Qt.resolvedUrl("Tabs/tab_add.png")
-                iconName: "add"
-                objectName: "newTabButton"
-                onTriggered: tabs.model.addTab()
-            }
-        ]
     }
     
     Component {
