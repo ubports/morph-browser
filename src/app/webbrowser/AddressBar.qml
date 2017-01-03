@@ -301,7 +301,7 @@ FocusScope {
         property var securityCertificateDetails: null
 
         function escapeHtmlEntities(query) {
-            return query.replace(/\W/, encodeURIComponent)
+            return query.replace(/\W/g, encodeURIComponent)
         }
 
         function buildSearchUrl(query) {
