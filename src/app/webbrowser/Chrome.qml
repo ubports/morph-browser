@@ -45,6 +45,7 @@ ChromeBase {
     readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin + content.anchors.topMargin
     property BrowserWindow thisWindow
     property Component windowFactory
+    property bool tabsBarDimmed: false
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
@@ -84,6 +85,7 @@ ChromeBase {
                 setSource(
                     Qt.resolvedUrl("TabsBar.qml"),
                     {
+                        "dimmed": Qt.binding(function() { return chrome.tabsBarDimmed; }),
                         "model": Qt.binding(function() { return chrome.tabsModel; }),
                         "incognito": Qt.binding(function() { return chrome.incognito; }),
                         "dragAndDrop.previewTopCrop": Qt.binding(function() { return chrome.height; }),

@@ -532,6 +532,8 @@ BrowserView {
 
         touchEnabled: internal.hasTouchScreen
 
+        tabsBarDimmed: dropAreaTopCover.containsDrag || dropAreaBottomCover.containsDrag
+
         property bool hidden: false
         y: hidden ? -height : webview ? webview.locationBarController.offset : 0
         Behavior on y {
@@ -1499,6 +1501,7 @@ BrowserView {
 
     // Cover the webview (gaps around tabsbar) with DropArea so that webview doesn't steal events
     DropArea {
+        id: dropAreaTopCover
         anchors {
             left: parent.left
             right: parent.right
@@ -1515,6 +1518,7 @@ BrowserView {
     }
 
     DropArea {
+        id: dropAreaBottomCover
         anchors {
             fill: parent
             topMargin: chrome.tabsBarHeight
