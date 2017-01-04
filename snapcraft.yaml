@@ -1,5 +1,5 @@
 name: webbrowser-app
-version: 0.23+17.04.20161202-0ubuntu1
+version: 20170104-staging
 summary: Ubuntu web browser
 description: A lightweight web browser tailored for Ubuntu, based on the Oxide browser engine and using the Ubuntu UI components.
 confinement: strict
@@ -50,6 +50,18 @@ parts:
     stage-packages:
       - fonts-liberation
     after: [desktop-ubuntu-app-platform]
+    snap:
+      - bin/webbrowser-app
+      - share/content-hub/peers/webbrowser-app
+      - share/locale
+      - share/url-dispatcher/urls/webbrowser-app.url-dispatcher
+      - share/webbrowser-app/actions
+      - share/webbrowser-app/webbrowser
+      - share/webbrowser-app/*.js
+      - share/webbrowser-app/*.png
+      - share/webbrowser-app/*.qml
+      - usr/lib/x86_64-linux-gnu/qt5/qml/Ubuntu/Web
+      - usr/share/fonts
 
   launcher:
     plugin: dump
