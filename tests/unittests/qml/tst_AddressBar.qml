@@ -163,6 +163,7 @@ Item {
                 {text: "\"kung fu\"", escaped: "%22kung+fu%22"},
                 {text: "surfin' usa", escaped: "surfin'+usa"},
                 {text: "to be or not to be?", escaped: "to+be+or+not+to+be%3F"},
+                {text: "c++ cout", escaped: "c%2B%2B+cout"},
             ]
         }
 
