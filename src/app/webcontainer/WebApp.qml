@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import webbrowsercommon.private 0.1
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.19 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
@@ -69,12 +69,16 @@ BrowserView {
 
     actions: [
         Actions.Back {
-            enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoBack
-            onTriggered: containerWebView.currentWebview.goBack()
+            enabled: webapp.backForwardButtonsVisible &&
+                     containerWebView.currentWebview &&
+                     containerWebView.currentWebview.navigationHistory.canGoBack
+            onTriggered: containerWebView.currentWebview.navigationHistory.goBack()
         },
         Actions.Forward {
-            enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoForward
-            onTriggered: containerWebView.currentWebview.goForward()
+            enabled: webapp.backForwardButtonsVisible &&
+                     containerWebView.currentWebview &&
+                     containerWebView.currentWebview.navigationHistory.canGoForward
+            onTriggered: containerWebView.currentWebview.navigationHistory.goForward()
         },
         Actions.Reload {
             onTriggered: containerWebView.currentWebview.reload()
@@ -310,14 +314,14 @@ BrowserView {
     // Alt+← or Backspace: Goes to the previous page
     Shortcut {
         sequence: StandardKey.Back
-        enabled: currentWebview && currentWebview.canGoBack
-        onActivated: currentWebview.goBack()
+        enabled: currentWebview && currentWebview.navigationHistory.canGoBack
+        onActivated: currentWebview.navigationHistory.goBack()
     }
 
     // Alt+→ or Shift+Backspace: Goes to the next page
     Shortcut {
         sequence: StandardKey.Forward
-        enabled: currentWebview && currentWebview.canGoForward
-        onActivated: currentWebview.goForward()
+        enabled: currentWebview && currentWebview.navigationHistory.canGoForward
+        onActivated: currentWebview.navigationHistory.goForward()
     }
 }

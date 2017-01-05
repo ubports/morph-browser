@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.15 as Oxide
+import com.canonical.Oxide 1.19 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
@@ -141,12 +141,12 @@ BrowserView {
             onTriggered: currentWebview.url = value
         },
         Actions.Back {
-            enabled: currentWebview ? currentWebview.canGoBack : false
-            onTriggered: currentWebview.goBack()
+            enabled: currentWebview ? currentWebview.navigationHistory.canGoBack : false
+            onTriggered: currentWebview.navigationHistory.goBack()
         },
         Actions.Forward {
-            enabled: currentWebview ? currentWebview.canGoForward : false
-            onTriggered: currentWebview.goForward()
+            enabled: currentWebview ? currentWebview.navigationHistory.canGoForward : false
+            onTriggered: currentWebview.navigationHistory.goForward()
         },
         Actions.Reload {
             enabled: currentWebview
@@ -1173,16 +1173,16 @@ BrowserView {
         }
 
         function historyGoBack() {
-            if (currentWebview && currentWebview.canGoBack) {
+            if (currentWebview && currentWebview.navigationHistory.canGoBack) {
                 internal.resetFocus()
-                currentWebview.goBack()
+                currentWebview.navigationHistory.goBack()
             }
         }
 
         function historyGoForward() {
-            if (currentWebview && currentWebview.canGoForward) {
+            if (currentWebview && currentWebview.navigationHistory.canGoForward) {
                 internal.resetFocus()
-                currentWebview.goForward()
+                currentWebview.navigationHistory.goForward()
             }
         }
 
