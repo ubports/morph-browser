@@ -98,6 +98,17 @@ FocusScope {
         }
     }
 
+    function loadExisting(existingTab) {
+        if (!webview && !internal.incubator) {
+            // Reparent the webview and any other vars
+            existingTab.webview.parent = webviewContainer;
+            existingTab.webview.tab = tab;
+
+            // Set the webview into this window
+            webviewContainer.webview = existingTab.webview;
+        }
+    }
+
     function unload() {
         if (webview) {
             initialUrl = webview.url
@@ -118,11 +129,17 @@ FocusScope {
         }
     }
 
-    function close() {
+    function close(reparentDestroy) {
         var _url = url
         unload()
         if (_url.toString()) PreviewManager.checkDelete(_url)
-        destroy()
+
+        if (reparentDestroy || reparentDestroy === undefined) {
+            // Destroys context and object        
+            Reparenter.destroyContextAndObject(tab);
+        } else {
+            destroy();
+        }
     }
 
     QtObject {

@@ -466,3 +466,13 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         self.assertThat(lambda: len(view.get_bookmarks_list()),
                         Eventually(Equals(2)))
         self.assertThat(view.get_bookmarks_list()[0].title, Equals(title))
+
+
+class TestNewTabViewPrivate(StartOpenRemotePageTestCaseBase):
+    def test_private_window_uses_private_tab_view(self):
+        self.open_new_private_window()
+
+        private_window = self.app.get_windows(incognito=True)[0]
+
+        self.assertThat(private_window.get_new_private_tab_view().visible,
+                        Eventually(Equals(True)))

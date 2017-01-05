@@ -21,11 +21,13 @@
 #include "cache-deleter.h"
 #include "config.h"
 #include "downloads-model.h"
+#include "drag-helper.h"
 #include "file-operations.h"
 #include "history-domainlist-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
 #include "limit-proxy-model.h"
+#include "reparenter.h"
 #include "searchengine.h"
 #include "text-search-filter-model.h"
 #include "tabs-model.h"
@@ -60,6 +62,8 @@ MAKE_SINGLETON_FACTORY(CacheDeleter)
 MAKE_SINGLETON_FACTORY(BookmarksModel)
 MAKE_SINGLETON_FACTORY(HistoryModel)
 MAKE_SINGLETON_FACTORY(DownloadsModel)
+MAKE_SINGLETON_FACTORY(Reparenter)
+MAKE_SINGLETON_FACTORY(DragHelper)
 
 bool WebbrowserApp::initialize()
 {
@@ -76,6 +80,8 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
+    qmlRegisterSingletonType<DragHelper>(uri, 0, 1, "DragHelper", DragHelper_singleton_factory);
+    qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", QStringLiteral("webbrowser-app"))) {
         QStringList searchEnginesSearchPaths;

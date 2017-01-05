@@ -92,7 +92,7 @@ QtObject {
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
-            
+
             title: {
                 if (browser.title) {
                     // TRANSLATORS: %1 refers to the current page’s title
@@ -119,6 +119,7 @@ QtObject {
                         session.clear()
                     }
                 }
+
                 if (incognito && (allWindows.length > 1)) {
                     // If the last incognito window is being closed,
                     // prune incognito entries from the downloads model
@@ -133,6 +134,7 @@ QtObject {
                         DownloadsModel.pruneIncognitoDownloads()
                     }
                 }
+
                 destroy()
             }
 
@@ -181,7 +183,27 @@ QtObject {
             Browser {
                 id: browser
                 anchors.fill: parent
+                thisWindow: window
                 settings: webbrowserapp.settings
+                onNewWindowFromTab: {
+                    var window = windowFactory.createObject(
+                        null,
+                        {
+                            "incognito": tab.incognito,
+                            "height": parent.height,
+                            "width": parent.width,
+                        }
+                    );
+
+                    window.addExistingTab(tab);
+                    window.tabsModel.currentIndex = window.tabsModel.count - 1;
+                    window.show();
+                    window.requestActivate();
+
+                    window.tabsModel.currentTab.load();
+
+                    callback();
+                }
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,
@@ -261,9 +283,17 @@ QtObject {
             }
 
             function addTab(url) {
-                var tab = browser.createTab({"initialUrl": url})
+                var tab = browser.createTab({"initialUrl": url || ""})
                 tabsModel.add(tab)
                 return tab
+            }
+
+            function addExistingTab(tab) {
+                tabsModel.add(tab);
+
+                browser.bindExistingTab(tab);
+
+                return tab;
             }
         }
     }
@@ -438,7 +468,7 @@ QtObject {
                 for (var w in allWindows) {
                     var candidate = getCandidate(allWindows[w].tabsModel)
                     if (candidate) {
-                        if (browser.incognito) {
+                        if (allWindows[w].incognito) {
                             console.warn("Unloading a background incognito tab to free up some memory")
                         } else {
                             console.warn("Unloading background tab (%1) to free up some memory".arg(candidate.url))

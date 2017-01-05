@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.4
-import com.canonical.Oxide 1.8 as Oxide
+import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
@@ -64,9 +64,10 @@ WebViewImpl {
         }
         Actions.CopyImage {
             enabled: contextModel &&
-                     (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
-                     contextModel.srcUrl.toString()
-            onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
+                     ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                      (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                     contextModel.hasImageContents
+            onTriggered: contextModel.copyImage()
             objectName: "CopyImageContextualAction"
         }
         Actions.SaveImage {

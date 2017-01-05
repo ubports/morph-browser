@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-10-27 07:09+0200\n"
+"POT-Creation-Date: 2016-12-18 19:37+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,17 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-10-28 05:49+0000\n"
-"X-Generator: Launchpad (build 18246)\n"
+"X-Launchpad-Export-Date: 2016-12-19 05:31+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
-#: src/app/AlertDialog.qml:23
+#: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
 msgstr "ការ​ជូន​ដំណឹង JavaScript"
 
-#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr "យល់ព្រម"
 
@@ -47,29 +46,28 @@ msgstr "អ្នក​ប្រើ"
 msgid "Password"
 msgstr "ពាក្យសម្ងាត់"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:32
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
-#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
+#: src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
-#: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/DownloadDelegate.qml:187
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/ContextMenuMobile.qml:141
+#: src/app/webbrowser/DownloadDelegate.qml:178
 #: src/app/webbrowser/SettingsPage.qml:258
 #: src/app/webbrowser/SettingsPage.qml:312
 #: src/app/webcontainer/AccountChooserDialog.qml:96
-#: src/app/webcontainer/ContextMenuMobile.qml:141
+#: src/app/webcontainer/ContextMenuMobile.qml:143
 msgid "Cancel"
 msgstr "បោះ​បង់"
 
-#: src/app/BeforeUnloadDialog.qml:23
+#: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
 msgstr "បញ្ជាក់​ការ​រុករក"
 
-#: src/app/BeforeUnloadDialog.qml:26
+#: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
 msgstr "ទុកចោល"
 
-#: src/app/BeforeUnloadDialog.qml:32
+#: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
 msgstr "ស្ថិត​នៅ"
 
@@ -97,7 +95,7 @@ msgstr "អញ្ចឹង បន្ត"
 msgid "Back to safety"
 msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
 
-#: src/app/ConfirmDialog.qml:23
+#: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "ការ​បញ្ជាក់ JavaScript"
 
@@ -353,7 +351,7 @@ msgstr "បាទ/ចាស"
 msgid "No"
 msgstr "ទេ"
 
-#: src/app/PromptDialog.qml:23
+#: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
 msgstr "ប្រាប់ JavaScript"
 
@@ -421,7 +419,7 @@ msgstr "​កាត់"
 msgid "Erase"
 msgstr "លុប"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:578
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
 msgid "Find in page"
 msgstr "រក​មើល​ក្នុង​ទំព័រ"
 
@@ -451,8 +449,8 @@ msgstr "ទៅ​កាន់"
 msgid "Address;URL;www"
 msgstr "អាសយដ្ឋាន;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:461
-#: src/app/webbrowser/TabsBar.qml:91
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
+#: src/app/webbrowser/TabsBar.qml:110
 msgid "New Tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
@@ -499,7 +497,7 @@ msgid "Redo"
 msgstr "ធ្វើ​វិញ"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:96 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "ផ្ទុក​ឡើង​វិញ"
 
@@ -521,11 +519,11 @@ msgstr "រក្សាទុក​តំណ"
 msgid "Save video"
 msgstr "រក្សាទុកវីដេអូ"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
 msgstr "ជ្រើស​ទាំងអស់"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:558
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
 msgid "Share"
 msgstr "ចែករំលែក"
 
@@ -547,36 +545,36 @@ msgstr "រក​មើល​ក្នុង​ទំព័រ"
 msgid "search or enter an address"
 msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋាន"
 
-#: src/app/webbrowser/BookmarkOptions.qml:48
+#: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
 msgstr "បាន​បន្ថែម​ចំណាំ"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
-#: src/app/webbrowser/BookmarkOptions.qml:53
+#: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
 msgstr "ឈ្មោះ"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
-#: src/app/webbrowser/BookmarkOptions.qml:71
+#: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
 msgstr "រក្សាទុក​ក្នុង"
 
-#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
 msgstr "ចំណាំ​ទាំងអស់"
 
-#: src/app/webbrowser/BookmarkOptions.qml:93
-#: src/app/webbrowser/BookmarkOptions.qml:133
+#: src/app/webbrowser/BookmarkOptions.qml:114
+#: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
 msgstr "ថត​ថ្មី"
 
-#: src/app/webbrowser/BookmarkOptions.qml:115
+#: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
 msgstr "បង្កើតថតថ្មី"
 
-#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
 msgstr "រក្សា​ទុក"
@@ -590,14 +588,14 @@ msgstr "គេហទំព័រ"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "ចំណាំ"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:447 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "ធ្វើរួច"
@@ -606,33 +604,33 @@ msgstr "ធ្វើរួច"
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
 #: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:153 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
-#: src/app/webbrowser/Browser.qml:516
+#: src/app/webbrowser/Browser.qml:540
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:522
+#: src/app/webbrowser/Browser.qml:546
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:572 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "ប្រវត្តិ"
 
-#: src/app/webbrowser/Browser.qml:585 src/app/webbrowser/DownloadsPage.qml:45
+#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
 msgstr "ការ​ទាញយក"
 
-#: src/app/webbrowser/Browser.qml:610 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "ការ​កំណត់"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:783 src/app/webbrowser/Browser.qml:821
+#: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -650,7 +648,7 @@ msgstr "ជ្រើស​កម្មវិធី"
 msgid "Download"
 msgstr "ទាញ​យក"
 
-#: src/app/webbrowser/DownloadDelegate.qml:159
+#: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
 msgstr ""
 
@@ -660,19 +658,19 @@ msgstr ""
 msgid "%1%"
 msgstr ""
 
-#: src/app/webbrowser/DownloadDelegate.qml:208
+#: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
 msgstr "បន្ត"
 
-#: src/app/webbrowser/DownloadsPage.qml:59
+#: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "បញ្ជាក់​ជម្រើស"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
+#: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
 msgstr "​លុប​"
 
-#: src/app/webbrowser/DownloadsPage.qml:252
+#: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
 msgstr "មិន​មាន​ការ​ទាញ​យក"
 
@@ -867,11 +865,11 @@ msgstr "មីក្រូហ្វូន"
 msgid "Camera"
 msgstr "ម៉ាស៊ីន​ថត"
 
-#: src/app/webbrowser/Browser.qml:1377
+#: src/app/webbrowser/TabComponent.qml:406
 msgid "Swipe Up To Exit Full Screen"
 msgstr "រុញ​ឡើង​លើ​ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
-#: src/app/webbrowser/Browser.qml:1378
+#: src/app/webbrowser/TabComponent.qml:407
 msgid "Press ESC To Exit Full Screen"
 msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀប​ពេញ​អេក្រង់"
 
@@ -879,7 +877,11 @@ msgstr "ចុច​គេច (ESC) ដើម្បី​បិទ​របៀ�
 msgid "Tap to view"
 msgstr "ប៉ះ​ដើម្បី​មើល"
 
-#: src/app/webbrowser/TabsBar.qml:102
+#: src/app/webbrowser/TabsBar.qml:121
+msgid "Move to New Window"
+msgstr ""
+
+#: src/app/webbrowser/TabsBar.qml:130
 msgid "Close Tab"
 msgstr "បិទ​ផ្ទាំង"
 
@@ -888,14 +890,14 @@ msgid "Remove"
 msgstr "យកចេញ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webbrowser/webbrowser-app.qml:99
+#: src/app/webcontainer/webapp-container.qml:72
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:74
 msgid "Ubuntu Web Browser"
 msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 

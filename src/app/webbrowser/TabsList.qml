@@ -109,14 +109,14 @@ Item {
                     incognito: tabslist.incognito
                     tab: model.tab
                     showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
-                                 !(tab.webview && tab.webview.visible)
+                                 !(tab && tab.webview && tab.webview.visible)
 
                     Binding {
                         // Change the height of the location bar controller
                         // for the first webview only, and only while the tabs
                         // list view is visible.
                         when: tabslist.visible && (index == 0)
-                        target: tab.webview ? tab.webview.locationBarController : null
+                        target: tab && tab.webview ? tab.webview.locationBarController : null
                         property: "height"
                         value: invisibleTabChrome.height
                     }

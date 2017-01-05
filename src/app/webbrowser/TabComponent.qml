@@ -34,9 +34,21 @@ Component {
 
     BrowserTab {
         anchors.fill: parent
-        incognito: browser.incognito
-        current: tabsModel && tabsModel.currentTab === this
+        incognito: browser ? browser.incognito : false
+        current: browser ? browser.tabsModel && browser.tabsModel.currentTab === this : false
         focus: current
+
+        property var bottomEdgeHandle
+        property var browser
+        property var chrome
+        property var chromeController
+        property var contentHandlerLoader
+        property var downloadDialogLoader
+        property var downloadsViewLoader
+        property var filePickerLoader
+        property var internal
+        property var recentView
+        property var tabsModel
 
         Item {
             id: contextualMenuTarget
@@ -49,18 +61,18 @@ Component {
             property BrowserTab tab
             readonly property bool current: tab.current
 
-            currentWebview: browser.currentWebview
-            filePicker: filePickerLoader.item
+            currentWebview: browser ? browser.currentWebview : null
+            filePicker: filePickerLoader ? filePickerLoader.item : null
 
             anchors.fill: parent
 
             focus: true
 
-            enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && tabContainer.focus
+            enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
 
             locationBarController {
-                height: chrome.height
-                mode: chromeController.defaultMode
+                height: chrome ? chrome.height : 0
+                mode: chromeController ? chromeController.defaultMode : null
             }
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
@@ -115,7 +127,7 @@ Component {
                 }
                 Actions.Share {
                     objectName: "ShareContextualAction"
-                    enabled: (contentHandlerLoader.status == Loader.Ready) && contextModel &&
+                    enabled: (contentHandlerLoader && contentHandlerLoader.status == Loader.Ready) && contextModel &&
                              (contextModel.linkUrl.toString() || contextModel.selectionText)
                     onTriggered: {
                         if (contextModel.linkUrl.toString()) {
@@ -135,9 +147,10 @@ Component {
                 Actions.CopyImage {
                     objectName: "CopyImageContextualAction"
                     enabled: contextModel &&
-                             (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
-                             contextModel.srcUrl.toString()
-                    onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
+                             ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                              (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                             contextModel.hasImageContents
+                    onTriggered: contextModel.copyImage()
                 }
                 Actions.SaveImage {
                     objectName: "SaveImageContextualAction"
@@ -237,10 +250,10 @@ Component {
                     Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                 }
             }
-            contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+            contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
             onNewViewRequested: {
-                var tab = tabComponent.createObject(tabContainer, {"request": request})
+                var tab = browser.createTab({"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(tab, setCurrent)
                 if (setCurrent) tabContainer.forceActiveFocus()
@@ -256,9 +269,14 @@ Component {
                                 break
                             }
                         }
+
+                        // tab.close() destroys the context so add new tab before destroy if required
+                        if (tabsModel.count === 0) {
+                            internal.openUrlInNewTab("", true, true)
+                        }
+
                         tab.close()
-                    }
-                    if (tabsModel.count === 0) {
+                    } else if (tabsModel.count === 0) {
                         internal.openUrlInNewTab("", true, true)
                     }
                 }

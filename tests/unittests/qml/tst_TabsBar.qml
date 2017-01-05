@@ -28,6 +28,8 @@ Item {
     height: 200
     signal reload(string url)
 
+    readonly property string __platformName: "MOCKED_PLATFORM_NAME"
+
     TabsModel {
         id: tabsModel
     }

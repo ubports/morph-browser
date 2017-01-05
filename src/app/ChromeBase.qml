@@ -62,6 +62,7 @@ StyledItem {
             right: parent.right
             bottom: parent.bottom
         }
+        objectName: "chromeProgressBar"
 
         z: 2
     }
