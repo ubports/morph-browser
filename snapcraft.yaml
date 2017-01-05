@@ -35,8 +35,6 @@ parts:
     build-packages:
       - intltool
       - libapparmor-dev
-      - libevdev-dev
-      - libudev-dev
       - lsb-release
       - pkg-config
       - qt5-default
