@@ -70,10 +70,6 @@ Extras.TabsBar {
         return incubator.status == Component.Ready ? incubator.object.localUrl || "" : "";
     }
 
-    function removeMovingTab(index) {
-        model.removeTab(index, true);  // uses overloaded removeTab
-    }
-
     function titleFromModelItem(modelItem) {
         return modelItem.title ? modelItem.title : (modelItem.url.toString() ? modelItem.url : i18n.tr("New tab"))
     }

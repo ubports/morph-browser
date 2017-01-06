@@ -69,14 +69,12 @@ BrowserView {
             move(from, to);
         }
 
-        // Overload removeTab and add moving property so we can tell when
-        // the tab is closing due to moving to a new window
-        // This is required because we need to avoid destroying the content
-        // of that tab that is moved
-        function removeTab(index, moving) {
-            moving = moving === undefined ? false : moving;
+        function removeTab(index) {
+            internal.closeTab(index, false);
+        }
 
-            internal.closeTab(index, moving);
+        function removeTabWithoutDestroying(index) {
+            internal.closeTab(index, true);
         }
 
         function selectTab(index) {
