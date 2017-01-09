@@ -32,11 +32,11 @@ Extras.TabsBar {
         maxYDiff: height / 12
         mimeType: "webbrowser/tab-" + (incognito ? "incognito" : "public")
         previewUrlFromIndex: function(index) {
-                if (tabsBar.model.get(index)) {
-                    return PreviewManager.previewPathFromUrl(tabsBar.model.get(index).url)
-                } else {
-                    return "";
-                }
+            if (tabsBar.model.get(index)) {
+                return PreviewManager.previewPathFromUrl(tabsBar.model.get(index).url)
+            } else {
+                return "";
+            }
         }
     }
     fallbackIcon: "stock_website"

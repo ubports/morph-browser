@@ -55,7 +55,6 @@ BrowserView {
         function addExistingTab(tab) {
             add(tab);
 
-            // TODO: move reparent code as well?
             browser.bindExistingTab(tab);
         }
 

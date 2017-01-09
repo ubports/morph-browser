@@ -60,7 +60,7 @@ parts:
   ubuntu-ui-extras:
     plugin: cmake
     configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
-    source: http://code.launchpad.net/~ahayzen/ubuntu-ui-extras/tabs-add-dnd
+    source: https://code.launchpad.net/~phablet-team/ubuntu-ui-extras/tabs
     source-type: bzr
     build-packages:
       - gettext
