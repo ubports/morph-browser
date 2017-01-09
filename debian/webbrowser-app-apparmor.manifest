@@ -31,7 +31,8 @@
       "read_path": [
         "/usr/share/applications/",
         "/custom/vendor/here/location-provider/consent/*.html",
-        "@{HOME}/.local/share/applications/"
+        "@{HOME}/.local/share/applications/",
+        "/sys/devices/**/input*/"
       ],
       "write_path": [
         "@{HOME}/@{XDG_DOWNLOAD_DIR}/"
