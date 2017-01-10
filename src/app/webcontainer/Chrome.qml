@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2016 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -66,8 +66,8 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview ? chrome.webview.canGoBack : false
-            onTriggered: chrome.webview.goBack()
+            enabled: chrome.webview ? chrome.webview.navigationHistory.canGoBack : false
+            onTriggered: chrome.webview.navigationHistory.goBack()
         }
 
         ChromeButton {
@@ -86,8 +86,8 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview ? chrome.webview.canGoForward : false
-            onTriggered: chrome.webview.goForward()
+            enabled: chrome.webview ? chrome.webview.navigationHistory.canGoForward : false
+            onTriggered: chrome.webview.navigationHistory.goForward()
         }
 
         Item {

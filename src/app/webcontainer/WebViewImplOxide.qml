@@ -103,7 +103,7 @@ WebappWebview {
                                    msgId: "webapp-specific-page-metadata-detected",
                                    contexts: ["oxide://webapp-specific-page-metadata-collector/"],
                                    callback: function(msg, frame) {
-                                       handlePageMetadata(msg.args)
+                                       handlePageMetadata(msg.payload)
                                    }
                                });
 
