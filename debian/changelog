@@ -1,4 +1,4 @@
-webbrowser-app (0.23+16.10.20160825-0ubuntu1) yakkety; urgency=medium
+webbrowser-app (0.23+15.04.20160825-0ubuntu1) vivid; urgency=medium
 
   [ Florian Boucault ]
   * Load images needed at startup asynchronously.
