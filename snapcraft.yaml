@@ -1,5 +1,5 @@
 name: webbrowser-app
-version: 20170109-staging
+version: 0.23+17.04.20170110-0ubuntu1
 summary: Ubuntu web browser
 description: A lightweight web browser tailored for Ubuntu, based on the Oxide browser engine and using the Ubuntu UI components.
 confinement: strict

@@ -1,3 +1,20 @@
+webbrowser-app (0.23+17.04.20170110-0ubuntu1) zesty; urgency=medium
+
+  * Include only webbrowser-app data in the snap (no webapp-container)
+  * Use the upstream QtSystemInfo instead of embedding an old copy of
+    its source code
+  * Stop using deprecated WebView APIs (LP: #1651173)
+  * Stop using a deprecated API in the webapp container (LP: #1567656)
+  * Escape all HTML entities in search queries (LP: #1652292)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 10 Jan 2017 09:17:30 +0000
+
+webbrowser-app (0.23+17.04.20161202-0ubuntu2~1) zesty; urgency=medium
+
+  * No change rebuild
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Wed, 04 Jan 2017 11:31:42 +0200
+
 webbrowser-app (0.23+17.04.20161202-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
