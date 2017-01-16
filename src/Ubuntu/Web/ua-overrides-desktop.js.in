@@ -18,30 +18,32 @@
 
 .pragma library
 
+var chrome_desktop_override = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36";
+
 var overrides = [
-    ["^https:\/\/.+\.google\.com\/calendar", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
-    ["^https:\/\/(www\.)?youtube\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"], // http://pad.lv/1412880
-    ["^https:\/\/(www\.)?google\..+\/maps", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"], // http://pad.lv/1503506, http://pad.lv/1551649
-    ["^https:\/\/mail\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"], // http://pad.lv/1452616
-    ["^https:\/\/mobile\.twitter\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"], // http://pad.lv/1577834
+    ["^https:\/\/.+\.google\.com\/calendar", chrome_desktop_override],
+    ["^https:\/\/(www\.)?youtube\.com\/", chrome_desktop_override], // http://pad.lv/1412880
+    ["^https:\/\/(www\.)?google\..+\/maps", chrome_desktop_override], // http://pad.lv/1503506, http://pad.lv/1551649
+    ["^https:\/\/mail\.google\.com\/", chrome_desktop_override], // http://pad.lv/1452616
+    ["^https:\/\/mobile\.twitter\.com\/", chrome_desktop_override], // http://pad.lv/1577834
 
     // Google hangouts (https://launchpad.net/bugs/1565055)
-    ["^https:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
-    ["^https:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
-    ["^https:\/\/plus\.google\.com\/hangouts\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/hangouts\.google\.com\/", chrome_desktop_override],
+    ["^https:\/\/talkgadget\.google\.com\/hangouts\/", chrome_desktop_override],
+    ["^https:\/\/plus\.google\.com\/hangouts\/", chrome_desktop_override],
 
     // Google recaptcha (https://launchpad.net/bugs/1599146)
-    ["^https:\/\/www\.google\.com\/recaptcha\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/www\.google\.com\/recaptcha\/", chrome_desktop_override],
 
     // ESPN websites (https://launchpad.net/bugs/1637285)
-    ["^https?:\/\/(.+\.)?espn(fc)?\.co(m|\.uk)\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https?:\/\/(.+\.)?espn(fc)?\.co(m|\.uk)\/", chrome_desktop_override],
 
     // meet.jit.si (https://launchpad.net/bugs/1635971)
-    ["^https:\/\/meet\.jit\.si\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/meet\.jit\.si\/", chrome_desktop_override],
 
     // Google docs (https://launchpad.net/bugs/1643386)
-    ["^https:\/\/(docs|drive)\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/(docs|drive)\.google\.com\/", chrome_desktop_override],
 
     // Google plus (https://launchpad.net/bugs/1656310)
-    ["^https:\/\/plus\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/plus\.google\.com\/", chrome_desktop_override],
 ];
