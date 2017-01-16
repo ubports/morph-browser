@@ -27,7 +27,6 @@ var ubuntu_like_android_override = "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ 
 var overrides = [
     ["^https:\/\/mail\.google\.com\/", android_no_device_override], // http://pad.lv/1375889
     ["^https:\/\/(www|m)\.youtube\.com\/", android_no_device_override], // http://pad.lv/1228415, http://pad.lv/1415107, http://pad.lv/1417258, http://pad.lv/1499394, http://pad.lv/1408760, http://pad.lv/1437485
-    ["^https?:\/\/(\w+\.)*hsbc\.com\.br\/", ubuntu_like_android_override], // http://pad.lv/1380657
     ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", ubuntu_like_android_override], // http://pad.lv/1316259
     ["^https:\/\/(www|m)\.facebook\.com\/", nexus5_override], // http://pad.lv/1538056, http://pad.lv/1457661
     ["^https?:\/\/(mobile\.)?nytimes\.com\/", nexus5_override], // http://pad.lv/1573620
