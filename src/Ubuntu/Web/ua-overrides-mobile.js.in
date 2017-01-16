@@ -18,26 +18,32 @@
 
 .pragma library
 
+// Note: when changing the values of these variables, all domains which
+// use them must be carefully tested to ensure no regression.
+var android_no_device_override = "Mozilla/5.0 (Linux; Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
+var nexus5_override = "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
+var ubuntu_like_android_override = "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
+
 var overrides = [
-    ["^https:\/\/mail\.google\.com\/", "Mozilla/5.0 (Linux; Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1375889
-    ["^https:\/\/(www|m)\.youtube\.com\/", "Mozilla/5.0 (Linux; Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1228415, http://pad.lv/1415107, http://pad.lv/1417258, http://pad.lv/1499394, http://pad.lv/1408760, http://pad.lv/1437485
-    ["^https?:\/\/(\w+\.)*hsbc\.com\.br\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1380657
-    ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1316259
-    ["^https:\/\/(www|m)\.facebook\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1538056, http://pad.lv/1457661
-    ["^https?:\/\/(mobile\.)?nytimes\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1573620
+    ["^https:\/\/mail\.google\.com\/", android_no_device_override], // http://pad.lv/1375889
+    ["^https:\/\/(www|m)\.youtube\.com\/", android_no_device_override], // http://pad.lv/1228415, http://pad.lv/1415107, http://pad.lv/1417258, http://pad.lv/1499394, http://pad.lv/1408760, http://pad.lv/1437485
+    ["^https?:\/\/(\w+\.)*hsbc\.com\.br\/", ubuntu_like_android_override], // http://pad.lv/1380657
+    ["^http:\/\/(\w+\.)*espn\.(go\.)?com\/", ubuntu_like_android_override], // http://pad.lv/1316259
+    ["^https:\/\/(www|m)\.facebook\.com\/", nexus5_override], // http://pad.lv/1538056, http://pad.lv/1457661
+    ["^https?:\/\/(mobile\.)?nytimes\.com\/", nexus5_override], // http://pad.lv/1573620
     ["^https:\/\/mobile\.twitter\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"], // http://pad.lv/1577834
 
     // Google hangouts (https://launchpad.net/bugs/1565055)
-    ["^https:\/\/hangouts\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"],
-    ["^https:\/\/talkgadget\.google\.com\/hangouts\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"],
-    ["^https:\/\/plus\.google\.com\/hangouts\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"],
+    ["^https:\/\/hangouts\.google\.com\/", ubuntu_like_android_override],
+    ["^https:\/\/talkgadget\.google\.com\/hangouts\/", ubuntu_like_android_override],
+    ["^https:\/\/plus\.google\.com\/hangouts\/", ubuntu_like_android_override],
 
     // Google recaptcha (https://launchpad.net/bugs/1599146)
-    ["^https:\/\/www\.google\.com\/recaptcha\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 4.4;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/www\.google\.com\/recaptcha\/", ubuntu_like_android_override],
 
     // meet.jit.si (https://launchpad.net/bugs/1635971)
-    ["^https:\/\/meet\.jit\.si\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+    ["^https:\/\/meet\.jit\.si\/", ubuntu_like_android_override],
 
     // Google plus (https://launchpad.net/bugs/1656310)
-    ["^https:\/\/plus\.google\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"],
+    ["^https:\/\/plus\.google\.com\/", ubuntu_like_android_override],
 ];
