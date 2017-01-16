@@ -20,11 +20,12 @@
 
 // Note: when changing the value of this variable, all domains which
 // use it must be carefully tested to ensure no regression.
-var chrome_desktop_override = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36";
+var chrome_desktop_override = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/${CHROMIUM_VERSION} Chrome/${CHROMIUM_VERSION} Safari/537.36";
 
 var overrides = [
     // Google calendar
-    ["^https:\/\/.+\.google\.com\/calendar", chrome_desktop_override],
+    ["^https:\/\/calendar\.google\.com\/", chrome_desktop_override],
+    ["^https:\/\/.+\.google\.com\/calendar\/", chrome_desktop_override],
 
     // Youtube (https://launchpad.net/bugs/1412880)
     ["^https:\/\/(www\.)?youtube\.com\/", chrome_desktop_override],
