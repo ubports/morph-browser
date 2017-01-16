@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 Canonical Ltd.
+ * Copyright 2014-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -42,4 +42,7 @@ var overrides = [
 
       // Google docs (https://launchpad.net/bugs/1643386)
       ["^https:\/\/(docs|drive)\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
+
+      // Google plus (https://launchpad.net/bugs/1656310)
+      ["^https:\/\/plus\.google\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Safari/537.36"],
 ];
