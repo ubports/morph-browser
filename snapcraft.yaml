@@ -7,6 +7,7 @@ confinement: strict
 apps:
   webbrowser-app:
     command: webbrowser-app.launcher
+    desktop: share/applications/webbrowser-app.desktop
     plugs:
       - browser-sandbox
       - camera
@@ -58,6 +59,7 @@ parts:
     after: [desktop-ubuntu-app-platform]
     snap:
       - bin/webbrowser-app
+      - share/applications/webbrowser-app.desktop
       - share/content-hub/peers/webbrowser-app
       - share/locale
       - share/url-dispatcher/urls/webbrowser-app.url-dispatcher

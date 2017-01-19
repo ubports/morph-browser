@@ -31,7 +31,6 @@ po/src
 doc/html
 click-hooks/webapp-container-hook
 click-hooks/webapp-container.hook
-setup/gui/webbrowser-app.desktop
 
 obj-*
 debian/usr.bin.webbrowser-app
