@@ -88,7 +88,13 @@ Oxide.WebContext {
             }
             if (temp !== null) {
                 console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-                userAgentOverrides = temp.overrides
+                var chromiumVersion = Oxide.Oxide.chromiumVersion
+                var overrides = []
+                for (var o in temp.overrides) {
+                    var override = temp.overrides[o]
+                    overrides.push([override[0], override[1].replace(/\$\{CHROMIUM_VERSION\}/g, chromiumVersion)])
+                }
+                userAgentOverrides = overrides
                 temp.destroy()
             }
         }
