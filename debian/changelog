@@ -1,3 +1,13 @@
+webbrowser-app (0.23+15.04.20170124-0ubuntu1) UNRELEASED; urgency=medium
+
+  * Replace chromium version in UA overrides at runtime,
+    not at build time (LP: #1599695)
+  * Complete overhaul of UA overrides.
+  * Add UA overrides for Google+ (LP: #1656310)
+  * Add a UA override for Ebay (LP: #1575780)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 24 Jan 2017 16:24:52 +0100
+
 webbrowser-app (0.23+15.04.20160825-0ubuntu1) vivid; urgency=medium
 
   [ Florian Boucault ]
