@@ -1,3 +1,13 @@
+webbrowser-app (0.23+17.04.20170125-0ubuntu1) UNRELEASED; urgency=medium
+
+  * Add stage packages to reduce the final size of the snap.
+  * Use upstream desktop file for snap (new feature in snapcraft 2.25).
+  * UA overrides overhaul, and new overrides for Google+ and Ebay
+    (LP: #1656310, #1575780).
+  * Add a UA override for appear.in (LP: #1659288).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 25 Jan 2017 15:34:18 +0100
+
 webbrowser-app (0.23+17.04.20170110-0ubuntu1) zesty; urgency=medium
 
   * Include only webbrowser-app data in the snap (no webapp-container)

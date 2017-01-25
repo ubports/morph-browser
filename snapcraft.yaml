@@ -7,6 +7,7 @@ confinement: strict
 apps:
   webbrowser-app:
     command: webbrowser-app.launcher
+    desktop: share/applications/webbrowser-app.desktop
     plugs:
       - browser-sandbox
       - camera
@@ -48,9 +49,17 @@ parts:
       - xvfb
     stage-packages:
       - fonts-liberation
+      # The following stage packages are ultimately being excluded from the
+      # snap (they are part of the ubuntu-app-platform snap), but their
+      # presence prevents snapcraft from adding libs when crawling binaries'
+      # dependencies.
+      - libqt5quick5
+      - libqt5sql5
+      - libqt5widgets5
     after: [desktop-ubuntu-app-platform]
     snap:
       - bin/webbrowser-app
+      - share/applications/webbrowser-app.desktop
       - share/content-hub/peers/webbrowser-app
       - share/locale
       - share/url-dispatcher/urls/webbrowser-app.url-dispatcher
