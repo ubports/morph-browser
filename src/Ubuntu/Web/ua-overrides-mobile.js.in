@@ -23,6 +23,7 @@
 var android_no_device_override = "Mozilla/5.0 (Linux; Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
 var nexus5_override = "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
 var ubuntu_like_android_override = "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
+var no_android_token = "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36";
 
 var overrides = [
     // Youtube (https://launchpad.net/bugs/1228415, https://launchpad.net/bugs/1415107, https://launchpad.net/bugs/1417258, https://launchpad.net/bugs/1499394, https://launchpad.net/bugs/1408760, https://launchpad.net/bugs/1437485)
@@ -46,7 +47,7 @@ var overrides = [
     ["^https:\/\/(www|m)\.facebook\.com\/", nexus5_override],
 
     // Twitter (https://launchpad.net/bugs/1577834)
-    ["^https:\/\/mobile\.twitter\.com\/", "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"],
+    ["^https:\/\/mobile\.twitter\.com\/", no_android_token],
 
     // meet.jit.si (https://launchpad.net/bugs/1635971)
     ["^https:\/\/meet\.jit\.si\/", ubuntu_like_android_override],
@@ -56,4 +57,7 @@ var overrides = [
 
     // New York Times (https://launchpad.net/bugs/1573620)
     ["^https?:\/\/(mobile\.)?nytimes\.com\/", nexus5_override],
+
+    // appear.in (https://launchpad.net/bugs/1659288)
+    ["^https:\/\/appear\.in\/", no_android_token],
 ];
