@@ -222,6 +222,28 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assertThat(len(views), Equals(1))
         self.check_current_tab(url)
 
+    # http://pad.lv/1499780
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_ctrl_click_open_link_in_next_tab(self):
+        self.open_new_tab()
+        first_tab = self.main_window.chrome.get_tabs_bar().get_tab(0)
+        self.pointing_device.click_object(first_tab)
+
+        url = self.base_url + "/link"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+
+        self.keyboard.press('Ctrl')
+        self.pointing_device.click_object(webview)
+        self.keyboard.release('Ctrl')
+
+        # Eventually we should have three webviews
+        self.assert_number_webviews_eventually(3)
+        next_tab = self.main_window.chrome.get_tabs_bar().get_tab(1)
+        self.pointing_device.click_object(next_tab)
+        self.check_current_tab(self.url)
+
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.main_window.go_to_url(url)

@@ -486,6 +486,18 @@ private Q_SLOTS:
         QCOMPARE(model->get(3), (QObject*) nullptr);
     }
 
+    void shouldReturnTabIndex()
+    {
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+        QQuickItem* tab2 = createTab();
+        model->add(tab2);
+        QQuickItem* nonAddedTab = createTab();
+        QCOMPARE(model->indexOf(tab1), 0);
+        QCOMPARE(model->indexOf(tab2), 1);
+        QCOMPARE(model->indexOf(nonAddedTab), -1);
+    }
+
 private:
     void moveTabs(int from, int to, bool moved, bool indexChanged, int newIndex)
     {

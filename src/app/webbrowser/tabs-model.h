@@ -60,6 +60,7 @@ public:
     Q_INVOKABLE int insert(QObject* tab, int index);
     Q_INVOKABLE QObject* remove(int index);
     Q_INVOKABLE QObject* get(int index) const;
+    Q_INVOKABLE int indexOf(QObject* tab) const;
     Q_INVOKABLE void move(int from, int to);
 
 Q_SIGNALS:

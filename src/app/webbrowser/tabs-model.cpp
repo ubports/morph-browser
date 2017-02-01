@@ -203,6 +203,15 @@ QObject* TabsModel::get(int index) const
     return m_tabs.at(index);
 }
 
+/*!
+    Returns the index position of the first occurrence of tab in the model.
+    Returns -1 if no item matched.
+*/
+int TabsModel::indexOf(QObject* tab) const
+{
+    return m_tabs.indexOf(tab);
+}
+
 void TabsModel::move(int from, int to)
 {
     if ((from == to) || !checkValidTabIndex(from) || !checkValidTabIndex(to)) {
