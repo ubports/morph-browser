@@ -176,6 +176,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
         return new_tab_view
 
+    def switch_to_tab(self, index):
+        if self.main_window.wide:
+            tab = self.main_window.chrome.get_tabs_bar().get_tab(index)
+            self.pointing_device.click_object(tab)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[index].select()
+            tabs_view.visible.wait_for(False)
+
     def open_new_window(self):
         windows = self.app.get_windows(incognito=False)
         chrome = self.main_window.chrome
