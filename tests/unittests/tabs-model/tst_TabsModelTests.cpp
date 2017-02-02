@@ -496,6 +496,7 @@ private Q_SLOTS:
         QCOMPARE(model->indexOf(tab1), 0);
         QCOMPARE(model->indexOf(tab2), 1);
         QCOMPARE(model->indexOf(nonAddedTab), -1);
+        delete nonAddedTab;
     }
 
 private:
