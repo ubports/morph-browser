@@ -28,6 +28,9 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
 
     def setUp(self, path):
         super(TestContextMenuBase, self).setUp(path)
+        self.open_new_tab()
+        first_tab = self.main_window.chrome.get_tabs_bar().get_tab(0)
+        self.pointing_device.click_object(first_tab)
         self.menu = self.main_window.open_context_menu()
         # The context menu should never steal active focus from the webview,
         # but because it’s currently implemented as a dialog on narrow screens,
@@ -37,7 +40,12 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
             self.assertThat(webview.activeFocus, Equals(True))
 
     def verify_link_opened_in_a_new_tab(self):
-        self.assert_number_webviews_eventually(2)
+        self.assert_number_webviews_eventually(3)
+        # make sure the new tab is adjacent to the tab that created it,
+        # in other words that its index is 1
+        # http://pad.lv/1499780
+        next_tab = self.main_window.chrome.get_tabs_bar().get_tab(1)
+        self.pointing_device.click_object(next_tab)
         webview = self.main_window.get_current_webview()
         new_url = self.base_url + "/test1"
         self.assertThat(webview.url, Eventually(Equals(new_url)))
@@ -49,7 +57,12 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
         self.main_window.chrome.bookmarked.wait_for(True)
 
     def verify_image_opened_in_a_new_tab(self):
-        self.assert_number_webviews_eventually(2)
+        self.assert_number_webviews_eventually(3)
+        # make sure the new tab is adjacent to the tab that created it,
+        # in other words that its index is 1
+        # http://pad.lv/1499780
+        next_tab = self.main_window.chrome.get_tabs_bar().get_tab(1)
+        self.pointing_device.click_object(next_tab)
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url,
                         Eventually(StartsWith(self.data_uri_prefix)))
@@ -77,6 +90,10 @@ class TestContextMenuLink(TestContextMenuBase):
 
     def test_open_link_in_new_tab(self):
         self.menu.click_action("OpenLinkInNewTabContextualAction")
+        self.verify_link_opened_in_a_new_tab()
+
+    def test_open_link_in_new_background_tab(self):
+        self.menu.click_action("OpenLinkInNewBackgroundTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
 
     def test_open_link_in_new_window(self):
@@ -130,6 +147,10 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
 
     def test_open_link_in_new_tab(self):
         self.menu.click_action("OpenLinkInNewTabContextualAction")
+        self.verify_link_opened_in_a_new_tab()
+
+    def test_open_link_in_new_background_tab(self):
+        self.menu.click_action("OpenLinkInNewBackgroundTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
 
     def test_open_link_in_new_window(self):

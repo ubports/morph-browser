@@ -85,12 +85,14 @@ Component {
                 Actions.OpenLinkInNewTab {
                     objectName: "OpenLinkInNewTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.OpenLinkInNewBackgroundTab {
                     objectName: "OpenLinkInNewBackgroundTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false)
+                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.OpenLinkInNewWindow {
                     objectName: "OpenLinkInNewWindowContextualAction"
@@ -143,7 +145,8 @@ Component {
                     enabled: contextModel &&
                              (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                              contextModel.srcUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.CopyImage {
                     objectName: "CopyImageContextualAction"
@@ -166,7 +169,8 @@ Component {
                     enabled: contextModel &&
                              (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
                              contextModel.srcUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.SaveVideo {
                     objectName: "SaveVideoContextualAction"
