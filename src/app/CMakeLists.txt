@@ -10,8 +10,6 @@ find_package(Qt5Widgets REQUIRED)
 include(FindPkgConfig)
 pkg_check_modules(LIBAPPARMOR REQUIRED libapparmor)
 
-add_subdirectory(unity8)
-
 configure_file(
     config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/config.h
@@ -31,8 +29,7 @@ set(COMMONLIB_SRC
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-include_directories(${unity8_SOURCE_DIR}/plugins
-                    ${LIBAPPARMOR_INCLUDE_DIRS}
+include_directories(${LIBAPPARMOR_INCLUDE_DIRS}
                     ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 target_link_libraries(${COMMONLIB}
     Qt5::Core
@@ -41,7 +38,6 @@ target_link_libraries(${COMMONLIB}
     Qt5::Qml
     Qt5::Quick
     Qt5::Widgets
-    InputInfo
     ${LIBAPPARMOR_LDFLAGS}
 )
 
