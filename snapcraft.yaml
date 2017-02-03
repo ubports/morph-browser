@@ -64,6 +64,7 @@ parts:
       - share/webbrowser-app/*.png
       - share/webbrowser-app/*.qml
       - usr/lib/*/qt5/qml/Ubuntu/Web
+      - usr/lib/*/qt5/qml/Ubuntu/Components/Extras
       - usr/share/fonts
 
   launcher:
