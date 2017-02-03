@@ -62,7 +62,6 @@ ChromeBase {
     FocusScope {
         id: content
         anchors.fill: parent
-        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
 
