@@ -27,6 +27,7 @@ import Ubuntu.Components.Extras 0.3 as Extras
 
 Extras.TabsBar {
     id: tabsBar
+    color: "#D9D9D9"  // FIXME: not in palette hardcode for now
     dragAndDrop {
         enabled: __platformName != "ubuntumirclient"
         maxYDiff: height / 12
