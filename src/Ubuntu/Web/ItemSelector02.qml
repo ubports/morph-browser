@@ -26,24 +26,59 @@ Popover {
 
     property QtObject selectorModel: model
 
-    caller: parent
-    contentWidth: Math.min(parent.width - units.gu(10), units.gu(40))
+    property real maximumLabelWidth
+    contentWidth: Math.max(model.elementRect.width, maximumLabelWidth + units.gu(6))
     property real listContentHeight: 0 // intermediate property to avoid binding loop
     contentHeight: Math.min(parent.height - units.gu(10), listContentHeight)
 
+    property bool square: true
+    Rectangle {
+        anchors.fill: parent
+        color: "transparent"
+        function newColorWithAlpha(color, alpha) {
+            return Qt.rgba(color.r, color.g, color.b, alpha);
+        }
+        border.color: newColorWithAlpha(theme.palette.normal.base, 0.4)
+        border.width: units.dp(1)
+    }
+
+    property var webview: null
+    caller: positioner
+    callerMargin: -units.gu(0.5)
+    Item {
+        id: positioner
+        visible: false
+        parent: webview
+        width: model.elementRect.width
+        height: model.elementRect.height
+        x: model.elementRect.x
+        y: model.elementRect.y
+    }
+
     ListView {
+        id: listView
         clip: true
         width: itemSelector.contentWidth
         height: itemSelector.contentHeight
+        focus: true
+        keyNavigationWraps: true
+
+        property int initialIndex
+        Component.onCompleted: currentIndex = initialIndex
 
         model: selectorModel.items
 
         delegate: ListItem {
             ListItemLayout {
                 title.text: model.text
+                title.onPaintedWidthChanged: maximumLabelWidth = Math.max(title.paintedWidth, maximumLabelWidth)
             }
-            enabled: model.enabled
+
+            color: selected ? Theme.palette.normal.focus : "transparent"
             selected: model.selected
+            onActiveFocusChanged: if (activeFocus) selectorModel.items.select(model.index)
+            Component.onCompleted: if (model.selected) listView.initialIndex = model.index
+
             onClicked: {
                 selectorModel.items.select(model.index)
                 selectorModel.accept()

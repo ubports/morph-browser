@@ -55,6 +55,7 @@ Oxide.WebView {
 
     popupMenu: ItemSelector02 {
         automaticOrientation: false
+        webview: _webview
     }
 
     Item {
