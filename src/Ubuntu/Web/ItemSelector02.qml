@@ -21,15 +21,34 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3
 
-Popover {
+PopoverCustom {
     id: itemSelector
 
     property QtObject selectorModel: model
 
+    property var webview: null
     property real maximumLabelWidth
     contentWidth: Math.max(model.elementRect.width, maximumLabelWidth + units.gu(6))
     property real listContentHeight: 0 // intermediate property to avoid binding loop
-    contentHeight: Math.min(parent.height - units.gu(10), listContentHeight)
+    property real listItemHeight: units.gu(4)
+    property real addressBarHeight: webview.height - webview.viewportHeight
+
+    onListContentHeightChanged: updatePosition()
+    function updatePosition() {
+        itemSelector.x = model.elementRect.x;
+        var availableAbove = model.elementRect.y - addressBarHeight;
+        var availableBelow = webview.viewportHeight - model.elementRect.y - model.elementRect.height + addressBarHeight;
+
+        if (availableBelow >= availableAbove) {
+            // position popover below the box
+            itemSelector.contentHeight = Math.min(availableBelow, listContentHeight);
+            itemSelector.y = model.elementRect.y + model.elementRect.height;
+        } else {
+            // position popover above the box
+            itemSelector.contentHeight = Math.min(availableAbove, listContentHeight);
+            itemSelector.y = model.elementRect.y - itemSelector.contentHeight;
+        }
+    }
 
     property bool square: true
     Rectangle {
@@ -40,19 +59,6 @@ Popover {
         }
         border.color: newColorWithAlpha(theme.palette.normal.base, 0.4)
         border.width: units.dp(1)
-    }
-
-    property var webview: null
-    caller: positioner
-    callerMargin: -units.gu(0.5)
-    Item {
-        id: positioner
-        visible: false
-        parent: webview
-        width: model.elementRect.width
-        height: model.elementRect.height
-        x: model.elementRect.x
-        y: model.elementRect.y
     }
 
     ListView {
@@ -76,8 +82,8 @@ Popover {
                     top: 0
                     bottom: 0
                 }
-                height: units.gu(4)
-                title.height: units.gu(4)
+                height: listItemHeight
+                title.height: listItemHeight
                 title.verticalAlignment: Text.AlignVCenter
                 title.text: model.text
                 title.onPaintedWidthChanged: maximumLabelWidth = Math.max(title.paintedWidth, maximumLabelWidth)
@@ -100,6 +106,11 @@ Popover {
         }
 
         onContentHeightChanged: itemSelector.listContentHeight = contentHeight
+    }
+
+    Scrollbar {
+        flickableItem: listView
+        align: Qt.AlignTrailing
     }
 
     Component.onCompleted: show()
