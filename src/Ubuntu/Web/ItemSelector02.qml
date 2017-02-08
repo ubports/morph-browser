@@ -69,7 +69,16 @@ Popover {
         model: selectorModel.items
 
         delegate: ListItem {
+            height: listItemLayout.height + (divider.visible ? divider.height : 0)
             ListItemLayout {
+                id: listItemLayout
+                padding {
+                    top: 0
+                    bottom: 0
+                }
+                height: units.gu(4)
+                title.height: units.gu(4)
+                title.verticalAlignment: Text.AlignVCenter
                 title.text: model.text
                 title.onPaintedWidthChanged: maximumLabelWidth = Math.max(title.paintedWidth, maximumLabelWidth)
             }
