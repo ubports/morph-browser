@@ -54,7 +54,6 @@ Oxide.WebView {
     preferences.passwordEchoEnabled: Qt.inputMethod.visible
 
     popupMenu: ItemSelector02 {
-        automaticOrientation: false
         webview: _webview
     }
 

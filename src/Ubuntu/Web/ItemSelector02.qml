@@ -19,19 +19,24 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
-import Ubuntu.Components.Popups 1.3
 
-PopoverCustom {
+Item {
     id: itemSelector
 
     property QtObject selectorModel: model
 
     property var webview: null
     property real maximumLabelWidth
-    contentWidth: Math.max(model.elementRect.width, maximumLabelWidth + units.gu(6))
+
+    property real contentWidth: Math.max(model.elementRect.width, maximumLabelWidth + units.gu(6))
+    property real contentHeight
+    width: contentWidth
+    height: contentHeight
+
     property real listContentHeight: 0 // intermediate property to avoid binding loop
     property real listItemHeight: units.gu(4)
     property real addressBarHeight: webview.height - webview.viewportHeight
+    property bool isAbove
 
     onListContentHeightChanged: updatePosition()
     function updatePosition() {
@@ -41,19 +46,35 @@ PopoverCustom {
 
         if (availableBelow >= availableAbove) {
             // position popover below the box
+            itemSelector.isAbove = false;
             itemSelector.contentHeight = Math.min(availableBelow, listContentHeight);
             itemSelector.y = model.elementRect.y + model.elementRect.height;
         } else {
             // position popover above the box
+            itemSelector.isAbove = true;
             itemSelector.contentHeight = Math.min(availableAbove, listContentHeight);
             itemSelector.y = model.elementRect.y - itemSelector.contentHeight;
         }
     }
 
-    property bool square: true
+    // eat mouse events beneath the list so that they never reach the webview below
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+        onWheel: wheel.accepted = true
+    }
+
+    // eat mouse events around the list so that they never reach the webview below
+    InverseMouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+        onPressed: selectorModel.accept()
+        onWheel: wheel.accepted = true
+    }
+
     Rectangle {
         anchors.fill: parent
-        color: "transparent"
+        color: theme.palette.normal.overlay
         function newColorWithAlpha(color, alpha) {
             return Qt.rgba(color.r, color.g, color.b, alpha);
         }
@@ -66,7 +87,6 @@ PopoverCustom {
         clip: true
         width: itemSelector.contentWidth
         height: itemSelector.contentHeight
-        focus: true
         keyNavigationWraps: true
 
         property int initialIndex
@@ -89,9 +109,8 @@ PopoverCustom {
                 title.onPaintedWidthChanged: maximumLabelWidth = Math.max(title.paintedWidth, maximumLabelWidth)
             }
 
-            color: selected ? Theme.palette.normal.focus : "transparent"
+            color: selected ? theme.palette.normal.focus : "transparent"
             selected: model.selected
-            onActiveFocusChanged: if (activeFocus) selectorModel.items.select(model.index)
             Component.onCompleted: if (model.selected) listView.initialIndex = model.index
 
             onClicked: {
@@ -112,8 +131,6 @@ PopoverCustom {
         flickableItem: listView
         align: Qt.AlignTrailing
     }
-
-    Component.onCompleted: show()
 
     onVisibleChanged: {
         if (!visible) {
