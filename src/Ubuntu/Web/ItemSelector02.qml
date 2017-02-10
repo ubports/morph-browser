@@ -38,7 +38,18 @@ Item {
     property real addressBarHeight: webview.height - webview.viewportHeight
     property bool isAbove
 
+    // When the webview's size changes, dismiss the menu.
+    // Ideally we would call updatePosition instead but because model.elementRect
+    // is not updated, it would result in incorrect positioning.
+    Connections {
+        target: webview
+        onWidthChanged: selectorModel.cancel()
+        onHeightChanged: selectorModel.cancel()
+        onViewportWidthChanged: selectorModel.cancel()
+        onViewportHeightChanged: selectorModel.cancel()
+    }
     onListContentHeightChanged: updatePosition()
+
     function updatePosition() {
         itemSelector.x = model.elementRect.x;
         var availableAbove = model.elementRect.y - addressBarHeight;
