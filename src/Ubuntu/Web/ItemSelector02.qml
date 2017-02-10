@@ -57,6 +57,10 @@ Item {
         }
     }
 
+    Component.onCompleted: forceActiveFocus()
+    Keys.onEscapePressed: selectorModel.cancel()
+    Keys.onReturnPressed: selectorModel.accept()
+
     // eat mouse events beneath the list so that they never reach the webview below
     MouseArea {
         anchors.fill: parent
@@ -130,11 +134,5 @@ Item {
     Scrollbar {
         flickableItem: listView
         align: Qt.AlignTrailing
-    }
-
-    onVisibleChanged: {
-        if (!visible) {
-            selectorModel.cancel()
-        }
     }
 }
