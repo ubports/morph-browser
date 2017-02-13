@@ -18,12 +18,11 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Extras 0.3 as Extras
 import Ubuntu.Components.Popups 1.3
 import "."
 import ".."
 import webbrowsercommon.private 0.1
-
-import Ubuntu.Components.Extras 0.3 as Extras
 
 Extras.TabsBar {
     id: tabsBar
@@ -54,7 +53,8 @@ Extras.TabsBar {
 
     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
 
-    property Component faviconFactory: Component {
+    Component {
+        id: faviconFactory
         FaviconFetcher {
 
         }
@@ -62,7 +62,7 @@ Extras.TabsBar {
 
     function iconSourceFromModelItem(modelData, index) {
         var incubator = faviconFactory.incubateObject(
-            parent,
+            tabsBar,
             {
                 "shouldCache": Qt.binding(function() { return !incognito; }),
                 "url": Qt.binding(function() { return modelData.icon || ""; })
@@ -97,7 +97,7 @@ Extras.TabsBar {
                 Action {
                     objectName: "tab_action_new_tab"
                     text: i18n.tr("New Tab")
-                    onTriggered: tabsBar.requestNewTab(menu.targetIndex + 1, false)
+                    onTriggered: tabsBar.requestNewTab(menu.targetIndex + 1, true)
                 }
                 Action {
                     objectName: "tab_action_reload"
@@ -119,7 +119,7 @@ Extras.TabsBar {
 
                         // Just remove from model and do not destroy
                         // as webview is used in other window
-                        tabsBar.removeMovingTab(menu.targetIndex);
+                        tabsBar.model.removeTabWithoutDestroying(menu.targetIndex);
                     }
                 }
                 Action {

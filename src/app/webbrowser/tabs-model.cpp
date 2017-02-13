@@ -210,7 +210,7 @@ void TabsModel::move(int from, int to)
     }
 
     int diff = to - from;
-    int i=from;
+    int i = from;
 
     // Shuffle index along until destination
     while (i != to) {

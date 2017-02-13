@@ -49,7 +49,6 @@ parts:
       - xvfb
     stage-packages:
       - fonts-liberation
-      - qtdeclarative5-ubuntu-ui-extras0.2
     after: [desktop-ubuntu-app-platform]
     build-attributes: [no-system-libraries]
     prime:
@@ -63,9 +62,7 @@ parts:
       - share/webbrowser-app/*.js
       - share/webbrowser-app/*.png
       - share/webbrowser-app/*.qml
-      - usr/lib/*/libexiv2.so.*
       - usr/lib/*/qt5/qml/Ubuntu/Web
-      - usr/lib/*/qt5/qml/Ubuntu/Components/Extras
       - usr/share/fonts
 
   launcher:
@@ -73,4 +70,3 @@ parts:
     source: snap
     organize:
       webbrowser-app.launcher: bin/webbrowser-app.launcher
-

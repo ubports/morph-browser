@@ -46,7 +46,7 @@ BrowserView {
 
     property var tabsModel: TabsModel {
         // These methods are required by the TabsBar component
-        property int selectedIndex: currentIndex
+        readonly property int selectedIndex: currentIndex
 
         function addTab() {
             internal.openUrlInNewTab("", true, true, count)
@@ -1156,7 +1156,6 @@ BrowserView {
                         maybeFocusAddressBar()
                     } else {
                         tabContainer.forceActiveFocus()
-
                         tab.load();
                     }
                 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-03 15:07+0000\n"
+"POT-Creation-Date: 2017-02-13 12:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -409,7 +409,7 @@ msgid "Address;URL;www"
 msgstr ""
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:477
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:99
 msgid "New Tab"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgid "Redo"
 msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:103 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:104 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr ""
 
@@ -562,7 +562,7 @@ msgstr ""
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:74
+#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:75
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr ""
@@ -829,11 +829,11 @@ msgstr ""
 msgid "Tap to view"
 msgstr ""
 
-#: src/app/webbrowser/TabsBar.qml:109
+#: src/app/webbrowser/TabsBar.qml:110
 msgid "Move to New Window"
 msgstr ""
 
-#: src/app/webbrowser/TabsBar.qml:126
+#: src/app/webbrowser/TabsBar.qml:127
 msgid "Close Tab"
 msgstr ""
 

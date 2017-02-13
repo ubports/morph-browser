@@ -43,8 +43,6 @@ Item {
         }
 
         function moveTab(from, to) {
-            console.debug("Move!", from, to)
-            
             if (from == to
                 || from < 0 || from >= count
                 || to < 0 || to >= count) {
@@ -91,10 +89,9 @@ Item {
         height: 50
 
         model: tabsModel
-        
-        onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
+
         onRequestNewTab: insertTab("", "", "", index)
-        
+
         function appendTab(url, title, icon) {
             insertTab(url, title, icon, model.count)
             model.currentIndex = model.count - 1
@@ -102,44 +99,6 @@ Item {
         function insertTab(url, title, icon, index) {
             var tab = tabComponent.createObject(root, {"url": url, "title": title, "icon": icon})
             model.insert(tab, index)
-        }
-    }
-    
-    Component {
-        id: contextualOptionsComponent
-        ActionSelectionPopover {
-            id: menu
-            objectName: "tabContextualActions"
-            property int targetIndex
-            readonly property var tab: tabsModel.get(targetIndex)
-
-            actions: ActionList {
-                Action {
-                    objectName: "tab_action_new_tab"
-                    text: i18n.tr("New Tab")
-                    onTriggered: tabs.requestNewTab(menu.targetIndex + 1, false)
-                }
-                Action {
-                    objectName: "tab_action_reload"
-                    text: i18n.tr("Reload")
-                    enabled: menu.tab.url.toString().length > 0
-                    onTriggered: menu.tab.reload()
-                }
-                Action {
-                    objectName: "tab_action_move_to_new_window"
-                    text: i18n.tr("Move to New Window")
-                    onTriggered: {
-                        // callback function only removes from model
-                        // and not destroy as webview is in new window
-                        //chrome.requestNewWindowFromTab(menu.tab, function() { chrome.tabClosed(menu.targetIndex, true); });
-                    }
-                }
-                Action {
-                    objectName: "tab_action_close_tab"
-                    text: i18n.tr("Close Tab")
-                    onTriggered: tabs.tabClosed(menu.targetIndex, false)
-                }
-            }
         }
     }
 
@@ -297,7 +256,7 @@ Item {
                 mousePress(tab, c.x, c.y);
 
                 // Move tab slowly otherwise it can skip the DropArea
-                for (var j=0; j < dx; j ++) {
+                for (var j = 0; j < dx; j++) {
                     mouseMove(tabs, j, c.y)
                     wait(1)
                 }
