@@ -270,7 +270,7 @@ BrowserView {
             Connections {
                 target: currentWebview
                 onUrlChanged: {
-                    newTabViewLoader.active = false
+                    newTabViewLoader.setActive(false)
                 }
             }
             active: false
@@ -282,12 +282,26 @@ BrowserView {
                 onCurrentWebviewChanged: {
                     if (currentWebview) {
                         var tab = tabsModel.currentTab
-                        newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
+                        newTabViewLoader.setActive(!tab.url.toString() && !tab.restoreState)
                     }
                 }
                 onWideChanged: newTabViewLoader.selectTabView()
             }
             Component.onCompleted: newTabViewLoader.selectTabView()
+
+            // FIXME: this is a workaround for bug #1659435 caused by QTBUG-54657.
+            // New tab view was sometimes overlaid on top of other tabs because
+            // it was not unloaded even though active was set to false.
+            // Ref.: https://bugs.launchpad.net/ubuntu/+source/webbrowser-app/+bug/1659435
+            //       https://bugreports.qt.io/browse/QTBUG-54657
+            function setActive(active) {
+                if (active) {
+                    selectTabView();
+                } else {
+                    newTabViewLoader.setSource("", {});
+                }
+                newTabViewLoader.active = active;
+            }
 
             function selectTabView() {
                 var source = browser.incognito ? "NewPrivateTabView.qml" :
