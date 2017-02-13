@@ -68,9 +68,17 @@ Item {
         }
     }
 
-    Component.onCompleted: forceActiveFocus()
     Keys.onEscapePressed: selectorModel.cancel()
     Keys.onReturnPressed: selectorModel.accept()
+    Keys.onPressed: {
+        // eat up and down keys
+        if (event.key == Qt.Key_Up) {
+            event.accepted = true;
+        }
+        if (event.key == Qt.Key_Down) {
+            event.accepted = true;
+        }
+    }
 
     // eat mouse events beneath the list so that they never reach the webview below
     MouseArea {
@@ -102,7 +110,7 @@ Item {
         clip: true
         width: itemSelector.contentWidth
         height: itemSelector.contentHeight
-        keyNavigationWraps: true
+        focus: true
 
         property int initialIndex
         Component.onCompleted: currentIndex = initialIndex
@@ -125,13 +133,16 @@ Item {
             }
 
             color: selected ? theme.palette.normal.focus : "transparent"
-            selected: model.selected
+            selected: focus
             Component.onCompleted: if (model.selected) listView.initialIndex = model.index
 
-            onClicked: {
+            function selectAndClose() {
                 selectorModel.items.select(model.index)
                 selectorModel.accept()
             }
+
+            Keys.onReturnPressed: selectAndClose()
+            onClicked: selectAndClose()
         }
 
         section.property: "group"
