@@ -112,8 +112,14 @@ Item {
         height: itemSelector.contentHeight
         focus: true
 
+        // Forces all delegates to be instantiated so that initialIndex is
+        // set adequately to the index of the selected item
+        cacheBuffer: height
         property int initialIndex
-        Component.onCompleted: currentIndex = initialIndex
+        Component.onCompleted: {
+            currentIndex = initialIndex
+            positionViewAtIndex(initialIndex, ListView.Contain)
+        }
 
         model: selectorModel.items
 
