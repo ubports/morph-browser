@@ -349,7 +349,7 @@ BrowserPage {
 
                     headerComponent: Label {
                         text: Qt.formatTime(model.lastVisit)
-                        fontSize: "xx-small"
+                        textSize: Label.XSmall
                     }
 
                     onClicked: {
