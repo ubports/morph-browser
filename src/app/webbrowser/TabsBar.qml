@@ -52,9 +52,9 @@ Extras.TabsBar {
 
     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
 
-    // Note: When the returned value changes, QML recalls the function
+    // Note: This works as a binding, when the returned value changes, QML recalls the function
     function iconSourceFromModelItem(modelData, index) {
-        return modelData.tab.localIcon;
+        return modelData.tab ? modelData.tab.localIcon : "";
     }
 
     function titleFromModelItem(modelItem) {
