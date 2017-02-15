@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -44,9 +44,45 @@ BrowserView {
 
     property bool incognito: false
 
-    property var tabsModel: TabsModel {}
+    property var tabsModel: TabsModel {
+        // These methods are required by the TabsBar component
+        readonly property int selectedIndex: currentIndex
+
+        function addTab() {
+            internal.openUrlInNewTab("", true, true, count)
+        }
+
+        function addExistingTab(tab) {
+            add(tab);
+
+            browser.bindExistingTab(tab);
+        }
+
+        function moveTab(from, to) {
+            if (from == to
+                || from < 0 || from >= count
+                || to < 0 || to >= count) {
+                return;
+            }
+
+            move(from, to);
+        }
+
+        function removeTab(index) {
+            internal.closeTab(index, false);
+        }
+
+        function removeTabWithoutDestroying(index) {
+            internal.closeTab(index, true);
+        }
+
+        function selectTab(index) {
+            internal.switchToTab(index, true);
+        }
+    }
 
     property BrowserWindow thisWindow
+    property Component windowFactory
 
     function serializeTabState(tab) {
         var state = {}
@@ -487,10 +523,13 @@ BrowserView {
         showFaviconInAddressBar: !browser.wide
 
         thisWindow: browser.thisWindow
+        windowFactory: browser.windowFactory
 
         availableHeight: tabContainer.height - height - y
 
         touchEnabled: internal.hasTouchScreen
+
+        tabsBarDimmed: dropAreaTopCover.containsDrag || dropAreaBottomCover.containsDrag
 
         property bool hidden: false
         y: hidden ? -height : webview ? webview.locationBarController.offset : 0
@@ -521,7 +560,6 @@ BrowserView {
 
         onSwitchToTab: internal.switchToTab(index, true)
         onRequestNewTab: internal.openUrlInNewTab("", makeCurrent, true, index)
-        onRequestNewWindowFromTab: browser.newWindowFromTab(tab, callback)
         onTabClosed: internal.closeTab(index, moving)
 
         onFindInPageModeChanged: {
@@ -1118,6 +1156,7 @@ BrowserView {
                         maybeFocusAddressBar()
                     } else {
                         tabContainer.forceActiveFocus()
+                        tab.load();
                     }
                 }
             }
@@ -1456,77 +1495,35 @@ BrowserView {
         asynchronous: true
     }
 
+    // Cover the webview (gaps around tabsbar) with DropArea so that webview doesn't steal events
     DropArea {
-        id: dropArea
+        id: dropAreaTopCover
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        height: units.gu(1)
+        keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
+        visible: chrome.showTabsBar
+
+        onEntered: {
+            window.raise()
+            window.requestActivate()
+        }
+    }
+
+    DropArea {
+        id: dropAreaBottomCover
         anchors {
             fill: parent
+            topMargin: chrome.tabsBarHeight
         }
         keys: ["webbrowser/tab-" + (incognito ? "incognito" : "public")]
 
-        readonly property real heightThreshold: chrome.tabsBarHeight
-
-        onDropped: {
-            // IgnoreAction - no DropArea accepted so New Window
-            // MoveAction   - DropArea accept but different window
-            // CopyAction   - DropArea accept but same window
-
-            if (drag.y > heightThreshold) {
-                // Dropped in bottom area, creating new window
-                drop.accept(Qt.IgnoreAction);
-            } else if (drag.source.tabWindow === thisWindow) {
-                // Dropped in same window
-                drop.accept(Qt.CopyAction);
-            } else {
-                // Dropped in new window, moving tab
-
-                thisWindow.addExistingTab(drag.source.tab);
-                thisWindow.tabsModel.currentIndex = window.tabsModel.count - 1;
-                thisWindow.show();
-                thisWindow.requestActivate();
-
-                thisWindow.tabsModel.currentTab.load();
-
-                drop.accept(Qt.MoveAction);
-            }
-        }
         onEntered: {
-            thisWindow.raise()
-            thisWindow.requestActivate();
-        }
-        onPositionChanged: {
-            if (drag.source.tabWindow === thisWindow && drag.y < heightThreshold) {
-                // tab drag is within same window and in chrome
-                // so reorder tabs by setting tabDelegate x position
-                drag.source.x = drag.x - (drag.source.width / 2);
-            }
-        }
-
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-            }
-            color: "#FFF"
-            height: dropArea.heightThreshold
-            opacity: {
-                // Only hide the white shade when this is the active window
-                // and there is no drag being performed or the drag event is
-                // over the tabs bar
-                if (thisWindow.active && !DragHelper.dragging) {
-                    0
-                } else if (dropArea.containsDrag && dropArea.drag.y <= dropArea.heightThreshold) {
-                    0
-                } else {
-                    0.6
-                }
-            }
-
-            Behavior on opacity {
-                NumberAnimation {
-
-                }
-            }
+            window.raise()
+            window.requestActivate()
         }
     }
 }

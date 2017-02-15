@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 Canonical Ltd.
+ * Copyright 2014-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,6 +21,7 @@ import QtQuick.Window 2.2
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
+import webbrowsercommon.private 0.1
 import "."
 
 FocusScope {
@@ -38,6 +39,7 @@ FocusScope {
     readonly property url url: webview ? webview.url : initialUrl
     readonly property string title: webview ? webview.title : initialTitle
     readonly property url icon: webview ? webview.icon : initialIcon
+    readonly property url localIcon: faviconFetcher.localUrl
     property url preview
     property bool current: false
     readonly property real lastCurrent: internal.lastCurrent
@@ -59,6 +61,12 @@ FocusScope {
             }
             preview = previewUrl
         }
+    }
+
+    FaviconFetcher {
+        id: faviconFetcher
+        shouldCache: !tab.incognito
+        url: tab.icon
     }
 
     FocusScope {

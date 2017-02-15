@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -89,6 +89,7 @@ QtObject {
             id: window
 
             property alias incognito: browser.incognito
+            readonly property alias model: browser.tabsModel
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
@@ -185,25 +186,7 @@ QtObject {
                 anchors.fill: parent
                 thisWindow: window
                 settings: webbrowserapp.settings
-                onNewWindowFromTab: {
-                    var window = windowFactory.createObject(
-                        null,
-                        {
-                            "incognito": tab.incognito,
-                            "height": parent.height,
-                            "width": parent.width,
-                        }
-                    );
-
-                    window.addExistingTab(tab);
-                    window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                    window.show();
-                    window.requestActivate();
-
-                    window.tabsModel.currentTab.load();
-
-                    callback();
-                }
+                windowFactory: webbrowserapp.windowFactory
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,
@@ -286,14 +269,6 @@ QtObject {
                 var tab = browser.createTab({"initialUrl": url || ""})
                 tabsModel.add(tab)
                 return tab
-            }
-
-            function addExistingTab(tab) {
-                tabsModel.add(tab);
-
-                browser.bindExistingTab(tab);
-
-                return tab;
             }
         }
     }
