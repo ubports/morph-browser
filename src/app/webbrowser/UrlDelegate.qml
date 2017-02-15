@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 Canonical Ltd.
+ * Copyright 2014-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -67,7 +67,7 @@ ListItem {
                     left: parent.left
                     right: parent.right
                 }
-                fontSize: "x-small"
+                textSize: Label.Small
                 color: theme.palette.normal.backgroundSecondaryText
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
@@ -80,7 +80,7 @@ ListItem {
                     left: parent.left
                     right: parent.right
                 }
-                fontSize: "xx-small"
+                textSize: Label.XSmall
                 color: theme.palette.normal.backgroundTertiaryText
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight

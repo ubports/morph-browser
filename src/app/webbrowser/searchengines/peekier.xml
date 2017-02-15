@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+<ShortName>Peekier</ShortName>
+<Description>Peekier Search</Description>
+<Tags>peekier</Tags>
+<Url type="text/html" method="get" template="https://peekier.com/#!{searchTerms}"/>
+<Image height="64" width="64" type="image/png">https://peekier.com/assets/favicon.png</Image>
+<InputEncoding>UTF-8</InputEncoding>
+<moz:SearchForm>https://peekier.com</moz:SearchForm>
+<Url type="application/opensearchdescription+xml" rel="self" template="https://peekier.com/assets/opensearch.xml"/>
+</OpenSearchDescription>

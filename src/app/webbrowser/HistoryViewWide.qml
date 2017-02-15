@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Canonical Ltd.
+ * Copyright 2015-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -349,7 +349,7 @@ BrowserPage {
 
                     headerComponent: Label {
                         text: Qt.formatTime(model.lastVisit)
-                        fontSize: "xx-small"
+                        textSize: Label.XSmall
                     }
 
                     onClicked: {
