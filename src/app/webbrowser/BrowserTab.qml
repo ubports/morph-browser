@@ -39,14 +39,11 @@ FocusScope {
     readonly property url url: webview ? webview.url : initialUrl
     readonly property string title: webview ? webview.title : initialTitle
     readonly property url icon: webview ? webview.icon : initialIcon
+    readonly property url localIcon: faviconFetcher.localUrl
     property url preview
     property bool current: false
     readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
-    property FaviconFetcher favicon: FaviconFetcher {
-        shouldCache: !tab.incognito
-        url: tab.icon
-    }
     visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
@@ -64,6 +61,12 @@ FocusScope {
             }
             preview = previewUrl
         }
+    }
+
+    FaviconFetcher {
+        id: faviconFetcher
+        shouldCache: !tab.incognito
+        url: tab.icon
     }
 
     FocusScope {

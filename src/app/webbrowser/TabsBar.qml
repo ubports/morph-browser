@@ -54,7 +54,7 @@ Extras.TabsBar {
 
     // Note: When the returned value changes, QML recalls the function
     function iconSourceFromModelItem(modelData, index) {
-        return modelData.tab.favicon.localUrl;
+        return modelData.tab.localIcon;
     }
 
     function titleFromModelItem(modelItem) {
