@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 Canonical Ltd.
+ * Copyright 2014-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,6 +21,7 @@ import QtQuick.Window 2.2
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
+import webbrowsercommon.private 0.1
 import "."
 
 FocusScope {
@@ -42,6 +43,10 @@ FocusScope {
     property bool current: false
     readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
+    property FaviconFetcher favicon: FaviconFetcher {
+        shouldCache: !tab.incognito
+        url: tab.icon
+    }
     visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :

@@ -19,8 +19,6 @@
 import QtQuick 2.4
 import QtTest 1.0
 import "../../../src/app/webbrowser"
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 
 Item {

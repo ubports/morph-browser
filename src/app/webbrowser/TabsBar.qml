@@ -22,7 +22,6 @@ import Ubuntu.Components.Extras 0.3 as Extras
 import Ubuntu.Components.Popups 1.3
 import "."
 import ".."
-import webbrowsercommon.private 0.1
 
 Extras.TabsBar {
     id: tabsBar
@@ -53,22 +52,9 @@ Extras.TabsBar {
 
     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
 
-    Component {
-        id: faviconFactory
-        FaviconFetcher {
-
-        }
-    }
-
+    // Note: When the returned value changes, QML recalls the function
     function iconSourceFromModelItem(modelData, index) {
-        var incubator = faviconFactory.incubateObject(
-            tabsBar,
-            {
-                "shouldCache": Qt.binding(function() { return !incognito; }),
-                "url": Qt.binding(function() { return modelData.icon || ""; })
-            }
-        );
-        return incubator.status == Component.Ready ? incubator.object.localUrl || "" : "";
+        return modelData.tab.favicon.localUrl;
     }
 
     function titleFromModelItem(modelItem) {
