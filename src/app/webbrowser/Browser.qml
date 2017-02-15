@@ -296,7 +296,9 @@ BrowserView {
             //       https://bugreports.qt.io/browse/QTBUG-54657
             function setActive(active) {
                 if (active) {
-                    selectTabView();
+                    if (newTabViewLoader.source == "") {
+                        selectTabView();
+                    }
                 } else {
                     newTabViewLoader.setSource("", {});
                 }
