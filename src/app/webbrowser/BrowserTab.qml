@@ -42,6 +42,7 @@ FocusScope {
     property bool current: false
     readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
+    property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
     visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :

@@ -264,14 +264,14 @@ BrowserView {
             }
             clip: true  // prevents component from overlapping bottom edge etc
 
-            // Avoid loading the new tab view if the webview is about to load
-            // content. Since WebView.restoreState is not a notifyable property,
-            // this can’t be achieved with a simple property binding.
+            // Avoid loading the new tab view if the webview has or will have content
             Connections {
-                target: currentWebview
-                onUrlChanged: {
-                    newTabViewLoader.setActive(false)
-                }
+                target: tabsModel.currentTab
+                onEmptyChanged: newTabViewLoader.setActive(tabsModel.currentTab.empty)
+            }
+            Connections {
+                target: tabsModel
+                onCurrentTabChanged: newTabViewLoader.setActive(tabsModel.currentTab && tabsModel.currentTab.empty)
             }
             active: false
             focus: active
@@ -279,12 +279,6 @@ BrowserView {
 
             Connections {
                 target: browser
-                onCurrentWebviewChanged: {
-                    if (currentWebview) {
-                        var tab = tabsModel.currentTab
-                        newTabViewLoader.setActive(!tab.url.toString() && !tab.restoreState)
-                    }
-                }
                 onWideChanged: newTabViewLoader.selectTabView()
             }
             Component.onCompleted: newTabViewLoader.selectTabView()
@@ -1130,7 +1124,7 @@ BrowserView {
                 if (recentView.visible) {
                     recentView.focus = true
                 } else if (tab) {
-                    if (!tab.url.toString() && !tab.initialUrl.toString()) {
+                    if (tab.empty) {
                         maybeFocusAddressBar()
                     } else {
                         tabContainer.forceActiveFocus()
@@ -1146,8 +1140,9 @@ BrowserView {
         }
 
         function resetFocus() {
-            if (browser.currentWebview) {
-                if (!browser.currentWebview.url.toString()) {
+            var currentTab = tabsModel.currentTab;
+            if (currentTab) {
+                if (currentTab.empty) {
                     internal.maybeFocusAddressBar()
                 } else {
                     contentsContainer.focus = true;
