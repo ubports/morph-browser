@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -484,6 +484,19 @@ private Q_SLOTS:
         // invalid indexes
         QCOMPARE(model->get(-1), (QObject*) nullptr);
         QCOMPARE(model->get(3), (QObject*) nullptr);
+    }
+
+    void shouldReturnTabIndex()
+    {
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+        QQuickItem* tab2 = createTab();
+        model->add(tab2);
+        QQuickItem* nonAddedTab = createTab();
+        QCOMPARE(model->indexOf(tab1), 0);
+        QCOMPARE(model->indexOf(tab2), 1);
+        QCOMPARE(model->indexOf(nonAddedTab), -1);
+        delete nonAddedTab;
     }
 
 private:

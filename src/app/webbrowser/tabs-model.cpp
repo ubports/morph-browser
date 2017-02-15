@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -201,6 +201,15 @@ QObject* TabsModel::get(int index) const
         return nullptr;
     }
     return m_tabs.at(index);
+}
+
+/*!
+    Returns the index position of the first occurrence of tab in the model.
+    Returns -1 if no item matched.
+*/
+int TabsModel::indexOf(QObject* tab) const
+{
+    return m_tabs.indexOf(tab);
 }
 
 void TabsModel::move(int from, int to)

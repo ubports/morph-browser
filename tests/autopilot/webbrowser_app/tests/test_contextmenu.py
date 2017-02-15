@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015-2016 Canonical
+# Copyright 2015-2017 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -28,6 +28,8 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
 
     def setUp(self, path):
         super(TestContextMenuBase, self).setUp(path)
+        self.open_new_tab(open_tabs_view=not self.main_window.wide)
+        self.switch_to_tab(0 if self.main_window.wide else 1)
         self.menu = self.main_window.open_context_menu()
         # The context menu should never steal active focus from the webview,
         # but because it’s currently implemented as a dialog on narrow screens,
@@ -36,8 +38,16 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
             webview = self.main_window.get_current_webview()
             self.assertThat(webview.activeFocus, Equals(True))
 
-    def verify_link_opened_in_a_new_tab(self):
-        self.assert_number_webviews_eventually(2)
+    def verify_link_opened_in_a_new_tab(self, background=False):
+        self.assert_number_webviews_eventually(3)
+        # make sure the new tab is adjacent to the tab that created it,
+        # in other words that its index is 1 in wide mode, 0 in narrow mode
+        # https://launchpad.net/bugs/1499780
+        if not self.main_window.wide and not background:
+            new_tab_index = 0
+        else:
+            new_tab_index = 1
+        self.switch_to_tab(new_tab_index)
         webview = self.main_window.get_current_webview()
         new_url = self.base_url + "/test1"
         self.assertThat(webview.url, Eventually(Equals(new_url)))
@@ -48,8 +58,16 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
         self.main_window.wait_until_page_loaded(url)
         self.main_window.chrome.bookmarked.wait_for(True)
 
-    def verify_image_opened_in_a_new_tab(self):
-        self.assert_number_webviews_eventually(2)
+    def verify_image_opened_in_a_new_tab(self, background=False):
+        self.assert_number_webviews_eventually(3)
+        # make sure the new tab is adjacent to the tab that created it,
+        # in other words that its index is 1 in wide mode, 0 in narrow mode
+        # https://launchpad.net/bugs/1499780
+        if not self.main_window.wide and not background:
+            new_tab_index = 0
+        else:
+            new_tab_index = 1
+        self.switch_to_tab(new_tab_index)
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url,
                         Eventually(StartsWith(self.data_uri_prefix)))
@@ -78,6 +96,10 @@ class TestContextMenuLink(TestContextMenuBase):
     def test_open_link_in_new_tab(self):
         self.menu.click_action("OpenLinkInNewTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
+
+    def test_open_link_in_new_background_tab(self):
+        self.menu.click_action("OpenLinkInNewBackgroundTabContextualAction")
+        self.verify_link_opened_in_a_new_tab(background=True)
 
     def test_open_link_in_new_window(self):
         self.menu.click_action("OpenLinkInNewWindowContextualAction")
@@ -131,6 +153,10 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
     def test_open_link_in_new_tab(self):
         self.menu.click_action("OpenLinkInNewTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
+
+    def test_open_link_in_new_background_tab(self):
+        self.menu.click_action("OpenLinkInNewBackgroundTabContextualAction")
+        self.verify_link_opened_in_a_new_tab(background=True)
 
     def test_open_link_in_new_window(self):
         self.menu.click_action("OpenLinkInNewWindowContextualAction")
