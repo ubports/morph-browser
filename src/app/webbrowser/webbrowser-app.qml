@@ -330,8 +330,6 @@ QtObject {
     property var session: SessionStorage {
         dataFile: dataLocation + "/session.json"
 
-        // TODO: do we want to save/restore window positions too (https://launchpad.net/bugs/1312892)?
-
         function save() {
             if (!locked || restoring) {
                 return
@@ -390,7 +388,8 @@ QtObject {
             for (var i = 0; i < window.tabsModel.count; ++i) {
                 tabs.push(window.serializeTabState(window.tabsModel.get(i)))
             }
-            return {tabs: tabs, currentIndex: window.tabsModel.currentIndex}
+            return {tabs: tabs, currentIndex: window.tabsModel.currentIndex,
+                    width: window.width, height: window.height}
         }
 
         function restoreWindowState(state) {
@@ -399,6 +398,8 @@ QtObject {
                 window.tabsModel.add(window.restoreTabState(state.tabs[i]))
             }
             window.tabsModel.currentIndex = state.currentIndex
+            if (state.width) window.width = state.width
+            if (state.height) window.height = state.height
             window.show()
         }
 
