@@ -300,14 +300,14 @@ BrowserView {
             }
             clip: true  // prevents component from overlapping bottom edge etc
 
-            // Avoid loading the new tab view if the webview is about to load
-            // content. Since WebView.restoreState is not a notifyable property,
-            // this can’t be achieved with a simple property binding.
+            // Avoid loading the new tab view if the webview has or will have content
             Connections {
-                target: currentWebview
-                onUrlChanged: {
-                    newTabViewLoader.active = false
-                }
+                target: tabsModel.currentTab
+                onEmptyChanged: newTabViewLoader.setActive(tabsModel.currentTab.empty)
+            }
+            Connections {
+                target: tabsModel
+                onCurrentTabChanged: newTabViewLoader.setActive(tabsModel.currentTab && tabsModel.currentTab.empty)
             }
             active: false
             focus: active
@@ -315,15 +315,25 @@ BrowserView {
 
             Connections {
                 target: browser
-                onCurrentWebviewChanged: {
-                    if (currentWebview) {
-                        var tab = tabsModel.currentTab
-                        newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
-                    }
-                }
                 onWideChanged: newTabViewLoader.selectTabView()
             }
             Component.onCompleted: newTabViewLoader.selectTabView()
+
+            // XXX: this is a workaround for bug #1659435 caused by QTBUG-54657.
+            // New tab view was sometimes overlaid on top of other tabs because
+            // it was not unloaded even though active was set to false.
+            // Ref.: https://launchpad.net/bugs/1659435
+            //       https://bugreports.qt.io/browse/QTBUG-54657
+            function setActive(active) {
+                if (active) {
+                    if (newTabViewLoader.source == "") {
+                        selectTabView();
+                    }
+                } else {
+                    newTabViewLoader.setSource("", {});
+                }
+                newTabViewLoader.active = active;
+            }
 
             function selectTabView() {
                 var source = browser.incognito ? "NewPrivateTabView.qml" :
@@ -1152,7 +1162,7 @@ BrowserView {
                 if (recentView.visible) {
                     recentView.focus = true
                 } else if (tab) {
-                    if (!tab.url.toString() && !tab.initialUrl.toString()) {
+                    if (tab.empty) {
                         maybeFocusAddressBar()
                     } else {
                         tabContainer.forceActiveFocus()
@@ -1169,8 +1179,9 @@ BrowserView {
         }
 
         function resetFocus() {
-            if (browser.currentWebview) {
-                if (!browser.currentWebview.url.toString()) {
+            var currentTab = tabsModel.currentTab;
+            if (currentTab) {
+                if (currentTab.empty) {
                     internal.maybeFocusAddressBar()
                 } else {
                     contentsContainer.focus = true;
