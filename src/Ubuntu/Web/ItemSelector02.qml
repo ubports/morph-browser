@@ -33,7 +33,7 @@ Item {
     width: contentWidth
     height: contentHeight
 
-    property real listContentHeight: 0 // intermediate property to avoid binding loop
+    property real listContentHeight: listView.count * listItemHeight
     property real listItemHeight: units.gu(4)
     property real addressBarHeight: webview.locationBarController.height
     property bool isAbove
@@ -160,8 +160,6 @@ Item {
         section.delegate: ListItems.Header {
             text: section
         }
-
-        onContentHeightChanged: itemSelector.listContentHeight = contentHeight
     }
 
     Scrollbar {
