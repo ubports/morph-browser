@@ -35,7 +35,7 @@ Item {
 
     property real listContentHeight: 0 // intermediate property to avoid binding loop
     property real listItemHeight: units.gu(4)
-    property real addressBarHeight: webview.height - webview.viewportHeight
+    property real addressBarHeight: webview.locationBarController.height
     property bool isAbove
 
     // When the webview's size changes, dismiss the menu.
