@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2016 Canonical
+# Copyright 2013-2017 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -175,6 +175,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.pointing_device.click_object(more_button)
 
         return new_tab_view
+
+    def switch_to_tab(self, index):
+        if self.main_window.wide:
+            tab = self.main_window.chrome.get_tabs_bar().get_tab(index)
+            self.pointing_device.click_object(tab)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[index].select()
+            tabs_view.visible.wait_for(False)
 
     def open_new_window(self):
         windows = self.app.get_windows(incognito=False)

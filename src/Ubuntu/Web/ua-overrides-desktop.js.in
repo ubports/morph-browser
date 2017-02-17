@@ -61,4 +61,7 @@ var overrides = [
 
     // Ebay (https://launchpad.net/bugs/1575780)
     ["^https?:\/\/(.+\.)?ebay\.(at|be|ca|ch|cn|co\.jp|co\.th|co\.uk|com|com\.au|com\.hk|com\.my|com\.sg|com\.tw|de|es|fr|ie|in|it|nl|ph|pl|se|vn)\/", chrome_desktop_override],
+
+    // Dailymotion (https://launchpad.net/bugs/1662826)
+    ["^http:\/\/www\.dailymotion\.com\/", chrome_desktop_override],
 ];
