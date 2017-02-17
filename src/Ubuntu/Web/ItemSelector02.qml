@@ -33,7 +33,7 @@ Item {
     width: contentWidth
     height: contentHeight
 
-    property real listContentHeight: listView.count * listItemHeight
+    property real listContentHeight: listView.count * (listItemHeight + units.dp(1))
     property real listItemHeight: units.gu(4)
     property real addressBarHeight: webview.locationBarController.height
     property bool isAbove
