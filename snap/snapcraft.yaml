@@ -70,3 +70,18 @@ parts:
     source: snap
     organize:
       webbrowser-app.launcher: bin/webbrowser-app.launcher
+
+  ubuntu-ui-extras:
+    plugin: cmake
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
+    source: http://code.launchpad.net/~phablet-team/ubuntu-ui-extras/trunk
+    source-type: bzr
+    build-packages:
+      - gettext
+      - pkg-config
+      - qtbase5-dev
+      - qtdeclarative5-dev
+      - libexiv2-dev
+    stage-packages:
+      - libexiv2-14
+    build-attributes: [no-system-libraries]
