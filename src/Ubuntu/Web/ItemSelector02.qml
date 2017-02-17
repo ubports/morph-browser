@@ -55,7 +55,7 @@ Item {
         var availableAbove = model.elementRect.y - addressBarHeight;
         var availableBelow = webview.viewportHeight - model.elementRect.y - model.elementRect.height + addressBarHeight;
 
-        if (availableBelow >= availableAbove) {
+        if (availableBelow >= listContentHeight || availableBelow >= availableAbove) {
             // position popover below the box
             itemSelector.isAbove = false;
             itemSelector.contentHeight = Math.min(availableBelow, listContentHeight);
