@@ -45,15 +45,14 @@ Item {
         target: webview
         onWidthChanged: selectorModel.cancel()
         onHeightChanged: selectorModel.cancel()
-        onViewportWidthChanged: selectorModel.cancel()
-        onViewportHeightChanged: selectorModel.cancel()
     }
     onListContentHeightChanged: updatePosition()
+    onAddressBarHeightChanged: updatePosition()
 
     function updatePosition() {
         itemSelector.x = model.elementRect.x;
         var availableAbove = model.elementRect.y - addressBarHeight;
-        var availableBelow = webview.viewportHeight - model.elementRect.y - model.elementRect.height + addressBarHeight;
+        var availableBelow = webview.height - model.elementRect.y - model.elementRect.height;
 
         if (availableBelow >= listContentHeight || availableBelow >= availableAbove) {
             // position popover below the box
