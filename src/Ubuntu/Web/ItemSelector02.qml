@@ -148,7 +148,12 @@ Item {
             }
 
             Keys.onReturnPressed: selectAndClose()
-            onClicked: selectAndClose()
+            // FIXME: use a separate MouseArea because ListItem.onClicked is called
+            // when the menu has just been created and the enter key is released
+            MouseArea {
+                anchors.fill: parent
+                onClicked: selectAndClose()
+            }
         }
 
         section.property: "group"
