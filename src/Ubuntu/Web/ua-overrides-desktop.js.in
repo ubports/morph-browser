@@ -50,6 +50,9 @@ var overrides = [
     // Google recaptcha (https://launchpad.net/bugs/1599146)
     ["^https:\/\/www\.google\.com\/recaptcha\/", chrome_desktop_override],
 
+    // Google photos (https://launchpad.net/bugs/1665926)
+    ["^https:\/\/photos\.google\.com\/", chrome_desktop_override],
+
     // (mobile) twitter (https://launchpad.net/bugs/1577834)
     ["^https:\/\/mobile\.twitter\.com\/", chrome_desktop_override],
 
