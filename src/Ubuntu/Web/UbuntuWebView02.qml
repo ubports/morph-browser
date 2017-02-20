@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -54,7 +54,7 @@ Oxide.WebView {
     preferences.passwordEchoEnabled: Qt.inputMethod.visible
 
     popupMenu: ItemSelector02 {
-        automaticOrientation: false
+        webview: _webview
     }
 
     Item {
