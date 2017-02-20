@@ -70,17 +70,14 @@ Item {
     Keys.onEscapePressed: selectorModel.cancel()
     Keys.onReturnPressed: selectorModel.accept()
     Keys.onPressed: {
-        // eat up and down keys
-        if (event.key == Qt.Key_Up) {
-            event.accepted = true;
-        } else if (event.key == Qt.Key_Down) {
-            event.accepted = true;
-        }
-        // eat left and right keys
-        else if (event.key == Qt.Key_Left) {
-            event.accepted = true;
-        } else if (event.key == Qt.Key_Right) {
-            event.accepted = true;
+        switch (event.key) {
+          // eat up, down, left, right keys
+          case Qt.Key_Up:
+          case Qt.Key_Down:
+          case Qt.Key_Left:
+          case Qt.Key_Right:
+              event.accepted = true;
+              break;
         }
     }
 
