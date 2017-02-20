@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -486,6 +486,19 @@ private Q_SLOTS:
         QCOMPARE(model->get(3), (QObject*) nullptr);
     }
 
+    void shouldReturnTabIndex()
+    {
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+        QQuickItem* tab2 = createTab();
+        model->add(tab2);
+        QQuickItem* nonAddedTab = createTab();
+        QCOMPARE(model->indexOf(tab1), 0);
+        QCOMPARE(model->indexOf(tab2), 1);
+        QCOMPARE(model->indexOf(nonAddedTab), -1);
+        delete nonAddedTab;
+    }
+
 private:
     void moveTabs(int from, int to, bool moved, bool indexChanged, int newIndex)
     {
@@ -494,12 +507,28 @@ private:
         QSignalSpy spyTab(model, SIGNAL(currentTabChanged()));
 
         model->move(from, to);
-        QCOMPARE(spyMoved.count(), moved ? 1 : 0);
+        QCOMPARE(spyMoved.count(), moved ? abs(from - to) : 0);
         if (moved) {
-            QList<QVariant> args = spyMoved.takeFirst();
-            QCOMPARE(args.at(1).toInt(), from);
-            QCOMPARE(args.at(2).toInt(), from);
-            QCOMPARE(args.at(4).toInt(), to);
+            QList<QVariant> argsFirst = spyMoved.first();
+            QList<QVariant> argsLast = spyMoved.last();
+
+            if (to > from) {
+                QCOMPARE(argsFirst.at(1).toInt(), from);
+                QCOMPARE(argsFirst.at(2).toInt(), from);
+                QCOMPARE(argsFirst.at(4).toInt(), from + 2);
+
+                QCOMPARE(argsLast.at(1).toInt(), to - 1);
+                QCOMPARE(argsLast.at(2).toInt(), to - 1);
+                QCOMPARE(argsLast.at(4).toInt(), to + 1);
+            } else {
+                QCOMPARE(argsFirst.at(1).toInt(), from);
+                QCOMPARE(argsFirst.at(2).toInt(), from);
+                QCOMPARE(argsFirst.at(4).toInt(), from - 1);
+
+                QCOMPARE(argsLast.at(1).toInt(), to + 1);
+                QCOMPARE(argsLast.at(2).toInt(), to + 1);
+                QCOMPARE(argsLast.at(4).toInt(), to);
+            }
         }
         QCOMPARE(spyIndex.count(), indexChanged ? 1 : 0);
         QCOMPARE(model->currentIndex(), newIndex);

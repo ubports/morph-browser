@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Ubuntu.Web 0.2
+import com.canonical.Oxide 1.15
 import webcontainer.private 0.1
 import ".."
 
@@ -216,6 +217,7 @@ BrowserWindow {
     }
 
     Component.onCompleted: {
+        console.info("webapp-container using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
         i18n.domain = "webbrowser-app"
         if (forceFullscreen) {
             showFullScreen()

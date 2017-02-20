@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -42,12 +42,13 @@ ChromeBase {
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
     property bool touchEnabled: true
-    readonly property real tabsBarHeight: tabsBar.height + content.anchors.topMargin
+    readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin + content.anchors.topMargin
     property BrowserWindow thisWindow
+    property Component windowFactory
+    property bool tabsBarDimmed: false
 
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
-    signal requestNewWindowFromTab(var tab, var callback)
     signal tabClosed(int index, bool moving)
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : "#ffffff"
@@ -61,7 +62,6 @@ ChromeBase {
     FocusScope {
         id: content
         anchors.fill: parent
-        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
 
@@ -72,33 +72,34 @@ ChromeBase {
 
         Loader {
             id: tabsBar
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            asynchronous: true
+            height: active ? units.gu(3) : 0
 
             Component.onCompleted: {
-                tabsBar.setSource("TabsBar.qml", {
-                                      "model": Qt.binding(function () {return chrome.tabsModel}),
-                                      "incognito": Qt.binding(function () {return chrome.incognito}),
-                                      "fgColor": Qt.binding(function () {return navigationBar.fgColor}),
-                                      "thisWindow": Qt.binding(function () {return chrome.thisWindow}),
-                                      "touchEnabled": Qt.binding(function () {return chrome.touchEnabled})
-                })
+                setSource(
+                    Qt.resolvedUrl("TabsBar.qml"),
+                    {
+                        "dimmed": Qt.binding(function() { return chrome.tabsBarDimmed; }),
+                        "model": Qt.binding(function() { return chrome.tabsModel; }),
+                        "incognito": Qt.binding(function() { return chrome.incognito; }),
+                        "dragAndDrop.previewTopCrop": Qt.binding(function() { return chrome.height; }),
+                        "dragAndDrop.thisWindow": Qt.binding(function() { return chrome.thisWindow; }),
+                        "windowFactory": Qt.binding(function() { return chrome.windowFactory; }),
+                    }
+                )
             }
 
             Connections {
                 target: tabsBar.item
 
-                onSwitchToTab: chrome.switchToTab(index)
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
-                onRequestNewWindowFromTab: chrome.requestNewWindowFromTab(tab, callback)
                 onTabClosed: chrome.tabClosed(index, moving)
             }
-            asynchronous: true
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-            height: active ? (touchEnabled ? units.gu(4) : units.gu(3)) : 0
         }
 
         NavigationBar {

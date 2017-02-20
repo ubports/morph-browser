@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
+import com.canonical.Oxide 1.15
 import "."
 import ".."
 import webbrowsercommon.private 0.1
@@ -89,6 +90,7 @@ QtObject {
             id: window
 
             property alias incognito: browser.incognito
+            readonly property alias model: browser.tabsModel
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
@@ -185,25 +187,7 @@ QtObject {
                 anchors.fill: parent
                 thisWindow: window
                 settings: webbrowserapp.settings
-                onNewWindowFromTab: {
-                    var window = windowFactory.createObject(
-                        null,
-                        {
-                            "incognito": tab.incognito,
-                            "height": parent.height,
-                            "width": parent.width,
-                        }
-                    );
-
-                    window.addExistingTab(tab);
-                    window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                    window.show();
-                    window.requestActivate();
-
-                    window.tabsModel.currentTab.load();
-
-                    callback();
-                }
+                windowFactory: webbrowserapp.windowFactory
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,
@@ -286,14 +270,6 @@ QtObject {
                 var tab = browser.createTab({"initialUrl": url || ""})
                 tabsModel.add(tab)
                 return tab
-            }
-
-            function addExistingTab(tab) {
-                tabsModel.add(tab);
-
-                browser.bindExistingTab(tab);
-
-                return tab;
             }
         }
     }
@@ -496,4 +472,6 @@ QtObject {
             PreviewManager.cleanUnusedPreviews(doNotCleanUrls)
         }
     }
+
+    Component.onCompleted: console.info("webbrowser-app using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2015-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -32,6 +32,35 @@ Item {
 
     TabsModel {
         id: tabsModel
+
+        // These methods are required by the TabsBar component
+        property int selectedIndex: currentIndex
+
+        function addTab() {
+            tabs.requestNewTab(count, true);
+        }
+
+        function moveTab(from, to) {
+            if (from == to
+                || from < 0 || from >= count
+                || to < 0 || to >= count) {
+                return;
+            }
+
+            move(from, to);
+        }
+
+        // Overload removeTab and add moving property so we can tell when
+        // the tab is closing due to moving to a new window
+        // This is required because we need to avoid destroying the content
+        // of that tab that is moved
+        function removeTab(index, moving) {
+            tabs.tabClosed(index, false);
+        }
+
+        function selectTab(index) {
+            currentIndex = index;
+        }
     }
 
     Component {
@@ -58,8 +87,9 @@ Item {
         height: 50
 
         model: tabsModel
-        onSwitchToTab: model.currentIndex = index
+
         onRequestNewTab: insertTab("", "", "", index)
+
         function appendTab(url, title, icon) {
             insertTab(url, title, icon, model.count)
             model.currentIndex = model.count - 1
@@ -97,16 +127,16 @@ Item {
         }
 
         function getTabDelegate(index) {
-            var container = findChild(tabs, "tabsContainer")
-            for (var i = 0; i < container.children.length; ++i) {
-                var child = container.children[i]
-                if ((child.objectName == "tabDelegate") && (child.tabIndex == index)) {
-                    return child
-                }
+            var listview = findChild(tabs, "tabListView")
+            var items = getListItems(listview, "tabDelegate")
+
+            if (index < items.length) {
+                return items[index]
+            } else {
+                return null
             }
-            return null
         }
-        
+
         function getTabItem(index) {
             return findChild(getTabDelegate(index), "tabItem")
         }
@@ -208,7 +238,7 @@ Item {
             var count = populateTabs()
             for (var i = 0; i < count; i++) {
                 var tab = getTabDelegate(count - (i + 1))
-                var closeButton = findChild(tab, "closeButton")
+                var closeButton = findChild(tab, "tabCloseButton")
                 clickItem(closeButton, data.button)
                 compare(tabClosedSpy.count, i + 1)
                 compare(tabClosedSpy.signalArguments[i][0], count - (i + 1))
@@ -220,15 +250,25 @@ Item {
 
             function dragTab(tab, dx, index) {
                 var c = centerOf(tab)
-                mouseDrag(tab, c.x, c.y, dx, 0)
-                compare(getTabDelegate(index), tab)
+
+                mousePress(tab, c.x, c.y);
+
+                // Move tab slowly otherwise it can skip the DropArea
+                for (var j = 0; j < dx; j++) {
+                    mouseMove(tabs, j, c.y)
+                    wait(1)
+                }
+
+                mouseRelease(tab, c.x + dx, c.y);
+
+                compare(tabsModel.get(index).title, tab.title)
                 compare(tabsModel.currentIndex, index)
                 wait(500)
             }
 
             // Move the first tab to the right
-            var tab = getTabDelegate(0)
-            dragTab(tab, tab.width * 0.8, 1)
+            var tab = getTabItem(0)
+            dragTab(tab, tab.width, 1)
 
             // Start a move to the right and release too early
             dragTab(tab, tab.width * 0.3, 1)
@@ -240,7 +280,7 @@ Item {
             dragTab(tab, tab.width * 3, 2)
 
             // Move another tab all the way to the left and overshoot
-            tab = getTabDelegate(1)
+            tab = getTabItem(1)
             dragTab(tab, -tab.width * 2, 0)
         }
 
@@ -299,28 +339,6 @@ Item {
             compare(tabsModel.get(0).url, baseUrl + "1")
             compare(tabsModel.get(1).url, "")
             compare(tabsModel.get(2).url, baseUrl + "2")
-        }
-        
-        function test_close_icon_invisible() {
-            var count = 20
-
-            // Add 2 tabs and check both have showCloseIcon            
-            tabs.appendTab("", "tab " + 0, "")
-            tabs.appendTab("", "tab " + 0, "")
-            
-            compare(getTabItem(0).showCloseIcon, true)
-            compare(getTabItem(1).showCloseIcon, true)
-
-            // Add new tabs and check that both icons are shown            
-            for (var i = 2; i < count; ++i) {
-                tabs.appendTab("", "tab " + i, "")
-                compare(tabsModel.currentIndex, i)
-                
-                tryCompare(getTabItem(i), "showCloseIcon", true, 1000)
-            }
-            
-            // Check that middle non-selected tab icons are not shown
-            compare(getTabItem(count - 10).showCloseIcon, false)
         }
     }
 }
