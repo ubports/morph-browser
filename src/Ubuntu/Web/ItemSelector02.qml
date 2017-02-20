@@ -73,15 +73,13 @@ Item {
         // eat up and down keys
         if (event.key == Qt.Key_Up) {
             event.accepted = true;
-        }
-        if (event.key == Qt.Key_Down) {
+        } else if (event.key == Qt.Key_Down) {
             event.accepted = true;
         }
         // eat left and right keys
-        if (event.key == Qt.Key_Left) {
+        else if (event.key == Qt.Key_Left) {
             event.accepted = true;
-        }
-        if (event.key == Qt.Key_Right) {
+        } else if (event.key == Qt.Key_Right) {
             event.accepted = true;
         }
     }
