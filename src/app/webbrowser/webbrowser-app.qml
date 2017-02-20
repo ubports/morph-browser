@@ -369,13 +369,18 @@ QtObject {
         }
 
         function restoreWindowState(state) {
-            var window = windowFactory.createObject(null)
+            var windowProperties = {}
+            if (state.width) {
+                windowProperties["width"] = state.width
+            }
+            if (state.height) {
+                windowProperties["height"] = state.height
+            }
+            var window = windowFactory.createObject(null, windowProperties)
             for (var i in state.tabs) {
                 window.tabsModel.add(window.restoreTabState(state.tabs[i]))
             }
             window.tabsModel.currentIndex = state.currentIndex
-            if (state.width) window.width = state.width
-            if (state.height) window.height = state.height
             window.show()
         }
 
