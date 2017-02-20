@@ -118,6 +118,9 @@ Item {
         cacheBuffer: height
         property int initialIndex
         Component.onCompleted: {
+            // calling forceLayout ensures that all delegates have been created and
+            // that initialIndex is set adequately as a consequence
+            forceLayout()
             currentIndex = initialIndex
             positionViewAtIndex(initialIndex, ListView.Contain)
         }
