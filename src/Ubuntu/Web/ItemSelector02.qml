@@ -77,6 +77,13 @@ Item {
         if (event.key == Qt.Key_Down) {
             event.accepted = true;
         }
+        // eat left and right keys
+        if (event.key == Qt.Key_Left) {
+            event.accepted = true;
+        }
+        if (event.key == Qt.Key_Right) {
+            event.accepted = true;
+        }
     }
 
     // eat mouse events beneath the list so that they never reach the webview below
