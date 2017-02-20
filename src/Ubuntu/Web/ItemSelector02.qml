@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItems
 
 Item {
     id: itemSelector
@@ -33,7 +32,7 @@ Item {
     width: contentWidth
     height: contentHeight
 
-    property real listContentHeight: listView.count * (listItemHeight + units.dp(1))
+    property real listContentHeight: (listView.count + listView.sectionCount) * (listItemHeight + units.dp(1))
     property real listItemHeight: units.gu(4)
     property real addressBarHeight: webview.locationBarController.height
     property bool isAbove
@@ -115,7 +114,7 @@ Item {
 
         // Forces all delegates to be instantiated so that initialIndex is
         // set adequately to the index of the selected item
-        cacheBuffer: height
+        cacheBuffer: 32767
         property int initialIndex
         Component.onCompleted: {
             // calling forceLayout ensures that all delegates have been created and
@@ -126,6 +125,7 @@ Item {
         }
 
         model: selectorModel.items
+        property int sectionCount: 0
 
         delegate: ListItem {
             height: listItemLayout.height + (divider.visible ? divider.height : 0)
@@ -139,7 +139,7 @@ Item {
                 title.height: listItemHeight
                 title.verticalAlignment: Text.AlignVCenter
                 title.text: model.text
-                title.onPaintedWidthChanged: maximumLabelWidth = Math.max(title.paintedWidth, maximumLabelWidth)
+                title.onContentWidthChanged: maximumLabelWidth = Math.max(title.contentWidth, maximumLabelWidth)
             }
 
             color: selected ? theme.palette.normal.focus : "transparent"
@@ -161,8 +161,21 @@ Item {
         }
 
         section.property: "group"
-        section.delegate: ListItems.Header {
-            text: section
+        section.delegate: ListItem {
+            height: listItemHeight + (divider.visible ? divider.height : 0)
+            Component.onCompleted: listView.sectionCount += 1
+            ListItemLayout {
+                padding {
+                    top: 0
+                    bottom: 0
+                }
+                height: listItemHeight
+                title.verticalAlignment: Text.AlignVCenter
+                title.height: listItemHeight
+                title.text: section
+                title.font.bold: true
+                title.onContentWidthChanged: maximumLabelWidth = Math.max(title.contentWidth, maximumLabelWidth)
+            }
         }
     }
 
