@@ -53,6 +53,7 @@ Window {
                 window.visibility = Window.FullScreen
             } else {
                 window.visibility = internal.currentWindowState
+                window.currentWebview.fullscreen = false
             }
         }
     }

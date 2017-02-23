@@ -147,9 +147,6 @@ QtObject {
 
             function toggleApplicationLevelFullscreen() {
                 setFullscreen(visibility !== Window.FullScreen)
-                if (browser.currentWebview.fullscreen) {
-                    browser.currentWebview.fullscreen = false
-                }
             }
 
             Shortcut {
@@ -230,7 +227,6 @@ QtObject {
                     // ESC to exit fullscreen, regardless of whether it was
                     // requested by the page or toggled on by the user.
                     window.setFullscreen(false)
-                    browser.currentWebview.fullscreen = false
                 }
             }
 

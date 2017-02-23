@@ -754,8 +754,8 @@ BrowserView {
 
         onDraggingChanged: {
             if (dragging) {
-                if (browser.currentWebview) {
-                    browser.currentWebview.fullscreen = false
+                if (browser.thisWindow) {
+                    browser.thisWindow.setFullscreen(false)
                 }
             } else {
                 if (stage == 1) {
