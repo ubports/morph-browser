@@ -98,3 +98,32 @@ class TestUserInitiatedFullscreen(TestFullscreenBase):
         self.main_window.press_key('F11')
         self.assert_window_fullscreen(False)
         self.assert_webview_fullscreen(False)
+
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestUserThenPageInitiatedFullscreen(TestFullscreenBase):
+
+    def setUp(self):
+        super(TestUserThenPageInitiatedFullscreen, self).setUp(path="/fullscreen")
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+
+        # user initiated fullscreen
+        self.main_window.press_key('F11')
+        self.assert_window_fullscreen(True)
+        self.assert_webview_fullscreen(False)
+
+        # page initiated fullscreen
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.assert_webview_fullscreen(True)
+        self.assert_window_fullscreen(True)
+
+    def test_user_exit_ESC(self):
+        self.main_window.press_key('Escape')
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+
+    def test_user_exit_F11(self):
+        self.main_window.press_key('F11')
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
