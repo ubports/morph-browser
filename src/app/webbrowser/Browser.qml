@@ -35,9 +35,6 @@ import "." as Local
 BrowserView {
     id: browser
 
-    // Should be true when the containing window is fullscreen.
-    property bool fullscreen: false
-
     property Settings settings
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
@@ -513,7 +510,7 @@ BrowserView {
     ChromeController {
         id: chromeController
         webview: browser.currentWebview
-        forceHide: browser.fullscreen
+        forceHide: browser.currentWebview.fullscreen
         forceShow: recentView.visible
         defaultMode: (internal.hasMouse && !internal.hasTouchScreen)
                          ? Oxide.LocationBarController.ModeShown
