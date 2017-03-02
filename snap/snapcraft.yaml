@@ -11,6 +11,7 @@ apps:
     plugs:
       - browser-sandbox
       - camera
+      - mir
       - network
       - network-bind
       - opengl
