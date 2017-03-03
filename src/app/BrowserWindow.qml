@@ -49,10 +49,13 @@ Window {
     function setFullscreen(fullscreen) {
         if (!window.forceFullscreen) {
             if (fullscreen) {
-                internal.currentWindowState = window.visibility
-                window.visibility = Window.FullScreen
+                if (window.visibility != Window.FullScreen) {
+                    internal.currentWindowState = window.visibility
+                    window.visibility = Window.FullScreen
+                }
             } else {
                 window.visibility = internal.currentWindowState
+                window.currentWebview.fullscreen = false
             }
         }
     }
