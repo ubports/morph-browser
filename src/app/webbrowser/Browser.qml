@@ -510,7 +510,7 @@ BrowserView {
     ChromeController {
         id: chromeController
         webview: browser.currentWebview
-        forceHide: browser.currentWebview.fullscreen
+        forceHide: browser.currentWebview ? browser.currentWebview.fullscreen : false
         forceShow: recentView.visible
         defaultMode: (internal.hasMouse && !internal.hasTouchScreen)
                          ? Oxide.LocationBarController.ModeShown
