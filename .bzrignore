@@ -18,6 +18,7 @@ Testing/
 *.moc
 moc_*.cpp
 *_automoc.cpp
+*_automoc.dir/
 src/app/config.h
 src/app/webcontainer/webapp-container
 src/app/webbrowser/webbrowser-app
