@@ -99,11 +99,13 @@ class TestUserInitiatedFullscreen(TestFullscreenBase):
         self.assert_window_fullscreen(False)
         self.assert_webview_fullscreen(False)
 
+
 @testtools.skipIf(model() != "Desktop", "on desktop only")
 class TestUserThenPageInitiatedFullscreen(TestFullscreenBase):
 
     def setUp(self):
-        super(TestUserThenPageInitiatedFullscreen, self).setUp(path="/fullscreen")
+        super(TestUserThenPageInitiatedFullscreen, self).setUp(
+            path="/fullscreen")
         self.assert_webview_fullscreen(False)
         self.assert_window_fullscreen(False)
 
