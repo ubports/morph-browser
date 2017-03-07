@@ -20,6 +20,8 @@
         "webview"
       ],
       "abstractions": [
+        "ibus",
+        "nvidia",
         "user-tmp"
       ],
       "template_variables": {
