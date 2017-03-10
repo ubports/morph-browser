@@ -91,7 +91,7 @@ ListItem {
         mainSlot: Column {
             Label {
                 id: title
-                fontSize: "x-small"
+                textSize: Label.Small
                 color: "#5d5d5d"
                 elide: Text.ElideRight
                 anchors {
@@ -102,7 +102,7 @@ ListItem {
 
             Label {
                 id: url
-                fontSize: "x-small"
+                textSize: Label.Small
                 color: "#5d5d5d"
                 elide: Text.ElideRight
                 anchors {
@@ -145,7 +145,7 @@ ListItem {
                         right: parent.right
                         verticalCenter: parent.verticalCenter
                     }
-                    fontSize: "x-small"
+                    textSize: Label.Small
                     color: theme.palette.normal.negative
                     text: errorMessage ||
                           ((incomplete && download === undefined) ? i18n.tr("Download failed") : "")
@@ -189,7 +189,7 @@ ListItem {
                             && !error.visible && !paused
                 width: cancelButton.width
                 horizontalAlignment: Text.AlignHCenter
-                fontSize: "x-small"
+                textSize: Label.Small
                 // TRANSLATORS: %1 is the percentage of the download completed so far
                 text: i18n.tr("%1%").arg(progressBar.progress)
             }
