@@ -250,6 +250,10 @@ BrowserPage {
         }
     }
 
+    Scrollbar {
+        flickableItem: downloadsListView
+    }
+
     Label {
         id: emptyLabel
         anchors.centerIn: parent
