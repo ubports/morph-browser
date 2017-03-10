@@ -20,6 +20,9 @@ webbrowser-app (0.23+17.04.20170307-0ubuntu1) UNRELEASED; urgency=medium
   * Do not go fullscreen if already fullscreen (LP: #1665727)
   * Do not rely on qmake as webbrowser is CMake based
 
+  [ Jeremy Bicha ]
+  * Drop "Open a " prefix from .desktop Actions (LP: #1668699)
+
   [ Matthieu James ]
   * Updated browser icon (LP: #1358050)
 
@@ -30,9 +33,6 @@ webbrowser-app (0.23+17.04.20170307-0ubuntu1) UNRELEASED; urgency=medium
   * Use the no-system-libraries build attribute instead of specifying extra
     stage packages
   * Move snapcraft.yaml to snap directory (new in snapcraft 2.26)
-  * Drop X-Ubuntu-Single-Instance from the desktop file to allow the
-    application to be launched several times in a row when bundled in a snap
-    (LP: #1656252)
   * Add a desktop UA override for dailymotion.com (LP: #1662826)
   * Log oxide and chromium versions at app startup
   * Add UA overrides for google photos (desktop and mobile) (LP: #1665926)
