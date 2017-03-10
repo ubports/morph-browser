@@ -1,3 +1,49 @@
+webbrowser-app (0.23+17.04.20170307-0ubuntu1) UNRELEASED; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Explicitely define Ctrl+R as the refresh shortcut for the browser
+    (LP: #1593877)
+
+  [ Andrew Hayzen ]
+  * Use the new TabsBar component from Ubuntu.Components.Extras
+
+  [ Florian Boucault ]
+  * Add Peekier to available search engines (LP: #1649673)
+  * Bookmarks and history: increased font size one level
+  * Make new tabs opened in the background to be placed next to the tab
+    requesting them instead of at the end of the list of tabs (LP: #1499780)
+  * Enable predictive text in address bar (LP: #1378750)
+  * Fix issue with new tab page sometimes never being unloaded (LP: #1659435)
+  * Snap: embed ubuntu-ui-extras by building it from source
+  * Improved UX for <select> dropdowns in web content
+  * Store and restore on startup the size of each window (LP: #1312892)
+  * Do not go fullscreen if already fullscreen (LP: #1665727)
+  * Do not rely on qmake as webbrowser is CMake based
+
+  [ Jeremy Bicha ]
+  * Drop "Open a " prefix from .desktop Actions (LP: #1668699)
+
+  [ Matthieu James ]
+  * Updated browser icon (LP: #1358050)
+
+  [ Michael Terry ]
+  * Properly set the APP_ID variable for the snappy world
+
+  [ Olivier Tilloy ]
+  * Use the no-system-libraries build attribute instead of specifying extra
+    stage packages
+  * Move snapcraft.yaml to snap directory (new in snapcraft 2.26)
+  * Add a desktop UA override for dailymotion.com (LP: #1662826)
+  * Log oxide and chromium versions at app startup
+  * Add UA overrides for google photos (desktop and mobile) (LP: #1665926)
+  * Explicitly plug to the "mir" interface (LP: #1662145)
+  * Add "ibus" and "nvidia" apparmor abstractions to webbrowser-app apparmor
+    profile
+  * Additional holes in generated apparmor profile to allow webbrowser-app
+    to run under unity8 in zesty (LP: #1590561)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 07 Mar 2017 21:14:20 +0100
+
 webbrowser-app (0.23+17.04.20170125.1-0ubuntu1) zesty; urgency=medium
 
   * Add stage packages to reduce the final size of the snap.

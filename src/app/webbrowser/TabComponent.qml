@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 Canonical Ltd.
+ * Copyright 2014-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -33,6 +33,7 @@ Component {
     id: tabComponent
 
     BrowserTab {
+        id: browserTab
         anchors.fill: parent
         incognito: browser ? browser.incognito : false
         current: browser ? browser.tabsModel && browser.tabsModel.currentTab === this : false
@@ -84,12 +85,14 @@ Component {
                 Actions.OpenLinkInNewTab {
                     objectName: "OpenLinkInNewTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, true,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.OpenLinkInNewBackgroundTab {
                     objectName: "OpenLinkInNewBackgroundTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false)
+                    onTriggered: internal.openUrlInNewTab(contextModel.linkUrl, false,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.OpenLinkInNewWindow {
                     objectName: "OpenLinkInNewWindowContextualAction"
@@ -142,7 +145,8 @@ Component {
                     enabled: contextModel &&
                              (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                              contextModel.srcUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.CopyImage {
                     objectName: "CopyImageContextualAction"
@@ -165,7 +169,8 @@ Component {
                     enabled: contextModel &&
                              (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
                              contextModel.srcUrl.toString()
-                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true)
+                    onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true,
+                                                          true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.SaveVideo {
                     objectName: "SaveVideoContextualAction"
@@ -253,9 +258,9 @@ Component {
             contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
             onNewViewRequested: {
-                var tab = browser.createTab({"request": request})
+                var newTab = browser.createTab({"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
-                internal.addTab(tab, setCurrent)
+                internal.addTab(newTab, setCurrent, tabsModel.indexOf(browserTab) + 1)
                 if (setCurrent) tabContainer.forceActiveFocus()
             }
 
@@ -263,11 +268,9 @@ Component {
             onPrepareToCloseResponse: {
                 if (proceed) {
                     if (tab) {
-                        for (var i = 0; i < tabsModel.count; ++i) {
-                            if (tabsModel.get(i) === tab) {
-                                tabsModel.remove(i)
-                                break
-                            }
+                        var i = tabsModel.indexOf(tab);
+                        if (i != -1) {
+                            tabsModel.remove(i);
                         }
 
                         // tab.close() destroys the context so add new tab before destroy if required

@@ -43,6 +43,9 @@ var overrides = [
     // Google recaptcha (https://launchpad.net/bugs/1599146)
     ["^https:\/\/www\.google\.com\/recaptcha\/", ubuntu_like_android_override],
 
+    // Google photos (https://launchpad.net/bugs/1665926)
+    ["^https:\/\/photos\.google\.com\/", ubuntu_like_android_override],
+
     // Facebook (https://launchpad.net/bugs/1538056, https://launchpad.net/bugs/1457661)
     ["^https:\/\/(www|m)\.facebook\.com\/", nexus5_override],
 

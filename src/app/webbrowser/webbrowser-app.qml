@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
+import com.canonical.Oxide 1.15
 import "."
 import ".."
 import webbrowsercommon.private 0.1
@@ -89,6 +90,7 @@ QtObject {
             id: window
 
             property alias incognito: browser.incognito
+            readonly property alias model: browser.tabsModel
             readonly property var tabsModel: browser.tabsModel
 
             currentWebview: browser.currentWebview
@@ -145,9 +147,6 @@ QtObject {
 
             function toggleApplicationLevelFullscreen() {
                 setFullscreen(visibility !== Window.FullScreen)
-                if (browser.currentWebview.fullscreen) {
-                    browser.currentWebview.fullscreen = false
-                }
             }
 
             Shortcut {
@@ -185,25 +184,7 @@ QtObject {
                 anchors.fill: parent
                 thisWindow: window
                 settings: webbrowserapp.settings
-                onNewWindowFromTab: {
-                    var window = windowFactory.createObject(
-                        null,
-                        {
-                            "incognito": tab.incognito,
-                            "height": parent.height,
-                            "width": parent.width,
-                        }
-                    );
-
-                    window.addExistingTab(tab);
-                    window.tabsModel.currentIndex = window.tabsModel.count - 1;
-                    window.show();
-                    window.requestActivate();
-
-                    window.tabsModel.currentTab.load();
-
-                    callback();
-                }
+                windowFactory: webbrowserapp.windowFactory
                 onNewWindowRequested: {
                     var window = windowFactory.createObject(
                         null,
@@ -246,7 +227,6 @@ QtObject {
                     // ESC to exit fullscreen, regardless of whether it was
                     // requested by the page or toggled on by the user.
                     window.setFullscreen(false)
-                    browser.currentWebview.fullscreen = false
                 }
             }
 
@@ -287,14 +267,6 @@ QtObject {
                 tabsModel.add(tab)
                 return tab
             }
-
-            function addExistingTab(tab) {
-                tabsModel.add(tab);
-
-                browser.bindExistingTab(tab);
-
-                return tab;
-            }
         }
     }
 
@@ -329,8 +301,6 @@ QtObject {
 
     property var session: SessionStorage {
         dataFile: dataLocation + "/session.json"
-
-        // TODO: do we want to save/restore window positions too (https://launchpad.net/bugs/1312892)?
 
         function save() {
             if (!locked || restoring) {
@@ -390,11 +360,19 @@ QtObject {
             for (var i = 0; i < window.tabsModel.count; ++i) {
                 tabs.push(window.serializeTabState(window.tabsModel.get(i)))
             }
-            return {tabs: tabs, currentIndex: window.tabsModel.currentIndex}
+            return {tabs: tabs, currentIndex: window.tabsModel.currentIndex,
+                    width: window.width, height: window.height}
         }
 
         function restoreWindowState(state) {
-            var window = windowFactory.createObject(null)
+            var windowProperties = {}
+            if (state.width) {
+                windowProperties["width"] = state.width
+            }
+            if (state.height) {
+                windowProperties["height"] = state.height
+            }
+            var window = windowFactory.createObject(null, windowProperties)
             for (var i in state.tabs) {
                 window.tabsModel.add(window.restoreTabState(state.tabs[i]))
             }
@@ -495,4 +473,6 @@ QtObject {
             PreviewManager.cleanUnusedPreviews(doNotCleanUrls)
         }
     }
+
+    Component.onCompleted: console.info("webbrowser-app using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
 }
