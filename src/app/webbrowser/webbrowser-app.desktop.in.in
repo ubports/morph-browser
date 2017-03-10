@@ -12,15 +12,16 @@ Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 X-Ubuntu-Touch=true
 X-Ubuntu-Gettext-Domain=webbrowser-app
+X-Ubuntu-Single-Instance=true
 X-Ubuntu-Default-Department-ID=web-browsers
 X-Screenshot=@CMAKE_INSTALL_FULL_DATADIR@/webbrowser-app/screenshot.png
 X-Ubuntu-Splash-Color=#FFFFFF
-Actions=NewWindow;Incognito;
+Actions=new-window;Incognito;
 
-[Desktop Action NewWindow]
-_Name=Open a New Window
+[Desktop Action new-window]
+_Name=New Window
 Exec=webbrowser-app --new-window
 
 [Desktop Action Incognito]
-_Name=Open a New Private Window
+_Name=New Private Window
 Exec=webbrowser-app --incognito
