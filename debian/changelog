@@ -1,4 +1,4 @@
-webbrowser-app (0.23+17.04.20170307-0ubuntu1) UNRELEASED; urgency=medium
+webbrowser-app (0.23+17.04.20170310-0ubuntu1) zesty; urgency=medium
 
   [ Alexandre Abreu ]
   * Explicitely define Ctrl+R as the refresh shortcut for the browser
@@ -42,7 +42,7 @@ webbrowser-app (0.23+17.04.20170307-0ubuntu1) UNRELEASED; urgency=medium
   * Additional holes in generated apparmor profile to allow webbrowser-app
     to run under unity8 in zesty (LP: #1590561)
 
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 07 Mar 2017 21:14:20 +0100
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 10 Mar 2017 15:35:28 +0000
 
 webbrowser-app (0.23+17.04.20170125.1-0ubuntu1) zesty; urgency=medium
 
