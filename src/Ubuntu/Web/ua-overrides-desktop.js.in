@@ -67,4 +67,7 @@ var overrides = [
 
     // Dailymotion (https://launchpad.net/bugs/1662826)
     ["^http:\/\/www\.dailymotion\.com\/", chrome_desktop_override],
+
+    // Dropbox (https://launchpad.net/bugs/1672804)
+    ["^https:\/\/www\.dropbox\.com\/", chrome_desktop_override],
 ];
