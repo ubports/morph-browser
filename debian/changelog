@@ -1,3 +1,11 @@
+webbrowser-app (0.23+17.04.20170320-0ubuntu1) UNRELEASED; urgency=medium
+
+  * Snap package: add two extra build deps now required by
+    lp:ubuntu-ui-extras
+  * Add a desktop UA override for dropbox.com (LP: #1672804)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 20 Mar 2017 19:56:31 +0100
+
 webbrowser-app (0.23+17.04.20170310-0ubuntu1) zesty; urgency=medium
 
   [ Alexandre Abreu ]
