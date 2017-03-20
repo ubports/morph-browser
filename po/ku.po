@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-12-18 19:37+0100\n"
+"POT-Creation-Date: 2017-03-15 20:08+0100\n"
 "PO-Revision-Date: 2017-02-17 00:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2017-02-18 05:49+0000\n"
-"X-Generator: Launchpad (build 18326)\n"
+"X-Launchpad-Export-Date: 2017-03-19 06:33+0000\n"
+"X-Generator: Launchpad (build 18332)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -69,7 +69,7 @@ msgstr "Derkeve"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
-msgstr ""
+msgstr "Sekinîn"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "Destûr"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
@@ -304,11 +304,11 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
-msgstr ""
+msgstr "Erê"
 
 #: src/app/MediaAccessDialog.qml:83
 msgid "No"
-msgstr ""
+msgstr "Na"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -326,7 +326,7 @@ msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "Paş"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -336,7 +336,7 @@ msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Bijare"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -350,7 +350,7 @@ msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Dîrokê Paqij Bike"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -360,7 +360,7 @@ msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Kopî bike"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -372,11 +372,11 @@ msgstr ""
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Jê Bike"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Jê bibe"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
 msgid "Find in page"
@@ -390,7 +390,7 @@ msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "Pêşve"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -400,7 +400,7 @@ msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Biçe"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -411,7 +411,7 @@ msgstr ""
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
 #: src/app/webbrowser/TabsBar.qml:110
 msgid "New Tab"
-msgstr ""
+msgstr "Hilpekîna nû"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -449,16 +449,16 @@ msgstr ""
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Pêveke"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Dîsa bike"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr ""
+msgstr "Ji nû ve bar bike"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -468,7 +468,7 @@ msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Wêneyê tomar bike"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
@@ -480,15 +480,15 @@ msgstr ""
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr ""
+msgstr "Hemûyan hilbijêre"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
 msgid "Share"
-msgstr ""
+msgstr "Parve bike"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Vegerîne"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:212
@@ -511,7 +511,7 @@ msgstr ""
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr ""
+msgstr "Nav"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
@@ -527,37 +527,37 @@ msgstr ""
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr ""
+msgstr "Peldanka Nû"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr ""
+msgstr "Peldankeke nû biafirîne"
 
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr ""
+msgstr "Tomar Bike"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
 #: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
-msgstr ""
+msgstr "Malper"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
 #: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
-msgstr ""
+msgstr "Bijare"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
 #: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
-msgstr ""
+msgstr "Temam"
 
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
@@ -565,11 +565,11 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:421
 #: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr ""
+msgstr "Hilpekîna nû"
 
 #: src/app/webbrowser/Browser.qml:540
 msgid "New window"
-msgstr ""
+msgstr "Paceya nû"
 
 #: src/app/webbrowser/Browser.qml:546
 msgid "New private window"
@@ -578,21 +578,21 @@ msgstr ""
 #: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
-msgstr ""
+msgstr "Dîrok"
 
 #: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
-msgstr ""
+msgstr "Daxistin"
 
 #: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr ""
+msgstr "Mîheng"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -605,7 +605,7 @@ msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "Bidaxîne"
 
 #: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
@@ -615,11 +615,11 @@ msgstr ""
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Dewam bike"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr ""
+msgstr "Jê bibe"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
@@ -643,7 +643,7 @@ msgstr[1] ""
 #: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
-msgstr ""
+msgstr "Kêmtir"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
@@ -652,7 +652,7 @@ msgstr ""
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
-msgstr ""
+msgstr "Doh"
 
 #: src/app/webbrowser/HistoryViewWide.qml:160
 msgid "search history"
@@ -665,7 +665,7 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:249
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
-msgstr ""
+msgstr "Îro"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -679,7 +679,7 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
-msgstr ""
+msgstr "Bêhtir"
 
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
@@ -708,7 +708,7 @@ msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Hilpekînê bigre"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -764,7 +764,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Wekî heyî"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
@@ -807,7 +807,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
-msgstr ""
+msgstr "Paqij bike"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
@@ -815,7 +815,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "kamêra"
 
 #: src/app/webbrowser/TabComponent.qml:406
 msgid "Swipe Up To Exit Full Screen"
@@ -835,11 +835,11 @@ msgstr ""
 
 #: src/app/webbrowser/TabsBar.qml:130
 msgid "Close Tab"
-msgstr ""
+msgstr "Hilpekinê Dade"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "Rake"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:99
@@ -873,7 +873,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Bigire"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -883,7 +883,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Têketin serneket"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -908,7 +908,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Derbas be"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
@@ -920,11 +920,11 @@ msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "Gerok"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "Geroka Torê"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
@@ -935,9 +935,12 @@ msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
-msgid "Open a New Window"
+msgid "New Window"
 msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
-msgid "Open a New Private Window"
+msgid "New Private Window"
 msgstr ""
+
+#~ msgid "Open a New Window"
+#~ msgstr "Paceyek Nû Veke"
