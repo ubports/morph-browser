@@ -37,7 +37,6 @@
         "/sys/devices/**/input*/"
       ],
       "write_path": [
-        "@{HOME}/@{XDG_DOWNLOAD_DIR}/"
       ]
     }
   }
