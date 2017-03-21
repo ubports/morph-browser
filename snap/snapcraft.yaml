@@ -84,6 +84,8 @@ parts:
       - qtbase5-dev
       - qtdeclarative5-dev
       - libexiv2-dev
+      - libcups2-dev
+      - cmake-extras
     stage-packages:
       - libexiv2-14
     build-attributes: [no-system-libraries]
