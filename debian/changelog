@@ -1,3 +1,16 @@
+webbrowser-app (0.23+17.04.20170321-0ubuntu1) zesty; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Add access to the downloads folder to the generated apparmor profile
+    rather than via write_paths in the manifest to work around LP: #1620635
+
+  [ Olivier Tilloy ]
+  * Snap package: add two extra build deps now required by
+    lp:ubuntu-ui-extras
+  * Add a desktop UA override for dropbox.com (LP: #1672804)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 21 Mar 2017 20:43:10 +0000
+
 webbrowser-app (0.23+17.04.20170310-0ubuntu1) zesty; urgency=medium
 
   [ Alexandre Abreu ]
