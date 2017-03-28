@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2015-2016 Canonical
+# Copyright 2015-2017 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -20,6 +20,7 @@ import time
 import testtools
 
 from testtools.matchers import Equals, Mismatch, NotEquals, GreaterThan
+from autopilot import exceptions
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -260,6 +261,21 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
         self.main_window.press_key('Ctrl+d')
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
+
+    def test_cannot_bookmark_empty_tab(self):
+        self.main_window.press_key('Ctrl+t')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Equals(""))
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+        self.main_window.press_key('Ctrl+d')
+        time.sleep(2)
+        try:
+            self.main_window.get_bookmark_options()
+        except exceptions.StateNotFoundError:
+            pass
+        else:
+            self.fail("Bookmarking an empty tab should not be allowed")
 
     def test_history_navigation_with_alt_arrows(self):
         previous = self.main_window.get_current_webview().url

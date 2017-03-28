@@ -1348,7 +1348,7 @@ BrowserView {
     // Ctrl+D: Toggle bookmarked state on current Tab
     Shortcut {
         sequence: "Ctrl+D"
-        enabled: contentsContainer.visible
+        enabled: contentsContainer.visible && !newTabViewLoader.active
         onActivated: {
             if (internal.currentBookmarkOptionsDialog) {
                 internal.currentBookmarkOptionsDialog.hide()
