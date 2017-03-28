@@ -28,7 +28,7 @@ plugs:
     allow-sandbox: true
   mir-libs:
     content: mir0
-    default-provider: mir-libs:mir-libs
+    default-provider: mir-libs
     interface: content
     target: mir-libs
   platform:
