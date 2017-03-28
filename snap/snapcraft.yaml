@@ -12,6 +12,7 @@ apps:
       - browser-sandbox
       - camera
       - mir
+      - mir-libs
       - network
       - network-bind
       - opengl
@@ -25,6 +26,11 @@ plugs:
   browser-sandbox:
     interface: browser-support
     allow-sandbox: true
+  mir-libs:
+    content: mir0
+    default-provider: mir-libs
+    interface: content
+    target: mir-libs
   platform:
     content: ubuntu-app-platform1
     default-provider: ubuntu-app-platform
