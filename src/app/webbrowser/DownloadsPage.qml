@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Canonical Ltd.
+ * Copyright 2015-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -248,6 +248,10 @@ BrowserPage {
                 currentItem.removed()
             }
         }
+    }
+
+    Scrollbar {
+        flickableItem: downloadsListView
     }
 
     Label {
