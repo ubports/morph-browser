@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2013-2017 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,7 +38,6 @@
 #include "favicon-fetcher.h"
 #include "meminfo.h"
 #include "mime-database.h"
-#include "qquickshortcut_p.h"
 #include "session-storage.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
@@ -176,7 +175,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
-    qmlRegisterType<QQuickShortcut>(uri, 0, 1, "Shortcut");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));

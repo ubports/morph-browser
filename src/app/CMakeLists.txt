@@ -24,13 +24,11 @@ set(COMMONLIB_SRC
     mime-database.cpp
     session-storage.cpp
     single-instance-manager.cpp
-    qquickshortcut.cpp
 )
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-include_directories(${LIBAPPARMOR_INCLUDE_DIRS}
-                    ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
+include_directories(${LIBAPPARMOR_INCLUDE_DIRS})
 target_link_libraries(${COMMONLIB}
     Qt5::Core
     Qt5::Gui
