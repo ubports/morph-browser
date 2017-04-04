@@ -251,7 +251,6 @@ void TabsModel::move(int from, int to)
 bool TabsModel::checkValidTabIndex(int index) const
 {
     if ((index < 0) || (index >= m_tabs.count())) {
-        qWarning() << "Invalid tab index:" << index;
         return false;
     }
     return true;
