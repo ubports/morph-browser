@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2017-03-19 06:34+0000\n"
-"X-Generator: Launchpad (build 18332)\n"
+"X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -417,7 +417,7 @@ msgstr "Izreži"
 msgid "Erase"
 msgstr "Izbriši"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
 msgid "Find in page"
 msgstr "Najdi na strani"
 
@@ -447,8 +447,8 @@ msgstr "Pojdi na"
 msgid "Address;URL;www"
 msgstr "Naslov;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
-#: src/app/webbrowser/TabsBar.qml:110
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "Nov zavihek"
 
@@ -476,11 +476,11 @@ msgstr "Odpri povezavo v novem zavihku"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Odprite povezavo v novem oknu"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Odprite povezavo v zasebnem oknu"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -495,7 +495,7 @@ msgid "Redo"
 msgstr "Ponovno uveljavi"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Ponovno naloži"
 
@@ -521,7 +521,7 @@ msgstr "Shrani videoposnetek"
 msgid "Select all"
 msgstr "Izberi vse"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
 msgstr "Deli"
 
@@ -586,14 +586,14 @@ msgstr "Domača stran"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Končano"
@@ -601,34 +601,34 @@ msgstr "Končano"
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Nov zavihek"
 
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:585
 msgid "New window"
-msgstr ""
+msgstr "Novo okno"
 
-#: src/app/webbrowser/Browser.qml:546
+#: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr ""
+msgstr "Novo zasebno okno"
 
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Zgodovina"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
 msgstr "Prejemi"
 
-#: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Nastavitve"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
+#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -655,7 +655,7 @@ msgstr "Prejemanje ni uspelo"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
@@ -866,11 +866,11 @@ msgstr "Mikrofon"
 msgid "Camera"
 msgstr "Kamera"
 
-#: src/app/webbrowser/TabComponent.qml:406
+#: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Potegnite navzgor za izhod iz celozaslonskega načina"
 
-#: src/app/webbrowser/TabComponent.qml:407
+#: src/app/webbrowser/TabComponent.qml:410
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pritisnite ESC za izhod iz celozaslonskega načina"
 
@@ -878,11 +878,11 @@ msgstr "Pritisnite ESC za izhod iz celozaslonskega načina"
 msgid "Tap to view"
 msgstr "Tapnite za pogled"
 
-#: src/app/webbrowser/TabsBar.qml:121
+#: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr ""
+msgstr "Premakni na novo okno"
 
-#: src/app/webbrowser/TabsBar.qml:130
+#: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
 msgstr "Zapri zavihek"
 
@@ -891,14 +891,14 @@ msgid "Remove"
 msgstr "Odstrani"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:99
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Spletni brskalnik Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:101
-#: src/app/webcontainer/webapp-container.qml:74
+#: src/app/webbrowser/webbrowser-app.qml:103
+#: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
 msgstr "Spletni brskalnik Ubuntu"
 
@@ -1046,3 +1046,9 @@ msgstr ""
 
 #~ msgid "Leave Private Mode"
 #~ msgstr "Zapusti Zasebni način"
+
+#~ msgid "Open a New Private Window"
+#~ msgstr "Odpri novo zasebno okno"
+
+#~ msgid "Open a New Window"
+#~ msgstr "Odpri novo okno"

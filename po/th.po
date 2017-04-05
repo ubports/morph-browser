@@ -15,36 +15,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2017-03-19 06:34+0000\n"
-"X-Generator: Launchpad (build 18332)\n"
+"X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "คำเตือนเกี่ยวกับ JavaScript"
 
 #: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr ""
+msgstr "ตกลง"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr ""
+msgstr "ต้องยืนยันตัวบุคคล"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "เว็บไซต์ %1 จำเป็นต้องยืนยันตัวบุคคล"
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr ""
+msgstr "ชื่อผู้ใช้"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
-msgstr ""
+msgstr "รหัสผ่าน"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
@@ -57,23 +57,23 @@ msgstr ""
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 msgid "Cancel"
-msgstr ""
+msgstr "ยกเลิก"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "ยืนยันการนำทาง"
 
 #: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
-msgstr ""
+msgstr "ออก"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
-msgstr ""
+msgstr "อยู่ต่อ"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "การเชื่อมต่อนี้ไม่มีความน่าเชื่อถือ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -82,54 +82,56 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"คุณกำลังพยายามเข้าถึง %1 อย่างปลอดภัย "
+"แต่ใบรับรองความปลอดภัยของเว็บไซต์นี้ไม่มีความน่าเชื่อถือ"
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
-msgstr ""
+msgstr "ดำเนินการต่อ"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
-msgstr ""
+msgstr "กลับสู่ความปลอดภัย"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "การยืนยัน JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "เครือข่ายผิดพลาด"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "ดูเหมือนว่าคุณกำลังมีปัญหาในการดู: %1"
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "โปรดตรวจสอบค่าตั้งเครือข่ายของคุณ แล้วลองรีเฟรชหน้าใหม่"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
+msgstr "รีเฟรชหน้า"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "การร้องขอการใช้สิทธิ์"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "หน้านี้ต้องการทราบตำแหน่งที่ตั้งของอุปกรณ์ของคุณ"
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr ""
+msgstr "ปฏิเสธ"
 
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
-msgstr ""
+msgstr "อนุญาต"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
@@ -139,11 +141,11 @@ msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "ใบรับรองความปลอดภัยของไซต์นี้ไม่มีความน่าเชื่อถือ\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
-msgstr ""
+msgstr "ศึกษาเพิ่มเติม"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:88
@@ -152,6 +154,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"รหัสผลิตภัณฑ์:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:95
@@ -160,6 +164,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"หมวดหมู่:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:103
@@ -168,6 +174,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"ที่อยู่ของหมวดหมู่:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:114
@@ -176,6 +184,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"ผู้ออกใบรับรอง:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:122
@@ -184,6 +194,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"ที่อยู่ของผู้ออกใบรับรอง:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:133
@@ -192,6 +204,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"มีผลตั้งแต่:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:140
@@ -200,6 +214,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"มีผลจนถึง:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:147
@@ -208,12 +224,15 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"ลายนิ้วมือ (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:154
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"คุณไม่ควรดำเนินการต่อ โดยเฉพาะถ้าคุณไม่เคยเห็นคำเตือนนี้มาก่อนสำหรับไซต์นี้"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:188
@@ -222,6 +241,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 "
+"แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยที่ไม่ตรงกับชื่อของเว็บไซต์"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:191
@@ -230,6 +251,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยที่หมดอายุไปแล้ว"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:194
@@ -238,6 +260,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 "
+"แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยซึ่งกำหนดวันที่ไม่ถูกต้อง"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:197
@@ -246,6 +270,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 "
+"แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยที่ออกให้โดยเอนทิตีที่ไม่น่าเชื่อถือ"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:200
@@ -254,6 +280,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยที่ถูกเพิกถอนไปแล้ว"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:203
@@ -262,6 +289,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยที่ไม่ถูกต้อง"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:206
@@ -270,6 +298,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"คุณได้พยายามเข้าถึง %1 แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยที่ขาดความปลอดภัย"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:209
@@ -279,6 +308,10 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"ใบรับรองความปลอดภัยของเว็บไซต์นี้ไม่มีความน่าเชื่อถือ\n"
+"คุณได้พยายามเข้าถึง %1 "
+"แต่เซิร์ฟเวอร์มีใบรับรองความปลอดภัยซึ่งทำให้การตรวจสอบความปลอดภัยของเราล้มเหล"
+"วโดยไม่ทราบเหตุผล"
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
@@ -286,142 +319,142 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "อนุญาตให้โดเมนนี้เข้าถึงกล้องและไมโครโฟนของคุณหรือไม่?"
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "อนุญาตให้โดเมนนี้เข้าถึงกล้องของคุณหรือไม่?"
 
 #: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "อนุญาตให้โดเมนนี้เข้าถึงไมโครโฟนของคุณหรือไม่?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/MediaAccessDialog.qml:48
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (ฝังตัวใน %2)"
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
-msgstr ""
+msgstr "ใช่"
 
 #: src/app/MediaAccessDialog.qml:83
 msgid "No"
-msgstr ""
+msgstr "ไม่"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "พรอมต์ของ JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "จำเป็นต้องตรวจสอบความถูกต้องของพร็อกซี"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "เว็บไซต์ %1:%2 ต้องการการยืนยันตัวบุคคล"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "ย้อนกลับ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "หน้าที่เก่ากว่านี้"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "ที่คั่นหน้า"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "เพิ่มหน้านี้ไปยังรายชื่อที่คั่นหน้า"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "ลิงก์ที่คั่นหน้า"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "ล้างประวัติ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "ล้างประวัติการนำทาง"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "คัดลอก"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "คัดลอกรูปภาพ"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "คัดลอกลิงก์"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "ตัด"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "ลบ"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
 msgid "Find in page"
-msgstr ""
+msgstr "ค้นหาในหน้า"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "ค้นหาในหน้า"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "ถัดไป"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "หน้าที่ใหม่กว่านี้"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "ไปยัง"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr ""
+msgstr "ที่อยู่;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
-#: src/app/webbrowser/TabsBar.qml:110
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
-msgstr ""
+msgstr "แท็บใหม่"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "เปิดแท็บใหม่"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "เปิดรูปภาพในแท็บใหม่"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
@@ -429,11 +462,11 @@ msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "เปิดลิงก์ในแท็บพื้นหลังใหม่"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "เปิดลิงก์ในแท็บใหม่"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
@@ -445,171 +478,171 @@ msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "เปิดวิดีโอในแท็บใหม่"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "วาง"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "ทำซ้ำ"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr ""
+msgstr "โหลดใหม่"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr ""
+msgstr "ออกจากหน้านี้"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "บันทึกรูปภาพ"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "บันทึกลิงก์"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "บันทึกวิดีโอ"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr ""
+msgstr "เลือกทั้งหมด"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
-msgstr ""
+msgstr "แบ่งปัน"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "เลิกทำ"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
-msgstr ""
+msgstr "ค้นหาในหน้า"
 
 #: src/app/webbrowser/AddressBar.qml:249
 msgid "search or enter an address"
-msgstr ""
+msgstr "ค้นหาหรือป้อนที่อยู่"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
-msgstr ""
+msgstr "เพิ่มที่คั่นหน้าแล้ว"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr ""
+msgstr "ชื่อ"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
-msgstr ""
+msgstr "บันทึกใน"
 
 #: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
-msgstr ""
+msgstr "ที่คั่นหน้าทั้งหมด"
 
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr ""
+msgstr "โฟลเดอร์ใหม่"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr ""
+msgstr "สร้างโฟลเดอร์ใหม่"
 
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr ""
+msgstr "บันทึก"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
 #: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
-msgstr ""
+msgstr "หน้าแรก"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
-msgstr ""
+msgstr "ที่คั่นหน้า"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
-msgstr ""
+msgstr "เสร็จสิ้น"
 
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr ""
+msgstr "แท็บใหม่"
 
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:585
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:546
+#: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
-msgstr ""
+msgstr "ประวัติ"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
-msgstr ""
+msgstr "ดาวน์โหลด"
 
-#: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr ""
+msgstr "การตั้งค่า"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
+#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
-msgstr ""
+msgstr "เลือกโปรแกรมที่จะเปิดแฟ้มนี้หรือเพิ่มลงในโฟลเดอร์ดาวน์โหลด"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
-msgstr ""
+msgstr "เลือกโปรแกรม"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "ดาวน์โหลด"
 
 #: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
-msgstr ""
+msgstr "การดาวน์โหลดล้มเหลว"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:194
@@ -619,267 +652,275 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "ทำต่อ"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
-msgstr ""
+msgstr "ยืนยันการเลือก"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr ""
+msgstr "ลบ"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
-msgstr ""
+msgstr "ไม่มีดาวน์โหลดที่พร้อมใช้งาน"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 หน้า"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
-msgstr ""
+msgstr "น้อยลง"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
-msgstr ""
+msgstr "เยี่ยมชมล่าสุด"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
-msgstr ""
+msgstr "เมื่อวานนี้"
 
 #: src/app/webbrowser/HistoryViewWide.qml:160
 msgid "search history"
-msgstr ""
+msgstr "ค้นหาประวัติ"
 
 #: src/app/webbrowser/HistoryViewWide.qml:235
 msgid "All History"
-msgstr ""
+msgstr "ประวัติทั้งหมด"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
-msgstr ""
+msgstr "วันนี้"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "นี่คือแท็บส่วนตัว"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"หน้าที่คุณดูในแท็บนี้จะไม่ปรากฏในประวัติเบราว์เซอร์ของคุณ\n"
+"แต่อย่างไรก็ตาม ที่คั่นหน้าที่คุณสร้างขึ้นจะถูกรักษาไว้"
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
-msgstr ""
+msgstr "เพิ่มเติม"
 
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
-msgstr ""
+msgstr "ไซต์ยอดนิยม"
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "คุณยังไม่ได้เยี่ยมชมไซต์ใด ๆ เลย"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "โปรเซสการแสดงผลได้ถูกปิดสำหรับแท็บนี้แล้ว"
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "มีบางอย่างผิดปกติขณะแสดงผล %1"
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"ระบบมีหน่วยความจำเหลือน้อยและไม่สามารถแสดงผลหน้าเว็บนี้ได้ "
+"ให้ปิดแท็บที่ไม่ต้องการใช้แล้วลองใหม่"
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "ปิดแท็บ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "ไซต์นี้มีเนื้อหาที่ไม่ปลอดภัย"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "ข้อมูลประจำตัวยังไม่ได้รับการยืนยัน"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "ข้อมูลประจำตัวของเว็บไซต์นี้ยังไม่ได้รับการยืนยัน"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์ไม่ตรงกับข้อมูลประจำตัวของไซต์"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์หมดอายุแล้ว"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์มีวันที่ไม่ถูกต้อง"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์ออกให้โดยเอนทิตีที่ไม่น่าเชื่อถือ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์ถูกเพิกถอนแล้ว"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์ไม่ถูกต้อง"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "ใบรับรองเซิร์ฟเวอร์ไม่ปลอดภัย"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"ใบรับรองเซิร์ฟเวอร์ทำให้การตรวจสอบความปลอดภัยของเราล้มเหลวโดยไม่ทราบเหตุผล"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "คุณได้เชื่อมต่อกับ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "ซึ่งเรียกใช้โดย"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "ค่าปริยาย"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
 msgid "Search engine"
-msgstr ""
+msgstr "เครื่องมือค้นหา"
 
 #: src/app/webbrowser/SettingsPage.qml:96
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "เรียกคืนวาระก่อนหน้าเมื่อเปิดโปรแกรม"
 
 #: src/app/webbrowser/SettingsPage.qml:115
 #: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "ความเป็นส่วนตัว & สิทธิ์การใช้งาน"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
-msgstr ""
+msgstr "รีเซ็ตค่าตั้งเบราว์เซอร์"
 
 #: src/app/webbrowser/SettingsPage.qml:206
 #: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
-msgstr ""
+msgstr "กล้องและไมโครโฟน"
 
 #: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "ล้างประวัติการท่องเว็บ"
 
 #: src/app/webbrowser/SettingsPage.qml:219
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "ต้องการล้างประวัติการท่องเว็บหรือไม่?"
 
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
-msgstr ""
+msgstr "ล้างแคข"
 
 #: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
-msgstr ""
+msgstr "ต้องการล้างแคชหรือไม่?"
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
-msgstr ""
+msgstr "ล้าง"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
-msgstr ""
+msgstr "ไมโครโฟน"
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "กล้อง"
 
-#: src/app/webbrowser/TabComponent.qml:406
+#: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "กวาดขึ้นเพื่อออกจากโหมดเต็มหน้าจอ"
 
-#: src/app/webbrowser/TabComponent.qml:407
+#: src/app/webbrowser/TabComponent.qml:410
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "กด ESC เพื่อออกจากโหมดเต็มหน้าจอ"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
-msgstr ""
+msgstr "แตะเพื่อดู"
 
-#: src/app/webbrowser/TabsBar.qml:121
+#: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
 msgstr ""
 
-#: src/app/webbrowser/TabsBar.qml:130
+#: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
-msgstr ""
+msgstr "ปิดแท็บ"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "ลบ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:99
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - เว็บเบราว์เซอร์ Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:101
-#: src/app/webcontainer/webapp-container.qml:74
+#: src/app/webbrowser/webbrowser-app.qml:103
+#: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "เว็บเบราว์เซอร์ Ubuntu"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"ไม่มีบัญชีที่ถูกเชื่อมโยงกับเว็บแอปนี้ กดรายการด้านล่างเพื่อเพิ่มบัญชี"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr ""
+msgstr "เพิ่มบัญชี"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "ไม่ต้องใช้บัญชี"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "บัญชีผิดพลาด"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "ปิด"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"ไม่สามารถเปิดหน้าต่างบัญชีได้ "
+"คุณสามารถสร้างได้เพียงบัญชีเดียวในแต่ละครั้งเท่านั้น "
+"โปรดปิดหน้าต่างบัญชีอื่น ๆ แล้วลองอีกครั้ง"
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
@@ -889,50 +930,51 @@ msgstr ""
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> ต้องการเข้าถึงบัญชีออนไลน์ %2 ของคุณ"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> ต้องการเข้าถึงบัญชีออนไลน์ %2 ของคุณ"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr ""
+msgstr "เลือกบัญชีตอนนี้ หรือข้ามขั้นตอนนี้ไป แล้วมาเลือกบัญชีออนไลน์ทีหลัง"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "ปิดแอป"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "ข้าม"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "เลือกบัญชี"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "อ๊ะ เกิดข้อผิดพลาดบางอย่าง"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "เบราว์เซอร์"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "เว็บเบราว์เซอร์"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "ท่องเว็บในอินเทอร์เน็ต"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
+"Internet;WWW;Browser;Web;Explorer;อินเทอร์เน็ต;เบราว์เซอร์;เว็บ;ตัวสำรวจ;"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "New Window"
