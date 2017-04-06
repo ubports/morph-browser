@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2017-03-19 06:33+0000\n"
-"X-Generator: Launchpad (build 18332)\n"
+"X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -378,7 +378,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
 msgid "Find in page"
 msgstr ""
 
@@ -408,8 +408,8 @@ msgstr "Get"
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
-#: src/app/webbrowser/TabsBar.qml:110
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgid "Redo"
 msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr ""
 
@@ -482,7 +482,7 @@ msgstr ""
 msgid "Select all"
 msgstr ""
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
 msgstr ""
 
@@ -547,14 +547,14 @@ msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Əlfəcinlər"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr ""
@@ -562,34 +562,34 @@ msgstr ""
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:585
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:546
+#: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
+#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
 #, qt-format
 msgid "(%1)"
 msgstr ""
@@ -817,11 +817,11 @@ msgstr ""
 msgid "Camera"
 msgstr ""
 
-#: src/app/webbrowser/TabComponent.qml:406
+#: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/TabComponent.qml:407
+#: src/app/webbrowser/TabComponent.qml:410
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -829,11 +829,11 @@ msgstr ""
 msgid "Tap to view"
 msgstr ""
 
-#: src/app/webbrowser/TabsBar.qml:121
+#: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
 msgstr ""
 
-#: src/app/webbrowser/TabsBar.qml:130
+#: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
 msgstr ""
 
@@ -842,14 +842,14 @@ msgid "Remove"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:99
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.qml:101
-#: src/app/webcontainer/webapp-container.qml:74
+#: src/app/webbrowser/webbrowser-app.qml:103
+#: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
 msgstr ""
 

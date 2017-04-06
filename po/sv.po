@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2017-03-19 06:34+0000\n"
-"X-Generator: Launchpad (build 18332)\n"
+"X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
+"X-Generator: Launchpad (build 18335)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:24
@@ -413,7 +413,7 @@ msgstr "Klipp ut"
 msgid "Erase"
 msgstr "Radera"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:572
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
 msgid "Find in page"
 msgstr "Hitta på sida"
 
@@ -443,8 +443,8 @@ msgstr "Gå till"
 msgid "Address;URL;www"
 msgstr "Adress;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:441
-#: src/app/webbrowser/TabsBar.qml:110
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "Ny flik"
 
@@ -472,11 +472,11 @@ msgstr "Öppna länk i ny flik"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Öppna länk i nytt fönster"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Öppna länk i privat fönster"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -491,7 +491,7 @@ msgid "Redo"
 msgstr "Gör om"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:115 src/app/webcontainer/SadPage.qml:51
+#: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Läs om sidan"
 
@@ -517,7 +517,7 @@ msgstr "Spara video"
 msgid "Select all"
 msgstr "Markera alla"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:552
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
 msgstr "Dela"
 
@@ -582,14 +582,14 @@ msgstr "Hemsida"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
 msgstr "Klar"
@@ -597,34 +597,34 @@ msgstr "Klar"
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
 #: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421
-#: src/app/webbrowser/TabsBar.qml:191 src/app/webbrowser/TabsList.qml:99
+#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Ny flik"
 
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:585
 msgid "New window"
-msgstr ""
+msgstr "Nytt fönster"
 
-#: src/app/webbrowser/Browser.qml:546
+#: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr ""
+msgstr "Nytt privat fönster"
 
-#: src/app/webbrowser/Browser.qml:566 src/app/webbrowser/HistoryView.qml:30
+#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:579 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
 msgstr "Hämtningar"
 
-#: src/app/webbrowser/Browser.qml:586 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
 msgstr "Inställningar"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:759 src/app/webbrowser/Browser.qml:797
+#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -651,7 +651,7 @@ msgstr "Hämtning misslyckades"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
@@ -861,11 +861,11 @@ msgstr "Mikrofon"
 msgid "Camera"
 msgstr "Kamera"
 
-#: src/app/webbrowser/TabComponent.qml:406
+#: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Svep uppåt för att lämna helskärm"
 
-#: src/app/webbrowser/TabComponent.qml:407
+#: src/app/webbrowser/TabComponent.qml:410
 msgid "Press ESC To Exit Full Screen"
 msgstr "Tryck Esc för att lämna helskärm"
 
@@ -873,11 +873,11 @@ msgstr "Tryck Esc för att lämna helskärm"
 msgid "Tap to view"
 msgstr "Tryck för att visa"
 
-#: src/app/webbrowser/TabsBar.qml:121
+#: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr ""
+msgstr "Flytta till nytt fönster"
 
-#: src/app/webbrowser/TabsBar.qml:130
+#: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
 msgstr "Stäng flik"
 
@@ -886,14 +886,14 @@ msgid "Remove"
 msgstr "Ta bort"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:99
-#: src/app/webcontainer/webapp-container.qml:72
+#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webbläsare"
 
-#: src/app/webbrowser/webbrowser-app.qml:101
-#: src/app/webcontainer/webapp-container.qml:74
+#: src/app/webbrowser/webbrowser-app.qml:103
+#: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webbläsare"
 
@@ -985,11 +985,11 @@ msgstr "Internet;WWW;Webbläsare;Webb;Explorer"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "Nytt fönster"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "Nytt privat fönster"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
