@@ -70,4 +70,7 @@ var overrides = [
 
     // Dropbox (https://launchpad.net/bugs/1672804)
     ["^https:\/\/www\.dropbox\.com\/", chrome_desktop_override],
+
+    // Facebook (https://launchpad.net/bugs/1677218)
+    ["^https:\/\/www\.facebook\.com\/", chrome_desktop_override],
 ];
