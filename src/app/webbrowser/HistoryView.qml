@@ -57,12 +57,8 @@ BrowserPage {
             bottom: toolbar.top
         }
 
-        model: SortFilterModel {
-            model: HistoryDomainListModel {
-                id: historyDomainListModel
-            }
-            sort.property: "lastVisit"
-            sort.order: Qt.DescendingOrder
+        model: HistoryDomainListModel {
+            id: historyDomainListModel
         }
 
         section.property: "lastVisitDate"

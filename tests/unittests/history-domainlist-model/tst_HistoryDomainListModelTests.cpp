@@ -89,14 +89,14 @@ private Q_SLOTS:
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
         QCOMPARE(model->rowCount(), 2);
-        QCOMPARE(model->data(model->index(0, 0), HistoryDomainListModel::Domain).toString(), QString("example.com"));
+        QCOMPARE(model->data(model->index(1, 0), HistoryDomainListModel::Domain).toString(), QString("example.com"));
 
         history->add(QUrl("http://example.org/test.html"), "Test page", QUrl());
         QVERIFY(spyRowsInserted.isEmpty());
         QVERIFY(!spyDataChanged.isEmpty());
         args = spyDataChanged.takeFirst();
-        QCOMPARE(args.at(0).toModelIndex().row(), 1);
-        QCOMPARE(args.at(1).toModelIndex().row(), 1);
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
         QCOMPARE(model->rowCount(), 2);
     }
 
@@ -171,7 +171,7 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 0);
     }
 
-    void shouldKeepDomainsSorted()
+    void shouldKeepDomainsSortedInsertionOrder()
     {
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         history->add(QUrl("http://www.gogle.com/lawnmower"), "Gogle Lawn Mower", QUrl());
@@ -183,8 +183,8 @@ private Q_SLOTS:
         history->add(QUrl("https://es.wikipedia.org/wiki/Wikipedia:Portada"), "Wikipedia, la enciclopedia libre", QUrl());
         QCOMPARE(model->rowCount(), 6);
         QStringList domains;
-        domains << DomainUtils::TOKEN_LOCAL << "example.com" << "example.org"
-                << "gogle.com" << "ubuntu.com" << "wikipedia.org";
+        domains << "example.org" << "gogle.com" << "example.com" << "ubuntu.com"
+                << DomainUtils::TOKEN_LOCAL << "wikipedia.org";
         for (int i = 0; i < domains.count(); ++i) {
             QModelIndex index = model->index(i, 0);
             QString domain = model->data(index, HistoryDomainListModel::Domain).toString();

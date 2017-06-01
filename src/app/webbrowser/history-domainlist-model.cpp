@@ -69,7 +69,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    const QString domain = m_domains.keys().at(index.row());
+    const QString domain = m_domainsPerLastVisit.at(index.row());
     HistoryDomainModel* entries = m_domains.value(domain);
 
     switch (role) {
@@ -117,11 +117,32 @@ void HistoryDomainListModel::setSourceModel(HistoryModel* sourceModel)
     }
 }
 
+QVariantMap HistoryDomainListModel::get(int row) const
+{
+    if (row < 0 || row >= rowCount()) {
+        return QVariantMap();
+    }
+
+    QVariantMap res;
+    QHash<int,QByteArray> names = roleNames();
+    QHashIterator<int, QByteArray> i(names);
+
+    while (i.hasNext()) {
+        i.next();
+        QModelIndex idx = index(row, 0);
+        QVariant data = idx.data(i.key());
+        res[i.value()] = data;
+    }
+
+    return res;
+}
+
 void HistoryDomainListModel::clearDomains()
 {
     Q_FOREACH(const QString& domain, m_domains.keys()) {
         delete m_domains.take(domain);
     }
+    m_domainsPerLastVisit.clear();
 }
 
 void HistoryDomainListModel::populateModel()
@@ -142,7 +163,7 @@ void HistoryDomainListModel::onRowsInserted(const QModelIndex& parent, int start
     for (int i = start; i <= end; ++i) {
         QString domain = getDomainFromSourceModel(m_sourceModel->index(i, 0, parent));
         if (!m_domains.contains(domain)) {
-            QStringList domains = m_domains.keys();
+            QStringList domains = m_domainsPerLastVisit;
             int insertAt = 0;
             while (insertAt < domains.count()) {
                 if (domain.compare(domains.at(insertAt)) < 0) {
@@ -178,6 +199,7 @@ void HistoryDomainListModel::insertNewDomain(const QString& domain)
     connect(model, SIGNAL(modelReset()), SLOT(onDomainDataChanged()));
     connect(model, SIGNAL(lastVisitChanged()), SLOT(onDomainDataChanged()));
     m_domains.insert(domain, model);
+    m_domainsPerLastVisit.append(domain);
 }
 
 QString HistoryDomainListModel::getDomainFromSourceModel(const QModelIndex& index) const
@@ -194,9 +216,10 @@ void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int 
     if (model != 0) {
         const QString& domain = model->domain();
         if (model->rowCount() == 0) {
-            int removeAt = m_domains.keys().indexOf(domain);
+            int removeAt = m_domainsPerLastVisit.indexOf(domain);
             beginRemoveRows(QModelIndex(), removeAt, removeAt);
             delete m_domains.take(domain);
+            m_domainsPerLastVisit.removeAt(removeAt);
             endRemoveRows();
         } else {
             emitDataChanged(domain);
@@ -214,7 +237,7 @@ void HistoryDomainListModel::onDomainDataChanged()
 
 void HistoryDomainListModel::emitDataChanged(const QString& domain)
 {
-    int i = m_domains.keys().indexOf(domain);
+    int i = m_domainsPerLastVisit.indexOf(domain);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
         Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << LastVisitDate << LastVisitedTitle << LastVisitedIcon << Entries);

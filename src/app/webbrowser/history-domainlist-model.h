@@ -56,6 +56,8 @@ public:
     HistoryModel* sourceModel() const;
     void setSourceModel(HistoryModel* sourceModel);
 
+    Q_INVOKABLE QVariantMap get(int row) const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
 
@@ -69,6 +71,7 @@ private Q_SLOTS:
 private:
     HistoryModel* m_sourceModel;
     QMap<QString, HistoryDomainModel*> m_domains;
+    QStringList m_domainsPerLastVisit;
 
     void clearDomains();
     void populateModel();
