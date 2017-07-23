@@ -1,3 +1,9 @@
+webbrowser-app (0.24+ubports) vivid; urgency=medium
+
+  * Imported to UBports
+
+ -- UBports auto importer <infra@ubports.com>  Sun, 23 Jul 2017 18:52:12 +0200
+
 webbrowser-app (0.23+15.04.20170125.1-0ubuntu1) vivid; urgency=medium
 
   * Replace chromium version in UA overrides at runtime,
