@@ -1,3 +1,9 @@
+webbrowser-app (0.24+ubports) vivid; urgency=medium
+
+  * Imported to UBports
+
+ -- UBports auto importer <infra@ubports.com>  Wed, 02 Aug 2017 01:02:48 +0200
+
 webbrowser-app (0.23+17.04.20170321-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
