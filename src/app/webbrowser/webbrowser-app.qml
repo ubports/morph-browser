@@ -272,7 +272,7 @@ QtObject {
 
     property var settings: Settings {
         property url homepage: "https://duckduckgo.com"
-        property string searchEngine: "google"
+        property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
@@ -280,7 +280,7 @@ QtObject {
 
         function restoreDefaults() {
             homepage  = "https://duckduckgo.com"
-            searchEngine = "google"
+            searchEngine = "duckduckgo"
             restoreSession = true
             newTabDefaultSection = 0
             defaultAudioDevice = ""
