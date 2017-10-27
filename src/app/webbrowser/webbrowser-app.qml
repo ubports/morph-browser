@@ -271,16 +271,16 @@ QtObject {
     }
 
     property var settings: Settings {
-        property url homepage: "http://start.ubuntu.com"
-        property string searchEngine: "google"
+        property url homepage: "https://duckduckgo.com"
+        property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
 
         function restoreDefaults() {
-            homepage  = "http://start.ubuntu.com"
-            searchEngine = "google"
+            homepage  = "https://duckduckgo.com"
+            searchEngine = "duckduckgo"
             restoreSession = true
             newTabDefaultSection = 0
             defaultAudioDevice = ""
