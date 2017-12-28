@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.5
+import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
@@ -271,16 +271,16 @@ QtObject {
     }
 
     property var settings: Settings {
-        property url homepage: "http://start.ubuntu.com"
-        property string searchEngine: "google"
+        property url homepage: "https://duckduckgo.com"
+        property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
 
         function restoreDefaults() {
-            homepage  = "http://start.ubuntu.com"
-            searchEngine = "google"
+            homepage  = "https://duckduckgo.com"
+            searchEngine = "duckduckgo"
             restoreSession = true
             newTabDefaultSection = 0
             defaultAudioDevice = ""

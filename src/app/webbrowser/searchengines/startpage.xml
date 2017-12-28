@@ -1,0 +1,5 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>StartPage</ShortName>
+  <Description>StartPage HTTPS</Description>
+  <Url type="text/html" template="https://www.startpage.com/do/dsearch?query={searchTerms}&amp;language=auto"/>
+</OpenSearchDescription>
