@@ -30,6 +30,20 @@ just run:
     $ ./src/app/webbrowser/webbrowser-app --help
 
 
+= Build with docker =
+
+First we need to build the image
+
+   $ docker build -t ubports_xenial .
+
+Then we can build the app
+
+   $ docker run --privileged -ti --rm -e DISPLAY=:0 -v /var/run/dbus:/var/run/dbus -v /tmp/.X11-unix:/tmp/.X11-unix -v `pwd`:/home/developer/ubports_build ubports_xenial bash -c "cmake . && make"
+
+Now we can run the app
+   
+   $ docker run --privileged -ti --rm -e DISPLAY=:0 -v /var/run/dbus:/var/run/dbus -v /tmp/.X11-unix:/tmp/.X11-unix -v `pwd`:/home/developer/ubports_build ubports_xenial bash -c "./src/app/webbrowser/webbrowser-app" 
+
 = Unit tests =
 
 To run the unit tests, you can use the commands below:
