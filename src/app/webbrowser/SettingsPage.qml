@@ -109,6 +109,28 @@ FocusScope {
                 }
 
                 ListItem {
+                    objectName: "setDesktopMode"
+
+                    ListItemLayout {
+                        title.text: i18n.tr("Set Desktop mode")
+                        CheckBox {
+                            id: setDesktopModeCheckbox
+                            SlotsLayout.position: SlotsLayout.Trailing
+                            onTriggered: {
+                                settingsObject.setDesktopMode = checked
+                                SharedWebContext.sharedContext.__ua.setDesktopMode(checked)
+                            }
+                        }
+                    }
+
+                    Binding {
+                        target: setDesktopModeCheckbox
+                        property: "checked"
+                        value: settingsObject.setDesktopMode
+                    }
+                }
+
+                ListItem {
                     objectName: "privacy"
 
                     ListItemLayout {
