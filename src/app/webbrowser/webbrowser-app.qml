@@ -283,6 +283,7 @@ QtObject {
             homepage  = "https://duckduckgo.com"
             searchEngine = "duckduckgo"
             restoreSession = true
+            setDesktopMode = false
             newTabDefaultSection = 0
             defaultAudioDevice = ""
             defaultVideoDevice = ""

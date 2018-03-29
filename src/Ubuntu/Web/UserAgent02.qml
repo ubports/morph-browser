@@ -31,7 +31,7 @@ import com.canonical.Oxide 1.15
 QtObject {
     // Empirical value: screens smaller than 19cm are considered small enough that a
     // mobile UA string is used, screens bigger than that will get desktop content.
-    property string screenSize: (screenDiagonal === 0) ? "unknown" : (screenDiagonal > 0 && screenDiagonal < 190) ? "small" : "large"
+    property string screenSize: calcScreenSize()
 
     // %1: Ubuntu version, e.g. "14.04"
     // %2: optional token to specify further attributes of the platform, e.g. "like Android"
@@ -62,7 +62,11 @@ QtObject {
     readonly property string _more: ""
 
     function setDesktopMode(val) {
-        screenSize = val ? "large" : "small"
+        screenSize = val ? "large" : calcScreenSize()
+    }
+
+    function calcScreenSize() {
+        return (screenDiagonal === 0) ? "unknown" : (screenDiagonal > 0 && screenDiagonal < 190) ? "small" : "large"
     }
 
     property string defaultUA: {

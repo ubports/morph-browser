@@ -118,7 +118,9 @@ FocusScope {
                             SlotsLayout.position: SlotsLayout.Trailing
                             onTriggered: {
                                 settingsObject.setDesktopMode = checked
-                                SharedWebContext.sharedContext.__ua.setDesktopMode(checked)
+                                if (checked) {
+                                    SharedWebContext.sharedContext.__ua.setDesktopMode(checked)
+                                }
                             }
                         }
                     }
