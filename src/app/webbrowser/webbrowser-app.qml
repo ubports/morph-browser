@@ -274,6 +274,7 @@ QtObject {
         property url homepage: "https://duckduckgo.com"
         property string searchEngine: "duckduckgo"
         property bool restoreSession: true
+        property bool setDesktopMode: false
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
@@ -282,6 +283,7 @@ QtObject {
             homepage  = "https://duckduckgo.com"
             searchEngine = "duckduckgo"
             restoreSession = true
+            setDesktopMode = false
             newTabDefaultSection = 0
             defaultAudioDevice = ""
             defaultVideoDevice = ""
