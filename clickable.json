@@ -1,0 +1,7 @@
+{
+  "template": "cmake",
+  "kill": "webbrowser-ng",
+  "dependencies": [
+    "qtwebengine5-dev"
+  ]
+}

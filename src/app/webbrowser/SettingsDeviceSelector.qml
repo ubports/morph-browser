@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import com.canonical.Oxide 1.9
 
 Item {
     property bool isAudio
@@ -48,8 +47,8 @@ Item {
     QtObject {
         id: internal
 
-        property var devices: isAudio ? Oxide.availableAudioCaptureDevices :
-                                        Oxide.availableVideoCaptureDevices
+        property var devices: []//isAudio ? Oxide.availableAudioCaptureDevices :
+                              //          Oxide.availableVideoCaptureDevices
 
         function updateDefaultDevice() {
             for (var i = 0; i < devices.length; i++) {
@@ -70,4 +69,3 @@ Item {
 
     onIsAudioChanged: internal.updateDefaultDevice()
 }
-

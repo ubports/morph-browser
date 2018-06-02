@@ -19,7 +19,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import com.canonical.Oxide 1.15 as Oxide
+//import com.canonical.Oxide 1.15 as Oxide
 import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
@@ -63,14 +63,14 @@ Component {
             readonly property bool current: tab.current
 
             currentWebview: browser ? browser.currentWebview : null
-            filePicker: filePickerLoader ? filePickerLoader.item : null
+            //filePicker: filePickerLoader ? filePickerLoader.item : null
 
             anchors.fill: parent
 
             focus: true
 
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
-
+/*
             locationBarController {
                 height: chrome ? chrome.height : 0
                 mode: chromeController ? chromeController.defaultMode : null
@@ -142,85 +142,85 @@ Component {
                 }
                 Actions.OpenImageInNewTab {
                     objectName: "OpenImageInNewTabContextualAction"
-                    enabled: contextModel &&
-                             (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
-                             contextModel.srcUrl.toString()
+                    enabled: contextModel && false
+                    //         (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                    //         contextModel.srcUrl.toString()
                     onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true,
                                                           true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.CopyImage {
                     objectName: "CopyImageContextualAction"
-                    enabled: contextModel &&
-                             ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                              (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                             contextModel.hasImageContents
+                    enabled: contextModel && false
+                    //         ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                    //          (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                    //         contextModel.hasImageContents
                     onTriggered: contextModel.copyImage()
                 }
                 Actions.SaveImage {
                     objectName: "SaveImageContextualAction"
-                    enabled: contextModel &&
-                             ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                              (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                             contextModel.hasImageContents
+                    enabled: contextModel && false
+                    //         ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                    //          (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                    //         contextModel.hasImageContents
                     onTriggered: contextModel.saveMedia()
                 }
                 Actions.OpenVideoInNewTab {
                     objectName: "OpenVideoInNewTabContextualAction"
-                    enabled: contextModel &&
-                             (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
-                             contextModel.srcUrl.toString()
+                    enabled: contextModel && false
+                    //         (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
+                    //         contextModel.srcUrl.toString()
                     onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true,
                                                           true, tabsModel.indexOf(browserTab) + 1)
                 }
                 Actions.SaveVideo {
                     objectName: "SaveVideoContextualAction"
-                    enabled: contextModel &&
-                             (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
-                             contextModel.srcUrl.toString()
+                    enabled: contextModel && false
+                    //         (contextModel.mediaType === Oxide.WebView.MediaTypeVideo) &&
+                    //         contextModel.srcUrl.toString()
                     onTriggered: contextModel.saveMedia()
                 }
                 Actions.Undo {
                     objectName: "UndoContextualAction"
-                    enabled: contextModel && contextModel.isEditable &&
-                             (contextModel.editFlags & Oxide.WebView.UndoCapability)
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+                    enabled: contextModel && contextModel.isEditable && false
+                    //         (contextModel.editFlags & Oxide.WebView.UndoCapability)
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
                 }
                 Actions.Redo {
                     objectName: "RedoContextualAction"
-                    enabled: contextModel && contextModel.isEditable &&
-                             (contextModel.editFlags & Oxide.WebView.RedoCapability)
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+                    enabled: contextModel && contextModel.isEditable && false
+                    //         (contextModel.editFlags & Oxide.WebView.RedoCapability)
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
                 }
                 Actions.Cut {
                     objectName: "CutContextualAction"
-                    enabled: contextModel && contextModel.isEditable &&
-                             (contextModel.editFlags & Oxide.WebView.CutCapability)
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+                    enabled: contextModel && contextModel.isEditable && false
+                    //         (contextModel.editFlags & Oxide.WebView.CutCapability)
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
                 }
                 Actions.Copy {
                     objectName: "CopyContextualAction"
                     enabled: contextModel && (contextModel.selectionText ||
-                                              (contextModel.isEditable &&
-                                               (contextModel.editFlags & Oxide.WebView.CopyCapability)))
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+                                              (contextModel.isEditable && false))
+                    //                           (contextModel.editFlags & Oxide.WebView.CopyCapability)))
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
                 }
                 Actions.Paste {
                     objectName: "PasteContextualAction"
-                    enabled: contextModel && contextModel.isEditable &&
-                             (contextModel.editFlags & Oxide.WebView.PasteCapability)
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+                    enabled: contextModel && contextModel.isEditable && false
+                    //         (contextModel.editFlags & Oxide.WebView.PasteCapability)
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
                 }
                 Actions.Erase {
                     objectName: "EraseContextualAction"
-                    enabled: contextModel && contextModel.isEditable &&
-                             (contextModel.editFlags & Oxide.WebView.EraseCapability)
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+                    enabled: contextModel && contextModel.isEditable && false
+                    //         (contextModel.editFlags & Oxide.WebView.EraseCapability)
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
                 }
                 Actions.SelectAll {
                     objectName: "SelectAllContextualAction"
-                    enabled: contextModel && contextModel.isEditable &&
-                             (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
-                    onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
+                    enabled: contextModel && contextModel.isEditable && false
+                    //         (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+                    //onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
                 }
             }
 
@@ -229,16 +229,16 @@ Component {
                 if (contextModel.linkUrl.toString() ||
                         contextModel.srcUrl.toString() ||
                         contextModel.selectionText ||
-                        (contextModel.isEditable && contextModel.editFlags) ||
-                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
-                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
+                        (contextModel.isEditable && contextModel.editFlags) || (false &&
+                    //    (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
+                    //      (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
                          contextModel.hasImageContents)) {
                     menu.show()
                 } else {
                     contextModel.close()
                 }
             }
-
+*/
             Component {
                 id: contextMenuNarrowComponent
                 ContextMenuMobile {
@@ -255,11 +255,11 @@ Component {
                     Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                 }
             }
-            contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
-
+            //contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+/*
             onNewViewRequested: {
                 var newTab = browser.createTab({"request": request})
-                var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
+                var setCurrent = true//(request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                 internal.addTab(newTab, setCurrent, tabsModel.indexOf(browserTab) + 1)
                 if (setCurrent) tabContainer.forceActiveFocus()
             }
@@ -284,43 +284,44 @@ Component {
                     }
                 }
             }
-
+*/
             QtObject {
                 id: webviewInternal
                 property url storedUrl: ""
                 property bool titleSet: false
                 property string title: ""
             }
+            /*
             onLoadEvent: {
-                if (event.type == Oxide.LoadEvent.TypeCommitted) {
-                    chrome.findInPageMode = false
-                    webviewInternal.titleSet = false
-                    webviewInternal.title = title
-                }
+              //  if (event.type == Oxide.LoadEvent.TypeCommitted) {
+              //      chrome.findInPageMode = false
+              //      webviewInternal.titleSet = false
+              //      webviewInternal.title = title
+              //  }
 
                 if (webviewimpl.incognito) {
                     return
                 }
 
-                if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
-                        !event.isError &&
-                        (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
-                    webviewInternal.storedUrl = event.url
-                    HistoryModel.add(event.url, title, icon)
-                }
+              //  if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
+              //          !event.isError &&
+              //          (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
+              //      webviewInternal.storedUrl = event.url
+              //      HistoryModel.add(event.url, title, icon)
+              //  }
 
                 // If the page has started, stopped, redirected, errored
                 // then clear the cache for the history update
                 // Otherwise if no title change has occurred the next title
                 // change will be the url of the next page causing the
                 // history entry to be incorrect (pad.lv/1603835)
-                if (event.type == Oxide.LoadEvent.TypeFailed ||
-                        event.type == Oxide.LoadEvent.TypeRedirected ||
-                        event.type == Oxide.LoadEvent.TypeStarted ||
-                        event.type == Oxide.LoadEvent.TypeStopped) {
-                    webviewInternal.titleSet = true
-                    webviewInternal.storedUrl = ""
-                }
+              //  if (event.type == Oxide.LoadEvent.TypeFailed ||
+              //          event.type == Oxide.LoadEvent.TypeRedirected ||
+              //          event.type == Oxide.LoadEvent.TypeStarted ||
+              //          event.type == Oxide.LoadEvent.TypeStopped) {
+              //      webviewInternal.titleSet = true
+              //      webviewInternal.storedUrl = ""
+              //  }
             }
             onTitleChanged: {
                 if (!webviewInternal.titleSet && webviewInternal.storedUrl.toString()) {
@@ -342,12 +343,13 @@ Component {
                 }
             }
 
-            onGeolocationPermissionRequested: requestGeolocationPermission(request)
-
+            //onGeolocationPermissionRequested: requestGeolocationPermission(request)
+*/
             property var certificateError
             function resetCertificateError() {
                 certificateError = null
             }
+            /*
             onCertificateError: {
                 if (!error.isMainFrame || error.isSubresource) {
                     // Not a main frame document error, just block the content
@@ -362,11 +364,12 @@ Component {
                 }
             }
 
-            onFullscreenChanged: {
-                if (fullscreen) {
-                    fullscreenExitHintComponent.createObject(webviewimpl)
-                }
-            }
+            //onFullscreenChanged: {
+            //    if (fullscreen) {
+            //        fullscreenExitHintComponent.createObject(webviewimpl)
+            //    }
+            //}
+            */
             Component {
                 id: fullscreenExitHintComponent
 
@@ -418,18 +421,18 @@ Component {
 
                     Connections {
                         target: webviewimpl
-                        onFullscreenChanged: {
-                            if (!webviewimpl.fullscreen) {
-                                fullscreenExitHint.destroy()
-                            }
-                        }
+                      //  onFullscreenChanged: {
+                      //      if (!webviewimpl.fullscreen) {
+                      //          fullscreenExitHint.destroy()
+                      //      }
+                      //  }
                     }
 
                     Component.onCompleted: bottomEdgeHint.forceShow = true
                     Component.onDestruction: bottomEdgeHint.forceShow = false
                 }
             }
-
+/*
             onShowDownloadDialog: {
                 if (downloadDialogLoader.status === Loader.Ready) {
                     var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
@@ -440,6 +443,7 @@ Component {
                     downloadDialog.startDownload.connect(startDownload)
                 }
             }
+            */
 
             function showDownloadsPage() {
                 downloadsViewLoader.active = true

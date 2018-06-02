@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.4
-import com.canonical.Oxide 1.8 as Oxide
+//import com.canonical.Oxide 1.8 as Oxide
 
 Item {
     id: monitor
@@ -26,10 +26,10 @@ Item {
 
     property var webview: null
 
-    readonly property bool killed: webview &&
-                                   (webview.webProcessStatus == Oxide.WebView.WebProcessKilled)
-    readonly property bool crashed: webview &&
-                                    (webview.webProcessStatus == Oxide.WebView.WebProcessCrashed)
+    readonly property bool killed: webview && false
+                                   //(webview.webProcessStatus == Oxide.WebView.WebProcessKilled)
+    readonly property bool crashed: webview && false
+                                    //(webview.webProcessStatus == Oxide.WebView.WebProcessCrashed)
 
     // When the renderer process is killed (most likely by the system’s
     // OOM killer), try to reload the page once, and if this results in
@@ -45,8 +45,8 @@ Item {
 
     Connections {
         target: webview
-        onWebProcessStatusChanged: {
-            if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
+        onRenderProcessTerminated: {
+             if (terminationStatus == WebEngineView.KilledTerminationStatus) {
                 if (internal.killedRetries == 0) {
                     // Do not attempt reloading right away, this would result in a crash
                     delayedReload.restart()

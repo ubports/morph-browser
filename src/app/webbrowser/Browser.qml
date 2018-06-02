@@ -20,10 +20,10 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.19 as Oxide
+//import com.canonical.Oxide 1.19 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Web 0.2
+import QtWebEngine 1.5
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -95,8 +95,8 @@ BrowserView {
     function restoreTabState(state) {
         var properties = {'initialUrl': state.url, 'initialTitle': state.title,
                           'uniqueId': state.uniqueId, 'initialIcon': state.icon,
-                          'preview': state.preview, 'restoreState': state.savedState,
-                          'restoreType': Oxide.WebView.RestoreLastSessionExitedCleanly}
+                          'preview': state.preview, 'restoreState': state.savedState}
+                      //    'restoreType': Oxide.WebView.RestoreLastSessionExitedCleanly}
         return createTab(properties)
     }
 
@@ -138,10 +138,10 @@ BrowserView {
            tabs will have their mediaAccessPermissionRequested signal handled by
            creating one of these new dialogs.
         */
-        onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
+        //onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
     }
 
-    currentWebcontext: SharedWebContext.sharedContext
+    //currentWebcontext: SharedWebContext.sharedContext
     defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     onDefaultVideoCaptureMediaIdUpdated: {
@@ -174,12 +174,12 @@ BrowserView {
             onTriggered: currentWebview.url = value
         },
         Actions.Back {
-            enabled: currentWebview ? currentWebview.navigationHistory.canGoBack : false
-            onTriggered: currentWebview.navigationHistory.goBack()
+            enabled: currentWebview ? currentWebview.canGoBack : false
+            onTriggered: currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: currentWebview ? currentWebview.navigationHistory.canGoForward : false
-            onTriggered: currentWebview.navigationHistory.goForward()
+            enabled: currentWebview ? currentWebview.canGoForward : false
+            onTriggered: currentWebview.goForward()
         },
         Actions.Reload {
             enabled: currentWebview
@@ -206,7 +206,12 @@ BrowserView {
 
     FocusScope {
         id: contentsContainer
-        anchors.fill: parent
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            top: chrome.bottom
+        }
         visible: !settingsViewLoader.active && !historyViewLoader.active && !bookmarksViewLoader.active && !downloadsViewLoader.active
 
         FocusScope {
@@ -214,9 +219,9 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: parent.top
+                top: chrome.bottom
             }
-            height: parent.height - osk.height - bottomEdgeBar.height
+            height: parent.height- osk.height - bottomEdgeBar.height
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
@@ -250,7 +255,7 @@ BrowserView {
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
             Component.onCompleted: setSource("../ErrorSheet.qml", {
-                                                 "visible": Qt.binding(function(){ return currentWebview ? currentWebview.lastLoadFailed : false }),
+                                                 "visible": Qt.binding(function(){ return currentWebview ? (currentWebview.LoadStatus === WebEngineView.LoadFailedStatus) : false }),
                                                  "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
                                              })
             Connections {
@@ -507,16 +512,6 @@ BrowserView {
         filename: settings.searchEngine
     }
 
-    ChromeController {
-        id: chromeController
-        webview: browser.currentWebview
-        forceHide: browser.currentWebview ? browser.currentWebview.fullscreen : false
-        forceShow: recentView.visible
-        defaultMode: (internal.hasMouse && !internal.hasTouchScreen)
-                         ? Oxide.LocationBarController.ModeShown
-                         : Oxide.LocationBarController.ModeAuto
-    }
-
     Chrome {
         id: chrome
 
@@ -539,7 +534,7 @@ BrowserView {
         tabsBarDimmed: dropAreaTopCover.containsDrag || dropAreaBottomCover.containsDrag
 
         property bool hidden: false
-        y: hidden ? -height : webview ? webview.locationBarController.offset : 0
+
         Behavior on y {
             enabled: recentView.visible
             NumberAnimation {
@@ -651,7 +646,30 @@ BrowserView {
                 internal.resetFocus()
             }
         }
+
+        Connections {
+            target: browser.currentWebview
+            onLoadingChanged: {
+                if (browser.currentWebview.loading) {
+                    chrome.state = "shown"
+                } else if (browser.currentWebview.isFullScreen) {
+                    chrome.state = "hidden"
+                }
+            }
+            onFullscreenChanged: {
+                if (browser.currentWebview.isFullScreen) {
+                    chrome.state = "hidden"
+                } else {
+                    chrome.state = "shown"
+                }
+            }
+        }
     }
+
+    ChromeStateTracker {
+        webview: browser.currentWebview
+        header: chrome
+     }
 
     Suggestions {
         id: suggestionsList
@@ -1073,7 +1091,6 @@ BrowserView {
             properties["bottomEdgeHandle"] = bottomEdgeHandle;
             properties["browser"] = browser;
             properties["chrome"] = chrome;
-            properties["chromeController"] = chromeController;
             properties["contentHandlerLoader"] = contentHandlerLoader;
             properties["downloadDialogLoader"] = downloadDialogLoader;
             properties["downloadsViewLoader"] = downloadsViewLoader;
@@ -1220,16 +1237,16 @@ BrowserView {
         }
 
         function historyGoBack() {
-            if (currentWebview && currentWebview.navigationHistory.canGoBack) {
+            if (currentWebview && currentWebview.canGoBack) {
                 internal.resetFocus()
-                currentWebview.navigationHistory.goBack()
+                currentWebview.goBack()
             }
         }
 
         function historyGoForward() {
-            if (currentWebview && currentWebview.navigationHistory.canGoForward) {
+            if (currentWebview && currentWebview.canGoForward) {
                 internal.resetFocus()
-                currentWebview.navigationHistory.goForward()
+                currentWebview.goForward()
             }
         }
 

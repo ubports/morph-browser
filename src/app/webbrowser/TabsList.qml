@@ -111,7 +111,7 @@ Item {
                     showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
                                  !(tab && tab.webview && tab.webview.visible)
 
-                    Binding {
+                  /*  Binding {
                         // Change the height of the location bar controller
                         // for the first webview only, and only while the tabs
                         // list view is visible.
@@ -119,7 +119,7 @@ Item {
                         target: tab && tab.webview ? tab.webview.locationBarController : null
                         property: "height"
                         value: invisibleTabChrome.height
-                    }
+                    } */
 
                     onSelected: tabslist.selectAndAnimateTab(index)
                     onClosed: tabslist.tabClosed(index)

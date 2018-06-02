@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import com.canonical.Oxide 1.8 as Oxide
 import ".."
 import "../UrlUtils.js" as UrlUtils
 
@@ -60,7 +59,7 @@ FocusScope {
     }
 
     Binding {
-        target: findController
+        //target: findController
         property: "text"
         value: findInPageMode ? textField.text : ""
     }
@@ -293,10 +292,10 @@ FocusScope {
 
         readonly property bool idle: !addressbar.loading && !addressbar.editing
 
-        readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
-        readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
-        readonly property bool securityWarning: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
-        readonly property bool securityError: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelError) : false
+        readonly property int securityLevel: 0 //addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
+        readonly property bool secureConnection: true //addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+        readonly property bool securityWarning: false //addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+        readonly property bool securityError: false //addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelError) : false
 
         property var securityCertificateDetails: null
 

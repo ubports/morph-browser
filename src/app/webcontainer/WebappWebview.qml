@@ -20,7 +20,7 @@ import QtQuick 2.4
 import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Web 0.2
+import QtWebEngine 1.5
 import "../actions" as Actions
 import ".."
 

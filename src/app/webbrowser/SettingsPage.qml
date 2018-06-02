@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Web 0.2
+import QtWebEngine 1.5
 import webbrowserapp.private 0.1
 
 import "../UrlUtils.js" as UrlUtils

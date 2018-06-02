@@ -6,9 +6,9 @@ find_package(Qt5Network REQUIRED)
 find_package(Qt5Qml REQUIRED)
 find_package(Qt5Quick REQUIRED)
 find_package(Qt5Widgets REQUIRED)
+#find_package(Qt5WebEngine REQUIRED)
 
 include(FindPkgConfig)
-pkg_check_modules(LIBAPPARMOR REQUIRED libapparmor)
 
 configure_file(
     config.h.in
@@ -40,11 +40,11 @@ target_link_libraries(${COMMONLIB}
 )
 
 file(GLOB QML_FILES *.qml)
-install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
+install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng)
 file(GLOB JS_FILES *.js)
-install(FILES ${JS_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
-install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app
+install(FILES ${JS_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng)
+install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng
         FILES_MATCHING PATTERN *.qml)
 
 add_subdirectory(webbrowser)
-add_subdirectory(webcontainer)
+#add_subdirectory(webcontainer)

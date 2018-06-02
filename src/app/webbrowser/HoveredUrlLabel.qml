@@ -73,7 +73,7 @@ Item {
         }
         fontSize: "small"
         elide: (root.state == "expanded") ? Text.ElideNone : Text.ElideRight
-        text: (root.webview && root.webview.visible) ? root.webview.hoveredUrl : ""
+        text: ""//(root.webview && root.webview.visible) ? root.webview.hoveredUrl : ""
         onTextChanged: {
             if (text) {
                 if (root.state == "hidden") {

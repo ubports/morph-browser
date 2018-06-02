@@ -1,0 +1,12 @@
+{
+    "policy_groups": [
+        "audio",
+        "calendar",
+        "networking",
+        "location",
+        "content_exchange",
+        "keep-display-on"
+    ],
+    "policy_version": 16.04,
+    "template": "unconfined"
+}

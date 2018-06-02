@@ -19,21 +19,28 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Web 0.2
+import QtWebEngine 1.5
 import webbrowsercommon.private 0.1
 import "actions" as Actions
 
-WebView {
+WebEngineView {
     id: webview
-
     property var currentWebview: webview
+
+    property QtObject __ua: UserAgent02 {
+    }
+
+    Component.onCompleted: {
+        console.log(__ua.defaultUA);
+        profile.httpUserAgent = __ua.defaultUA;
+    }
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
-    alertDialog: AlertDialog {}
-    confirmDialog: ConfirmDialog {}
-    promptDialog: PromptDialog {}
-    beforeUnloadDialog: BeforeUnloadDialog {}
+    //alertDialog: AlertDialog {}
+    //confirmDialog: ConfirmDialog {}
+    //promptDialog: PromptDialog {}
+    //beforeUnloadDialog: BeforeUnloadDialog {}
 
     signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
@@ -44,7 +51,7 @@ WebView {
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
     }
-
+/*
     onFullscreenRequested: webview.fullscreen = fullscreen
 
     onDownloadRequested: {
@@ -82,8 +89,8 @@ WebView {
             Qt.openUrlExternally(request.url)
         }
     }
-
-    onHttpAuthenticationRequested: {
+*/
+    onAuthenticationDialogRequested: {
         PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"),
                         webview.currentWebview, {"request": request})
     }
@@ -94,12 +101,12 @@ WebView {
         asynchronous: true
     }
 
-    Connections {
+/*    Connections {
         target: downloadLoader.item
         onShowDownloadDialog: {
             showDownloadDialog(downloadId, contentType, downloader, filename, mimeType)
         }
-    }
+    } */
 
     function requestGeolocationPermission(request) {
         PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),

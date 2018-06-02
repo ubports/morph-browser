@@ -73,8 +73,8 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: findInPageMode || (internal.webview ? internal.webview.navigationHistory.canGoBack : false)
-            onTriggered: findInPageMode ? (findInPageMode = false) : internal.webview.navigationHistory.goBack()
+            enabled: findInPageMode || (internal.webview ? internal.webview.canGoBack : false)
+            onTriggered: findInPageMode ? (findInPageMode = false) : internal.webview.goBack()
         }
 
         ChromeButton {
@@ -95,8 +95,8 @@ FocusScope {
             }
 
             enabled: findInPageMode ? false :
-                     (internal.webview ? internal.webview.navigationHistory.canGoForward : false)
-            onTriggered: internal.webview.navigationHistory.goForward()
+                     (internal.webview ? internal.webview.canGoForward : false)
+            onTriggered: internal.webview.goForward()
         }
 
         AddressBar {
@@ -164,8 +164,8 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: internal.webview && internal.webview.findController &&
-                         internal.webview.findController.count > 1
+                enabled: false //internal.webview && internal.webview.findController &&
+                         //internal.webview.findController.count > 1
                 onTriggered: internal.webview.findController.previous()
             }
 
@@ -182,8 +182,8 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: internal.webview && internal.webview.findController &&
-                         internal.webview.findController.count > 1
+                enabled: false //internal.webview && internal.webview.findController &&
+                         //internal.webview.findController.count > 1
                 onTriggered: internal.webview.findController.next()
             }
 

@@ -1,2 +1,2 @@
-add_subdirectory(Ubuntu)
 add_subdirectory(app)
+#add_subdirectory(Morph)

@@ -1,4 +1,4 @@
-project(webbrowser-app)
+project(webbrowser-ng)
 
 find_package(Qt5Concurrent REQUIRED)
 find_package(Qt5Sql REQUIRED)
@@ -23,12 +23,13 @@ set(WEBBROWSER_APP_MODELS_SRC
     text-search-filter-model.cpp
 )
 
-set(WEBBROWSER_APP_MODELS webbrowser-app-models)
+set(WEBBROWSER_APP_MODELS webbrowser-ng-models)
 
 add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 target_link_libraries(${WEBBROWSER_APP_MODELS}
     Qt5::Core
     Qt5::Sql
+#    Qt5::WebEngine
 )
 
 set(WEBBROWSER_APP_SRC
@@ -36,10 +37,10 @@ set(WEBBROWSER_APP_SRC
     file-operations.cpp
     reparenter.cpp
     searchengine.cpp
-    webbrowser-app.cpp
+    webbrowser-ng.cpp
 )
 
-set(WEBBROWSER_APP webbrowser-app)
+set(WEBBROWSER_APP webbrowser-ng)
 
 add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 target_link_libraries(${WEBBROWSER_APP}
@@ -55,14 +56,14 @@ install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 file(GLOB QML_FILES *.qml qmldir *.js)
-install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser)
+install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng/webbrowser)
 
 install(DIRECTORY assets
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng/webbrowser
         FILES_MATCHING PATTERN *.png PATTERN *.svg PATTERN *.sci)
 
 install(DIRECTORY searchengines
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng/webbrowser
         FILES_MATCHING PATTERN *.xml)
 
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
@@ -74,10 +75,24 @@ add_custom_target(${DESKTOP_FILE} ALL
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 
-install(FILES "webbrowser-app.url-dispatcher"
+install(FILES "webbrowser-ng.url-dispatcher"
         DESTINATION ${CMAKE_INSTALL_DATADIR}/url-dispatcher/urls)
 
-install(FILES "webbrowser-app-content-hub.json"
+install(FILES "webbrowser-ng-content-hub.json"
     DESTINATION ${CMAKE_INSTALL_DATADIR}/content-hub/peers
-    RENAME webbrowser-app
+    RENAME webbrowser-ng
     )
+
+if(${CLICK_MODE})
+  message("-- Configuring manifest.json")
+
+  execute_process(
+    COMMAND dpkg-architecture -qDEB_HOST_ARCH
+    OUTPUT_VARIABLE CLICK_ARCH
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+
+  configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+  install(FILES webbrowser-ng.apparmor DESTINATION ${CMAKE_INSTALL_PREFIX})
+endif()

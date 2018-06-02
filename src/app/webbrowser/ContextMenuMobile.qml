@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3 as Popups
-import com.canonical.Oxide 1.8 as Oxide
+//import com.canonical.Oxide 1.8 as Oxide
 
 Popups.Dialog {
     id: contextMenu
@@ -30,8 +30,8 @@ Popups.Dialog {
 
     QtObject {
         id: internal
-        readonly property bool isImage: (contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                                        (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)
+        readonly property bool isImage: false //(contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                        //(contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)
     }
 
     Row {
@@ -164,5 +164,5 @@ Popups.Dialog {
     // We can’t prevent the dialog from stealing the focus from
     // the webview, but we can at least restore it when the
     // dialog is closed (https://launchpad.net/bugs/1526884).
-    Component.onDestruction: Oxide.WebView.view.forceActiveFocus()
+    //Component.onDestruction: Oxide.WebView.view.forceActiveFocus()
 }

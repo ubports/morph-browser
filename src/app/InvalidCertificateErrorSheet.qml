@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import com.canonical.Oxide 1.0 as Oxide
+//import com.canonical.Oxide 1.0 as Oxide
 
 Rectangle {
     property var certificateError
@@ -76,7 +76,7 @@ Rectangle {
 
             Column {
                 id: moreInfo
-                width: parent.width 
+                width: parent.width
                 visible: false
                 spacing: units.gu(1)
 
@@ -100,11 +100,11 @@ Rectangle {
                     width: parent.width
                     wrapMode: Text.Wrap
                     // TRANSLATORS: %1 refers to the SSL certificate's subject's address
-                    text: i18n.tr("Subject address:\n%1").arg(certificateError ?
-                            (certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ") + "\n" +
-                            certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
-                            certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" + 
-                            certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")).replace(/\n+/g, "\n") : "")
+                    text: i18n.tr("Subject address:\n%1") //.arg(certificateError ?
+                    //        (certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ") + "\n" +
+                    //        certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
+                    //        certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" +
+                    //        certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")).replace(/\n+/g, "\n") : "")
                 }
                 Label {
                     fontSize: "x-small"
@@ -119,11 +119,11 @@ Rectangle {
                     width: parent.width
                     wrapMode: Text.Wrap
                     // TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-                    text: i18n.tr("Issuer address:\n%1").arg(certificateError ?
-                            (certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ") + "\n" +
-                            certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
-                            certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" +
-                            certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")).replace(/\n+/g, "\n") : "")
+                    text: i18n.tr("Issuer address:\n%1") //.arg(certificateError ?
+                        //    (certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ") + "\n" +
+                        //    certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
+                        //    certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" +
+                        //    certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")).replace(/\n+/g, "\n") : "")
                 }
                 Label {
                     fontSize: "x-small"
@@ -182,6 +182,8 @@ Rectangle {
     }
 
     function textForError(error) {
+      return "shit haz hit tha fan"
+      /*
         switch(error) {
             case Oxide.CertificateError.ErrorBadIdentity:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
@@ -208,6 +210,7 @@ Rectangle {
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
                 return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate which failed our security checks for an unknown reason.").arg(certificateError ? certificateError.url : "")
         }
+        */
     }
 
     onVisibleChanged: {

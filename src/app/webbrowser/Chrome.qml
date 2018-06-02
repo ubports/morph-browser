@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtWebEngine 1.5
 import ".."
 
 ChromeBase {
@@ -127,7 +128,7 @@ ChromeBase {
     // flickering (https://launchpad.net/bugs/1611680).
     Connections {
         target: webview
-        onLoadingStateChanged: delayedLoadingNotifier.restart()
+        onLoadingChanged: delayedLoadingNotifier.restart()
     }
     Timer {
         id: delayedLoadingNotifier

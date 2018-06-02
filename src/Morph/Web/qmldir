@@ -1,0 +1,5 @@
+module Morph.Web
+plugin morph-web-plugin
+WebView 0.1 MorphWebView.qml
+WebContext 0.1 MorphWebContext.qml
+singleton SharedWebContext 0.1 MorphSharedWebContext.qml

@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import com.canonical.Oxide 1.8 as Oxide
 
 Rectangle {
     property var webview
@@ -58,16 +57,7 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             font.weight: Font.Light
             text: {
-                if (!webview) {
-                    return ""
-                } else if (webview.webProcessStatus == Oxide.WebView.WebProcessCrashed) {
-                    // TRANSLATORS: %1 is the URL of the page that crashed the renderer process
-                    return i18n.tr("Something went wrong while displaying %1.").arg(webview.url)
-                } else if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
-                    return i18n.tr("The system is low on memory and can't display this webpage. Try closing unneeded tabs and reloading.")
-                } else {
-                    return ""
-                }
+                return i18n.tr("Something went wrong while displaying %1.").arg(webview.url)
             }
         }
 

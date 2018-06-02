@@ -18,8 +18,8 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import Ubuntu.Web 0.2
-import com.canonical.Oxide 1.4 as Oxide
+import QtWebEngine 1.5
+//import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "."
@@ -124,7 +124,7 @@ FocusScope {
             initialTitle = webview.title
             initialIcon = webview.icon
             restoreState = webview.currentState
-            restoreType = Oxide.WebView.RestoreCurrentSession
+            //restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
             gc()
         }
@@ -144,7 +144,7 @@ FocusScope {
         if (_url.toString()) PreviewManager.checkDelete(_url)
 
         if (reparentDestroy || reparentDestroy === undefined) {
-            // Destroys context and object        
+            // Destroys context and object
             Reparenter.destroyContextAndObject(tab);
         } else {
             destroy();
@@ -220,12 +220,12 @@ FocusScope {
     }
     Connections {
         target: incognito ? null : webview
-        onLoadEvent: {
-            if ((event.type == Oxide.LoadEvent.TypeSucceeded) ||
-                (event.type == Oxide.LoadEvent.TypeFailed)) {
-                delayedCapture.restart()
-            }
-        }
+//        onLoadEvent: {
+//            if ((event.type == Oxide.LoadEvent.TypeSucceeded) ||
+//                (event.type == Oxide.LoadEvent.TypeFailed)) {
+//                delayedCapture.restart()
+//            }
+//        }
     }
 
     onAboutToShow: {

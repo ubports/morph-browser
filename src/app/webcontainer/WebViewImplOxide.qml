@@ -22,7 +22,7 @@ import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import Ubuntu.Web 0.2
+import QtWebEngine 1.5
 import ".."
 
 WebappWebview {

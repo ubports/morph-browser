@@ -23,6 +23,9 @@ import Ubuntu.Components 1.3
 StyledItem {
     id: chrome
 
+    readonly property real visibleHeight: y + height
+    readonly property bool moving: (y < 0) && (y > -height)
+
     objectName: "chromeBase"
 
     property alias backgroundColor: backgroundRect.color
@@ -33,9 +36,20 @@ StyledItem {
     states: [
         State {
             name: "shown"
-            when: chrome.y == 0
+        },
+        State {
+            name: "hidden"
         }
     ]
+
+    state: "shown"
+
+    y: (state == "shown") ? 0 : -height
+    Behavior on y {
+        SmoothedAnimation {
+            duration: UbuntuAnimation.BriskDuration
+        }
+    }
 
     Rectangle {
         id: backgroundRect

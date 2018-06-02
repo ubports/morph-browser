@@ -12,8 +12,17 @@ if(NOT INTLTOOL_EXTRACT)
     message(FATAL_ERROR "Could not find intltool-extract, please install the intltool package")
 endif()
 
+option(CLICK_MODE "Build as a click package" on)
+
 # Standard install paths
 include(GNUInstallDirs)
+
+#set install paths
+if(CLICK_MODE)
+  set(CMAKE_INSTALL_PREFIX "/")
+  set(CMAKE_INSTALL_BINDIR "/")
+  set(CMAKE_INSTALL_FULL_DATADIR "share/")
+endif()
 
 string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_lower)
 
@@ -46,7 +55,7 @@ include(qt5)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-set(DESKTOP_FILE webbrowser-app.desktop)
+set(DESKTOP_FILE webbrowser-ng.desktop)
 
 # uninstall target
 configure_file(
@@ -58,8 +67,8 @@ add_custom_target(uninstall
 
 add_subdirectory(src)
 
-enable_testing()
-add_subdirectory(tests)
+#enable_testing()
+#add_subdirectory(tests)
 
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
 file(GLOB NON_COMPILED_ROOT *.png .bzrignore COPYING README snapcraft.yaml)
@@ -69,20 +78,20 @@ file(GLOB_RECURSE NON_COMPILED_SUBDIRS
      debian/tests/*
      doc/*.css doc/*.qdoc doc/*.qdocconf
      po/*.po po/*.pot
-     snap/webbrowser-app.launcher
+     snap/webbrowser-ng.launcher
      src/*.js src/*.qml src/*.sci src/README
      tests/*.py tests/*.qml)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COMPILED_SUBDIRS})
 
 # for dh_translations to extract the domain
 # (regarding syntax consistency, see http://pad.lv/1181187)
-set (GETTEXT_PACKAGE "webbrowser-app")
+set (GETTEXT_PACKAGE "webbrowser-ng")
 
-add_subdirectory(po)
+#add_subdirectory(po)
 
-add_subdirectory(doc)
+#add_subdirectory(doc)
 
-install(FILES webbrowser-app.png screenshot.png
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
+install(FILES webbrowser-ng.png screenshot.png
+DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng)
 
-add_subdirectory(click-hooks)
+#add_subdirectory(click-hooks)

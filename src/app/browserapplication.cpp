@@ -19,9 +19,8 @@
 // system
 #include <cerrno>
 #include <cstring>
-#include <sys/apparmor.h>
 
-// Qt
+// Qtlangc
 #include <QtCore/QMetaObject>
 #include <QtCore/QtGlobal>
 #include <QtGui/QTouchDevice>
@@ -153,6 +152,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     bool runningConfined = true;
     char* label;
     char* mode;
+    /*
     if (aa_getcon(&label, &mode) != -1) {
         if (strcmp(label, "unconfined") == 0) {
             runningConfined = false;
@@ -161,6 +161,8 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     } else if (errno == EINVAL) {
         runningConfined = false;
     }
+    */
+    runningConfined = false;
 
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();
@@ -188,7 +190,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     context->setContextProperty("unversionedAppId", unversionedAppId);
 
     m_component = new QQmlComponent(m_engine);
-    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFileSubPath));
+    m_component->loadUrl(QUrl::fromLocalFile(qmlFileSubPath));
     if (!m_component->isReady()) {
         qWarning() << m_component->errorString();
         return false;

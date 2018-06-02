@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3 as Popups
-import com.canonical.Oxide 1.8 as Oxide
+//import com.canonical.Oxide 1.8 as Oxide
 
 Popups.Popover {
     id: contextMenu
