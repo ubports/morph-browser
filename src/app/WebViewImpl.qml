@@ -34,6 +34,16 @@ WebEngineView {
         console.log(__ua.defaultUA);
         profile.httpUserAgent = __ua.defaultUA;
     }
+    
+    //TODO: userscript, currently removes scrollbar - instead theme scroll like ubuntu overlay
+    userScripts: [
+        WebEngineScript {
+            injectionPoint: WebEngineScript.Deferred
+            worldId: WebEngineScript.MainWorld
+            name: "QWebChannel"
+            sourceUrl: "ubuntutheme.js"
+            }
+    ]
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
