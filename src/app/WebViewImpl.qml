@@ -26,6 +26,9 @@ import "actions" as Actions
 WebEngineView {
     id: webview
     property var currentWebview: webview
+    
+    //enable using plugins, such as widevine or flash, to be installed separate
+    settings.pluginsEnabled: true
 
     property QtObject __ua: UserAgent02 {
     }
