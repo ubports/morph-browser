@@ -28,7 +28,7 @@ Item {
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: parent.bottom
-    height: Qt.inputMethod.visible ? Qt.inputMethod.keyboardRectangle.height : 0
+    height: 0 //Qt.inputMethod.visible ? Qt.inputMethod.keyboardRectangle.height : 0
 
     Behavior on height {
         UbuntuNumberAnimation {}
