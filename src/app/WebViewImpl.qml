@@ -40,10 +40,6 @@ WebEngineView {
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
-    //alertDialog: AlertDialog {}
-    //confirmDialog: ConfirmDialog {}
-    //promptDialog: PromptDialog {}
-    //beforeUnloadDialog: BeforeUnloadDialog {}
 
     signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
 
@@ -54,6 +50,134 @@ WebEngineView {
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
     }
+    
+    onJavaScriptDialogRequested: function(request) {
+        
+        switch (request.type)
+        {
+            case JavaScriptDialogRequest.DialogTypeAlert:
+                request.accepted = true;
+                var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"));
+                alertDialog.message = request.message;
+                alertDialog.accept.connect(request.dialogAccept);
+                break;
+            
+            case JavaScriptDialogRequest.DialogTypeConfirm:
+                request.accepted = true;
+                var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
+                confirmDialog.message = request.message;
+                confirmDialog.accept.connect(request.dialogAccept);
+                confirmDialog.reject.connect(request.dialogReject);
+                break;
+                
+            case JavaScriptDialogRequest.DialogTypePrompt:
+                request.accepted = true;
+                var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"));
+                promptDialog.message = request.message;
+                promptDialog.defaultValue = request.defaultText;
+                promptDialog.accept.connect(request.dialogAccept);
+                promptDialog.reject.connect(request.dialogReject);
+                break;
+            
+            // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)    
+            //case JavaScriptDialogRequest.DialogTypeUnload: 
+            case 3:
+                request.accepted = true;
+                var beforeUnloadDialog = PopupUtils.open(Qt.resolvedUrl("BeforeUnloadDialog.qml"));
+                beforeUnloadDialog.message = request.message;
+                beforeUnloadDialog.accept.connect(request.dialogAccept);
+                beforeUnloadDialog.reject.connect(request.dialogReject);
+                break;
+        }
+
+    }
+    
+    onFileDialogRequested: function(request) {
+        
+        switch (request.mode)
+        {
+            case FileDialogRequest.FileModeOpen:
+                request.accepted = true;
+                var fileDialog = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
+                fileDialog.allowMultipleFiles = false;
+                fileDialog.accept.connect(request.dialogAccept);
+                fileDialog.reject.connect(request.dialogReject);
+                break;
+                        
+            case FileDialogRequest.FileModeOpenMultiple:
+                request.accepted = true;
+                var fileDialog = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
+                fileDialog.allowMultipleFiles = true;
+                fileDialog.accept.connect(request.dialogAccept);
+                fileDialog.reject.connect(request.dialogReject);
+                break;
+                
+            case FilealogRequest.FileModeUploadFolder:
+            case FileDialogRequest.FileModeSave:
+                request.accepted = false;
+                break;
+        }
+        
+    }
+    
+    onColorDialogRequested: function(request) {
+        request.accepted = true;
+        var colorDialog = PopupUtils.open(Qt.resolvedUrl("ColorSelectDialog.qml"));
+        colorDialog.defaultValue = request.color;
+        colorDialog.accept.connect(request.dialogAccept);
+        colorDialog.reject.connect(request.dialogReject);
+        //myDialog.visible = true;
+    }
+    
+    onAuthenticationDialogRequested: function(request) {
+        
+        switch (request.type)
+        {
+            //case WebEngineAuthenticationDialogRequest.AuthenticationTypeHTTP:
+            case 0:
+            request.accepted = true;
+            var authDialog = PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"), webview.currentWebview);
+            var urlRegExp = new RegExp("^https?\:\/\/([^:\/?#]+)");
+            var match = urlRegExp.exec(request.url);
+            authDialog.host = match[1];
+            authDialog.realm = request.realm;
+            authDialog.accept.connect(request.dialogAccept);
+            authDialog.reject.connect(request.dialogReject);
+                
+            break;
+            
+            //case WebEngineAuthenticationDialogRequest.AuthenticationTypeProxy:
+            case 1:
+            request.accepted = false;
+            break;
+        }
+
+    }
+    
+     onFeaturePermissionRequested: {
+         
+         switch(feature)
+         {
+             case WebEngineView.Geolocation:
+                 
+             // TODO: we might want to store the answer to avoid requesting
+             // the permission everytime the user visits this site.
+             var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"));
+             geoPermissionDialog.origin = securityOrigin;
+             geoPermissionDialog.feature = feature;
+             break;
+             
+             case WebEngineView.MediaAudioCapture:
+             case WebEngineView.MediaVideoCapture:
+             case WebEngineView.MediaAudioVideoCapture:
+                 
+             var mediaAccessDialog = PopupUtils.open(Qt.resolvedUrl("MediaAccessDialog.qml"));
+             mediaAccessDialog.origin = securityOrigin;
+             mediaAccessDialog.feature = feature;
+             break;
+         }
+    }
+    
 /*
     onFullscreenRequested: webview.fullscreen = fullscreen
 
@@ -93,10 +217,7 @@ WebEngineView {
         }
     }
 */
-    onAuthenticationDialogRequested: {
-        PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"),
-                        webview.currentWebview, {"request": request})
-    }
+
 
     Loader {
         id: downloadLoader
@@ -110,11 +231,4 @@ WebEngineView {
             showDownloadDialog(downloadId, contentType, downloader, filename, mimeType)
         }
     } */
-
-    function requestGeolocationPermission(request) {
-        PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),
-                        webview.currentWebview, {"request": request})
-        // TODO: we might want to store the answer to avoid requesting
-        //       the permission everytime the user visits this site.
-    }
 }

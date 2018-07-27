@@ -1094,7 +1094,7 @@ BrowserView {
             properties["contentHandlerLoader"] = contentHandlerLoader;
             properties["downloadDialogLoader"] = downloadDialogLoader;
             properties["downloadsViewLoader"] = downloadsViewLoader;
-            properties["filePickerLoader"] = filePickerLoader;
+            //properties["filePickerLoader"] = filePickerLoader;
             properties["internal"] = internal;
             properties["recentView"] = recentView;
             properties["tabsModel"] = tabsModel;
@@ -1513,12 +1513,16 @@ BrowserView {
         source: "ContentDownloadDialog.qml"
         asynchronous: true
     }
+    
+    /*
 
     Loader {
         id: filePickerLoader
         source: "ContentPickerDialog.qml"
         asynchronous: true
     }
+    
+    */
 
     // Cover the webview (gaps around tabsbar) with DropArea so that webview doesn't steal events
     DropArea {
