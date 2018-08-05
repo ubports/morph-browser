@@ -56,7 +56,7 @@ BrowserView {
         }
 
         function moveTab(from, to) {
-            if (from == to
+            if (from === to
                 || from < 0 || from >= count
                 || to < 0 || to >= count) {
                 return;
@@ -121,6 +121,19 @@ BrowserView {
     signal newWindowRequested(bool incognito)
     signal newWindowFromTab(var tab, var callback)
     signal openLinkInWindowRequested(url url, bool incognito)
+    signal openLinkInNewTabRequested(url url, bool background)
+    signal shareLinkRequested(url linkUrl, string title)
+    signal shareTextRequested(string text)
+
+    onShareLinkRequested: {
+
+        internal.shareLink(linkUrl, title);
+    }
+
+    onShareTextRequested: {
+
+        internal.shareText(text)
+    }
 
     Connections {
         target: currentWebview
@@ -233,14 +246,14 @@ BrowserView {
                    !sadTabLoader.focus
 
             Keys.onPressed: {
-                if (tabContainer.visible && (event.key == Qt.Key_Backspace)) {
+                if (tabContainer.visible && (event.key === Qt.Key_Backspace)) {
                     // Not handled as a window-level shortcut as it would take
                     // precedence over backspace events in HTML text fields
                     // (https://launchpad.net/bugs/1569938).
-                    if (event.modifiers == Qt.NoModifier) {
+                    if (event.modifiers === Qt.NoModifier) {
                         internal.historyGoBack()
                         event.accepted = true
-                    } else if (event.modifiers == Qt.ShiftModifier) {
+                    } else if (event.modifiers === Qt.ShiftModifier) {
                         internal.historyGoForward()
                         event.accepted = true
                     }
@@ -1044,7 +1057,7 @@ BrowserView {
 
         function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
-            if (component.status == Component.Ready) {
+            if (component.status === Component.Ready) {
                 var share = component.createObject(browser)
                 share.onDone.connect(share.destroy)
                 return share
@@ -1227,9 +1240,9 @@ BrowserView {
             var fingerprint = error.certificate.fingerprintSHA1
             for (var i in allowedCertificateErrors) {
                 var allowed = allowedCertificateErrors[i]
-                if ((host == allowed[0]) &&
-                    (code == allowed[1]) &&
-                    (fingerprint == allowed[2])) {
+                if ((host === allowed[0]) &&
+                    (code === allowed[1]) &&
+                    (fingerprint === allowed[2])) {
                     return true
                 }
             }
@@ -1485,7 +1498,7 @@ BrowserView {
     // Ctrl+0: reset zoom factor to 1.0
     Shortcut {
         sequence: "Ctrl+0"
-        enabled: currentWebview && (currentWebview.zoomFactor != 1.0)
+        enabled: currentWebview && (currentWebview.zoomFactor !== 1.0)
         onActivated: currentWebview.zoomFactor = 1.0
     }
 
@@ -1513,7 +1526,7 @@ BrowserView {
         source: "ContentDownloadDialog.qml"
         asynchronous: true
     }
-    
+
     /*
 
     Loader {
@@ -1521,7 +1534,7 @@ BrowserView {
         source: "ContentPickerDialog.qml"
         asynchronous: true
     }
-    
+
     */
 
     // Cover the webview (gaps around tabsbar) with DropArea so that webview doesn't steal events

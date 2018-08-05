@@ -26,6 +26,7 @@ import "actions" as Actions
 WebEngineView {
     id: webview
     property var currentWebview: webview
+    property ContextMenuRequest contextMenuRequest: null
     
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
@@ -98,18 +99,18 @@ WebEngineView {
         {
             case FileDialogRequest.FileModeOpen:
                 request.accepted = true;
-                var fileDialog = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
-                fileDialog.allowMultipleFiles = false;
-                fileDialog.accept.connect(request.dialogAccept);
-                fileDialog.reject.connect(request.dialogReject);
+                var fileDialogSingle = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
+                fileDialogSingle.allowMultipleFiles = false;
+                fileDialogSingle.accept.connect(request.dialogAccept);
+                fileDialogSingle.reject.connect(request.dialogReject);
                 break;
                         
             case FileDialogRequest.FileModeOpenMultiple:
                 request.accepted = true;
-                var fileDialog = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
-                fileDialog.allowMultipleFiles = true;
-                fileDialog.accept.connect(request.dialogAccept);
-                fileDialog.reject.connect(request.dialogReject);
+                var fileDialogMultiple = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
+                fileDialogMultiple.allowMultipleFiles = true;
+                fileDialogMultiple.accept.connect(request.dialogAccept);
+                fileDialogMultiple.reject.connect(request.dialogReject);
                 break;
                 
             case FilealogRequest.FileModeUploadFolder:
@@ -177,6 +178,194 @@ WebEngineView {
              break;
          }
     }
+    
+     onNewViewRequested: function(request) {
+
+         browser.openLinkInNewTabRequested(request.requestedUrl, false);
+    }
+
+    function showMessage(text) {
+
+         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"));
+         alertDialog.message = text;
+     }
+
+    onContextMenuRequested: function(request) {
+
+
+                request.accepted = true;
+
+                var contextMenu = PopupUtils.open(Qt.resolvedUrl("webbrowser/ContextMenuMobile.qml"));
+                contextMenu.actions = contextualactions;
+
+                if (request.linkUrl.toString())
+                {
+                    contextMenu.titleContent = request.linkUrl;
+                }
+                else if (request.selectedText)
+                {
+                    contextMenu.titleContent = request.selectedText;
+                }
+
+                contextMenuRequest = request;
+   }
+
+    ActionList {
+
+        id: contextualactions
+        Actions.OpenLinkInNewTab {
+            objectName: "OpenLinkInNewTabContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            //onTriggered: browser.internal.openUrlInNewTab(contextMenuRequest.linkUrl, true, true, tabsModel.indexOf(browserTab) + 1)
+            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, false);
+        }
+        Actions.OpenLinkInNewBackgroundTab {
+            objectName: "OpenLinkInNewBackgroundTabContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            //onTriggered: internal.openUrlInNewTab(contextMenuRequest.linkUrl, false, true, tabsModel.indexOf(browserTab) + 1)
+            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, true);
+        }
+        Actions.OpenLinkInNewWindow {
+            objectName: "OpenLinkInNewWindowContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, false)
+        }
+        Actions.OpenLinkInPrivateWindow {
+            objectName: "OpenLinkInPrivateWindowContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, true)
+        }
+        Actions.BookmarkLink {
+            objectName: "BookmarkLinkContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !BookmarksModel.contains(contextMenuRequest.linkUrl)
+            onTriggered: showMessage("Actions.BookmarkLink not implemented.");
+         /*
+            onTriggered: {
+                // position the menu target with a one-off assignement instead of a binding
+                // since the contents of the contextModel have meaning only while the context
+                // menu is active
+                //contextualMenuTarget.x = contextModel.position.x
+                //contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
+                internal.addBookmark(contextMenuRequest.linkUrl, contextMenuRequest.linkText, "", contextualMenuTarget)
+            }
+          */
+        }
+        Actions.CopyLink {
+            objectName: "CopyLinkContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: Clipboard.push(["text/plain", contextMenuRequest.linkUrl.toString()])
+        }
+        Actions.SaveLink {
+            objectName: "SaveLinkContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: {showMessage("Actions.SaveLink is not implemented");} //contextModel.saveLink()
+        }
+        // TODO: not working yet
+        Actions.Share {
+            objectName: "ShareContextualAction"
+            enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+                      contextMenuRequest && (contextMenuRequest.linkUrl.toString() || contextMenuRequest.selectedText)
+            onTriggered: {
+                if (contextMenuRequest.linkUrl.toString()) {
+                    //internal.shareLink(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText)
+                    browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
+                } else if (contextMenuRequest.selectionText) {
+                    //internal.shareText(contextMenuRequest.selectionText)
+                    browser.shareTextRequested(contextMenuRequest.selectionText)
+                }
+            }
+        }
+        Actions.OpenImageInNewTab {
+            objectName: "OpenImageInNewTabContextualAction"
+            enabled:   contextMenuRequest &&
+                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) &&
+                       contextMenuRequest.mediaUrl.toString()
+            //onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
+            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.mediaUrl, false);
+        }
+        Actions.CopyImage {
+            objectName: "CopyImageContextualAction"
+            enabled:  contextMenuRequest &&
+                      ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
+                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas )) // && contextModel.hasImageContents
+            // TODO !
+            onTriggered: showMessage("Actions.CopyImage not implemented."); //contextModel.saveMedia()
+        }
+        Actions.SaveImage {
+            objectName: "SaveImageContextualAction"
+            enabled: contextMenuRequest &&
+                     ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
+                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas)) // && contextModel.hasImageContents
+
+            // TODO !
+            onTriggered: showMessage("Actions.SaveImage not implemented."); //contextModel.saveMedia()
+        }
+        Actions.OpenVideoInNewTab {
+            objectName: "OpenVideoInNewTabContextualAction"
+            enabled: contextMenuRequest &&
+                     (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
+                     contextMenuRequest.mediaUrl.toString()
+            //onTriggered: internal.openUrlInNewTab(contextMenuRequest.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
+            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.mediaUrl, false);
+        }
+        Actions.SaveVideo {
+            objectName: "SaveVideoContextualAction"
+            enabled: contextMenuRequest &&
+                     (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
+                     contextMenuRequest.srcUrl.toString()
+            // TODO !
+            onTriggered: showMessage("Actions.SaveVideo not implemented."); //contextModel.saveMedia()
+        }
+        Actions.Undo {
+            objectName: "UndoContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo))
+            onTriggered: webview.triggerWebAction(WebEngineView.Undo)
+        }
+        Actions.Redo {
+            objectName: "RedoContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo))
+            onTriggered: webview.triggerWebAction(WebEngineView.Redo)
+        }
+        Actions.Cut {
+            objectName: "CutContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCut))
+            onTriggered: webview.triggerWebAction(WebEngineView.Cut); //showMessage(contextMenuRequest.editFlags);
+        }
+        Actions.Copy {
+            objectName: "CopyContextualAction"
+            enabled: contextMenuRequest && (contextMenuRequest.selectedText || contextMenuRequest.isContentEditable &&
+                                      (!contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)))
+            onTriggered: webview.triggerWebAction(WebEngineView.Copy)
+        }
+        Actions.Paste {
+            objectName: "PasteContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
+            onTriggered: webview.triggerWebAction(WebEngineView.Paste);
+        }
+        /*
+        Actions.Erase {
+            objectName: "EraseContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                      (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanDelete))
+            // seems not to work
+            onTriggered: webview.triggerWebAction(WebEngineView.Delete);
+        }
+        */
+        /*
+        does not work correctly (context menu appears again)
+        Actions.SelectAll {
+            objectName: "SelectAllContextualAction"
+            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll))
+            onTriggered: webview.triggerWebAction(WebEngineView.SelectAll);
+        }
+        */
+    }
+
     
 /*
     onFullscreenRequested: webview.fullscreen = fullscreen
