@@ -274,6 +274,7 @@ WebEngineView {
             onTriggered: {
                     //internal.shareLink(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText)
                     browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
+                    }
         }
         Actions.OpenImageInNewTab {
             objectName: "OpenImageInNewTabContextualAction"
