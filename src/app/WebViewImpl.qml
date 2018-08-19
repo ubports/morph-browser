@@ -27,7 +27,14 @@ WebEngineView {
     id: webview
     property var currentWebview: webview
     property ContextMenuRequest contextMenuRequest: null
-    
+
+    // scroll positions for positioning the quickMenu (not yet in use)
+    property real contextMenuStartScrollx: 0
+    property real contextMenuStartScrolly: 0
+
+    property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScrollx)
+    property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScrolly)
+
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
 
@@ -192,22 +199,22 @@ WebEngineView {
 
     onContextMenuRequested: function(request) {
 
+                contextMenuRequest = request;
+                contextMenuStartScrollx = webview.scrollPosition.x;
+                contextMenuStartScrolly = webview.scrollPosition.y;
 
                 request.accepted = true;
 
-                var contextMenu = PopupUtils.open(Qt.resolvedUrl("webbrowser/ContextMenuMobile.qml"));
-                contextMenu.actions = contextualactions;
-
-                if (request.linkUrl.toString())
+                if (request.linkUrl.toString() || request.mediaType)
                 {
+                    var contextMenu = PopupUtils.open(Qt.resolvedUrl("webbrowser/ContextMenuMobile.qml"));
+                    contextMenu.actions = contextualactions;
                     contextMenu.titleContent = request.linkUrl;
                 }
-                else if (request.selectedText)
+                else
                 {
-                    contextMenu.titleContent = request.selectedText;
+                    quickMenu.visible = true;
                 }
-
-                contextMenuRequest = request;
    }
 
     ActionList {
@@ -260,20 +267,13 @@ WebEngineView {
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: {showMessage("Actions.SaveLink is not implemented");} //contextModel.saveLink()
         }
-        // TODO: not working yet
         Actions.Share {
             objectName: "ShareContextualAction"
             enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
-                      contextMenuRequest && (contextMenuRequest.linkUrl.toString() || contextMenuRequest.selectedText)
+                      contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: {
-                if (contextMenuRequest.linkUrl.toString()) {
                     //internal.shareLink(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText)
                     browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
-                } else if (contextMenuRequest.selectionText) {
-                    //internal.shareText(contextMenuRequest.selectionText)
-                    browser.shareTextRequested(contextMenuRequest.selectionText)
-                }
-            }
         }
         Actions.OpenImageInNewTab {
             objectName: "OpenImageInNewTabContextualAction"
@@ -297,7 +297,7 @@ WebEngineView {
                      ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas)) // && contextModel.hasImageContents
 
-            // TODO !
+            // onTriggered: browser.shareLinkRequested(contextMenuRequest.mediaUrl.toString, "Image")
             onTriggered: showMessage("Actions.SaveImage not implemented."); //contextModel.saveMedia()
         }
         Actions.OpenVideoInNewTab {
@@ -316,56 +316,194 @@ WebEngineView {
             // TODO !
             onTriggered: showMessage("Actions.SaveVideo not implemented."); //contextModel.saveMedia()
         }
-        Actions.Undo {
-            objectName: "UndoContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo))
-            onTriggered: webview.triggerWebAction(WebEngineView.Undo)
-        }
-        Actions.Redo {
-            objectName: "RedoContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo))
-            onTriggered: webview.triggerWebAction(WebEngineView.Redo)
-        }
-        Actions.Cut {
-            objectName: "CutContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCut))
-            onTriggered: webview.triggerWebAction(WebEngineView.Cut); //showMessage(contextMenuRequest.editFlags);
-        }
         Actions.Copy {
             objectName: "CopyContextualAction"
             enabled: contextMenuRequest && (contextMenuRequest.selectedText || contextMenuRequest.isContentEditable &&
                                       (!contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)))
             onTriggered: webview.triggerWebAction(WebEngineView.Copy)
         }
-        Actions.Paste {
-            objectName: "PasteContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
-            onTriggered: webview.triggerWebAction(WebEngineView.Paste);
-        }
         /*
         Actions.Erase {
             objectName: "EraseContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
                       (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanDelete))
-            // seems not to work
-            onTriggered: webview.triggerWebAction(WebEngineView.Delete);
-        }
-        */
-        /*
-        does not work correctly (context menu appears again)
-        Actions.SelectAll {
-            objectName: "SelectAllContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                     (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll))
-            onTriggered: webview.triggerWebAction(WebEngineView.SelectAll);
+            onTriggered: {
+                // seems not to work
+                //webview.triggerWebAction(WebEngineView.Delete);
+                var javaScriptCommand = "document.elementFromPoint(%1, %2).value = '';";
+                webview.runJavaScript(javaScriptCommand.arg(contextMenuRequest.x).arg(contextMenuRequest.y));
+             }
         }
         */
     }
 
+    UbuntuShape {
+            z:3;
+            id: quickMenu
+            objectName: "touchSelectionActions"
+            visible: false
+            //opacity: (_webview.activeFocus
+            //          && (_webview.touchSelectionController.status != Oxide.TouchSelectionController.StatusInactive)
+            //          && !_webview.touchSelectionController.handleDragInProgress
+            //          && !selectionOutOfSight) ? 1.0 : 0.0
+            aspect: UbuntuShape.DropShadow
+            backgroundColor: "white"
+            readonly property int padding: units.gu(1)
+            width: touchSelectionActionsRow.width + padding * 2
+            height: childrenRect.height + padding * 2
+
+            //readonly property rect bounds: _webview.touchSelectionController.bounds
+            //readonly property bool selectionOutOfSight: (bounds.x > _webview.width) || ((bounds.x + bounds.width) < 0) || (bounds.y > _webview.height) || ((bounds.y + bounds.height) < 0)
+            readonly property real handleHeight: units.gu(1.5)
+            readonly property real spacing: units.gu(1)
+            //readonly property bool fitsBelow: (bounds.y + bounds.height + handleHeight + spacing + height) <= _webview.height
+            //readonly property bool fitsAbove: (bounds.y - spacing - height) >= (_webview.locationBarController.height + _webview.locationBarController.offset)
+            //readonly property real xCentered: bounds.x + (bounds.width - width) / 2
+            //x: ((xCentered >= 0) && ((xCentered + width) <= _webview.width))
+            //    ? xCentered : (xCentered < 0) ? 0 : _webview.width - width
+            //y: fitsBelow ? (bounds.y + bounds.height + handleHeight + spacing)
+            //             : fitsAbove ? (bounds.y - spacing - height)
+            //                         : (_webview.height + _webview.locationBarController.height + _webview.locationBarController.offset - height) / 2
+
+            ActionList {
+                id: touchSelectionActions
+                Action {
+                    name: "undo"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Undo")
+                    iconName: "edit-undo"
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo))
+                    visible: enabled
+                    onTriggered: {
+                        //quickMenu.visible = false;
+                        webview.triggerWebAction(WebEngineView.Undo)
+                    }
+                }
+                Action {
+                    name: "redo"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Redo")
+                    iconName: "edit-redo"
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo))
+                    visible: enabled
+                    onTriggered: {
+                        //quickMenu.visible = false;
+                        webview.triggerWebAction(WebEngineView.Redo)
+                    }
+                }
+
+                Action {
+                    name: "selectall"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
+                    iconName: "edit-select-all"
+                    // can we make it so that it only appears for non-empty inputs ?
+                    enabled: contextMenuRequest &&
+                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll))
+                    visible: enabled
+                    onTriggered: {
+                        quickMenu.visible = false;
+                        webview.triggerWebAction(WebEngineView.SelectAll);
+                        // note: selectall causes the context menu to appear again
+                        // if it is not intended, use the following alternative:
+                        //var javaScriptCommand = "document.elementFromPoint(%1, %2).select();";
+                        //webview.runJavaScript(javaScriptCommand.arg(contextMenuRequest.x).arg(contextMenuRequest.y));
+                    }
+
+                }
+                Action {
+                    name: "cut"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
+                    iconName: "edit-cut"
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCut)) &&
+                             (contextMenuRequest.selectedText !== "")
+                    visible: enabled
+                    onTriggered: {
+                       quickMenu.visible = false;
+                       webview.triggerWebAction(WebEngineView.Cut);
+                    }
+                }
+                Action {
+                    name: "copy"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
+                    iconName: "edit-copy"
+                    enabled: contextMenuRequest &&
+                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)) &&
+                             (contextMenuRequest.selectedText !== "")
+                    visible: enabled
+                    onTriggered: {
+                        quickMenu.visible = false;
+                        webview.triggerWebAction(WebEngineView.Copy)
+                    }
+                }
+                Action {
+                    name: "paste"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
+                    iconName: "edit-paste"
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
+                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
+                    visible: enabled
+                    onTriggered: {
+                        quickMenu.visible = false;
+                        webview.triggerWebAction(WebEngineView.Paste);
+                    }
+                }
+                Action {
+                    name: "share"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Share")
+                    iconName: "share"
+                    enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+                              contextMenuRequest && contextMenuRequest.selectedText
+                    visible: enabled
+                    onTriggered: {
+                            browser.shareTextRequested(contextMenuRequest.selectedText)
+                    }
+                }
+                // only needed as long as we don't detect the "blur" event of the control
+                // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
+                Action {
+                    name: "cancel"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Cancel")
+                    iconName: "cancel"
+                    enabled: true
+                    visible: enabled
+                    onTriggered: {
+                        quickMenu.visible = false;
+                    }
+                }
+            }
+
+            Row {
+                id: touchSelectionActionsRow
+                x: parent.padding
+                y: parent.padding
+                width: {
+                    // work around what seems to be a bug in Row’s childrenRect.width
+                    var w = 0
+                    for (var i in visibleChildren) {
+                        w += visibleChildren[i].width
+                    }
+                    return w
+                }
+                height: units.gu(6)
+
+                Repeater {
+                    model: touchSelectionActions.children
+                    AbstractButton {
+                        objectName: "touchSelectionAction_" + action.name
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                        action: modelData
+                        styleName: "ToolbarButtonStyle"
+                        activeFocusOnPress: false
+                        //onClicked: _webview.touchSelectionController.hide()
+                    }
+                }
+            }
+        }
     
 /*
     onFullscreenRequested: webview.fullscreen = fullscreen
