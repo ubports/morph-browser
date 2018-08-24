@@ -25,15 +25,18 @@ import "actions" as Actions
 
 WebEngineView {
     id: webview
+
+    // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
+    readonly property int scaleFactor: 2
+
     property var currentWebview: webview
     property ContextMenuRequest contextMenuRequest: null
 
-    // scroll positions for positioning the quickMenu (not yet in use)
-    property real contextMenuStartScrollx: 0
-    property real contextMenuStartScrolly: 0
+    // scroll positions at the moment of the context menu request
+    property point contextMenuStartScroll: Qt.point(0,0)
 
-    property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScrollx)
-    property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScrolly)
+    //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
+    //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
 
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
@@ -200,9 +203,6 @@ WebEngineView {
     onContextMenuRequested: function(request) {
 
                 contextMenuRequest = request;
-                contextMenuStartScrollx = webview.scrollPosition.x;
-                contextMenuStartScrolly = webview.scrollPosition.y;
-
                 request.accepted = true;
 
                 if (request.linkUrl.toString() || request.mediaType)
@@ -213,6 +213,15 @@ WebEngineView {
                 }
                 else
                 {
+                    contextMenuStartScroll.x = webview.scrollPosition.x;
+                    contextMenuStartScroll.y = webview.scrollPosition.y;
+
+                    webview.runJavaScript("var elemContextMenu = document.elementFromPoint(%1, %2);
+                                          [elemContextMenu.offsetLeft, elemContextMenu.offsetTop, elemContextMenu.offsetWidth, elemContextMenu.offsetHeight];".arg(request.x).arg(request.y),
+                                          function(result) { quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3]);
+                                                            //showMessage(JSON.stringify(result));
+                                                           }
+                                         );
                     quickMenu.visible = true;
                 }
    }
@@ -323,6 +332,7 @@ WebEngineView {
                                       (!contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)))
             onTriggered: webview.triggerWebAction(WebEngineView.Copy)
         }
+
         /*
         Actions.Erase {
             objectName: "EraseContextualAction"
@@ -353,18 +363,19 @@ WebEngineView {
             width: touchSelectionActionsRow.width + padding * 2
             height: childrenRect.height + padding * 2
 
-            //readonly property rect bounds: _webview.touchSelectionController.bounds
+            readonly property point webViewScrollPosition: visible ? webview.scrollPosition : Qt.point(0,0)
+            property rect bounds: Qt.rect(10,10,10,10)
             //readonly property bool selectionOutOfSight: (bounds.x > _webview.width) || ((bounds.x + bounds.width) < 0) || (bounds.y > _webview.height) || ((bounds.y + bounds.height) < 0)
-            readonly property real handleHeight: units.gu(1.5)
-            readonly property real spacing: units.gu(1)
-            //readonly property bool fitsBelow: (bounds.y + bounds.height + handleHeight + spacing + height) <= _webview.height
-            //readonly property bool fitsAbove: (bounds.y - spacing - height) >= (_webview.locationBarController.height + _webview.locationBarController.offset)
-            //readonly property real xCentered: bounds.x + (bounds.width - width) / 2
-            //x: ((xCentered >= 0) && ((xCentered + width) <= _webview.width))
-            //    ? xCentered : (xCentered < 0) ? 0 : _webview.width - width
-            //y: fitsBelow ? (bounds.y + bounds.height + handleHeight + spacing)
-            //             : fitsAbove ? (bounds.y - spacing - height)
-            //                         : (_webview.height + _webview.locationBarController.height + _webview.locationBarController.offset - height) / 2
+            readonly property real handleHeight: 0 // units.gu(1.5)
+            readonly property real spacing: units.gu(0.5)
+            readonly property bool fitsBelow: (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing + height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor) <= webview.height - Qt.inputMethod.keyboardRectangle.height / scaleFactor
+            readonly property bool fitsAbove: (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor) >= 0
+            readonly property real xCentered: bounds.x + (bounds.width - width) / 2
+            x: ((xCentered >= 0) && ((xCentered + width) <= webview.width))
+                ? xCentered : (xCentered < 0) ? 0 : webview.width - width
+            y: fitsBelow ? (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor )
+                         : fitsAbove ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
+                                     : (webview.height - height) / 2
 
             ActionList {
                 id: touchSelectionActions
