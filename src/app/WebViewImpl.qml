@@ -522,10 +522,19 @@ WebEngineView {
                 }
             }
         }
-    
-/*
-    onFullscreenRequested: webview.fullscreen = fullscreen
 
+    onNavigationRequested: function (request) {
+
+        quickMenu.visible = false;
+        request.accept();
+    }
+
+    onFullScreenRequested: function(request) {
+
+        browser.fullScreenRequested(request.toggleOn);
+       request.accept()
+   }
+/*
     onDownloadRequested: {
         if (!request.suggestedFilename && request.mimeType &&
             internal.downloadMimeTypesBlacklist.indexOf(request.mimeType) > -1) {
