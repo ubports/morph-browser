@@ -216,11 +216,17 @@ WebEngineView {
                     contextMenuStartScroll.x = webview.scrollPosition.x;
                     contextMenuStartScroll.y = webview.scrollPosition.y;
 
-                    webview.runJavaScript("var elemContextMenu = document.elementFromPoint(%1, %2);
-                                          [elemContextMenu.offsetLeft, elemContextMenu.offsetTop, elemContextMenu.offsetWidth, elemContextMenu.offsetHeight];".arg(request.x).arg(request.y),
-                                          function(result) { quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3]);
-                                                            //showMessage(JSON.stringify(result));
-                                                           }
+                    var javaScriptCommand = "
+                    var elemContextMenu = document.elementFromPoint(%1, %2);
+                    // result array
+                    [elemContextMenu.offsetLeft, elemContextMenu.offsetTop, elemContextMenu.offsetWidth, elemContextMenu.offsetHeight];
+                    ".arg(request.x).arg(request.y)
+
+                    webview.runJavaScript(javaScriptCommand, function(result)
+                                                            {
+                                                               quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3]);
+                                                               //showMessage(JSON.stringify(result));
+                                                            }
                                          );
                     quickMenu.visible = true;
                 }
