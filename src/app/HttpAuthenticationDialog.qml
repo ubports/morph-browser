@@ -24,23 +24,31 @@ Popups.Dialog {
     id: dialog
     title: i18n.tr("Authentication required.")
     // TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
-    text: request ? i18n.tr("The website at %1 requires authentication. The website says \"%2\"").arg(request.host).arg(request.realm) : ""
+    text: (host && realm) ? i18n.tr("The website at %1 requires authentication. The website says \"%2\"").arg(this.host).arg(this.realm) : ""
 
-    property QtObject request: null
+    //property QtObject request: null
+    
+    property string host
+    property string realm
+    
+    signal accept(string username, string password)
+    signal reject()
+    
+    onAccept: PopupUtils.close(dialog)
+    onReject: PopupUtils.close(dialog)
 
+    /*
     Connections {
         target: request
         onCancelled: PopupUtils.close(dialog)
     }
+    */
 
     TextField {
         id: usernameInput
         objectName: "username"
         placeholderText: i18n.tr("Username")
-        onAccepted: {
-            request.allow(usernameInput.text, passwordInput.text)
-            PopupUtils.close(dialog)
-        }
+        onAccepted: accept(usernameInput.text, passwordInput.text)
     }
 
     TextField {
@@ -48,28 +56,19 @@ Popups.Dialog {
         objectName: "password"
         placeholderText: i18n.tr("Password")
         echoMode: TextInput.Password
-        onAccepted: {
-            request.allow(usernameInput.text, passwordInput.text)
-            PopupUtils.close(dialog)
-        }
+        onAccepted: accept(usernameInput.text, passwordInput.text)
     }
 
     Button {
         objectName: "allow"
         text: i18n.tr("OK")
         color: theme.palette.normal.positive
-        onClicked: {
-            request.allow(usernameInput.text, passwordInput.text)
-            PopupUtils.close(dialog)
-        }
+        onClicked: accept(usernameInput.text, passwordInput.text)
     }
 
     Button {
         objectName: "deny"
         text: i18n.tr("Cancel")
-        onClicked: {
-            request.deny()
-            PopupUtils.close(dialog)
-        }
+        onClicked: reject()
     }
 }

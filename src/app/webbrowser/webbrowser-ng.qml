@@ -41,7 +41,7 @@ QtObject {
             window.addTab(urls[i]).load()
             window.tabsModel.currentIndex = window.tabsModel.count - 1
         }
-        if (window.tabsModel.count == 0) {
+        if (window.tabsModel.count === 0) {
             window.addTab(incognito ? "" : settings.homepage).load()
             window.tabsModel.currentIndex = 0
         }
@@ -61,7 +61,7 @@ QtObject {
     function getLastActiveWindow(incognito) {
         for (var i = allWindows.length - 1; i >= 0; --i) {
             var window = allWindows[i]
-            if (window.incognito == incognito) {
+            if (window.incognito === incognito) {
                 return window
             }
         }
@@ -76,7 +76,7 @@ QtObject {
         for (var i in urls) {
             window.addTab(urls[i]).load()
         }
-        if (window.tabsModel.count == 0) {
+        if (window.tabsModel.count === 0) {
             window.addTab().load()
         }
         window.tabsModel.currentIndex = window.tabsModel.count - 1
@@ -193,10 +193,12 @@ QtObject {
                             "width": parent.width,
                         }
                     )
+
                     window.addTab()
                     window.tabsModel.currentIndex = 0
                     window.tabsModel.currentTab.load()
                     window.show()
+
                 }
                 onOpenLinkInWindowRequested: {
                     var window = null
@@ -218,6 +220,17 @@ QtObject {
                     window.tabsModel.currentTab.load()
                     window.show()
                     window.requestActivate()
+                }
+
+                onOpenLinkInNewTabRequested: {
+
+                    window.addTab(url);
+
+                    if (! background)
+                    {
+                        window.tabsModel.currentIndex = window.tabsModel.count - 1
+                        window.tabsModel.currentTab.load()
+                    }
                 }
 
                 // Not handled as a window-level shortcut as it would take
@@ -405,7 +418,7 @@ QtObject {
     property var applicationMonitor: Connections {
         target: Qt.application
         onStateChanged: {
-            if (Qt.application.state != Qt.ApplicationActive) {
+            if (Qt.application.state !== Qt.ApplicationActive) {
                 session.save()
             }
         }

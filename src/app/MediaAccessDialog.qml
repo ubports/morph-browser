@@ -17,12 +17,20 @@
  */
 
 import QtQuick 2.4
+import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 
 Dialog {
-    property var request
+    property url origin
+    property int feature
     modal: true
+    
+    signal accept()
+    signal reject()
+    
+    onAccept: { hide(); grantFeaturePermission(origin, feature, true); }
+    onReject: { hide(); grantFeaturePermission(origin, feature, false); }
 
     Label {
         elide: Text.ElideRight
@@ -34,19 +42,16 @@ Dialog {
     Label {
         color: theme.palette.normal.baseText
         wrapMode: Text.Wrap
-        text: (request.isForAudio && request.isForVideo)
+        text: (feature == WebEngineView.MediaAudioVideoCapture)
                   ? i18n.tr("Allow this domain to access your camera and microphone?")
-                  : (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
-                                        : i18n.tr("Allow this domain to access your microphone?"))
+                  : ( (feature == WebEngineView.MediaVideoCapture) ? i18n.tr("Allow this domain to access your camera?")
+                                                                   : i18n.tr("Allow this domain to access your microphone?"))
     }
 
     Label {
         color: theme.palette.normal.baseText
         wrapMode: Text.Wrap
-        text: (request.embedder.toString() !== request.origin.toString())
-                  // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-                  ? i18n.tr("%1 (embedded in %2)").arg(request.origin).arg(request.embedder)
-                  : request.origin
+        text: origin
     }
 
     Item {
@@ -72,20 +77,14 @@ Dialog {
             text: i18n.tr("Yes")
             color: theme.palette.normal.positive
             width: units.gu(10)
-            onClicked: {
-                request.allow()
-                hide()
-            }
+            onClicked: accept()
         }
 
         Button {
             objectName: "mediaAccessDialog.denyButton"
             text: i18n.tr("No")
             width: units.gu(10)
-            onClicked: {
-                request.deny()
-                hide()
-            }
+            onClicked: reject()
         }
     }
 
