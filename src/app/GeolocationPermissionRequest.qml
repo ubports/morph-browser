@@ -23,27 +23,29 @@ import Ubuntu.Components.Popups 1.3
 Dialog {
     id: dialog
 
-    property QtObject request: null
+    //property QtObject request: null
+    property url origin
+    property int feature
 
     title: i18n.tr("Permission Request")
-    text: i18n.tr("This page wants to know your device’s location.")
+    text: origin + "<br>" + i18n.tr("This page wants to know your device’s location.")
+    
+    signal accept()
+    signal reject()
+    
+    onAccept: { PopupUtils.close(dialog); grantFeaturePermission(origin, feature, true); }
+    onReject: { PopupUtils.close(dialog); grantFeaturePermission(origin, feature, false); }
 
     Button {
         objectName: "deny"
         text: i18n.tr("Deny")
-        onClicked: {
-            request.deny()
-            PopupUtils.close(dialog)
-        }
+        onClicked: reject()
     }
 
     Button {
         objectName: "allow"
         text: i18n.tr("Allow")
         color: theme.palette.normal.positive
-        onClicked: {
-            request.allow()
-            PopupUtils.close(dialog)
-        }
+        onClicked: accept()
     }
 }

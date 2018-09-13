@@ -70,18 +70,24 @@ Component {
             focus: true
 
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
-/*
+            /*
             locationBarController {
                 height: chrome ? chrome.height : 0
                 mode: chromeController ? chromeController.defaultMode : null
             }
+            
+            */
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-            preferences.localStorageEnabled: true
-            preferences.appCacheEnabled: true
+            //preferences.localStorageEnabled: true
+            //preferences.appCacheEnabled: true
 
-            property QtObject contextModel: null
-            contextualActions: ActionList {
+            //property QtObject contextModel: null
+            //contextualActions: 
+
+            /*
+             
+            ActionList {
                 Actions.OpenLinkInNewTab {
                     objectName: "OpenLinkInNewTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
@@ -238,7 +244,7 @@ Component {
                     contextModel.close()
                 }
             }
-*/
+            
             Component {
                 id: contextMenuNarrowComponent
                 ContextMenuMobile {
@@ -255,8 +261,10 @@ Component {
                     Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                 }
             }
+            */
+            
             //contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
-/*
+            /*
             onNewViewRequested: {
                 var newTab = browser.createTab({"request": request})
                 var setCurrent = true//(request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)

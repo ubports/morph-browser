@@ -21,10 +21,10 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3 as Popups
 import Ubuntu.Content 1.3
 //import com.canonical.Oxide 1.8
-import "../MimeTypeMapper.js" as MimeTypeMapper
-import ".."
+import "MimeTypeMapper.js" as MimeTypeMapper
+import "."
 
-Component {
+//Component {
     Popups.PopupBase {
         id: picker
         objectName: "contentPickerDialog"
@@ -35,6 +35,13 @@ Component {
         parent: QuickUtils.rootItem(this)
 
         property var activeTransfer
+        property bool allowMultipleFiles
+        
+        signal accept(var files)
+        signal reject()
+
+        onAccept: hide()
+        onReject: hide()
 
         Rectangle {
             anchors.fill: parent
@@ -52,6 +59,8 @@ Component {
                 handler: ContentHandler.Source
 
                 onPeerSelected: {
+                    
+                    /*
                     if (peer.appId == "webbrowser-app") {
                         // If we're inside the browser and the user has
                         // requested content from the browser then we
@@ -64,18 +73,22 @@ Component {
                         downloadsPage.internalFilePicker = model
                         Popups.PopupUtils.close(picker)
                     } else {
-                        if (model.allowMultipleFiles) {
+                    */
+                        if (allowMultipleFiles) {
                             peer.selectionType = ContentTransfer.Multiple
                         } else {
                             peer.selectionType = ContentTransfer.Single
                         }
                         picker.activeTransfer = peer.request()
                         stateChangeConnection.target = picker.activeTransfer
-                    }
+                    
+                     /*
+                      }
+                     */
                 }
 
                 onCancelPressed: {
-                    model.reject()
+                    reject()
                 }
             }
         }
@@ -87,9 +100,17 @@ Component {
                 if (picker.activeTransfer.state === ContentTransfer.Charged) {
                     var selectedItems = []
                     for(var i in picker.activeTransfer.items) {
+                        
+                        // ContentTransfer.Single seems not to be handled properly, e.g. selected items with file manager
+                        // -> only select the first item
+                        if ((i > 0) && ! allowMultipleFiles)
+                        {
+                            break;
+                        }
+                        
                         selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""))
                     }
-                    model.accept(selectedItems)
+                    accept(selectedItems)
                 }
             }
         }
@@ -108,4 +129,4 @@ Component {
             show()
         }
     }
-}
+//}
