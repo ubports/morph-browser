@@ -17,10 +17,14 @@
  */
 
 import QtQuick 2.4
-import com.canonical.Oxide 1.9 as Oxide
+import QtWebEngine 1.5
 
-Oxide.WebContext {
+WebEngineProfile {
     id: oxideContext
+
+    property alias userAgent: httpUserAgent
+    property alias dataPath: persistentStoragePath
+    property alias maxCacheSizeHint: httpCacheMaximumSize
 
     readonly property string defaultUserAgent: __ua.defaultUA
 
@@ -31,41 +35,39 @@ Oxide.WebContext {
 
     userAgent: defaultUserAgent
 
-    sessionCookieMode: {
+    persistentCookiesPolicy: {
         if (typeof webContextSessionCookieMode !== 'undefined') {
             if (webContextSessionCookieMode === "persistent") {
-                return Oxide.WebContext.SessionCookieModePersistent
+                return WebEngineProfile.ForcePersistentCookies
             } else if (webContextSessionCookieMode === "restored") {
-                return Oxide.WebContext.SessionCookieModeRestored
+                return WebEngineProfile.AllowPersistentCookies
             }
         }
-        return Oxide.WebContext.SessionCookieModeEphemeral
+        return WebEngineProfile.NoPersistentCookies
     }
 
     userScripts: [
-        Oxide.UserScript {
+        WebEngineScript {
             context: "oxide://smartbanners/"
-            url: Qt.resolvedUrl("smartbanners.js")
-            incognitoEnabled: true
-            matchAllFrames: true
+            sourceUrl: Qt.resolvedUrl("smartbanners.js")
+            runOnSubframes: true
         },
-        Oxide.UserScript {
+        WebEngineScript {
             context: "oxide://twitter-no-omniprompt/"
-            url: Qt.resolvedUrl("twitter-no-omniprompt.js")
-            incognitoEnabled: true
-            matchAllFrames: true
+            sourceUrl: Qt.resolvedUrl("twitter-no-omniprompt.js")
+            runOnSubframes: true
         },
-        Oxide.UserScript {
+        WebEngineScript {
             context: "oxide://fb-no-appbanner/"
-            url: Qt.resolvedUrl("fb-no-appbanner.js")
-            incognitoEnabled: true
-            matchAllFrames: true
+            sourceUrl: Qt.resolvedUrl("fb-no-appbanner.js")
+            runOnSubframes: true
+        /*
         },
-        Oxide.UserScript {
+        WebEngineScript {
             context: "oxide://selection/"
-            url: Qt.resolvedUrl("selection02.js")
-            incognitoEnabled: true
-            matchAllFrames: true
+            sourceUrl: Qt.resolvedUrl("selection02.js")
+            runOnSubframes: true
+        */
         }
     ]
 
@@ -91,7 +93,7 @@ Oxide.WebContext {
             }
             if (temp !== null) {
                 console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-                var chromiumVersion = Oxide.Oxide.chromiumVersion
+                var chromiumVersion = "65.0.3325.151" // TODO: find out how to get this from QtWebEngine
                 var overrides = []
                 for (var o in temp.overrides) {
                     var override = temp.overrides[o]
@@ -103,9 +105,11 @@ Oxide.WebContext {
         }
     }
 
+    /*
     devtoolsEnabled: webviewDevtoolsDebugPort !== -1
     devtoolsPort: webviewDevtoolsDebugPort
     devtoolsIp: webviewDevtoolsDebugHost
 
     hostMappingRules: webviewHostMappingRules
+    */
 }

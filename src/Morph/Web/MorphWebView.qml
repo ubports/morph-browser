@@ -18,13 +18,34 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.15 as Oxide
+import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
 
-Oxide.WebView {
+WebEngineView {
     id: _webview
+
+    property alias context: profile
+
+    property var locationBarController: QtObject {
+        readonly property int modeAuto: 0
+        readonly property int modeShown: 1
+        readonly property int modeHidden: 2
+
+        property bool animated: false
+        property int mode: modeAuto
+        function show(animate) {
+            console.log('locationBarController.show() called')
+            // TODO
+        }
+    }
+
+    property var certificateError: null
+    onCertificateError: certificateError = error
+    function resetCertificateError() {
+        certificateError = null
+    }
 
     /**
      * Client overridable function called before the default treatment of a
@@ -36,6 +57,7 @@ Oxide.WebView {
 
     context: SharedWebContext.sharedContext
 
+    /*
     messageHandlers: [
         Oxide.ScriptMessageHandler {
             msgId: "scroll"
@@ -45,17 +67,22 @@ Oxide.WebView {
             }
         }
     ]
+    */
 
     onNavigationRequested: {
-        request.action = Oxide.NavigationRequest.ActionAccept;
+        request.action = WebEngineNavigationRequest.AcceptRequest;
         navigationRequestedDelegate(request);
     }
 
+    /* TODO check how this can be done with QtWebEngine
     preferences.passwordEchoEnabled: Qt.inputMethod.visible
+    */
 
+    /* TODO what is this?
     popupMenu: ItemSelector02 {
         webview: _webview
     }
+    */
 
     Item {
         id: contextualRectangle
@@ -79,55 +106,63 @@ Oxide.WebView {
     }
 
     property var contextualActions // type: ActionList
-    contextMenu: ActionSelectionPopover {
-        objectName: "contextMenu"
-        actions: contextualActions
-        caller: contextualRectangle
+    onContextMenuRequested: {
+        // TODO: test
+        console.log("Context menu requested")
+        PopupUtils.open(contextMenuComponent)
+    }
+    Component {
+        id: contextMenuComponent
+        ActionSelectionPopover {
+            objectName: "contextMenu"
+            actions: contextualActions
+            caller: contextualRectangle
 
-        // Override default implementation to prevent context menu from stealing
-        // active focus when shown (https://launchpad.net/bugs/1526884).
-        function show() {
-            visible = true
-            __foreground.show()
-        }
+            // Override default implementation to prevent context menu from stealing
+            // active focus when shown (https://launchpad.net/bugs/1526884).
+            function show() {
+                visible = true
+                __foreground.show()
+            }
 
-        Component.onCompleted: {
-            internal.dismissCurrentContextualMenu()
-            internal.contextModel = model
-            var empty = true
-            if (actions) {
-                for (var i in actions.children) {
-                    if (actions.children[i].enabled) {
-                        empty = false
-                        break
+            Component.onCompleted: {
+                internal.dismissCurrentContextualMenu()
+                internal.contextModel = model
+                var empty = true
+                if (actions) {
+                    for (var i in actions.children) {
+                        if (actions.children[i].enabled) {
+                            empty = false
+                            break
+                        }
                     }
                 }
-            }
-            if (empty) {
-                internal.dismissCurrentContextualMenu()
-            } else {
-                contextualData.clear()
-                contextualData.href = model.linkUrl
-                contextualData.title = model.linkText
-                if ((model.mediaType == Oxide.WebView.MediaTypeImage) && model.hasImageContents) {
-                    contextualData.img = model.srcUrl
+                if (empty) {
+                    internal.dismissCurrentContextualMenu()
+                } else {
+                    contextualData.clear()
+                    contextualData.href = model.linkUrl
+                    contextualData.title = model.linkText
+                    if ((model.mediaType == Oxide.WebView.MediaTypeImage) && model.hasImageContents) {
+                        contextualData.img = model.srcUrl
+                    }
+                    show()
                 }
-                show()
             }
-        }
-        onVisibleChanged: {
-            if (!visible) {
-                internal.dismissCurrentContextualMenu()
+            onVisibleChanged: {
+                if (!visible) {
+                    internal.dismissCurrentContextualMenu()
+                }
             }
-        }
 
-        Binding {
-            // Ensure the context menu doesn’t steal focus from
-            // the webview when one of its actions is activated
-            // (https://launchpad.net/bugs/1526884).
-            target: __foreground
-            property: "activeFocusOnPress"
-            value: false
+            Binding {
+                // Ensure the context menu doesn’t steal focus from
+                // the webview when one of its actions is activated
+                // (https://launchpad.net/bugs/1526884).
+                target: __foreground
+                property: "activeFocusOnPress"
+                value: false
+            }
         }
     }
     readonly property QtObject contextModel: internal.contextModel
@@ -161,6 +196,7 @@ Oxide.WebView {
         onContextMenuIntercepted: quickMenu.visible = true
     }
 
+    /* TODO check how copy&paste works in QtWebEngine
     UbuntuShape {
         id: quickMenu
         objectName: "touchSelectionActions"
@@ -255,6 +291,7 @@ Oxide.WebView {
             }
         }
     }
+    */
 
     QtObject {
         id: internal
@@ -272,12 +309,12 @@ Oxide.WebView {
         onContextModelChanged: if (!contextModel) _webview.contextualData.clear()
     }
 
-    readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeSucceeded
-    readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
-    readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeFailed
-    onLoadEvent: {
-        if (!event.isError) {
-            internal.lastLoadRequestStatus = event.type
+    readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadSucceededStatus
+    readonly property bool lastLoadStopped: false // TODO internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
+    readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadFailedStatus
+    onLoadingChanged: {
+        if (loadRequest.status != WebEngineLoadRequest.LoadStartedStatus) {
+            internal.lastLoadRequestStatus = loadRequest.status
         }
         internal.dismissCurrentContextualMenu()
     }
@@ -293,15 +330,11 @@ Oxide.WebView {
         }
 
         var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
-        if (level === Oxide.WebView.LogSeverityVerbose) {
+        if (level === WebEngineView.InfoMessageLevel) {
             console.log(msg)
-        } else if (level === Oxide.WebView.LogSeverityInfo) {
-            console.info(msg)
-        } else if (level === Oxide.WebView.LogSeverityWarning) {
+        } else if (level === WebEngineView.WarningMessageLevel) {
             console.warn(msg)
-        } else if ((level === Oxide.WebView.LogSeverityError) ||
-                   (level === Oxide.WebView.LogSeverityErrorReport) ||
-                   (level === Oxide.WebView.LogSeverityFatal)) {
+        } else if (level === WebEngineView.ErrorMessageLevel) {
             console.error(msg)
         }
     }
