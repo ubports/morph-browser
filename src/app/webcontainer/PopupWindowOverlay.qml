@@ -29,7 +29,7 @@ FocusScope {
     property var popupWindowController
     property var webContext
     property alias currentWebview: popupWebview
-    property alias request: popupWebview.request
+    //property alias request: popupWebview.request
     property alias url: popupWebview.url
     property var mediaAccessDialogComponent
     property alias wide: popupWebview.wide
@@ -166,7 +166,7 @@ FocusScope {
 
         objectName: "overlayWebview"
 
-        context: webContext
+        //context: webContext
 
         onUrlChanged: webviewUrlChanged(popupWebview.url)
 
@@ -223,11 +223,11 @@ FocusScope {
             }
         }
 
-        onCloseRequested: {
+        /*onCloseRequested: {
             if (popupWindowController) {
                 popupWindowController.handleViewRemoved(popup)
             }
-        }
+        }*/
 
         Loader {
             anchors {
