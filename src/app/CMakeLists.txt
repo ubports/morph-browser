@@ -6,7 +6,7 @@ find_package(Qt5Network REQUIRED)
 find_package(Qt5Qml REQUIRED)
 find_package(Qt5Quick REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-#find_package(Qt5WebEngine REQUIRED)
+find_package(Qt5WebEngine REQUIRED)
 
 include(FindPkgConfig)
 
@@ -35,6 +35,7 @@ target_link_libraries(${COMMONLIB}
     Qt5::Network
     Qt5::Qml
     Qt5::Quick
+    Qt5::WebEngine
     Qt5::Widgets
     ${LIBAPPARMOR_LDFLAGS}
 )
