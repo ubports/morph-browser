@@ -1,4 +1,4 @@
-project(webapp-ng)
+project(webapp-container)
 
 find_package(Qt5DBus REQUIRED)
 find_package(Qt5Sql REQUIRED)

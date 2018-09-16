@@ -528,7 +528,6 @@ int main(int argc, char** argv)
 {
     qputenv("QTWEBENGINE_DISABLE_SANDBOX","1");
     qputenv("QT_WEBENGINE_DISABLE_GPU","1");
-    qputenv("QT_SCALE_FACTOR", "2");
 
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
