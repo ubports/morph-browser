@@ -4,7 +4,7 @@
       "binary": "/usr/bin/webbrowser-ng",
       "profile_name": "webbrowser-ng",
       "policy_vendor": "ubuntu",
-      "policy_version": 16.04,
+      "policy_version": 1.3,
       "policy_groups": [
         "accounts",
         "audio",
