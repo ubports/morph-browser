@@ -48,31 +48,3 @@ install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webapp-ng/webcont
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webapp-ng/webcontainer
         FILES_MATCHING PATTERN *.png)
-
-configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
-add_custom_target(${DESKTOP_FILE} ALL
-                  COMMENT "Merging translations into ${DESKTOP_FILE}"
-                  COMMAND ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po
-                          ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}.in ${DESKTOP_FILE})
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
-
-install(FILES "webapp-ng-content-hub.json"
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/content-hub/peers
-    RENAME webapp-ng
-    )
-
-if(${CLICK_MODE})
-  message("-- Configuring manifest.json")
-
-  execute_process(
-    COMMAND dpkg-architecture -qDEB_HOST_ARCH
-    OUTPUT_VARIABLE CLICK_ARCH
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-
-  configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
-  install(FILES webapp-ng.apparmor DESTINATION ${CMAKE_INSTALL_PREFIX})
-endif()
