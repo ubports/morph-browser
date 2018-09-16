@@ -12,7 +12,7 @@ BUILDHOME=/tmp/home
 	dh $@ --parallel --with translations
 
 apparmor:
-	aa-easyprof -m ./debian/webbrowser-ng-ngarmor.manifest --no-verify | \
+	aa-easyprof -m ./debian/webbrowser-ng-apparmor.manifest --no-verify | \
 	egrep -v '(# Click packages|CLICK_DIR)' | \
 	sed 's/@{APP_PKGNAME}_@{APP_APPNAME}_@{APP_VERSION}/@{APP_PKGNAME}/g' | \
 	sed 's#/run/shm/\.org\.chromium\.Chromium\.\*#/{dev,run}/shm/.org.chromium.Chromium.*#g' | \
