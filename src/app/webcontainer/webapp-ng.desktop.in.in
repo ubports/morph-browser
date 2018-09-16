@@ -1,0 +1,13 @@
+[Desktop Entry]
+_Name=@NAME@
+_GenericName=@GENERICNAME@
+_Comment=@COMMENT@
+_Keywords=Internet;WWW;Browser;Web;Explorer
+Icon=@ICON@
+Type=Application
+Exec=webapp-ng @OPTIONS@ @URL@
+Terminal=false
+Categories=Network;WebBrowser;
+X-Ubuntu-Touch=true
+X-Ubuntu-Gettext-Domain=@APPID@
+X-Ubuntu-Single-Instance=true

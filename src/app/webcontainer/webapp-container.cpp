@@ -45,6 +45,8 @@
 #include <QtQml>
 #include <QtQuick/QQuickWindow>
 
+#include <stdlib.h>
+
 static const char privateModuleUri[] = "webcontainer.private";
 
 namespace
@@ -123,9 +125,24 @@ bool WebappContainer::initialize()
 
     earlyEnvironment();
 
-    if (BrowserApplication::initialize(
-                "webcontainer/webapp-container.qml",
-                QString::fromUtf8(qgetenv("APP_ID")))) {
+QString qmlfile;
+    const QString filePath = QLatin1String("share/webapp-ng/webcontainer/webapp-container.qml");
+    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    paths.prepend(QDir::currentPath());
+    paths.prepend(QCoreApplication::applicationDirPath());
+    Q_FOREACH (const QString &path, paths) {
+        QString myPath = path + QLatin1Char('/') + filePath;
+        if (QFile::exists(myPath)) {
+            qmlfile = myPath;
+            break;
+        }
+    }
+    // sanity check
+    if (qmlfile.isEmpty()) {
+        qFatal("File: %s does not exist at any of the standard paths!", qPrintable(filePath));
+}
+    if (BrowserApplication::initialize(qmlfile, QStringLiteral("webapp-ng"))) {
+        //QtWebEngine::initialize();
 
         parseCommandLine();
         parseExtraConfiguration();
@@ -509,7 +526,12 @@ void WebappContainer::onNewInstanceLaunched(const QStringList& arguments) const
 
 int main(int argc, char** argv)
 {
+    qputenv("QTWEBENGINE_DISABLE_SANDBOX","1");
+    qputenv("QT_WEBENGINE_DISABLE_GPU","1");
+    qputenv("QT_SCALE_FACTOR", "2");
+
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WebappContainer app(argc, argv);
     if (app.initialize()) {
         return app.run();
