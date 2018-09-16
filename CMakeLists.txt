@@ -67,8 +67,8 @@ add_custom_target(uninstall
 
 add_subdirectory(src)
 
-#enable_testing()
-#add_subdirectory(tests)
+enable_testing()
+add_subdirectory(tests)
 
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
 file(GLOB NON_COMPILED_ROOT *.png .bzrignore COPYING README snapcraft.yaml)
@@ -87,11 +87,11 @@ add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COM
 # (regarding syntax consistency, see http://pad.lv/1181187)
 set (GETTEXT_PACKAGE "webbrowser-ng")
 
-#add_subdirectory(po)
+add_subdirectory(po)
 
-#add_subdirectory(doc)
+add_subdirectory(doc)
 
 install(FILES webbrowser-ng.png screenshot.png
 DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng)
 
-#add_subdirectory(click-hooks)
+add_subdirectory(click-hooks)
