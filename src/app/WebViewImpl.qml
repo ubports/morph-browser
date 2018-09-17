@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
@@ -27,7 +28,7 @@ WebEngineView {
     id: webview
 
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
-    readonly property int scaleFactor: 2
+    readonly property real scaleFactor: Screen.devicePixelRatio
 
     property var currentWebview: webview
     property ContextMenuRequest contextMenuRequest: null
