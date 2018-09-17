@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "webbrowser-app": {
-      "binary": "/usr/bin/webbrowser-app",
-      "profile_name": "webbrowser-app",
+    "webbrowser-ng": {
+      "binary": "/usr/bin/webbrowser-ng",
+      "profile_name": "webbrowser-ng",
       "policy_vendor": "ubuntu",
       "policy_version": 1.3,
       "policy_groups": [
@@ -25,10 +25,10 @@
         "user-tmp"
       ],
       "template_variables": {
-        "APP_ID_DBUS": "webbrowser_2dapp",
-        "APP_PKGNAME_DBUS": "webbrowser_2dapp",
-        "APP_PKGNAME": "webbrowser-app",
-        "CLICK_DIR": "/usr/share/webbrowser-app"
+        "APP_ID_DBUS": "webbrowser_2dng",
+        "APP_PKGNAME_DBUS": "webbrowser_2dng",
+        "APP_PKGNAME": "webbrowser-ng",
+        "CLICK_DIR": "/usr/share/webbrowser-ng"
       },
       "read_path": [
         "/usr/share/applications/",

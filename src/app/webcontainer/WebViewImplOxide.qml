@@ -59,13 +59,13 @@ WebappWebview {
     signal gotRedirectionUrl(string url)
     property bool runningLocalApplication: false
 
-    onLoadEvent: {
+    /*onLoadEvent: {
         var url = event.url.toString()
         if (event.type === Oxide.LoadEvent.TypeRedirected
                 && url.indexOf("SAMLRequest") > 0) {
             handleSamlRequestNavigation(url)
         }
-    }
+    }*/
 
     function openOverlayForUrl(overlayUrl) {
         if (popupController) {
@@ -81,7 +81,7 @@ WebappWebview {
 
     currentWebview: webview
 
-    context: WebContext {
+    /*context: WebContext {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
 
@@ -95,7 +95,7 @@ WebappWebview {
                 matchAllFrames: false
             }
         ]
-    }
+    }*/
 
     Component.onCompleted: webappSpecificMessageHandler.createObject(
                                webview,
@@ -114,10 +114,10 @@ WebappWebview {
 
     onOpenUrlExternallyRequested: openUrlExternally(url, false)
 
-    preferences.allowFileAccessFromFileUrls: runningLocalApplication
+    /*preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
     preferences.localStorageEnabled: true
-    preferences.appCacheEnabled: true
+    preferences.appCacheEnabled: true*/
 
     onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
 

@@ -1,0 +1,11 @@
+usr/bin/webbrowser-ng
+usr/share/webbrowser-ng/*.qml
+usr/share/webbrowser-ng/*.js
+usr/share/webbrowser-ng/*.png
+usr/share/webbrowser-ng/actions/*.qml
+usr/share/webbrowser-ng/webbrowser/
+usr/share/applications/webbrowser-ng.desktop
+usr/share/locale/*/LC_MESSAGES/webbrowser-ng.mo
+usr/share/url-dispatcher/
+usr/share/content-hub/peers/webbrowser-ng
+debian/usr.bin.webbrowser-ng etc/apparmor.d

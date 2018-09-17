@@ -1,9 +1,10 @@
-Source: webbrowser-app
+Source: webbrowser-ng
 Section: x11
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Build-Depends: apparmor:native,
                apparmor-easyprof,
+               apparmor-easyprof-ubuntu (>= 1.3.13),
                cmake (>= 2.8.9),
                debhelper (>= 9),
                dh-apparmor,
@@ -29,14 +30,15 @@ Build-Depends: apparmor:native,
                qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
                qttools5-dev-tools,
                xvfb,
+               qtwebengine5-dev,
 Standards-Version: 3.9.7
-Homepage: https://launchpad.net/webbrowser-app
+Homepage: https://launchpad.net/webbrowser-ng
 # If you aren't a member of ~phablet-team but need to upload packaging changes,
 # just go ahead.  ~phablet-team will notice and sync up the code again.
-Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-app/trunk
+Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-ng/trunk
 XS-Testsuite: autopkgtest
 
-Package: webbrowser-app
+Package: webbrowser-ng
 Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
@@ -57,9 +59,9 @@ Depends: ${misc:Depends},
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
          qtdeclarative5-unity-action-plugin,
 Replaces: webbrowser-app-assets,
-          qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
-Conflicts: webbrowser-app-assets
-Provides: webbrowser-app-assets
+         qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
+Conflicts: webbrowser-ng-assets
+Provides: webbrowser-ng-assets
 Breaks: qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22)
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Oxide browser
@@ -82,7 +84,8 @@ Depends: ${misc:Depends},
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
          qtdeclarative5-unity-action-plugin,
          unity-webapps-qml,
-         webbrowser-app (= ${binary:Version}),
+         webbrowser-ng (= ${binary:Version}),
+         qtwebengine5-dev,
 Conflicts: ubuntu-html5-container
 Replaces: ubuntu-html5-container
 Suggests: qml-module-ubuntu-onlineaccounts-client (>= 0.3),
@@ -100,8 +103,8 @@ Depends: ${misc:Depends},
          qml-module-qtquick-window2 (>= 5.3),
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
          qml-module-ubuntu-web (= ${binary:Version}),
-Replaces: webbrowser-app (<< 0.21), qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< ${source:Version})
-Breaks: webbrowser-app (<< 0.21), qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< ${source:Version})
+Replaces: webbrowser-ng (<< 0.21), qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< ${source:Version})
+Breaks: webbrowser-ng (<< 0.21), qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< ${source:Version})
 Description: Ubuntu web QML module
  A standalone QML module that contains the UbuntuWebView component
  , in the Ubuntu.Components.Extras.Browser namespace.
@@ -124,6 +127,7 @@ Depends: ${misc:Depends},
          liboxideqt-qmlplugin (>= 1.15.7),
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
+         qml-module-qtwebengine,
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
 Breaks: qtdeclarative5-ubuntu-web-plugin (<< ${source:Version})
 Replaces: qtdeclarative5-ubuntu-web-plugin (<< ${source:Version})
@@ -162,7 +166,7 @@ Description: transitional dummy package for the Ubuntu web QML module HTML docum
  in the Ubuntu.Web namespace. This package contains the public
  HTML documentation.
 
-Package: webbrowser-app-autopilot
+Package: webbrowser-ng-autopilot
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
@@ -172,7 +176,7 @@ Depends: ${misc:Depends},
          python3-fixtures,
          python3-psutil,
          ubuntu-ui-toolkit-autopilot,
-         webbrowser-app (>= ${binary:Version}),
+         webbrowser-ng (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Oxide browser
  engine and using the Ubuntu UI components. This package contains autopilot

@@ -87,9 +87,9 @@ add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COM
 # (regarding syntax consistency, see http://pad.lv/1181187)
 set (GETTEXT_PACKAGE "webbrowser-ng")
 
-#add_subdirectory(po)
+add_subdirectory(po)
 
-#add_subdirectory(doc)
+add_subdirectory(doc)
 
 install(FILES webbrowser-ng.png screenshot.png
 DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng)
