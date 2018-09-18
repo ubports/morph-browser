@@ -12,7 +12,7 @@ BUILDHOME=/tmp/home
 	dh $@ --parallel --with translations
 
 apparmor:
-	aa-easyprof -m ./debian/webbrowser-app-apparmor.manifest --no-verify | \
+	aa-easyprof -m ./debian/morph-browser-apparmor.manifest --no-verify | \
 	egrep -v '(# Click packages|CLICK_DIR)' | \
 	sed 's/@{APP_PKGNAME}_@{APP_APPNAME}_@{APP_VERSION}/@{APP_PKGNAME}/g' | \
 	sed 's#/run/shm/\.org\.chromium\.Chromium\.\*#/{dev,run}/shm/.org.chromium.Chromium.*#g' | \
@@ -22,23 +22,23 @@ apparmor:
 	sed 's#^\(\s*\)deny\(\s\+/{run,dev}/shm/pulse-shm\*\s\+w,\).*$$#\1owner\2#g' | \
 	sed 's#^}$$#\n  /dev/dri/ r,\n  /sys/devices/pci[0-9]*/**/config r,\n}#g' | \
 	sed 's#^}$$#\n  @{HOME}/@{XDG_DOWNLOAD_DIR}/** rwk,\n}#g' \
-	> ./debian/usr.bin.webbrowser-app
+	> ./debian/usr.bin.morph-browser
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-	apparmor_parser -QTK ./debian/usr.bin.webbrowser-app
+	apparmor_parser -QTK ./debian/usr.bin.morph-browser
 endif
 
 override_dh_install: apparmor
 	dh_install --fail-missing
 
 override_dh_installdeb:
-	dh_apparmor --profile-name=usr.bin.webbrowser-app -pwebbrowser-app
+	dh_apparmor --profile-name=usr.bin.morph-browser -pmorph-browser
 	dh_installdeb
 
 override_dh_translations:
 	# Override dh_translations to work around http://pad.lv/1183262.
 	# Unfortunately, the default build directory is not exposed
 	# (see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=601774).
-	$(MAKE) -C obj-$(DEB_HOST_GNU_TYPE) webbrowser-app.pot
+	$(MAKE) -C obj-$(DEB_HOST_GNU_TYPE) morph-browser.pot
 
 override_dh_clean:
 	dh_clean
@@ -47,4 +47,3 @@ override_dh_clean:
 override_dh_auto_test:
 	mkdir -p $(BUILDHOME)
 	HOME=$(BUILDHOME) dh_auto_test -- ARGS+=-VV
-
