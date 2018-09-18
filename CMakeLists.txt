@@ -87,7 +87,7 @@ add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COM
 # (regarding syntax consistency, see http://pad.lv/1181187)
 set (GETTEXT_PACKAGE "morph-browser")
 
-#add_subdirectory(po)
+add_subdirectory(po)
 
 #add_subdirectory(doc)
 
