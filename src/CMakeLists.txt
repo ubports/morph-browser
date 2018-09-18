@@ -1,2 +1,2 @@
 add_subdirectory(app)
-#add_subdirectory(Morph)
+add_subdirectory(Morph)

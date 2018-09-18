@@ -1,13 +1,13 @@
 /*
  * Copyright 2014 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -43,7 +43,7 @@ ScrollTracker {
     // Delay the auto-hide/auto-show behaviour of the header, in order
     // to prevent the view from jumping up and down on touch-enabled
     // devices when the touch event sequence is not finished.
-    // See https://bugs.launchpad.net/webbrowser-app/+bug/1354700.
+    // See https://bugs.launchpad.net/morph-browser/+bug/1354700.
     Timer {
         id: delayedAutoHideTimer
         interval: 250
@@ -66,7 +66,7 @@ ScrollTracker {
     // scroll events won’t trigger a new change in the chrome’s
     // visibility, to prevent the chrome from jumping back into view if
     // it has just been hidden.
-    // See https://bugs.launchpad.net/webbrowser-app/+bug/1354700.
+    // See https://bugs.launchpad.net/morph-browser/+bug/1354700.
     Timer {
         id: chromeStateChangeTimer
         interval: 50

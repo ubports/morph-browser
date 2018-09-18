@@ -1,11 +1,11 @@
-# Korean translation for webbrowser-app
+# Korean translation for morph-browser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
-# This file is distributed under the same license as the webbrowser-app package.
+# This file is distributed under the same license as the morph-browser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webbrowser-app\n"
+"Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
 "PO-Revision-Date: 2015-05-19 19:42+0000\n"
@@ -861,13 +861,13 @@ msgid "Remove"
 msgstr "제거"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webbrowser/morph-browser.qml:101
 #: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - 우분투 웹 브라우저"
 
-#: src/app/webbrowser/webbrowser-app.qml:103
+#: src/app/webbrowser/morph-browser.qml:103
 #: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
 msgstr "우분투 웹 브라우저"
@@ -938,27 +938,27 @@ msgstr "계정 선택"
 msgid "Oops, something went wrong."
 msgstr "문제가 발생했습니다."
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Browser"
 msgstr "브라우저"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Web Browser"
 msgstr "웹 브라우저"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
 msgstr "웹을 돌아다닙니다"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;인터넷;WWW;Browser;브라우저;Web;Explorer;익스플로러"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
 msgstr ""
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr ""
 
