@@ -18,7 +18,7 @@
 
 import QtQuick 2.5
 import webbrowsercommon.private 0.1
-import com.canonical.Oxide 1.19 as Oxide
+import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
@@ -275,9 +275,9 @@ BrowserView {
         ChromeController {
             webview: webapp.currentWebview
             forceHide: webapp.chromeless
-            defaultMode: webapp.hasTouchScreen
-                             ? Oxide.LocationBarController.ModeAuto
-                             : Oxide.LocationBarController.ModeShown
+        //    defaultMode: webapp.hasTouchScreen
+        //                     ? Oxide.LocationBarController.ModeAuto
+        //                     : Oxide.LocationBarController.ModeShown
         }
     }
 

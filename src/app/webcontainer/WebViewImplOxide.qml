@@ -18,11 +18,11 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.5
+import Morph.Web 0.1
 import ".."
 
 WebappWebview {
@@ -59,14 +59,14 @@ WebappWebview {
     signal gotRedirectionUrl(string url)
     property bool runningLocalApplication: false
 
-    onLoadEvent: {
+/*    onLoadEvent: {
         var url = event.url.toString()
         if (event.type === Oxide.LoadEvent.TypeRedirected
                 && url.indexOf("SAMLRequest") > 0) {
             handleSamlRequestNavigation(url)
         }
     }
-
+*/
     function openOverlayForUrl(overlayUrl) {
         if (popupController) {
             popupController.createPopupViewForUrl(
@@ -85,19 +85,18 @@ WebappWebview {
         dataPath: webview.dataPath
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
 
-        popupBlockerEnabled: webview.popupBlockerEnabled
+        //popupBlockerEnabled: webview.popupBlockerEnabled
 
         userScripts: [
-            Oxide.UserScript {
-                context: "oxide://webapp-specific-page-metadata-collector/"
-                url: Qt.resolvedUrl("webapp-specific-page-metadata-collector.js")
-                incognitoEnabled: false
-                matchAllFrames: false
+            WebEngineScript {
+                name: "oxide://webapp-specific-page-metadata-collector/"
+                sourceUrl: Qt.resolvedUrl("webapp-specific-page-metadata-collector.js")
+                runOnSubframes: true
             }
         ]
     }
 
-    Component.onCompleted: webappSpecificMessageHandler.createObject(
+/*    Component.onCompleted: webappSpecificMessageHandler.createObject(
                                webview,
                                {
                                    msgId: "webapp-specific-page-metadata-detected",
@@ -106,21 +105,21 @@ WebappWebview {
                                        handlePageMetadata(msg.payload)
                                    }
                                });
-
-    Component {
-        id: webappSpecificMessageHandler
-        Oxide.ScriptMessageHandler { }
-    }
+*/
+//    Component {
+//        id: webappSpecificMessageHandler
+//        Oxide.ScriptMessageHandler { }
+//    }
 
     onOpenUrlExternallyRequested: openUrlExternally(url, false)
 
-    preferences.allowFileAccessFromFileUrls: runningLocalApplication
-    preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
-    preferences.localStorageEnabled: true
-    preferences.appCacheEnabled: true
+    //preferences.allowFileAccessFromFileUrls: runningLocalApplication
+    //preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
+    //preferences.localStorageEnabled: true
+    //preferences.appCacheEnabled: true
 
     onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
-
+/*
     Connections {
         target: webview.visible ? webview : null
 
@@ -132,8 +131,8 @@ WebappWebview {
          *
          * See the browser's webbrowser/Browser.qml source for additional comments.
          */
-        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
-    }
+  //      onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+//    }
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication

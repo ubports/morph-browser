@@ -47,4 +47,4 @@ install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser
         FILES_MATCHING PATTERN *.qml)
 
 add_subdirectory(webbrowser)
-#add_subdirectory(webcontainer)
+add_subdirectory(webcontainer)

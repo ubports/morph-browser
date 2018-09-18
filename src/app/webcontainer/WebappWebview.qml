@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.4
-//import com.canonical.Oxide 1.15 as Oxide
+import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
@@ -31,7 +31,7 @@ WebViewImpl {
 
     signal openUrlExternallyRequested(string url)
 
-    filePicker: filePickerLoader.item
+    //filePicker: filePickerLoader.item
 
     property QtObject contextModel: null
     contextualActions: ActionList {
@@ -165,17 +165,17 @@ WebViewImpl {
             Component.onCompleted: webappWebview.contextMenuOnCompleted(this)
         }
     }
-    contextMenu: webappWebview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+    //contextMenu: webappWebview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
-    onGeolocationPermissionRequested: {
-        if (__runningConfined && (request.origin == request.embedder)) {
-            // When running confined, querying the location service will trigger
-            // a system prompt (trust store), so no need for a custom one.
-            request.allow()
-        } else {
-            requestGeolocationPermission(request)
-        }
-    }
+//    onGeolocationPermissionRequested: {
+//        if (__runningConfined && (request.origin == request.embedder)) {
+//            // When running confined, querying the location service will trigger
+//            // a system prompt (trust store), so no need for a custom one.
+//            request.allow()
+//        } else {
+//            requestGeolocationPermission(request)
+//        }
+//    }
 
     Loader {
         id: contentHandlerLoader

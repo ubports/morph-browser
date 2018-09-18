@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.4 as Oxide
+import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import ".."
@@ -29,7 +29,7 @@ FocusScope {
     property var popupWindowController
     property var webContext
     property alias currentWebview: popupWebview
-    property alias request: popupWebview.request
+    //property alias request: popupWebview.request
     property alias url: popupWebview.url
     property var mediaAccessDialogComponent
     property alias wide: popupWebview.wide
@@ -222,13 +222,13 @@ FocusScope {
                 }
             }
         }
-
+/*
         onCloseRequested: {
             if (popupWindowController) {
                 popupWindowController.handleViewRemoved(popup)
             }
         }
-
+*/
         Loader {
             anchors {
                 fill: popupWebview

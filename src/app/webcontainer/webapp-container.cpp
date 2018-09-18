@@ -123,8 +123,10 @@ bool WebappContainer::initialize()
 
     earlyEnvironment();
 
+    const QString filePath = UbuntuBrowserDirectory() + "/webcontainer/webapp-container.qml";
+
     if (BrowserApplication::initialize(
-                "webcontainer/webapp-container.qml",
+                filePath,
                 QString::fromUtf8(qgetenv("APP_ID")))) {
 
         parseCommandLine();
