@@ -1,5 +1,5 @@
-project = UbuntuWeb
-description = Ubuntu Web module documentation
+project = MorphWeb
+description = Morph Web module documentation
 sourcedirs = ./
 sources.fileextensions = "*.qdoc"
 outputdir = html
