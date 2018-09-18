@@ -12,7 +12,7 @@ if(NOT INTLTOOL_EXTRACT)
     message(FATAL_ERROR "Could not find intltool-extract, please install the intltool package")
 endif()
 
-option(CLICK_MODE "Build as a click package" on)
+option(CLICK_MODE "Build as a click package" off)
 
 # Standard install paths
 include(GNUInstallDirs)
