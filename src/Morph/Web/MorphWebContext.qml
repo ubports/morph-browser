@@ -22,9 +22,9 @@ import QtWebEngine 1.5
 WebEngineProfile {
     id: oxideContext
 
-    property alias userAgent: httpUserAgent
-    property alias dataPath: persistentStoragePath
-    property alias maxCacheSizeHint: httpCacheMaximumSize
+    property alias userAgent: oxideContext.httpUserAgent
+    property alias dataPath: oxideContext.persistentStoragePath
+    property alias maxCacheSizeHint: oxideContext.httpCacheMaximumSize
 
     readonly property string defaultUserAgent: __ua.defaultUA
 
@@ -48,17 +48,17 @@ WebEngineProfile {
 
     userScripts: [
         WebEngineScript {
-            context: "oxide://smartbanners/"
+            name: "oxide://smartbanners/"
             sourceUrl: Qt.resolvedUrl("smartbanners.js")
             runOnSubframes: true
         },
         WebEngineScript {
-            context: "oxide://twitter-no-omniprompt/"
+            name: "oxide://twitter-no-omniprompt/"
             sourceUrl: Qt.resolvedUrl("twitter-no-omniprompt.js")
             runOnSubframes: true
         },
         WebEngineScript {
-            context: "oxide://fb-no-appbanner/"
+            name: "oxide://fb-no-appbanner/"
             sourceUrl: Qt.resolvedUrl("fb-no-appbanner.js")
             runOnSubframes: true
         /*

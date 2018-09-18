@@ -21,9 +21,10 @@ pragma Singleton
 import QtQuick 2.4
 import QtWebEngine 1.5
 import webbrowserapp.private 0.1
+import Morph.Web 0.1
 
 Item {
-    property string capturesDir: /* cacheLocation + */"/captures"
+    property string capturesDir:  cacheLocation + "/captures"
     signal previewSaved(url pageUrl, url previewUrl)
 
     LimitProxyModel {

@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2016 Canonical Ltd.
  *
- * This file is part of morph-browser.
+ * This file is part of webbrowser-app.
  *
- * morph-browser is free software; you can redistribute it and/or modify
+ * webbrowser-app is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * morph-browser is distributed in the hope that it will be useful,
+ * webbrowser-app is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -17,7 +17,6 @@
  */
 
 import QtQml 2.0
-import QtQuick.Window 2.2
 
 /*
  * Useful documentation:
@@ -55,7 +54,7 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    readonly property string _chromiumVersion: "60.0.1870.2"
+    readonly property string _chromiumVersion: "65.0.3325.151" // TODO figure out how to get this
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
@@ -66,14 +65,12 @@ QtObject {
     }
 
     function calcScreenSize() {
-        var screenDiagonal = Math.sqrt(Screen.width * Screen.width + Screen.height * Screen.height)
-        return "small"
         return (screenDiagonal === 0) ? "unknown" : (screenDiagonal > 0 && screenDiagonal < 190) ? "small" : "large"
     }
 
     property string defaultUA: {
         var ua = _template
-        ua = ua.arg("16.04") // %1
+        ua = ua.arg(ubuntuVersion) // %1
         ua = ua.arg((_attributes !== "") ? " %1".arg(_attributes) : "") // %2
         ua = ua.arg((_hardwareID !== "") ? "; %1".arg(_hardwareID) : "") // %3
         ua = ua.arg(_webkitVersion) // %4

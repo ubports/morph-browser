@@ -21,10 +21,11 @@ import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
+import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
 
-WebEngineView {
+WebView {
     id: webview
 
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
@@ -41,14 +42,6 @@ WebEngineView {
 
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
-
-    property QtObject __ua: UserAgent02 {
-    }
-
-    Component.onCompleted: {
-        console.log(__ua.defaultUA);
-        profile.httpUserAgent = __ua.defaultUA;
-    }
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/

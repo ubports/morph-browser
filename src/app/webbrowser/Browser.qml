@@ -20,7 +20,7 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
-//import com.canonical.Oxide 1.19 as Oxide
+import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
@@ -135,9 +135,9 @@ BrowserView {
 
         internal.shareText(text)
     }
-    
+
     onFullScreenRequested: {
-        
+
         if (toggleOn)
         {
             chrome.state = "hidden"
@@ -148,7 +148,7 @@ BrowserView {
             chrome.state = "shown"
             browser.thisWindow.setFullscreen(false)
         }
-        
+
     }
 
     Connections {
@@ -170,7 +170,7 @@ BrowserView {
         //onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
     }
 
-    //currentWebcontext: SharedWebContext.sharedContext
+    currentWebcontext: SharedWebContext.sharedContext
     defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     onDefaultVideoCaptureMediaIdUpdated: {

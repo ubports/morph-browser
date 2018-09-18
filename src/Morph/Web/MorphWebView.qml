@@ -26,7 +26,7 @@ import "." // QTBUG-34418
 WebEngineView {
     id: _webview
 
-    property alias context: profile
+    property alias context: _webview.profile
 
     property var locationBarController: QtObject {
         readonly property int modeAuto: 0
@@ -173,14 +173,14 @@ WebEngineView {
         console.warn("WARNING: the copy() function is deprecated and does nothing.")
     }
 
-    touchSelectionController.handle: Image {
-        objectName: "touchSelectionHandle"
-        readonly property int handleOrientation: orientation
-        width: units.gu(1.5)
-        height: units.gu(1.5)
-        source: "handle.png"
-        Component.onCompleted: horizontalPaddingRatio = 0.5
-    }
+//    touchSelectionController.handle: Image {
+//        objectName: "touchSelectionHandle"
+//        readonly property int handleOrientation: orientation
+//        width: units.gu(1.5)
+//        height: units.gu(1.5)
+//        source: "handle.png"
+//        Component.onCompleted: horizontalPaddingRatio = 0.5
+//    }
 
     Connections {
         target: _webview.touchSelectionController
