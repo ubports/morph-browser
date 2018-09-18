@@ -89,7 +89,7 @@ set (GETTEXT_PACKAGE "morph-browser")
 
 add_subdirectory(po)
 
-#add_subdirectory(doc)
+add_subdirectory(doc)
 
 install(FILES morph-browser.png screenshot.png
 DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
