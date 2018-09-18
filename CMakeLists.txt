@@ -94,4 +94,4 @@ set (GETTEXT_PACKAGE "morph-browser")
 install(FILES morph-browser.png screenshot.png
 DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
 
-#add_subdirectory(click-hooks)
+add_subdirectory(click-hooks)
