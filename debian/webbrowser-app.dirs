@@ -1,7 +1,0 @@
-etc/apparmor.d
-
-# https://launchpad.net/bugs/1511439 :
-usr/share/apparmor/hardware/audio.d
-usr/share/apparmor/hardware/graphics.d
-usr/share/apparmor/hardware/video.d
-

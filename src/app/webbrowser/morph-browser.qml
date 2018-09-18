@@ -29,7 +29,7 @@ QtObject {
     id: webbrowserapp
 
     function init(urls, newSession, incognito) {
-        i18n.domain = "webbrowser-ng"
+        i18n.domain = "morph-browser"
         if (!newSession && settings.restoreSession && !incognito) {
             session.restore()
         }
@@ -97,9 +97,9 @@ QtObject {
             title: {
                 if (browser.title) {
                     // TRANSLATORS: %1 refers to the current page’s title
-                    return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+                    return i18n.tr("%1 - Morph Web Browser").arg(browser.title)
                 } else {
-                    return i18n.tr("Ubuntu Web Browser")
+                    return i18n.tr("Morph Web Browser")
                 }
             }
 

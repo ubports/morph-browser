@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-ng.
+ * This file is part of morph-browser.
  *
- * webbrowser-ng is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-ng is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -30,7 +30,7 @@
 #include "searchengine.h"
 #include "text-search-filter-model.h"
 #include "tabs-model.h"
-#include "webbrowser-ng.h"
+#include "morph-browser.h"
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -84,7 +84,8 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 
     QString qmlfile;
-    const QString filePath = QLatin1String("share/webbrowser-ng/webbrowser/webbrowser-ng.qml");
+    const QString filePath = UbuntuBrowserDirectory() + "/webbrowser/morph-browser.qml";
+    // QLatin1String("share/morph-browser/webbrowser/morph-browser.qml");
     QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
     paths.prepend(QDir::currentPath());
     paths.prepend(QCoreApplication::applicationDirPath());
@@ -97,10 +98,10 @@ bool WebbrowserApp::initialize()
     }
     // sanity check
     if (qmlfile.isEmpty()) {
-        qFatal("File: %s does not exist at any of the standard paths!", qPrintable(filePath));
-}
+        //qFatal("File: %s does not exist at any of the standard paths!", qPrintable(filePath));
+    }
 
-    if (BrowserApplication::initialize(qmlfile, QStringLiteral("webbrowser-ng"))) {
+    if (BrowserApplication::initialize(filePath, QStringLiteral("morph-browser"))) {
         //QtWebEngine::initialize();
 
         QStringList searchEnginesSearchPaths;
@@ -173,8 +174,8 @@ int main(int argc, char** argv)
     qputenv("QT_WEBENGINE_DISABLE_GPU","1");
     qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
 
-    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    //QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WebbrowserApp app(argc, argv);
     if (app.initialize()) {
         return app.run();

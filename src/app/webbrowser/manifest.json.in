@@ -4,12 +4,12 @@
     "framework": "ubuntu-sdk-16.04",
     "architecture": "@CLICK_ARCH@",
     "title": "WebBrowser Next",
-    "icon": "@CMAKE_INSTALL_DATADIR@/webbrowser-ng/webbrowser-ng.png",
+    "icon": "@CMAKE_INSTALL_DATADIR@/morph-browser/morph-browser.png",
     "hooks": {
         "clock": {
-            "apparmor": "webbrowser-ng.apparmor",
-            "desktop": "@CMAKE_INSTALL_DATADIR@/applications/webbrowser-ng.desktop",
-            "urls": "@CMAKE_INSTALL_DATADIR@/url-dispatcher/urls/webbrowser-ng.url-dispatcher"
+            "apparmor": "morph-browser.apparmor",
+            "desktop": "@CMAKE_INSTALL_DATADIR@/applications/morph-browser.desktop",
+            "urls": "@CMAKE_INSTALL_DATADIR@/url-dispatcher/urls/morph-browser.url-dispatcher"
         }
     },
     "version": "0.1",
