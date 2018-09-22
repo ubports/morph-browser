@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 //import com.canonical.Oxide 1.15 as Oxide
@@ -50,6 +51,7 @@ Component {
         property var internal
         property var recentView
         property var tabsModel
+        readonly property string loadTimeStamp: new Date().getTime().toString()
 
         Item {
             id: contextualMenuTarget
@@ -70,6 +72,7 @@ Component {
             focus: true
 
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
+
             /*
             locationBarController {
                 height: chrome ? chrome.height : 0
@@ -458,12 +461,47 @@ Component {
                 return downloadsViewLoader.item
             }
 
-            function startDownload(downloadId, download, mimeType) {
-                DownloadsModel.add(downloadId, download.url, mimeType, incognito)
-                download.start()
+            function startDownload(download) {
+
+                var downloadIdDataBase = loadTimeStamp.concat(download.id)
+                console.log("the download id is " + downloadIdDataBase)
+
+                DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+                ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
                 downloadsViewLoader.active = true
             }
+            
+            function setDownloadComplete(download) {
 
+                var downloadIdDataBase = loadTimeStamp.concat(download.id)
+                
+                DownloadsModel.setComplete(downloadIdDataBase, true)
+
+                if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
+                {
+                  DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+                }
+            }
+
+            Connections {
+
+                target: webviewimpl.currentWebview.context
+
+                onDownloadRequested: {
+
+                    console.log("a download was requested with path %1".arg(download.path))
+                    download.accept();
+                    webviewimpl.showDownloadsPage();
+                    webviewimpl.startDownload(download);
+                }
+
+                onDownloadFinished: {
+
+                    console.log("a download was finished with path %1.".arg(download.path))
+                    webviewimpl.showDownloadsPage()
+                    webviewimpl.setDownloadComplete(download)
+                }
+            }
         }
     }
 }
