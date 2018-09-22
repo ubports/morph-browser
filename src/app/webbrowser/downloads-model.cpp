@@ -222,7 +222,7 @@ bool DownloadsModel::contains(const QString& downloadId) const
     Add a download to the database. This should happen as soon as the download
     is started.
 */
-void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& mimetype, bool incognito)
+void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& path, const QString& mimetype, bool incognito)
 {
     beginInsertRows(QModelIndex(), 0, 0);
     DownloadEntry entry;
@@ -231,6 +231,7 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
     entry.paused = false;
     entry.url = url;
     entry.mimetype = mimetype;
+    entry.path = path;
     entry.incognito = incognito;
     m_orderedEntries.prepend(entry);
     m_numRows++;
@@ -344,12 +345,11 @@ void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& p
 void DownloadsModel::insertNewEntryInDatabase(const DownloadEntry& entry)
 {
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO downloads (downloadId, url, "
-                                                   "mimetype) "
-                                                   "VALUES (?, ?, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO downloads (downloadId, url, path, mimetype) VALUES (?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.downloadId);
     query.addBindValue(entry.url);
+    query.addBindValue(entry.path);
     query.addBindValue(entry.mimetype);
     query.exec();
 }

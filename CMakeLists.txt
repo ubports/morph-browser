@@ -22,6 +22,7 @@ if(CLICK_MODE)
   set(CMAKE_INSTALL_PREFIX "/")
   set(CMAKE_INSTALL_BINDIR "/")
   set(CMAKE_INSTALL_FULL_DATADIR "share/")
+  add_definitions("-DCLICK_MODE")
 endif()
 
 string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_lower)

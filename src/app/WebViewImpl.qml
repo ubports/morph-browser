@@ -274,7 +274,7 @@ WebView {
         Actions.SaveLink {
             objectName: "SaveLinkContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: {showMessage("Actions.SaveLink is not implemented");} //contextModel.saveLink()
+            onTriggered: webview.triggerWebAction(WebEngineView.DownloadLinkToDisk)
         }
         Actions.Share {
             objectName: "ShareContextualAction"
@@ -307,8 +307,7 @@ WebView {
                      ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas)) // && contextModel.hasImageContents
 
-            // onTriggered: browser.shareLinkRequested(contextMenuRequest.mediaUrl.toString, "Image")
-            onTriggered: showMessage("Actions.SaveImage not implemented."); //contextModel.saveMedia()
+            onTriggered: webview.triggerWebAction(WebEngineView.DownloadImageToDisk)
         }
         Actions.OpenVideoInNewTab {
             objectName: "OpenVideoInNewTabContextualAction"
@@ -322,9 +321,8 @@ WebView {
             objectName: "SaveVideoContextualAction"
             enabled: contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
-                     contextMenuRequest.srcUrl.toString()
-            // TODO !
-            onTriggered: showMessage("Actions.SaveVideo not implemented."); //contextModel.saveMedia()
+                     contextMenuRequest.mediaUrl.toString()
+            onTriggered: webview.triggerWebAction(WebEngineView.DownloadMediaToDisk)
         }
         Actions.Copy {
             objectName: "CopyContextualAction"
