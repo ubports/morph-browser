@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
-_Name=Browser Next
-_GenericName=Web Browser Next
+_Name=Morph Browser
+_GenericName=Morph Web Browser
 _Comment=Browse the World Wide Web using QtWebEngine
 _Keywords=Internet;WWW;Browser;Web;Explorer
 Type=Application
