@@ -1,4 +1,5 @@
 {
+  "sdk": "ubuntu-sdk-16.04",
   "template": "cmake",
   "kill": "webbrowser-ng",
   "dependencies": [

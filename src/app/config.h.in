@@ -26,6 +26,14 @@
 
 #define REMOTE_INSPECTOR_PORT 9221
 
+inline bool isClick() {
+#if defined(CLICK_MODE)
+    return true;
+#else
+    return false;
+#endif
+}
+
 inline bool isRunningInstalled()
 {
     static bool installed = (QCoreApplication::applicationDirPath() == QDir(qgetenv("SNAP").append("@CMAKE_INSTALL_FULL_BINDIR@")).canonicalPath());
@@ -34,7 +42,10 @@ inline bool isRunningInstalled()
 
 inline QString UbuntuBrowserDirectory()
 {
-    if (isRunningInstalled()) {
+    if (isClick()) {
+        return "@CMAKE_INSTALL_FULL_DATADIR@/morph-browser";
+    }
+    else if (isRunningInstalled()) {
         return qgetenv("SNAP").append("@CMAKE_INSTALL_FULL_DATADIR@/morph-browser");
     } else {
         return QStringLiteral("@CMAKE_SOURCE_DIR@/src/app");
