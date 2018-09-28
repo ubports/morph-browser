@@ -18,6 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Window 2.2
+import QtWebEngine 1.5
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
 import Morph.Web 0.1
@@ -1543,6 +1544,67 @@ BrowserView {
         asynchronous: true
     }
 
+    function showDownloadsPage() {
+        downloadsViewLoader.active = true
+        return downloadsViewLoader.item
+    }
+
+    function startDownload(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        // check if the ID has already been added
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        {
+           console.log("the download id " + downloadIdDataBase + " has already been added.")
+           return
+        }
+
+        console.log("adding download with id " + downloadIdDataBase)
+        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+        downloadsViewLoader.active = true
+    }
+
+    function setDownloadComplete(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        {
+            console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
+            return
+        }
+
+        console.log("download with id " + downloadIdDataBase + " is complete.")
+
+        DownloadsModel.setComplete(downloadIdDataBase, true)
+
+        if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
+        {
+          DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+        }
+    }
+
+    Connections {
+
+        target: currentWebview ? currentWebview.context : null
+
+        onDownloadRequested: {
+
+            console.log("a download was requested with path %1".arg(download.path))
+            download.accept();
+            browser.showDownloadsPage();
+            browser.startDownload(download);
+        }
+
+        onDownloadFinished: {
+
+            console.log("a download was finished with path %1.".arg(download.path))
+            browser.showDownloadsPage()
+            browser.setDownloadComplete(download)
+        }
+    }
     /*
 
     Loader {
