@@ -174,8 +174,8 @@ int main(int argc, char** argv)
     qputenv("QT_WEBENGINE_DISABLE_GPU","1");
     qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
 
-    //QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    //QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WebbrowserApp app(argc, argv);
     if (app.initialize()) {
         return app.run();
