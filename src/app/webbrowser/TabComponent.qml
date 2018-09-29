@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.4
-import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 //import com.canonical.Oxide 1.15 as Oxide
@@ -51,7 +50,6 @@ Component {
         property var internal
         property var recentView
         property var tabsModel
-        readonly property string loadTimeStamp: new Date().getTime().toString()
 
         Item {
             id: contextualMenuTarget
@@ -441,65 +439,6 @@ Component {
 
                     Component.onCompleted: bottomEdgeHint.forceShow = true
                     Component.onDestruction: bottomEdgeHint.forceShow = false
-                }
-            }
-/*
-            onShowDownloadDialog: {
-                if (downloadDialogLoader.status === Loader.Ready) {
-                    var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
-                                                             "downloadId" : downloadId,
-                                                             "singleDownload" : downloader,
-                                                             "filename" : filename,
-                                                             "mimeType" : mimeType})
-                    downloadDialog.startDownload.connect(startDownload)
-                }
-            }
-            */
-
-            function showDownloadsPage() {
-                downloadsViewLoader.active = true
-                return downloadsViewLoader.item
-            }
-
-            function startDownload(download) {
-
-                var downloadIdDataBase = loadTimeStamp.concat(download.id)
-                console.log("the download id is " + downloadIdDataBase)
-
-                DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
-                ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-                downloadsViewLoader.active = true
-            }
-            
-            function setDownloadComplete(download) {
-
-                var downloadIdDataBase = loadTimeStamp.concat(download.id)
-                
-                DownloadsModel.setComplete(downloadIdDataBase, true)
-
-                if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
-                {
-                  DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
-                }
-            }
-
-            Connections {
-
-                target: webviewimpl.currentWebview.context
-
-                onDownloadRequested: {
-
-                    console.log("a download was requested with path %1".arg(download.path))
-                    download.accept();
-                    webviewimpl.showDownloadsPage();
-                    webviewimpl.startDownload(download);
-                }
-
-                onDownloadFinished: {
-
-                    console.log("a download was finished with path %1.".arg(download.path))
-                    webviewimpl.showDownloadsPage()
-                    webviewimpl.setDownloadComplete(download)
                 }
             }
         }

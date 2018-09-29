@@ -206,7 +206,7 @@ BrowserPage {
             incomplete: !model.complete
             visible: !(selectMode && incomplete)
             errorMessage: model.error
-            paused: download.isPaused
+            paused: download && download.isPaused
             incognito: model.incognito
 
             onClicked: {
