@@ -21,7 +21,6 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3 as Popups
 import QtWebEngine 1.5
-//import com.canonical.Oxide 1.8 as Oxide
 
 Popups.Dialog {
     id: contextMenu
