@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.5
-import com.canonical.Oxide 1.15
+import Morph.Web 0.1
 import webcontainer.private 0.1
 import ".."
 
