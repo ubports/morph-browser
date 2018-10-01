@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQml 2.0
+import QtQml 2.2
 import Ubuntu.Thumbnailer 0.1
 
 /* Because Thumbnailer isn't in the main repository the webbrowser can't

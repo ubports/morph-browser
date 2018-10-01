@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtWebEngine 1.5
-//import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "."

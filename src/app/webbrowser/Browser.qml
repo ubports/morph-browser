@@ -24,13 +24,11 @@ import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.5
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
 import ".."
-import "."
 import "." as Local
 
 BrowserView {

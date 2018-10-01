@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 
 // A specialized ScrollTracker that handles automatically showing/hiding
 // the chrome for a given webview, based on scroll events and proximity to

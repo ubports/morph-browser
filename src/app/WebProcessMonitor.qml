@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.4
-//import com.canonical.Oxide 1.8 as Oxide
+import QtWebEngine 1.5
 
 Item {
     id: monitor
