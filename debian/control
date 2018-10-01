@@ -54,8 +54,8 @@ Depends: ${misc:Depends},
          qtdeclarative5-unity-action-plugin,
 Replaces: morph-browser-assets,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
-Conflicts: morph-browser-assets
-Provides: morph-browser-assets
+Conflicts: morph-browser-assets, webbrowser-app
+Provides: morph-browser-assets, webbrowser-app
 Breaks: qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22)
 Description: morph web browser
  A lightweight web browser tailored for morph, based on the Oxide browser
@@ -93,15 +93,11 @@ Depends: qml-module-morph-web, ${misc:Depends}
 Replaces: qml-module-ubuntu-ui-extras-browser,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin,
           qml-module-ubuntu-web,
-          qtdeclarative5-ubuntu-web-plugin,
-          webapp-container,
-          webbrowser-app
-Breaks: qml-module-ubuntu-ui-extras-browser,
+          qtdeclarative5-ubuntu-web-plugin
+Conflicts: qml-module-ubuntu-ui-extras-browser,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin,
           qml-module-ubuntu-web,
-          qtdeclarative5-ubuntu-web-plugin,
-          webapp-container,
-          webbrowser-app
+          qtdeclarative5-ubuntu-web-plugin
 Description: This provides a compat layer for Ubuntu.Web
 
 Package: qml-module-morph-web
