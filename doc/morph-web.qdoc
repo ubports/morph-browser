@@ -1,0 +1,41 @@
+/*
+ * Copyright 2014 Canonical Ltd.
+ *
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * webbrowser-app is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*!
+    \qmlmodule Morph.Web 0.2
+    \title Morph Web module
+    \brief WebView and related components
+
+    This QML module exposes a WebView component that can be used to render
+    web content in an application, as well as related components.
+
+    This is the preferred way of rendering web content in an Ubuntu application.
+    The rendering is performed by QtWebEngine.
+    The use of QtWebKit is deprecated and unsupported.
+
+    This is version 0.2 of the module.
+
+    Note that the module was previously named
+    \c Ubuntu.Components.Extras.Browser, the old namespace has been kept around
+    for backwards compatibility but its use is discouraged, please update your
+    applications to import \c {Morph.Web 0.2}.
+
+    Also note that importing both \c com.canonical.Oxide (or \c QtWebKit) and
+    \c Morph.Web in the same QML file results in an undefined behaviour,
+    as both expose a \c WebView type.
+ */

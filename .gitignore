@@ -61,4 +61,6 @@ build/
 *.click
 *.deb
 .clickable
+*.qmlc
+*.jsc
 .directory

@@ -1,0 +1,5 @@
+module Ubuntu.Web
+plugin ubuntu-web-plugin
+WebView 0.2 UbuntuWebView02.qml
+WebContext 0.2 UbuntuWebContext.qml
+singleton SharedWebContext 0.2 UbuntuSharedWebContext.qml

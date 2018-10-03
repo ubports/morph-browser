@@ -1,13 +1,13 @@
 /*
  * Copyright 2014-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -23,18 +23,18 @@ import ".."
 ListItem {
     id: downloadDelegate
 
-    property var downloadManager
+    //property var downloadManager
 
     property string icon
     property alias image: thumbimage.source
     property alias title: title.text
     property alias url: url.text
     property string errorMessage
-    property bool incomplete: false
+    property bool incomplete: ! download.isFinished
     property string downloadId
     property var download
-    readonly property int progress: download ? download.progress : 0
-    property bool paused
+    readonly property int progress: download ? 100 * (download.receivedBytes / download.totalBytes) : -1
+    property bool paused: download.isPaused
     property alias incognito: incognitoIcon.visible
 
     divider.visible: false
@@ -44,6 +44,7 @@ ListItem {
 
     height: visible ? layout.height : 0
 
+    /*
     QtObject {
         id: internal
 
@@ -57,9 +58,10 @@ ListItem {
             }
         }
     }
+    */
 
-    Component.onCompleted: internal.connectToDownloadObject()
-    onDownloadManagerChanged: internal.connectToDownloadObject()
+    //Component.onCompleted: internal.connectToDownloadObject()
+    //onDownloadManagerChanged: internal.connectToDownloadObject()
 
     SlotsLayout {
         id: layout
@@ -164,6 +166,7 @@ ListItem {
                 progress: downloadDelegate.progress
                 // Work around UDM bug #1450144
                 indeterminateProgress: progress < 0 || progress > 100
+                opacity: paused ? 0.5 : 1
             }
         }
 
@@ -185,17 +188,28 @@ ListItem {
             }
 
             Label {
-                visible: !progressBar.indeterminateProgress && incomplete
-                            && !error.visible && !paused
+                visible: !progressBar.indeterminateProgress && incomplete && !error.visible
                 width: cancelButton.width
                 horizontalAlignment: Text.AlignHCenter
                 textSize: Label.Small
                 // TRANSLATORS: %1 is the percentage of the download completed so far
                 text: i18n.tr("%1%").arg(progressBar.progress)
+                opacity: paused ? 0.5 : 1
             }
 
             Button {
-                visible: paused
+                visible: incomplete && ! paused && ! error.visible
+                text: i18n.tr("Pause")
+                width: cancelButton.width
+                onClicked: {
+                    if (download) {
+                        download.pause()
+                    }
+                }
+            }
+
+            Button {
+                visible: incomplete && paused && ! error.visible
                 text: i18n.tr("Resume")
                 width: cancelButton.width
                 onClicked: {
@@ -230,7 +244,11 @@ ListItem {
                 objectName: "leadingAction.delete"
                 iconName: "delete"
                 enabled: error.visible || !incomplete
-                onTriggered: error.visible ? cancelled() : removed()
+                onTriggered: {
+
+                   cancelled()
+
+                }
             }
         ]
     }

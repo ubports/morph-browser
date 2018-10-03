@@ -1,6 +1,7 @@
 {
+  "sdk": "ubuntu-sdk-16.04",
   "template": "cmake",
-  "kill": "webbrowser-ng",
+  "kill": "morph-browser",
   "dependencies": [
     "qtwebengine5-dev"
   ]

@@ -1,13 +1,13 @@
 /*
  * Copyright 2015-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Content 1.3
 import webbrowserapp.private 0.1
@@ -27,7 +28,7 @@ import "../MimeTypeMapper.js" as MimeTypeMapper
 BrowserPage {
     id: downloadsItem
 
-    property var downloadManager
+    //property var downloadManager
 
     // We can get file picking requests either via content-hub (activeTransfer)
     // Or via the internal oxide file picker (internalFilePicker) in the case
@@ -191,9 +192,11 @@ BrowserPage {
         }
 
         delegate: DownloadDelegate {
-            downloadManager: downloadsItem.downloadManager
+            //downloadManager: downloadsItem.downloadManager
+            download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
-            title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
+            //title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
+            title: ( model.path.substring(0,14) === "/home/phablet/" ) ? "~/" + model.path.substring(14) : model.path
             url: model.url
             image: model.complete && thumbnailLoader.status == Loader.Ready 
                                   && (model.mimetype.indexOf("image") === 0 
@@ -203,7 +206,7 @@ BrowserPage {
             incomplete: !model.complete
             visible: !(selectMode && incomplete)
             errorMessage: model.error
-            paused: model.paused
+            paused: download && download.isPaused
             incognito: model.incognito
 
             onClicked: {

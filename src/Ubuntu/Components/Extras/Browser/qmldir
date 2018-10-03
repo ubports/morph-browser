@@ -1,0 +1,6 @@
+module Ubuntu.Components.Extras.Browser
+plugin ubuntu-ui-extras-browser-plugin
+UbuntuWebView 0.2 UbuntuWebView02.qml
+singleton UbuntuSharedWebContext 0.2 UbuntuSharedWebContext.qml
+singleton SharedWebContext 0.2 UbuntuSharedWebContext.qml
+UbuntuWebContext 0.2 UbuntuWebContext.qml

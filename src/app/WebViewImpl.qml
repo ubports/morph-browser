@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2016 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -21,10 +21,11 @@ import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
+import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
 
-WebEngineView {
+WebView {
     id: webview
 
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
@@ -42,14 +43,6 @@ WebEngineView {
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
 
-    property QtObject __ua: UserAgent02 {
-    }
-
-    Component.onCompleted: {
-        console.log(__ua.defaultUA);
-        profile.httpUserAgent = __ua.defaultUA;
-    }
-
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
 
@@ -62,9 +55,9 @@ WebEngineView {
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
     }
-    
+
     onJavaScriptDialogRequested: function(request) {
-        
+
         switch (request.type)
         {
             case JavaScriptDialogRequest.DialogTypeAlert:
@@ -73,7 +66,7 @@ WebEngineView {
                 alertDialog.message = request.message;
                 alertDialog.accept.connect(request.dialogAccept);
                 break;
-            
+
             case JavaScriptDialogRequest.DialogTypeConfirm:
                 request.accepted = true;
                 var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
@@ -81,7 +74,7 @@ WebEngineView {
                 confirmDialog.accept.connect(request.dialogAccept);
                 confirmDialog.reject.connect(request.dialogReject);
                 break;
-                
+
             case JavaScriptDialogRequest.DialogTypePrompt:
                 request.accepted = true;
                 var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"));
@@ -90,9 +83,9 @@ WebEngineView {
                 promptDialog.accept.connect(request.dialogAccept);
                 promptDialog.reject.connect(request.dialogReject);
                 break;
-            
-            // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)    
-            //case JavaScriptDialogRequest.DialogTypeUnload: 
+
+            // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)
+            //case JavaScriptDialogRequest.DialogTypeUnload:
             case 3:
                 request.accepted = true;
                 var beforeUnloadDialog = PopupUtils.open(Qt.resolvedUrl("BeforeUnloadDialog.qml"));
@@ -103,9 +96,9 @@ WebEngineView {
         }
 
     }
-    
+
     onFileDialogRequested: function(request) {
-        
+
         switch (request.mode)
         {
             case FileDialogRequest.FileModeOpen:
@@ -115,7 +108,7 @@ WebEngineView {
                 fileDialogSingle.accept.connect(request.dialogAccept);
                 fileDialogSingle.reject.connect(request.dialogReject);
                 break;
-                        
+
             case FileDialogRequest.FileModeOpenMultiple:
                 request.accepted = true;
                 var fileDialogMultiple = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
@@ -123,15 +116,15 @@ WebEngineView {
                 fileDialogMultiple.accept.connect(request.dialogAccept);
                 fileDialogMultiple.reject.connect(request.dialogReject);
                 break;
-                
+
             case FilealogRequest.FileModeUploadFolder:
             case FileDialogRequest.FileModeSave:
                 request.accepted = false;
                 break;
         }
-        
+
     }
-    
+
     onColorDialogRequested: function(request) {
         request.accepted = true;
         var colorDialog = PopupUtils.open(Qt.resolvedUrl("ColorSelectDialog.qml"));
@@ -140,9 +133,9 @@ WebEngineView {
         colorDialog.reject.connect(request.dialogReject);
         //myDialog.visible = true;
     }
-    
+
     onAuthenticationDialogRequested: function(request) {
-        
+
         switch (request.type)
         {
             //case WebEngineAuthenticationDialogRequest.AuthenticationTypeHTTP:
@@ -155,9 +148,9 @@ WebEngineView {
             authDialog.realm = request.realm;
             authDialog.accept.connect(request.dialogAccept);
             authDialog.reject.connect(request.dialogReject);
-                
+
             break;
-            
+
             //case WebEngineAuthenticationDialogRequest.AuthenticationTypeProxy:
             case 1:
             request.accepted = false;
@@ -165,31 +158,31 @@ WebEngineView {
         }
 
     }
-    
+
      onFeaturePermissionRequested: {
-         
+
          switch(feature)
          {
              case WebEngineView.Geolocation:
-                 
+
              // TODO: we might want to store the answer to avoid requesting
              // the permission everytime the user visits this site.
              var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"));
              geoPermissionDialog.origin = securityOrigin;
              geoPermissionDialog.feature = feature;
              break;
-             
+
              case WebEngineView.MediaAudioCapture:
              case WebEngineView.MediaVideoCapture:
              case WebEngineView.MediaAudioVideoCapture:
-                 
+
              var mediaAccessDialog = PopupUtils.open(Qt.resolvedUrl("MediaAccessDialog.qml"));
              mediaAccessDialog.origin = securityOrigin;
              mediaAccessDialog.feature = feature;
              break;
          }
     }
-    
+
      onNewViewRequested: function(request) {
 
          browser.openLinkInNewTabRequested(request.requestedUrl, false);
@@ -281,7 +274,7 @@ WebEngineView {
         Actions.SaveLink {
             objectName: "SaveLinkContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: {showMessage("Actions.SaveLink is not implemented");} //contextModel.saveLink()
+            onTriggered: webview.triggerWebAction(WebEngineView.DownloadLinkToDisk)
         }
         Actions.Share {
             objectName: "ShareContextualAction"
@@ -314,8 +307,7 @@ WebEngineView {
                      ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas)) // && contextModel.hasImageContents
 
-            // onTriggered: browser.shareLinkRequested(contextMenuRequest.mediaUrl.toString, "Image")
-            onTriggered: showMessage("Actions.SaveImage not implemented."); //contextModel.saveMedia()
+            onTriggered: webview.triggerWebAction(WebEngineView.DownloadImageToDisk)
         }
         Actions.OpenVideoInNewTab {
             objectName: "OpenVideoInNewTabContextualAction"
@@ -329,9 +321,8 @@ WebEngineView {
             objectName: "SaveVideoContextualAction"
             enabled: contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
-                     contextMenuRequest.srcUrl.toString()
-            // TODO !
-            onTriggered: showMessage("Actions.SaveVideo not implemented."); //contextModel.saveMedia()
+                     contextMenuRequest.mediaUrl.toString()
+            onTriggered: webview.triggerWebAction(WebEngineView.DownloadMediaToDisk)
         }
         Actions.Copy {
             objectName: "CopyContextualAction"

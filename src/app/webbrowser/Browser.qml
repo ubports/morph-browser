@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -18,18 +18,17 @@
 
 import QtQuick 2.5
 import QtQuick.Window 2.2
+import QtWebEngine 1.5
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
-//import com.canonical.Oxide 1.19 as Oxide
+import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.5
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
 import ".."
-import "."
 import "." as Local
 
 BrowserView {
@@ -135,9 +134,9 @@ BrowserView {
 
         internal.shareText(text)
     }
-    
+
     onFullScreenRequested: {
-        
+
         if (toggleOn)
         {
             chrome.state = "hidden"
@@ -148,7 +147,7 @@ BrowserView {
             chrome.state = "shown"
             browser.thisWindow.setFullscreen(false)
         }
-        
+
     }
 
     Connections {
@@ -170,7 +169,7 @@ BrowserView {
         //onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
     }
 
-    //currentWebcontext: SharedWebContext.sharedContext
+    currentWebcontext: SharedWebContext.sharedContext
     defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     onDefaultVideoCaptureMediaIdUpdated: {
@@ -1543,6 +1542,67 @@ BrowserView {
         asynchronous: true
     }
 
+    function showDownloadsPage() {
+        downloadsViewLoader.active = true
+        return downloadsViewLoader.item
+    }
+
+    function startDownload(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        // check if the ID has already been added
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        {
+           console.log("the download id " + downloadIdDataBase + " has already been added.")
+           return
+        }
+
+        console.log("adding download with id " + downloadIdDataBase)
+        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+        downloadsViewLoader.active = true
+    }
+
+    function setDownloadComplete(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        {
+            console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
+            return
+        }
+
+        console.log("download with id " + downloadIdDataBase + " is complete.")
+
+        DownloadsModel.setComplete(downloadIdDataBase, true)
+
+        if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
+        {
+          DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+        }
+    }
+
+    Connections {
+
+        target: currentWebview ? currentWebview.context : null
+
+        onDownloadRequested: {
+
+            console.log("a download was requested with path %1".arg(download.path))
+            download.accept();
+            browser.showDownloadsPage();
+            browser.startDownload(download);
+        }
+
+        onDownloadFinished: {
+
+            console.log("a download was finished with path %1.".arg(download.path))
+            browser.showDownloadsPage()
+            browser.setDownloadComplete(download)
+        }
+    }
     /*
 
     Loader {
