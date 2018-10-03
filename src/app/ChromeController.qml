@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtWebEngine 1.5
 
 Item {
     visible: false
