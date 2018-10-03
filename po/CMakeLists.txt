@@ -4,7 +4,7 @@ include(FindGettext)
 find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
 
 file(RELATIVE_PATH DESKTOP_FILE_IN_IN ${CMAKE_SOURCE_DIR}
-     ${webbrowser-app_SOURCE_DIR}/${DESKTOP_FILE}.in.in)
+    ${morph-browser_SOURCE_DIR}/${DESKTOP_FILE}.in.in)
 file(RELATIVE_PATH DESKTOP_FILE_IN_IN_H ${CMAKE_SOURCE_DIR}
      ${CMAKE_CURRENT_SOURCE_DIR}/${DESKTOP_FILE_IN_IN}.h)
 
@@ -25,8 +25,8 @@ add_custom_target(${POT_FILE} ALL
                           --from-code=UTF-8
                           --c++ --qt --add-comments=TRANSLATORS
                           --keyword=tr --keyword=tr:1,2 --keyword=N_
-                          --package-name=webbrowser-app
-                          --copyright-holder='Canonical Ltd.'
+                          --package-name=morph-browser
+                          --copyright-holder='UBports'
                           -D ${CMAKE_SOURCE_DIR} ${I18N_SRC_FILES}
                           -D ${CMAKE_BINARY_DIR} ${DESKTOP_FILE_IN_IN_H})
 

@@ -1,13 +1,13 @@
 /*
  * Copyright 2014-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-//import com.canonical.Oxide 1.15 as Oxide
 import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
@@ -70,18 +69,25 @@ Component {
             focus: true
 
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
-/*
+
+            /*
             locationBarController {
                 height: chrome ? chrome.height : 0
                 mode: chromeController ? chromeController.defaultMode : null
             }
+            
+            */
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-            preferences.localStorageEnabled: true
-            preferences.appCacheEnabled: true
+            //preferences.localStorageEnabled: true
+            //preferences.appCacheEnabled: true
 
-            property QtObject contextModel: null
-            contextualActions: ActionList {
+            //property QtObject contextModel: null
+            //contextualActions: 
+
+            /*
+             
+            ActionList {
                 Actions.OpenLinkInNewTab {
                     objectName: "OpenLinkInNewTabContextualAction"
                     enabled: contextModel && contextModel.linkUrl.toString()
@@ -238,7 +244,7 @@ Component {
                     contextModel.close()
                 }
             }
-*/
+            
             Component {
                 id: contextMenuNarrowComponent
                 ContextMenuMobile {
@@ -255,8 +261,10 @@ Component {
                     Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                 }
             }
+            */
+            
             //contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
-/*
+            /*
             onNewViewRequested: {
                 var newTab = browser.createTab({"request": request})
                 var setCurrent = true//(request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
@@ -432,30 +440,6 @@ Component {
                     Component.onDestruction: bottomEdgeHint.forceShow = false
                 }
             }
-/*
-            onShowDownloadDialog: {
-                if (downloadDialogLoader.status === Loader.Ready) {
-                    var downloadDialog = PopupUtils.open(downloadDialogLoader.item, browser, {"contentType" : contentType,
-                                                             "downloadId" : downloadId,
-                                                             "singleDownload" : downloader,
-                                                             "filename" : filename,
-                                                             "mimeType" : mimeType})
-                    downloadDialog.startDownload.connect(startDownload)
-                }
-            }
-            */
-
-            function showDownloadsPage() {
-                downloadsViewLoader.active = true
-                return downloadsViewLoader.item
-            }
-
-            function startDownload(downloadId, download, mimeType) {
-                DownloadsModel.add(downloadId, download.url, mimeType, incognito)
-                download.start()
-                downloadsViewLoader.active = true
-            }
-
         }
     }
 }

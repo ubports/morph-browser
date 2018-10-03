@@ -18,12 +18,12 @@
 
 /*!
     \qmltype WebContext
-    \inqmlmodule Ubuntu.Web 0.2
-    \ingroup ubuntu
+    \inqmlmodule Morph.Web 0.2
+    \ingroup morph
     \brief A default context implementation for use with \l WebView.
 
     This default WebContext implementation has the default user agent string
-    used by the Ubuntu browser as well as the UA override mechanism that allows
+    used by the Morph browser as well as the UA override mechanism that allows
     sending an overridden user agent for given domains/websites, based on the
     form factor.
 
@@ -39,9 +39,9 @@
     \sa SharedWebContext
  */
 
-// Note: only a subset of the properties of Oxide’s WebContext are documented
+// Note: only a subset of the properties of QtWebEngine’s WebContext are documented
 // here. This is intentional, typical applications are not expected to be
-// needing the full set of properties and methods exposed by Oxide.
+// needing the full set of properties and methods exposed by QtWebEngine.
 
 /*!
     \qmlproperty string WebContext::userAgent

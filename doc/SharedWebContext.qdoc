@@ -18,8 +18,8 @@
 
 /*!
     \qmltype SharedWebContext
-    \inqmlmodule Ubuntu.Web 0.2
-    \ingroup ubuntu
+    \inqmlmodule Morph.Web 0.2
+    \ingroup morph
     \brief A singleton that exposes a shared \l WebContext that can be used
            by several \l WebView instances in the same application.
 

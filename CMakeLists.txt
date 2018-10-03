@@ -12,7 +12,7 @@ if(NOT INTLTOOL_EXTRACT)
     message(FATAL_ERROR "Could not find intltool-extract, please install the intltool package")
 endif()
 
-option(CLICK_MODE "Build as a click package" on)
+option(CLICK_MODE "Build as a click package" off)
 
 # Standard install paths
 include(GNUInstallDirs)
@@ -22,6 +22,7 @@ if(CLICK_MODE)
   set(CMAKE_INSTALL_PREFIX "/")
   set(CMAKE_INSTALL_BINDIR "/")
   set(CMAKE_INSTALL_FULL_DATADIR "share/")
+  add_definitions("-DCLICK_MODE")
 endif()
 
 string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_lower)
@@ -55,7 +56,7 @@ include(qt5)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-set(DESKTOP_FILE webbrowser-ng.desktop)
+set(DESKTOP_FILE morph-browser.desktop)
 
 # uninstall target
 configure_file(
@@ -78,20 +79,20 @@ file(GLOB_RECURSE NON_COMPILED_SUBDIRS
      debian/tests/*
      doc/*.css doc/*.qdoc doc/*.qdocconf
      po/*.po po/*.pot
-     snap/webbrowser-ng.launcher
+     snap/morph-browser.launcher
      src/*.js src/*.qml src/*.sci src/README
      tests/*.py tests/*.qml)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_ROOT} ${NON_COMPILED_SUBDIRS})
 
 # for dh_translations to extract the domain
 # (regarding syntax consistency, see http://pad.lv/1181187)
-set (GETTEXT_PACKAGE "webbrowser-ng")
+set (GETTEXT_PACKAGE "morph-browser")
 
-#add_subdirectory(po)
+add_subdirectory(po)
 
-#add_subdirectory(doc)
+add_subdirectory(doc)
 
-install(FILES webbrowser-ng.png screenshot.png
-DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-ng)
+install(FILES morph-browser.png screenshot.png
+DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
 
-#add_subdirectory(click-hooks)
+add_subdirectory(click-hooks)

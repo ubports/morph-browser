@@ -1,0 +1,4 @@
+usr/bin/webapp-container
+usr/share/morph-browser/webcontainer/
+usr/share/click/hooks/webapp-container.hook
+usr/bin/webapp-container-hook

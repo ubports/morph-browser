@@ -1,13 +1,13 @@
 /*
  * Copyright 2015 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -20,13 +20,14 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3 as Popups
-//import com.canonical.Oxide 1.8 as Oxide
+import QtWebEngine 1.5
 
 Popups.Dialog {
     id: contextMenu
 
-    property QtObject contextModel: model
+    //property QtObject contextModel: model
     property ActionList actions: null
+    property var titleContent
 
     QtObject {
         id: internal
@@ -65,7 +66,8 @@ Popups.Dialog {
         Label {
             id: title
             objectName: "titleLabel"
-            text: contextModel.srcUrl.toString() ? contextModel.srcUrl : contextModel.linkUrl
+            text: titleContent
+            //text: contextModel.srcUrl.toString() ? contextModel.srcUrl : contextModel.linkUrl
             width: parent.width - units.gu(4)
             anchors {
                 top: parent.top
@@ -142,12 +144,14 @@ Popups.Dialog {
         }
         onTriggered: contextMenu.hide()
     }
-
+    
+    /*
     onVisibleChanged: {
         if (!visible) {
             contextModel.close()
         }
     }
+    */
 
     // adjust default dialog visuals to custom requirements for the context menu
     Binding {

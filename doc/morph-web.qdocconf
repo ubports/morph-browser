@@ -1,0 +1,20 @@
+project = MorphWeb
+description = Morph Web module documentation
+sourcedirs = ./
+sources.fileextensions = "*.qdoc"
+outputdir = html
+outputformats = HTML
+version = 0.2
+syntaxhightlighting = true
+sourceencoding = UTF-8
+outputencoding = UTF-8
+
+HTML.nonavigationbar = "true"
+HTML.stylesheets = \
+    css/base.css \
+    css/custom.css \
+    css/qtquick.css
+HTML.headerstyles = \
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/qtquick.css\" />\n" \
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/base.css\" />\n" \
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/custom.css\" />\n"

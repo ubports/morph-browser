@@ -1,13 +1,13 @@
 /*
  * Copyright 2014-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtWebEngine 1.5
-//import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "."
