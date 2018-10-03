@@ -35,16 +35,7 @@ WebEngineProfile {
 
     userAgent: defaultUserAgent
 
-    persistentCookiesPolicy: {
-        if (typeof webContextSessionCookieMode !== 'undefined') {
-            if (webContextSessionCookieMode === "persistent") {
-                return WebEngineProfile.ForcePersistentCookies
-            } else if (webContextSessionCookieMode === "restored") {
-                return WebEngineProfile.AllowPersistentCookies
-            }
-        }
-        return WebEngineProfile.NoPersistentCookies
-    }
+    persistentCookiesPolicy: WebEngineProfile.ForcePersistentCookies
 
     userScripts: [
         WebEngineScript {
