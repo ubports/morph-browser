@@ -1,11 +1,11 @@
-# Bulgarian translation for webbrowser-app
+# Bulgarian translation for morph-browser
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
-# This file is distributed under the same license as the webbrowser-app package.
+# This file is distributed under the same license as the morph-browser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webbrowser-app\n"
+"Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
 "PO-Revision-Date: 2014-01-25 21:41+0000\n"
@@ -844,13 +844,13 @@ msgid "Remove"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:101
+#: src/app/webbrowser/morph-browser.qml:101
 #: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Убунту Уеб Браузър"
 
-#: src/app/webbrowser/webbrowser-app.qml:103
+#: src/app/webbrowser/morph-browser.qml:103
 #: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
 msgstr "Убунту Уеб Браузър"
@@ -920,27 +920,27 @@ msgstr ""
 msgid "Oops, something went wrong."
 msgstr ""
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Browser"
 msgstr "Браузър"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Web Browser"
 msgstr "Уеб браузър"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
 msgstr "Браузване на World Wide Web"
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:5
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
 msgstr ""
 
-#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:6
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr ""
 

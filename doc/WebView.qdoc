@@ -18,14 +18,14 @@
 
 /*!
     \qmltype WebView
-    \inqmlmodule Ubuntu.Web 0.2
-    \ingroup ubuntu
+    \inqmlmodule Morph.Web 0.2
+    \ingroup morph
     \brief A webview that can be used to render web content in an application.
 
     Here is a very simple example of how to use a WebView to render a web page:
     \qml
         import QtQuick 2.4
-        import Ubuntu.Web 0.2
+        import Morph.Web 0.2
 
         WebView {
             url: "http://ubuntu.com"
@@ -183,7 +183,7 @@
     Example of user-defined actions:
     \code
         import Ubuntu.Components 1.3
-        import Ubuntu.Web 0.2
+        import Morph.Web 0.2
 
         WebView {
             contextualActions: ActionList {

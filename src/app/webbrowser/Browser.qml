@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -18,18 +18,17 @@
 
 import QtQuick 2.5
 import QtQuick.Window 2.2
+import QtWebEngine 1.5
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
-//import com.canonical.Oxide 1.19 as Oxide
+import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.5
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
 import ".."
-import "."
 import "." as Local
 
 BrowserView {
@@ -56,7 +55,7 @@ BrowserView {
         }
 
         function moveTab(from, to) {
-            if (from == to
+            if (from === to
                 || from < 0 || from >= count
                 || to < 0 || to >= count) {
                 return;
@@ -121,6 +120,35 @@ BrowserView {
     signal newWindowRequested(bool incognito)
     signal newWindowFromTab(var tab, var callback)
     signal openLinkInWindowRequested(url url, bool incognito)
+    signal openLinkInNewTabRequested(url url, bool background)
+    signal shareLinkRequested(url linkUrl, string title)
+    signal shareTextRequested(string text)
+    signal fullScreenRequested(bool toggleOn)
+
+    onShareLinkRequested: {
+
+        internal.shareLink(linkUrl, title);
+    }
+
+    onShareTextRequested: {
+
+        internal.shareText(text)
+    }
+
+    onFullScreenRequested: {
+
+        if (toggleOn)
+        {
+            chrome.state = "hidden"
+            browser.thisWindow.setFullscreen(true)
+        }
+        else
+        {
+            chrome.state = "shown"
+            browser.thisWindow.setFullscreen(false)
+        }
+
+    }
 
     Connections {
         target: currentWebview
@@ -141,7 +169,7 @@ BrowserView {
         //onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
     }
 
-    //currentWebcontext: SharedWebContext.sharedContext
+    currentWebcontext: SharedWebContext.sharedContext
     defaultVideoCaptureDeviceId: settings.defaultVideoDevice ? settings.defaultVideoDevice : ""
 
     onDefaultVideoCaptureMediaIdUpdated: {
@@ -233,14 +261,14 @@ BrowserView {
                    !sadTabLoader.focus
 
             Keys.onPressed: {
-                if (tabContainer.visible && (event.key == Qt.Key_Backspace)) {
+                if (tabContainer.visible && (event.key === Qt.Key_Backspace)) {
                     // Not handled as a window-level shortcut as it would take
                     // precedence over backspace events in HTML text fields
                     // (https://launchpad.net/bugs/1569938).
-                    if (event.modifiers == Qt.NoModifier) {
+                    if (event.modifiers === Qt.NoModifier) {
                         internal.historyGoBack()
                         event.accepted = true
-                    } else if (event.modifiers == Qt.ShiftModifier) {
+                    } else if (event.modifiers === Qt.ShiftModifier) {
                         internal.historyGoForward()
                         event.accepted = true
                     }
@@ -1044,7 +1072,7 @@ BrowserView {
 
         function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
-            if (component.status == Component.Ready) {
+            if (component.status === Component.Ready) {
                 var share = component.createObject(browser)
                 share.onDone.connect(share.destroy)
                 return share
@@ -1094,7 +1122,7 @@ BrowserView {
             properties["contentHandlerLoader"] = contentHandlerLoader;
             properties["downloadDialogLoader"] = downloadDialogLoader;
             properties["downloadsViewLoader"] = downloadsViewLoader;
-            properties["filePickerLoader"] = filePickerLoader;
+            //properties["filePickerLoader"] = filePickerLoader;
             properties["internal"] = internal;
             properties["recentView"] = recentView;
             properties["tabsModel"] = tabsModel;
@@ -1227,9 +1255,9 @@ BrowserView {
             var fingerprint = error.certificate.fingerprintSHA1
             for (var i in allowedCertificateErrors) {
                 var allowed = allowedCertificateErrors[i]
-                if ((host == allowed[0]) &&
-                    (code == allowed[1]) &&
-                    (fingerprint == allowed[2])) {
+                if ((host === allowed[0]) &&
+                    (code === allowed[1]) &&
+                    (fingerprint === allowed[2])) {
                     return true
                 }
             }
@@ -1485,7 +1513,7 @@ BrowserView {
     // Ctrl+0: reset zoom factor to 1.0
     Shortcut {
         sequence: "Ctrl+0"
-        enabled: currentWebview && (currentWebview.zoomFactor != 1.0)
+        enabled: currentWebview && (currentWebview.zoomFactor !== 1.0)
         onActivated: currentWebview.zoomFactor = 1.0
     }
 
@@ -1514,11 +1542,76 @@ BrowserView {
         asynchronous: true
     }
 
+    function showDownloadsPage() {
+        downloadsViewLoader.active = true
+        return downloadsViewLoader.item
+    }
+
+    function startDownload(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        // check if the ID has already been added
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        {
+           console.log("the download id " + downloadIdDataBase + " has already been added.")
+           return
+        }
+
+        console.log("adding download with id " + downloadIdDataBase)
+        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+        downloadsViewLoader.active = true
+    }
+
+    function setDownloadComplete(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        {
+            console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
+            return
+        }
+
+        console.log("download with id " + downloadIdDataBase + " is complete.")
+
+        DownloadsModel.setComplete(downloadIdDataBase, true)
+
+        if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
+        {
+          DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+        }
+    }
+
+    Connections {
+
+        target: currentWebview ? currentWebview.context : null
+
+        onDownloadRequested: {
+
+            console.log("a download was requested with path %1".arg(download.path))
+            download.accept();
+            browser.showDownloadsPage();
+            browser.startDownload(download);
+        }
+
+        onDownloadFinished: {
+
+            console.log("a download was finished with path %1.".arg(download.path))
+            browser.showDownloadsPage()
+            browser.setDownloadComplete(download)
+        }
+    }
+    /*
+
     Loader {
         id: filePickerLoader
         source: "ContentPickerDialog.qml"
         asynchronous: true
     }
+
+    */
 
     // Cover the webview (gaps around tabsbar) with DropArea so that webview doesn't steal events
     DropArea {

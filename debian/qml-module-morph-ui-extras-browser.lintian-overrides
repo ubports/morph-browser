@@ -1,0 +1,3 @@
+qml-module-morph-ui-extras-browser: pkg-has-shlibs-control-file-but-no-actual-shared-libs
+qml-module-morph-ui-extras-browser: postinst-has-useless-call-to-ldconfig
+qml-module-morph-ui-extras-browser: postrm-has-useless-call-to-ldconfig

@@ -1,13 +1,13 @@
 /*
  * Copyright 2015-2016 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -27,7 +27,7 @@
 #include <QtCore/QStandardPaths>
 #include <QtSql/QSqlQuery>
 
-#define CONNECTION_NAME "webbrowser-app-downloads"
+#define CONNECTION_NAME "morph-browser-downloads"
 
 /*!
     \class DownloadsModel
@@ -222,7 +222,7 @@ bool DownloadsModel::contains(const QString& downloadId) const
     Add a download to the database. This should happen as soon as the download
     is started.
 */
-void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& mimetype, bool incognito)
+void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& path, const QString& mimetype, bool incognito)
 {
     beginInsertRows(QModelIndex(), 0, 0);
     DownloadEntry entry;
@@ -231,6 +231,7 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
     entry.paused = false;
     entry.url = url;
     entry.mimetype = mimetype;
+    entry.path = path;
     entry.incognito = incognito;
     m_orderedEntries.prepend(entry);
     m_numRows++;
@@ -344,12 +345,11 @@ void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& p
 void DownloadsModel::insertNewEntryInDatabase(const DownloadEntry& entry)
 {
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO downloads (downloadId, url, "
-                                                   "mimetype) "
-                                                   "VALUES (?, ?, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO downloads (downloadId, url, path, mimetype) VALUES (?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.downloadId);
     query.addBindValue(entry.url);
+    query.addBindValue(entry.path);
     query.addBindValue(entry.mimetype);
     query.exec();
 }

@@ -1,0 +1,11 @@
+usr/bin/morph-browser
+usr/share/morph-browser/*.qml
+usr/share/morph-browser/*.js
+usr/share/morph-browser/*.png
+usr/share/morph-browser/actions/*.qml
+usr/share/morph-browser/webbrowser/
+usr/share/applications/morph-browser.desktop
+usr/share/locale/*/LC_MESSAGES/morph-browser.mo
+usr/share/url-dispatcher/
+usr/share/content-hub/peers/morph-browser
+debian/usr.bin.morph-browser etc/apparmor.d

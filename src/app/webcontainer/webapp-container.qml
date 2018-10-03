@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2017 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.5
-import com.canonical.Oxide 1.15
+import Morph.Web 0.1
 import webcontainer.private 0.1
 import ".."
 
@@ -218,7 +218,7 @@ BrowserWindow {
 
     Component.onCompleted: {
         console.info("webapp-container using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
-        i18n.domain = "webbrowser-app"
+        i18n.domain = "morph-browser"
         if (forceFullscreen) {
             showFullScreen()
         } else if (startMaximized) {

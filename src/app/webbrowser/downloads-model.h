@@ -1,13 +1,13 @@
 /*
  * Copyright 2015-2016 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -64,7 +64,7 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE bool contains(const QString& downloadId) const;
-    Q_INVOKABLE void add(const QString& downloadId, const QUrl& url, const QString& mimetype, bool incognito);
+    Q_INVOKABLE void add(const QString& downloadId, const QUrl& url, const QString& path, const QString& mimetype, bool incognito);
     Q_INVOKABLE void moveToDownloads(const QString& downloadId, const QString& path);
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);

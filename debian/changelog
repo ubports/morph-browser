@@ -1,10 +1,10 @@
-webbrowser-app (0.24+ubports) xenial; urgency=medium
+morph-browser (0.24+ubports) xenial; urgency=medium
 
   * Imported to UBports
 
  -- UBports auto importer <infra@ubports.com>  Wed, 02 Aug 2017 01:02:48 +0200
 
-webbrowser-app (0.23+17.04.20170321-0ubuntu1) zesty; urgency=medium
+morph-browser (0.23+17.04.20170321-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
   * Add access to the downloads folder to the generated apparmor profile
@@ -17,7 +17,7 @@ webbrowser-app (0.23+17.04.20170321-0ubuntu1) zesty; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 21 Mar 2017 20:43:10 +0000
 
-webbrowser-app (0.23+17.04.20170310-0ubuntu1) zesty; urgency=medium
+morph-browser (0.23+17.04.20170310-0ubuntu1) zesty; urgency=medium
 
   [ Alexandre Abreu ]
   * Explicitely define Ctrl+R as the refresh shortcut for the browser
@@ -56,14 +56,14 @@ webbrowser-app (0.23+17.04.20170310-0ubuntu1) zesty; urgency=medium
   * Log oxide and chromium versions at app startup
   * Add UA overrides for google photos (desktop and mobile) (LP: #1665926)
   * Explicitly plug to the "mir" interface (LP: #1662145)
-  * Add "ibus" and "nvidia" apparmor abstractions to webbrowser-app apparmor
+  * Add "ibus" and "nvidia" apparmor abstractions to morph-browser apparmor
     profile
-  * Additional holes in generated apparmor profile to allow webbrowser-app
+  * Additional holes in generated apparmor profile to allow morph-browser
     to run under unity8 in zesty (LP: #1590561)
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 10 Mar 2017 15:35:28 +0000
 
-webbrowser-app (0.23+17.04.20170125.1-0ubuntu1) zesty; urgency=medium
+morph-browser (0.23+17.04.20170125.1-0ubuntu1) zesty; urgency=medium
 
   * Add stage packages to reduce the final size of the snap.
   * Use upstream desktop file for snap (new feature in snapcraft 2.25).
@@ -73,9 +73,9 @@ webbrowser-app (0.23+17.04.20170125.1-0ubuntu1) zesty; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 25 Jan 2017 14:39:24 +0000
 
-webbrowser-app (0.23+17.04.20170110-0ubuntu1) zesty; urgency=medium
+morph-browser (0.23+17.04.20170110-0ubuntu1) zesty; urgency=medium
 
-  * Include only webbrowser-app data in the snap (no webapp-container)
+  * Include only morph-browser data in the snap (no webapp-container)
   * Use the upstream QtSystemInfo instead of embedding an old copy of
     its source code
   * Stop using deprecated WebView APIs (LP: #1651173)
@@ -84,13 +84,13 @@ webbrowser-app (0.23+17.04.20170110-0ubuntu1) zesty; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 10 Jan 2017 09:17:30 +0000
 
-webbrowser-app (0.23+17.04.20161202-0ubuntu2~1) zesty; urgency=medium
+morph-browser (0.23+17.04.20161202-0ubuntu2~1) zesty; urgency=medium
 
   * No change rebuild
 
  -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Wed, 04 Jan 2017 11:31:42 +0200
 
-webbrowser-app (0.23+17.04.20161202-0ubuntu1) zesty; urgency=medium
+morph-browser (0.23+17.04.20161202-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
   * Ensure if the webview changes that the loading visible state of the
@@ -115,7 +115,7 @@ webbrowser-app (0.23+17.04.20161202-0ubuntu1) zesty; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 02 Dec 2016 08:38:21 +0000
 
-webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
+morph-browser (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
 
   [ Andrew Hayzen ]
   * Fix for issue where many tabs causes close button to overlap other
@@ -136,7 +136,7 @@ webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
   [ Olivier Tilloy ]
   * Replace chromium version in UA overrides at runtime, not at build
     time (LP: #1599695)
-  * Initial support for generating a snap package for webbrowser-app
+  * Initial support for generating a snap package for morph-browser
     (LP: #1629009)
   * Do not persist references to incognito downloads on disk
     (LP: #1625519)
@@ -150,7 +150,7 @@ webbrowser-app (0.23+17.04.20161024.1-0ubuntu1) zesty; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 24 Oct 2016 13:51:59 +0000
 
-webbrowser-app (0.23+16.10.20160928-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160928-0ubuntu1) yakkety; urgency=medium
 
   [ Andrew Hayzen ]
   * Change use of ActionList.actions to ActionList.children and use
@@ -167,11 +167,11 @@ webbrowser-app (0.23+16.10.20160928-0ubuntu1) yakkety; urgency=medium
     on desktop (LP: #1626611)
 
   [ Andrew Hayzen, Olivier Tilloy ]
-  * Multiple window support in webbrowser-app.
+  * Multiple window support in morph-browser.
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 28 Sep 2016 08:25:12 +0000
 
-webbrowser-app (0.23+15.04.20170125.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20170125.1-0ubuntu1) vivid; urgency=medium
 
   * Replace chromium version in UA overrides at runtime,
     not at build time (LP: #1599695)
@@ -182,7 +182,7 @@ webbrowser-app (0.23+15.04.20170125.1-0ubuntu1) vivid; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 25 Jan 2017 13:27:55 +0000
 
-webbrowser-app (0.23+15.04.20160825-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20160825-0ubuntu1) vivid; urgency=medium
 
   [ Florian Boucault ]
   * Load images needed at startup asynchronously.
@@ -203,7 +203,7 @@ webbrowser-app (0.23+15.04.20160825-0ubuntu1) vivid; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 25 Aug 2016 09:53:50 +0000
 
-webbrowser-app (0.23+16.10.20160803.1-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160803.1-0ubuntu1) yakkety; urgency=medium
 
   [ Alexandre Abreu ]
   * Deprecate ubuntu-html5-container (LP: #1587505)
@@ -214,13 +214,13 @@ webbrowser-app (0.23+16.10.20160803.1-0ubuntu1) yakkety; urgency=medium
 
  -- Alberto Mardegan <mardy@users.sourceforge.net>  Wed, 03 Aug 2016 09:29:26 +0000
 
-webbrowser-app (0.23+16.10.20160713-0ubuntu2~1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160713-0ubuntu2~1) yakkety; urgency=medium
 
   * Rebuild against Qt 5.6.
 
  -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Mon, 25 Jul 2016 10:25:39 +0300
 
-webbrowser-app (0.23+16.10.20160713-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160713-0ubuntu1) yakkety; urgency=medium
 
   [ Alexandre Abreu ]
   * Fix container AP tests browse_to function
@@ -231,7 +231,7 @@ webbrowser-app (0.23+16.10.20160713-0ubuntu1) yakkety; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 13 Jul 2016 16:24:06 +0000
 
-webbrowser-app (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
 
   [ Florian Boucault ]
   * Debian packaging crossbuild fixes:
@@ -243,7 +243,7 @@ webbrowser-app (0.23+16.10.20160711-0ubuntu1) yakkety; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 11 Jul 2016 15:20:04 +0000
 
-webbrowser-app (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
 
   * Generate UA override list files at build time to un-hardcode ubuntu
     and chromium version numbers. (LP: #1591220)
@@ -254,7 +254,7 @@ webbrowser-app (0.23+16.10.20160701.1-0ubuntu1) yakkety; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 01 Jul 2016 13:10:14 +0000
 
-webbrowser-app (0.23+16.10.20160620-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160620-0ubuntu1) yakkety; urgency=medium
 
   * Set the front camera as the default for video media requests (LP:
     #1563398)
@@ -265,7 +265,7 @@ webbrowser-app (0.23+16.10.20160620-0ubuntu1) yakkety; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 20 Jun 2016 15:08:41 +0000
 
-webbrowser-app (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
 
   * Fix the anchoring of the contents in the bookmarks views. (LP:
     #1584385)
@@ -277,7 +277,7 @@ webbrowser-app (0.23+16.10.20160615-0ubuntu1) yakkety; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 15 Jun 2016 09:35:09 +0000
 
-webbrowser-app (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
 
   [ Olivier Tilloy ]
   * The UITK now handles Enter/Return/Space key presses to activate list
@@ -285,19 +285,19 @@ webbrowser-app (0.23+16.10.20160610-0ubuntu1) yakkety; urgency=medium
 
  -- Zoltán Balogh <zoltan.balogh@canonical.com>  Fri, 10 Jun 2016 07:54:39 +0000
 
-webbrowser-app (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160603.1-0ubuntu1) yakkety; urgency=medium
 
   * Use new oxide 1.15 APIs to fix bugs and implement new features:
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 03 Jun 2016 10:29:42 +0000
 
-webbrowser-app (0.23+16.10.20160526-0ubuntu3) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160526-0ubuntu3) yakkety; urgency=medium
 
   * Overriding UA for nytimes (LP:  #1573620)
 
  -- Santosh Mahto <santosh.mahto@canonical.com>  Tue, 07 Jun 2016 09:49:12 +0530
 
-webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
 
   [ Alexandre Abreu ]
   * Fix account logic translation typo
@@ -309,7 +309,7 @@ webbrowser-app (0.23+16.10.20160526-0ubuntu1) yakkety; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Thu, 26 May 2016 17:01:10 +0000
 
-webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
+morph-browser (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
 
   * Display the currently hovered hyperlink’s target URL in an overlay.
     (LP: #1499775)
@@ -325,7 +325,7 @@ webbrowser-app (0.23+16.10.20160519-0ubuntu1) yakkety; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 19 May 2016 18:39:35 +0000
 
-webbrowser-app (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -337,7 +337,7 @@ webbrowser-app (0.23+16.04.20160509.3-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 09 May 2016 17:56:03 +0000
 
-webbrowser-app (0.23+16.04.20160429.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160429.1-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
   * Add facebook UA override that fixes photos not being displayed with
@@ -352,7 +352,7 @@ webbrowser-app (0.23+16.04.20160429.1-0ubuntu1) xenial; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 29 Apr 2016 20:19:40 +0000
 
-webbrowser-app (0.23+16.04.20160428-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160428-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -368,7 +368,7 @@ webbrowser-app (0.23+16.04.20160428-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 28 Apr 2016 14:39:25 +0000
 
-webbrowser-app (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -380,7 +380,7 @@ webbrowser-app (0.23+16.04.20160427-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 27 Apr 2016 09:50:28 +0000
 
-webbrowser-app (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
   * Fix invalid variable reference popupWindowController (LP: #1572673)
@@ -392,7 +392,7 @@ webbrowser-app (0.23+16.04.20160425.2-0ubuntu1) xenial; urgency=medium
 
  -- David Barth <david.barth@canonical.com>  Mon, 25 Apr 2016 17:38:08 +0000
 
-webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -412,7 +412,7 @@ webbrowser-app (0.23+16.04.20160415-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 15 Apr 2016 11:38:13 +0000
 
-webbrowser-app (0.23+16.04.20160413-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160413-0ubuntu1) xenial; urgency=medium
 
   * Do not handle backspace as a window-level shortcut, as it would take
     precedence over backspace events in HTML text fields. (LP: #1569938)
@@ -420,7 +420,7 @@ webbrowser-app (0.23+16.04.20160413-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 13 Apr 2016 15:22:11 +0000
 
-webbrowser-app (0.23+16.04.20160408.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160408.1-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -462,7 +462,7 @@ webbrowser-app (0.23+16.04.20160408.1-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 08 Apr 2016 17:07:04 +0000
 
-webbrowser-app (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
 
   * Add --open-external-url-in-overlay option to allow externals urls
     (not part of patterns) are opened in overlays instead of external
@@ -474,7 +474,7 @@ webbrowser-app (0.23+16.04.20160405-0ubuntu1) xenial; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 05 Apr 2016 15:42:59 +0000
 
-webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
 
   * Make google maps work in complete mode on tablets. (LP: #1560079)
   * Tentative fix for a bug where the session state stored on disk is
@@ -483,7 +483,7 @@ webbrowser-app (0.23+16.04.20160322-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Mar 2016 06:46:57 +0000
 
-webbrowser-app (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
   * Handle media access request from webcontainer main view and overlay
@@ -494,7 +494,7 @@ webbrowser-app (0.23+16.04.20160318-0ubuntu1) xenial; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 18 Mar 2016 15:08:11 +0000
 
-webbrowser-app (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
 
   [ Alberto Mardegan ]
   * Activate the Webapp only when we are ready to navigate to the webapp
@@ -502,7 +502,7 @@ webbrowser-app (0.23+16.04.20160311-0ubuntu1) xenial; urgency=medium
 
  -- David Barth <david.barth@canonical.com>  Fri, 11 Mar 2016 12:57:01 +0000
 
-webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -512,13 +512,13 @@ webbrowser-app (0.23+16.04.20160310-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 10 Mar 2016 05:59:53 +0000
 
-webbrowser-app (0.23+16.04.20160307-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160307-0ubuntu1) xenial; urgency=medium
 
   * Handle context menu in overlay webviews. (LP: #1533727)
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Mon, 07 Mar 2016 18:44:37 +0000
 
-webbrowser-app (0.23+16.04.20160303-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160303-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -534,7 +534,7 @@ webbrowser-app (0.23+16.04.20160303-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 03 Mar 2016 19:01:40 +0000
 
-webbrowser-app (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -551,7 +551,7 @@ webbrowser-app (0.23+16.04.20160223-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 23 Feb 2016 11:24:49 +0000
 
-webbrowser-app (0.23+16.04.20160215.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160215.1-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -567,7 +567,7 @@ webbrowser-app (0.23+16.04.20160215.1-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 15 Feb 2016 13:33:21 +0000
 
-webbrowser-app (0.23+16.04.20160202-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160202-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
   * Enhance google.com specific patterns to enable co.* & com.* patterns
@@ -581,7 +581,7 @@ webbrowser-app (0.23+16.04.20160202-0ubuntu1) xenial; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Tue, 02 Feb 2016 15:33:33 +0000
 
-webbrowser-app (0.23+16.04.20160129.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160129.1-0ubuntu1) xenial; urgency=medium
 
   * Add a UA override for desktop gmail to get rid of a misleading
     warning about using a deprecated version of safari. (LP: #1452616)
@@ -595,7 +595,7 @@ webbrowser-app (0.23+16.04.20160129.1-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 29 Jan 2016 09:41:15 +0000
 
-webbrowser-app (0.23+16.04.20160122-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160122-0ubuntu1) xenial; urgency=medium
 
   * Automatically focus the address bar when opening a new tab in wide
     mode (instead of inferring a "desktop" form factor). This is not
@@ -611,7 +611,7 @@ webbrowser-app (0.23+16.04.20160122-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 22 Jan 2016 10:23:33 +0000
 
-webbrowser-app (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk. added: po/et.po
@@ -628,13 +628,13 @@ webbrowser-app (0.23+16.04.20160112.1-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 12 Jan 2016 17:44:22 +0000
 
-webbrowser-app (0.23+16.04.20160108.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160108.1-0ubuntu1) xenial; urgency=medium
 
   * Handle theme_color page metainformation. (LP: #1477674)
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Fri, 08 Jan 2016 19:33:34 +0000
 
-webbrowser-app (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
 
   [ Alexandre Abreu ]
   * Handle application crashes or OOM interventions & save opened
@@ -652,7 +652,7 @@ webbrowser-app (0.23+16.04.20160106.4-0ubuntu1) xenial; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 06 Jan 2016 19:43:28 +0000
 
-webbrowser-app (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
 
   * Add keyboard shorcuts for 'next' (Ctrl+G) and 'previous'
     (Ctrl+Shift+G) while in find-in-page mode. (LP: #1522152)
@@ -678,7 +678,7 @@ webbrowser-app (0.23+16.04.20151222.1-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Dec 2015 18:15:54 +0000
 
-webbrowser-app (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
 
   [ Michael Sheldon ]
   * Add support for handling downloads internally within the browser.
@@ -686,7 +686,7 @@ webbrowser-app (0.23+16.04.20151221-0ubuntu1) xenial; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 21 Dec 2015 20:39:36 +0000
 
-webbrowser-app (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
 
   [ Olivier Tilloy ]
   * Work around what appears to be a regression in the UITK by
@@ -698,7 +698,7 @@ webbrowser-app (0.23+16.04.20151218-0ubuntu1) xenial; urgency=medium
 
  -- Zoltan Balogh <zoltan.balogh@canonical.com>  Fri, 18 Dec 2015 04:08:15 +0000
 
-webbrowser-app (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -719,7 +719,7 @@ webbrowser-app (0.23+16.04.20151204-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 04 Dec 2015 11:06:50 +0000
 
-webbrowser-app (0.23+16.04.20151130-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151130-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Rebuild against Qt 5.5.1.
@@ -730,7 +730,7 @@ webbrowser-app (0.23+16.04.20151130-0ubuntu1) xenial; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 30 Nov 2015 14:50:57 +0000
 
-webbrowser-app (0.23+16.04.20151126-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151126-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -751,7 +751,7 @@ webbrowser-app (0.23+16.04.20151126-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 26 Nov 2015 13:42:25 +0000
 
-webbrowser-app (0.23+16.04.20151124-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151124-0ubuntu1) xenial; urgency=medium
 
   * Multiple changes to improve the tab switching animation. The biggest
     remaining issue is bug #1502675, which is worked around here until
@@ -759,7 +759,7 @@ webbrowser-app (0.23+16.04.20151124-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 24 Nov 2015 12:03:50 +0000
 
-webbrowser-app (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -783,7 +783,7 @@ webbrowser-app (0.23+16.04.20151111.2-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 11 Nov 2015 16:04:11 +0000
 
-webbrowser-app (0.23+16.04.20151103-0ubuntu1) xenial; urgency=medium
+morph-browser (0.23+16.04.20151103-0ubuntu1) xenial; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -807,7 +807,7 @@ webbrowser-app (0.23+16.04.20151103-0ubuntu1) xenial; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 03 Nov 2015 11:56:19 +0000
 
-webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -829,7 +829,7 @@ webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 22 Oct 2015 15:07:49 +0000
 
-webbrowser-app (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]
   * Add bookmarks view to top level menu
@@ -855,7 +855,7 @@ webbrowser-app (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 16 Oct 2015 15:29:07 +0000
 
-webbrowser-app (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -880,18 +880,18 @@ webbrowser-app (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 13 Oct 2015 12:57:55 +0000
 
-webbrowser-app (0.23+15.10.20151005-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20151005-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
 
   [ Olivier Tilloy ]
-  * Add apparmor profile to run webbrowser-app confined. (LP: #1356516)
+  * Add apparmor profile to run morph-browser confined. (LP: #1356516)
   * Update translation template.
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 05 Oct 2015 09:49:24 +0000
 
-webbrowser-app (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
   * Handle webapp webview renderer crashes (LP: #1498091, #1375215)
@@ -901,7 +901,7 @@ webbrowser-app (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
 
  -- David Barth <david.barth@canonical.com>  Fri, 02 Oct 2015 07:45:24 +0000
 
-webbrowser-app (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -912,7 +912,7 @@ webbrowser-app (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
 
  -- Zoltan Balogh <zoltan.balogh@canonical.com>  Thu, 01 Oct 2015 19:53:17 +0000
 
-webbrowser-app (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -927,7 +927,7 @@ webbrowser-app (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 29 Sep 2015 10:08:45 +0000
 
-webbrowser-app (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -950,7 +950,7 @@ webbrowser-app (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 28 Sep 2015 08:15:15 +0000
 
-webbrowser-app (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -989,7 +989,7 @@ webbrowser-app (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Sep 2015 01:27:50 +0000
 
-webbrowser-app (0.23+15.10.20150916.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150916.1-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
   * Add a general URI reformatting mechanism for webapp specific handled
@@ -1000,7 +1000,7 @@ webbrowser-app (0.23+15.10.20150916.1-0ubuntu1) wily; urgency=medium
 
  -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 16 Sep 2015 15:33:11 +0000
 
-webbrowser-app (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1026,7 +1026,7 @@ webbrowser-app (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Sun, 13 Sep 2015 21:25:02 +0000
 
-webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -1043,7 +1043,7 @@ webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
 
  -- Zoltan Balogh <zoltan.balogh@canonical.com>  Tue, 08 Sep 2015 10:18:10 +0000
 
-webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1055,7 +1055,7 @@ webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
 
   [ Olivier Tilloy ]
   * Display a friendly message when the renderer process crashes or is
-    killed. This adds a runtime dependency for webbrowser-app-autopilot
+    killed. This adds a runtime dependency for morph-browser-autopilot
     on python3-psutil. (LP: #1375272)
   * Do not display the bottom edge hint on tablets in wide mode. (LP:
     #1488995)
@@ -1078,7 +1078,7 @@ webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 03 Sep 2015 09:46:35 +0000
 
-webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1098,7 +1098,7 @@ webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 27 Aug 2015 14:02:08 +0000
 
-webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
   * Fix webapp name logic (LP: #1473472)
@@ -1122,7 +1122,7 @@ webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 20 Aug 2015 08:58:20 +0000
 
-webbrowser-app (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]
   * Make sure to set the historyModel to the HistoryView component when
@@ -1136,7 +1136,7 @@ webbrowser-app (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 17 Aug 2015 09:59:08 +0000
 
-webbrowser-app (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1149,7 +1149,7 @@ webbrowser-app (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 14 Aug 2015 09:25:42 +0000
 
-webbrowser-app (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1164,7 +1164,7 @@ webbrowser-app (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 13 Aug 2015 21:39:06 +0000
 
-webbrowser-app (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]
   * Wide screen versions of the history view and new tab view, per
@@ -1187,7 +1187,7 @@ webbrowser-app (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 12 Aug 2015 19:53:17 +0000
 
-webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1209,7 +1209,7 @@ webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 11 Aug 2015 11:18:48 +0000
 
-webbrowser-app (0.23+15.10.20150810-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150810-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -1221,13 +1221,13 @@ webbrowser-app (0.23+15.10.20150810-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 10 Aug 2015 16:30:53 +0000
 
-webbrowser-app (0.23+15.10.20150729-0ubuntu2~gcc5.1) wily; urgency=medium
+morph-browser (0.23+15.10.20150729-0ubuntu2~gcc5.1) wily; urgency=medium
 
   * No-change test rebuild for g++5 ABI transition
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 30 Jul 2015 19:28:11 +0000
 
-webbrowser-app (0.23+15.10.20150729-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150729-0ubuntu1) wily; urgency=medium
 
   [ Olivier Tilloy ]
   * Ensure a value is always returned by BookmarksModel::addFolder(…).
@@ -1237,7 +1237,7 @@ webbrowser-app (0.23+15.10.20150729-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 29 Jul 2015 13:58:34 +0000
 
-webbrowser-app (0.23+15.10.20150728-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150728-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -1248,7 +1248,7 @@ webbrowser-app (0.23+15.10.20150728-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 28 Jul 2015 12:28:04 +0000
 
-webbrowser-app (0.23+15.10.20150709.4-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150709.4-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1264,7 +1264,7 @@ webbrowser-app (0.23+15.10.20150709.4-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 09 Jul 2015 20:27:13 +0000
 
-webbrowser-app (0.23+15.10.20150709.3-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150709.3-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1286,7 +1286,7 @@ webbrowser-app (0.23+15.10.20150709.3-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 09 Jul 2015 14:02:38 +0000
 
-webbrowser-app (0.23+15.10.20150708-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150708-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1298,7 +1298,7 @@ webbrowser-app (0.23+15.10.20150708-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 08 Jul 2015 07:01:24 +0000
 
-webbrowser-app (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]
   * Implement bookmark folders (LP: #1351147, #1259247)
@@ -1309,7 +1309,7 @@ webbrowser-app (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 02 Jul 2015 20:09:10 +0000
 
-webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
 
   [ Alberto Mardegan ]
   * Show an error screen if the trust session could not be opened. (LP:
@@ -1324,7 +1324,7 @@ webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 24 Jun 2015 13:37:10 +0000
 
-webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1350,13 +1350,13 @@ webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 18 Jun 2015 08:12:37 +0000
 
-webbrowser-app (0.23+15.10.20150610-0ubuntu2) wily; urgency=medium
+morph-browser (0.23+15.10.20150610-0ubuntu2) wily; urgency=medium
 
   * No-change rebuild against Qt 5.4.2.
 
  -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Fri, 12 Jun 2015 09:55:00 +0300
 
-webbrowser-app (0.23+15.10.20150610-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150610-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
   * Ensure SAML requests are followed even if the app is interrupted and
@@ -1370,7 +1370,7 @@ webbrowser-app (0.23+15.10.20150610-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 10 Jun 2015 12:36:43 +0000
 
-webbrowser-app (0.23+15.10.20150602-0ubuntu1) wily; urgency=medium
+morph-browser (0.23+15.10.20150602-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1398,7 +1398,7 @@ webbrowser-app (0.23+15.10.20150602-0ubuntu1) wily; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 02 Jun 2015 14:26:50 +0000
 
-webbrowser-app (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
 
   [ Arthur Mello ]
   * Implement private browsing mode per design specification. (LP:
@@ -1432,7 +1432,7 @@ webbrowser-app (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 22 May 2015 19:21:17 +0000
 
-webbrowser-app (0.23+15.04.20150515-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150515-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -1452,7 +1452,7 @@ webbrowser-app (0.23+15.04.20150515-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 15 May 2015 07:04:34 +0000
 
-webbrowser-app (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk.
@@ -1483,7 +1483,7 @@ webbrowser-app (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 12 May 2015 15:19:40 +0000
 
-webbrowser-app (0.23+15.04.20150506-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150506-0ubuntu1) vivid; urgency=medium
 
   [ Arthur Mello ]
   * Change asset for the bottom edge hint. Add text with open tabs
@@ -1510,7 +1510,7 @@ webbrowser-app (0.23+15.04.20150506-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 06 May 2015 21:51:37 +0000
 
-webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
   * Add multi-window support for webapps (LP: #1411722)
@@ -1524,7 +1524,7 @@ webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 30 Apr 2015 16:34:54 +0000
 
-webbrowser-app (0.23+15.04.20150422.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150422.1-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
   * Add missing reload button from the webapp container as specified in
@@ -1552,7 +1552,7 @@ webbrowser-app (0.23+15.04.20150422.1-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 22 Apr 2015 10:26:03 +0000
 
-webbrowser-app (0.23+15.04.20150416-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150416-0ubuntu1) vivid; urgency=medium
 
   [ Arthur Mello ]
   * Add model support to control which history entries will be displayed
@@ -1565,7 +1565,7 @@ webbrowser-app (0.23+15.04.20150416-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 16 Apr 2015 16:33:37 +0000
 
-webbrowser-app (0.23+15.04.20150410-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150410-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
   * remove qtwebkit deps (LP: #1362640) (LP: #1362640)
@@ -1581,7 +1581,7 @@ webbrowser-app (0.23+15.04.20150410-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 10 Apr 2015 13:33:24 +0000
 
-webbrowser-app (0.23+15.04.20150408-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150408-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1592,21 +1592,21 @@ webbrowser-app (0.23+15.04.20150408-0ubuntu1) vivid; urgency=medium
     #1260014)
   * Add settings page, per design specification. This adds qml-module-
     qt-labs-folderlistmodel and qml-module-qt-labs-settings as runtime
-    dependencies for webbrowser-app. (LP: #1351183)
+    dependencies for morph-browser. (LP: #1351183)
   * Autopilot tests for the settings UI. added:
     tests/autopilot/webbrowser_app/tests/test_settings.py
 
   [ Riccardo Padovani ]
   * Add settings page, per design specification. This adds qml-module-
     qt-labs-folderlistmodel and qml-module-qt-labs-settings as runtime
-    dependencies for webbrowser-app. (LP: #1351183)
+    dependencies for morph-browser. (LP: #1351183)
   * Add settings page, per design specification. This adds qml-module-
     qt-labs-folderlistmodel and qml-module-qt-labs-settings as runtime
-    dependencies for webbrowser-app. (LP: #1351183)
+    dependencies for morph-browser. (LP: #1351183)
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 08 Apr 2015 14:09:36 +0000
 
-webbrowser-app (0.23+15.04.20150331.2-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150331.2-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1622,7 +1622,7 @@ webbrowser-app (0.23+15.04.20150331.2-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 31 Mar 2015 15:17:22 +0000
 
-webbrowser-app (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
   * Discard selection when navigating away. (LP: #1433503)
@@ -1638,7 +1638,7 @@ webbrowser-app (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 23 Mar 2015 07:49:27 +0000
 
-webbrowser-app (0.23+15.04.20150320.2-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150320.2-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1649,7 +1649,7 @@ webbrowser-app (0.23+15.04.20150320.2-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 20 Mar 2015 16:28:00 +0000
 
-webbrowser-app (0.23+15.04.20150316-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150316-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
   * Update an autopilot test to click on the drawer button to dismiss
@@ -1660,7 +1660,7 @@ webbrowser-app (0.23+15.04.20150316-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 16 Mar 2015 12:58:36 +0000
 
-webbrowser-app (0.23+15.04.20150227-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150227-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
   * Remove all references to private Qt headers, now that we require Qt
@@ -1671,7 +1671,7 @@ webbrowser-app (0.23+15.04.20150227-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 27 Feb 2015 10:08:19 +0000
 
-webbrowser-app (0.23+15.04.20150226.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150226.1-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1685,7 +1685,7 @@ webbrowser-app (0.23+15.04.20150226.1-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 26 Feb 2015 18:10:41 +0000
 
-webbrowser-app (0.23+15.04.20150224-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150224-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
   * Fix a flaky autopilot test. (LP: #1423115)
@@ -1697,7 +1697,7 @@ webbrowser-app (0.23+15.04.20150224-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 24 Feb 2015 10:30:59 +0000
 
-webbrowser-app (0.23+15.04.20150217.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150217.1-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * New rebuild forced.
@@ -1711,13 +1711,13 @@ webbrowser-app (0.23+15.04.20150217.1-0ubuntu1) vivid; urgency=medium
 
  -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 17 Feb 2015 20:54:17 +0000
 
-webbrowser-app (0.23+15.04.20150203.1-0ubuntu2) vivid; urgency=medium
+morph-browser (0.23+15.04.20150203.1-0ubuntu2) vivid; urgency=medium
 
   * No-change rebuild against Qt 5.4.0.
 
  -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Fri, 13 Feb 2015 13:58:27 +0200
 
-webbrowser-app (0.23+15.04.20150203.1-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150203.1-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
   * Update translation template.
@@ -1729,7 +1729,7 @@ webbrowser-app (0.23+15.04.20150203.1-0ubuntu1) vivid; urgency=medium
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 17:35:27 +0000
 
-webbrowser-app (0.23+15.04.20150203-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150203-0ubuntu1) vivid; urgency=medium
 
   [ Florian Boucault ]
   * Make splashscreen white instead of the default black. (LP: #1378379)
@@ -1746,7 +1746,7 @@ webbrowser-app (0.23+15.04.20150203-0ubuntu1) vivid; urgency=medium
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 11:06:38 +0000
 
-webbrowser-app (0.23+15.04.20150202-0ubuntu1) vivid; urgency=medium
+morph-browser (0.23+15.04.20150202-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
   * Resync trunk
@@ -1759,7 +1759,7 @@ webbrowser-app (0.23+15.04.20150202-0ubuntu1) vivid; urgency=medium
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 02 Feb 2015 14:12:39 +0000
 
-webbrowser-app (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
   * Update the m.youtube.com UA override to fix video playback. (LP:
@@ -1767,7 +1767,7 @@ webbrowser-app (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 27 Jan 2015 17:33:47 +0000
 
-webbrowser-app (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
 
   [ Michael Sheldon ]
   * Keep data URIs in their original form when retrieving image URLs
@@ -1780,7 +1780,7 @@ webbrowser-app (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 23 Jan 2015 14:32:25 +0000
 
-webbrowser-app (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
   * Display a broken padlock icon when browsing a page loaded over an
@@ -1788,7 +1788,7 @@ webbrowser-app (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 Jan 2015 14:11:31 +0000
 
-webbrowser-app (0.23+15.04.20150119-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20150119-0ubuntu1) vivid; urgency=low
 
   [ Alexandre Abreu ]
   * MAke sure that we properly consider the local webapp name that could
@@ -1796,13 +1796,13 @@ webbrowser-app (0.23+15.04.20150119-0ubuntu1) vivid; urgency=low
     overrides. (LP: #1408064)
 
   [ Olivier Tilloy ]
-  * Use the host mapping rules in webbrowser-app autopilot tests.
+  * Use the host mapping rules in morph-browser autopilot tests.
   * Use fixtures.EnvironmentVariable instead of patch_environment, which
     is deprecated. (LP: #1395013)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 19 Jan 2015 10:45:40 +0000
 
-webbrowser-app (0.23+15.04.20141218-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141218-0ubuntu1) vivid; urgency=low
 
   [ Leo Arias ]
   * Refactor the address bar autopilot helpers so they can be used from
@@ -1814,7 +1814,7 @@ webbrowser-app (0.23+15.04.20141218-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 18 Dec 2014 18:40:11 +0000
 
-webbrowser-app (0.23+15.04.20141217-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141217-0ubuntu1) vivid; urgency=low
 
   [ Timo Jyrinki ]
   * Use QSGLayer instead of QQuickShaderEffectTexture on Qt 5.4.0 (LP:
@@ -1833,7 +1833,7 @@ webbrowser-app (0.23+15.04.20141217-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 17 Dec 2014 09:23:25 +0000
 
-webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
   * Optimize the capture functionality. (LP: #1359293, #1401045)
@@ -1842,7 +1842,7 @@ webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 17:23:40 +0000
 
-webbrowser-app (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
   * Remove the WebView.getUAString() API from version 0.2 of the
@@ -1851,7 +1851,7 @@ webbrowser-app (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 11:32:16 +0000
 
-webbrowser-app (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -1865,7 +1865,7 @@ webbrowser-app (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 11 Dec 2014 18:54:12 +0000
 
-webbrowser-app (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -1880,7 +1880,7 @@ webbrowser-app (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 08 Dec 2014 21:59:22 +0000
 
-webbrowser-app (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
 
   [ Alberto Mardegan ]
   * Swap declaration order of Loaders
@@ -1892,7 +1892,7 @@ webbrowser-app (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 02 Dec 2014 13:17:05 +0000
 
-webbrowser-app (0.23+15.04.20141202-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141202-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -1904,7 +1904,7 @@ webbrowser-app (0.23+15.04.20141202-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 02 Dec 2014 09:22:48 +0000
 
-webbrowser-app (0.23+15.04.20141126.1-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141126.1-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -1917,7 +1917,7 @@ webbrowser-app (0.23+15.04.20141126.1-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 26 Nov 2014 15:55:49 +0000
 
-webbrowser-app (0.23+15.04.20141125-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141125-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -1930,7 +1930,7 @@ webbrowser-app (0.23+15.04.20141125-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 25 Nov 2014 15:04:31 +0000
 
-webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -1951,7 +1951,7 @@ webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 21 Nov 2014 20:38:17 +0000
 
-webbrowser-app (0.23+15.04.20141113-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141113-0ubuntu1) vivid; urgency=low
 
   [ Michael Sheldon ]
   * Add mimetype and file extension mappings for the new EBooks
@@ -1971,13 +1971,13 @@ webbrowser-app (0.23+15.04.20141113-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Nov 2014 06:24:30 +0000
 
-webbrowser-app (0.23+15.04.20141110-0ubuntu2) vivid; urgency=medium
+morph-browser (0.23+15.04.20141110-0ubuntu2) vivid; urgency=medium
 
   * No-change rebuild against Qt 5.3.2.
 
  -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Mon, 10 Nov 2014 17:33:35 +0200
 
-webbrowser-app (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -1988,7 +1988,7 @@ webbrowser-app (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 10 Nov 2014 12:54:51 +0000
 
-webbrowser-app (0.23+15.04.20141107-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141107-0ubuntu1) vivid; urgency=low
 
   [ Riccardo Padovani ]
   * Enabled swipe gesture to delete a bookmark from the new tab view
@@ -2012,7 +2012,7 @@ webbrowser-app (0.23+15.04.20141107-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 07 Nov 2014 15:44:36 +0000
 
-webbrowser-app (0.23+15.04.20141104.1-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141104.1-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2031,7 +2031,7 @@ webbrowser-app (0.23+15.04.20141104.1-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Nov 2014 15:22:49 +0000
 
-webbrowser-app (0.23+15.04.20141103.1-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141103.1-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2043,7 +2043,7 @@ webbrowser-app (0.23+15.04.20141103.1-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 03 Nov 2014 18:44:00 +0000
 
-webbrowser-app (0.23+15.04.20141029.1-0ubuntu1) vivid; urgency=low
+morph-browser (0.23+15.04.20141029.1-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2072,7 +2072,7 @@ webbrowser-app (0.23+15.04.20141029.1-0ubuntu1) vivid; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 29 Oct 2014 12:00:23 +0000
 
-webbrowser-app (0.23+14.10.20141028~rtm-0ubuntu1) 14.09; urgency=low
+morph-browser (0.23+14.10.20141028~rtm-0ubuntu1) 14.09; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2087,7 +2087,7 @@ webbrowser-app (0.23+14.10.20141028~rtm-0ubuntu1) 14.09; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 28 Oct 2014 00:18:35 +0000
 
-webbrowser-app (0.23+14.10.20141015.1-0ubuntu1) 14.09; urgency=low
+morph-browser (0.23+14.10.20141015.1-0ubuntu1) 14.09; urgency=low
 
   [ Michael Sheldon ]
   * Detect 7 digital album downloads and request that they get unzipped
@@ -2098,7 +2098,7 @@ webbrowser-app (0.23+14.10.20141015.1-0ubuntu1) 14.09; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Oct 2014 11:56:39 +0000
 
-webbrowser-app (0.23+14.10.20141008-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20141008-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2119,14 +2119,14 @@ webbrowser-app (0.23+14.10.20141008-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 08 Oct 2014 09:23:52 +0000
 
-webbrowser-app (0.23+14.10.20141006-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20141006-0ubuntu1) utopic; urgency=low
 
   [ Alberto Mardegan ]
   * Filter out account services which belong to other webapps
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 06 Oct 2014 08:02:31 +0000
 
-webbrowser-app (0.23+14.10.20141003-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20141003-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2150,7 +2150,7 @@ webbrowser-app (0.23+14.10.20141003-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 03 Oct 2014 14:42:27 +0000
 
-webbrowser-app (0.23+14.10.20141001-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20141001-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2166,7 +2166,7 @@ webbrowser-app (0.23+14.10.20141001-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 01 Oct 2014 13:28:30 +0000
 
-webbrowser-app (0.23+14.10.20140926-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140926-0ubuntu1) utopic; urgency=low
 
   [ Sebastien Bacher ]
   * Let the refresh button adapt to the label it contains (LP: #1366024)
@@ -2195,7 +2195,7 @@ webbrowser-app (0.23+14.10.20140926-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 26 Sep 2014 06:13:37 +0000
 
-webbrowser-app (0.23+14.10.20140922-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140922-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Display padlock when viewing pages over HTTPS. Provide certificate
@@ -2207,7 +2207,7 @@ webbrowser-app (0.23+14.10.20140922-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 22 Sep 2014 21:13:10 +0000
 
-webbrowser-app (0.23+14.10.20140910-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140910-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Simplify the address displayed in the address bar when not being
@@ -2229,7 +2229,7 @@ webbrowser-app (0.23+14.10.20140910-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 10 Sep 2014 19:59:05 +0000
 
-webbrowser-app (0.23+14.10.20140908-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140908-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2239,7 +2239,7 @@ webbrowser-app (0.23+14.10.20140908-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 08 Sep 2014 08:52:15 +0000
 
-webbrowser-app (0.23+14.10.20140828-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140828-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2249,18 +2249,18 @@ webbrowser-app (0.23+14.10.20140828-0ubuntu1) utopic; urgency=low
   * skip creation step and automatically select first account when
     multiple are found
   * fix
-  * Merge lp:~mardy/webbrowser-app/cookie-manager
+  * Merge lp:~mardy/morph-browser/cookie-manager
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 28 Aug 2014 15:07:07 +0000
 
-webbrowser-app (0.23+14.10.20140826-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140826-0ubuntu1) utopic; urgency=low
 
   [ Zsombor Egri ]
   * Fix focus handling on Chrome and Suggestions.
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 26 Aug 2014 09:54:53 +0000
 
-webbrowser-app (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Reduce startup time of both apps by means of a few tricks, all
@@ -2273,7 +2273,7 @@ webbrowser-app (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 25 Aug 2014 21:11:11 +0000
 
-webbrowser-app (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2285,7 +2285,7 @@ webbrowser-app (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 21 Aug 2014 16:56:31 +0000
 
-webbrowser-app (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
 
   [ David Barth ]
   * Add the ability to override the Oxide webview and various functions
@@ -2293,7 +2293,7 @@ webbrowser-app (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 16:14:51 +0000
 
-webbrowser-app (0.23+14.10.20140819-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140819-0ubuntu1) utopic; urgency=low
 
   [ Alexandre Abreu ]
   * Fix the session storage mechanism to record URLs depending on their
@@ -2311,7 +2311,7 @@ webbrowser-app (0.23+14.10.20140819-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 08:42:44 +0000
 
-webbrowser-app (0.23+14.10.20140818.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140818.1-0ubuntu1) utopic; urgency=low
 
   [ Arthur Mello ]
   * Add swipe to delete action to the history view (LP: #1351164)
@@ -2323,7 +2323,7 @@ webbrowser-app (0.23+14.10.20140818.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 13:05:07 +0000
 
-webbrowser-app (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
 
   [ Ugo Riboni ]
   * Include translations in the .desktop file (LP: #1318008)
@@ -2340,10 +2340,10 @@ webbrowser-app (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 09:45:10 +0000
 
-webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
-  * Save/restore browsing sessions for webbrowser-app and webapp-
+  * Save/restore browsing sessions for morph-browser and webapp-
     container. For now, only the list of currently open tabs (URLs) is
     persisted (current URL for the container), not the complete state
     for each webview. (LP: #1268056)
@@ -2352,7 +2352,7 @@ webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 12 Aug 2014 08:26:26 +0000
 
-webbrowser-app (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
 
   [ Alexandre Abreu ]
   * Add devtools support & ubuntu webview remote debugging
@@ -2364,7 +2364,7 @@ webbrowser-app (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 11 Aug 2014 15:14:20 +0000
 
-webbrowser-app (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Fix automatic orientation of all popups parented to the BrowserView.
@@ -2372,7 +2372,7 @@ webbrowser-app (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 05 Aug 2014 10:55:24 +0000
 
-webbrowser-app (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2390,7 +2390,7 @@ webbrowser-app (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 04 Aug 2014 15:02:31 +0000
 
-webbrowser-app (0.23+14.10.20140731-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140731-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2400,7 +2400,7 @@ webbrowser-app (0.23+14.10.20140731-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 31 Jul 2014 21:31:42 +0000
 
-webbrowser-app (0.23+14.10.20140730.2-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140730.2-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2414,7 +2414,7 @@ webbrowser-app (0.23+14.10.20140730.2-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 30 Jul 2014 17:03:52 +0000
 
-webbrowser-app (0.23+14.10.20140726-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140726-0ubuntu1) utopic; urgency=low
 
   [ Pawel Stolowski ]
   * Added X-Ubuntu-Default-Department-ID key to the desktop file. This
@@ -2431,7 +2431,7 @@ webbrowser-app (0.23+14.10.20140726-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Sat, 26 Jul 2014 09:29:03 +0000
 
-webbrowser-app (0.23+14.10.20140724.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140724.1-0ubuntu1) utopic; urgency=low
 
   [ Tim Peeters ]
   * Ensure the chrome is hidden when the user interacts with the webview
@@ -2440,14 +2440,14 @@ webbrowser-app (0.23+14.10.20140724.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 24 Jul 2014 14:39:04 +0000
 
-webbrowser-app (0.23+14.10.20140721-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140721-0ubuntu1) utopic; urgency=low
 
   [ Arthur Mello ]
   * Use favicons in place of blank thumbnails in the new tab view.
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 21 Jul 2014 11:05:56 +0000
 
-webbrowser-app (0.23+14.10.20140709-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140709-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Add support for downloads via content-hub on non-desktop devices
@@ -2463,7 +2463,7 @@ webbrowser-app (0.23+14.10.20140709-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Jul 2014 16:37:04 +0000
 
-webbrowser-app (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Ensure that the twitter and facebook mobile sites never show banners
@@ -2476,7 +2476,7 @@ webbrowser-app (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 08 Jul 2014 09:12:08 +0000
 
-webbrowser-app (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
 
   [ Alexandre Abreu ]
   * Let other components invoke webapps with a particular URL. This is
@@ -2485,7 +2485,7 @@ webbrowser-app (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Jul 2014 13:04:06 +0000
 
-webbrowser-app (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
 
   [ Arthur Mello ]
   * Add the Top Sites Sheet, showing Bookmarks and most visited URLs. It
@@ -2498,7 +2498,7 @@ webbrowser-app (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Jul 2014 15:05:25 +0000
 
-webbrowser-app (0.23+14.10.20140703-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140703-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2511,7 +2511,7 @@ webbrowser-app (0.23+14.10.20140703-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 03 Jul 2014 20:43:49 +0000
 
-webbrowser-app (0.23+14.10.20140630.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140630.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Add a user script that prevents so-called "smart banners" generated
@@ -2524,7 +2524,7 @@ webbrowser-app (0.23+14.10.20140630.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Jun 2014 20:47:27 +0000
 
-webbrowser-app (0.23+14.10.20140630-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140630-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Re-enable contextual selection that had been disabled when switching
@@ -2534,14 +2534,14 @@ webbrowser-app (0.23+14.10.20140630-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Jun 2014 08:11:47 +0000
 
-webbrowser-app (0.23+14.10.20140627-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140627-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Add support for sharing links via content-hub. (LP: #1294764)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 27 Jun 2014 08:11:53 +0000
 
-webbrowser-app (0.23+14.10.20140620-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140620-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Re-enable the geolocation permission request dialog, now that it is
@@ -2554,20 +2554,20 @@ webbrowser-app (0.23+14.10.20140620-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 20 Jun 2014 09:27:06 +0000
 
-webbrowser-app (0.23+14.10.20140618.3-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140618.3-0ubuntu1) utopic; urgency=low
 
   * New rebuild forced
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 18 Jun 2014 13:58:58 +0000
 
-webbrowser-app (0.23+14.10.20140618.2-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140618.2-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Honour fullscreen requests. (LP: #1308947)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 18 Jun 2014 11:49:35 +0000
 
-webbrowser-app (0.23+14.10.20140617-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140617-0ubuntu1) utopic; urgency=low
 
   [ Ugo Riboni ]
   * Update the application icon to the new suru theme. This applies to
@@ -2576,12 +2576,12 @@ webbrowser-app (0.23+14.10.20140617-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * debian/control: add fonts-liberation as a runtime dependency of
-    webbrowser-app and webapp-container, for smoother rendering of
+    morph-browser and webapp-container, for smoother rendering of
     webpages on devices. (LP: #1322456)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 17 Jun 2014 08:58:37 +0000
 
-webbrowser-app (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2597,7 +2597,7 @@ webbrowser-app (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 12 Jun 2014 20:27:44 +0000
 
-webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Use encodeURIComponent() to encode search queries entered in the
@@ -2605,7 +2605,7 @@ webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 17:14:23 +0000
 
-webbrowser-app (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2618,7 +2618,7 @@ webbrowser-app (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
     Version 0.1 of the API remains untouched (it is deprecated).
     Packaging changes: - new qtdeclarative5-ubuntu-web-plugin package
     that contains the new namespace and name for the public QML API -
-    updated runtime dependencies for webbrowser-app, webapp-container
+    updated runtime dependencies for morph-browser, webapp-container
     and qtdeclarative5-ubuntu-ui-extras-browser-plugin - updated
     descriptions for all packages - added missing multiarch stanza for
     webapp-container-autopilot - added missing predepends stanzas for
@@ -2626,7 +2626,7 @@ webbrowser-app (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 10:44:31 +0000
 
-webbrowser-app (0.23+14.10.20140605-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140605-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Filter file uploads based on mime-type information (where available)
@@ -2644,7 +2644,7 @@ webbrowser-app (0.23+14.10.20140605-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 05 Jun 2014 15:57:30 +0000
 
-webbrowser-app (0.23+14.10.20140602-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140602-0ubuntu1) utopic; urgency=low
 
   [ Alberto Mardegan ]
   * Add online account support in the webapp container. A new
@@ -2659,7 +2659,7 @@ webbrowser-app (0.23+14.10.20140602-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 02 Jun 2014 17:11:30 +0000
 
-webbrowser-app (0.23+14.10.20140526.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140526.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2670,7 +2670,7 @@ webbrowser-app (0.23+14.10.20140526.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 26 May 2014 13:27:49 +0000
 
-webbrowser-app (0.23+14.10.20140526-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140526-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Ensure the current webview is hidden while the activity view is
@@ -2679,7 +2679,7 @@ webbrowser-app (0.23+14.10.20140526-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 26 May 2014 11:04:00 +0000
 
-webbrowser-app (0.23+14.10.20140522.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140522.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2691,14 +2691,14 @@ webbrowser-app (0.23+14.10.20140522.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 May 2014 16:30:01 +0000
 
-webbrowser-app (0.23+14.10.20140521.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140521.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Fix FTBFS with Qt 5.3. (LP: #1321440)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 13:03:58 +0000
 
-webbrowser-app (0.23+14.10.20140521-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140521-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2708,7 +2708,7 @@ webbrowser-app (0.23+14.10.20140521-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 08:11:35 +0000
 
-webbrowser-app (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Add support for downloading images via download manager and content-
@@ -2719,7 +2719,7 @@ webbrowser-app (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 15 May 2014 20:49:50 +0000
 
-webbrowser-app (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2733,7 +2733,7 @@ webbrowser-app (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 14 May 2014 22:26:02 +0000
 
-webbrowser-app (0.23+14.10.20140506.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140506.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2744,7 +2744,7 @@ webbrowser-app (0.23+14.10.20140506.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 06 May 2014 17:21:27 +0000
 
-webbrowser-app (0.23+14.10.20140506-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140506-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Enable cross compilation for an ARM target on an X86 host.
@@ -2752,7 +2752,7 @@ webbrowser-app (0.23+14.10.20140506-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 06 May 2014 12:11:38 +0000
 
-webbrowser-app (0.23+14.10.20140505.1-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140505.1-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
   * Resolve image URLs beginning with a double slash correctly for
@@ -2781,7 +2781,7 @@ webbrowser-app (0.23+14.10.20140505.1-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 20:47:19 +0000
 
-webbrowser-app (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
+morph-browser (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
   * Work around a recent regression by forcing the OSK to show up when
@@ -2789,7 +2789,7 @@ webbrowser-app (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 12:15:51 +0000
 
-webbrowser-app (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2806,7 +2806,7 @@ webbrowser-app (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 28 Apr 2014 07:53:21 +0000
 
-webbrowser-app (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2830,7 +2830,7 @@ webbrowser-app (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 22 Apr 2014 16:55:41 +0000
 
-webbrowser-app (0.23+14.04.20140416-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140416-0ubuntu1) trusty; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2840,7 +2840,7 @@ webbrowser-app (0.23+14.04.20140416-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 16 Apr 2014 22:53:18 +0000
 
-webbrowser-app (0.23+14.04.20140414-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140414-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Force the page title to be reset to an empty string when the
@@ -2848,7 +2848,7 @@ webbrowser-app (0.23+14.04.20140414-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 14 Apr 2014 19:38:12 +0000
 
-webbrowser-app (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
 
   [ Michael Sheldon ]
   * Add support for file upload via content-hub
@@ -2875,7 +2875,7 @@ webbrowser-app (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 11 Apr 2014 15:53:56 +0000
 
-webbrowser-app (0.23+14.04.20140410-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140410-0ubuntu1) trusty; urgency=low
 
   [ David Barth ]
   * To prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-
@@ -2884,7 +2884,7 @@ webbrowser-app (0.23+14.04.20140410-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 10 Apr 2014 13:22:24 +0000
 
-webbrowser-app (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
 
   [ Alexandre Abreu ]
   * Add support for Oxide's onNavigationRequested in the container (LP:
@@ -2910,7 +2910,7 @@ webbrowser-app (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Apr 2014 13:34:57 +0000
 
-webbrowser-app (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
 
   [ Ubuntu daily release ]
   * New rebuild forced
@@ -2920,14 +2920,14 @@ webbrowser-app (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Apr 2014 14:07:25 +0000
 
-webbrowser-app (0.23+14.04.20140403-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140403-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Re-enable javascript dialogs, now that they are available in oxide.
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 03 Apr 2014 13:38:41 +0000
 
-webbrowser-app (0.23+14.04.20140402-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140402-0ubuntu1) trusty; urgency=low
 
   [ CI bot ]
   * Resync trunk
@@ -2941,7 +2941,7 @@ webbrowser-app (0.23+14.04.20140402-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 02 Apr 2014 15:15:46 +0000
 
-webbrowser-app (0.23+14.04.20140328.3-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140328.3-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Land the master Oxide support branch. See individual revisions for
@@ -2949,7 +2949,7 @@ webbrowser-app (0.23+14.04.20140328.3-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 28 Mar 2014 17:07:09 +0000
 
-webbrowser-app (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
 
   [ Alexandre Abreu ]
   * There are 2 ways for the webapp-container to receive a list of
@@ -2980,7 +2980,7 @@ webbrowser-app (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 24 Mar 2014 19:14:54 +0000
 
-webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Use the renderer only once when rendering a thumbnail. This seems to
@@ -2988,14 +2988,14 @@ webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:58:21 +0000
 
-webbrowser-app (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
 
   [ Colin Watson ]
   * Add multiarch annotations.
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 23:18:34 +0000
 
-webbrowser-app (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
 
   [ daker ]
   * Fix to open URL that start with / (local files)
@@ -3015,26 +3015,26 @@ webbrowser-app (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 11:57:27 +0000
 
-webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
 
   * New rebuild forced
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Mar 2014 15:19:23 +0000
 
-webbrowser-app (0.23+14.04.20140304.is.0.23+14.04.20140219-0ubuntu1) trusty; urgency=medium
+morph-browser (0.23+14.04.20140304.is.0.23+14.04.20140219-0ubuntu1) trusty; urgency=medium
 
   * Reverting as desktop image isn't installable (main/universe
     mismatch) and causing all signon-ui tests on Touch failing
 
  -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Mar 2014 12:19:42 +0100
 
-webbrowser-app (0.23+14.04.20140304-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140304-0ubuntu1) trusty; urgency=low
 
-  * 
+  *
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Mar 2014 15:07:25 +0000
 
-webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Do not install the selection event handlers on certain domains known
@@ -3042,7 +3042,7 @@ webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Feb 2014 18:36:27 +0000
 
-webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
 
   [ Ted Gould ]
   * Add URL Dispatcher configuration file.
@@ -3057,7 +3057,7 @@ webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 Jan 2014 11:01:33 +0000
 
-webbrowser-app (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
+morph-browser (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Work around a bug (regression?) in the UITK by replacing the use of
@@ -3068,11 +3068,11 @@ webbrowser-app (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 20 Jan 2014 16:38:10 +0000
 
-webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
+morph-browser (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
 
   [ Olivier Tilloy ]
   * Bump version to 0.23 in preparation for the next major release.
-  * Split the app into two executables: webbrowser-app and webapp-
+  * Split the app into two executables: morph-browser and webapp-
     container.
   * Cleaner workaround for bug #1248620. Thanks Thomi for the
     suggestion!. (LP: #1248620)
@@ -3090,7 +3090,7 @@ webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
   * move the close button of the running activity to the left.
 
   [ Alexandre Abreu ]
-  * Further separate the two webbrowser-app & webapp-container projects.
+  * Further separate the two morph-browser & webapp-container projects.
     (LP: #1246935)
   * Restrict url webapps pattern replacement depending on which part is
     being affected. (LP: #1240685)
@@ -3124,13 +3124,13 @@ webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Jan 2014 19:37:19 +0000
 
-webbrowser-app (0.22+14.04.20131107-0ubuntu3) trusty; urgency=medium
+morph-browser (0.22+14.04.20131107-0ubuntu3) trusty; urgency=medium
 
   * Add OA integration.
 
  -- Alberto Mardegan <alberto.mardegan@canonical.com>  Tue, 04 Feb 2014 12:22:20 +0200
 
-webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
+morph-browser (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Fix a test failing with autopilot 1.4. This is likely a bug in
@@ -3144,7 +3144,7 @@ webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 07 Nov 2013 14:37:10 +0000
 
-webbrowser-app (0.22+14.04.20131106-0ubuntu1) trusty; urgency=low
+morph-browser (0.22+14.04.20131106-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
   * Do not rely on the order of the items returned by select_many(…).
@@ -3157,7 +3157,7 @@ webbrowser-app (0.22+14.04.20131106-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 06 Nov 2013 13:29:31 +0000
 
-webbrowser-app (0.22+13.10.20131011.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20131011.1-0ubuntu1) saucy; urgency=low
 
   [ Bill Filler ]
   * fixes a regression with the G+ homepage not scrolling properly
@@ -3180,7 +3180,7 @@ webbrowser-app (0.22+13.10.20131011.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 11 Oct 2013 11:17:44 +0000
 
-webbrowser-app (0.22+13.10.20131007.2-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20131007.2-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * Handle URL open requests and expose a org.freedesktop.Application
@@ -3205,7 +3205,7 @@ webbrowser-app (0.22+13.10.20131007.2-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Oct 2013 21:30:43 +0000
 
-webbrowser-app (0.22+13.10.20131004.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20131004.1-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * Harden the set of accepted url patterns. (LP: #1226690)
@@ -3232,7 +3232,7 @@ webbrowser-app (0.22+13.10.20131004.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Oct 2013 07:22:38 +0000
 
-webbrowser-app (0.22+13.10.20131001.2-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20131001.2-0ubuntu1) saucy; urgency=low
 
   [ Omer Akram ]
   * use input_device creation from the uitoolkit emulators.
@@ -3242,7 +3242,7 @@ webbrowser-app (0.22+13.10.20131001.2-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 01 Oct 2013 19:49:31 +0000
 
-webbrowser-app (0.22+13.10.20130930.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130930.1-0ubuntu1) saucy; urgency=low
 
   [ Bill Filler ]
   * add user-agent override for mail.google.com. (LP: #1227941)
@@ -3259,7 +3259,7 @@ webbrowser-app (0.22+13.10.20130930.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Sep 2013 16:32:46 +0000
 
-webbrowser-app (0.22+13.10.20130926.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130926.1-0ubuntu1) saucy; urgency=low
 
   [ daker ]
   * Added support for confirm dialogs. (LP: #1169758)
@@ -3298,7 +3298,7 @@ webbrowser-app (0.22+13.10.20130926.1-0ubuntu1) saucy; urgency=low
     temporary solution until Settings support lands in the SDK. At the
     moment, only the default homepage can be customized. To change the
     default homepage, one can write the following line to
-    ~/.config/webbrowser-app/settings.conf:     homepage =
+    ~/.config/morph-browser/settings.conf:     homepage =
     http://example.org.
   * Match domains for overriding the UA string by starting from the full
     domain name, and iterating down to the TLD. This ensures that if
@@ -3310,7 +3310,7 @@ webbrowser-app (0.22+13.10.20130926.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 26 Sep 2013 08:47:31 +0000
 
-webbrowser-app (0.22+13.10.20130924.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130924.1-0ubuntu1) saucy; urgency=low
 
   [ Ted Gould ]
   * Adding single instance marker to the desktop file.
@@ -3339,7 +3339,7 @@ webbrowser-app (0.22+13.10.20130924.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 24 Sep 2013 07:05:03 +0000
 
-webbrowser-app (0.22+13.10.20130920-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130920-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Use the new Panel API (open() and close() methods instead of setting
@@ -3353,7 +3353,7 @@ webbrowser-app (0.22+13.10.20130920-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 20 Sep 2013 11:24:43 +0000
 
-webbrowser-app (0.22+13.10.20130919.3-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130919.3-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * Add a 'maximized' command line parameter mostly to enhance the
@@ -3378,7 +3378,7 @@ webbrowser-app (0.22+13.10.20130919.3-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 19 Sep 2013 15:52:17 +0000
 
-webbrowser-app (0.22+13.10.20130918.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130918.1-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * chrome selection.
@@ -3394,7 +3394,7 @@ webbrowser-app (0.22+13.10.20130918.1-0ubuntu1) saucy; urgency=low
     there. For click webapps, the desktop-click hook will set the CWD
     when starting the app to the local click app folder and aa_exec will
     make sure that all is properly setup. Given the containment rules
-    for click apps, the webbrowser-app should be told where to look for
+    for click apps, the morph-browser should be told where to look for
     the webapp content (javascript snippet) and not follow the usual
     desktop rules (and the Exec line from the webapp desktop file should
     explicitly specify where to look for it based on CWD). .
@@ -3418,7 +3418,7 @@ webbrowser-app (0.22+13.10.20130918.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 18 Sep 2013 08:02:09 +0000
 
-webbrowser-app (0.22+13.10.20130903.3-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130903.3-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Basic permission request dialog to allow/deny geolocation.
@@ -3430,7 +3430,7 @@ webbrowser-app (0.22+13.10.20130903.3-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Sep 2013 15:58:52 +0000
 
-webbrowser-app (0.22+13.10.20130830.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130830.1-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * Expect webapp names to be base64-encoded.
@@ -3446,7 +3446,7 @@ webbrowser-app (0.22+13.10.20130830.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 30 Aug 2013 07:31:01 +0000
 
-webbrowser-app (0.22+13.10.20130820.2-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130820.2-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Initial implementation of a user-agent string override mechanism,
@@ -3457,7 +3457,7 @@ webbrowser-app (0.22+13.10.20130820.2-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 20 Aug 2013 10:41:53 +0000
 
-webbrowser-app (0.22+13.10.20130809.2-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130809.2-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Delete old thumbnails to ensure the cache never grows bigger than
@@ -3468,7 +3468,7 @@ webbrowser-app (0.22+13.10.20130809.2-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 09 Aug 2013 12:31:17 +0000
 
-webbrowser-app (0.22+13.10.20130809-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130809-0ubuntu1) saucy; urgency=low
 
   [ Thomas Moenicke ]
   * adding Qt.ImhUrlCharactersOnly input method hint to browser url bar
@@ -3479,7 +3479,7 @@ webbrowser-app (0.22+13.10.20130809-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 09 Aug 2013 05:09:56 +0000
 
-webbrowser-app (0.22+13.10.20130808.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130808.1-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Factor out common code in HistoryDomainListModel.
@@ -3497,7 +3497,7 @@ webbrowser-app (0.22+13.10.20130808.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 08 Aug 2013 06:28:30 +0000
 
-webbrowser-app (0.22+13.10.20130806-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130806-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * Add Webapps integration support.
@@ -3515,7 +3515,7 @@ webbrowser-app (0.22+13.10.20130806-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 06 Aug 2013 09:43:04 +0000
 
-webbrowser-app (0.22+13.10.20130802.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130802.1-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
   * Add custome app-id launch argument to allow a more customizable
@@ -3533,7 +3533,7 @@ webbrowser-app (0.22+13.10.20130802.1-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 02 Aug 2013 09:09:45 +0000
 
-webbrowser-app (0.22+13.10.20130731.1-0ubuntu1) saucy; urgency=low
+morph-browser (0.22+13.10.20130731.1-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * debian/control: add missing Replaces and Conflicts fields to handle
@@ -3564,15 +3564,15 @@ webbrowser-app (0.22+13.10.20130731.1-0ubuntu1) saucy; urgency=low
     fixed in qtubuntu.
 
   [ Łukasz 'sil2100' Zemczak ]
-  * Missing Replaces in webbrowser-app for qtdeclarative5-ubuntu-ui-
-    extras-browser-plugin, fixed the replaces for webbrowser-app-assets.
+  * Missing Replaces in morph-browser for qtdeclarative5-ubuntu-ui-
+    extras-browser-plugin, fixed the replaces for morph-browser-assets.
 
   [ Ubuntu daily release ]
   * Automatic snapshot from revision 255
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 31 Jul 2013 10:35:29 +0000
 
-webbrowser-app (0.21+13.10.20130729-0ubuntu1) saucy; urgency=low
+morph-browser (0.21+13.10.20130729-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Replace the HUD actions with the new Unity Actions API.
@@ -3582,7 +3582,7 @@ webbrowser-app (0.21+13.10.20130729-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 29 Jul 2013 08:17:04 +0000
 
-webbrowser-app (0.21+13.10.20130726-0ubuntu1) saucy; urgency=low
+morph-browser (0.21+13.10.20130726-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Display the title of the page if available for open tabs (and fall
@@ -3595,7 +3595,7 @@ webbrowser-app (0.21+13.10.20130726-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 26 Jul 2013 07:34:17 +0000
 
-webbrowser-app (0.21+13.10.20130722-0ubuntu1) saucy; urgency=low
+morph-browser (0.21+13.10.20130722-0ubuntu1) saucy; urgency=low
 
   [ Bill Filler ]
   * skip close tab tests.
@@ -3616,7 +3616,7 @@ webbrowser-app (0.21+13.10.20130722-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 22 Jul 2013 05:01:57 +0000
 
-webbrowser-app (0.21+13.10.20130719-0ubuntu1) saucy; urgency=low
+morph-browser (0.21+13.10.20130719-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Notify of data updates when the data in the underlying model or its
@@ -3627,7 +3627,7 @@ webbrowser-app (0.21+13.10.20130719-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 19 Jul 2013 06:39:36 +0000
 
-webbrowser-app (0.21+13.10.20130716-0ubuntu1) saucy; urgency=low
+morph-browser (0.21+13.10.20130716-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Display thumbnails of the web pages in the activity view.
@@ -3640,7 +3640,7 @@ webbrowser-app (0.21+13.10.20130716-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 16 Jul 2013 08:26:00 +0000
 
-webbrowser-app (0.21+13.10.20130709-0ubuntu1) saucy; urgency=low
+morph-browser (0.21+13.10.20130709-0ubuntu1) saucy; urgency=low
 
   [ Łukasz 'sil2100' Zemczak ]
   * debian/control:
@@ -3676,7 +3676,7 @@ webbrowser-app (0.21+13.10.20130709-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 09 Jul 2013 11:41:04 +0000
 
-webbrowser-app (0.20daily13.06.21-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.21-0ubuntu1) saucy; urgency=low
 
   [ Robert Bruce Park ]
   * Minor packaging fixes.
@@ -3687,7 +3687,7 @@ webbrowser-app (0.20daily13.06.21-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 21 Jun 2013 07:09:12 +0000
 
-webbrowser-app (0.20daily13.06.18-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.18-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Reduce the spacing between the action icon and the text in the
@@ -3702,7 +3702,7 @@ webbrowser-app (0.20daily13.06.18-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 18 Jun 2013 08:24:18 +0000
 
-webbrowser-app (0.20daily13.06.14-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.14-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Fix the conditional user-agent string based on form factor. (LP:
@@ -3716,7 +3716,7 @@ webbrowser-app (0.20daily13.06.14-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 14 Jun 2013 06:00:57 +0000
 
-webbrowser-app (0.20daily13.06.13-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.13-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Move the HistoryModel and HistoryMatchesModel to the plugin, and
@@ -3727,7 +3727,7 @@ webbrowser-app (0.20daily13.06.13-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Jun 2013 06:12:57 +0000
 
-webbrowser-app (0.20daily13.06.12-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.12-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Prevent mouse event from propagating to the suggestions list when
@@ -3739,7 +3739,7 @@ webbrowser-app (0.20daily13.06.12-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 12 Jun 2013 06:08:58 +0000
 
-webbrowser-app (0.20daily13.06.11-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.11-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
   * Ensure that the chrome won’t be automatically hidden while testing
@@ -3763,7 +3763,7 @@ webbrowser-app (0.20daily13.06.11-0ubuntu1) saucy; urgency=low
     top-level document. (LP: #1159857, #1188575)
   * Escape some special characters before highlighting them. (LP:
     #1180521)
-  * Add a webbrowser-app.pot target to the build system and integrate
+  * Add a morph-browser.pot target to the build system and integrate
     with dh_translations. Also internationalize the desktop file and
     strings in C++ code.
 
@@ -3772,13 +3772,13 @@ webbrowser-app (0.20daily13.06.11-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 11 Jun 2013 05:03:08 +0000
 
-webbrowser-app (0.20daily13.06.05-0ubuntu1) saucy; urgency=low
+morph-browser (0.20daily13.06.05-0ubuntu1) saucy; urgency=low
 
   [ Michael Terry ]
   * Port to HUD 1.0.
 
   [ Omer Akram ]
-  * Port the webbrowser-app tests to autopilot 1.3.
+  * Port the morph-browser tests to autopilot 1.3.
   * fix a few failing autopilot tests on the device.
 
   [ Łukasz 'sil2100' Zemczak ]
@@ -3833,7 +3833,7 @@ webbrowser-app (0.20daily13.06.05-0ubuntu1) saucy; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 05 Jun 2013 05:03:05 +0000
 
-webbrowser-app (0.20daily13.06.03ubuntu.unity.next-0ubuntu1) raring; urgency=low
+morph-browser (0.20daily13.06.03ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
   [ Olivier Tilloy ]
   * Use the Window component, in order to enable setting the title from
@@ -3848,7 +3848,7 @@ webbrowser-app (0.20daily13.06.03ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 03 Jun 2013 05:03:23 +0000
 
-webbrowser-app (0.20daily13.05.31ubuntu.unity.next-0ubuntu1) raring; urgency=low
+morph-browser (0.20daily13.05.31ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
   [ Olivier Tilloy ]
   * Define a type_in_address_bar helper method that asserts that the
@@ -3863,7 +3863,7 @@ webbrowser-app (0.20daily13.05.31ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 31 May 2013 05:15:38 +0000
 
-webbrowser-app (0.20daily13.05.22ubuntu.unity.next-0ubuntu1) raring; urgency=low
+morph-browser (0.20daily13.05.22ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
   [ Łukasz 'sil2100' Zemczak ]
   * Automatic snapshot from revision 115 (bootstrap)
@@ -3872,7 +3872,7 @@ webbrowser-app (0.20daily13.05.22ubuntu.unity.next-0ubuntu1) raring; urgency=low
   * Port to HUD 1.0.
 
   [ Omer Akram ]
-  * Port the webbrowser-app tests to autopilot 1.3.
+  * Port the morph-browser tests to autopilot 1.3.
   * fix a few failing autopilot tests on the device.
 
   [ Łukasz 'sil2100' Zemczak ]
@@ -3913,7 +3913,7 @@ webbrowser-app (0.20daily13.05.22ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 May 2013 05:01:47 +0000
 
-webbrowser-app (0.20) quantal; urgency=low
+morph-browser (0.20) quantal; urgency=low
 
   [ Adnane Belmadiaf ]
   * Search over SSL.
@@ -3936,13 +3936,13 @@ webbrowser-app (0.20) quantal; urgency=low
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 19 Apr 2013 13:27:02 +0200
 
-webbrowser-app (0.19) quantal; urgency=low
+morph-browser (0.19) quantal; urgency=low
 
   * Add X-Ubuntu-Touch field into desktop file.
 
  -- Ying-Chun Liu (PaulLiu) <paul.liu@canonical.com>  Tue, 02 Apr 2013 22:55:34 +0800
 
-webbrowser-app (0.18) quantal; urgency=low
+morph-browser (0.18) quantal; urgency=low
 
   [ Robert Bruce Park ]
   * Some minor fixes to the packaging.
@@ -3953,7 +3953,7 @@ webbrowser-app (0.18) quantal; urgency=low
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 29 Mar 2013 15:20:28 +0100
 
-webbrowser-app (0.17) quantal; urgency=low
+morph-browser (0.17) quantal; urgency=low
 
   * Add support for <select> dropdowns (LP: #1157764).
   * Work around the lack of support for handling hyperlinks with a
@@ -3963,7 +3963,7 @@ webbrowser-app (0.17) quantal; urgency=low
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 26 Mar 2013 19:05:18 +0100
 
-webbrowser-app (0.16) quantal; urgency=low
+morph-browser (0.16) quantal; urgency=low
 
   * Add a command line switch to allow running a remote inspector.
   * Update build and runtime dependencies to account for the renaming
@@ -3971,14 +3971,14 @@ webbrowser-app (0.16) quantal; urgency=low
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 19 Mar 2013 15:27:38 +0100
 
-webbrowser-app (0.15) quantal; urgency=low
+morph-browser (0.15) quantal; urgency=low
 
   * Full renaming from ubuntu-browser to webbrowser-app
     (project name, executable name, desktop file, …).
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 08 Mar 2013 15:58:20 +0100
 
-webbrowser-app (0.14) quantal; urgency=low
+morph-browser (0.14) quantal; urgency=low
 
   * Rename the packages to webbrowser-app*.
 

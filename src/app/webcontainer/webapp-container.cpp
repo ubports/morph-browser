@@ -1,13 +1,13 @@
 /*
  * Copyright 2013-2016 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * webbrowser-app is distributed in the hope that it will be useful,
+ * morph-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -123,8 +123,10 @@ bool WebappContainer::initialize()
 
     earlyEnvironment();
 
+    const QString filePath = UbuntuBrowserDirectory() + "/webcontainer/webapp-container.qml";
+
     if (BrowserApplication::initialize(
-                "webcontainer/webapp-container.qml",
+                filePath,
                 QString::fromUtf8(qgetenv("APP_ID")))) {
 
         parseCommandLine();
@@ -509,7 +511,12 @@ void WebappContainer::onNewInstanceLaunched(const QStringList& arguments) const
 
 int main(int argc, char** argv)
 {
+    qputenv("QTWEBENGINE_DISABLE_SANDBOX","1");
+    qputenv("QT_WEBENGINE_DISABLE_GPU","1");
+    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
+
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WebappContainer app(argc, argv);
     if (app.initialize()) {
         return app.run();

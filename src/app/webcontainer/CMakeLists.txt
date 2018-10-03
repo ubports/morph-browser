@@ -41,10 +41,10 @@ install(TARGETS ${WEBAPP_CONTAINER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 file(GLOB QML_FILES *.qml *.js)
-install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer)
-install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
+install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser/webcontainer)
+install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser/webcontainer
         FILES_MATCHING PATTERN *.qml)
 
 install(DIRECTORY assets
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser/webcontainer
         FILES_MATCHING PATTERN *.png)
