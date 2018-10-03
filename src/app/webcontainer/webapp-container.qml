@@ -70,9 +70,9 @@ BrowserWindow {
             return name
         } else if (webappViewTitle) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappViewTitle)
+            return i18n.tr("%1 - Morph Web Browser").arg(webappViewTitle)
         } else {
-            return i18n.tr("Ubuntu Web Browser")
+            return i18n.tr("Morph Web Browser")
         }
     }
 
@@ -217,7 +217,7 @@ BrowserWindow {
     }
 
     Component.onCompleted: {
-        console.info("webapp-container using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
+      //  console.info("webapp-container using QtWebEngine %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
         i18n.domain = "morph-browser"
         if (forceFullscreen) {
             showFullScreen()
@@ -244,7 +244,7 @@ BrowserWindow {
         webappViewLoader.item.webappName = root.webappName
 
         // As we use StateSaver to restore the URL, we need to check first if
-        // it has not been set previously before setting the URL to the default property 
+        // it has not been set previously before setting the URL to the default property
         // homepage.
         var webView = webappViewLoader.item.currentWebview
         var current_url = webView.url.toString();

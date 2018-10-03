@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
+import QtWebEngine 1.5
 import "../actions" as Actions
 import ".."
 
@@ -75,7 +76,7 @@ Component {
                 height: chrome ? chrome.height : 0
                 mode: chromeController ? chromeController.defaultMode : null
             }
-            
+
             */
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
@@ -83,10 +84,10 @@ Component {
             //preferences.appCacheEnabled: true
 
             //property QtObject contextModel: null
-            //contextualActions: 
+            //contextualActions:
 
             /*
-             
+
             ActionList {
                 Actions.OpenLinkInNewTab {
                     objectName: "OpenLinkInNewTabContextualAction"
@@ -244,7 +245,7 @@ Component {
                     contextModel.close()
                 }
             }
-            
+
             Component {
                 id: contextMenuNarrowComponent
                 ContextMenuMobile {
@@ -262,7 +263,7 @@ Component {
                 }
             }
             */
-            
+
             //contextMenu: browser && browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
             /*
             onNewViewRequested: {
@@ -299,38 +300,34 @@ Component {
                 property bool titleSet: false
                 property string title: ""
             }
-            /*
-            onLoadEvent: {
-              //  if (event.type == Oxide.LoadEvent.TypeCommitted) {
-              //      chrome.findInPageMode = false
-              //      webviewInternal.titleSet = false
-              //      webviewInternal.title = title
-              //  }
+
+            onLoadingChanged: {
+                if (loadRequest.status == WebEngineLoadRequest.LoadSucceededStatus) {
+                    chrome.findInPageMode = false
+                    webviewInternal.titleSet = false
+                    webviewInternal.title = title
+                }
 
                 if (webviewimpl.incognito) {
                     return
                 }
 
-              //  if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
-              //          !event.isError &&
-              //          (300 > event.httpStatusCode) && (event.httpStatusCode >= 200)) {
-              //      webviewInternal.storedUrl = event.url
-              //      HistoryModel.add(event.url, title, icon)
-              //  }
+                if (loadRequest.status == WebEngineLoadRequest.LoadSucceededStatus) {
+                    webviewInternal.storedUrl = loadRequest.url
+                    HistoryModel.add(loadRequest.url, title, icon)
+                }
 
                 // If the page has started, stopped, redirected, errored
                 // then clear the cache for the history update
                 // Otherwise if no title change has occurred the next title
                 // change will be the url of the next page causing the
                 // history entry to be incorrect (pad.lv/1603835)
-              //  if (event.type == Oxide.LoadEvent.TypeFailed ||
-              //          event.type == Oxide.LoadEvent.TypeRedirected ||
-              //          event.type == Oxide.LoadEvent.TypeStarted ||
-              //          event.type == Oxide.LoadEvent.TypeStopped) {
-              //      webviewInternal.titleSet = true
-              //      webviewInternal.storedUrl = ""
-              //  }
+                if (loadRequest.status == WebEngineLoadRequest.LoadFailedStatus) {
+                    webviewInternal.titleSet = true
+                    webviewInternal.storedUrl = ""
+                }
             }
+                        /*
             onTitleChanged: {
                 if (!webviewInternal.titleSet && webviewInternal.storedUrl.toString()) {
                     // Record the title to avoid updating the history database

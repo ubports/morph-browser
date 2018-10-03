@@ -27,7 +27,7 @@ ChromeBase {
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
 
-    loading: webview && webview.loading
+    loading: webview && webview.loading && webview.loadProgress !== 100
     loadProgress: loading ? webview.loadProgress : 0
 
     function updateChromeElementsColor(color) {
@@ -66,8 +66,8 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview ? chrome.webview.navigationHistory.canGoBack : false
-            onTriggered: chrome.webview.navigationHistory.goBack()
+            enabled: chrome.webview ? chrome.webview.canGoBack : false
+            onTriggered: chrome.webview.goBack()
         }
 
         ChromeButton {
@@ -86,8 +86,8 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview ? chrome.webview.navigationHistory.canGoForward : false
-            onTriggered: chrome.webview.navigationHistory.goForward()
+            enabled: chrome.webview ? chrome.webview.canGoForward : false
+            onTriggered: chrome.webview.goForward()
         }
 
         Item {

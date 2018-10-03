@@ -71,14 +71,14 @@ BrowserView {
         Actions.Back {
             enabled: webapp.backForwardButtonsVisible &&
                      containerWebView.currentWebview &&
-                     containerWebView.currentWebview.navigationHistory.canGoBack
-            onTriggered: containerWebView.currentWebview.navigationHistory.goBack()
+                     containerWebView.currentWebview.canGoBack
+            onTriggered: containerWebView.currentWebview.goBack()
         },
         Actions.Forward {
             enabled: webapp.backForwardButtonsVisible &&
                      containerWebView.currentWebview &&
-                     containerWebView.currentWebview.navigationHistory.canGoForward
-            onTriggered: containerWebView.currentWebview.navigationHistory.goForward()
+                     containerWebView.currentWebview.canGoForward
+            onTriggered: containerWebView.currentWebview.goForward()
         },
         Actions.Reload {
             onTriggered: containerWebView.currentWebview.reload()
@@ -150,7 +150,7 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: parent.top
+                top: chromeLoader.bottom
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -265,12 +265,14 @@ BrowserView {
             }
         }
 
+/*
         Binding {
             when: webapp.currentWebview && !webapp.chromeless
             target: webapp.currentWebview ? webapp.currentWebview.locationBarController : null
             property: 'height'
             value: webapp.currentWebview.visible ? chromeLoader.item.height : 0
         }
+*/
 
         ChromeController {
             webview: webapp.currentWebview
@@ -314,14 +316,14 @@ BrowserView {
     // Alt+← or Backspace: Goes to the previous page
     Shortcut {
         sequence: StandardKey.Back
-        enabled: currentWebview && currentWebview.navigationHistory.canGoBack
-        onActivated: currentWebview.navigationHistory.goBack()
+        enabled: currentWebview && currentWebview.canGoBack
+        onActivated: currentWebview.goBack()
     }
 
     // Alt+→ or Shift+Backspace: Goes to the next page
     Shortcut {
         sequence: StandardKey.Forward
-        enabled: currentWebview && currentWebview.navigationHistory.canGoForward
-        onActivated: currentWebview.navigationHistory.goForward()
+        enabled: currentWebview && currentWebview.canGoForward
+        onActivated: currentWebview.goForward()
     }
 }
