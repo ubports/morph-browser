@@ -152,8 +152,8 @@ WebappWebview {
     }
 
     function isNewForegroundWebViewDisposition(disposition) {
-        return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
-               disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
+      //  return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
+      //         disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
     }
 
     function openUrlExternally(url, isTriggeredByUserNavigation) {
@@ -212,19 +212,19 @@ WebappWebview {
     function navigationRequestedDelegate(request) {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
-            request.action = Oxide.NavigationRequest.ActionReject
+            //request.action = Oxide.NavigationRequest.ActionReject
             openUrlExternally(url, true)
             return
         }
 
-        request.action = Oxide.NavigationRequest.ActionReject
+        //request.action = Oxide.NavigationRequest.ActionReject
         if (isNewForegroundWebViewDisposition(request.disposition)) {
             var shouldAcceptRequest =
                     popupController.handleNewForegroundNavigationRequest(
                           url, request, true);
-            if (shouldAcceptRequest) {
-                request.action = Oxide.NavigationRequest.ActionAccept
-            }
+          //  if (shouldAcceptRequest) {
+                //request.action = Oxide.NavigationRequest.ActionAccept
+          //  }
             return
         }
 
@@ -232,28 +232,28 @@ WebappWebview {
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
         if ( ! webview.haveValidUrlPatterns() && ! webview.isRunningAsANamedWebapp()) {
-            request.action = Oxide.NavigationRequest.ActionAccept
+            //request.action = Oxide.NavigationRequest.ActionAccept
             return
         }
 
-        if (webview.shouldAllowNavigationTo(url))
-            request.action = Oxide.NavigationRequest.ActionAccept
+        //if (webview.shouldAllowNavigationTo(url))
+          //  request.action = Oxide.NavigationRequest.ActionAccept
 
         // SAML requests are used for instance by Google Apps for your domain;
         // they are implemented as a HTTP redirect to a URL containing the
         // query parameter called "SAMLRequest".
         // Besides letting the request through, we must also add the SAML
         // domain to the list of the allowed hosts.
-        if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab
-                && url.indexOf("SAMLRequest") > 0) {
-            handleSamlRequestNavigation(url)
-            request.action = Oxide.NavigationRequest.ActionAccept
-        }
+      //  if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab
+      //          && url.indexOf("SAMLRequest") > 0) {
+      //      handleSamlRequestNavigation(url)
+            //request.action = Oxide.NavigationRequest.ActionAccept
+      //  }
 
-        if (request.action === Oxide.NavigationRequest.ActionReject) {
-            console.debug('Opening: ' + url + ' in the browser window.')
-            openUrlExternally(url, true)
-        }
+      //  if (request.action === Oxide.NavigationRequest.ActionReject) {
+      //      console.debug('Opening: ' + url + ' in the browser window.')
+      //      openUrlExternally(url, true)
+      //  }
     }
 
     // Small shim needed when running as a webapp to wire-up connections
