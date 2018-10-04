@@ -1,4 +1,3 @@
-
 (function() {
 var css = "::-webkit-scrollbar { -webkit-appearance: none; width: 0px; }"
 ;
