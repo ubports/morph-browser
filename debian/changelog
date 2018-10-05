@@ -1,3 +1,9 @@
+morph-browser (0.25+ubports0) xenial; urgency=medium
+
+  * No-change rebuild with version bump
+
+ -- UBports auto importer <infra@ubports.com>  Wed, 02 Aug 2017 01:02:48 +0200
+
 morph-browser (0.24+ubports) xenial; urgency=medium
 
   * Imported to UBports
