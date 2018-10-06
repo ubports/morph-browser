@@ -37,6 +37,11 @@ WebView {
     // scroll positions at the moment of the context menu request
     property point contextMenuStartScroll: Qt.point(0,0)
 
+    Component.onCompleted: {
+        console.log(__ua.defaultUA);
+        profile.httpUserAgent = __ua.defaultUA;
+    }
+    
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
 
