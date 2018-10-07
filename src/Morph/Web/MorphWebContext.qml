@@ -25,6 +25,7 @@ WebEngineProfile {
     property alias userAgent: oxideContext.httpUserAgent
     property alias dataPath: oxideContext.persistentStoragePath
     property alias maxCacheSizeHint: oxideContext.httpCacheMaximumSize
+    property alias incognito: oxideContext.offTheRecord
 
     readonly property string defaultUserAgent: __ua.defaultUA
 
@@ -35,16 +36,7 @@ WebEngineProfile {
 
     userAgent: defaultUserAgent
 
-    persistentCookiesPolicy: {
-        if (typeof webContextSessionCookieMode !== 'undefined') {
-            if (webContextSessionCookieMode === "persistent") {
-                return WebEngineProfile.ForcePersistentCookies
-            } else if (webContextSessionCookieMode === "restored") {
-                return WebEngineProfile.AllowPersistentCookies
-            }
-        }
-        return WebEngineProfile.NoPersistentCookies
-    }
+    persistentCookiesPolicy: WebEngineProfile.ForcePersistentCookies
 
     userScripts: [
         WebEngineScript {
@@ -55,6 +47,13 @@ WebEngineProfile {
         WebEngineScript {
             name: "oxide://twitter-no-omniprompt/"
             sourceUrl: Qt.resolvedUrl("twitter-no-omniprompt.js")
+            runOnSubframes: true
+        },
+        WebEngineScript {
+            name: "oxide://scrollbar-theme/"
+            injectionPoint: WebEngineScript.Deferred
+            worldId: WebEngineScript.MainWorld
+            sourceUrl: Qt.resolvedUrl("scrollbar-theme.js")
             runOnSubframes: true
         },
         WebEngineScript {

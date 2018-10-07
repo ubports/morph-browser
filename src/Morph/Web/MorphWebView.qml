@@ -27,6 +27,13 @@ WebEngineView {
     id: _webview
 
     property alias context: _webview.profile
+    property var incognito: false
+
+    Binding {
+      target: _webview.context
+      property: "offTheRecord"
+      value: _webview.incognito
+    }
 
     property var locationBarController: QtObject {
         readonly property int modeAuto: 0

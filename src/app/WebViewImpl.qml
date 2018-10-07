@@ -37,6 +37,11 @@ WebView {
     // scroll positions at the moment of the context menu request
     property point contextMenuStartScroll: Qt.point(0,0)
 
+    Component.onCompleted: {
+        console.log(__ua.defaultUA);
+        profile.httpUserAgent = __ua.defaultUA;
+    }
+    
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
 
@@ -516,15 +521,13 @@ WebView {
         }
 
     onNavigationRequested: function (request) {
-
         quickMenu.visible = false;
-        request.accept();
+        request.action = WebEngineNavigationRequest.AcceptRequest;
     }
 
     onFullScreenRequested: function(request) {
-
-        browser.fullScreenRequested(request.toggleOn);
-       request.accept()
+       browser.fullScreenRequested(request.toggleOn);
+       request.accept();
    }
 /*
     onDownloadRequested: {
