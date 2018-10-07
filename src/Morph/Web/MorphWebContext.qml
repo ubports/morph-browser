@@ -50,6 +50,13 @@ WebEngineProfile {
             runOnSubframes: true
         },
         WebEngineScript {
+            name: "oxide://scrollbar-theme/"
+            injectionPoint: WebEngineScript.Deferred
+            worldId: WebEngineScript.MainWorld
+            sourceUrl: Qt.resolvedUrl("scrollbar-theme.js")
+            runOnSubframes: true
+        },
+        WebEngineScript {
             name: "oxide://fb-no-appbanner/"
             sourceUrl: Qt.resolvedUrl("fb-no-appbanner.js")
             runOnSubframes: true
