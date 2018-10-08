@@ -32,7 +32,7 @@ FocusScope {
     property string url: ""
     property bool developerExtrasEnabled: false
     property string webappName: ""
-    property url dataPath
+    property var dataPath
     property var currentWebview: webappContainerWebViewLoader.item ?
                                      webappContainerWebViewLoader.item.currentWebview
                                    : null
