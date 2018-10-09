@@ -37,7 +37,7 @@ WebappWebview {
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefixPattern: ""
-    property url dataPath
+    property var dataPath
     property var popupController
     property var overlayViewsParent: webview.parent
     property var mediaAccessDialogComponent

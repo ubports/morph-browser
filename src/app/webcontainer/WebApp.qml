@@ -254,6 +254,7 @@ BrowserView {
 
                 ThinProgressBar {
                     visible: webapp.currentWebview && webapp.currentWebview.loading
+                             && webapp.currentWebview.loadProgress !== 100
                     value: visible ? webapp.currentWebview.loadProgress : 0
 
                     anchors {
