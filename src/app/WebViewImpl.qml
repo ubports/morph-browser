@@ -308,7 +308,7 @@ WebView {
         }
         Actions.Share {
             objectName: "ShareContextualAction"
-            enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+            enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
                       contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: {
                     //internal.shareLink(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText)
@@ -581,7 +581,7 @@ WebView {
                     name: "share"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Share")
                     iconName: "share"
-                    enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+                    enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
                               contextMenuRequest && contextMenuRequest.selectedText
                     visible: enabled
                     onTriggered: {
