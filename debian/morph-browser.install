@@ -9,3 +9,4 @@ usr/share/locale/*/LC_MESSAGES/morph-browser.mo
 usr/share/url-dispatcher/
 usr/share/content-hub/peers/morph-browser
 debian/usr.bin.morph-browser etc/apparmor.d
+debian/copy-browser-files.conf usr/share/upstart/sessions/
