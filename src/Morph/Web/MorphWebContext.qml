@@ -50,7 +50,7 @@ WebEngineProfile {
         },
         WebEngineScript {
             name: "oxide://scrollbar-theme/"
-            injectionPoint: WebEngineScript.Deferred
+            injectionPoint: WebEngineScript.DocumentCreation
             worldId: WebEngineScript.MainWorld
             sourceUrl: Qt.resolvedUrl("scrollbar-theme.js")
             runOnSubframes: true
