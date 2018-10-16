@@ -242,7 +242,7 @@ FocusScope {
 
         font.pixelSize: FontUtils.sizeToPixels("small")
         color: addressbar.fgColor
-        inputMethodHints: Qt.ImhUrlCharactersOnly
+        inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText
 
         placeholderText: findInPageMode ? i18n.tr("find in page")
                                         : i18n.tr("search or enter an address")
