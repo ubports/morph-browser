@@ -4,7 +4,7 @@
       "binary": "/usr/bin/morph-browser",
       "profile_name": "morph-browser",
       "policy_vendor": "ubuntu",
-      "policy_version": 1.3,
+      "policy_version": 16.04,
       "policy_groups": [
         "accounts",
         "audio",
