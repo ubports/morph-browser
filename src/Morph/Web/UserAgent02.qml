@@ -1,9 +1,9 @@
 /*
  * Copyright 2013-2016 Canonical Ltd.
  *
- * This file is part of webbrowser-app.
+ * This file is part of morph-browser.
  *
- * webbrowser-app is free software; you can redistribute it and/or modify
+ * morph-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
@@ -45,7 +45,7 @@ QtObject {
     //   virtually every single UA out there has, it seems unwise to remove it
     // note #2: "AppleWebKit", as opposed to plain "WebKit", does make a
     //   difference in the content served by certain sites (e.g. gmail.com)
-    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 %6Safari/%7%8"
+    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chrome/%5 %6Safari/%7%8"
 
     readonly property string _attributes: screenSize === "small" ? "like Android 4.4" : ""
 
