@@ -25,6 +25,7 @@ WebEngineProfile {
     property alias userAgent: oxideContext.httpUserAgent
     property alias dataPath: oxideContext.persistentStoragePath
     property alias maxCacheSizeHint: oxideContext.httpCacheMaximumSize
+    property alias incognito: oxideContext.offTheRecord
 
     readonly property string defaultUserAgent: __ua.defaultUA
 
@@ -50,7 +51,7 @@ WebEngineProfile {
         },
         WebEngineScript {
             name: "oxide://scrollbar-theme/"
-            injectionPoint: WebEngineScript.Deferred
+            injectionPoint: WebEngineScript.DocumentCreation
             worldId: WebEngineScript.MainWorld
             sourceUrl: Qt.resolvedUrl("scrollbar-theme.js")
             runOnSubframes: true

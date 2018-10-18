@@ -521,14 +521,13 @@ WebView {
         }
 
     onNavigationRequested: function (request) {
-
         quickMenu.visible = false;
         request.action = WebEngineNavigationRequest.AcceptRequest;
     }
 
     onFullScreenRequested: function(request) {
        browser.fullScreenRequested(request.toggleOn);
-       request.action = WebEngineNavigationRequest.AcceptRequest;
+       request.accept();
    }
 /*
     onDownloadRequested: {

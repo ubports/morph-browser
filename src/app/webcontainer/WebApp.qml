@@ -60,6 +60,25 @@ BrowserView {
 
     signal chooseAccount()
 
+    signal fullScreenRequested(bool toggleOn)
+    onFullScreenRequested: {
+        if (toggleOn)
+        {
+            chromeLoader.visible = false
+            if (!webapp.chromeless)
+              chromeLoader.height = 0
+            currentWebview.thisWindow.setFullscreen(true)
+        }
+        else
+        {
+            chromeLoader.visible = true
+            if (!webapp.chromeless)
+              chromeLoader.height = units.gu(6)
+            currentWebview.thisWindow.setFullscreen(false)
+        }
+
+    }
+
     // Used for testing. There is a bug that currently prevents non visual Qt objects
     // to be introspectable from AP which makes directly accessing the settings object
     // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
@@ -254,6 +273,7 @@ BrowserView {
 
                 ThinProgressBar {
                     visible: webapp.currentWebview && webapp.currentWebview.loading
+                             && webapp.currentWebview.loadProgress !== 100
                     value: visible ? webapp.currentWebview.loadProgress : 0
 
                     anchors {

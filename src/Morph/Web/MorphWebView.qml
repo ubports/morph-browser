@@ -27,6 +27,13 @@ WebEngineView {
     id: _webview
 
     property alias context: _webview.profile
+    property var incognito: false
+
+    Binding {
+      target: _webview.context
+      property: "offTheRecord"
+      value: _webview.incognito
+    }
 
     property var locationBarController: QtObject {
         readonly property int modeAuto: 0
@@ -329,7 +336,7 @@ WebEngineView {
             return
         }
 
-        var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
+        var msg = "[JS] (%1:%2) %3".arg(sourceID).arg(lineNumber).arg(message)
         if (level === WebEngineView.InfoMessageLevel) {
             console.log(msg)
         } else if (level === WebEngineView.WarningMessageLevel) {

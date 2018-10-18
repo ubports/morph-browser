@@ -28,7 +28,11 @@ Item {
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: parent.bottom
-    height: 0 //Qt.inputMethod.visible ? Qt.inputMethod.keyboardRectangle.height : 0
+
+    // We need to get the values of kayboardRectangle without HIDPI applied
+    // To do this we take gridUnit and devide by DEFAULT_GRID_UNIT_PX (8)
+    height: Qt.inputMethod.visible ?
+            Qt.inputMethod.keyboardRectangle.height / (units.gridUnit / 8) : 0
 
     Behavior on height {
         UbuntuNumberAnimation {}
@@ -41,7 +45,7 @@ Item {
         },
         State {
             name: "shown"
-            when: keyboardRect.height == Qt.inputMethod.keyboardRectangle.height
+            when: keyboardRect.height == Qt.inputMethod.keyboardRectangle.height / (units.gridUnit / 8)
         }
     ]
 
