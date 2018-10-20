@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.5
+import QtWebEngine 1.7
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
@@ -210,6 +210,7 @@ WebView {
     onContextMenuRequested: function(request) {
 
                 contextMenuRequest = request;
+                //console.log("onContextMenuRequested, request: " + JSON.stringify(request))
                 request.accepted = true;
 
                 if (request.linkUrl.toString() || request.mediaType)
@@ -285,16 +286,6 @@ WebView {
             objectName: "BookmarkLinkContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !BookmarksModel.contains(contextMenuRequest.linkUrl)
             onTriggered: showMessage("Actions.BookmarkLink not implemented.");
-         /*
-            onTriggered: {
-                // position the menu target with a one-off assignement instead of a binding
-                // since the contents of the contextModel have meaning only while the context
-                // menu is active
-                //contextualMenuTarget.x = contextModel.position.x
-                //contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
-                internal.addBookmark(contextMenuRequest.linkUrl, contextMenuRequest.linkText, "", contextualMenuTarget)
-            }
-          */
         }
         Actions.CopyLink {
             objectName: "CopyLinkContextualAction"
@@ -309,11 +300,8 @@ WebView {
         Actions.Share {
             objectName: "ShareContextualAction"
             enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
-                      contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: {
-                    //internal.shareLink(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText)
-                    browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
-                    }
+                     contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
         }
         Actions.OpenImageInNewTab {
             objectName: "OpenImageInNewTabContextualAction"
@@ -356,8 +344,7 @@ WebView {
         }
         Actions.Copy {
             objectName: "CopyContextualAction"
-            enabled: contextMenuRequest && (contextMenuRequest.selectedText || contextMenuRequest.isContentEditable &&
-                                      (!contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)))
+            enabled: contextMenuRequest && ( (quickMenu.selectedTextLength > 0) || (contextMenuRequest.editFlags && ContextMenuRequest.CanCopy))
             onTriggered: webview.triggerWebAction(WebEngineView.Copy)
         }
     }
@@ -379,7 +366,7 @@ WebView {
 
             readonly property point webViewScrollPosition: visible ? webview.scrollPosition : Qt.point(0,0)
             property rect bounds: Qt.rect(10,10,10,10)
-            //readonly property bool selectionOutOfSight: (bounds.x > _webview.width) || ((bounds.x + bounds.width) < 0) || (bounds.y > _webview.height) || ((bounds.y + bounds.height) < 0)
+            readonly property bool selectionVerticallyOutOfSight: (bounds.y > webview.height + webViewScrollPosition.y / scaleFactor) || ((bounds.y + bounds.height) < webViewScrollPosition.y / scaleFactor)
             readonly property real handleHeight: 0 // units.gu(1.5)
             readonly property real spacing: units.gu(0.5)
             readonly property bool fitsBelow: (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing + height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor) <= webview.height - Qt.inputMethod.keyboardRectangle.height / scaleFactor
@@ -392,8 +379,8 @@ WebView {
 
             x: ((xCentered >= 0) && ((xCentered + width) <= webview.width))
                 ? xCentered : (xCentered < 0) ? 0 : webview.width - width
-            y: (fitsBelow && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor )
-                         : (fitsAbove && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
+            y: (fitsBelow && ! selectionVerticallyOutOfSight && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor )
+                         : (fitsAbove && ! selectionVerticallyOutOfSight && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
                                      : (webview.height - height) / 2
 
             ActionList {
@@ -484,25 +471,30 @@ WebView {
                                   });
             }
 
-
             Action {
                     name: "undo"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Undo")
                     iconName: "edit-undo"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo))
-                    visible: enabled
+                    // with the editFlags we would have to close the context menu after one "Undo" step (desktop way)
+                    // after one action we do no longer know if further Undo actions are possible
+                    // if we keep the button enabled, the user can use Undo/Redo multiple times
+                    enabled: visible // && (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo)
+                    visible: contextMenuRequest && contextMenuRequest.isContentEditable
                     onTriggered: {
                         webview.triggerWebAction(WebEngineView.Undo)
+                        // ToDo: might there be a way to refresh / recreate the context menu again (for the same element) without user interaction,
+                        // so that the editFlags are updated, then we could use the editFlags for the enabled property
+                        // with JavaScript it seems not possible: https://stackoverflow.com/a/1241569/4326472
                     }
                 }
                 Action {
                     name: "redo"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Redo")
                     iconName: "edit-redo"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo))
-                    visible: enabled
+                    // with the editFlags we would have to close the context menu after one "Redo" step (desktop way)
+                    // see comment for "Undo"
+                    enabled: visible // && (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo)
+                    visible: contextMenuRequest && contextMenuRequest.isContentEditable
                     onTriggered: {
                         webview.triggerWebAction(WebEngineView.Redo)
                     }
@@ -557,8 +549,7 @@ WebView {
                     name: "copy"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
                     iconName: "edit-copy"
-                    enabled: contextMenuRequest &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)) && quickMenu.selectedTextLength > 0
+                    enabled: contextMenuRequest && (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCopy)) && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
@@ -569,8 +560,7 @@ WebView {
                     name: "paste"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
                     iconName: "edit-paste"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
