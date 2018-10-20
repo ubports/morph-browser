@@ -537,7 +537,7 @@ WebView {
                     name: "cut"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
                     iconName: "edit-cut"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && (contextMenuRequest.editFlags & ContextMenuRequest.CanCut) && quickMenu.selectedTextLength > 0
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                        quickMenu.visible = false;
@@ -548,7 +548,7 @@ WebView {
                     name: "copy"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
                     iconName: "edit-copy"
-                    enabled: contextMenuRequest && (contextMenuRequest.editFlags & ContextMenuRequest.CanCopy) && quickMenu.selectedTextLength > 0
+                    enabled: contextMenuRequest && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
