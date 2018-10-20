@@ -521,7 +521,7 @@ WebView {
                     text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
                     iconName: "edit-select-all"
                     // can we make it so that it only appears for non-empty inputs ?
-                    enabled: contextMenuRequest && (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll))
+                    enabled: contextMenuRequest && (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll)
                     visible: enabled
                     onTriggered: {
                         // in some cases this command creates a new contextMenuRequest, in others not
@@ -537,8 +537,7 @@ WebView {
                     name: "cut"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
                     iconName: "edit-cut"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCut)) && quickMenu.selectedTextLength > 0
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && (contextMenuRequest.editFlags & ContextMenuRequest.CanCut) && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                        quickMenu.visible = false;
@@ -549,7 +548,7 @@ WebView {
                     name: "copy"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
                     iconName: "edit-copy"
-                    enabled: contextMenuRequest && (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCopy)) && quickMenu.selectedTextLength > 0
+                    enabled: contextMenuRequest && (contextMenuRequest.editFlags & ContextMenuRequest.CanCopy) && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
@@ -560,7 +559,7 @@ WebView {
                     name: "paste"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
                     iconName: "edit-paste"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste)
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
