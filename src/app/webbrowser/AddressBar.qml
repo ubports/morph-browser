@@ -32,6 +32,7 @@ FocusScope {
     signal toggleBookmark()
     property url requestedUrl
     property url actualUrl
+    readonly property string actualScheme: UrlUtils.extractScheme(actualUrl)
     signal validated()
     property bool loading
     signal requestReload()
@@ -44,7 +45,12 @@ FocusScope {
     property var findController: null
     property color fgColor: Theme.palette.normal.baseText
 
-    property var securityStatus: null
+    property var certificateErrorsMap: null
+    readonly property bool hasSecurityError: (actualScheme === "https") && (certificateErrorsMap[UrlUtils.extractHost(actualUrl)] !== undefined)
+    // is mixed content (https page loads http elements) blocked ? If not how to check it ?
+    // show a warning for http / ftp pages ?
+    //readonly property bool hasSecurityWarning: (actualScheme === "http" || actualScheme === "ftp")
+    readonly property bool hasSecurityWarning: false
 
     readonly property Item bookmarkTogglePlaceHolder: bookmarkTogglePlaceHolderItem
 
@@ -291,13 +297,10 @@ FocusScope {
         id: internal
 
         readonly property bool idle: !addressbar.loading && !addressbar.editing
-
-        readonly property int securityLevel: 0 //addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
-        readonly property bool secureConnection: true //addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
-        readonly property bool securityWarning: false //addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
-        readonly property bool securityError: false //addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelError) : false
-
         property var securityCertificateDetails: null
+        readonly property bool secureConnection: (actualScheme === "https") && ! hasSecurityError && ! hasSecurityWarning
+        readonly property bool securityWarning: hasSecurityWarning
+        readonly property bool securityError: hasSecurityError
 
         function escapeHtmlEntities(query) {
             return query.replace(/\W/g, encodeURIComponent)
@@ -424,7 +427,7 @@ FocusScope {
 
     function showSecurityCertificateDetails() {
         if (!internal.securityCertificateDetails) {
-            internal.securityCertificateDetails = PopupUtils.open(Qt.resolvedUrl("SecurityCertificatePopover.qml"), certificatePopoverPositioner, {"securityStatus": securityStatus})
+            internal.securityCertificateDetails = PopupUtils.open(Qt.resolvedUrl("SecurityCertificatePopover.qml"), certificatePopoverPositioner, {"host":UrlUtils.extractHost(actualUrl), "certificateError": hasSecurityError ? certificateErrorsMap[UrlUtils.extractHost(actualUrl)] : null})
         }
     }
 
