@@ -24,6 +24,7 @@ import QtWebEngine 1.5
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
+import "UrlUtils.js" as UrlUtils
 
 WebView {
     id: webview
@@ -36,6 +37,9 @@ WebView {
 
     // scroll positions at the moment of the context menu request
     property point contextMenuStartScroll: Qt.point(0,0)
+
+    // remember certificate errors for each domain (for click on symbol in address bar)
+    readonly property var certificateErrorsMap: ({})
 
     Component.onCompleted: {
         console.log(__ua.defaultUA);
@@ -147,9 +151,7 @@ WebView {
             case 0:
             request.accepted = true;
             var authDialog = PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"), webview.currentWebview);
-            var urlRegExp = new RegExp("^https?\:\/\/([^:\/?#]+)");
-            var match = urlRegExp.exec(request.url);
-            authDialog.host = match[1];
+            authDialog.host = UrlUtils.extractHost(request.url);
             authDialog.realm = request.realm;
             authDialog.accept.connect(request.dialogAccept);
             authDialog.reject.connect(request.dialogReject);
@@ -187,6 +189,20 @@ WebView {
              break;
          }
     }
+
+      onCertificateError: function(certificateError) {
+
+          certificateError.defer()
+          var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"));
+          certificateVerificationDialog.host = UrlUtils.extractHost(certificateError.url);
+          certificateErrorsMap[certificateVerificationDialog.host] = certificateError
+          certificateErrorsMapChanged()
+          certificateVerificationDialog.localizedErrorMessage = certificateError.description
+          certificateVerificationDialog.errorIsOverridable = certificateError.overridable
+          certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError)
+          certificateVerificationDialog.reject.connect(certificateError.rejectCertificate)
+      }
+
 
      onNewViewRequested: function(request) {
 

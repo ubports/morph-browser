@@ -18,6 +18,11 @@
 
 'use strict';
 
+function extractScheme(url) {
+    var urlString = url.toString()
+    return urlString.substring(0,urlString.indexOf("://"))
+}
+
 function removeScheme(url) {
     var rest = url.toString()
     var indexOfScheme = rest.indexOf("://")

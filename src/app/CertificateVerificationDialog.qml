@@ -23,18 +23,29 @@ import Ubuntu.Components.Popups 1.3 as Popups
 Popups.Dialog {
     title: i18n.tr("This connection is untrusted")
     // TRANSLATORS: %1 refers to the hostname
-    text: i18n.tr("You are trying to securely reach %1, but the security certificate of this website is not trusted.").arg(model.hostname)
+    text: i18n.tr("You are trying to securely reach %1, but the security certificate of this website is not trusted. Reason: %2").arg(host).arg(localizedErrorMessage)
+
+    property string host
+    property string localizedErrorMessage
+    property bool errorIsOverridable
+
+    signal accept()
+    signal reject()
+
+    onAccept: hide()
+    onReject: hide()
 
     Button {
         text: i18n.tr("Proceed anyway")
+        visible: errorIsOverridable
         color: theme.palette.normal.negative
-        onClicked: model.accept()
+        onClicked: accept()
     }
 
     Button {
         text: i18n.tr("Back to safety")
         color: theme.palette.normal.positive
-        onClicked: model.reject()
+        onClicked: reject()
     }
 
     Component.onCompleted: show()

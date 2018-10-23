@@ -108,7 +108,7 @@ FocusScope {
 
             findInPageMode: findInPageMode
             findController: internal.webview ? internal.webview.findController : null
-            securityStatus: internal.webview ? internal.webview.securityStatus : null
+            certificateErrorsMap: internal.webview ? internal.webview.certificateErrorsMap : ({})
 
             anchors {
                 left: parent.left

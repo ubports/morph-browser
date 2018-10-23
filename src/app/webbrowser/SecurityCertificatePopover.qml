@@ -25,10 +25,11 @@ import Morph.Web 0.1
 Popover {
     id: certificatePopover
 
-    property var securityStatus
+    property var certificateError: null
+    property string host
 
-    readonly property bool isWarning: securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning
-    readonly property bool isError: securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelError
+    property bool isWarning: false
+    readonly property bool isError:  (certificateError !== null)
 
     Column {
         width: parent.width - units.gu(4)
@@ -83,27 +84,9 @@ Popover {
                         wrapMode: Text.WordWrap
                         visible: certificatePopover.isError
                         fontSize: "x-small"
-                        text: {
-                            switch (securityStatus.certStatus) {
-                                case Oxide.SecurityStatus.CertStatusBadIdentity:
-                                    return i18n.tr("Server certificate does not match the identity of the site.")
-                                case Oxide.SecurityStatus.CertStatusExpired:
-                                    return i18n.tr("Server certificate has expired.")
-                                case Oxide.SecurityStatus.CertStatusDateInvalid:
-                                    return i18n.tr("Server certificate contains invalid dates.")
-                                case Oxide.SecurityStatus.CertStatusAuthorityInvalid:
-                                    return i18n.tr("Server certificate is issued by an entity that is not trusted.")
-                                case Oxide.SecurityStatus.CertStatusRevoked:
-                                    return i18n.tr("Server certificate has been revoked.")
-                                case Oxide.SecurityStatus.CertStatusInvalid:
-                                    return i18n.tr("Server certificate is invalid.")
-                                case Oxide.SecurityStatus.CertStatusInsecure:
-                                    return i18n.tr("Server certificate is insecure.")
-                                default:
-                                    return i18n.tr("Server certificate failed our security checks for an unknown reason.")
-                            }
-                        }
-                    }
+                        text: certificatePopover.certificateError ? certificatePopover.certificateError.description : ""
+                   }
+
                 }
             }
 
@@ -123,65 +106,7 @@ Popover {
             Label {
                 width: parent.width
                 wrapMode: Text.WordWrap
-                text: i18n.tr("You are connected to")
-                fontSize: "x-small"
-            }
-
-            Label {
-                width: parent.width
-                wrapMode: Text.WordWrap
-                text: securityStatus.certificate.subjectDisplayName
-                fontSize: "x-small"
-            }
-
-            ThinDivider {
-                width: parent.width
-                anchors.leftMargin: 0
-                anchors.rightMargin: 0
-                visible: orgName.visible || localityName.visible || stateName.visible || countryName.visible
-            }
-
-            Label {
-                width: parent.width
-                wrapMode: Text.WordWrap
-                visible: orgName.visible
-                text: i18n.tr("Which is run by")
-                fontSize: "x-small"
-            }
-
-            Label {
-                id: orgName
-                width: parent.width
-                wrapMode: Text.WordWrap
-                visible: text.length > 0
-                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
-                fontSize: "x-small"
-            }
-
-            Label {
-                id: localityName
-                width: parent.width
-                wrapMode: Text.WordWrap
-                visible: text.length > 0
-                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
-                fontSize: "x-small"
-            }
-
-            Label {
-                id: stateName
-                width: parent.width
-                wrapMode: Text.WordWrap
-                visible: text.length > 0
-                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ")
-                fontSize: "x-small"
-            }
-
-            Label {
-                id: countryName
-                width: parent.width
-                wrapMode: Text.WordWrap
-                visible: text.length > 0
-                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
+                text: i18n.tr("You are connected to %1 via HTTPS. The certificate is valid.".arg(host))
                 fontSize: "x-small"
             }
         }
