@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.5
+import QtWebEngine 1.7
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
@@ -45,7 +45,7 @@ WebView {
         console.log(__ua.defaultUA);
         profile.httpUserAgent = __ua.defaultUA;
     }
-    
+
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
 
@@ -215,9 +215,18 @@ WebView {
          alertDialog.message = text;
      }
 
+    QtObject {
+        id: domElementOfContextMenu
+
+        // true for input and textarea elements that support text selection
+        property bool hasSelectMethod: false
+        property bool isDocumentElement: false
+    }
+
     onContextMenuRequested: function(request) {
 
                 contextMenuRequest = request;
+                //console.log("onContextMenuRequested, request: " + JSON.stringify(request))
                 request.accepted = true;
 
                 if (request.linkUrl.toString() || request.mediaType)
@@ -230,17 +239,34 @@ WebView {
                 {
                     contextMenuStartScroll.x = webview.scrollPosition.x;
                     contextMenuStartScroll.y = webview.scrollPosition.y;
+                    quickMenu.selectedTextLength = contextMenuRequest.selectedText.length
+                    quickMenu.textSelectionLevels = []
+                    quickMenu.textSelectionIsAtRootLevel = false
 
-                    var javaScriptCommand = "
-                    var elemContextMenu = document.elementFromPoint(%1, %2);
+                    var commandGetContextMenuInfo = "
+                    var morphElemContextMenu = document.elementFromPoint(%1, %2);
+                    var morphContextMenuIsDocumentElement = false;
+                    if (morphElemContextMenu === null)
+                    {
+                        morphElemContextMenu = document.documentElement;
+                        morphContextMenuIsDocumentElement = true;
+                    }
+                    var morphContextMenuElementHasSelectMethod = (typeof morphElemContextMenu.select === 'function') ? true : false;
                     // result array
-                    [elemContextMenu.offsetLeft, elemContextMenu.offsetTop, elemContextMenu.offsetWidth, elemContextMenu.offsetHeight];
+                    // [0]..[3] : bounds of the selected element
+                    // [4] : boolean variable morphContextMenuIsDocumentElement
+                    // [5] : boolean variable morphContextMenuElementHasSelectMethod
+                    //    true: context menu for the whole HTML document
+                    //    false: context menu for a specific element (e.g. input, span, ...)
+                    [morphElemContextMenu.offsetLeft, morphElemContextMenu.offsetTop, morphElemContextMenu.offsetWidth, morphElemContextMenu.offsetHeight, morphContextMenuIsDocumentElement, morphContextMenuElementHasSelectMethod];
                     ".arg(request.x).arg(request.y)
 
-                    webview.runJavaScript(javaScriptCommand, function(result)
+                    webview.runJavaScript(commandGetContextMenuInfo, function(result)
                                                             {
-                                                               quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3]);
-                                                               //showMessage(JSON.stringify(result));
+                                                               console.log("commandGetContextMenuInfo returned array " + JSON.stringify(result))
+                                                               quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3])
+                                                               domElementOfContextMenu.isDocumentElement = result[4]
+                                                               domElementOfContextMenu.hasSelectMethod = result[5]
                                                             }
                                          );
                     quickMenu.visible = true;
@@ -276,16 +302,6 @@ WebView {
             objectName: "BookmarkLinkContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !BookmarksModel.contains(contextMenuRequest.linkUrl)
             onTriggered: showMessage("Actions.BookmarkLink not implemented.");
-         /*
-            onTriggered: {
-                // position the menu target with a one-off assignement instead of a binding
-                // since the contents of the contextModel have meaning only while the context
-                // menu is active
-                //contextualMenuTarget.x = contextModel.position.x
-                //contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
-                internal.addBookmark(contextMenuRequest.linkUrl, contextMenuRequest.linkText, "", contextualMenuTarget)
-            }
-          */
         }
         Actions.CopyLink {
             objectName: "CopyLinkContextualAction"
@@ -299,12 +315,9 @@ WebView {
         }
         Actions.Share {
             objectName: "ShareContextualAction"
-            enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
-                      contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: {
-                    //internal.shareLink(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText)
-                    browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
-                    }
+            enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+                     contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
         }
         Actions.OpenImageInNewTab {
             objectName: "OpenImageInNewTabContextualAction"
@@ -347,28 +360,13 @@ WebView {
         }
         Actions.Copy {
             objectName: "CopyContextualAction"
-            enabled: contextMenuRequest && (contextMenuRequest.selectedText || contextMenuRequest.isContentEditable &&
-                                      (!contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)))
+            enabled: contextMenuRequest && ( (quickMenu.selectedTextLength > 0) || (contextMenuRequest.editFlags && ContextMenuRequest.CanCopy))
             onTriggered: webview.triggerWebAction(WebEngineView.Copy)
         }
-
-        /*
-        Actions.Erase {
-            objectName: "EraseContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                      (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanDelete))
-            onTriggered: {
-                // seems not to work
-                //webview.triggerWebAction(WebEngineView.Delete);
-                var javaScriptCommand = "document.elementFromPoint(%1, %2).value = '';";
-                webview.runJavaScript(javaScriptCommand.arg(contextMenuRequest.x).arg(contextMenuRequest.y));
-             }
-        }
-        */
     }
 
     UbuntuShape {
-            z:3;
+            z:3
             id: quickMenu
             objectName: "touchSelectionActions"
             visible: false
@@ -384,70 +382,178 @@ WebView {
 
             readonly property point webViewScrollPosition: visible ? webview.scrollPosition : Qt.point(0,0)
             property rect bounds: Qt.rect(10,10,10,10)
-            //readonly property bool selectionOutOfSight: (bounds.x > _webview.width) || ((bounds.x + bounds.width) < 0) || (bounds.y > _webview.height) || ((bounds.y + bounds.height) < 0)
+            readonly property bool selectionVerticallyOutOfSight: (bounds.y > webview.height + webViewScrollPosition.y / scaleFactor) || ((bounds.y + bounds.height) < webViewScrollPosition.y / scaleFactor)
             readonly property real handleHeight: 0 // units.gu(1.5)
             readonly property real spacing: units.gu(0.5)
             readonly property bool fitsBelow: (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing + height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor) <= webview.height - Qt.inputMethod.keyboardRectangle.height / scaleFactor
             readonly property bool fitsAbove: (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor) >= 0
             readonly property real xCentered: bounds.x + (bounds.width - width) / 2
+            property int selectedTextLength: 0
+            // remember previous text selection levels in an first in - first out array
+            property var textSelectionLevels: []
+            property bool textSelectionIsAtRootLevel: false
+
             x: ((xCentered >= 0) && ((xCentered + width) <= webview.width))
                 ? xCentered : (xCentered < 0) ? 0 : webview.width - width
-            y: fitsBelow ? (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor )
-                         : fitsAbove ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
+            y: (fitsBelow && ! selectionVerticallyOutOfSight && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor + bounds.height + handleHeight + spacing - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor )
+                         : (fitsAbove && ! selectionVerticallyOutOfSight && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
                                      : (webview.height - height) / 2
 
             ActionList {
                 id: touchSelectionActions
-                Action {
+
+                // text selection with <leafElementName> as starting point
+                function extendSelectionUpTheDom (leafElementName) {
+
+                    var commandExtendSelection = "
+            var elementForTextSelection = %1;
+            var selectedLengthStart = window.getSelection().toString().length;
+
+            var levelCounter = 0;
+            // go up the DOM until the selection is larger
+            while (elementForTextSelection.parentNode)
+            {
+                // select the current node
+                var range = document.createRange();
+                range.selectNode(elementForTextSelection);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+
+                if (window.getSelection().toString().length > selectedLengthStart)
+                {
+                    break;
+                }
+                elementForTextSelection = elementForTextSelection.parentNode;
+                levelCounter++;
+            }
+
+            // return array
+            // [0] length of selection
+            // [1] parent level at end
+            // [2] isRootNode
+            [window.getSelection().toString().length, levelCounter, elementForTextSelection.parentNode ? false : true]
+            ".arg(leafElementName);
+
+            webview.runJavaScript(commandExtendSelection,
+                                  function(result) {
+                                      console.log("[extendSelectionUpTheDom] java script function returned " + JSON.stringify(result))
+                                      var selectedLength = result[0]
+                                      var parentLevelAtEnd = result[1]
+                                      var isRootNode = result[2]
+                                      quickMenu.selectedTextLength = selectedLength
+                                      while (quickMenu.textSelectionLevels.length > 0 && (parentLevelAtEnd <= quickMenu.textSelectionLevels[quickMenu.textSelectionLevels.length - 1] ))
+                                      {
+                                          quickMenu.textSelectionLevels.pop()
+                                      }
+                                      quickMenu.textSelectionLevels.push(parentLevelAtEnd)
+                                      quickMenu.textSelectionLevelsChanged()
+                                      console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
+                                      quickMenu.textSelectionIsAtRootLevel = isRootNode
+                                 });
+            }
+
+            // <parentLevel> how many levels (.parentNode calls) to go up to reach the node with the text selection in the DOM
+            // <leafElementName> is the starting point (element the context menu was created for)
+            function setTextSelection (leafElementName, parentLevel) {
+
+                    var commandSetTextSelection = "
+            var elementForTextSelection = %1;
+            var parentLevel = %2;
+
+            var levelCounter = 0;
+            while (elementForTextSelection.parentNode && (levelCounter < parentLevel))
+            {
+                elementForTextSelection = elementForTextSelection.parentNode;
+                levelCounter++;
+            }
+
+            var range = document.createRange();
+            range.selectNode(elementForTextSelection);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            // return length of selection
+            window.getSelection().toString().length
+            ".arg(leafElementName).arg(parentLevel);
+
+            webview.runJavaScript(commandSetTextSelection,
+                                  function(result) {
+                                      console.log("the length of selection is now " + result)
+                                      quickMenu.selectedTextLength = result
+                                      quickMenu.textSelectionLevels.pop()
+                                      quickMenu.textSelectionLevelsChanged()
+                                      console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
+                                      quickMenu.textSelectionIsAtRootLevel = false
+                                  });
+            }
+
+            Action {
                     name: "undo"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Undo")
                     iconName: "edit-undo"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo))
-                    visible: enabled
+                    // with the editFlags we would have to close the context menu after one "Undo" step (desktop way)
+                    // after one action we do no longer know if further Undo actions are possible
+                    // if we keep the button enabled, the user can use Undo/Redo multiple times
+                    enabled: visible // && (contextMenuRequest.editFlags & ContextMenuRequest.CanUndo)
+                    visible: contextMenuRequest && contextMenuRequest.isContentEditable
                     onTriggered: {
-                        //quickMenu.visible = false;
                         webview.triggerWebAction(WebEngineView.Undo)
+                        // ToDo: might there be a way to refresh / recreate the context menu again (for the same element) without user interaction,
+                        // so that the editFlags are updated, then we could use the editFlags for the enabled property
+                        // with JavaScript it seems not possible: https://stackoverflow.com/a/1241569/4326472
                     }
                 }
                 Action {
                     name: "redo"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Redo")
                     iconName: "edit-redo"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo))
-                    visible: enabled
+                    // with the editFlags we would have to close the context menu after one "Redo" step (desktop way)
+                    // see comment for "Undo"
+                    enabled: visible // && (contextMenuRequest.editFlags & ContextMenuRequest.CanRedo)
+                    visible: contextMenuRequest && contextMenuRequest.isContentEditable
                     onTriggered: {
-                        //quickMenu.visible = false;
                         webview.triggerWebAction(WebEngineView.Redo)
                     }
                 }
-
+                Action {
+                    name: "selectless"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Select Less")
+                    iconName: "edit-select-all"
+                    enabled: visible && quickMenu.textSelectionLevels.length > 1
+                    visible: contextMenuRequest && ! domElementOfContextMenu.isDocumentElement && ! domElementOfContextMenu.hasSelectMethod
+                    onTriggered: touchSelectionActions.setTextSelection("morphElemContextMenu", quickMenu.textSelectionLevels[quickMenu.textSelectionLevels.length - 2])
+                }
+                Action {
+                    name: "selectmore"
+                    text: (quickMenu.textSelectionLevels.length == 0)    ? i18n.dtr('ubuntu-ui-toolkit', "Select Element")
+                                                                         :  i18n.dtr('ubuntu-ui-toolkit', "Select More")
+                    iconName: "edit-select-all"
+                    enabled: visible && ! quickMenu.textSelectionIsAtRootLevel
+                    visible: contextMenuRequest && ! domElementOfContextMenu.isDocumentElement && ! domElementOfContextMenu.hasSelectMethod
+                    onTriggered: touchSelectionActions.extendSelectionUpTheDom("morphElemContextMenu")
+                }
                 Action {
                     name: "selectall"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Select All")
                     iconName: "edit-select-all"
                     // can we make it so that it only appears for non-empty inputs ?
-                    enabled: contextMenuRequest &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll))
+                    enabled: contextMenuRequest && (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll)
                     visible: enabled
                     onTriggered: {
-                        quickMenu.visible = false;
+                        // in some cases this command creates a new contextMenuRequest, in others not
+                        // for the second case, set the document mode here as well
+                        if (! domElementOfContextMenu.hasSelectMethod)
+                        {
+                            domElementOfContextMenu.isDocumentElement = true
+                        }
                         webview.triggerWebAction(WebEngineView.SelectAll);
-                        // note: selectall causes the context menu to appear again
-                        // if it is not intended, use the following alternative:
-                        //var javaScriptCommand = "document.elementFromPoint(%1, %2).select();";
-                        //webview.runJavaScript(javaScriptCommand.arg(contextMenuRequest.x).arg(contextMenuRequest.y));
                     }
-
                 }
                 Action {
                     name: "cut"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Cut")
                     iconName: "edit-cut"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanCut)) &&
-                             (contextMenuRequest.selectedText !== "")
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                        quickMenu.visible = false;
@@ -458,9 +564,7 @@ WebView {
                     name: "copy"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Copy")
                     iconName: "edit-copy"
-                    enabled: contextMenuRequest &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlag & ContextMenuRequest.CanCopy)) &&
-                             (contextMenuRequest.selectedText !== "")
+                    enabled: contextMenuRequest && quickMenu.selectedTextLength > 0
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
@@ -471,8 +575,7 @@ WebView {
                     name: "paste"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Paste")
                     iconName: "edit-paste"
-                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable &&
-                             (! contextMenuRequest.editFlags || (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste))
+                    enabled: contextMenuRequest && contextMenuRequest.isContentEditable && (contextMenuRequest.editFlags & ContextMenuRequest.CanPaste)
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
@@ -483,7 +586,7 @@ WebView {
                     name: "share"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Share")
                     iconName: "share"
-                    enabled: ( browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+                    enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
                               contextMenuRequest && contextMenuRequest.selectedText
                     visible: enabled
                     onTriggered: {
@@ -504,18 +607,16 @@ WebView {
                 }
             }
 
+            MouseArea {
+                // without that MouseArea the user can click "through" actions with enabled=false (e.g. accidently change the text selection)
+                anchors.fill: touchSelectionActionsRow
+                onClicked: console.log("inactive touch selection item clicked.")
+            }
+
             Row {
                 id: touchSelectionActionsRow
                 x: parent.padding
                 y: parent.padding
-                width: {
-                    // work around what seems to be a bug in Row’s childrenRect.width
-                    var w = 0
-                    for (var i in visibleChildren) {
-                        w += visibleChildren[i].width
-                    }
-                    return w
-                }
                 height: units.gu(6)
 
                 Repeater {
@@ -530,7 +631,6 @@ WebView {
                         action: modelData
                         styleName: "ToolbarButtonStyle"
                         activeFocusOnPress: false
-                        //onClicked: _webview.touchSelectionController.hide()
                     }
                 }
             }
