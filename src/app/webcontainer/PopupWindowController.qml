@@ -249,16 +249,13 @@ Item {
         }
     }
 
-    function handleNewForegroundNavigationRequest(
-            url, request, isRequestFromMainWebappWebview) {
+    function handleNewForegroundNavigationRequest(url, request, isRequestFromMainWebappWebview) {
 
         if (views.length >= maxSimultaneousViews) {
-            request.action = Oxide.NavigationRequest.ActionReject
+            request.action = WebEngineNavigationRequest.IgnoreRequest
             // Default to open externally, maybe should present a dialog
             openUrlExternally(url.toString())
-            console.log("Maximum number of popup overlay opened, opening: "
-                        + url
-                        + " in the browser")
+            console.log("Maximum number of popup overlay opened, opening: %1 in the browser".arg(url))
             return false
         }
         return true

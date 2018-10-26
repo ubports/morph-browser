@@ -71,6 +71,10 @@ Component {
 
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
 
+            onNewViewRequested: function(request) {
+                     browser.openLinkInNewTabRequested(request.requestedUrl, false);
+            }
+
             /*
             locationBarController {
                 height: chrome ? chrome.height : 0

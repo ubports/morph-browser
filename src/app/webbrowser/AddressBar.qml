@@ -64,12 +64,6 @@ FocusScope {
         textField.selectAll()
     }
 
-    Binding {
-        //target: findController
-        property: "text"
-        value: findInPageMode ? textField.text : ""
-    }
-
     TextField {
         id: textField
         objectName: "addressBarTextField"
@@ -205,20 +199,6 @@ FocusScope {
         secondaryItem: Row {
             height: textField.height
 
-            Label {
-                objectName: "findInPageCounter"
-                anchors.verticalCenter: parent.verticalCenter
-                fontSize: "x-small"
-                color: addressbar.fgColor
-                opacity: findController && findController.count > 0 ? 1.0 : 0.6
-                visible: findInPageMode
-
-                // TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-                text: i18n.tr("%1/%2").arg(current).arg(count)
-                property int current: findController ? findController.current : 0
-                property int count: findController ? findController.count : 0
-            }
-
             MouseArea {
                 id: bookmarkToggle
                 objectName: "bookmarkToggle"
@@ -268,6 +248,7 @@ FocusScope {
         onAccepted: if (!internal.idle) internal.validate()
 
         Keys.onReturnPressed: {
+
             if (!findInPageMode) {
                 accepted()
             } else if (event.modifiers & Qt.ShiftModifier) {
@@ -323,13 +304,13 @@ FocusScope {
 
         function simplifyUrl(url) {
             var urlString = url.toString()
-            if (urlString == "about:blank" || urlString.match(/^data:/i)) {
+            if (urlString === "about:blank" || urlString.match(/^data:/i)) {
                 return url
             }
-            var hasProtocol = urlString.indexOf("://") != -1
+            var hasProtocol = urlString.indexOf("://") !== -1
             var domain
             if (hasProtocol) {
-                if (urlString.split("://")[0] == "file") {
+                if (urlString.split("://")[0] === "file") {
                     // Don't process file:// urls
                     return url
                 }
@@ -345,7 +326,7 @@ FocusScope {
                 }
                 // Remove port number if present
                 domain = domain.split(':')[0]
-                if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
+                if (domain.lastIndexOf('.') !== 3) { // http://www.com shouldn't be trimmed
                     domain = domain.replace(/^www\./, "")
                 }
                 return domain
