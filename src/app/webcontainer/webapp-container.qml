@@ -19,7 +19,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import QtWebEngine 1.5
+import QtWebEngine 1.7
 import Morph.Web 0.1
 import webcontainer.private 0.1
 import ".."
@@ -49,6 +49,7 @@ BrowserWindow {
     property bool openExternalUrlInOverlay: false
     property string defaultVideoCaptureCameraPosition: ""
     property bool popupBlockerEnabled: true
+    property bool localContentCanAccessRemoteUrls: false
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
@@ -180,6 +181,7 @@ BrowserWindow {
         onLoaded: {
             var context = item.currentWebview.context
             onlineAccountsController.setupWebcontextForAccount(context)
+            item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls
         }
     }
 
