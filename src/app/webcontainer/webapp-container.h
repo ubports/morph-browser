@@ -79,6 +79,7 @@ private:
     QString m_defaultVideoCaptureCameraPosition;
     bool m_fullscreen;
     bool m_maximized;
+    bool m_localContentCanAccessRemoteUrls;
 
     static const QString URL_PATTERN_SEPARATOR;
     static const QString LOCAL_SCHEME_FILTER_FILENAME;
