@@ -91,7 +91,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_openExternalUrlInOverlay(false),
     m_webappContainerHelper(new WebappContainerHelper()),
     m_fullscreen(false),
-    m_maximized(false)
+    m_maximized(false),
+    m_localContentCanAccessRemoteUrls(false)
 {
 }
 
