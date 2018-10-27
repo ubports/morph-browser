@@ -18,7 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Window 2.2
-import QtWebEngine 1.5
+import QtWebEngine 1.7
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
 import Morph.Web 0.1
@@ -1468,14 +1468,14 @@ BrowserView {
     Shortcut {
         sequence: StandardKey.FindNext
         enabled: currentWebview && chrome.findInPageMode
-        onActivated: currentWebview.findController.next()
+        onActivated: chrome.findController.next()
     }
 
     // Ctrl+Shift+G: Find previous
     Shortcut {
         sequence: StandardKey.FindPrevious
         enabled: currentWebview && chrome.findInPageMode
-        onActivated: currentWebview.findController.previous()
+        onActivated: chrome.findController.previous()
     }
 
     // Ctrl+Plus: zoom in

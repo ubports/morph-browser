@@ -182,8 +182,9 @@ FocusScope {
              *
              * See the browser's webbrowser/Browser.qml source for additional comments.
              */
-            onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+            //onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
         }
+
 
         onOpenUrlExternallyRequested: {
             if (popupWindowController) {
@@ -215,8 +216,7 @@ FocusScope {
             request.action = Oxide.NavigationRequest.ActionAccept
             if (isNewForegroundWebViewDisposition(request.disposition)) {
                 var shouldAcceptRequest =
-                        popupWindowController.handleNewForegroundNavigationRequest(
-                              url, request, false);
+                        popupWindowController.handleNewForegroundNavigationRequest(url, request, false);
                 if (!shouldAcceptRequest) {
                     request.action = Oxide.NavigationRequest.ActionReject
                 }
