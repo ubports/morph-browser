@@ -119,13 +119,8 @@ WebappWebview {
     //preferences.appCacheEnabled: true
 
     onNewViewRequested: {
-
-      if (! request.userInitiated)
-      {
-         return;
-      }
       
-      if(shouldAllowNavigationTo(request.requestedUrl.toString()))
+      if(request.userInitiated && shouldAllowNavigationTo(request.requestedUrl.toString()))
       {
         popupController.createPopupViewForUrl(overlayViewsParent,request.requestedUrl,true,context)
       }
