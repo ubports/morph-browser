@@ -200,25 +200,29 @@ FocusScope {
         }
 
         onNewViewRequested: {
+
+            if (!request.userInitiated) {
+                return
+            }
+      
             if (popupWindowController) {
-                popupWindowController.createPopupViewForRequest(
-                            popup.parent, request, false, context)
+                popupWindowController.createPopupViewForUrl(popup.parent, request.requestedUrl.toString(), false, context)
             }
         }
 
         function isNewForegroundWebViewDisposition(disposition) {
-            return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
-                    disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
+            return disposition === WebEngineView.NewViewInDialog ||
+                    disposition === WebEngineView.NewViewInTab;
         }
 
         onNavigationRequested: {
             var url = request.url.toString()
-            request.action = Oxide.NavigationRequest.ActionAccept
+            request.action = WebEngineNavigationRequest.AcceptRequest
             if (isNewForegroundWebViewDisposition(request.disposition)) {
                 var shouldAcceptRequest =
                         popupWindowController.handleNewForegroundNavigationRequest(url, request, false);
                 if (!shouldAcceptRequest) {
-                    request.action = Oxide.NavigationRequest.ActionReject
+                    request.action = WebEngineNavigationRequest.IgnoreRequest
                 }
             }
         }
