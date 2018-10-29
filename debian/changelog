@@ -1,3 +1,9 @@
+morph-browser (0.25+ubports0) xenial; urgency=medium
+
+  * Test change, please ignore.
+
+ -- Dalton Durst <dalton@ubports.com>  Mon, 29 Oct 2018 13:25:07 -0500
+
 morph-browser (0.24+ubports) xenial; urgency=medium
 
   * Imported to UBports
