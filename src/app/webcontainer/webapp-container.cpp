@@ -91,7 +91,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_openExternalUrlInOverlay(false),
     m_webappContainerHelper(new WebappContainerHelper()),
     m_fullscreen(false),
-    m_maximized(false)
+    m_maximized(false),
+    m_localContentCanAccessRemoteUrls(false)
 {
 }
 
@@ -236,6 +237,7 @@ bool WebappContainer::initialize()
 
         QQmlProperty::write(m_object, QStringLiteral("forceFullscreen"), m_fullscreen);
         QQmlProperty::write(m_object, QStringLiteral("startMaximized"), m_maximized);
+        QQmlProperty::write(m_object, QStringLiteral("localContentCanAccessRemoteUrls"), m_localContentCanAccessRemoteUrls);
 
         m_component->completeCreate();
 
@@ -312,7 +314,10 @@ void WebappContainer::printUsage() const
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
+       " [--enable-media-hub-audio]"
        " [--user-agent-string=USER_AGENT]"
+       " [--open-external-url-in-overlay]"
+       " [--local-content-can-access-remote-urls]"
        " [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
@@ -333,6 +338,7 @@ void WebappContainer::printUsage() const
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "  --open-external-url-in-overlay      if url patterns are defined, all external urls are opened in overlay instead of browser" << endl;
+    out << "  --local-content-can-access-remote-urls  allows locally loaded documents to access remote URLs" << endl;
 
     // The options should be kept in sync with:
     // http://bazaar.launchpad.net/~oxide-developers/oxide/oxide.trunk/view/head:/qt/quick/api/oxideqquickglobal.cc#L43
@@ -405,6 +411,8 @@ void WebappContainer::parseCommandLine()
             m_fullscreen = true;
         } else if (argument == QStringLiteral("--maximized")) {
             m_maximized = true;
+        } else if (argument == QStringLiteral("--local-content-can-access-remote-urls")) {
+            m_localContentCanAccessRemoteUrls = true;
         }
     }
 }
