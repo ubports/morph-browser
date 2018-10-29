@@ -21,7 +21,7 @@ import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import QtWebEngine 1.5
+import QtWebEngine 1.7
 import Morph.Web 0.1
 import ".."
 
@@ -118,7 +118,18 @@ WebappWebview {
     //preferences.localStorageEnabled: true
     //preferences.appCacheEnabled: true
 
-    onNewViewRequested: popupController.createPopupViewForRequest(overlayViewsParent, request, true, context)
+    onNewViewRequested: {
+      
+      if(request.userInitiated && shouldAllowNavigationTo(request.requestedUrl.toString()))
+      {
+        popupController.createPopupViewForUrl(overlayViewsParent,request.requestedUrl,true,context)
+      }
+      else
+      {
+        openUrlExternally(request.requestedUrl, request.userInitiated)
+      }
+    }
+    onNavigationRequested: navigationRequestedDelegate(request)
 /*
     Connections {
         target: webview.visible ? webview : null
@@ -212,19 +223,18 @@ WebappWebview {
     function navigationRequestedDelegate(request) {
         var url = request.url.toString()
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
-            //request.action = Oxide.NavigationRequest.ActionReject
+            request.action = WebEngineNavigationRequest.IgnoreRequest
             openUrlExternally(url, true)
             return
         }
 
-        //request.action = Oxide.NavigationRequest.ActionReject
+        request.action = WebEngineNavigationRequest.IgnoreRequest
         if (isNewForegroundWebViewDisposition(request.disposition)) {
             var shouldAcceptRequest =
-                    popupController.handleNewForegroundNavigationRequest(
-                          url, request, true);
-          //  if (shouldAcceptRequest) {
-                //request.action = Oxide.NavigationRequest.ActionAccept
-          //  }
+                    popupController.handleNewForegroundNavigationRequest(url, request, true);
+            if (shouldAcceptRequest) {
+                request.action = WebEngineNavigationRequest.AcceptRequest
+            }
             return
         }
 
@@ -232,12 +242,12 @@ WebappWebview {
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
         if ( ! webview.haveValidUrlPatterns() && ! webview.isRunningAsANamedWebapp()) {
-            //request.action = Oxide.NavigationRequest.ActionAccept
+            request.action = WebEngineNavigationRequest.AcceptRequest
             return
         }
 
-        //if (webview.shouldAllowNavigationTo(url))
-          //  request.action = Oxide.NavigationRequest.ActionAccept
+        if (webview.shouldAllowNavigationTo(url))
+            request.action = WebEngineNavigationRequest.AcceptRequest
 
         // SAML requests are used for instance by Google Apps for your domain;
         // they are implemented as a HTTP redirect to a URL containing the
@@ -247,13 +257,14 @@ WebappWebview {
       //  if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab
       //          && url.indexOf("SAMLRequest") > 0) {
       //      handleSamlRequestNavigation(url)
-            //request.action = Oxide.NavigationRequest.ActionAccept
+            //request.action = WebEngineNavigationRequest.AcceptRequest
+
       //  }
 
-      //  if (request.action === Oxide.NavigationRequest.ActionReject) {
-      //      console.debug('Opening: ' + url + ' in the browser window.')
-      //      openUrlExternally(url, true)
-      //  }
+      if (request.action === WebEngineNavigationRequest.IgnoreRequest) {
+            console.debug('Opening: %1 in the browser window.'.arg(url))
+            openUrlExternally(url, true)
+      }
     }
 
     // Small shim needed when running as a webapp to wire-up connections

@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtWebEngine 1.7
 import ".."
 
 FocusScope {
@@ -34,6 +35,7 @@ FocusScope {
     property alias requestedUrl: addressbar.requestedUrl
     property alias canSimplifyText: addressbar.canSimplifyText
     property alias findInPageMode: addressbar.findInPageMode
+    property alias findController: addressbar.findController
     property alias editing: addressbar.editing
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
@@ -44,6 +46,33 @@ FocusScope {
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
     onIncognitoChanged: findInPageMode = false
+
+    onTextChanged: {
+        if (findInPageMode)
+        {
+            findController.next()
+        }
+    }
+
+    QtObject {
+        id: findController
+
+        property bool foundMatch
+
+        function next() {
+            if (internal.webview)
+            {
+                internal.webview.findText(addressbar.text, 0, function(success) {foundMatch = success})
+            }
+        }
+
+        function previous() {
+            if (internal.webview)
+            {
+                internal.webview.findText(addressbar.text, WebEngineView.FindBackward, function(success) {foundMatch = success})
+            }
+        }
+    }
 
     function selectAll() {
         addressbar.selectAll()
@@ -107,7 +136,7 @@ FocusScope {
             focus: true
 
             findInPageMode: findInPageMode
-            findController: internal.webview ? internal.webview.findController : null
+            findController: findController
             certificateErrorsMap: internal.webview ? internal.webview.certificateErrorsMap : ({})
 
             anchors {
@@ -164,9 +193,8 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: false //internal.webview && internal.webview.findController &&
-                         //internal.webview.findController.count > 1
-                onTriggered: internal.webview.findController.previous()
+                enabled: findController.foundMatch
+                onTriggered: findController.previous()
             }
 
             ChromeButton {
@@ -182,9 +210,8 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: false //internal.webview && internal.webview.findController &&
-                         //internal.webview.findController.count > 1
-                onTriggered: internal.webview.findController.next()
+                enabled: findController.foundMatch
+                onTriggered: findController.next()
             }
 
             ChromeButton {

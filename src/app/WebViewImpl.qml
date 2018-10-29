@@ -41,6 +41,9 @@ WebView {
     // remember certificate errors for each domain (for click on symbol in address bar)
     readonly property var certificateErrorsMap: ({})
 
+    // better way to detect that, or move context menu items only available for the browser to other files ?
+    readonly property bool isWebApp: (typeof browserTab === 'undefined')
+
     Component.onCompleted: {
         console.log(__ua.defaultUA);
         profile.httpUserAgent = __ua.defaultUA;
@@ -203,12 +206,6 @@ WebView {
           certificateVerificationDialog.reject.connect(certificateError.rejectCertificate)
       }
 
-
-     onNewViewRequested: function(request) {
-
-         browser.openLinkInNewTabRequested(request.requestedUrl, false);
-    }
-
     function showMessage(text) {
 
          var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"));
@@ -242,26 +239,28 @@ WebView {
                     quickMenu.selectedTextLength = contextMenuRequest.selectedText.length
                     quickMenu.textSelectionLevels = []
                     quickMenu.textSelectionIsAtRootLevel = false
+                    quickMenu.visible = true;
+                }
 
-                    var commandGetContextMenuInfo = "
-                    var morphElemContextMenu = document.elementFromPoint(%1, %2);
-                    var morphContextMenuIsDocumentElement = false;
-                    if (morphElemContextMenu === null)
-                    {
-                        morphElemContextMenu = document.documentElement;
-                        morphContextMenuIsDocumentElement = true;
-                    }
-                    var morphContextMenuElementHasSelectMethod = (typeof morphElemContextMenu.select === 'function') ? true : false;
-                    // result array
-                    // [0]..[3] : bounds of the selected element
-                    // [4] : boolean variable morphContextMenuIsDocumentElement
-                    // [5] : boolean variable morphContextMenuElementHasSelectMethod
-                    //    true: context menu for the whole HTML document
-                    //    false: context menu for a specific element (e.g. input, span, ...)
-                    [morphElemContextMenu.offsetLeft, morphElemContextMenu.offsetTop, morphElemContextMenu.offsetWidth, morphElemContextMenu.offsetHeight, morphContextMenuIsDocumentElement, morphContextMenuElementHasSelectMethod];
-                    ".arg(request.x).arg(request.y)
+                var commandGetContextMenuInfo = "
+                var morphElemContextMenu = document.elementFromPoint(%1, %2);
+                var morphContextMenuIsDocumentElement = false;
+                if (morphElemContextMenu === null)
+                {
+                    morphElemContextMenu = document.documentElement;
+                    morphContextMenuIsDocumentElement = true;
+                }
+                var morphContextMenuElementHasSelectMethod = (typeof morphElemContextMenu.select === 'function') ? true : false;
+                // result array
+                // [0]..[3] : bounds of the selected element
+                // [4] : boolean variable morphContextMenuIsDocumentElement
+                // [5] : boolean variable morphContextMenuElementHasSelectMethod
+                //    true: context menu for the whole HTML document
+                //    false: context menu for a specific element (e.g. input, span, ...)
+                [morphElemContextMenu.offsetLeft, morphElemContextMenu.offsetTop, morphElemContextMenu.offsetWidth, morphElemContextMenu.offsetHeight, morphContextMenuIsDocumentElement, morphContextMenuElementHasSelectMethod];
+                ".arg(request.x).arg(request.y)
 
-                    webview.runJavaScript(commandGetContextMenuInfo, function(result)
+                webview.runJavaScript(commandGetContextMenuInfo, function(result)
                                                             {
                                                                console.log("commandGetContextMenuInfo returned array " + JSON.stringify(result))
                                                                quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3])
@@ -269,8 +268,6 @@ WebView {
                                                                domElementOfContextMenu.hasSelectMethod = result[5]
                                                             }
                                          );
-                    quickMenu.visible = true;
-                }
    }
 
     ActionList {
@@ -278,24 +275,26 @@ WebView {
         id: contextualactions
         Actions.OpenLinkInNewTab {
             objectName: "OpenLinkInNewTabContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
             //onTriggered: browser.internal.openUrlInNewTab(contextMenuRequest.linkUrl, true, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, false);
         }
         Actions.OpenLinkInNewBackgroundTab {
             objectName: "OpenLinkInNewBackgroundTabContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
             //onTriggered: internal.openUrlInNewTab(contextMenuRequest.linkUrl, false, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, true);
         }
         Actions.OpenLinkInNewWindow {
             objectName: "OpenLinkInNewWindowContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, false)
+            onTriggered: isWebApp ?
+                    webview.runJavaScript("window.open('%1')".arg(contextMenuRequest.linkUrl)) :
+                    browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, false)
         }
         Actions.OpenLinkInPrivateWindow {
             objectName: "OpenLinkInPrivateWindowContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, true)
         }
         Actions.BookmarkLink {
@@ -310,18 +309,18 @@ WebView {
         }
         Actions.SaveLink {
             objectName: "SaveLinkContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: webview.triggerWebAction(WebEngineView.DownloadLinkToDisk)
         }
         Actions.Share {
             objectName: "ShareContextualAction"
-            enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
+            enabled: !isWebApp && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready &&
                      contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: browser.shareLinkRequested(contextMenuRequest.linkUrl.toString(), contextMenuRequest.linkText);
         }
         Actions.OpenImageInNewTab {
             objectName: "OpenImageInNewTabContextualAction"
-            enabled:   contextMenuRequest &&
+            enabled: !isWebApp && contextMenuRequest &&
                        (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) &&
                        contextMenuRequest.mediaUrl.toString()
             //onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
@@ -337,7 +336,7 @@ WebView {
         }
         Actions.SaveImage {
             objectName: "SaveImageContextualAction"
-            enabled: contextMenuRequest &&
+            enabled: !isWebApp && contextMenuRequest &&
                      ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas)) // && contextModel.hasImageContents
 
@@ -345,7 +344,7 @@ WebView {
         }
         Actions.OpenVideoInNewTab {
             objectName: "OpenVideoInNewTabContextualAction"
-            enabled: contextMenuRequest &&
+            enabled: !isWebApp && contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
                      contextMenuRequest.mediaUrl.toString()
             //onTriggered: internal.openUrlInNewTab(contextMenuRequest.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
@@ -353,15 +352,15 @@ WebView {
         }
         Actions.SaveVideo {
             objectName: "SaveVideoContextualAction"
-            enabled: contextMenuRequest &&
+            enabled: !isWebApp && contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
                      contextMenuRequest.mediaUrl.toString()
             onTriggered: webview.triggerWebAction(WebEngineView.DownloadMediaToDisk)
         }
         Actions.Copy {
             objectName: "CopyContextualAction"
-            enabled: contextMenuRequest && ( (quickMenu.selectedTextLength > 0) || (contextMenuRequest.editFlags && ContextMenuRequest.CanCopy))
-            onTriggered: webview.triggerWebAction(WebEngineView.Copy)
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            onTriggered: webview.runJavaScript("morphElemContextMenu.innerText", function(result) {Clipboard.push(["text/plain", result])})
         }
     }
 
@@ -540,13 +539,16 @@ WebView {
                     enabled: contextMenuRequest && (contextMenuRequest.editFlags & ContextMenuRequest.CanSelectAll)
                     visible: enabled
                     onTriggered: {
-                        // in some cases this command creates a new contextMenuRequest, in others not
-                        // for the second case, set the document mode here as well
+                        // prevent creation of new context menu request
                         if (! domElementOfContextMenu.hasSelectMethod)
                         {
+                            webview.runJavaScript("window.getSelection().removeAllRanges()", function(){webview.triggerWebAction(WebEngineView.SelectAll)})
                             domElementOfContextMenu.isDocumentElement = true
                         }
-                        webview.triggerWebAction(WebEngineView.SelectAll);
+                        else
+                        {
+                            webview.triggerWebAction(WebEngineView.SelectAll)
+                        }
                     }
                 }
                 Action {
@@ -586,12 +588,9 @@ WebView {
                     name: "share"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Share")
                     iconName: "share"
-                    enabled: ( browserTab && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready) &&
-                              contextMenuRequest && contextMenuRequest.selectedText
+                    enabled: !isWebApp && browserTab.contentHandlerLoader && browserTab.contentHandlerLoader.status === Loader.Ready && contextMenuRequest && quickMenu.selectedTextLength > 0
                     visible: enabled
-                    onTriggered: {
-                            browser.shareTextRequested(contextMenuRequest.selectedText)
-                    }
+                    onTriggered: webview.runJavaScript("window.getSelection().toString()", function(result) { browser.shareTextRequested(result) })
                 }
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
