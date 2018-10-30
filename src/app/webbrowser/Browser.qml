@@ -1468,14 +1468,14 @@ BrowserView {
     Shortcut {
         sequence: StandardKey.FindNext
         enabled: currentWebview && chrome.findInPageMode
-        onActivated: chrome.findController.next()
+        onActivated: currentWebview.findController.next()
     }
 
     // Ctrl+Shift+G: Find previous
     Shortcut {
         sequence: StandardKey.FindPrevious
         enabled: currentWebview && chrome.findInPageMode
-        onActivated: chrome.findController.previous()
+        onActivated: currentWebview.findController.previous()
     }
 
     // Ctrl+Plus: zoom in

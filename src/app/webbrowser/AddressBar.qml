@@ -64,6 +64,12 @@ FocusScope {
         textField.selectAll()
     }
 
+    Binding {
+        target: findController
+        property: "searchText"
+        value: findInPageMode ? textField.text : ""
+    }
+
     TextField {
         id: textField
         objectName: "addressBarTextField"
@@ -252,9 +258,9 @@ FocusScope {
             if (!findInPageMode) {
                 accepted()
             } else if (event.modifiers & Qt.ShiftModifier) {
-                findController.previous()
+                addressbar.findController.previous()
             } else {
-                findController.next()
+                addressbar.findController.next()
             }
         }
     }

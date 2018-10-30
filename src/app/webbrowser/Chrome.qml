@@ -36,7 +36,6 @@ ChromeBase {
     property alias requestedUrl: navigationBar.requestedUrl
     property alias canSimplifyText: navigationBar.canSimplifyText
     property alias findInPageMode: navigationBar.findInPageMode
-    property alias findController: navigationBar.findController
     property alias editing: navigationBar.editing
     property alias incognito: navigationBar.incognito
     property alias showTabsBar: tabsBar.active
