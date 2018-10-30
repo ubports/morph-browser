@@ -118,7 +118,17 @@ WebappWebview {
     //preferences.localStorageEnabled: true
     //preferences.appCacheEnabled: true
 
-    onNewViewRequested: openUrlExternally(request.requestedUrl, request.userInitiated)
+    onNewViewRequested: {
+      
+      if(request.userInitiated && shouldAllowNavigationTo(request.requestedUrl.toString()))
+      {
+        popupController.createPopupViewForUrl(overlayViewsParent,request.requestedUrl,true,context)
+      }
+      else
+      {
+        openUrlExternally(request.requestedUrl, request.userInitiated)
+      }
+    }
     onNavigationRequested: navigationRequestedDelegate(request)
 /*
     Connections {
