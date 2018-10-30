@@ -44,6 +44,8 @@ WebView {
     // better way to detect that, or move context menu items only available for the browser to other files ?
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
 
+    readonly property alias findController: findController
+
     Component.onCompleted: {
         console.log(__ua.defaultUA);
         profile.httpUserAgent = __ua.defaultUA;
@@ -66,6 +68,25 @@ WebView {
         readonly property var downloadMimeTypesBlacklist: [
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
+    }
+
+      QtObject {
+        id: findController
+
+        property bool foundMatch: false
+        property string searchText: ""
+
+        function next() {
+                webview.findText(searchText, 0, function(success) {foundMatch = success})
+        }
+
+        function previous() {
+                webview.findText(searchText, WebEngineView.FindBackward, function(success) {foundMatch = success})
+        }
+
+        onSearchTextChanged: {
+                findController.next()
+        }
     }
 
     onJavaScriptDialogRequested: function(request) {
