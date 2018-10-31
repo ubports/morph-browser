@@ -246,8 +246,18 @@ WebappWebview {
             return
         }
 
-        if (webview.shouldAllowNavigationTo(url))
+        // for now (as the old behavior) allow resources to be loaded
+        // ToDo: maybe we should only allow resources defined in the URL patterns here
+        if (! request.isMainFrame)
+        {
+            console.debug('accepted resource request to %1.'.arg(url))
             request.action = WebEngineNavigationRequest.AcceptRequest
+        }
+
+        else if (webview.shouldAllowNavigationTo(url))
+        {
+            request.action = WebEngineNavigationRequest.AcceptRequest
+        }
 
         // SAML requests are used for instance by Google Apps for your domain;
         // they are implemented as a HTTP redirect to a URL containing the
@@ -262,8 +272,16 @@ WebappWebview {
       //  }
 
       if (request.action === WebEngineNavigationRequest.IgnoreRequest) {
-            console.debug('Opening: %1 in the browser window.'.arg(url))
-            openUrlExternally(url, true)
+
+            if (request.isMainFrame)
+            {
+                console.debug('Opening: %1 in the browser window.'.arg(url))
+                openUrlExternally(url, true)
+            }
+            else
+            {
+                console.debug('ignored request of current page to %1.'.arg(url))
+            }
       }
     }
 
