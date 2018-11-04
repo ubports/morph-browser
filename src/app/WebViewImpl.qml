@@ -45,6 +45,7 @@ WebView {
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
 
     readonly property alias findController: findController
+    readonly property alias zoomController: zoomController
 
     Component.onCompleted: {
         console.log(__ua.defaultUA);
@@ -88,6 +89,23 @@ WebView {
                 findController.next()
         }
     }
+
+      QtObject {
+        id: zoomController
+
+        readonly property real minZoomFactor: 0.25
+        readonly property real maxZoomFactor: 5.0
+        property bool viewSpecificZoom: false
+
+        function zoomIn() {
+            viewSpecificZoom = true
+            webview.zoomFactor = Math.min(maxZoomFactor, webview.zoomFactor + ((Math.round(webview.zoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+        }
+        function zoomOut() {
+            viewSpecificZoom = true
+            webview.zoomFactor = Math.max(minZoomFactor, webview.zoomFactor - ((Math.round(webview.zoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+        }
+     }
 
     onJavaScriptDialogRequested: function(request) {
 
@@ -275,16 +293,16 @@ WebView {
                 // result array
                 // [0]..[3] : bounds of the selected element
                 // [4] : boolean variable morphContextMenuIsDocumentElement
-                // [5] : boolean variable morphContextMenuElementHasSelectMethod
                 //    true: context menu for the whole HTML document
                 //    false: context menu for a specific element (e.g. input, span, ...)
+                // [5] : boolean variable morphContextMenuElementHasSelectMethod
                 [morphElemContextMenu.offsetLeft, morphElemContextMenu.offsetTop, morphElemContextMenu.offsetWidth, morphElemContextMenu.offsetHeight, morphContextMenuIsDocumentElement, morphContextMenuElementHasSelectMethod];
-                ".arg(request.x).arg(request.y)
+                ".arg(request.x / webview.zoomFactor).arg(request.y / webview.zoomFactor)
 
                 webview.runJavaScript(commandGetContextMenuInfo, function(result)
                                                             {
                                                                console.log("commandGetContextMenuInfo returned array " + JSON.stringify(result))
-                                                               quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3])
+                                                               quickMenu.bounds = Qt.rect(result[0] * webview.zoomFactor, result[1] * webview.zoomFactor, result[2] * webview.zoomFactor, result[3] * webview.zoomFactor)
                                                                domElementOfContextMenu.isDocumentElement = result[4]
                                                                domElementOfContextMenu.hasSelectMethod = result[5]
                                                             }
@@ -297,21 +315,17 @@ WebView {
         Actions.OpenLinkInNewTab {
             objectName: "OpenLinkInNewTabContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            //onTriggered: browser.internal.openUrlInNewTab(contextMenuRequest.linkUrl, true, true, tabsModel.indexOf(browserTab) + 1)
-            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, false);
+            onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewTab)
         }
         Actions.OpenLinkInNewBackgroundTab {
             objectName: "OpenLinkInNewBackgroundTabContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            //onTriggered: internal.openUrlInNewTab(contextMenuRequest.linkUrl, false, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, true);
         }
         Actions.OpenLinkInNewWindow {
             objectName: "OpenLinkInNewWindowContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: isWebApp ?
-                    webview.runJavaScript("window.open('%1')".arg(contextMenuRequest.linkUrl)) :
-                    browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, false)
+            onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewWindow)
         }
         Actions.OpenLinkInPrivateWindow {
             objectName: "OpenLinkInPrivateWindowContextualAction"
@@ -383,6 +397,12 @@ WebView {
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: webview.runJavaScript("morphElemContextMenu.innerText", function(result) {Clipboard.push(["text/plain", result])})
         }
+    }
+
+    function showPageMenu() {
+
+        quickMenu.visible = false
+        pageMenu.visible = true
     }
 
     UbuntuShape {
@@ -565,6 +585,7 @@ WebView {
                         {
                             webview.runJavaScript("window.getSelection().removeAllRanges()", function(){webview.triggerWebAction(WebEngineView.SelectAll)})
                             domElementOfContextMenu.isDocumentElement = true
+                            quickMenu.selectedTextLength = Math.max(1, quickMenu.selectedTextLength)
                         }
                         else
                         {
@@ -613,6 +634,15 @@ WebView {
                     visible: enabled
                     onTriggered: webview.runJavaScript("window.getSelection().toString()", function(result) { browser.shareTextRequested(result) })
                 }
+                Action {
+                       objectName: "pagesettings"
+                       text: i18n.tr("Page Menu")
+                       iconName: "hud"
+                       enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
+                       visible: enabled
+                       onTriggered: webview.showPageMenu()
+                }
+
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
                 Action {
@@ -653,6 +683,118 @@ WebView {
                         activeFocusOnPress: false
                     }
                 }
+            }
+        }
+
+    UbuntuShape {
+            z:3
+            id: pageMenu
+            objectName: "pageActions"
+            visible: false
+            aspect: UbuntuShape.DropShadow
+            backgroundColor: "white"
+            readonly property int padding: units.gu(1)
+            width: pageActionsRow.width + padding * 2
+            height: childrenRect.height + padding * 2
+
+            readonly property real spacing: units.gu(0.5)
+            anchors.right: parent.right
+            anchors.top: parent.top
+            //x: 0
+            //y: 0
+
+            ActionList {
+                id: pageActions
+
+                Action {
+                    name: "zoomOut"
+                    text: "Zoom Out"
+                    iconName: "zoom-out"
+                    enabled: Math.abs(webview.zoomFactor - zoomController.minZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomOut()
+                }
+                Action {
+                    name: "zoomIn"
+                    text: "Zoom In"
+                    iconName: "zoom-in"
+                    enabled: Math.abs(webview.zoomFactor - zoomController.maxZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomIn()
+                }
+                Action {
+                    name: "viewsource"
+                    text: "View Source"
+                    iconName: "preview-file"
+                    visible: ! isWebApp && (webview.url.toString().substring(0,12) !== "view-source:")
+                    // this needs an adaption of how we create new tabs (currently only the url, but not the request is taken as parameter)
+                    // the 'requestedUrl' property for the request is empty, so we would have to use the method openIn(WebEngineView view) for the request
+                    //onTriggered: webview.triggerWebAction(WebEngineView.ViewSource)
+                    onTriggered: {
+
+                        browser.openLinkInNewTabRequested("view-source:%1".arg(webview.url), false);
+                        pageMenu.visible = false
+                    }
+                }
+                Action {
+                    name: "savepage"
+                    text: "Save"
+                    iconName: "save"
+                    visible: ! isWebApp
+                    onTriggered: {
+
+                        webview.triggerWebAction(WebEngineView.SavePage)
+                        pageMenu.visible = false
+                    }
+                }
+                Action {
+                    name: "print"
+                    text: "Pdf"
+                    iconName: "document-export"
+                    visible: ! isWebApp
+                    onTriggered: {
+                        // ToDo: add page size and orientation / printer dialog
+                        // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
+                        // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
+                        webview.printToPdf("/tmp/%1.pdf".arg(webview.title.replace(/["/:*?\\<>|~]/g,'_')))
+                        pageMenu.visible = false
+                    }
+                }
+                Action {
+                    name: "cancel"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Cancel")
+                    iconName: "cancel"
+                    enabled: true
+                    onTriggered: pageMenu.visible = false
+                }
+
+            }
+
+            Row {
+                id: pageActionsRow
+                x: parent.padding
+                y: parent.padding
+                height: units.gu(6)
+
+                Repeater {
+                    model: pageActions.children
+                    AbstractButton {
+                        objectName: "pageAction_" + action.name
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                        action: modelData
+                        styleName: "ToolbarButtonStyle"
+                        activeFocusOnPress: false
+                    }
+                }
+            }
+            Text {
+                anchors.top: pageActionsRow.bottom
+                anchors.right: pageActionsRow.right
+                text: Math.round(webview.zoomFactor * 100) + "%"
+                width: pageActionsRow.width
+                horizontalAlignment: Text.AlignHCenter
             }
         }
 
