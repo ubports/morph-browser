@@ -72,7 +72,22 @@ Component {
             enabled: current && !bottomEdgeHandle.dragging && !recentView.visible && parent.focus
 
             onNewViewRequested: function(request) {
-                     browser.openLinkInNewTabRequested(request.requestedUrl, false);
+
+                    switch (request.destination) {
+
+                    case WebEngineView.NewViewInTab:
+                        browser.openLinkInNewTabRequested(request.requestedUrl, false);
+                        break;
+
+                   case WebEngineView.NewViewInBackgroundTab:
+                       browser.openLinkInNewTabRequested(request.requestedUrl, true)
+
+                   case WebEngineView.NewViewInWindow:
+                   case WebEngineView.NewViewInDialog:
+                       browser.openLinkInWindowRequested(request.requestedUrl, false)
+
+                    }
+
             }
 
             /*
