@@ -36,6 +36,7 @@ ModalDialog {
         objectName: "inputTextField"
         text: defaultValue
         onAccepted: accept(input.text)
+        focus: true
     }
 
     Button {
