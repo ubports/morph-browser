@@ -129,6 +129,37 @@ FocusScope {
                 }
 
                 ListItem {
+                    objectName: "defaultZoomFactor"
+
+                    ListItemLayout {
+                        title.text: i18n.tr("Default Zoom")
+                        subtitle.text: Math.round(defaultZoomFactorSlider.value * 100) + "%"
+
+                        Slider {
+                            anchors.right: settingsCol.right
+                            width: settingsCol.width * 0.5
+                            id: defaultZoomFactorSlider
+                            minimumValue: 0.25
+                            maximumValue: 5.0
+                            function formatValue(v) { return Math.round(v * 100 / 5) * 5 + "%" }
+                            value: settingsObject.zoomFactor
+                            onValueChanged: {
+                                // round for 5% steps (e.g. 95%, 100%)
+                                var percentValue = Math.round(value * 100 / 5) * 5
+                                settingsObject.zoomFactor = percentValue / 100
+                            }
+                            SlotsLayout.position: SlotsLayout.Trailing
+                        }
+                   }
+
+                    Binding {
+                        target: defaultZoomFactorSlider
+                        property: "value"
+                        value: settingsObject.zoomFactor
+                    }
+                }
+
+                ListItem {
                     objectName: "privacy"
 
                     ListItemLayout {
