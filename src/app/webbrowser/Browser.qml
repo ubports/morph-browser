@@ -80,6 +80,13 @@ BrowserView {
     property BrowserWindow thisWindow
     property Component windowFactory
 
+    onCurrentWebviewChanged: {
+       if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
+       {
+           currentWebview.zoomFactor = settings.zoomFactor
+       }
+    }
+
     function serializeTabState(tab) {
         var state = {}
         state.uniqueId = tab.uniqueId
@@ -167,6 +174,19 @@ BrowserView {
            creating one of these new dialogs.
         */
         //onMediaAccessPermissionRequested: PopupUtils.open(Qt.resolvedUrl("../MediaAccessDialog.qml"), null, { request: request })
+
+        // this opens the file as download
+        onPdfPrintingFinished: {
+
+            if (success)
+            {
+             internal.openUrlInNewTab("file://%1".arg(filePath.replace(/\W/g, encodeURIComponent)), false)
+            }
+            else
+            {
+              console.debug("creating pdf %1 failed".arg(filePath))
+            }
+        }
     }
 
     currentWebcontext: SharedWebContext.sharedContext
@@ -654,7 +674,15 @@ BrowserView {
                 text: i18n.tr("Settings")
                 iconName: "settings"
                 onTriggered: settingsViewLoader.active = true
+            },
+            Action {
+                objectName: "view"
+                text: i18n.tr("Page Menu")
+                iconName: "hud"
+                enabled: currentWebview
+                onTriggered: currentWebview.showPageMenu()
             }
+
         ]
 
         canSimplifyText: !browser.wide
@@ -1059,16 +1087,7 @@ BrowserView {
         readonly property bool hasTouchScreen: touchScreenModel.count > 0
 
         // Ref: https://code.google.com/p/chromium/codesearch#chromium/src/components/ui/zoom/page_zoom_constants.cc
-        readonly property var zoomFactors: [0.25, 0.333, 0.5, 0.666, 0.75, 0.9, 1.0,
-                                            1.1, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0, 5.0]
-        function changeZoomFactor(offset) {
-            for (var i = 0; i < zoomFactors.length; ++i) {
-                if (Math.abs(zoomFactors[i] - currentWebview.zoomFactor) <= 0.001) {
-                    currentWebview.zoomFactor = zoomFactors[i + offset]
-                    return
-                }
-            }
-        }
+        //readonly property var zoomFactors: [0.25, 0.333, 0.5, 0.666, 0.75, 0.9, 1.0, 1.1, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0, 5.0]
 
         function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
@@ -1481,40 +1500,36 @@ BrowserView {
     // Ctrl+Plus: zoom in
     Shortcut {
         sequence: StandardKey.ZoomIn
-        enabled: currentWebview &&
-                 ((currentWebview.maximumZoomFactor - currentWebview.zoomFactor) > 0.001)
-        onActivated: internal.changeZoomFactor(1)
+        enabled: currentWebview
+        onActivated: currentWebview.zoomController.zoomIn()
     }
     // For improved compatibility with qwerty-based keyboard layouts, where "="
     // and "+" are on the same key (see https://launchpad.net/bugs/1624381):
     Shortcut {
         sequence: "Ctrl+="
-        enabled: currentWebview &&
-                 ((currentWebview.maximumZoomFactor - currentWebview.zoomFactor) > 0.001)
-        onActivated: internal.changeZoomFactor(1)
+        enabled: currentWebview
+        onActivated: currentWebview.zoomController.zoomIn()
     }
 
     // Ctrl+Minus: zoom out
     Shortcut {
         sequence: StandardKey.ZoomOut
-        enabled: currentWebview &&
-                 ((currentWebview.zoomFactor - currentWebview.minimumZoomFactor) > 0.001)
-        onActivated: internal.changeZoomFactor(-1)
+        enabled: currentWebview
+        onActivated: currentWebview.zoomController.zoomOut()
     }
     // For improved compatibility with qwerty-based keyboard layouts, where "-"
     // and "_" are on the same key (see https://launchpad.net/bugs/1624381):
     Shortcut {
         sequence: "Ctrl+_"
-        enabled: currentWebview &&
-                 ((currentWebview.zoomFactor - currentWebview.minimumZoomFactor) > 0.001)
-        onActivated: internal.changeZoomFactor(-1)
+        enabled: currentWebview
+        onActivated: currentWebview.zoomController.zoomOut()
     }
 
-    // Ctrl+0: reset zoom factor to 1.0
+    // Ctrl+0: reset zoom factor to default
     Shortcut {
         sequence: "Ctrl+0"
-        enabled: currentWebview && (currentWebview.zoomFactor !== 1.0)
-        onActivated: currentWebview.zoomFactor = 1.0
+        enabled: currentWebview
+        onActivated: currentWebview.zoomFactor = settings.zoomFactor
     }
 
     Loader {
