@@ -122,8 +122,6 @@ FocusScope {
             initialUrl = webview.url
             initialTitle = webview.title
             initialIcon = webview.icon
-            restoreState = webview.currentState
-            //restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
             gc()
         }

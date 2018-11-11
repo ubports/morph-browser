@@ -60,25 +60,6 @@ BrowserView {
 
     signal chooseAccount()
 
-    signal fullScreenRequested(bool toggleOn)
-    onFullScreenRequested: {
-        if (toggleOn)
-        {
-            chromeLoader.visible = false
-            if (!webapp.chromeless)
-              chromeLoader.height = 0
-            currentWebview.thisWindow.setFullscreen(true)
-        }
-        else
-        {
-            chromeLoader.visible = true
-            if (!webapp.chromeless)
-              chromeLoader.height = units.gu(6)
-            currentWebview.thisWindow.setFullscreen(false)
-        }
-
-    }
-
     // Used for testing. There is a bug that currently prevents non visual Qt objects
     // to be introspectable from AP which makes directly accessing the settings object
     // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
@@ -261,7 +242,7 @@ BrowserView {
                         left: parent.left
                         right: parent.right
                     }
-                    height: units.gu(6)
+                    height: (state === "hidden") ? 0 : units.gu(6)
                     y: webapp.currentWebview ? containerWebView.currentWebview.locationBarController.offset : 0
 
                     onChooseAccount: webapp.chooseAccount()
@@ -275,6 +256,7 @@ BrowserView {
                     visible: webapp.currentWebview && webapp.currentWebview.loading
                              && webapp.currentWebview.loadProgress !== 100
                     value: visible ? webapp.currentWebview.loadProgress : 0
+                    height: visible ? implicitHeight : 0
 
                     anchors {
                         left: parent.left
@@ -293,6 +275,19 @@ BrowserView {
             value: webapp.currentWebview.visible ? chromeLoader.item.height : 0
         }
 */
+
+       Connections {
+            target: webapp.currentWebview
+            enabled: !webapp.chromeless
+
+            onIsFullScreenChanged: {
+                if (webapp.currentWebview.isFullScreen) {
+                    chromeLoader.item.state = "hidden"
+                } else {
+                    chromeLoader.item.state == "shown"
+                }
+            }
+       }
 
         ChromeController {
             webview: webapp.currentWebview

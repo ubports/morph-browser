@@ -130,7 +130,6 @@ BrowserView {
     signal openLinkInNewTabRequested(url url, bool background)
     signal shareLinkRequested(url linkUrl, string title)
     signal shareTextRequested(string text)
-    signal fullScreenRequested(bool toggleOn)
 
     onShareLinkRequested: {
 
@@ -140,21 +139,6 @@ BrowserView {
     onShareTextRequested: {
 
         internal.shareText(text)
-    }
-
-    onFullScreenRequested: {
-
-        if (toggleOn)
-        {
-            chrome.state = "hidden"
-            browser.thisWindow.setFullscreen(true)
-        }
-        else
-        {
-            chrome.state = "shown"
-            browser.thisWindow.setFullscreen(false)
-        }
-
     }
 
     Connections {
@@ -712,7 +696,7 @@ BrowserView {
                     chrome.state = "hidden"
                 }
             }
-            onFullscreenChanged: {
+            onIsFullScreenChanged: {
                 if (browser.currentWebview.isFullScreen) {
                     chrome.state = "hidden"
                 } else {
