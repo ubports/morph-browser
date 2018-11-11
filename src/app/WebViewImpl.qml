@@ -662,7 +662,6 @@ WebView {
     }
 
     onFullScreenRequested: function(request) {
-       browser.fullScreenRequested(request.toggleOn);
        request.accept();
    }
 /*
