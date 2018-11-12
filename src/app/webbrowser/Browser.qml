@@ -1018,6 +1018,10 @@ BrowserView {
                 forceActiveFocus()
             } else {
                 internal.resetFocus()
+                if (currentWebview && ! currentWebview.viewSpecificZoom)
+                {
+                    currentWebview.zoomFactor = settings.zoomFactor
+                }
             }
         }
 
