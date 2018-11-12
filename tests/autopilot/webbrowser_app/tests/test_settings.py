@@ -192,7 +192,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
 
         homepage = settings.get_homepage_entry()
         self.assertThat(homepage.currentHomepage,
-                        Eventually(Equals("https://duckduckgo.com")))
+                        Eventually(Equals("https://start.duckduckgo.com")))
 
         restore_session = settings.get_restore_session_entry()
         checkbox = restore_session.select_single(uitk.CheckBox)
