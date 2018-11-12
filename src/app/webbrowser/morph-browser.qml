@@ -283,7 +283,7 @@ QtObject {
     }
 
     property var settings: Settings {
-        property url homepage: "https://duckduckgo.com"
+        property url homepage: "https://start.duckduckgo.com"
         property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property bool setDesktopMode: false
@@ -292,7 +292,7 @@ QtObject {
         property string defaultVideoDevice: ""
 
         function restoreDefaults() {
-            homepage  = "https://duckduckgo.com"
+            homepage  = "https://start.duckduckgo.com"
             searchEngine = "duckduckgo"
             restoreSession = true
             setDesktopMode = false
