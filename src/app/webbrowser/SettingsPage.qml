@@ -136,8 +136,7 @@ FocusScope {
                         subtitle.text: Math.round(defaultZoomFactorSlider.value * 100) + "%"
 
                         Slider {
-                            anchors.right: settingsCol.right
-                            width: settingsCol.width * 0.5
+                            width: settingsCol.width * 0.45
                             id: defaultZoomFactorSlider
                             minimumValue: 0.25
                             maximumValue: 5.0
@@ -149,6 +148,24 @@ FocusScope {
                                 settingsObject.zoomFactor = percentValue / 100
                             }
                             SlotsLayout.position: SlotsLayout.Trailing
+                        }
+                        Icon {
+                            id: resetZoom
+                            name: "reset"
+
+                            height: units.gu(2)
+                            width: height
+                            opacity: (settingsObject.zoomFactor === 1.0) ? 0.5 : 1
+
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: settingsObject.zoomFactor = 1.0
+                            }
+
+                            anchors {
+                                leftMargin: units.gu(1)
+                                topMargin: units.gu(2)
+                            }
                         }
                    }
 
