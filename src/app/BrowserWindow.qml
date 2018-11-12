@@ -43,8 +43,7 @@ Window {
 
     Connections {
         target: window.currentWebview
-        //TODO: fix me use fullScreenRequested
-        //onFullscreenChanged: window.setFullscreen(window.currentWebview.fullscreen)
+        onIsFullScreenChanged: window.setFullscreen(window.currentWebview.isFullScreen)
     }
 
     function setFullscreen(fullscreen) {
@@ -56,7 +55,6 @@ Window {
                 }
             } else {
                 window.visibility = internal.currentWindowState
-                window.currentWebview.fullscreen = false
             }
         }
     }
