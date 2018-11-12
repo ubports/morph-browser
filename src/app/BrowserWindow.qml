@@ -55,7 +55,6 @@ Window {
                 }
             } else {
                 window.visibility = internal.currentWindowState
-                //window.currentWebview.fullscreen = false
             }
         }
     }
