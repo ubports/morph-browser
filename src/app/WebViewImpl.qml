@@ -695,8 +695,12 @@ WebView {
             readonly property real spacing: units.gu(0.5)
             anchors.right: parent.right
             anchors.top: parent.top
-            //x: 0
-            //y: 0
+
+            MouseArea {
+                // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
+                anchors.fill: pageMenu
+                onClicked: console.log("inactive part of page menu clicked.")
+            }
 
             ActionList {
                 id: pageActions
