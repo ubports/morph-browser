@@ -83,7 +83,7 @@ BrowserView {
     onCurrentWebviewChanged: {
        if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
        {
-           currentWebview.zoomFactor = settings.zoomFactor
+           currentWebview.zoomController.reset()
        }
     }
 
@@ -559,7 +559,7 @@ BrowserView {
         thisWindow: browser.thisWindow
         windowFactory: browser.windowFactory
 
-        availableHeight: tabContainer.height - height - y
+        availableHeight: tabContainer.height - (bottomEdgeHandle.enabled ? bottomEdgeHandle.height : 0)
 
         touchEnabled: internal.hasTouchScreen
 
@@ -660,11 +660,31 @@ BrowserView {
                 onTriggered: settingsViewLoader.active = true
             },
             Action {
-                objectName: "view"
-                text: i18n.tr("Page Menu")
-                iconName: "hud"
+                objectName: "view source"
+                text: i18n.tr("View source")
+                iconName: "preview-file"
+                enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
+                onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
+            },
+            Action {
+                objectName: "save"
+                text: i18n.tr("Save as HTML / PDF")
+                iconName: "document-export"
                 enabled: currentWebview
-                onTriggered: currentWebview.showPageMenu()
+                onTriggered: {
+                    var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"));
+                    savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage) } )
+                    // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
+                    // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
+                    savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("/tmp/%1.pdf".arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_'))) } )
+                }
+            },
+            Action {
+                objectName: "zoom"
+                text: i18n.tr("Zoom")
+                iconName: "zoom-in"
+                enabled: currentWebview
+                onTriggered: currentWebview.showZoomMenu()
             }
 
         ]
@@ -1002,9 +1022,9 @@ BrowserView {
                 forceActiveFocus()
             } else {
                 internal.resetFocus()
-                if (currentWebview && ! currentWebview.viewSpecificZoom)
+                if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
                 {
-                    currentWebview.zoomFactor = settings.zoomFactor
+                    currentWebview.zoomController.reset()
                 }
             }
         }
