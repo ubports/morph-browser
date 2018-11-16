@@ -48,7 +48,10 @@ Popups.Dialog {
         id: usernameInput
         objectName: "username"
         placeholderText: i18n.tr("Username")
-        onAccepted: accept(usernameInput.text, passwordInput.text)
+        onAccepted: {
+            Qt.inputMethod.commit()
+            accept(usernameInput.text, passwordInput.text)
+        }
     }
 
     TextField {
@@ -56,14 +59,20 @@ Popups.Dialog {
         objectName: "password"
         placeholderText: i18n.tr("Password")
         echoMode: TextInput.Password
-        onAccepted: accept(usernameInput.text, passwordInput.text)
+        onAccepted: {
+            Qt.inputMethod.commit()
+            accept(usernameInput.text, passwordInput.text)
+        }
     }
 
     Button {
         objectName: "allow"
         text: i18n.tr("OK")
         color: theme.palette.normal.positive
-        onClicked: accept(usernameInput.text, passwordInput.text)
+        onClicked: {
+            Qt.inputMethod.commit()
+            accept(usernameInput.text, passwordInput.text)
+        }
     }
 
     Button {
