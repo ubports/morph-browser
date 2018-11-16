@@ -88,10 +88,23 @@ WebView {
       QtObject {
         id: zoomController
 
+        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : 1.0
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0
         property bool viewSpecificZoom: false
 
+        function save() {
+            viewSpecificZoom = false
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
+            confirmDialog.title = i18n.tr("Default Zoom")
+            confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
+            confirmDialog.accept.connect(function() {browser.settings.zoomFactor = webview.zoomFactor});
+        }
+
+        function reset() {
+            viewSpecificZoom = false
+            webview.zoomFactor = defaultZoomFactor
+        }
         function zoomIn() {
             viewSpecificZoom = true
             webview.zoomFactor = Math.min(maxZoomFactor, webview.zoomFactor + ((Math.round(webview.zoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
@@ -259,6 +272,8 @@ WebView {
                 contextMenuRequest = request;
                 //console.log("onContextMenuRequested, request: " + JSON.stringify(request))
                 request.accepted = true;
+                quickMenu.visible = false
+                zoomMenu.visible = false
 
                 if (request.linkUrl.toString() || request.mediaType)
                 {
@@ -394,10 +409,10 @@ WebView {
         }
     }
 
-    function showPageMenu() {
+    function showZoomMenu() {
 
         quickMenu.visible = false
-        pageMenu.visible = true
+        zoomMenu.visible = true
     }
 
     UbuntuShape {
@@ -630,14 +645,13 @@ WebView {
                     onTriggered: webview.runJavaScript("window.getSelection().toString()", function(result) { browser.shareTextRequested(result) })
                 }
                 Action {
-                       objectName: "pagesettings"
-                       text: i18n.tr("Page Menu")
-                       iconName: "hud"
+                       objectName: "zoom"
+                       text: i18n.tr("Zoom")
+                       iconName: "zoom-in"
                        enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
                        visible: enabled
-                       onTriggered: webview.showPageMenu()
+                       onTriggered: webview.showZoomMenu()
                 }
-
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
                 Action {
@@ -683,27 +697,27 @@ WebView {
 
     UbuntuShape {
             z:3
-            id: pageMenu
-            objectName: "pageActions"
+            id: zoomMenu
+            objectName: "zoomActions"
             visible: false
             aspect: UbuntuShape.DropShadow
             backgroundColor: "white"
             readonly property int padding: units.gu(1)
-            width: pageActionsRow.width + padding * 2
+            width: zoomActionsRow.width + padding * 2
             height: childrenRect.height + padding * 2
 
             readonly property real spacing: units.gu(0.5)
-            anchors.right: parent.right
-            anchors.top: parent.top
+            x: (webview.width - width) / 2
+            y: (webview.height - height) / 2
 
             MouseArea {
                 // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
-                anchors.fill: pageMenu
-                onClicked: console.log("inactive part of page menu clicked.")
+                anchors.fill: zoomMenu
+                onClicked: console.log("inactive part of zoom menu clicked.")
             }
 
             ActionList {
-                id: pageActions
+                id: zoomActions
 
                 Action {
                     name: "zoomOut"
@@ -720,61 +734,37 @@ WebView {
                     onTriggered: zoomController.zoomIn()
                 }
                 Action {
-                    name: "viewsource"
-                    text: "View Source"
-                    iconName: "preview-file"
-                    visible: ! isWebApp && (webview.url.toString().substring(0,12) !== "view-source:")
-                    // this needs an adaption of how we create new tabs (currently only the url, but not the request is taken as parameter)
-                    // the 'requestedUrl' property for the request is empty, so we would have to use the method openIn(WebEngineView view) for the request
-                    //onTriggered: webview.triggerWebAction(WebEngineView.ViewSource)
-                    onTriggered: {
-
-                        browser.openLinkInNewTabRequested("view-source:%1".arg(webview.url), false);
-                        pageMenu.visible = false
-                    }
+                    name: "zoomOriginal"
+                    text: "Reset"
+                    iconName: "reset"
+                    enabled: Math.abs(webview.zoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    onTriggered: zoomController.reset()
                 }
                 Action {
-                    name: "savepage"
+                    name: "zoomSave"
                     text: "Save"
                     iconName: "save"
                     visible: ! isWebApp
-                    onTriggered: {
-
-                        webview.triggerWebAction(WebEngineView.SavePage)
-                        pageMenu.visible = false
-                    }
-                }
-                Action {
-                    name: "print"
-                    text: "Pdf"
-                    iconName: "document-export"
-                    visible: ! isWebApp
-                    onTriggered: {
-                        // ToDo: add page size and orientation / printer dialog
-                        // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
-                        // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
-                        webview.printToPdf("/tmp/%1.pdf".arg(webview.title.replace(/["/:*?\\<>|~]/g,'_')))
-                        pageMenu.visible = false
-                    }
+                    enabled: Math.abs(webview.zoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    onTriggered: zoomController.save()
                 }
                 Action {
                     name: "cancel"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Cancel")
                     iconName: "cancel"
                     enabled: true
-                    onTriggered: pageMenu.visible = false
+                    onTriggered: zoomMenu.visible = false
                 }
-
             }
 
             Row {
-                id: pageActionsRow
+                id: zoomActionsRow
                 x: parent.padding
                 y: parent.padding
                 height: units.gu(6)
 
                 Repeater {
-                    model: pageActions.children
+                    model: zoomActions.children
                     AbstractButton {
                         objectName: "pageAction_" + action.name
                         anchors {
@@ -789,10 +779,10 @@ WebView {
                 }
             }
             Text {
-                anchors.top: pageActionsRow.bottom
-                anchors.right: pageActionsRow.right
+                anchors.top: zoomActionsRow.bottom
+                anchors.right: zoomActionsRow.right
                 text: Math.round(webview.zoomFactor * 100) + "%"
-                width: pageActionsRow.width
+                width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
             }
         }
