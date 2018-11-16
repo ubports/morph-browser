@@ -20,49 +20,36 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 ModalDialog {
-    objectName: "promptDialog"
-    title: i18n.tr("JavaScript Prompt")
+    objectName: "savePageDialog"
+    title: i18n.tr("Save page as HTML / PDF")
     
-    property string defaultValue
+    signal saveAsHtml()
+    signal saveAsPdf()
+    signal cancel()
     
-    signal accept(string text)
-    signal reject()
-    
-    onAccept: hide()
-    onReject: hide()
-
-    TextField {
-        id: input
-        objectName: "inputTextField"
-        text: defaultValue
-        onAccepted: {
-            Qt.inputMethod.commit()
-            accept(input.text)
-        }
-        focus: true
-    }
+    onSaveAsHtml: hide()
+    onSaveAsPdf: hide()
+    onCancel: hide()
 
     Button {
-        text: i18n.tr("OK")
+        text: i18n.tr("Save as HTML")
         color: theme.palette.normal.positive
-        objectName: "okButton"
-        onClicked: {
-            Qt.inputMethod.commit()
-            accept(input.text)
-        }
+        objectName: "savehtml"
+        onClicked: saveAsHtml()
+    }
+
+    // ToDo: add page size and orientation for the PDF
+
+    Button {
+        text: i18n.tr("Save as PDF")
+        color: theme.palette.normal.positive
+        objectName: "savepdf"
+        onClicked: saveAsPdf()
     }
 
     Button {
         objectName: "cancelButton"
         text: i18n.tr("Cancel")
-        onClicked: reject()
+        onClicked: cancel()
     }
-
-    /*
-    Binding {
-        target: model
-        property: "currentValue"
-        value: input.text
-    }
-    */
 }
