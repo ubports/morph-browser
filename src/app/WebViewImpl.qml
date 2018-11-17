@@ -718,31 +718,30 @@ WebView {
 
             ActionList {
                 id: zoomActions
-
                 Action {
                     name: "zoomOut"
-                    text: "Zoom Out"
+                    text: i18n.tr("Zoom Out")
                     iconName: "zoom-out"
                     enabled: Math.abs(webview.zoomFactor - zoomController.minZoomFactor) > 0.01
                     onTriggered: zoomController.zoomOut()
                 }
                 Action {
-                    name: "zoomIn"
-                    text: "Zoom In"
-                    iconName: "zoom-in"
-                    enabled: Math.abs(webview.zoomFactor - zoomController.maxZoomFactor) > 0.01
-                    onTriggered: zoomController.zoomIn()
-                }
-                Action {
                     name: "zoomOriginal"
-                    text: "Reset"
+                    text: i18n.tr("Reset") + " (%1 %)".arg(zoomController.defaultZoomFactor * 100)
                     iconName: "reset"
                     enabled: Math.abs(webview.zoomFactor - zoomController.defaultZoomFactor) > 0.01
                     onTriggered: zoomController.reset()
                 }
                 Action {
+                    name: "zoomIn"
+                    text: i18n.tr("Zoom In")
+                    iconName: "zoom-in"
+                    enabled: Math.abs(webview.zoomFactor - zoomController.maxZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomIn()
+                }
+                Action {
                     name: "zoomSave"
-                    text: "Save"
+                    text: i18n.tr("Save")
                     iconName: "save"
                     visible: ! isWebApp
                     enabled: Math.abs(webview.zoomFactor - zoomController.defaultZoomFactor) > 0.01
@@ -781,7 +780,7 @@ WebView {
             Text {
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
-                text: Math.round(webview.zoomFactor * 100) + "%"
+                text: i18n.tr("Current Zoom") + ": " + Math.round(webview.zoomFactor * 100) + "%"
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
             }
