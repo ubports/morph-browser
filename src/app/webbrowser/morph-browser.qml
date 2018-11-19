@@ -316,7 +316,7 @@ QtObject {
     }
 
     property var session: SessionStorage {
-        dataFile: /*dataLocation +*/ "/session.json"
+        dataFile: dataLocation + "/session.json"
 
         function save() {
             if (!locked || restoring) {
