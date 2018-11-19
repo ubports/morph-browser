@@ -660,9 +660,9 @@ WebView {
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
                 Action {
-                    name: "cancel"
-                    text: i18n.dtr('ubuntu-ui-toolkit', "Cancel")
-                    iconName: "cancel"
+                    name: "close"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Close")
+                    iconName: "close"
                     enabled: true
                     visible: enabled
                     onTriggered: {
@@ -753,9 +753,9 @@ WebView {
                     onTriggered: zoomController.save()
                 }
                 Action {
-                    name: "cancel"
-                    text: i18n.dtr('ubuntu-ui-toolkit', "Cancel")
-                    iconName: "cancel"
+                    name: "close"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Close")
+                    iconName: "close"
                     enabled: true
                     onTriggered: zoomMenu.visible = false
                 }
