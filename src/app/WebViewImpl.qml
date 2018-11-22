@@ -704,7 +704,7 @@ WebView {
             backgroundColor: "white"
             readonly property int padding: units.gu(1)
             width: zoomActionsRow.width + padding * 2
-            height: childrenRect.height + padding * 2
+            height: zoomActionsRow.height + currentZoomText.height + padding * 2
 
             readonly property real spacing: units.gu(0.5)
             x: (webview.width - width) / 2
@@ -778,6 +778,7 @@ WebView {
                 }
             }
             Text {
+                id: currentZoomText
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
                 text: i18n.tr("Current Zoom") + ": " + Math.round(webview.zoomFactor * 100) + "%"
