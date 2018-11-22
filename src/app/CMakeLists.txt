@@ -20,6 +20,7 @@ set(COMMONLIB webbrowser-common)
 set(COMMONLIB_SRC
     browserapplication.cpp
     favicon-fetcher.cpp
+    input-method-handler.cpp
     meminfo.cpp
     mime-database.cpp
     session-storage.cpp
