@@ -664,55 +664,35 @@ WebView {
     onFullScreenRequested: function(request) {
        request.accept();
    }
-/*
-    onDownloadRequested: {
-        if (!request.suggestedFilename && request.mimeType &&
-            internal.downloadMimeTypesBlacklist.indexOf(request.mimeType) > -1) {
-            return
-        }
 
-        if (downloadLoader.status == Loader.Ready) {
-            var headers = { }
-            if (request.cookies.length > 0) {
-                headers["Cookie"] = request.cookies.join(";")
-            }
-            if (request.referrer) {
-                headers["Referer"] = request.referrer
-            }
-            headers["User-Agent"] = webview.context.userAgent
-            // Work around https://launchpad.net/bugs/1487090 by guessing the mime type
-            // from the suggested filename or URL if oxide hasn’t provided one, or if
-            // the server has provided the generic application/octet-stream mime type.
-            var mimeType = request.mimeType
-            if (!mimeType || mimeType == "application/octet-stream") {
-                mimeType = MimeDatabase.filenameToMimeType(request.suggestedFilename)
-            }
-            if (!mimeType) {
-                var scheme = request.url.toString().split('://').shift().toLowerCase()
-                var filename = request.url.toString().split('/').pop().split('?').shift()
-                if ((scheme == "file") || (filename.indexOf('.') > -1)) {
-                    mimeType = MimeDatabase.filenameToMimeType(filename)
-                }
-            }
-            downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename, incognito)
-        } else {
-            // Desktop form factor case
-            Qt.openUrlExternally(request.url)
-        }
-    }
-*/
-
-
-    Loader {
-        id: downloadLoader
-        source: "Downloader.qml"
-        asynchronous: true
+    // https://github.com/ubports/morph-browser/issues/92
+    // this is not perfect, because if the user types very quickly after entering the field, the first typed letter can be missing
+    // but without it removing any text (especially for textareas / multiple lines) would remove already typed text and replace it
+    // by the last commited word ...
+    Timer {
+      id: inputMethodTimer
+      interval: 500
+      onTriggered: {
+          Qt.inputMethod.reset()
+      }
     }
 
-/*    Connections {
-        target: downloadLoader.item
-        onShowDownloadDialog: {
-            showDownloadDialog(downloadId, contentType, downloader, filename, mimeType)
-        }
-    } */
+   // the keyboard is already open, but its type changes
+   // e.g. focus is in address bar, then the user clicks in a text field
+   onActiveFocusChanged: {
+       if (webview.activeFocus && ! inputMethodTimer.running && Qt.inputMethod.visible)
+       {
+           inputMethodTimer.restart()
+       }
+   }
+
+   Connections {
+       // user clicks in a browser text field, the keyboard is not yet open
+       target: Qt.inputMethod
+       onVisibleChanged: {
+         if (visible && ! inputMethodTimer.running) {
+           inputMethodTimer.restart()
+         }
+       }
+    }
 }

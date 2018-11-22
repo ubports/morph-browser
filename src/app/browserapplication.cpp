@@ -35,6 +35,7 @@
 #include "browserapplication.h"
 #include "config.h"
 #include "favicon-fetcher.h"
+#include "input-method-handler.h"
 #include "meminfo.h"
 #include "mime-database.h"
 #include "session-storage.h"
@@ -207,6 +208,9 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
         }
     }
     QQmlProperty::write(m_object, QStringLiteral("hasTouchScreen"), hasTouchScreen);
+
+    inputMethodHandler * handler = new inputMethodHandler();
+    this->installEventFilter(handler);
 
     return true;
 }
