@@ -147,32 +147,32 @@ Description: transitional dummy package for the morph web QML module HTML docume
  in the morph.Web namespace. This package contains the public
  HTML documentation.
 
-Package: morph-browser-autopilot
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-         autopilot-qt5,
-         content-hub-testability,
-         python3-autopilot,
-         python3-fixtures,
-         python3-psutil,
-         ubuntu-ui-toolkit-autopilot,
-         morph-browser (>= ${binary:Version}),
-Description: morph web browser autopilot tests
- A lightweight web browser tailored for morph, based on the Oxide browser
- engine and using the suru UI components. This package contains autopilot
- tests for it.
-
-Package: morph-webapp-container-autopilot
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-         autopilot-qt5,
-         python3-autopilot,
-         python3-fixtures,
-         ubuntu-ui-toolkit-autopilot,
-         morph-webapp-container (>= ${binary:Version}),
-Description: morph web applications container autopilot tests
- A lightweight webapp container tailored for morph, based on the Oxide browser
- engine and using the Suru UI components. This package contains autopilot
- tests for it.
+# Package: morph-browser-autopilot
+# Architecture: all
+# Multi-Arch: foreign
+# Depends: ${misc:Depends},
+#          autopilot-qt5,
+#          content-hub-testability,
+#          python3-autopilot,
+#          python3-fixtures,
+#          python3-psutil,
+#          ubuntu-ui-toolkit-autopilot,
+#          morph-browser (>= ${binary:Version}),
+# Description: morph web browser autopilot tests
+#  A lightweight web browser tailored for morph, based on the Oxide browser
+#  engine and using the suru UI components. This package contains autopilot
+#  tests for it.
+# 
+# Package: morph-webapp-container-autopilot
+# Architecture: all
+# Multi-Arch: foreign
+# Depends: ${misc:Depends},
+#          autopilot-qt5,
+#          python3-autopilot,
+#          python3-fixtures,
+#          ubuntu-ui-toolkit-autopilot,
+#          morph-webapp-container (>= ${binary:Version}),
+# Description: morph web applications container autopilot tests
+#  A lightweight webapp container tailored for morph, based on the Oxide browser
+#  engine and using the Suru UI components. This package contains autopilot
+#  tests for it.
