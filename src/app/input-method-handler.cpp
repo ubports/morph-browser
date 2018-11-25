@@ -26,7 +26,14 @@ bool inputMethodHandler::eventFilter(QObject* obj, QEvent* event)
     QInputMethodEvent * inputevent = static_cast<QInputMethodEvent*>(event);
 
     //qDebug() << "input event, predit string: " << inputevent->preeditString() << " commit string: " << inputevent->commitString();
-    // check the request contains informatino about the text format
+
+    // if the last char of the commit string is a number, do nothing (reset would change the keyboard layout back to letter mode)
+    if (! inputevent->commitString().isEmpty() && inputevent->commitString()[inputevent->commitString().length() - 1].isDigit())
+    {
+        return false;
+    }
+
+    // check the request contains information about the text format
     bool hasTextFormatInfo = false;
 
     for (auto attribute : inputevent->attributes())
