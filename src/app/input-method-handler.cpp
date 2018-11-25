@@ -26,7 +26,19 @@ bool inputMethodHandler::eventFilter(QObject* obj, QEvent* event)
     QInputMethodEvent * inputevent = static_cast<QInputMethodEvent*>(event);
 
     //qDebug() << "input event, predit string: " << inputevent->preeditString() << " commit string: " << inputevent->commitString();
-    // check the request contains informatino about the text format
+
+    if (! inputevent->commitString().isEmpty() )
+    {
+        QChar lastCharOfCommitString = inputevent->commitString()[inputevent->commitString().length() - 1];
+
+        // numbers and special chars do automatically commit, no reset done here as it would change the keyboard mode
+        if ( (lastCharOfCommitString != "'") && (lastCharOfCommitString != " ") && ! lastCharOfCommitString.isLetter() )
+        {
+            return false;
+        }
+    }
+
+    // check the request contains information about the text format
     bool hasTextFormatInfo = false;
 
     for (auto attribute : inputevent->attributes())
