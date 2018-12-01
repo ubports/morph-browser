@@ -117,12 +117,7 @@ FocusScope {
                         CheckBox {
                             id: setDesktopModeCheckbox
                             SlotsLayout.position: SlotsLayout.Trailing
-                            onTriggered: {
-                                settingsObject.setDesktopMode = checked
-                                if (checked) {
-                                    SharedWebContext.sharedContext.__ua.setDesktopMode(checked)
-                                }
-                            }
+                            onTriggered: settingsObject.setDesktopMode = checked
                         }
                     }
 
