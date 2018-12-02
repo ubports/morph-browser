@@ -47,11 +47,6 @@ WebView {
     readonly property alias findController: findController
     readonly property alias zoomController: zoomController
 
-    Component.onCompleted: {
-        console.log(__ua.defaultUA);
-        profile.httpUserAgent = __ua.defaultUA;
-    }
-
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
 
@@ -793,7 +788,12 @@ WebView {
         }
 
     onNavigationRequested: function (request) {
-        quickMenu.visible = false;
+        if (request.isMainFrame)
+        {
+            quickMenu.visible = false;
+            context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+            console.log(context.__ua.defaultUA);
+        }
         request.action = WebEngineNavigationRequest.AcceptRequest;
     }
 
