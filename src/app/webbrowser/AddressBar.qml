@@ -46,6 +46,7 @@ FocusScope {
     property color fgColor: Theme.palette.normal.baseText
 
     property var certificateErrorsMap: null
+    property bool lastLoadSucceeded
     readonly property bool hasSecurityError: (actualScheme === "https") && (certificateErrorsMap[UrlUtils.extractHost(actualUrl)] !== undefined)
     // is mixed content (https page loads http elements) blocked ? If not how to check it ?
     // show a warning for http / ftp pages ?
@@ -285,7 +286,7 @@ FocusScope {
 
         readonly property bool idle: !addressbar.loading && !addressbar.editing
         property var securityCertificateDetails: null
-        readonly property bool secureConnection: (actualScheme === "https") && ! hasSecurityError && ! hasSecurityWarning
+        readonly property bool secureConnection: lastLoadSucceeded && (actualScheme === "https") && ! hasSecurityError && ! hasSecurityWarning
         readonly property bool securityWarning: hasSecurityWarning
         readonly property bool securityError: hasSecurityError
 

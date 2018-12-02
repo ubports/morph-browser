@@ -683,8 +683,8 @@ WebView {
                     AbstractButton {
                         objectName: "touchSelectionAction_" + action.name
                         anchors {
-                            top: parent.top
-                            bottom: parent.bottom
+                            top: touchSelectionActionsRow.top
+                            bottom: touchSelectionActionsRow.bottom
                         }
                         width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
                         action: modelData
