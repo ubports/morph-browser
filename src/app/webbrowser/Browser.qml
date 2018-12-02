@@ -264,10 +264,9 @@ BrowserView {
             id: errorSheetLoader
             anchors {
                 fill: tabContainer
-                topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
             Component.onCompleted: setSource("../ErrorSheet.qml", {
-                                                 "visible": Qt.binding(function(){ return currentWebview ? (currentWebview.LoadStatus === WebEngineView.LoadFailedStatus) : false }),
+                                                 "visible": Qt.binding(function(){ return currentWebview ? currentWebview.lastLoadFailed : false }),
                                                  "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
                                              })
             Connections {
