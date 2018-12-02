@@ -266,7 +266,7 @@ BrowserView {
                 fill: tabContainer
             }
             Component.onCompleted: setSource("../ErrorSheet.qml", {
-                                                 "visible": Qt.binding(function(){ return currentWebview ? currentWebview.lastLoadFailed : false }),
+                                                 "visible": Qt.binding(function(){ return currentWebview ? (! currentWebview.loading && currentWebview.lastLoadFailed) : false }),
                                                  "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
                                              })
             Connections {

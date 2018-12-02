@@ -208,7 +208,7 @@ BrowserView {
                 fill: containerWebView
             }
             sourceComponent: ErrorSheet {
-                visible: containerWebView.currentWebview && containerWebView.currentWebview.lastLoadFailed
+                visible: containerWebView.currentWebview && ! containerWebView.currentWebview.loading && containerWebView.currentWebview.lastLoadFailed
                 url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
                 onRefreshClicked: {
                     if (containerWebView.currentWebview)
