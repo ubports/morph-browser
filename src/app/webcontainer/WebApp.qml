@@ -206,7 +206,6 @@ BrowserView {
         Loader {
             anchors {
                 fill: containerWebView
-                topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
             }
             sourceComponent: ErrorSheet {
                 visible: containerWebView.currentWebview && containerWebView.currentWebview.lastLoadFailed
