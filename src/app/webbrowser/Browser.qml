@@ -1536,7 +1536,7 @@ BrowserView {
     Shortcut {
         sequence: "Ctrl+0"
         enabled: currentWebview
-        onActivated: currentWebview.zoomFactor = settings.zoomFactor
+        onActivated: currentWebview.zoomController.reset()
     }
 
     Loader {
