@@ -91,6 +91,7 @@ WebView {
         readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : 1.0
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0
+        property real currentZoomFactor: defaultZoomFactor
         property bool viewSpecificZoom: false
 
         function save() {
@@ -98,20 +99,27 @@ WebView {
             var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
             confirmDialog.title = i18n.tr("Default Zoom")
             confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
-            confirmDialog.accept.connect(function() {browser.settings.zoomFactor = webview.zoomFactor});
+            confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
+        }
+
+        function refresh() {
+            webview.zoomFactor = currentZoomFactor
         }
 
         function reset() {
             viewSpecificZoom = false
-            webview.zoomFactor = defaultZoomFactor
+            currentZoomFactor = defaultZoomFactor
+            refresh()
         }
         function zoomIn() {
             viewSpecificZoom = true
-            webview.zoomFactor = Math.min(maxZoomFactor, webview.zoomFactor + ((Math.round(webview.zoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+            refresh()
         }
         function zoomOut() {
             viewSpecificZoom = true
-            webview.zoomFactor = Math.max(minZoomFactor, webview.zoomFactor - ((Math.round(webview.zoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+            refresh()
         }
      }
 
@@ -722,21 +730,21 @@ WebView {
                     name: "zoomOut"
                     text: i18n.tr("Zoom Out")
                     iconName: "zoom-out"
-                    enabled: Math.abs(webview.zoomFactor - zoomController.minZoomFactor) > 0.01
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) > 0.01
                     onTriggered: zoomController.zoomOut()
                 }
                 Action {
                     name: "zoomOriginal"
                     text: i18n.tr("Reset") + " (%1 %)".arg(zoomController.defaultZoomFactor * 100)
                     iconName: "reset"
-                    enabled: Math.abs(webview.zoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
                     onTriggered: zoomController.reset()
                 }
                 Action {
                     name: "zoomIn"
                     text: i18n.tr("Zoom In")
                     iconName: "zoom-in"
-                    enabled: Math.abs(webview.zoomFactor - zoomController.maxZoomFactor) > 0.01
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) > 0.01
                     onTriggered: zoomController.zoomIn()
                 }
                 Action {
@@ -744,7 +752,7 @@ WebView {
                     text: i18n.tr("Save")
                     iconName: "save"
                     visible: ! isWebApp
-                    enabled: Math.abs(webview.zoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
                     onTriggered: zoomController.save()
                 }
                 Action {
@@ -781,9 +789,10 @@ WebView {
                 id: currentZoomText
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
-                text: i18n.tr("Current Zoom") + ": " + Math.round(webview.zoomFactor * 100) + "%"
+                text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
+                visible: ! webview.loading
             }
         }
 
@@ -800,6 +809,12 @@ WebView {
     onFullScreenRequested: function(request) {
        request.accept();
    }
+
+   onLoadingChanged: {
+        if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
+            zoomController.refresh()
+        }
+    }
 
     // https://github.com/ubports/morph-browser/issues/92
     // this is not perfect, because if the user types very quickly after entering the field, the first typed letter can be missing
