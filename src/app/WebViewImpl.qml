@@ -792,7 +792,7 @@ WebView {
                 text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
-                visible: ! webview.loading
+                opacity: webview.loading ? 0.25 : 1.0
             }
         }
 
