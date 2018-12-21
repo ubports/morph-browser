@@ -37,7 +37,10 @@ ModalDialog {
         id: input
         objectName: "inputTextField"
         text: defaultValue
-        onAccepted: accept(input.text)
+        onAccepted: {
+            Qt.inputMethod.commit()
+            accept(input.text)
+        }
     }
     
     Text {
@@ -70,7 +73,10 @@ ModalDialog {
         text: i18n.tr("OK")
         color: theme.palette.normal.positive
         objectName: "okButton"
-        onClicked: accept(input.text)
+        onClicked: {
+            Qt.inputMethod.commit()
+            accept(input.text)
+        }
     }
 
     Button {

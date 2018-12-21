@@ -45,6 +45,7 @@ WebView {
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
 
     readonly property alias findController: findController
+    readonly property alias zoomController: zoomController
 
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
@@ -83,6 +84,44 @@ WebView {
                 findController.next()
         }
     }
+
+      QtObject {
+        id: zoomController
+
+        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : 1.0
+        readonly property real minZoomFactor: 0.25
+        readonly property real maxZoomFactor: 5.0
+        property real currentZoomFactor: defaultZoomFactor
+        property bool viewSpecificZoom: false
+
+        function save() {
+            viewSpecificZoom = false
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
+            confirmDialog.title = i18n.tr("Default Zoom")
+            confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
+            confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
+        }
+
+        function refresh() {
+            webview.zoomFactor = currentZoomFactor
+        }
+
+        function reset() {
+            viewSpecificZoom = false
+            currentZoomFactor = defaultZoomFactor
+            refresh()
+        }
+        function zoomIn() {
+            viewSpecificZoom = true
+            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+            refresh()
+        }
+        function zoomOut() {
+            viewSpecificZoom = true
+            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
+            refresh()
+        }
+     }
 
     onJavaScriptDialogRequested: function(request) {
 
@@ -241,6 +280,8 @@ WebView {
                 contextMenuRequest = request;
                 //console.log("onContextMenuRequested, request: " + JSON.stringify(request))
                 request.accepted = true;
+                quickMenu.visible = false
+                zoomMenu.visible = false
 
                 if (request.linkUrl.toString() || request.mediaType)
                 {
@@ -270,16 +311,16 @@ WebView {
                 // result array
                 // [0]..[3] : bounds of the selected element
                 // [4] : boolean variable morphContextMenuIsDocumentElement
-                // [5] : boolean variable morphContextMenuElementHasSelectMethod
                 //    true: context menu for the whole HTML document
                 //    false: context menu for a specific element (e.g. input, span, ...)
+                // [5] : boolean variable morphContextMenuElementHasSelectMethod
                 [morphElemContextMenu.offsetLeft, morphElemContextMenu.offsetTop, morphElemContextMenu.offsetWidth, morphElemContextMenu.offsetHeight, morphContextMenuIsDocumentElement, morphContextMenuElementHasSelectMethod];
-                ".arg(request.x).arg(request.y)
+                ".arg(request.x / webview.zoomFactor).arg(request.y / webview.zoomFactor)
 
                 webview.runJavaScript(commandGetContextMenuInfo, function(result)
                                                             {
                                                                console.log("commandGetContextMenuInfo returned array " + JSON.stringify(result))
-                                                               quickMenu.bounds = Qt.rect(result[0], result[1], result[2], result[3])
+                                                               quickMenu.bounds = Qt.rect(result[0] * webview.zoomFactor, result[1] * webview.zoomFactor, result[2] * webview.zoomFactor, result[3] * webview.zoomFactor)
                                                                domElementOfContextMenu.isDocumentElement = result[4]
                                                                domElementOfContextMenu.hasSelectMethod = result[5]
                                                             }
@@ -292,21 +333,17 @@ WebView {
         Actions.OpenLinkInNewTab {
             objectName: "OpenLinkInNewTabContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            //onTriggered: browser.internal.openUrlInNewTab(contextMenuRequest.linkUrl, true, true, tabsModel.indexOf(browserTab) + 1)
-            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, false);
+            onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewTab)
         }
         Actions.OpenLinkInNewBackgroundTab {
             objectName: "OpenLinkInNewBackgroundTabContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            //onTriggered: internal.openUrlInNewTab(contextMenuRequest.linkUrl, false, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, true);
         }
         Actions.OpenLinkInNewWindow {
             objectName: "OpenLinkInNewWindowContextualAction"
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: isWebApp ?
-                    webview.runJavaScript("window.open('%1')".arg(contextMenuRequest.linkUrl)) :
-                    browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, false)
+            onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewWindow)
         }
         Actions.OpenLinkInPrivateWindow {
             objectName: "OpenLinkInPrivateWindowContextualAction"
@@ -378,6 +415,12 @@ WebView {
             enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: webview.runJavaScript("morphElemContextMenu.innerText", function(result) {Clipboard.push(["text/plain", result])})
         }
+    }
+
+    function showZoomMenu() {
+
+        quickMenu.visible = false
+        zoomMenu.visible = true
     }
 
     UbuntuShape {
@@ -560,6 +603,7 @@ WebView {
                         {
                             webview.runJavaScript("window.getSelection().removeAllRanges()", function(){webview.triggerWebAction(WebEngineView.SelectAll)})
                             domElementOfContextMenu.isDocumentElement = true
+                            quickMenu.selectedTextLength = Math.max(1, quickMenu.selectedTextLength)
                         }
                         else
                         {
@@ -608,12 +652,20 @@ WebView {
                     visible: enabled
                     onTriggered: webview.runJavaScript("window.getSelection().toString()", function(result) { browser.shareTextRequested(result) })
                 }
+                Action {
+                       objectName: "zoom"
+                       text: i18n.tr("Zoom")
+                       iconName: "zoom-in"
+                       enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
+                       visible: enabled
+                       onTriggered: webview.showZoomMenu()
+                }
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
                 Action {
-                    name: "cancel"
-                    text: i18n.dtr('ubuntu-ui-toolkit', "Cancel")
-                    iconName: "cancel"
+                    name: "close"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Close")
+                    iconName: "close"
                     enabled: true
                     visible: enabled
                     onTriggered: {
@@ -651,6 +703,99 @@ WebView {
             }
         }
 
+    UbuntuShape {
+            z:3
+            id: zoomMenu
+            objectName: "zoomActions"
+            visible: false
+            aspect: UbuntuShape.DropShadow
+            backgroundColor: "white"
+            readonly property int padding: units.gu(1)
+            width: zoomActionsRow.width + padding * 2
+            height: zoomActionsRow.height + currentZoomText.height + padding * 2
+
+            readonly property real spacing: units.gu(0.5)
+            x: (webview.width - width) / 2
+            y: (webview.height - height) / 2
+
+            MouseArea {
+                // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
+                anchors.fill: zoomMenu
+                onClicked: console.log("inactive part of zoom menu clicked.")
+            }
+
+            ActionList {
+                id: zoomActions
+                Action {
+                    name: "zoomOut"
+                    text: i18n.tr("Zoom Out")
+                    iconName: "zoom-out"
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomOut()
+                }
+                Action {
+                    name: "zoomOriginal"
+                    text: i18n.tr("Reset") + " (%1 %)".arg(zoomController.defaultZoomFactor * 100)
+                    iconName: "reset"
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    onTriggered: zoomController.reset()
+                }
+                Action {
+                    name: "zoomIn"
+                    text: i18n.tr("Zoom In")
+                    iconName: "zoom-in"
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomIn()
+                }
+                Action {
+                    name: "zoomSave"
+                    text: i18n.tr("Save")
+                    iconName: "save"
+                    visible: ! isWebApp
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    onTriggered: zoomController.save()
+                }
+                Action {
+                    name: "close"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Close")
+                    iconName: "close"
+                    enabled: true
+                    onTriggered: zoomMenu.visible = false
+                }
+            }
+
+            Row {
+                id: zoomActionsRow
+                x: parent.padding
+                y: parent.padding
+                height: units.gu(6)
+
+                Repeater {
+                    model: zoomActions.children
+                    AbstractButton {
+                        objectName: "pageAction_" + action.name
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                        action: modelData
+                        styleName: "ToolbarButtonStyle"
+                        activeFocusOnPress: false
+                    }
+                }
+            }
+            Text {
+                id: currentZoomText
+                anchors.top: zoomActionsRow.bottom
+                anchors.right: zoomActionsRow.right
+                text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
+                width: zoomActionsRow.width
+                horizontalAlignment: Text.AlignHCenter
+                opacity: webview.loading ? 0.25 : 1.0
+            }
+        }
+
     onNavigationRequested: function (request) {
         if (request.isMainFrame)
         {
@@ -664,6 +809,12 @@ WebView {
     onFullScreenRequested: function(request) {
        request.accept();
    }
+
+   onLoadingChanged: {
+        if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
+            zoomController.refresh()
+        }
+    }
 
     // https://github.com/ubports/morph-browser/issues/92
     // this is not perfect, because if the user types very quickly after entering the field, the first typed letter can be missing
@@ -696,3 +847,4 @@ WebView {
        }
     }
 }
+
