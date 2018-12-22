@@ -36,7 +36,7 @@ Item {
     property real dragMax: 0
     readonly property bool dragging: mouseArea.drag.active
 
-    property color fgColor: Theme.palette.normal.baseText
+    property color fgColor: theme.palette.normal.baseText
 
     property bool touchEnabled: true
 
@@ -95,7 +95,7 @@ Item {
                 gradient: Gradient {
                     GradientStop {
                         position: 0.0;
-                        color: active ? "#ffffff" :
+                        color: active ? theme.palette.normal.background :
                                (hoverArea.containsMouse ? "#c5c5c5" : "#d2d2d2")
                     }
                     GradientStop { position: 0.33; color: "transparent" }

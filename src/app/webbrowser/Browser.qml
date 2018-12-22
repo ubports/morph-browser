@@ -492,7 +492,7 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
+            color: browser.incognito ? theme.palette.normal.base : theme.palette.normal.background
 
             Button {
                 objectName: "doneButton"
@@ -502,7 +502,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
+                strokeColor: browser.incognito? theme.palette.normal.background : theme.palette.normal.base
 
                 text: i18n.tr("Done")
 
@@ -521,7 +521,7 @@ BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? "#f6f6f6" : "#808080"
+                color: browser.incognito ? theme.palette.normal.background : theme.palette.normal.base
 
                 onClicked: {
                     recentView.reset()
@@ -906,16 +906,16 @@ BrowserView {
 
         Rectangle {
             anchors.fill: parent
-            color: "#f7f7f7"
+            color: theme.palette.normal.background
             border {
                 width: units.dp(1)
-                color: "#cdcdcd"
+                color: theme.palette.normal.background
             }
         }
 
         Label {
             anchors.centerIn: parent
-            color: "#5d5d5d"
+            color: theme.palette.normal.base
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }

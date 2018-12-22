@@ -405,7 +405,7 @@ Component {
                     height: units.gu(6)
                     width: Math.min(units.gu(50), parent.width - units.gu(12))
                     radius: units.gu(1)
-                    color: "#3e3b39"
+                    color: theme.palette.normal.backgroundText
                     opacity: 0.85
 
                     Behavior on opacity {
@@ -429,7 +429,7 @@ Component {
                     }
 
                     Label {
-                        color: "white"
+                        color: theme.palette.normal.background
                         font.weight: Font.Light
                         anchors.centerIn: parent
                         text: bottomEdgeHandle.enabled

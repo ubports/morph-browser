@@ -26,8 +26,8 @@ Rectangle {
         width: units.dp(1)
         color: ((ListView.view && !ListView.view.currentItem.enabled) ||
                 (GridView.view && !GridView.view.currentItem.enabled))
-                   ? Theme.palette.disabled.focus
-                   : Theme.palette.normal.focus
+                   ? theme.palette.disabled.focus
+                   : theme.palette.normal.focus
     }
     visible: hasKeyboard &&
              ((ListView.view && ListView.view.activeFocus) ||

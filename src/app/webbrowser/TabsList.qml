@@ -50,7 +50,7 @@ Item {
             right: parent.right
         }
         height: invisibleTabChrome.height
-        color: "#111111"
+        color: theme.palette.normal.backgroundText
     }
 
     Flickable {

@@ -43,7 +43,7 @@ FocusScope {
     property bool showFavicon: true
     property bool findInPageMode: false
     property var findController: null
-    property color fgColor: Theme.palette.normal.baseText
+    property color fgColor: theme.palette.normal.baseText
 
     property var certificateErrorsMap: null
     readonly property bool hasSecurityError: (actualScheme === "https") && (certificateErrorsMap[UrlUtils.extractHost(actualUrl)] !== undefined)
