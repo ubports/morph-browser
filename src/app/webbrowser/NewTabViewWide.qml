@@ -74,7 +74,7 @@ FocusScope {
     Rectangle {
         anchors.fill: parent
         visible: !inBookmarksView
-        color: "#fbfbfb"
+        color: theme.palette.normal.background
     }
 
     UrlPreviewGrid {
@@ -112,7 +112,7 @@ FocusScope {
             left: parent.left
             right: parent.right
         }
-        color: "#ffffff"
+        color: theme.palette.normal.background
         height: sections.height
 
         Sections {

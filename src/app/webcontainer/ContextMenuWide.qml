@@ -50,7 +50,7 @@ Popups.Popover {
 
     Rectangle {
         anchors.fill: parent
-        color: "#ececec"
+        color: theme.palette.normal.background
     }
 
     Column {
@@ -72,7 +72,7 @@ Popups.Popover {
             height: units.gu(5)
             visible: text
             fontSize: "x-small"
-            color: "#888888"
+            color: theme.palette.normal.base
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }

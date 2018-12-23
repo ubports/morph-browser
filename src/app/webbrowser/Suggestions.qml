@@ -35,7 +35,7 @@ FocusScope {
         anchors.fill: parent
         radius: units.gu(0.5)
         border {
-            color: "#dedede"
+            color: theme.palette.normal.background
             width: 1
         }
     }

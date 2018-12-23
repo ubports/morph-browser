@@ -65,7 +65,7 @@ Item {
 
         active: true
         hoverable: false
-        fgColor: "#111111"
+        fgColor: theme.palette.normal.backgroundText
 
         onSelected: tabChrome.selected()
         onClosed: tabChrome.closed()
