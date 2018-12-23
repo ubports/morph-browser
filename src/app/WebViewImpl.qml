@@ -888,6 +888,99 @@ WebView {
             }
         }
 
+    UbuntuShape {
+            z:3
+            id: zoomMenu
+            objectName: "zoomActions"
+            visible: false
+            aspect: UbuntuShape.DropShadow
+            backgroundColor: "white"
+            readonly property int padding: units.gu(1)
+            width: zoomActionsRow.width + padding * 2
+            height: zoomActionsRow.height + currentZoomText.height + padding * 2
+
+            readonly property real spacing: units.gu(0.5)
+            x: (webview.width - width) / 2
+            y: (webview.height - height) / 2
+
+            MouseArea {
+                // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
+                anchors.fill: zoomMenu
+                onClicked: console.log("inactive part of zoom menu clicked.")
+            }
+
+            ActionList {
+                id: zoomActions
+                Action {
+                    name: "zoomOut"
+                    text: i18n.tr("Zoom Out")
+                    iconName: "zoom-out"
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomOut()
+                }
+                Action {
+                    name: "zoomOriginal"
+                    text: i18n.tr("Reset") + " (%1 %)".arg(zoomController.defaultZoomFactor * 100)
+                    iconName: "reset"
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    onTriggered: zoomController.reset()
+                }
+                Action {
+                    name: "zoomIn"
+                    text: i18n.tr("Zoom In")
+                    iconName: "zoom-in"
+                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) > 0.01
+                    onTriggered: zoomController.zoomIn()
+                }
+                Action {
+                    name: "zoomSave"
+                    text: i18n.tr("Save")
+                    iconName: "save"
+                    visible: ! isWebApp
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    onTriggered: zoomController.save()
+                }
+                Action {
+                    name: "close"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Close")
+                    iconName: "close"
+                    enabled: true
+                    onTriggered: zoomMenu.visible = false
+                }
+            }
+
+            Row {
+                id: zoomActionsRow
+                x: parent.padding
+                y: parent.padding
+                height: units.gu(6)
+
+                Repeater {
+                    model: zoomActions.children
+                    AbstractButton {
+                        objectName: "pageAction_" + action.name
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                        action: modelData
+                        styleName: "ToolbarButtonStyle"
+                        activeFocusOnPress: false
+                    }
+                }
+            }
+            Text {
+                id: currentZoomText
+                anchors.top: zoomActionsRow.bottom
+                anchors.right: zoomActionsRow.right
+                text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
+                width: zoomActionsRow.width
+                horizontalAlignment: Text.AlignHCenter
+                opacity: webview.loading ? 0.25 : 1.0
+            }
+        }
+
     onNavigationRequested: function (request) {
         if (request.isMainFrame)
         {
