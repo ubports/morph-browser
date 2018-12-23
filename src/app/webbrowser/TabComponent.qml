@@ -80,11 +80,13 @@ Component {
                         break;
 
                    case WebEngineView.NewViewInBackgroundTab:
-                       browser.openLinkInNewTabRequested(request.requestedUrl, true)
+                       browser.openLinkInNewTabRequested(request.requestedUrl, true);
+                       break;
 
                    case WebEngineView.NewViewInWindow:
                    case WebEngineView.NewViewInDialog:
-                       browser.openLinkInWindowRequested(request.requestedUrl, false)
+                       browser.openLinkInWindowRequested(request.requestedUrl, false);
+                       break;
 
                     }
 
