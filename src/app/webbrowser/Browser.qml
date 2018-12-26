@@ -330,7 +330,6 @@ BrowserView {
 
             anchors {
                 fill: tabContainer
-                topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
             clip: true  // prevents component from overlapping bottom edge etc
 

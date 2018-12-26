@@ -107,33 +107,44 @@ FocusScope {
     onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
 
     Component.onCompleted: {
-        var webappEngineSource = Qt.resolvedUrl("WebViewImplOxide.qml");
+        setSourceTimer.restart()
+    }
 
-        // This is an experimental, UNSUPPORTED, API
-        // It loads an alternative webview, adjusted for a specific webapp
-        if (webviewOverrideFile.toString()) {
-            console.log("Loading custom webview from " + webviewOverrideFile);
-            webappEngineSource = webviewOverrideFile;
+    Timer
+    {
+        id: setSourceTimer
+        interval: 40
+        repeat: false
+        onTriggered: {
+
+                var webappEngineSource = Qt.resolvedUrl("WebViewImplOxide.qml");
+
+                // This is an experimental, UNSUPPORTED, API
+                // It loads an alternative webview, adjusted for a specific webapp
+                if (webviewOverrideFile.toString()) {
+                    console.log("Loading custom webview from " + webviewOverrideFile);
+                    webappEngineSource = webviewOverrideFile;
+                }
+
+                webappContainerWebViewLoader.setSource(
+                                 webappEngineSource,
+                                 { window: containerWebView.window
+                                 , localUserAgentOverride: containerWebview.localUserAgentOverride
+                                 , url: containerWebview.url
+                                 , webappName: containerWebview.webappName
+                                 , dataPath: dataPath
+                                 , webappUrlPatterns: containerWebview.webappUrlPatterns
+                                 , developerExtrasEnabled: containerWebview.developerExtrasEnabled
+                                 , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
+                                 , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+                                 , runningLocalApplication: containerWebview.runningLocalApplication
+                                 , popupController: popupController
+                                 , overlayViewsParent: containerWebview.parent
+                                 , wide: containerWebview.wide
+                                 , mediaAccessDialogComponent: mediaAccessDialogComponent
+                                 , openExternalUrlInOverlay: containerWebview.openExternalUrlInOverlay
+                                 , popupBlockerEnabled: containerWebview.popupBlockerEnabled})
         }
-
-        webappContainerWebViewLoader.setSource(
-                    webappEngineSource,
-                    { window: containerWebView.window
-                    , localUserAgentOverride: containerWebview.localUserAgentOverride
-                    , url: containerWebview.url
-                    , webappName: containerWebview.webappName
-                    , dataPath: dataPath
-                    , webappUrlPatterns: containerWebview.webappUrlPatterns
-                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled
-                    , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
-                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
-                    , runningLocalApplication: containerWebview.runningLocalApplication
-                    , popupController: popupController
-                    , overlayViewsParent: containerWebview.parent
-                    , wide: containerWebview.wide
-                    , mediaAccessDialogComponent: mediaAccessDialogComponent
-                    , openExternalUrlInOverlay: containerWebview.openExternalUrlInOverlay
-                    , popupBlockerEnabled: containerWebview.popupBlockerEnabled})
     }
 }
 
