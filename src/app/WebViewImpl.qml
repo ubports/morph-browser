@@ -813,6 +813,12 @@ WebView {
         if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
             zoomController.refresh()
         }
+
+        if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
+           // ToDo: Is there a way to not load the "blink error message" in the first place ?
+           // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
+           webview.runJavaScript("document.removeChild(document.documentElement);")
+        }
     }
 
     // https://github.com/ubports/morph-browser/issues/92
