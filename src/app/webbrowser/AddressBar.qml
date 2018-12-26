@@ -42,6 +42,7 @@ FocusScope {
     property bool editing: false
     property bool showFavicon: true
     property bool findInPageMode: false
+    property bool tabListMode: false
     property var findController: null
     property color fgColor: Theme.palette.normal.baseText
 
