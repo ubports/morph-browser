@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
+import QtSystemInfo 5.0
 import Ubuntu.Components 1.3
 
 Window {
@@ -39,6 +40,11 @@ Window {
     QtObject {
         id: internal
         property int currentWindowState: Window.Windowed
+    }
+
+    ScreenSaver {
+        id: screenSaver
+        screenSaverEnabled: ! ( window.active && (window.currentWebview.isFullScreen || window.currentWebview.recentlyAudible) )
     }
 
     Connections {
