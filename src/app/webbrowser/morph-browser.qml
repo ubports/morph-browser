@@ -136,6 +136,15 @@ QtObject {
                     }
                 }
 
+                if (allWindows.length > 1)
+                {
+                    for (var win in allWindows) {
+                        if (this === allWindows[win]) {
+                            allWindows.splice(win, 1)
+                            return
+                        }
+                    }
+                }
                 destroy()
             }
 
@@ -169,14 +178,6 @@ QtObject {
             }
 
             Component.onCompleted: allWindows.push(this)
-            Component.onDestruction: {
-                for (var w in allWindows) {
-                    if (this === allWindows[w]) {
-                        allWindows.splice(w, 1)
-                        return
-                    }
-                }
-            }
 
             Browser {
                 id: browser

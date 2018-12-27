@@ -440,7 +440,13 @@ BrowserView {
 
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
-        onVisibleChanged: chrome.hidden = visible
+        onVisibleChanged: {
+            if (visible)
+            {
+                currentWebview.hideZoomMenu()
+                currentWebview.hideContextMenu()
+            }
+        }
 
         states: State {
             name: "shown"
@@ -563,6 +569,7 @@ BrowserView {
         touchEnabled: internal.hasTouchScreen
 
         tabsBarDimmed: dropAreaTopCover.containsDrag || dropAreaBottomCover.containsDrag
+        tabListMode: recentView.visible
 
         property bool hidden: false
 
@@ -577,6 +584,7 @@ BrowserView {
             return tab ? BookmarksModel.contains(tab.url) : false
         }
         bookmarked: isCurrentUrlBookmarked()
+        onCloseTabRequested: internal.closeCurrentTab()
         onToggleBookmark: {
             if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
             else internal.addBookmark(tab.url, tab.title, tab.icon)
