@@ -29,6 +29,7 @@ FocusScope {
 
     property Window window
 
+    property bool initialUrlLoaded: false
     property string url: ""
     property bool developerExtrasEnabled: false
     property string webappName: ""
@@ -88,12 +89,16 @@ FocusScope {
         onSamlRequestUrlPatternReceived: {
             samlRequestUrlPatternReceived(urlPattern)
         }
-    }
 
-    Connections {
-        target: webappContainerWebViewLoader.item
         onThemeColorMetaInformationDetected: {
             themeColorMetaInformationDetected(theme_color)
+        }
+
+        onLastLoadSucceededChanged: {
+          if (! initialUrlLoaded && webappContainerWebViewLoader.item.lastLoadSucceeded) {
+             webappContainerWebViewLoader.item.url = containerWebView.url
+             initialUrlLoaded = true
+          }
         }
     }
 
@@ -120,7 +125,7 @@ FocusScope {
                     webappEngineSource,
                     { window: containerWebView.window
                     , localUserAgentOverride: containerWebview.localUserAgentOverride
-                    , url: containerWebview.url
+                    , url: "about:blank"
                     , webappName: containerWebview.webappName
                     , dataPath: dataPath
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
