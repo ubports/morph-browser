@@ -423,6 +423,14 @@ WebView {
         zoomMenu.visible = true
     }
 
+    function hideZoomMenu() {
+        zoomMenu.visible = false
+    }
+
+    function hideContextMenu() {
+        quickMenu.visible = false
+    }
+
     UbuntuShape {
             z:3
             id: quickMenu
