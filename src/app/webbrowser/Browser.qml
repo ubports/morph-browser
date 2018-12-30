@@ -18,6 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 import QtWebEngine 1.7
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
@@ -892,7 +893,7 @@ BrowserView {
             fontSize: "small"
             color: theme.palette.normal.backgroundText
             // TRANSLATORS: %1 refers to the current number of tabs opened
-        	text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
     }
 
