@@ -30,12 +30,14 @@ ChromeBase {
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
+    signal closeTabRequested()
     signal toggleBookmark()
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
     property alias canSimplifyText: navigationBar.canSimplifyText
     property alias findInPageMode: navigationBar.findInPageMode
+    property alias tabListMode: navigationBar.tabListMode
     property alias editing: navigationBar.editing
     property alias incognito: navigationBar.incognito
     property alias showTabsBar: tabsBar.active
@@ -119,6 +121,7 @@ ChromeBase {
             }
             height: units.gu(6)
 
+            onCloseTabRequested: chrome.closeTabRequested()
             onToggleBookmark: chrome.toggleBookmark()
         }
     }

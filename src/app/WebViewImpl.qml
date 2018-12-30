@@ -333,7 +333,7 @@ WebView {
         Actions.OpenLinkInNewTab {
             objectName: "OpenLinkInNewTabContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewTab)
+            onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.linkUrl, false)
         }
         Actions.OpenLinkInNewBackgroundTab {
             objectName: "OpenLinkInNewBackgroundTabContextualAction"
@@ -421,6 +421,14 @@ WebView {
 
         quickMenu.visible = false
         zoomMenu.visible = true
+    }
+
+    function hideZoomMenu() {
+        zoomMenu.visible = false
+    }
+
+    function hideContextMenu() {
+        quickMenu.visible = false
     }
 
     UbuntuShape {
@@ -730,21 +738,21 @@ WebView {
                     name: "zoomOut"
                     text: i18n.tr("Zoom Out")
                     iconName: "zoom-out"
-                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) > 0.01
                     onTriggered: zoomController.zoomOut()
                 }
                 Action {
                     name: "zoomOriginal"
                     text: i18n.tr("Reset") + " (%1 %)".arg(zoomController.defaultZoomFactor * 100)
                     iconName: "reset"
-                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
                     onTriggered: zoomController.reset()
                 }
                 Action {
                     name: "zoomIn"
                     text: i18n.tr("Zoom In")
                     iconName: "zoom-in"
-                    enabled: ! webview.loading && Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) > 0.01
                     onTriggered: zoomController.zoomIn()
                 }
                 Action {
@@ -792,7 +800,6 @@ WebView {
                 text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
-                opacity: webview.loading ? 0.25 : 1.0
             }
         }
 

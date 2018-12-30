@@ -29,12 +29,14 @@ FocusScope {
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
+    signal closeTabRequested()
     signal toggleBookmark()
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property alias canSimplifyText: addressbar.canSimplifyText
     property alias findInPageMode: addressbar.findInPageMode
+    property alias tabListMode: addressbar.tabListMode
     property alias editing: addressbar.editing
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
@@ -184,6 +186,24 @@ FocusScope {
                 visible: findInPageMode
                 enabled: internal.webview && internal.webview.findController && internal.webview.findController.foundMatch
                 onTriggered: internal.webview.findController.next()
+            }
+
+            ChromeButton {
+                id: closeButton
+                objectName: "closeButton"
+
+                iconName: "close"
+                iconSize: 0.3 * height
+                iconColor: root.iconColor
+
+                height: root.height
+                width: height * 0.8
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: tabListMode
+
+                onTriggered: closeTabRequested()
             }
 
             ChromeButton {
