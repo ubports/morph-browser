@@ -18,11 +18,13 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: toolbar
 
     Image {
+	    id: tabShadow
         anchors {
             left: parent.left
             right: parent.right
@@ -31,6 +33,12 @@ Rectangle {
         source: "assets/toolbar-dropshadow.png"
         fillMode: Image.TileHorizontally
         asynchronous: true
+    }
+	
+	ColorOverlay {
+        anchors.fill: bug
+        source: bug
+        color: theme.palette.normal.background
     }
 
     states: [

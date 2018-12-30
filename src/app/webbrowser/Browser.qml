@@ -876,16 +876,23 @@ BrowserView {
             UbuntuNumberAnimation {}
         }
 
+        ColorOverlay {
+            anchors.fill: bottomEdgeHint
+            source: bottomEdgeHint
+            color: theme.palette.normal.background
+        }
+
         Label {
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 verticalCenter: parent.verticalCenter
                 verticalCenterOffset: units.dp(2)
             }
-            color: UbuntuColors.darkGrey
+
             fontSize: "small"
+            color: theme.palette.normal.backgroundText
             // TRANSLATORS: %1 refers to the current number of tabs opened
-            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        	text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
     }
 
