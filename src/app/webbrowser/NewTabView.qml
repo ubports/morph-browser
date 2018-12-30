@@ -68,7 +68,7 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
-        color: theme.palette.normal.background
+        color: theme.palette.normal.foreground
     }
 
     Flickable {
@@ -138,7 +138,7 @@ FocusScope {
                         anchors { top: parent.top; topMargin: units.gu(1) }
                         activeFocusOnPress: false
 
-                        strokeColor: theme.palette.normal.base
+                        strokeColor: theme.palette.selected.base
                         visible: internal.numberOfBookmarks > 4
                         text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
 
@@ -355,7 +355,7 @@ FocusScope {
                 verticalAlignment: Text.AlignVCenter
 
                 text: i18n.tr("You haven't visited any site yet")
-                color: theme.palette.normal.base
+                color: theme.palette.selected.base
             }
 
             FocusScope {

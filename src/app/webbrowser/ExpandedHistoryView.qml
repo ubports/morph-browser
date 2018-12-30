@@ -38,7 +38,7 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
-        color: theme.palette.normal.background
+        color: theme.palette.normal.foreground
     }
 
     ListView {
@@ -101,7 +101,7 @@ FocusScope {
                 bottom: parent.bottom
             }
             height: units.dp(1)
-            color: theme.palette.normal.background
+            color: theme.palette.normal.base
         }
 
         UrlDelegate {
@@ -121,7 +121,7 @@ FocusScope {
         Button {
             id: doneButton
 
-            strokeColor: theme.palette.normal.base
+            strokeColor: theme.palette.selected.base
 
             anchors {
                 right: parent.right

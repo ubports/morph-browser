@@ -51,7 +51,7 @@ ListItem.Base {
             }
             width: units.gu(2)
             height: units.gu(2)
-            color: theme.palette.normal.base
+            color: theme.palette.selected.base
             asynchronous: true
         }
 
@@ -64,7 +64,7 @@ ListItem.Base {
                 leftMargin: units.gu(2)
                 right: parent.right
             }
-            color: selected ? "#DB4923" : theme.palette.normal.base
+            color: selected ? "#DB4923" : theme.palette.selected.base
             elide: Text.ElideRight
         }
 
@@ -79,7 +79,7 @@ ListItem.Base {
             fontSize: "small"
             elide: Text.ElideRight
             visible: text !== ""
-            color: selected ? "#DB4923" : theme.palette.normal.base
+            color: selected ? "#DB4923" : theme.palette.selected.base
         }
     }
 

@@ -70,7 +70,7 @@ ChromeBase {
 
         Rectangle {
             anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.normal.base
+            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.selected.base
         }
 
         Loader {

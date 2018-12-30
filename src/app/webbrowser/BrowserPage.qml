@@ -43,7 +43,7 @@ Page {
     header: PageHeader {
         id: pageHeader
         StyleHints {
-            backgroundColor: theme.palette.normal.background
+            backgroundColor: theme.palette.normal.foreground
         }
         leadingActionBar.actions: page.showBackAction ? [backAction] : page.leadingActions
         trailingActionBar.actions: page.trailingActions
@@ -58,7 +58,7 @@ Page {
 
     Rectangle {
         anchors.fill: parent
-        color: theme.palette.normal.background
+        color: theme.palette.normal.foreground
     }
 
     onActiveFocusChanged: {

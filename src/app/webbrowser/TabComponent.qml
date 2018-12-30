@@ -407,7 +407,7 @@ Component {
                     height: units.gu(6)
                     width: Math.min(units.gu(50), parent.width - units.gu(12))
                     radius: units.gu(1)
-                    color: theme.palette.normal.backgroundText
+                    color: theme.palette.normal.backgroundSecondaryText
                     opacity: 0.85
 
                     Behavior on opacity {

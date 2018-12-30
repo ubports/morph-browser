@@ -496,7 +496,7 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? theme.palette.normal.base : theme.palette.normal.background
+            color: browser.incognito ? theme.palette.selected.base : theme.palette.normal.foreground
 
             Button {
                 objectName: "doneButton"
@@ -506,7 +506,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: browser.incognito? theme.palette.normal.background : theme.palette.normal.base
+                strokeColor: browser.incognito? theme.palette.normal.foreground : theme.palette.selected.base
 
                 text: i18n.tr("Done")
 
@@ -525,7 +525,7 @@ BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? theme.palette.normal.background : theme.palette.normal.base
+                color: browser.incognito ? theme.palette.normal.foreground : theme.palette.selected.base
 
                 onClicked: {
                     recentView.reset()
@@ -912,16 +912,16 @@ BrowserView {
 
         Rectangle {
             anchors.fill: parent
-            color: theme.palette.normal.background
+            color: theme.palette.normal.foreground
             border {
                 width: units.dp(1)
-                color: theme.palette.normal.background
+                color: theme.palette.normal.base
             }
         }
 
         Label {
             anchors.centerIn: parent
-            color: theme.palette.normal.base
+            color: theme.palette.normal.overlayText
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }

@@ -49,7 +49,7 @@ Item {
     }
 
     Rectangle {
-        color: theme.palette.normal.background
+        color: theme.palette.normal.foreground
         border {
             width: units.dp(1)
             color: theme.palette.normal.base
