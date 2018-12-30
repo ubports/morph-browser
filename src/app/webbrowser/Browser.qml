@@ -882,7 +882,7 @@ BrowserView {
                 verticalCenter: parent.verticalCenter
                 verticalCenterOffset: units.dp(2)
             }
-
+            color: UbuntuColors.darkGrey
             fontSize: "small"
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)

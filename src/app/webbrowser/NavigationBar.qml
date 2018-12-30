@@ -278,7 +278,7 @@ FocusScope {
 
             Rectangle {
                 anchors.fill: actionsListView
-                color: theme.palette.normal.base
+                color: theme.palette.normal.background
 
                 Rectangle {
                     anchors {
