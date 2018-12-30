@@ -24,7 +24,7 @@ Rectangle {
     id: toolbar
 
     Image {
-	    id: tabShadow
+        id: tabShadow
         anchors {
             left: parent.left
             right: parent.right
@@ -34,8 +34,8 @@ Rectangle {
         fillMode: Image.TileHorizontally
         asynchronous: true
     }
-	
-	ColorOverlay {
+    
+    ColorOverlay {
         anchors.fill: bug
         source: bug
         color: theme.palette.normal.background
