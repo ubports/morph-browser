@@ -858,35 +858,31 @@ BrowserView {
         }
     }
 
-    Image {
+    Rectangle {
         id: bottomEdgeHint
-        source: "assets/bottom_edge_hint.png"
+        color: theme.palette.normal.background
+        border.color: (color.hslLightness > 0.5) ? Qt.darker(color, 1.05) : Qt.lighter(color, 1.05)
+        radius: units.gu(1.5)
+        height: units.gu(4)
+        width: units.gu(10)
         property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? 0 : -height
+            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? -height / 2 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
         }
         visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
-        asynchronous: true
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
-
-        ColorOverlay {
-            anchors.fill: bottomEdgeHint
-            source: bottomEdgeHint
-            color: theme.palette.normal.background
-        }
-
         Label {
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter
+                verticalCenter: parent.verticalCenter - parent.height / 4
                 verticalCenterOffset: units.dp(2)
             }
 
