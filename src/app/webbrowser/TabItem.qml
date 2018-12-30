@@ -96,7 +96,7 @@ Item {
                     GradientStop {
                         position: 0.0;
                         color: active ? theme.palette.normal.background :
-                               (hoverArea.containsMouse ? "#c5c5c5" : "#d2d2d2")
+                               (hoverArea.containsMouse ? theme.palette.normal.base : theme.palette.normal.foreground)
                     }
                     GradientStop { position: 0.33; color: "transparent" }
                 }

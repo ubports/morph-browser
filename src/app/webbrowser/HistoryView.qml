@@ -117,7 +117,7 @@ BrowserPage {
                 verticalCenter: parent.verticalCenter
             }
 
-            strokeColor: theme.palette.normal.base
+            strokeColor: theme.palette.selected.base
 
             text: i18n.tr("Done")
 

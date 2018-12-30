@@ -42,7 +42,7 @@ FocusScope {
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
     property color fgColor: theme.palette.normal.baseText
-    property color iconColor: theme.palette.normal.base
+    property color iconColor: theme.palette.selected.base
     property real availableHeight
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
@@ -277,7 +277,7 @@ FocusScope {
 
             Rectangle {
                 anchors.fill: actionsListView
-                color: theme.palette.normal.background
+                color: theme.palette.normal.base
 
                 Rectangle {
                     anchors {
@@ -286,7 +286,7 @@ FocusScope {
                         left: parent.left
                     }
                     width: units.dp(1)
-                    color: theme.palette.normal.background
+                    color: theme.palette.normal.base
                 }
 
                 Rectangle {

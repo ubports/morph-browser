@@ -62,7 +62,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: theme.palette.normal.background
+            color: theme.palette.normal.foreground
             visible: showContent
         }
 

@@ -35,7 +35,7 @@ Dialog {
     Label {
         elide: Text.ElideRight
         textSize: Label.Large
-        color: theme.palette.normal.backgroundTextText
+        color: theme.palette.normal.overlayText
         text: i18n.tr("Permission")
     }
 

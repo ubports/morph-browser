@@ -64,7 +64,7 @@ StyledItem {
                 bottom: parent.bottom
             }
             height: units.dp(1)
-            color: theme.palette.normal.background
+            color: theme.palette.normal.base
         }
     }
 

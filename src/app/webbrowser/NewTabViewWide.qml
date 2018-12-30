@@ -74,7 +74,7 @@ FocusScope {
     Rectangle {
         anchors.fill: parent
         visible: !inBookmarksView
-        color: theme.palette.normal.background
+        color: theme.palette.normal.foreground
     }
 
     UrlPreviewGrid {
