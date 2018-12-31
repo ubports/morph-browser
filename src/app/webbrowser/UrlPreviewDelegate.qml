@@ -79,7 +79,7 @@ AbstractButton {
             anchors.left: parent.left
             width: units.gu(26)
             height: units.gu(16)
-            backgroundColor: "#f7f7f7"
+            backgroundColor: theme.palette.normal.foreground
 
             property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(preview.url))
             readonly property bool hasPreview: FileOperations.exists(previewUrl)

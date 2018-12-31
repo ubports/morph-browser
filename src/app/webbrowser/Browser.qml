@@ -18,6 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
 import QtWebEngine 1.7
 import QtSystemInfo 5.5
 import Qt.labs.settings 1.0
@@ -498,7 +499,7 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
+            color: browser.incognito ? theme.palette.selected.base : theme.palette.normal.foreground
 
             Button {
                 objectName: "doneButton"
@@ -508,7 +509,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
+                strokeColor: browser.incognito? theme.palette.normal.foreground : theme.palette.selected.base
 
                 text: i18n.tr("Done")
 
@@ -527,7 +528,7 @@ BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? "#f6f6f6" : "#808080"
+                color: browser.incognito ? theme.palette.normal.foreground : theme.palette.selected.base
 
                 onClicked: {
                     recentView.reset()
@@ -859,33 +860,36 @@ BrowserView {
         }
     }
 
-    Image {
+    Rectangle {
         id: bottomEdgeHint
-        source: "assets/bottom_edge_hint.png"
+        color: theme.palette.normal.background
+        border.color: (color.hslLightness > 0.5) ? Qt.darker(color, 1.05) : Qt.lighter(color, 1.05)
+        radius: units.gu(1.5)
+        height: units.gu(4)
+        width: units.gu(10)
         property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? 0 : -height
+            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? -height / 2 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
         }
         visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
-        asynchronous: true
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
-
         Label {
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter
+                verticalCenter: parent.verticalCenter - parent.height / 4
                 verticalCenterOffset: units.dp(2)
             }
 
             fontSize: "small"
+            color: theme.palette.normal.backgroundText
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
@@ -914,16 +918,16 @@ BrowserView {
 
         Rectangle {
             anchors.fill: parent
-            color: "#f7f7f7"
+            color: theme.palette.normal.foreground
             border {
                 width: units.dp(1)
-                color: "#cdcdcd"
+                color: theme.palette.normal.base
             }
         }
 
         Label {
             anchors.centerIn: parent
-            color: "#5d5d5d"
+            color: theme.palette.normal.overlayText
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }

@@ -41,8 +41,8 @@ FocusScope {
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
-    property color fgColor: Theme.palette.normal.baseText
-    property color iconColor: UbuntuColors.darkGrey
+    property color fgColor: theme.palette.normal.baseText
+    property color iconColor: theme.palette.selected.base
     property real availableHeight
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
@@ -277,7 +277,7 @@ FocusScope {
 
             Rectangle {
                 anchors.fill: actionsListView
-                color: Theme.palette.normal.background
+                color: theme.palette.normal.background
 
                 Rectangle {
                     anchors {
@@ -286,7 +286,7 @@ FocusScope {
                         left: parent.left
                     }
                     width: units.dp(1)
-                    color: "#dedede"
+                    color: theme.palette.normal.base
                 }
 
                 Rectangle {
@@ -296,7 +296,7 @@ FocusScope {
                         bottom: parent.bottom
                     }
                     height: units.dp(1)
-                    color: "#dedede"
+                    color: theme.palette.normal.background
                 }
             }
 
@@ -338,7 +338,7 @@ FocusScope {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: Theme.palette.selected.background
+                        color: theme.palette.selected.background
                         visible: parent.pressed
                     }
 

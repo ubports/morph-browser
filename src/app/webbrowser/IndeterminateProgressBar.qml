@@ -26,7 +26,7 @@ Rectangle {
     property bool indeterminateProgress: false
 
     radius: width/3
-    color: Theme.palette.normal.base
+    color: theme.palette.normal.base
 
     Rectangle {
         id: currentProgress

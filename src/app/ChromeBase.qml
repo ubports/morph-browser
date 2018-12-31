@@ -55,7 +55,7 @@ StyledItem {
         id: backgroundRect
 
         anchors.fill: parent
-        color: Theme.palette.normal.background
+        color: theme.palette.normal.background
 
         Rectangle {
             anchors {
@@ -64,7 +64,7 @@ StyledItem {
                 bottom: parent.bottom
             }
             height: units.dp(1)
-            color: "#dedede"
+            color: theme.palette.normal.base
         }
     }
 

@@ -441,7 +441,7 @@ WebView {
             //          && !_webview.touchSelectionController.handleDragInProgress
             //          && !selectionOutOfSight) ? 1.0 : 0.0
             aspect: UbuntuShape.DropShadow
-            backgroundColor: "white"
+            backgroundColor: theme.palette.normal.background
             readonly property int padding: units.gu(1)
             width: touchSelectionActionsRow.width + padding * 2
             height: childrenRect.height + padding * 2
@@ -717,7 +717,7 @@ WebView {
             objectName: "zoomActions"
             visible: false
             aspect: UbuntuShape.DropShadow
-            backgroundColor: "white"
+            backgroundColor: theme.palette.normal.background
             readonly property int padding: units.gu(1)
             width: zoomActionsRow.width + padding * 2
             height: zoomActionsRow.height + currentZoomText.height + padding * 2

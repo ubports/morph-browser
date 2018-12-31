@@ -25,10 +25,10 @@ import ".."
 
 Extras.TabsBar {
     id: tabsBar
-    actionColor: incognito ? "white" : "black"
-    color: incognito ? "#3b3b3b" : "#D9D9D9"  // FIXME: not in palette hardcode for now
-    backgroundColor: incognito ? "#5d5d5d" : "white"  // FIXME: not in palette hardcode for now
-    foregroundColor: incognito ? "white" : "black"
+    actionColor: incognito ? theme.palette.normal.background : theme.palette.normal.backgroundText
+    color: incognito ? theme.palette.normal.backgroundSecondaryText : theme.palette.normal.base  // FIXME: not in palette hardcode for now
+    backgroundColor: incognito ? theme.palette.normal.overlayText : theme.palette.normal.background  // FIXME: not in palette hardcode for now
+    foregroundColor: incognito ? theme.palette.normal.background : theme.palette.normal.backgroundText
     dragAndDrop {
         enabled: __platformName != "ubuntumirclient"
         maxYDiff: height / 12

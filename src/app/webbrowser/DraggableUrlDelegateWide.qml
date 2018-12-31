@@ -86,7 +86,7 @@ UrlDelegateWide {
     Rectangle {
         anchors.fill: parent
         color: "transparent"
-        border.color: UbuntuColors.lightGrey
+        border.color: theme.palette.normal.base
         border.width: 1
         visible: item.Drag.active
     }

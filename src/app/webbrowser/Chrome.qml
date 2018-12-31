@@ -54,7 +54,7 @@ ChromeBase {
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index, bool moving)
 
-    backgroundColor: incognito ? UbuntuColors.darkGrey : "#ffffff"
+    backgroundColor: incognito ? UbuntuColors.darkGrey : theme.palette.normal.background
 
     implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
@@ -70,7 +70,7 @@ ChromeBase {
 
         Rectangle {
             anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? "#ffffff" : UbuntuColors.darkGrey
+            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.selected.base
         }
 
         Loader {
@@ -109,8 +109,8 @@ ChromeBase {
             id: navigationBar
 
             loading: chrome.loading
-            fgColor: "#111111"
-            iconColor: (incognito && !showTabsBar) ? "white" : fgColor
+            fgColor: theme.palette.normal.backgroundText
+            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.background : fgColor
 
             focus: true
 

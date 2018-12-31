@@ -70,7 +70,7 @@ BrowserPage {
                 verticalCenter: parent.verticalCenter
             }
 
-            strokeColor: UbuntuColors.darkGrey
+            strokeColor: theme.palette.selected.base
 
             text: i18n.tr("Done")
 

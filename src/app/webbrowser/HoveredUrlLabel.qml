@@ -49,10 +49,10 @@ Item {
     }
 
     Rectangle {
-        color: "#f6f6f6"
+        color: theme.palette.normal.foreground
         border {
             width: units.dp(1)
-            color: UbuntuColors.silk
+            color: theme.palette.normal.base
         }
         anchors.fill: parent
     }

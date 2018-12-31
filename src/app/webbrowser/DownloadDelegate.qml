@@ -94,7 +94,7 @@ ListItem {
             Label {
                 id: title
                 textSize: Label.Small
-                color: "#5d5d5d"
+                color: theme.palette.normal.overlayText
                 elide: Text.ElideRight
                 anchors {
                     left: parent.left
@@ -105,7 +105,7 @@ ListItem {
             Label {
                 id: url
                 textSize: Label.Small
-                color: "#5d5d5d"
+                color: theme.palette.normal.overlayText
                 elide: Text.ElideRight
                 anchors {
                     left: parent.left

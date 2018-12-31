@@ -39,7 +39,7 @@ FocusScope {
     focus: true
 
     Rectangle {
-        color: "#F2F1F0"
+        color: theme.palette.normal.background
         anchors.fill: parent
     }
 

@@ -72,7 +72,7 @@ BrowserPage {
             }
 
             activeFocusOnPress: false
-            strokeColor: UbuntuColors.darkGrey
+            strokeColor: theme.palette.selected.base
             text: i18n.tr("Done")
 
             onClicked: bookmarksView.back()
