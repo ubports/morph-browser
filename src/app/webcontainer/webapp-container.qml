@@ -182,6 +182,40 @@ BrowserWindow {
             var context = item.currentWebview.context
             onlineAccountsController.setupWebcontextForAccount(context)
             item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls
+
+            loadCustomUserScripts()
+        }
+
+        function loadCustomUserScripts() {
+
+            var scripts = [];
+
+            // app specific user scripts
+            var idx = webappModel.getWebappIndex(getWebappName())
+            var customScripts = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Scripts)
+
+            if (customScripts.length === 0)
+            {
+                return;
+            }
+
+            var i;
+            for (i = 0; i < customScripts.length; i++)
+            {
+              var script = Qt.createQmlObject('import QtWebEngine 1.7; WebEngineScript {}', webappViewLoader);
+              script.sourceUrl = customScripts[i];
+              script.injectionPoint = WebEngineScript.DocumentCreation;
+              script.worldId = WebEngineScript.MainWorld;
+              script.runOnSubframes = true;
+              scripts.push(script);
+            }
+
+            // global user scripts
+            for (i = 0; i < item.currentWebview.profile.userScripts.length; i++) {
+              scripts.push(item.currentWebview.profile.userScripts[i]);
+            }
+
+            item.currentWebview.profile.userScripts = scripts
         }
     }
 
