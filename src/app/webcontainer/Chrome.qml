@@ -67,7 +67,12 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoBack : false
-            onTriggered: chrome.webview.goBack()
+            onTriggered: {
+                if (chrome.webview.loading) {
+                    chrome.webview.stop()
+                }
+                chrome.webview.goBack()
+            }
         }
 
         ChromeButton {
@@ -87,7 +92,12 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoForward : false
-            onTriggered: chrome.webview.goForward()
+            onTriggered: {
+                if (chrome.webview.loading) {
+                    chrome.webview.stop()
+                }
+                chrome.webview.goForward()
+            }
         }
 
         Item {
