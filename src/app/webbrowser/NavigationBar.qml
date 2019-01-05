@@ -75,7 +75,18 @@ FocusScope {
             }
 
             enabled: findInPageMode || (internal.webview ? internal.webview.canGoBack : false)
-            onTriggered: findInPageMode ? (findInPageMode = false) : internal.webview.goBack()
+            onTriggered: {
+                if (findInPageMode) {
+                    findInPageMode = false
+                }
+                else {
+                    if (internal.webview.loading)
+                    {
+                        internal.webview.stop()
+                    }
+                    internal.webview.goBack()
+                    }
+                }
         }
 
         ChromeButton {
@@ -97,7 +108,13 @@ FocusScope {
 
             enabled: findInPageMode ? false :
                      (internal.webview ? internal.webview.canGoForward : false)
-            onTriggered: internal.webview.goForward()
+            onTriggered: {
+                if (internal.webview.loading)
+                {
+                    internal.webview.stop()
+                }
+                internal.webview.goForward()
+            }
         }
 
         AddressBar {

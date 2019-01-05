@@ -72,13 +72,23 @@ BrowserView {
             enabled: webapp.backForwardButtonsVisible &&
                      containerWebView.currentWebview &&
                      containerWebView.currentWebview.canGoBack
-            onTriggered: containerWebView.currentWebview.goBack()
+            onTriggered: {
+                if (containerWebView.currentWebview.loading) {
+                    containerWebView.currentWebview.stop()
+                }
+                containerWebView.currentWebview.goBack()
+            }
         },
         Actions.Forward {
             enabled: webapp.backForwardButtonsVisible &&
                      containerWebView.currentWebview &&
                      containerWebView.currentWebview.canGoForward
-            onTriggered: containerWebView.currentWebview.goForward()
+            onTriggered: {
+                if (containerWebView.currentWebview.loading) {
+                    containerWebView.currentWebview.stop()
+                }
+                containerWebView.currentWebview.goForward()
+            }
         },
         Actions.Reload {
             onTriggered: containerWebView.currentWebview.reload()

@@ -320,7 +320,7 @@ WebEngineView {
     readonly property bool lastLoadStopped: false // TODO internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadFailedStatus
     onLoadingChanged: {
-        if (loadRequest.status != WebEngineLoadRequest.LoadStartedStatus) {
+        if ((loadRequest.url === url) && (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus)) {
             internal.lastLoadRequestStatus = loadRequest.status
         }
         internal.dismissCurrentContextualMenu()

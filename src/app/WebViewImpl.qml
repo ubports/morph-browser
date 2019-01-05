@@ -810,6 +810,12 @@ WebView {
    }
 
    onLoadingChanged: {
+
+       // not about current url (e.g. finished loading of page we have already navigated away from)
+       if (loadRequest.url !== webview.url) {
+           return;
+       }
+
         if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
             zoomController.refresh()
         }

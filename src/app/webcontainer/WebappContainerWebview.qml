@@ -96,7 +96,7 @@ FocusScope {
 
         onLastLoadSucceededChanged: {
           if (! initialUrlLoaded && webappContainerWebViewLoader.item.lastLoadSucceeded) {
-             webappContainerWebViewLoader.item.url = containerWebView.url
+             webappContainerWebViewLoader.item.runJavaScript("window.location.replace('%1')".arg(containerWebView.url))
              initialUrlLoaded = true
           }
         }
