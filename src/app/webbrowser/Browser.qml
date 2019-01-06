@@ -298,7 +298,8 @@ BrowserView {
             }
             Component.onCompleted: setSource("../ErrorSheet.qml", {
                                                  "visible": Qt.binding(function(){ return currentWebview ? (! currentWebview.loading && currentWebview.lastLoadFailed) : false }),
-                                                 "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" })
+                                                 "url": Qt.binding(function(){ return currentWebview ? currentWebview.url : "" }),
+                                                 "errorString" : Qt.binding(function() {return currentWebview ? currentWebview.lastLoadRequestErrorString : ""})
                                              })
             Connections {
                 target: errorSheetLoader.item

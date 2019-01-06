@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 
 Rectangle {
     property string url
+    property string errorString
 
     signal refreshClicked()
 
@@ -41,6 +42,12 @@ Rectangle {
             // TRANSLATORS: %1 refers to the URL of the current page
             text: i18n.tr("It appears you are having trouble viewing: %1.").arg(url)
             wrapMode: Text.Wrap
+        }
+
+        Label {
+            width: parent.width
+            text: i18n.tr("Error: %1".arg(errorString))
+            visible: errorString !== ""
         }
 
         Label {
