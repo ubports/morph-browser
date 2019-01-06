@@ -303,6 +303,7 @@ WebEngineView {
     QtObject {
         id: internal
         property int lastLoadRequestStatus: -1
+        property string lastLoadRequestErrorString: ""
         property QtObject contextModel: null
 
         function dismissCurrentContextualMenu() {
@@ -319,9 +320,11 @@ WebEngineView {
     readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadSucceededStatus
     readonly property bool lastLoadStopped: false // TODO internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadFailedStatus
+    readonly property string lastLoadRequestErrorString: internal.lastLoadRequestErrorString
     onLoadingChanged: {
         if ((loadRequest.url === url) && (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus)) {
             internal.lastLoadRequestStatus = loadRequest.status
+            internal.lastLoadRequestErrorString = loadRequest.errorString
         }
         internal.dismissCurrentContextualMenu()
     }

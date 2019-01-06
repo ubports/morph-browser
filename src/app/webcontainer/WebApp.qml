@@ -220,9 +220,11 @@ BrowserView {
             sourceComponent: ErrorSheet {
                 visible: containerWebView.currentWebview && ! containerWebView.currentWebview.loading && containerWebView.currentWebview.lastLoadFailed
                 url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
+                errorString: containerWebView.currentWebview ? containerWebView.currentWebview.lastLoadRequestErrorString : ""
                 onRefreshClicked: {
-                    if (containerWebView.currentWebview)
+                    if (containerWebView.currentWebview) {
                         containerWebView.currentWebview.reload()
+                    }
                 }
             }
             asynchronous: true

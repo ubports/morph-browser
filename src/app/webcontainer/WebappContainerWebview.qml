@@ -22,6 +22,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
+import "../UrlUtils.js" as UrlUtils
 import ".."
 
 FocusScope {
@@ -96,7 +97,9 @@ FocusScope {
 
         onLastLoadSucceededChanged: {
           if (! initialUrlLoaded && webappContainerWebViewLoader.item.lastLoadSucceeded) {
-             webappContainerWebViewLoader.item.runJavaScript("window.location.replace('%1')".arg(containerWebView.url))
+             if (UrlUtils.extractScheme(containerWebView.url) !== 'file') {
+               webappContainerWebViewLoader.item.runJavaScript("window.location.replace('%1')".arg(containerWebView.url))
+             }
              initialUrlLoaded = true
           }
         }
@@ -125,7 +128,7 @@ FocusScope {
                     webappEngineSource,
                     { window: containerWebView.window
                     , localUserAgentOverride: containerWebview.localUserAgentOverride
-                    , url: "about:blank"
+                    , url: (UrlUtils.extractScheme(containerWebview.url) === 'file') ? containerWebview.url : 'about:blank'
                     , webappName: containerWebview.webappName
                     , dataPath: dataPath
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
