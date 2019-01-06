@@ -98,7 +98,7 @@ FocusScope {
         onLastLoadSucceededChanged: {
           if (! initialUrlLoaded && webappContainerWebViewLoader.item.lastLoadSucceeded) {
              if (UrlUtils.extractScheme(containerWebView.url) !== 'file') {
-               webappContainerWebViewLoader.item.runJavaScript("window.location = '%1'".arg(containerWebView.url))
+               webappContainerWebViewLoader.item.runJavaScript("window.location.replace('%1')".arg(containerWebView.url))
              }
              initialUrlLoaded = true
           }
