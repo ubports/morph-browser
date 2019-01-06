@@ -208,11 +208,21 @@ BrowserView {
         },
         Actions.Back {
             enabled: currentWebview ? currentWebview.canGoBack : false
-            onTriggered: currentWebview.goBack()
+            onTriggered: {
+                if (currentWebview.loading) {
+                    currentWebview.stop()
+                }
+                currentWebview.goBack()
+            }
         },
         Actions.Forward {
             enabled: currentWebview ? currentWebview.canGoForward : false
-            onTriggered: currentWebview.goForward()
+            onTriggered: {
+                if (currentWebview.loading) {
+                    currentWebview.stop()
+                }
+                currentWebview.goForward()
+            }
         },
         Actions.Reload {
             enabled: currentWebview
