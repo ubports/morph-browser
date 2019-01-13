@@ -221,7 +221,7 @@ BrowserView {
         Actions.Bookmark {
             enabled: currentWebview
             // QtWebEngine icons are provided as e.g. image://favicon/https://duckduckgo.com/favicon.ico
-            onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon.toString().substring(16))
+            onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, (currentWebview.icon.toString().substring(0, 16) == "image://favicon/") ? currentWebview.icon.toString().substring(16) : currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: internal.openUrlInNewTab("", true)
@@ -591,7 +591,7 @@ BrowserView {
         onToggleBookmark: {
             if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
             // QtWebEngine icons are provided as e.g. image://favicon/https://duckduckgo.com/favicon.ico
-            else internal.addBookmark(tab.url, tab.title, tab.icon.toString().substring(16))
+            else internal.addBookmark(tab.url, tab.title, (tab.icon.toString().substring(0,16) == "image://favicon/") ? tab.icon.toString().substring(16) : tab.icon)
         }
         onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
         Connections {
