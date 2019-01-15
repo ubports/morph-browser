@@ -323,7 +323,7 @@ Component {
             }
 
             onLoadingChanged: {
-                if (loadRequest.status == WebEngineLoadRequest.LoadSucceededStatus) {
+                if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
                     chrome.findInPageMode = false
                     webviewInternal.titleSet = false
                     webviewInternal.title = title
@@ -333,9 +333,10 @@ Component {
                     return
                 }
 
-                if (loadRequest.status == WebEngineLoadRequest.LoadSucceededStatus) {
+                if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
                     webviewInternal.storedUrl = loadRequest.url
-                    HistoryModel.add(loadRequest.url, title, icon)
+                    // note: at this point the icon is an empty string most times, not sure why (seems to be set after this event)
+                    HistoryModel.add(loadRequest.url, title, (icon.toString().substring(0,16) == "image://favicon/") ? icon.toString().substring(16) : icon)
                 }
 
                 // If the page has started, stopped, redirected, errored
@@ -343,7 +344,7 @@ Component {
                 // Otherwise if no title change has occurred the next title
                 // change will be the url of the next page causing the
                 // history entry to be incorrect (pad.lv/1603835)
-                if (loadRequest.status == WebEngineLoadRequest.LoadFailedStatus) {
+                if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
                     webviewInternal.titleSet = true
                     webviewInternal.storedUrl = ""
                 }
@@ -363,12 +364,18 @@ Component {
                     }
                 }
             }
+            */
             onIconChanged: {
+
+                if (webviewimpl.incognito) {
+                    return
+                }
+
                 if (webviewInternal.storedUrl.toString()) {
-                    HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, icon)
+                    HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, (icon.toString().substring(0,16) == "image://favicon/") ? icon.toString().substring(16) : icon)
                 }
             }
-
+            /*
             //onGeolocationPermissionRequested: requestGeolocationPermission(request)
 */
             property var certificateError

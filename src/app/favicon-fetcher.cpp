@@ -83,6 +83,13 @@ void FaviconFetcher::setUrl(const QUrl& url)
             return;
         }
 
+        // QtWebEngine icons are provided as e.g. image://favicon/https://duckduckgo.com/favicon.ico
+        if ((url.scheme() == "image") && (url.host() == "favicon"))
+        {
+            setLocalUrl(url);
+            return;
+        }
+
         QString id = url.toString(QUrl::None);
 
         QString extension;
