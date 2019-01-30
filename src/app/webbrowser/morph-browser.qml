@@ -136,15 +136,23 @@ QtObject {
                     }
                 }
 
+
+
                 if (allWindows.length > 1)
                 {
                     for (var win in allWindows) {
                         if (this === allWindows[win]) {
+                            var tabs = allWindows[win].tabsModel
+                            for (var t = tabs.count - 1; t >= 0; --t) {
+                                //console.log("remove tab with url " + tabs.get(t).url)
+                                tabs.removeTab(t)
+                            }
                             allWindows.splice(win, 1)
                             return
                         }
                     }
                 }
+
                 destroy()
             }
 
