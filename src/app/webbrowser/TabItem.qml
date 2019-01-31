@@ -46,14 +46,13 @@ Item {
     signal closed()
     signal contextMenu()
 
-    BorderImage {
+    Rectangle {
         id: tabImage
         anchors.fill: parent
         anchors.rightMargin: tabItem.rightMargin
-        source: "assets/tab-%1%2.sci".arg((active) ? "active" :
-                                          (hoverArea.containsMouse ? "hover" : "non-active"))
-                                     .arg(touchEnabled ? "" : "-desktop")
-        asynchronous: true
+        color: theme.palette.normal.background
+        border.color: theme.palette.normal.base
+        radius: units.gu(0.5)
 
         Favicon {
             id: favicon
