@@ -179,11 +179,11 @@ BrowserWindow {
         focus: true
 
         onLoaded: {
-            var context = item.currentWebview.context
-            onlineAccountsController.setupWebcontextForAccount(context)
-            item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls
+            var context = item.currentWebview.context;
+            onlineAccountsController.setupWebcontextForAccount(context);
+            item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls;
 
-            loadCustomUserScripts()
+            loadCustomUserScripts();
         }
 
         function loadCustomUserScripts() {
@@ -191,8 +191,8 @@ BrowserWindow {
             var scripts = [];
 
             // app specific user scripts
-            var idx = webappModel.getWebappIndex(getWebappName())
-            var customScripts = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Scripts)
+            var idx = webappModel.getWebappIndex(getWebappName());
+            var customScripts = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Scripts);
 
             if (customScripts.length === 0)
             {
@@ -215,7 +215,7 @@ BrowserWindow {
               scripts.push(item.currentWebview.profile.userScripts[i]);
             }
 
-            item.currentWebview.profile.userScripts = scripts
+            item.currentWebview.profile.userScripts = scripts;
         }
     }
 
