@@ -375,9 +375,6 @@ Component {
                     HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, (icon.toString().substring(0,16) == "image://favicon/") ? icon.toString().substring(16) : icon)
                 }
             }
-            /*
-            //onGeolocationPermissionRequested: requestGeolocationPermission(request)
-*/
             property var certificateError
             function resetCertificateError() {
                 certificateError = null
