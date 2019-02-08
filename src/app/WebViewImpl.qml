@@ -798,6 +798,7 @@ WebView {
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
                 text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
+                color: theme.palette.normal.backgroundText
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
             }
