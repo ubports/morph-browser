@@ -22,6 +22,7 @@ import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import QtWebEngine 1.5
 import "../actions" as Actions
+import "../UrlUtils.js" as UrlUtils
 import ".."
 
 // FIXME: This component breaks encapsulation: it uses variables not defined in
@@ -336,7 +337,7 @@ Component {
                 if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
                     webviewInternal.storedUrl = loadRequest.url
                     // note: at this point the icon is an empty string most times, not sure why (seems to be set after this event)
-                    HistoryModel.add(loadRequest.url, title, (icon.toString().substring(0,16) == "image://favicon/") ? icon.toString().substring(16) : icon)
+                    HistoryModel.add(loadRequest.url, title, (UrlUtils.schemeIs(icon, "image") && UrlUtils.hostIs(icon, "favicon")) ? icon.toString().substring(("image://favicon/").length) : icon)
                 }
 
                 // If the page has started, stopped, redirected, errored
@@ -372,7 +373,7 @@ Component {
                 }
 
                 if (webviewInternal.storedUrl.toString()) {
-                    HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, (icon.toString().substring(0,16) == "image://favicon/") ? icon.toString().substring(16) : icon)
+                    HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, (UrlUtils.schemeIs(icon, "image") && UrlUtils.hostIs(icon, "favicon")) ? icon.toString().substring(("image://favicon/").length) : icon)
                 }
             }
             /*
