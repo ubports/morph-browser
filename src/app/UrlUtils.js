@@ -19,79 +19,87 @@
 'use strict';
 
 function extractScheme(url) {
-    var urlString = url.toString()
-    return urlString.substring(0,urlString.indexOf("://"))
+    var urlString = url.toString();
+    return urlString.substring(0,urlString.indexOf("://"));
 }
 
 function removeScheme(url) {
-    var rest = url.toString()
-    var indexOfScheme = rest.indexOf("://")
+    var rest = url.toString();
+    var indexOfScheme = rest.indexOf("://");
     if (indexOfScheme !== -1) {
-        rest = rest.slice(indexOfScheme + 3)
+        rest = rest.slice(indexOfScheme + 3);
     }
-    return rest
+    return rest;
+}
+
+function schemeIs(url, expectedScheme) {
+    return (extractScheme(url) === expectedScheme);
 }
 
 function extractAuthority(url) {
-    var authority = removeScheme(url)
-    var indexOfPath = authority.indexOf("/")
+    var authority = removeScheme(url);
+    var indexOfPath = authority.indexOf("/");
     if (indexOfPath !== -1) {
-        authority = authority.slice(0, indexOfPath)
+        authority = authority.slice(0, indexOfPath);
     }
-    return authority
+    return authority;
 }
 
 function extractHost(url) {
-    var host = extractAuthority(url)
-    var indexOfAt = host.indexOf("@")
+    var host = extractAuthority(url);
+    var indexOfAt = host.indexOf("@");
     if (indexOfAt !== -1) {
-        host = host.slice(indexOfAt + 1)
+        host = host.slice(indexOfAt + 1);
     }
     var indexOfColon = host.indexOf(":")
     if (indexOfColon !== -1) {
-        host = host.slice(0, indexOfColon)
+        host = host.slice(0, indexOfColon);
     }
-    return host
+    return host;
+}
+
+function hostIs(url, expectedHost) {
+    return (extractHost(url) === expectedHost);
 }
 
 function fixUrl(address) {
     var url = address
-    if (address.toLowerCase() == "about:blank") {
-        return address.toLowerCase()
+    if (address.toLowerCase() === "about:blank") {
+        return address.toLowerCase();
     } else if (address.match(/^data:/i)) {
-        return "data:" + address.substr(5)
-    } else if (address.substr(0, 1) == "/") {
-        url = "file://" + address
-    } else if (address.indexOf("://") == -1) {
-        url = "http://" + address
+        return "data:" + address.substr(5);
+    } else if (address.substr(0, 1) === "/") {
+        url = "file://" + address;
+    } else if (address.indexOf("://") === -1) {
+        url = "http://" + address;
     }
-    return url
+    return url;
 }
 
 function looksLikeAUrl(address) {
     if (address.match(/^data:/i)) {
         return true;
     }
-    var terms = address.split(/\s/)
+    var terms = address.split(/\s/);
     if (terms.length > 1) {
-        return false
+        return false;
     }
-    if (address.toLowerCase() == "about:blank") {
-        return true
+    if (address.toLowerCase() === "about:blank") {
+        return true;
     }
-    if (address.substr(0, 1) == "/") {
-        return true
+    if (address.substr(0, 1) === "/") {
+        return true;
     }
     if (address.match(/^https?:\/\//i) ||
         address.match(/^file:\/\//i) ||
         address.match(/^[a-z]+:\/\//i)) {
-        return true
+        return true;
     }
     if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,}$/)) {
-        return true
+        return true;
     }
     if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
-        return true
+        return true;
     }
-    return false
+    return false;
 }
