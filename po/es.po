@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-11 22:00+0000\n"
+"PO-Revision-Date: 2019-02-25 22:16+0000\n"
 "Last-Translator: advocatux <advocatux@airpost.net>\n"
 "Language-Team: Spanish <https://translate.ubports.com/projects/ubports/"
 "morph-browser/es/>\n"
@@ -42,7 +42,7 @@ msgstr "El sitio %1 necesita autenticación."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr "Usuario"
+msgstr "Nombre de usuario"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
@@ -109,7 +109,7 @@ msgstr "Error de red"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Parece que hay problemas para ver: %1"
+msgstr "Parece que tiene problemas para ver: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
@@ -367,7 +367,7 @@ msgstr "El sitio %1:%2 necesita autenticación."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Anterior"
+msgstr "Atrás"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -494,7 +494,7 @@ msgstr "Pegar"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "Restaurar"
+msgstr "Repetir"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -521,7 +521,7 @@ msgstr "Guardar vídeo"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr "Todos"
+msgstr "Seleccionar todo"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
@@ -814,7 +814,7 @@ msgstr "Propiedad de"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr "Por defecto"
+msgstr "Predeterminado"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
@@ -857,7 +857,7 @@ msgstr "¿Vaciar la caché?"
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
-msgstr "Vaciar"
+msgstr "Limpiar"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
@@ -937,7 +937,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Falló la autentificación"
+msgstr "Falló la autenticación"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
