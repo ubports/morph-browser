@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-12 00:26+0000\n"
+"PO-Revision-Date: 2019-02-25 22:16+0000\n"
 "Last-Translator: Daniel Frańczak <danielfranczak5@wp.pl>\n"
 "Language-Team: Polish <https://translate.ubports.com/projects/ubports/"
 "morph-browser/pl/>\n"
@@ -43,7 +43,7 @@ msgstr "Strona %1 wymaga uwierzytelnienia."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr "Użytkownik"
+msgstr "Nazwa użytkownika"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
@@ -104,7 +104,7 @@ msgstr "Potwierdzenie JavaScriptu"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Brak połączenia"
+msgstr "Błąd sieci"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -366,7 +366,7 @@ msgstr "Strona %1:%2 wymaga autoryzacji."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Powrót"
+msgstr "Wstecz"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -656,7 +656,7 @@ msgstr "Nieudane pobieranie"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr "%1 %"
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
