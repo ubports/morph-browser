@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-12 20:12+0000\n"
+"PO-Revision-Date: 2019-02-25 22:16+0000\n"
 "Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
 "Language-Team: Czech <https://translate.ubports.com/projects/ubports/"
 "morph-browser/cs/>\n"
@@ -429,7 +429,7 @@ msgstr "Hledat na stránce"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Vpřed"
+msgstr "Přeposlat"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -519,7 +519,7 @@ msgstr "Uložit video"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr "Zvolit vše"
+msgstr "Vybrat vše"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
@@ -886,7 +886,7 @@ msgstr "Zavřít panel"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr "Odebrat"
+msgstr "Odstranit"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:101
@@ -934,7 +934,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Autentizace selhala"
+msgstr "Ověření selhalo"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
