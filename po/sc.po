@@ -8,42 +8,44 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2019-02-14 08:57+0000\n"
+"Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
+"Language-Team: Sardinian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/sc/>\n"
 "Language: sc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.1.1\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Avisu de JavaScript"
 
 #: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr ""
+msgstr "AB"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr ""
+msgstr "Autenticatzione rechèdida."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Su situ web %1 rechedet autenticatzione."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr ""
+msgstr "Nòmine usuàriu"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
-msgstr ""
+msgstr "Crae"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
@@ -56,23 +58,23 @@ msgstr ""
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Cunfirma sa navigatzione"
 
 #: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
-msgstr ""
+msgstr "Essi"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
-msgstr ""
+msgstr "Abarra"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Custa connessione no est de cunfiantza"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -81,68 +83,70 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Ses proende de atzèdere de manera segura a %1, però su tzertificadu de "
+"seguresa de su situ web no est de cunfiantza."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Atzede su pròpiu"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
-msgstr ""
+msgstr "Torra a s'àrea segura"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Cunfirmatzione de JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "Faddina de rete"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "Paret chi tenes problemas in sa visualizatzione de %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "Controlla sa cunfiguratzione de rete e proa a atualizare sa pàgina."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
+msgstr "Atualiza sa pàgina"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Rechesta de permissu"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Custa pàgina bolet connòschere sa positzione tua."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr ""
+msgstr "Refuda"
 
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
-msgstr ""
+msgstr "Permite"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "Su situ web %1 rechedet autenticatzione. Su situ narat «%2»"
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Su tzertificadu de seguresa de su situ no est de cunfiantza.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
-msgstr ""
+msgstr "Leghe àteru"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:88
@@ -151,6 +155,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Nùmeru de sèrie:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:95
@@ -159,6 +165,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Sugetu:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:103
@@ -167,6 +175,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Indiritzu de su sugetu:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:114
@@ -175,6 +185,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Emitente:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:122
@@ -183,6 +195,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Indiritzu de s'emitente:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:133
@@ -191,6 +205,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Vàlidu dae:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:140
@@ -199,6 +215,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Vàlidu fintzas a:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:147
@@ -207,12 +225,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Imprenta digitale (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:154
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Non dias dèpere sighire, mescamente si est sa prima borta chi ses bidende "
+"custu avisu pro custu situ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:188
@@ -221,6 +243,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa chi no currispondet a s'identidade de su situ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:191
@@ -229,6 +253,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa iscadidu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:194
@@ -237,6 +263,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa chi cuntenet datas non vàlidas."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:197
@@ -245,6 +273,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa emìtidu dae un'ente chi no est de cunfiantza."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:200
@@ -253,6 +283,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa chi est istadu revocadu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:203
@@ -261,6 +293,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa chi no est vàlidu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:206
@@ -269,6 +303,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa chi no est seguru."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:209
@@ -278,285 +314,290 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Su tzertificadu de seguresa de custu situ no est de cunfiantza\n"
+"As proadu de atzèdere a %1, però su server at presentadu unu tzertificadu de "
+"seguresa chi no at passadu is controllos de seguresa nostros pro unu motivu "
+"disconnotu."
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "Permissu"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
+"Boles permìtere a custu domìniu de atzèdere a sa càmera e su micròfonu tuo?"
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Boles permìtere a custu domìniu de atzèdere a sa càmera tua?"
 
 #: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Boles permìtere a custu domìniu de atzèdere a su micròfonu tuo?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/MediaAccessDialog.qml:48
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (incorporadu a %2)"
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
-msgstr ""
+msgstr "Eja"
 
 #: src/app/MediaAccessDialog.qml:83
 msgid "No"
-msgstr ""
+msgstr "Nono"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Indicadore de JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Autenticatzione de proxy rechèdida."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Su situ web %1:%2 rechedet autenticatzione."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "In segus"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "Pàgina betza"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Agiunghe a is marcadores"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "Agiunghe custa pàgina a is marcadores"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Agiunghe su ligàmene a is marcadores"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Lìmpia sa cronologia"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Lìmpia sa cronologia de navigatzione"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Còpia"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Còpia s'immàgine"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Còpia su ligàmene"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Sega"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Cantzella"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
 msgid "Find in page"
-msgstr ""
+msgstr "Chirca in sa pàgina"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Chirca in sa pàgina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "In antis"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "Pàgina noa"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Bae"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr ""
+msgstr "Indiritzu;URL;www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
-msgstr ""
+msgstr "Ischeda noa"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Aberi un'ischeda noa"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Aberi s'immàgine in un'ischeda noa"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Aberi su ligàmene in su navigadore predefinidu"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Aberi su ligàmene in un'ischeda de segundu pranu"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Aberi su ligàmene in un'ischeda noa"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Aberi su ligàmene in una ventana noa"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Aberi su ligàmene in una ventana privada"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Aberi su vìdeu in un'ischeda noa"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Incolla"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Torra a fàghere"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr ""
+msgstr "Torra a carrigare"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr ""
+msgstr "Essi de sa pàgina"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Sarva s'immàgine"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Sarva su ligàmene"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Sarva su vìdeu"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr ""
+msgstr "Seletziona totu"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
-msgstr ""
+msgstr "Cumpartzi"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Iscontza"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
-msgstr ""
+msgstr "chirca in sa pàgina"
 
 #: src/app/webbrowser/AddressBar.qml:249
 msgid "search or enter an address"
-msgstr ""
+msgstr "Chirca o iscrie un'indiritzu"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Agiuntu a is marcadores"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr ""
+msgstr "Nòmine"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
-msgstr ""
+msgstr "Sarva in"
 
 #: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Totu is marcadores"
 
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr ""
+msgstr "Cartella noa"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr ""
+msgstr "Crea una cartella noa"
 
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr ""
+msgstr "Sarva"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
 #: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
 #: src/app/webbrowser/SettingsPage.qml:286
 msgid "Homepage"
-msgstr ""
+msgstr "Pàgina initziale"
 
 #: src/app/webbrowser/BookmarksView.qml:32
 #: src/app/webbrowser/BookmarksViewWide.qml:32
 #: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
-msgstr ""
+msgstr "Marcadores"
 
 #: src/app/webbrowser/BookmarksView.qml:76
 #: src/app/webbrowser/BookmarksViewWide.qml:75
 #: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
-msgstr ""
+msgstr "Fatu"
 
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
@@ -564,379 +605,396 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr ""
+msgstr "Ischeda noa"
 
 #: src/app/webbrowser/Browser.qml:585
 msgid "New window"
-msgstr ""
+msgstr "Ventana noa"
 
 #: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr ""
+msgstr "Ventana privada noa"
 
 #: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
 msgid "History"
-msgstr ""
+msgstr "Cronologia"
 
 #: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
-msgstr ""
+msgstr "Iscarrigamentos"
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr ""
+msgstr "Cunfiguratzione"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Sèbera un'aplicatzione pro abèrrere custu archìviu o agiunghe·ddu a sa "
+"cartella de iscarrigamentos."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
-msgstr ""
+msgstr "Sèbera un'aplicatzione"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "Iscàrriga"
 
 #: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
-msgstr ""
+msgstr "Iscarrigamentu faddidu"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Sighi"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
-msgstr ""
+msgstr "Cunfirma sa seletzione"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr ""
+msgstr "Cantzella"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
-msgstr ""
+msgstr "Perunu iscarrigamentu a disponimentu"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 pàgina"
+msgstr[1] "%1 pàginas"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
-msgstr ""
+msgstr "Prus pagu"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
-msgstr ""
+msgstr "Visitas reghentes"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
-msgstr ""
+msgstr "Eris"
 
 #: src/app/webbrowser/HistoryViewWide.qml:160
 msgid "search history"
-msgstr ""
+msgstr "Cronologia de chircas"
 
 #: src/app/webbrowser/HistoryViewWide.qml:235
 msgid "All History"
-msgstr ""
+msgstr "Totu sa cronologia"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
-msgstr ""
+msgstr "Oe"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Ses in un'ischeda privada"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Is pàginas chi visitas in custa ischeda no ant a cumpàrrere in sa cronologia "
+"de navigatzione.\n"
+"Is marcadores chi apas a creare, però, ant a èssere sarvados."
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
-msgstr ""
+msgstr "Àteru"
 
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
-msgstr ""
+msgstr "Sitos prus visitados"
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Ancora no as visitadu perunu situ"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Protzessu de rendering serradu pro custa ischeda."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Carchi cosa no est andada bene in sa visualizatzione de %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Su sistema tenet pagu memòria e non podet ammustrare custu situ web. Serra "
+"ischedas chi no siant netzessàrias e proa a ddas torrare a carrigare."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Serra s'ischeda"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Custu situ tenet cuntenutos chi no sunt seguros"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identidade non verificada"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "S'identidade de custu situ web no est istada verificada."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
 msgstr ""
+"Su tzertificadu de su server non currispondet cun s'identidade de su situ."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Su tzertificadu de su server est iscadidu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Su tzertificadu de su server cuntenet datas non vàlidas."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
 msgstr ""
+"Su tzertificadu de su server est istadu emìtidu dae un'ente chi no est de "
+"cunfiantza."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Su tzertificadu de su server est istadu revocadu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Su tzertificadu de su server no est vàlidu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Su tzertificadu de su server no est seguru."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Su tzertificadu de su server no at passadu is controllos de seguresa nostros "
+"pro unu motivu disconnotu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "Ses connessu a"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "Esecutadu dae"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Predefinidu"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
 msgid "Search engine"
-msgstr ""
+msgstr "Motore de chirca"
 
 #: src/app/webbrowser/SettingsPage.qml:96
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Recùpera s'ùrtima sessione in s'aviu"
 
 #: src/app/webbrowser/SettingsPage.qml:115
 #: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Riservadesa e permissos"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Reseta sa cunfiguratzione de su navigadore"
 
 #: src/app/webbrowser/SettingsPage.qml:206
 #: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Càmera e micròfonu"
 
 #: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Lìmpia sa cronologia de navigatzione"
 
 #: src/app/webbrowser/SettingsPage.qml:219
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Boles limpiare sa cronologia de navigatzione?"
 
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
-msgstr ""
+msgstr "Isbòida sa memòria temporànea"
 
 #: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Boles isboidare sa memòria temporànea?"
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
-msgstr ""
+msgstr "Lìmpia"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
-msgstr ""
+msgstr "Micròfonu"
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "Fotocàmera"
 
 #: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Iscurre a susu pro essire de s'ischermu intreu"
 
 #: src/app/webbrowser/TabComponent.qml:410
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Preme ESC pro essire de s'ischermu intreu"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
-msgstr ""
+msgstr "Toca pro visualizare"
 
 #: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr ""
+msgstr "Moe in una ventana noa"
 
 #: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
-msgstr ""
+msgstr "Serra s'ischeda"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "Boga"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:101
 #: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Navigadore web de Ubuntu"
 
 #: src/app/webbrowser/morph-browser.qml:103
 #: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Navigadore web de Ubuntu"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Perunu contu collegadu a custa aplicatzione web. Preme su butone in bàsciu "
+"pro nd'agiùnghere."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr ""
+msgstr "Agiunghe contu"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "No imprees perunu contu"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Faddina in su contu"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Serra"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Impossìbile abèrrere sa ventana de is contos. Est possìbile creare isceti "
+"unu contu a sa borta, serra totu is àteras ventanas de contos e torra·bi a "
+"proare."
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Autenticatzione faddida"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "S'aplicatzione <b>%1</b> rechedet atzessu a su contu %2."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> bolet atzèdere a su contu tuo de %2."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr ""
+msgstr "Sèbera unu contu, o brinca custu passu e sèbera·ddu a pustis."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Serra custa aplicatzione"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Brinca"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Sèbera su contu"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "B'est istada una faddina."
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "Navigadore"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "Navigadore web"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Nàviga in sa web"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Internet;WWW;Navigadore;Web;Esploradore;Esplora"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "Ventana noa"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "Ventana privada noa"
