@@ -277,8 +277,30 @@ FocusScope {
 
         enabled: !addressbar.activeFocus
         onClicked: {
-            textField.forceActiveFocus()
-            textField.selectAll()
+            textField.forceActiveFocus();
+            textField.selectAll();
+        }
+        onPressAndHold: {
+            if (findInPageMode) {
+              textField.forceActiveFocus();
+              textField.selectAll();
+            }
+            else {
+              var addressBarDialog = PopupUtils.open(Qt.resolvedUrl("../AddressBarDialog.qml"));
+              addressBarDialog.title = i18n.tr("Address Bar Dialog");
+              addressBarDialog.copyCurrentUrl.connect(function() {
+                Clipboard.push(["text/plain", webview.url.toString()]);
+               });
+              addressBarDialog.pasteAndGo.connect(function() {
+                textField.forceActiveFocus();
+                textField.text = Clipboard.data.text;
+                textField.accepted();
+              });
+              addressBarDialog.selectAll.connect(function() {
+                  textField.forceActiveFocus();
+                  textField.selectAll();
+              });
+            }
         }
     }
 
