@@ -710,7 +710,7 @@ BrowserView {
                 objectName: "view source"
                 text: i18n.tr("View source")
                 iconName: "preview-file"
-                enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
+                enabled: currentWebview && ! UrlUtils.schemeIs(currentWebview.url, "view-source")
                 onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
             }
         ]
