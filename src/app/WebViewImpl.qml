@@ -832,7 +832,7 @@ WebView {
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
            // ToDo: Is there a way to not load the "blink error message" in the first place ?
            // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
-           webview.runJavaScript("document.removeChild(document.documentElement);")
+           webview.runJavaScript("if (document.documentElement) {document.removeChild(document.documentElement);}")
         }
     }
 
