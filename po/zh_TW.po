@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2016-09-13 10:16+0000\n"
-"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"PO-Revision-Date: 2019-02-25 00:36+0000\n"
+"Last-Translator: louies0623 <louies0623@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
+"ubports/morph-browser/zh_Hant/>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.1.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -237,7 +239,7 @@ msgstr "不應繼續，特別是當您從未在此網站看過此警告。"
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
-msgstr "您想去 %1，但伺服器展示的安全憑證與網站的身分不符。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證與網站的身分不符。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:191
@@ -245,7 +247,7 @@ msgstr "您想去 %1，但伺服器展示的安全憑證與網站的身分不符
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
-msgstr "您想去 %1，但伺服器展示的安全憑證已失效。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證已失效。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:194
@@ -253,7 +255,7 @@ msgstr "您想去 %1，但伺服器展示的安全憑證已失效。"
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
-msgstr "您想去 %1，但伺服器展示的安全憑證的日期無效。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證的日期無效。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:197
@@ -261,7 +263,7 @@ msgstr "您想去 %1，但伺服器展示的安全憑證的日期無效。"
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
-msgstr "您想去 %1，但伺服器展示的安全憑證的發出機關不獲信任。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證的發出機關不獲信任。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:200
@@ -269,7 +271,7 @@ msgstr "您想去 %1，但伺服器展示的安全憑證的發出機關不獲信
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
-msgstr "您想去 %1，但伺服器展示的安全憑證已遭撤銷。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證已遭撤銷。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:203
@@ -277,7 +279,7 @@ msgstr "您想去 %1，但伺服器展示的安全憑證已遭撤銷。"
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
-msgstr "您想去 %1，但伺服器展示的安全憑證無效。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證無效。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:206
@@ -285,7 +287,7 @@ msgstr "您想去 %1，但伺服器展示的安全憑證無效。"
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
-msgstr "您想去 %1，但伺服器展示的安全憑證並不安全。"
+msgstr "您試圖進入到 %1，但伺服器展示的安全憑證並不安全。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:209
@@ -296,7 +298,7 @@ msgid ""
 "which failed our security checks for an unknown reason."
 msgstr ""
 "此網站的安全憑證不獲信任。\n"
-"您想去 %1，但伺服器展示的安全憑證由於不明原因未能通過安全檢查。"
+"試圖進入到 %1，但伺服器展示的安全憑證由於不明原因未能通過安全檢查。"
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
@@ -374,7 +376,7 @@ msgstr "清除歷史"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Clear Navigation History;清除導覽歷史;清除瀏覽歷史;清除歷史"
+msgstr "清除瀏覽歷史"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -390,7 +392,7 @@ msgstr "複製連結"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr "切割"
+msgstr "剪下"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
@@ -408,13 +410,13 @@ msgstr "在頁面搜尋"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "前進"
+msgstr "轉發"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Newer Page;新頁面;前進;下一頁"
+msgstr "新頁面"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -424,7 +426,7 @@ msgstr "前往"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Address;URL;www;網址;網路;位址"
+msgstr "位址;網址;www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
 #: src/app/webbrowser/TabsBar.qml:88
@@ -459,7 +461,7 @@ msgstr "在新視窗開啟連結"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr "在私密視窗開啟連結"
+msgstr "在無痕視窗開啟連結"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -482,7 +484,7 @@ msgstr "重新載入"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Leave Page;離開頁面;重新載入;重新整理"
+msgstr "離開頁面"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
@@ -583,7 +585,7 @@ msgstr "完成"
 #: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "新分頁"
+msgstr "新增分頁"
 
 #: src/app/webbrowser/Browser.qml:585
 msgid "New window"
@@ -591,7 +593,7 @@ msgstr "新視窗"
 
 #: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr "新私密視窗"
+msgstr "新無痕視窗"
 
 #: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -615,7 +617,7 @@ msgstr "(%1)"
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
-msgstr "選擇要開啟此檔案的應用程式，或將之放入「下載」資料夾"
+msgstr "選擇要開啟此檔案的應用程式，或放入「下載」資料夾。"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
@@ -686,7 +688,7 @@ msgstr "今天"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "此為私密分頁"
+msgstr "這個為無痕分頁"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -775,11 +777,11 @@ msgstr "伺服器憑證由於未知原因並未通過我們的安全性檢查。
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "您已連接："
+msgstr "您已連接到"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "營運者："
+msgstr "哪一個執行由"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
@@ -834,7 +836,7 @@ msgstr "麥克風"
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr "攝影機"
+msgstr "相機"
 
 #: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
@@ -902,7 +904,7 @@ msgstr "無法開啟帳號視窗。一次只能建立一個帳號；請先關閉
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "身分核對失敗"
+msgstr "驗證失敗"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -951,15 +953,15 @@ msgstr "瀏覽全球資訊網"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Internet;WWW;Browser;Web;Explorer;網際網路;瀏覽器;網頁;"
+msgstr "網際網路;WWW;瀏覽器;網頁;瀏覽"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "新視窗"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "新無痕視窗"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
