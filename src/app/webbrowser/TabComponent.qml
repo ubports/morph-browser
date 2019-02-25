@@ -372,7 +372,7 @@ Component {
                     return
                 }
 
-                if (webviewInternal.storedUrl.toString()) {
+                if ((icon.toString() !== '') && webviewInternal.storedUrl.toString()) {
                     HistoryModel.update(webviewInternal.storedUrl, webviewInternal.title, (UrlUtils.schemeIs(icon, "image") && UrlUtils.hostIs(icon, "favicon")) ? icon.toString().substring(("image://favicon/").length) : icon)
                 }
             }
