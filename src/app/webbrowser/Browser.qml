@@ -648,20 +648,6 @@ BrowserView {
                 onTriggered: internal.shareLink(chrome.tab.url, chrome.tab.title)
             },
             Action {
-                objectName: "copyUrl"
-                text: i18n.tr("Copy current URL")
-                iconName: "edit-copy"
-                enabled: currentWebview
-                onTriggered: Clipboard.push(["text/plain", currentWebview.url.toString()]);
-            },
-            Action {
-                objectName: "findinpage"
-                text: i18n.tr("Find in page")
-                iconName: "search"
-                enabled: !chrome.findInPageMode && !newTabViewLoader.active
-                onTriggered: chrome.findInPageMode = true
-            },
-            Action {
                 objectName: "bookmarks"
                 text: i18n.tr("Bookmarks")
                 iconName: "bookmark"
@@ -672,6 +658,13 @@ BrowserView {
                 text: i18n.tr("History")
                 iconName: "history"
                 onTriggered: historyViewLoader.active = true
+            },
+            Action {
+                objectName: "findinpage"
+                text: i18n.tr("Find in page")
+                iconName: "search"
+                enabled: !chrome.findInPageMode && !newTabViewLoader.active
+                onTriggered: chrome.findInPageMode = true
             },
             Action {
                 objectName: "downloads"
@@ -685,6 +678,13 @@ BrowserView {
                 text: i18n.tr("Settings")
                 iconName: "settings"
                 onTriggered: settingsViewLoader.active = true
+            },
+            Action {
+                objectName: "view source"
+                text: i18n.tr("View source")
+                iconName: "preview-file"
+                enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
+                onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
             },
             Action {
                 objectName: "save"
@@ -705,14 +705,8 @@ BrowserView {
                 iconName: "zoom-in"
                 enabled: currentWebview
                 onTriggered: currentWebview.showZoomMenu()
-            },
-            Action {
-                objectName: "view source"
-                text: i18n.tr("View source")
-                iconName: "preview-file"
-                enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
-                onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
             }
+
         ]
 
         canSimplifyText: !browser.wide
@@ -759,8 +753,8 @@ BrowserView {
 
     Suggestions {
         id: suggestionsList
-        opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
-                  (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
+        opacity: ((chrome.state === "shown") && (activeFocus || chrome.activeFocus) &&
+                  (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode && !chrome.contextMenuVisible) ? 1.0 : 0.0
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }

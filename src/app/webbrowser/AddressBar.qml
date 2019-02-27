@@ -43,6 +43,7 @@ FocusScope {
     property bool showFavicon: true
     property bool findInPageMode: false
     property bool tabListMode: false
+    property bool contextMenuVisible: addressBarContextMenu.visible
     property var findController: null
     property color fgColor: theme.palette.normal.baseText
 
@@ -276,30 +277,122 @@ FocusScope {
         }
 
         enabled: !addressbar.activeFocus
+
         onClicked: {
             textField.forceActiveFocus();
             textField.selectAll();
         }
         onPressAndHold: {
-            if (findInPageMode) {
-              textField.forceActiveFocus();
-              textField.selectAll();
+
+            if (findInPageMode || addressBarContextMenu.visible) {
+                textField.forceActiveFocus();
+                textField.selectAll();
             }
             else {
-              var addressBarDialog = PopupUtils.open(Qt.resolvedUrl("../AddressBarDialog.qml"));
-              addressBarDialog.title = i18n.tr("Address Bar Dialog");
-              addressBarDialog.copyCurrentUrl.connect(function() {
-                Clipboard.push(["text/plain", webview.url.toString()]);
-               });
-              addressBarDialog.pasteAndGo.connect(function() {
-                textField.forceActiveFocus();
-                textField.text = Clipboard.data.text;
-                textField.accepted();
-              });
-              addressBarDialog.selectAll.connect(function() {
-                  textField.forceActiveFocus();
-                  textField.selectAll();
-              });
+                addressBarContextMenu.visible = true;
+                addressBarContextMenu.forceActiveFocus();
+            }
+        }
+    }
+
+    UbuntuShape {
+
+        z:3
+        aspect: UbuntuShape.Flat
+        id: addressBarContextMenu
+        objectName: "addressBarActions"
+        visible: false
+        backgroundColor: theme.palette.normal.background
+        readonly property int padding: units.gu(1)
+        width: addressBarActionsRow.width + padding * 2
+        height: addressBarActionsRow.height + padding * 2
+
+        readonly property real spacing: units.gu(0.5)
+        x: (parent.width - addressBarActionsRow.width) / 2
+        y: addressbar.y + addressbar.height
+
+        onActiveFocusChanged: {
+
+            if (activeFocus) {
+                textField.selectAll();
+            }
+            else {
+                visible = false;
+            }
+        }
+
+        MouseArea {
+            // without that MouseArea the user can click "through" inactive parts of the context menu
+            anchors.fill: addressBarContextMenu
+            onClicked: console.log("inactive part of address bar menu clicked.")
+        }
+
+        ActionList {
+            id: addressBarActions
+            Action {
+                name: "cut"
+                text: i18n.tr("Cut")
+                iconName: "edit-cut"
+                enabled: textField.selectedText.length > 0
+                onTriggered: {
+                    Clipboard.push(["text/plain", textField.selectedText]);
+                    textField.text = "";
+                    textField.forceActiveFocus();
+                }
+            }
+            Action {
+                name: "copy"
+                text: i18n.tr("Copy")
+                iconName: "edit-copy"
+                enabled: textField.selectedText.length > 0
+                onTriggered: {
+                    Clipboard.push(["text/plain", textField.selectedText]);
+                    textField.selectAll();
+                    textField.forceActiveFocus();
+                }
+            }
+            Action {
+                name: "paste"
+                text: i18n.tr("Paste")
+                iconName: "edit-paste"
+                enabled: Clipboard.data.text.length > 0
+                onTriggered: {
+                    textField.text = Clipboard.data.text;
+                    textField.selectAll();
+                    textField.forceActiveFocus();
+                }
+            }
+            Action {
+                name: "paste"
+                text: i18n.tr("Paste and Go")
+                iconName: "edit-paste"
+                enabled: Clipboard.data.text.length > 0
+                onTriggered: {
+                    textField.text = Clipboard.data.text;
+                    textField.accepted()
+                }
+            }
+        }
+
+        Row {
+            id: addressBarActionsRow
+            x: parent.padding
+            y: parent.padding
+            height: units.gu(6)
+
+            Repeater {
+                model: addressBarActions.children
+                AbstractButton {
+                    objectName: "addressBarAction_" + action.name
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: Math.max(units.gu(4), implicitWidth) + units.gu(2)
+                    action: modelData
+                    styleName: "ToolbarButtonStyle"
+                    activeFocusOnPress: false
+                }
             }
         }
     }

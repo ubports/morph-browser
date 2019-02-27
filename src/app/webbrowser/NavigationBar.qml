@@ -37,6 +37,7 @@ FocusScope {
     property alias canSimplifyText: addressbar.canSimplifyText
     property alias findInPageMode: addressbar.findInPageMode
     property alias tabListMode: addressbar.tabListMode
+    property alias contextMenuVisible: addressbar.contextMenuVisible
     property alias editing: addressbar.editing
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
