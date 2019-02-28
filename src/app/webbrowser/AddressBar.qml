@@ -304,6 +304,7 @@ FocusScope {
         visible: false
         backgroundColor: theme.palette.normal.background
         readonly property int padding: units.gu(1)
+        property string clipboardText: ""
         width: addressBarActionsRow.width + padding * 2
         height: addressBarActionsRow.height + padding * 2
 
@@ -314,6 +315,7 @@ FocusScope {
         onActiveFocusChanged: {
 
             if (activeFocus) {
+                clipboardText = Clipboard.data.text ? Clipboard.data.text : "";
                 textField.selectAll();
             }
             else {
@@ -355,7 +357,7 @@ FocusScope {
                 name: "paste"
                 text: i18n.tr("Paste")
                 iconName: "edit-paste"
-                enabled: Clipboard.data.text.length > 0
+                enabled: addressBarContextMenu.clipboardText.length > 0
                 onTriggered: {
                     textField.text = Clipboard.data.text;
                     textField.selectAll();
@@ -363,13 +365,13 @@ FocusScope {
                 }
             }
             Action {
-                name: "paste"
+                name: "pasteAndGo"
                 text: i18n.tr("Paste and Go")
                 iconName: "edit-paste"
-                enabled: Clipboard.data.text.length > 0
+                enabled: addressBarContextMenu.clipboardText.length > 0
                 onTriggered: {
                     textField.text = Clipboard.data.text;
-                    textField.accepted()
+                    textField.accepted();
                 }
             }
         }
