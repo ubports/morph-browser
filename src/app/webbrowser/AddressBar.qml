@@ -284,7 +284,7 @@ FocusScope {
         }
         onPressAndHold: {
 
-            if (findInPageMode || addressBarContextMenu.visible) {
+            if (addressBarContextMenu.visible) {
                 textField.forceActiveFocus();
                 textField.selectAll();
             }
@@ -368,6 +368,7 @@ FocusScope {
                 name: "pasteAndGo"
                 text: i18n.tr("Paste and Go")
                 iconName: "edit-paste"
+                visible: !findInPageMode
                 enabled: addressBarContextMenu.clipboardText.length > 0
                 onTriggered: {
                     textField.text = Clipboard.data.text;
