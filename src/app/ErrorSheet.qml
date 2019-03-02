@@ -22,6 +22,7 @@ import Ubuntu.Components 1.3
 Rectangle {
     property string url
     property string errorString
+    color: theme.palette.normal.background
 
     signal refreshClicked()
 
@@ -35,6 +36,7 @@ Rectangle {
             width: parent.width
             fontSize: "x-large"
             text: i18n.tr("Network Error")
+            color: theme.palette.normal.overlayText
         }
 
         Label {
@@ -42,18 +44,21 @@ Rectangle {
             // TRANSLATORS: %1 refers to the URL of the current page
             text: i18n.tr("It appears you are having trouble viewing: %1.").arg(url)
             wrapMode: Text.Wrap
+            color: theme.palette.normal.overlayText
         }
 
         Label {
             width: parent.width
             text: i18n.tr("Error: %1".arg(errorString))
             visible: errorString !== ""
+            color: theme.palette.normal.overlayText
         }
 
         Label {
             width: parent.width
             text: i18n.tr("Please check your network settings and try refreshing the page.")
             wrapMode: Text.Wrap
+            color: theme.palette.normal.overlayText
         }
 
         Button {

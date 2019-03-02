@@ -874,7 +874,7 @@ BrowserView {
     Rectangle {
         id: bottomEdgeHint
         color: theme.palette.normal.background
-        border.color: (color.hslLightness > 0.5) ? Qt.darker(color, 1.05) : Qt.lighter(color, 1.05)
+        border.color: (color.hslLightness > 0.5) ? Qt.darker(color, 1.05) : Qt.lighter(color, 1.5)
         radius: units.gu(1.5)
         height: units.gu(4)
         width: units.gu(10)
