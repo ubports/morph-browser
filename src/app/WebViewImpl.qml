@@ -29,8 +29,6 @@ import "UrlUtils.js" as UrlUtils
 WebView {
     id: webview
 
-    backgroundColor: "transparent"
-
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
     readonly property real scaleFactor: Screen.devicePixelRatio
 
