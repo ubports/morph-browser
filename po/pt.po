@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
 "PO-Revision-Date: 2019-03-15 20:13+0000\n"
-"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
+"Last-Translator: Rúben Carneiro <rubencarneiro01@gmail.com>\n"
 "Language-Team: Portuguese <https://translate.ubports.com/projects/ubports/"
 "morph-browser/pt/>\n"
 "Language: pt\n"
@@ -28,7 +28,7 @@ msgstr "Alerta do JavaScript"
 #: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "OK"
+msgstr "Confirmar"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -109,7 +109,7 @@ msgstr "Erro de rede"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Parece que está a ter problemas para visualizar: %1"
+msgstr "Parece que você está com problemas para visualizar:% 1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
@@ -517,7 +517,7 @@ msgstr "Guardar vídeo"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr "Marcar todos"
+msgstr "Selecionar tudo"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
@@ -725,7 +725,7 @@ msgstr "Mais"
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
-msgstr "Top sites"
+msgstr "Melhores sites"
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
