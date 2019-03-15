@@ -1,0 +1,5 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Lilo</ShortName>
+  <Description>Lilo. Search with Lilo.</Description>
+  <Url type="text/html" template="https://search.lilo.org/searchweb.php?q={searchTerms}"/>
+</OpenSearchDescription>
