@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2017-03-25 15:21+0000\n"
-"Last-Translator: Ivo Xavier <ivoxavier.8@gmail.com>\n"
-"Language-Team: Portuguese <pt@li.org>\n"
+"PO-Revision-Date: 2019-03-15 20:13+0000\n"
+"Last-Translator: Rúben Carneiro <rubencarneiro01@gmail.com>\n"
+"Language-Team: Portuguese <https://translate.ubports.com/projects/ubports/"
+"morph-browser/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.1.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -26,7 +28,7 @@ msgstr "Alerta do JavaScript"
 #: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "OK"
+msgstr "Confirmar"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -107,7 +109,7 @@ msgstr "Erro de rede"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Parece que está a ter problemas para visualizar: %1"
+msgstr "Parece que você está com problemas para visualizar:% 1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
@@ -361,7 +363,7 @@ msgstr "A página %1:%2 requer autenticação."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Retroceder"
+msgstr "Anterior"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -425,7 +427,7 @@ msgstr "Procurar na página"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Avançar"
+msgstr "Reencaminhar"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -515,7 +517,7 @@ msgstr "Guardar vídeo"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
-msgstr "Marcar todos"
+msgstr "Selecionar tudo"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
@@ -571,7 +573,7 @@ msgstr "Criar nova pasta"
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr "Gravar"
+msgstr "Guardar"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
@@ -723,7 +725,7 @@ msgstr "Mais"
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
-msgstr "Top sites"
+msgstr "Melhores sites"
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
