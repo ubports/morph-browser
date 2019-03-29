@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2014-12-23 13:15+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <he@li.org>\n"
+"PO-Revision-Date: 2019-03-29 19:41+0000\n"
+"Last-Translator: maor26 <maor262@gmail.com>\n"
+"Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/"
+"morph-browser/he/>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 3.1.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -411,7 +413,7 @@ msgstr "חיפוש בעמוד"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "קדימה"
+msgstr "העבר"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -648,7 +650,7 @@ msgstr "אישור הבחירה"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr "מחיקה"
+msgstr "מחק"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
