@@ -753,8 +753,8 @@ BrowserView {
 
     Suggestions {
         id: suggestionsList
-        opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
-                  (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
+        opacity: ((chrome.state === "shown") && (activeFocus || chrome.activeFocus) &&
+                  (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode && !chrome.contextMenuVisible) ? 1.0 : 0.0
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
