@@ -96,7 +96,7 @@ WebView {
 
         function save() {
             viewSpecificZoom = false
-            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
             confirmDialog.title = i18n.tr("Default Zoom")
             confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
             confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
@@ -129,14 +129,14 @@ WebView {
         {
             case JavaScriptDialogRequest.DialogTypeAlert:
                 request.accepted = true;
-                var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"));
+                var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"), this);
                 alertDialog.message = request.message;
                 alertDialog.accept.connect(request.dialogAccept);
                 break;
 
             case JavaScriptDialogRequest.DialogTypeConfirm:
                 request.accepted = true;
-                var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"));
+                var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
                 confirmDialog.message = request.message;
                 confirmDialog.accept.connect(request.dialogAccept);
                 confirmDialog.reject.connect(request.dialogReject);
@@ -144,7 +144,7 @@ WebView {
 
             case JavaScriptDialogRequest.DialogTypePrompt:
                 request.accepted = true;
-                var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"));
+                var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
                 promptDialog.message = request.message;
                 promptDialog.defaultValue = request.defaultText;
                 promptDialog.accept.connect(request.dialogAccept);
@@ -155,7 +155,7 @@ WebView {
             //case JavaScriptDialogRequest.DialogTypeUnload:
             case 3:
                 request.accepted = true;
-                var beforeUnloadDialog = PopupUtils.open(Qt.resolvedUrl("BeforeUnloadDialog.qml"));
+                var beforeUnloadDialog = PopupUtils.open(Qt.resolvedUrl("BeforeUnloadDialog.qml"), this);
                 beforeUnloadDialog.message = request.message;
                 beforeUnloadDialog.accept.connect(request.dialogAccept);
                 beforeUnloadDialog.reject.connect(request.dialogReject);
@@ -170,7 +170,7 @@ WebView {
         {
             case FileDialogRequest.FileModeOpen:
                 request.accepted = true;
-                var fileDialogSingle = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
+                var fileDialogSingle = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"), this);
                 fileDialogSingle.allowMultipleFiles = false;
                 fileDialogSingle.accept.connect(request.dialogAccept);
                 fileDialogSingle.reject.connect(request.dialogReject);
@@ -178,7 +178,7 @@ WebView {
 
             case FileDialogRequest.FileModeOpenMultiple:
                 request.accepted = true;
-                var fileDialogMultiple = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"));
+                var fileDialogMultiple = PopupUtils.open(Qt.resolvedUrl("ContentPickerDialog.qml"), this);
                 fileDialogMultiple.allowMultipleFiles = true;
                 fileDialogMultiple.accept.connect(request.dialogAccept);
                 fileDialogMultiple.reject.connect(request.dialogReject);
@@ -194,7 +194,7 @@ WebView {
 
     onColorDialogRequested: function(request) {
         request.accepted = true;
-        var colorDialog = PopupUtils.open(Qt.resolvedUrl("ColorSelectDialog.qml"));
+        var colorDialog = PopupUtils.open(Qt.resolvedUrl("ColorSelectDialog.qml"), this);
         colorDialog.defaultValue = request.color;
         colorDialog.accept.connect(request.dialogAccept);
         colorDialog.reject.connect(request.dialogReject);
@@ -208,7 +208,7 @@ WebView {
             //case WebEngineAuthenticationDialogRequest.AuthenticationTypeHTTP:
             case 0:
             request.accepted = true;
-            var authDialog = PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"), webview.currentWebview);
+            var authDialog = PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"), this);
             authDialog.host = UrlUtils.extractHost(request.url);
             authDialog.realm = request.realm;
             authDialog.accept.connect(request.dialogAccept);
@@ -232,7 +232,7 @@ WebView {
 
              // TODO: we might want to store the answer to avoid requesting
              // the permission everytime the user visits this site.
-             var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"));
+             var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"), this);
              geoPermissionDialog.origin = securityOrigin;
              geoPermissionDialog.feature = feature;
              break;
@@ -241,7 +241,7 @@ WebView {
              case WebEngineView.MediaVideoCapture:
              case WebEngineView.MediaAudioVideoCapture:
 
-             var mediaAccessDialog = PopupUtils.open(Qt.resolvedUrl("MediaAccessDialog.qml"));
+             var mediaAccessDialog = PopupUtils.open(Qt.resolvedUrl("MediaAccessDialog.qml"), this);
              mediaAccessDialog.origin = securityOrigin;
              mediaAccessDialog.feature = feature;
              break;
@@ -251,7 +251,7 @@ WebView {
       onCertificateError: function(certificateError) {
 
           certificateError.defer()
-          var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"));
+          var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"), this);
           certificateVerificationDialog.host = UrlUtils.extractHost(certificateError.url);
           certificateErrorsMap[certificateVerificationDialog.host] = certificateError
           certificateErrorsMapChanged()
@@ -263,7 +263,7 @@ WebView {
 
     function showMessage(text) {
 
-         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"));
+         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"), this);
          alertDialog.message = text;
      }
 
@@ -285,7 +285,7 @@ WebView {
 
                 if (request.linkUrl.toString() || request.mediaType)
                 {
-                    var contextMenu = PopupUtils.open(Qt.resolvedUrl("webbrowser/ContextMenuMobile.qml"));
+                    var contextMenu = PopupUtils.open(Qt.resolvedUrl("webbrowser/ContextMenuMobile.qml"), this);
                     contextMenu.actions = contextualactions;
                     contextMenu.titleContent = request.linkUrl;
                 }
