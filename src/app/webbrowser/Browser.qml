@@ -669,7 +669,7 @@ BrowserView {
             Action {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
-                iconName: "save"
+                iconName: "save-to"
                 enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
                 onTriggered: downloadsViewLoader.active = true
             },
@@ -682,14 +682,14 @@ BrowserView {
             Action {
                 objectName: "view source"
                 text: i18n.tr("View source")
-                iconName: "preview-file"
+                iconName: "text-xml-symbolic"
                 enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
                 onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
             },
             Action {
                 objectName: "save"
                 text: i18n.tr("Save as HTML / PDF")
-                iconName: "document-export"
+                iconName: "save-as"
                 enabled: currentWebview
                 onTriggered: {
                     var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), this);
