@@ -692,7 +692,7 @@ BrowserView {
                 iconName: "document-export"
                 enabled: currentWebview
                 onTriggered: {
-                    var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"));
+                    var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), this);
                     savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage) } )
                     // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
                     // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
