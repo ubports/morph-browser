@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-25 00:36+0000\n"
+"PO-Revision-Date: 2019-04-01 14:28+0000\n"
 "Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
@@ -437,7 +437,7 @@ msgstr "新分頁"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Open a New Tab;以新分頁開啟;新分頁;新增分頁;開新分頁"
+msgstr "開啟新分頁"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
@@ -473,7 +473,7 @@ msgstr "貼上"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "重做"
+msgstr "復原"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
