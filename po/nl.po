@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-03-29 19:41+0000\n"
+"PO-Revision-Date: 2019-04-08 18:12+0000\n"
 "Last-Translator: Tom Dom <thomas@patoel.nl>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
 "morph-browser/nl/>\n"
@@ -405,7 +405,7 @@ msgstr "Navigatiegeschiedenis wissen"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "Kopieer"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -435,7 +435,7 @@ msgstr "In pagina zoeken"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Volgende"
+msgstr "Doorsturen"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -674,7 +674,7 @@ msgstr "Selectie bevestigen"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr "Verwijderen"
+msgstr "Verwijder"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
