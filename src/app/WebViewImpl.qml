@@ -224,7 +224,7 @@ WebView {
 
     }
 
-     onFeaturePermissionRequested: {
+    onFeaturePermissionRequested: {
 
          switch(feature)
          {
@@ -248,18 +248,27 @@ WebView {
          }
     }
 
-      onCertificateError: function(certificateError) {
+    function returnIfPossible(){
+        if (currentWebview.canGoBack) 
+        {
+            currentWebview.goBack()
+        }
+    }
 
-          certificateError.defer()
-          var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"));
-          certificateVerificationDialog.host = UrlUtils.extractHost(certificateError.url);
-          certificateErrorsMap[certificateVerificationDialog.host] = certificateError
-          certificateErrorsMapChanged()
-          certificateVerificationDialog.localizedErrorMessage = certificateError.description
-          certificateVerificationDialog.errorIsOverridable = certificateError.overridable
-          certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError)
-          certificateVerificationDialog.reject.connect(certificateError.rejectCertificate)
-      }
+    onCertificateError: function(certificateError) {
+        certificateError.defer()
+        var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"));
+        certificateVerificationDialog.host = UrlUtils.extractHost(certificateError.url);
+        certificateErrorsMap[certificateVerificationDialog.host] = certificateError
+        certificateErrorsMapChanged()
+        certificateVerificationDialog.localizedErrorMessage = certificateError.description
+        certificateVerificationDialog.errorIsOverridable = certificateError.overridable
+        certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError)
+        certificateVerificationDialog.reject.connect(certificateError.rejectCertificate)
+        certificateVerificationDialog.reject.connect(returnIfPossible)
+        
+    }
+
 
     function showMessage(text) {
 
