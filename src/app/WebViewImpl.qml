@@ -252,7 +252,6 @@ WebView {
     function returnIfPossible(certificateError){
         // deferred rejection so that c.v.Dialog isn't called twice
         certificateError.rejectCertificate
-
         // check if back is available
         if (currentWebview.canGoBack) 
         {
@@ -270,27 +269,21 @@ WebView {
         certificateVerificationDialog.errorIsOverridable = certificateError.overridable
         certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError)
         certificateVerificationDialog.reject.connect(returnIfPossible)
-        
-        
     }
 
-
     function showMessage(text) {
-
          var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"));
          alertDialog.message = text;
      }
 
     QtObject {
         id: domElementOfContextMenu
-
         // true for input and textarea elements that support text selection
         property bool hasSelectMethod: false
         property bool isDocumentElement: false
     }
 
     onContextMenuRequested: function(request) {
-
                 contextMenuRequest = request;
                 //console.log("onContextMenuRequested, request: " + JSON.stringify(request))
                 request.accepted = true;
@@ -313,7 +306,7 @@ WebView {
                     quickMenu.visible = true;
                 }
 
-                var commandGetContextMenuInfo = "
+                var commandGetContextMenuInfo = ""
                 var morphElemContextMenu = document.elementFromPoint(%1, %2);
                 var morphContextMenuIsDocumentElement = false;
                 if (morphElemContextMenu === null)
