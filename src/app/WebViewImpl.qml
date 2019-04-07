@@ -248,7 +248,12 @@ WebView {
          }
     }
 
-    function returnIfPossible(){
+    // returnIfPossible -> rejects bad certificate and returns to last page
+    function returnIfPossible(certificateError){
+        // deferred rejection so that c.v.Dialog isn't called twice
+        certificateError.rejectCertificate
+
+        // check if back is available
         if (currentWebview.canGoBack) 
         {
             currentWebview.goBack()
@@ -264,8 +269,8 @@ WebView {
         certificateVerificationDialog.localizedErrorMessage = certificateError.description
         certificateVerificationDialog.errorIsOverridable = certificateError.overridable
         certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError)
-        certificateVerificationDialog.reject.connect(certificateError.rejectCertificate)
         certificateVerificationDialog.reject.connect(returnIfPossible)
+        
         
     }
 
