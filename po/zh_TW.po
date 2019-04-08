@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-25 00:36+0000\n"
+"PO-Revision-Date: 2019-04-07 00:00+0000\n"
 "Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
@@ -184,7 +184,7 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"發出者：\n"
+"發行者：\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
@@ -194,7 +194,7 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"發出者地址：\n"
+"發行者地址：\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
@@ -352,7 +352,7 @@ msgstr "返回"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Older Page;舊頁面;返回;上一頁"
+msgstr "舊頁面"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -362,11 +362,11 @@ msgstr "書籤"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Add This Page to Bookmarks;將此頁加入書籤;書籤;最愛"
+msgstr "將此頁面加入到書籤"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "將連結加入書籤"
+msgstr "書籤連結"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -437,7 +437,7 @@ msgstr "新分頁"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Open a New Tab;以新分頁開啟;新分頁;新增分頁;開新分頁"
+msgstr "開啟新分頁"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
@@ -473,7 +473,7 @@ msgstr "貼上"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "重做"
+msgstr "復原"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -878,7 +878,7 @@ msgstr "Ubuntu 網頁瀏覽器"
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
-msgstr "尚未有連結至本網路 App 的帳號；請按下方的項目來加入帳號。"
+msgstr "尚未有連結至本網路應用程式的帳號；請按下方的項目來加入帳號。"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -921,7 +921,7 @@ msgstr "<b>%1</b> 想要存取您的 %2 線上帳號。"
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr "現在選擇一個帳號，或是略過此步驟稍候再選擇一個線上帳號。"
+msgstr "現在選擇一個帳號，或是略過此步驟，稍候再選擇一個線上帳號。"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
