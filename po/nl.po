@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-04-08 18:12+0000\n"
+"PO-Revision-Date: 2019-04-08 19:30+0000\n"
 "Last-Translator: Tom Dom <thomas@patoel.nl>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
 "morph-browser/nl/>\n"
@@ -996,11 +996,11 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "Nieuw Venster"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "Nieuw Privévenster"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
