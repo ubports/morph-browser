@@ -1,7 +1,7 @@
 {
   "template": "cmake",
   "kill": "morph-browser",
-  "dependencies": [
+  "dependencies_target": [
     "qtwebengine5-dev"
   ]
 }

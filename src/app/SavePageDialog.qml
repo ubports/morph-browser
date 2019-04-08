@@ -33,7 +33,7 @@ ModalDialog {
 
     Button {
         text: i18n.tr("Save as HTML")
-        color: theme.palette.normal.positive
+        color: theme.palette.normal.foreground
         objectName: "savehtml"
         onClicked: saveAsHtml()
     }
@@ -42,7 +42,7 @@ ModalDialog {
 
     Button {
         text: i18n.tr("Save as PDF")
-        color: theme.palette.normal.positive
+        color: theme.palette.normal.foreground
         objectName: "savepdf"
         onClicked: saveAsPdf()
     }

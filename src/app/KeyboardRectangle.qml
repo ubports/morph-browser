@@ -28,6 +28,7 @@ Item {
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.bottom: parent.bottom
+    opacity: 1
 
     // We need to get the values of kayboardRectangle without HIDPI applied
     // To do this we take gridUnit and devide by DEFAULT_GRID_UNIT_PX (8)

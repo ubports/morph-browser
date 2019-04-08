@@ -42,6 +42,11 @@ FocusScope {
     }
     property alias actions: unityActionManager.actions
 
+    Rectangle {
+      anchors.fill: parent
+      color: theme.palette.normal.background
+    }
+    
     default property alias contents: contentsItem.data
     property alias automaticOrientation: contentsItem.automaticOrientation
     OrientationHelper {

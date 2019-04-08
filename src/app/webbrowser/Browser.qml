@@ -669,7 +669,7 @@ BrowserView {
             Action {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
-                iconName: "save"
+                iconName: "save-to"
                 enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
                 onTriggered: downloadsViewLoader.active = true
             },
@@ -682,17 +682,17 @@ BrowserView {
             Action {
                 objectName: "view source"
                 text: i18n.tr("View source")
-                iconName: "preview-file"
+                iconName: "text-xml-symbolic"
                 enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
                 onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
             },
             Action {
                 objectName: "save"
                 text: i18n.tr("Save as HTML / PDF")
-                iconName: "document-export"
+                iconName: "save-as"
                 enabled: currentWebview
                 onTriggered: {
-                    var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"));
+                    var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), this);
                     savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage) } )
                     // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
                     // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
@@ -874,7 +874,7 @@ BrowserView {
     Rectangle {
         id: bottomEdgeHint
         color: theme.palette.normal.background
-        border.color: (color.hslLightness > 0.5) ? Qt.darker(color, 1.05) : Qt.lighter(color, 1.05)
+        border.color: (color.hslLightness > 0.5) ? Qt.darker(color, 1.05) : Qt.lighter(color, 1.5)
         radius: units.gu(1.5)
         height: units.gu(4)
         width: units.gu(10)
