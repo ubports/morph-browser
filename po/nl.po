@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2015-10-18 08:52+0000\n"
-"Last-Translator: Hannie Dumoleyn <Unknown>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2019-04-08 20:51+0000\n"
+"Last-Translator: Tom Dom <thomas@patoel.nl>\n"
+"Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
+"morph-browser/nl/>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.1.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -26,7 +28,7 @@ msgstr "JavaScript-melding"
 #: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "Ok"
+msgstr "Oké"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -132,7 +134,7 @@ msgstr "Weigeren"
 
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
-msgstr "Toestaan"
+msgstr "toestaan"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
@@ -403,7 +405,7 @@ msgstr "Navigatiegeschiedenis wissen"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "Kopieer"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -433,7 +435,7 @@ msgstr "In pagina zoeken"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Volgende"
+msgstr "Doorsturen"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -496,7 +498,7 @@ msgstr "Plakken"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "Opnieuw doen"
+msgstr "Opnieuw"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -600,7 +602,7 @@ msgstr "Bladwijzers"
 #: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
-msgstr "Klaar"
+msgstr "Gereed"
 
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
@@ -672,7 +674,7 @@ msgstr "Selectie bevestigen"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr "Wissen"
+msgstr "Verwijder"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
@@ -994,11 +996,11 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "Nieuw Venster"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "Nieuw Privévenster"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
