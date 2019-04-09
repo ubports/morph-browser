@@ -261,7 +261,7 @@ WebView {
 
     onCertificateError: function(certificateError) {
         certificateError.defer()
-        var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"));
+        var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"), this);
         certificateVerificationDialog.host = UrlUtils.extractHost(certificateError.url);
         certificateErrorsMap[certificateVerificationDialog.host] = certificateError
         certificateErrorsMapChanged()
