@@ -307,7 +307,7 @@ WebView {
                     quickMenu.visible = true;
                 }
 
-                var commandGetContextMenuInfo = ""
+                var commandGetContextMenuInfo = "
                 var morphElemContextMenu = document.elementFromPoint(%1, %2);
                 var morphContextMenuIsDocumentElement = false;
                 if (morphElemContextMenu === null)
