@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-04-12 16:32+0000\n"
+"PO-Revision-Date: 2019-04-14 00:00+0000\n"
 "Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
@@ -93,7 +93,7 @@ msgstr "仍要繼續"
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
-msgstr "返回安全頁面"
+msgstr "回到安全頁面"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -231,7 +231,7 @@ msgstr ""
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
-msgstr "您不應該繼續，尤其是在當您從未在此網頁上看過此這個警告。"
+msgstr "您不應該繼續，尤其是在當您從未在此網頁上看過這個警告的時候。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:188
@@ -352,7 +352,7 @@ msgstr "返回"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "舊頁面"
+msgstr "舊的頁面"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -536,7 +536,7 @@ msgstr "名稱"
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
-msgstr "儲存於"
+msgstr "儲存到"
 
 #: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
@@ -737,11 +737,11 @@ msgstr "此網頁的內容並不安全"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr "身份尚未通過驗證"
+msgstr "身份尚未經驗證"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "此網站的身份尚未通過驗證。"
+msgstr "此網站的身份尚未經驗證。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
@@ -781,7 +781,7 @@ msgstr "您已連接到"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "哪一個要執行"
+msgstr "要用哪一個來執行"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
