@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-04-07 00:00+0000\n"
+"PO-Revision-Date: 2019-04-12 15:14+0000\n"
 "Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
@@ -32,13 +32,13 @@ msgstr "確定"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "需要核對身分。"
+msgstr "需要驗證。"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "%1 網站需要核對身分。"
+msgstr "網頁 %1 需要驗證。"
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
@@ -75,7 +75,7 @@ msgstr "留下"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "此連線未受信任"
+msgstr "此連結未受信任"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -107,11 +107,11 @@ msgstr "網路錯誤"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "似乎在檢視此頁時遇到問題：%1。"
+msgstr "您在查看時似乎出現了問題：%1。"
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr "請檢查網路設定，然後重刷頁面。"
+msgstr "請檢查您的網路設定，然後重新整理頁面。"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -137,11 +137,11 @@ msgstr "同意"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr "位於 %1 的網站需要核對身分。網站的要求是「%2」"
+msgstr "%1 的網頁需要驗證。網頁的要求是「%2」"
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
-msgstr "此網站的安全憑證不獲信任。\n"
+msgstr "此網頁的安全憑證未受信任。\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
@@ -231,7 +231,7 @@ msgstr ""
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
-msgstr "不應繼續，特別是當您從未在此網站看過此警告。"
+msgstr "您不應該繼續，特別是當您從未在此網頁上看過此這個警告。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:188
@@ -239,7 +239,7 @@ msgstr "不應繼續，特別是當您從未在此網站看過此警告。"
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
-msgstr "您試圖進入到 %1，但伺服器展示的安全憑證與網站的身分不符。"
+msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證與網頁的身分不符。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:191
@@ -247,7 +247,7 @@ msgstr "您試圖進入到 %1，但伺服器展示的安全憑證與網站的身
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
-msgstr "您試圖進入到 %1，但伺服器展示的安全憑證已失效。"
+msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證已失效。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:194
@@ -255,7 +255,7 @@ msgstr "您試圖進入到 %1，但伺服器展示的安全憑證已失效。"
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
-msgstr "您試圖進入到 %1，但伺服器展示的安全憑證的日期無效。"
+msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證的日期無效。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:197
@@ -263,7 +263,7 @@ msgstr "您試圖進入到 %1，但伺服器展示的安全憑證的日期無效
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
-msgstr "您試圖進入到 %1，但伺服器展示的安全憑證的發出機關不獲信任。"
+msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證是由不受信任的。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:200
