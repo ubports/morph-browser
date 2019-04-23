@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2015-07-23 03:56+0000\n"
-"Last-Translator: Ian Li <Unknown>\n"
-"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
+"PO-Revision-Date: 2019-04-24 08:40+0000\n"
+"Last-Translator: 不朽正义 <tanyongle0633@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://translate.ubports.com/projects/"
+"ubports/morph-browser/zh_Hans/>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.1.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -135,7 +137,7 @@ msgstr "允许"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "%1 的网站需要身份验证。 网站要求是 \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -322,7 +324,7 @@ msgstr "%1 (嵌入在 %2 中)"
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
-msgstr "是"
+msgstr "同意"
 
 #: src/app/MediaAccessDialog.qml:83
 msgid "No"
@@ -408,7 +410,7 @@ msgstr "在页面中搜索"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "前进"
+msgstr "转发"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -443,7 +445,7 @@ msgstr "在新标签打开图像"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "在默认浏览器中打开链接"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -455,11 +457,11 @@ msgstr "在新标签打开链接"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "在新窗口中打开链接"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "在隐私窗口中打开链接"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
@@ -471,7 +473,7 @@ msgstr "粘贴"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "重做"
+msgstr "还原"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -506,7 +508,7 @@ msgstr "分享"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "撤消"
+msgstr "撤销"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:212
@@ -587,11 +589,11 @@ msgstr "新建标签"
 
 #: src/app/webbrowser/Browser.qml:585
 msgid "New window"
-msgstr ""
+msgstr "新建窗口"
 
 #: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr ""
+msgstr "新建隐私窗口"
 
 #: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -633,7 +635,7 @@ msgstr "下载失败"
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
@@ -850,7 +852,7 @@ msgstr "点击查看"
 
 #: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr ""
+msgstr "移至新窗口"
 
 #: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
@@ -902,7 +904,7 @@ msgstr "帐号窗口无法打开。您只能一次创建一个帐号；请关闭
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "验证失败"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -955,11 +957,11 @@ msgstr "互联网；WWW；浏览器；"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "新建窗口"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "新建隐私窗口"
 
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
