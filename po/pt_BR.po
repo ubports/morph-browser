@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2015-08-05 04:42+0000\n"
-"Last-Translator: Julio Alexander Sieg <julio.sieg@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"PO-Revision-Date: 2019-04-25 19:14+0000\n"
+"Last-Translator: Vinícius F <magnetuz@protonmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.ubports.com/projects/"
+"ubports/morph-browser/pt_BR/>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.2.2\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -112,6 +114,7 @@ msgstr "Parece que você está tendo problemas de visualização: %1."
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Por favor, verifique suas configurações de rede e tente atualizar a página."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -137,7 +140,7 @@ msgstr "Permitir"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
+msgstr "O site em %1 requer autenticação. O site diz \"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
@@ -319,25 +322,25 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:31
 msgid "Permission"
-msgstr ""
+msgstr "Permissão"
 
 #: src/app/MediaAccessDialog.qml:38
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Permitir que este domínio acesse sua câmera e seu microfone?"
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Permitir que este domínio acesse sua câmera?"
 
 #: src/app/MediaAccessDialog.qml:40
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Permitir que este domínio acesse seu microfone?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/MediaAccessDialog.qml:48
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (embarcado em %2)"
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
@@ -417,7 +420,7 @@ msgstr "Apagar"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
 msgid "Find in page"
-msgstr ""
+msgstr "Encontrar na página"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -427,7 +430,7 @@ msgstr "Pesquisar na página"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Avançar"
+msgstr "Adiante"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -462,7 +465,7 @@ msgstr "Abrir imagem em nova aba"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Abrir link no navegador padrão"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -474,15 +477,15 @@ msgstr "Abrir link em nova aba"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Abrir link em nova janela"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Abrir link em janela privada"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Abrir vídeo em nova guia"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -513,7 +516,7 @@ msgstr "Salvar link"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Salvar vídeo"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
@@ -535,15 +538,15 @@ msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
-msgstr ""
+msgstr "encontrar na página"
 
 #: src/app/webbrowser/AddressBar.qml:249
 msgid "search or enter an address"
-msgstr "procurar ou digitar um endereço"
+msgstr "procure ou digite um endereço"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Marcador Adicionado"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
@@ -559,12 +562,12 @@ msgstr "Salvar em"
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Todos os Marcadores"
 
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr "Novo diretório"
+msgstr "Novo Diretório"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
@@ -606,11 +609,11 @@ msgstr "Nova aba"
 
 #: src/app/webbrowser/Browser.qml:585
 msgid "New window"
-msgstr ""
+msgstr "Nova janela"
 
 #: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr ""
+msgstr "Nova janela privada"
 
 #: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -635,6 +638,8 @@ msgstr "(%1)"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Escolha um aplicativo para abrir este arquivo ou adicione-o à pasta de "
+"downloads."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
@@ -646,17 +651,17 @@ msgstr "Baixar"
 
 #: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
-msgstr ""
+msgstr "Falha no Download"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Continuar"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
@@ -664,11 +669,11 @@ msgstr "Confirmar seleção"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr "Deletar"
+msgstr "Excluir"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
-msgstr ""
+msgstr "Não há downloads disponíveis"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -693,11 +698,11 @@ msgstr "Ontem"
 
 #: src/app/webbrowser/HistoryViewWide.qml:160
 msgid "search history"
-msgstr ""
+msgstr "histórico de busca"
 
 #: src/app/webbrowser/HistoryViewWide.qml:235
 msgid "All History"
-msgstr ""
+msgstr "Todo o histórico"
 
 #: src/app/webbrowser/HistoryViewWide.qml:249
 #: src/app/webbrowser/HistoryViewWide.qml:336
@@ -713,6 +718,9 @@ msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"As páginas visualizadas nesta guia não aparecerão no histórico do seu "
+"navegador.\n"
+"Os marcadores criados por você serão preservados, no entanto."
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
@@ -804,7 +812,7 @@ msgstr "Que é executado por"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:43
 msgid "Default"
-msgstr ""
+msgstr "Padrão"
 
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
@@ -855,7 +863,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "Câmera"
 
 #: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
@@ -879,7 +887,7 @@ msgstr "Fechar aba"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:101
@@ -923,7 +931,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Falha na autenticação"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -948,7 +956,7 @@ msgstr "Fechar o aplicativo"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "Ignorar"
+msgstr "Pular"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
