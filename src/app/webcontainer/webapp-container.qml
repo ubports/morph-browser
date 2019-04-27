@@ -22,6 +22,7 @@ import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.7
 import Morph.Web 0.1
 import webcontainer.private 0.1
+import webbrowsercommon.private 0.1
 import ".."
 
 BrowserWindow {
@@ -184,6 +185,9 @@ BrowserWindow {
             item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls;
 
             loadCustomUserScripts();
+
+            DomainSettingsModel.databasePath = webappDataLocation + '/domainsettings.sqlite';
+            DomainSettingsModel.allowCustomUrlSchemes("ubports.com", true)
         }
 
         function loadCustomUserScripts() {

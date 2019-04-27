@@ -34,6 +34,7 @@
 // local
 #include "browserapplication.h"
 #include "config.h"
+#include "domain-settings-model.h"
 #include "favicon-fetcher.h"
 #include "input-method-handler.h"
 #include "meminfo.h"
@@ -95,6 +96,7 @@ QString BrowserApplication::inspectorHost() const
 
 MAKE_SINGLETON_FACTORY(MemInfo)
 MAKE_SINGLETON_FACTORY(MimeDatabase)
+MAKE_SINGLETON_FACTORY(DomainSettingsModel)
 
 bool BrowserApplication::initialize(const QString& qmlFileSubPath
                                     , const QString& appId)
@@ -178,6 +180,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
+    qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));

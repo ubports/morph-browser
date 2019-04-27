@@ -20,7 +20,6 @@
 #include "bookmarks-folderlist-model.h"
 #include "cache-deleter.h"
 #include "config.h"
-#include "domain-settings-model.h"
 #include "downloads-model.h"
 #include "file-operations.h"
 #include "history-domainlist-model.h"
@@ -62,7 +61,6 @@ WebbrowserApp::WebbrowserApp(int& argc, char** argv)
 
 MAKE_SINGLETON_FACTORY(FileOperations)
 MAKE_SINGLETON_FACTORY(CacheDeleter)
-MAKE_SINGLETON_FACTORY(DomainSettingsModel)
 MAKE_SINGLETON_FACTORY(BookmarksModel)
 MAKE_SINGLETON_FACTORY(HistoryModel)
 MAKE_SINGLETON_FACTORY(DownloadsModel)
@@ -84,7 +82,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
-    qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
 
     QString qmlfile;
     const QString filePath = UbuntuBrowserDirectory() + "/webbrowser/morph-browser.qml";

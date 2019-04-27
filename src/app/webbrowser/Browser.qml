@@ -37,6 +37,7 @@ BrowserView {
 
     property Settings settings
     property var bookmarksModel: BookmarksModel
+    property var domainSettingsModel: DomainSettingsModel
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
