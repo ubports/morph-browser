@@ -322,6 +322,12 @@ WebEngineView {
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadFailedStatus
     readonly property string lastLoadRequestErrorString: internal.lastLoadRequestErrorString
     onLoadingChanged: {
+
+        console.log(JSON.stringify(loadRequest))
+
+        if (loadRequest.errorCode === 420) {
+            _webview.stop()
+        }
         if ((loadRequest.url === url) && (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus)) {
             internal.lastLoadRequestStatus = loadRequest.status
             internal.lastLoadRequestErrorString = loadRequest.errorString

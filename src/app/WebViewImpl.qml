@@ -53,6 +53,8 @@ WebView {
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
 
+    settings.unknownUrlSchemePolicy: WebEngineSettings.AllowAllUnknownUrlSchemes
+
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
 
@@ -263,7 +265,7 @@ WebView {
 
     function showMessage(text) {
 
-         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"), this);
+         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"), webview);
          alertDialog.message = text;
      }
 
@@ -352,7 +354,7 @@ WebView {
         }
         Actions.BookmarkLink {
             objectName: "BookmarkLinkContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !BookmarksModel.contains(contextMenuRequest.linkUrl)
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !browser.bookmarksModel.contains(contextMenuRequest.linkUrl)
             onTriggered: showMessage("Actions.BookmarkLink not implemented.");
         }
         Actions.CopyLink {
@@ -805,13 +807,29 @@ WebView {
         }
 
     onNavigationRequested: function (request) {
+
         if (request.isMainFrame)
         {
             quickMenu.visible = false;
             context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
             console.log(context.__ua.defaultUA);
         }
-        request.action = WebEngineNavigationRequest.AcceptRequest;
+
+        var domain = UrlUtils.extractHost(url)
+
+        if (UrlUtils.hasCustomScheme(request.url) && ! DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+        {
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
+            confirmDialog.title = i18n.tr("Custom scheme (" + UrlUtils.extractScheme(request.url) + ")")
+            confirmDialog.message = i18n.tr("Allow custom scheme")
+            confirmDialog.accept.connect(function() {DomainSettingsModel.allowCustomUrlSchemes(domain, true);});
+        }
+        else
+        {
+            request.action = WebEngineNavigationRequest.AcceptRequest;
+        }
     }
 
     onFullScreenRequested: function(request) {

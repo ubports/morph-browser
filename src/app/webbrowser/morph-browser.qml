@@ -53,6 +53,7 @@ QtObject {
         BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
         HistoryModel.databasePath = dataLocation + "/history.sqlite"
         DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
+        DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite"
     }
 
     // Array of all windows, sorted chronologically (most recently active last)

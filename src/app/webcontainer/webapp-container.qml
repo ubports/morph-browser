@@ -194,7 +194,7 @@ BrowserWindow {
             var idx = webappModel.getWebappIndex(getWebappName());
             var customScripts = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Scripts);
 
-            if (customScripts.length === 0)
+            if ((typeof customScripts === "undefined") || (customScripts.length === 0))
             {
                 return;
             }

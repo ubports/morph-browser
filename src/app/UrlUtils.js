@@ -20,20 +20,40 @@
 
 function extractScheme(url) {
     var urlString = url.toString();
-    return urlString.substring(0,urlString.indexOf("://"));
+    return urlString.substring(0,urlString.indexOf(":"));
 }
 
 function removeScheme(url) {
     var rest = url.toString();
-    var indexOfScheme = rest.indexOf("://");
+    var indexOfScheme = rest.indexOf(":");
     if (indexOfScheme !== -1) {
-        rest = rest.slice(indexOfScheme + 3);
+        rest = rest.slice(indexOfScheme + 1);
+
+        if (rest.indexOf("//") === 0)
+        {
+            rest = rest.slice(2);
+        }
     }
     return rest;
 }
 
 function schemeIs(url, expectedScheme) {
     return (extractScheme(url) === expectedScheme);
+}
+
+function hasCustomScheme(url) {
+
+    switch (extractScheme(url)) {
+     case 'http':
+     case 'https':
+     case 'file':
+     case 'ftp':
+     case 'data':
+     case 'mailto':
+       return false;
+     default:
+       return true;
+   }
 }
 
 function extractAuthority(url) {
