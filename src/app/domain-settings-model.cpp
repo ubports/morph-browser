@@ -28,6 +28,9 @@
 */
 DomainSettingsModel::DomainSettingsModel(QObject* parent)
 : QAbstractListModel(parent)
+, m_numRows(0)
+, m_fetchedCount(0)
+, m_canFetchMore(true)
 {
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
 }
