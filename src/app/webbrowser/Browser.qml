@@ -174,6 +174,34 @@ BrowserView {
               console.debug("creating pdf %1 failed".arg(filePath))
             }
         }
+
+        onNavigationRequested: {
+
+            if (request.isMainFrame)
+            {
+                currentWebview.hideContextMenu()
+                currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                console.log(currentWebview.context.__ua.defaultUA);
+            }
+
+            var domain = UrlUtils.extractHost(currentWebview.url)
+
+            if (UrlUtils.hasCustomScheme(request.url) && ! internal.areCustomUrlSchemesAllowed(domain))
+            {
+                request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+                var confirmDialog = PopupUtils.open(Qt.resolvedUrl("../ConfirmDialog.qml"), currentWebview);
+                confirmDialog.title = i18n.tr("Custom URL scheme")
+                confirmDialog.message = i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
+                                        request.url + "\n\n" +
+                                        i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain))
+                confirmDialog.accept.connect(function() {internal.allowCustomUrlSchemes(domain, true);});
+            }
+            else
+            {
+                request.action = WebEngineNavigationRequest.AcceptRequest;
+            }
+        }
     }
 
     currentWebcontext: SharedWebContext.sharedContext
@@ -1314,6 +1342,35 @@ BrowserView {
                 }
             }
             return false
+        }
+
+        // domains the user has allowed custom protocols for this (incognito) session
+        property var domainsWithCustomUrlSchemesAllowed: []
+
+        function allowCustomUrlSchemes(domain) {
+           domainsWithCustomUrlSchemesAllowed.push(domain);
+
+           if (! browser.incognito)
+           {
+                DomainSettingsModel.allowCustomUrlSchemes(domain, true);
+           }
+        }
+
+        function areCustomUrlSchemesAllowed(domain) {
+
+            for (var i in domainsWithCustomUrlSchemesAllowed) {
+                if (domain === domainsWithCustomUrlSchemesAllowed[i]) {
+                    return true;
+                }
+            }
+
+            if (DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+            {
+                domainsWithCustomUrlSchemesAllowed.push(domain);
+                return true;
+            }
+
+            return false;
         }
 
         function historyGoBack() {

@@ -23,7 +23,7 @@
 #include <QString>
 #include <QtSql/QSqlDatabase>
 
-class DomainSettingsModel : public QObject
+class DomainSettingsModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -33,16 +33,22 @@ class DomainSettingsModel : public QObject
     Q_ENUMS(Roles)
 
 public:
-    DomainSettingsModel();
+    DomainSettingsModel(QObject* parent=0);
     ~DomainSettingsModel();
 
     enum Roles {
-        Domain,
+        Domain = Qt::UserRole + 1,
         AllowCustomUrlSchemes,
         AllowLocation,
         UserAgent,
         ZoomFactor
     };
+
+    // reimplemented from QAbstractListModel
+    QHash<int, QByteArray> roleNames() const;
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    QVariant data(const QModelIndex& index, int role) const;
+    void fetchMore(const QModelIndex &parent = QModelIndex());
 
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
@@ -50,22 +56,39 @@ public:
     Q_INVOKABLE bool contains(const QString& domain) const;
     Q_INVOKABLE bool areCustomUrlSchemesAllowed(const QString& domain);
     Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow);
+    Q_INVOKABLE bool isLocationAllowed(const QString& domain) const;
     Q_INVOKABLE void allowLocation(const QString& domain, bool allow);
+    Q_INVOKABLE QString getUserAgent(const QString& domain) const;
     Q_INVOKABLE void setUserAgent(const QString& domain, QString userAgent);
+    Q_INVOKABLE double getZoomFactor(const QString& domain) const;
     Q_INVOKABLE void setZoomFactor(const QString& domain, double zoomFactor);
 
 Q_SIGNALS:
     void databasePathChanged() const;
-    //void rowCountChanged();
+    void rowCountChanged();
 
 private:
     QSqlDatabase m_database;
     int m_numRows;
+    int m_fetchedCount;
+    bool m_canFetchMore;
+
+    struct DomainSetting {
+        QString domain;
+        bool allowCustomUrlSchemes;
+        bool allowLocation;
+        QString userAgent;
+        double zoomFactor;
+    };
+
+    QList<DomainSetting> m_entries;
 
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void insertEntry(const QString& domain);
     void removeEntry(const QString& domain);
+    void removeObsoleteEntries();
+    int getIndexForDomain(const QString& domain) const;
 };
 
 #endif
