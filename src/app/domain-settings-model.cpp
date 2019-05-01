@@ -74,9 +74,9 @@ void DomainSettingsModel::fetchMore(const QModelIndex &parent)
         entry.domain = populateQuery.value("domain").toString();
         entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
         entry.allowLocation = populateQuery.value("allowLocation").toBool();
-        entry.userAgent = populateQuery.value("allowLocation").toString();
-        entry.zoomFactor =  populateQuery.value("allowLocation").isNull() ? std::numeric_limits<double>::quiet_NaN()
-                                                                          : populateQuery.value("allowLocation").toDouble();
+        entry.userAgent = populateQuery.value("userAgent").toString();
+        entry.zoomFactor =  populateQuery.value("zoomFactor").isNull() ? std::numeric_limits<double>::quiet_NaN()
+                                                                       : populateQuery.value("allowLocation").toDouble();
 
         beginInsertRows(QModelIndex(), m_numRows, m_numRows);
         m_entries.append(entry);
