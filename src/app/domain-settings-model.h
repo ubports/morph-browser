@@ -28,7 +28,7 @@ class DomainSettingsModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
-    //Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
 
     Q_ENUMS(Roles)
 
@@ -48,7 +48,6 @@ public:
     QHash<int, QByteArray> roleNames() const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
-    void fetchMore(const QModelIndex &parent = QModelIndex());
 
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
@@ -69,9 +68,6 @@ Q_SIGNALS:
 
 private:
     QSqlDatabase m_database;
-    int m_numRows;
-    int m_fetchedCount;
-    bool m_canFetchMore;
 
     struct DomainSetting {
         QString domain;
@@ -85,6 +81,7 @@ private:
 
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
+    void populateFromDatabase();
     void insertEntry(const QString& domain);
     void removeEntry(const QString& domain);
     void removeObsoleteEntries();

@@ -28,9 +28,6 @@
 */
 DomainSettingsModel::DomainSettingsModel(QObject* parent)
 : QAbstractListModel(parent)
-, m_numRows(0)
-, m_fetchedCount(0)
-, m_canFetchMore(true)
 {
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
 }
@@ -49,46 +46,11 @@ void DomainSettingsModel::resetDatabase(const QString& databaseName)
     m_database.close();
     m_database.setDatabaseName(databaseName);
     m_database.open();
-    m_numRows = 0;
-    m_fetchedCount = 0;
-    m_canFetchMore = true;
     createOrAlterDatabaseSchema();
     removeObsoleteEntries();
     endResetModel();
+    populateFromDatabase();
     Q_EMIT rowCountChanged();
-}
-
-void DomainSettingsModel::fetchMore(const QModelIndex &parent)
-{
-    Q_UNUSED(parent)
-
-    QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT domain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor "
-                                  "FROM domainsettings LIMIT 100 OFFSET ?;");
-    populateQuery.prepare(query);
-    populateQuery.addBindValue(m_fetchedCount);
-    populateQuery.exec();
-    int count = 0; // size() isn't supported on the sqlite backend
-    while (populateQuery.next()) {
-        DomainSetting entry;
-        entry.domain = populateQuery.value("domain").toString();
-        entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
-        entry.allowLocation = populateQuery.value("allowLocation").toBool();
-        entry.userAgent = populateQuery.value("userAgent").toString();
-        entry.zoomFactor =  populateQuery.value("zoomFactor").isNull() ? std::numeric_limits<double>::quiet_NaN()
-                                                                       : populateQuery.value("zoomFactor").toDouble();
-
-        beginInsertRows(QModelIndex(), m_numRows, m_numRows);
-        m_entries.append(entry);
-        endInsertRows();
-        m_numRows++;
-
-        count++;
-    }
-    m_fetchedCount += count;
-    if (count == 0) {
-        m_canFetchMore = false;
-    }
 }
 
 QHash<int, QByteArray> DomainSettingsModel::roleNames() const
@@ -142,6 +104,30 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
     createQuery.exec();
 }
 
+void DomainSettingsModel::populateFromDatabase()
+{
+    QSqlQuery populateQuery(m_database);
+    QString query = QLatin1String("SELECT domain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor "
+                                  "FROM domainsettings;");
+    populateQuery.prepare(query);
+    populateQuery.exec();
+    int count = 0; // size() isn't supported on the sqlite backend
+    while (populateQuery.next()) {
+        DomainSetting entry;
+        entry.domain = populateQuery.value("domain").toString();
+        entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
+        entry.allowLocation = populateQuery.value("allowLocation").toBool();
+        entry.userAgent = populateQuery.value("userAgent").toString();
+        entry.zoomFactor =  populateQuery.value("zoomFactor").isNull() ? std::numeric_limits<double>::quiet_NaN()
+                                                                       : populateQuery.value("zoomFactor").toDouble();
+
+        beginInsertRows(QModelIndex(), count, count);
+        m_entries.append(entry);
+        endInsertRows();
+        count++;
+    }
+}
+
 const QString DomainSettingsModel::databasePath() const
 {
     return m_database.databaseName();
@@ -161,24 +147,18 @@ void DomainSettingsModel::setDatabasePath(const QString& path)
 
 bool DomainSettingsModel::contains(const QString& domain) const
 {
-    QSqlQuery query(m_database);
-    static QString selectStatement = QLatin1String("SELECT COUNT(domain) FROM domainsettings WHERE domain=?;");
-    query.prepare(selectStatement);
-    query.addBindValue(domain);
-    query.exec();
-    query.first();
-    return (query.value(0).toInt() > 0);
+    return (getIndexForDomain(domain) >= 0);
 }
 
 bool DomainSettingsModel::areCustomUrlSchemesAllowed(const QString& domain)
 {
-    QSqlQuery query(m_database);
-    static QString selectStatement = QLatin1String("SELECT allowCustomUrlSchemes FROM domainsettings WHERE domain=?;");
-    query.prepare(selectStatement);
-    query.addBindValue(domain);
-    query.exec();
-    query.first();
-    return query.value(0).toBool();
+    int index = getIndexForDomain(domain);
+    if (index == -1)
+    {
+        return false;
+    }
+
+    return m_entries[index].allowCustomUrlSchemes;
 }
 
 void DomainSettingsModel::allowCustomUrlSchemes(const QString& domain, bool allow)
@@ -204,13 +184,13 @@ void DomainSettingsModel::allowCustomUrlSchemes(const QString& domain, bool allo
 
 bool DomainSettingsModel::isLocationAllowed(const QString& domain) const
 {
-    QSqlQuery query(m_database);
-    static QString selectStatement = QLatin1String("SELECT allowLocation FROM domainsettings WHERE domain=?;");
-    query.prepare(selectStatement);
-    query.addBindValue(domain);
-    query.exec();
-    query.first();
-    return query.value(0).toBool();
+    int index = getIndexForDomain(domain);
+    if (index == -1)
+    {
+        return false;
+    }
+
+    return m_entries[index].allowLocation;
 }
 
 void DomainSettingsModel::allowLocation(const QString& domain, bool allow)
@@ -236,13 +216,13 @@ void DomainSettingsModel::allowLocation(const QString& domain, bool allow)
 
 QString DomainSettingsModel::getUserAgent(const QString& domain) const
 {
-    QSqlQuery query(m_database);
-    static QString selectStatement = QLatin1String("SELECT userAgent FROM domainsettings WHERE domain=?;");
-    query.prepare(selectStatement);
-    query.addBindValue(domain);
-    query.exec();
-    query.first();
-    return query.value(0).toString();
+    int index = getIndexForDomain(domain);
+    if (index == -1)
+    {
+        return QString();
+    }
+
+    return m_entries[index].userAgent;
 }
 
 void DomainSettingsModel::setUserAgent(const QString& domain, QString userAgent)
@@ -268,13 +248,13 @@ void DomainSettingsModel::setUserAgent(const QString& domain, QString userAgent)
 
 double DomainSettingsModel::getZoomFactor(const QString& domain) const
 {
-    QSqlQuery query(m_database);
-    static QString selectStatement = QLatin1String("SELECT zoomFactor FROM domainsettings WHERE domain=?;");
-    query.prepare(selectStatement);
-    query.addBindValue(domain);
-    query.exec();
-    query.first();
-    return query.value(0).isNull() ? std::numeric_limits<double>::quiet_NaN() : query.value(0).toDouble();
+    int index = getIndexForDomain(domain);
+    if (index == -1)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+
+    return m_entries[index].zoomFactor;
 }
 
 void DomainSettingsModel::setZoomFactor(const QString& domain, double zoomFactor)
@@ -313,7 +293,6 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     entry.userAgent = QString();
     entry.zoomFactor = std::numeric_limits<double>::quiet_NaN();
     m_entries.append(entry);
-    m_numRows++;
     endInsertRows();
     Q_EMIT rowCountChanged();
 
@@ -327,7 +306,6 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     query.addBindValue(entry.userAgent);
     query.addBindValue(entry.zoomFactor);
     query.exec();
-    m_fetchedCount++;
 }
 
 void DomainSettingsModel::removeEntry(const QString &domain)
@@ -337,14 +315,12 @@ void DomainSettingsModel::removeEntry(const QString &domain)
         beginRemoveRows(QModelIndex(), index, index);
         m_entries.removeAt(index);
         endRemoveRows();
-        m_numRows--;
         Q_EMIT rowCountChanged();
         QSqlQuery query(m_database);
         static QString deleteStatement = QLatin1String("DELETE FROM domainsettings WHERE domain=?;");
         query.prepare(deleteStatement);
         query.addBindValue(domain);
         query.exec();
-        m_fetchedCount--;
     }
 }
 
