@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-25 22:16+0000\n"
+"PO-Revision-Date: 2019-04-29 18:20+0000\n"
 "Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
 "Language-Team: Czech <https://translate.ubports.com/projects/ubports/"
 "morph-browser/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.1.1\n"
+"X-Generator: Weblate 3.4\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -604,7 +604,7 @@ msgstr "Hotovo"
 #: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "Nový panel"
+msgstr "Nová záložka"
 
 #: src/app/webbrowser/Browser.qml:585
 msgid "New window"

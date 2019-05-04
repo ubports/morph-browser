@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-04-14 00:00+0000\n"
+"PO-Revision-Date: 2019-05-03 21:03+0000\n"
 "Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.1.1\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -410,7 +410,7 @@ msgstr "在頁面上搜尋"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "轉發"
+msgstr "發送"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -473,7 +473,7 @@ msgstr "貼上"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "復原"
+msgstr "重做"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -556,7 +556,7 @@ msgstr "建立新資料夾"
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr "儲存"
+msgstr "保存"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
@@ -606,7 +606,7 @@ msgstr "下載"
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr "設定"
+msgstr "設置"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
@@ -651,7 +651,7 @@ msgstr "刪除"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
-msgstr "無下載提供"
+msgstr "沒有下載可以提供"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format

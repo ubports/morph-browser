@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-17 00:00+0000\n"
+"PO-Revision-Date: 2019-05-03 21:03+0000\n"
 "Last-Translator: Joan CiberSheep <cibersheep@gmail.com>\n"
 "Language-Team: Catalan <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ca/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.1.1\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -67,7 +67,7 @@ msgstr "Confirma la navegació"
 
 #: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
-msgstr "Surt"
+msgstr "Abandona'l"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
@@ -431,7 +431,7 @@ msgstr "Cerca a la pàgina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Endavant"
+msgstr "Reenvia"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -627,7 +627,7 @@ msgstr "Baixades"
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr "Paràmetres"
+msgstr "Configuració"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
@@ -670,7 +670,7 @@ msgstr "Confirma la selecció"
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr "Suprimeix"
+msgstr "Elimina"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
