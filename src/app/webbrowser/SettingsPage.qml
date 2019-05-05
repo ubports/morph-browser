@@ -23,7 +23,7 @@ import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
 import Morph.Web 0.1
 import webbrowserapp.private 0.1
-
+import ".." as Common
 import "../UrlUtils.js" as UrlUtils
 
 FocusScope {
@@ -38,7 +38,7 @@ FocusScope {
         searchPaths: searchEnginesSearchPaths
     }
 
-    BrowserPage {
+    Common.BrowserPage {
         title: i18n.tr("Settings")
 
         anchors.fill: parent
@@ -129,6 +129,17 @@ FocusScope {
                 }
 
                 ListItem {
+                    objectName: "DomainSettings"
+
+                    ListItemLayout {
+                       title.text: "Domain specific settings"
+                       ProgressionSlot {}
+                   }
+
+                   onClicked: domainSettingsViewLoader.active = true
+                }
+
+                ListItem {
                     objectName: "defaultZoomFactor"
 
                     ListItemLayout {
@@ -209,7 +220,7 @@ FocusScope {
         Component {
             id: searchEngineComponent
 
-            BrowserPage {
+            Common.BrowserPage {
                 id: searchEngineItem
                 objectName: "searchEnginePage"
                 anchors.fill: parent
@@ -236,7 +247,7 @@ FocusScope {
                             title.text: searchEngineDelegate.displayName
                             CheckBox {
                                 SlotsLayout.position: SlotsLayout.Trailing
-                                checked: settingsObject.searchEngine == delegateSearchEngine.filename
+                                checked: settingsObject.searchEngine === delegateSearchEngine.filename
                                 onClicked: {
                                     settingsObject.searchEngine = delegateSearchEngine.filename
                                     searchEngineItem.destroy()
@@ -251,7 +262,7 @@ FocusScope {
         Component {
             id: privacyComponent
 
-            BrowserPage {
+            Common.BrowserPage {
                 id: privacyItem
                 objectName: "privacySettings"
 
@@ -401,7 +412,7 @@ FocusScope {
     Component {
         id: mediaAccessComponent
 
-        BrowserPage {
+        Common.BrowserPage {
             id: mediaAccessItem
             objectName: "mediaAccessSettings"
             anchors.fill: parent
@@ -460,6 +471,22 @@ FocusScope {
                     }
                 }
             }
+        }
+    }
+
+    Loader {
+        id: domainSettingsViewLoader
+
+        anchors.fill: parent
+        active: false
+        asynchronous: true
+        Component.onCompleted: {
+            setSource("../DomainSettingsPage.qml")
+        }
+
+        Connections {
+            target: domainSettingsViewLoader.item
+            onDone: domainSettingsViewLoader.active = false
         }
     }
 }

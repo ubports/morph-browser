@@ -148,6 +148,11 @@ BrowserView {
         return result
     }
 
+    function showWebappSettings()
+    {
+       webappSettingsViewLoader.active = true;
+    }
+
     Item {
         id: webviewContainer
         anchors.fill: parent
@@ -287,6 +292,22 @@ BrowserView {
         }
 */
 
+        Loader {
+            id: webappSettingsViewLoader
+
+            anchors.fill: parent
+            active: false
+            asynchronous: false
+            Component.onCompleted: {
+                setSource("WebappSettingsPage.qml")
+            }
+
+            Connections {
+                target: webappSettingsViewLoader.item
+                onDone: webappSettingsViewLoader.active = false
+            }
+        }
+
        Connections {
             target: webapp.currentWebview
             enabled: !webapp.chromeless
@@ -295,7 +316,7 @@ BrowserView {
                 if (webapp.currentWebview.isFullScreen) {
                     chromeLoader.item.state = "hidden"
                 } else {
-                    chromeLoader.item.state == "shown"
+                    chromeLoader.item.state === "shown"
                 }
             }
        }

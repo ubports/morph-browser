@@ -187,7 +187,6 @@ BrowserWindow {
             loadCustomUserScripts();
 
             DomainSettingsModel.databasePath = webappDataLocation + '/domainsettings.sqlite';
-            DomainSettingsModel.allowCustomUrlSchemes("ubports.com", true)
         }
 
         function loadCustomUserScripts() {

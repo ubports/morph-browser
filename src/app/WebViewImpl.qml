@@ -663,12 +663,20 @@ WebView {
                     onTriggered: webview.runJavaScript("window.getSelection().toString()", function(result) { browser.shareTextRequested(result) })
                 }
                 Action {
-                       objectName: "zoom"
-                       text: i18n.tr("Zoom")
-                       iconName: "zoom-in"
-                       enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
-                       visible: enabled
-                       onTriggered: webview.showZoomMenu()
+                    name: "zoom"
+                    text: i18n.tr("Zoom")
+                    iconName: "zoom-in"
+                    enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
+                    visible: enabled
+                    onTriggered: webview.showZoomMenu()
+                }
+                Action {
+                    name: "settings"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Settings")
+                    iconName: "settings"
+                    enabled: isWebApp && ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
+                    visible: enabled
+                    onTriggered: webapp.showWebappSettings()
                 }
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus

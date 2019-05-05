@@ -19,9 +19,10 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
+import ".." as Common
 import "." as Local
 
-BrowserPage {
+Common.BrowserPage {
     id: bookmarksView
 
     property alias homepageUrl: bookmarksFoldersView.homeBookmarkUrl

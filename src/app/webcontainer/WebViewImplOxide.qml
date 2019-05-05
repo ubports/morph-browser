@@ -23,6 +23,8 @@ import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.7
 import Morph.Web 0.1
+import webbrowsercommon.private 0.1
+import "../UrlUtils.js" as UrlUtils
 import ".."
 
 WebappWebview {
@@ -221,42 +223,58 @@ WebappWebview {
     }
 
     function navigationRequestedDelegate(request) {
-        var url = request.url.toString()
+        
+        var domain = UrlUtils.extractHost(webview.url);
+        
+        if (UrlUtils.hasCustomScheme(request.url) && ! DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+        {
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("../ConfirmDialog.qml"), webview);
+            confirmDialog.title = i18n.tr("Custom URL scheme");
+            confirmDialog.message = i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
+                                    request.url + "\n\n" +
+                                    i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
+            confirmDialog.accept.connect(function() {DomainSettingsModel.allowCustomUrlSchemes(domain, true);});
+            return;
+        }
+
+        var url = request.url.toString();
+        
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
-            request.action = WebEngineNavigationRequest.IgnoreRequest
-            openUrlExternally(url, true)
-            return
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            openUrlExternally(url, true);
+            return;
         }
 
         request.action = WebEngineNavigationRequest.IgnoreRequest
         if (isNewForegroundWebViewDisposition(request.disposition)) {
-            var shouldAcceptRequest =
-                    popupController.handleNewForegroundNavigationRequest(url, request, true);
+            var shouldAcceptRequest = popupController.handleNewForegroundNavigationRequest(url, request, true);
             if (shouldAcceptRequest) {
-                request.action = WebEngineNavigationRequest.AcceptRequest
+                request.action = WebEngineNavigationRequest.AcceptRequest;
             }
-            return
+            return;
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
         if ( ! webview.haveValidUrlPatterns() && ! webview.isRunningAsANamedWebapp()) {
-            request.action = WebEngineNavigationRequest.AcceptRequest
-            return
+            request.action = WebEngineNavigationRequest.AcceptRequest;
+            return;
         }
 
         // for now (as the old behavior) allow resources to be loaded
         // ToDo: maybe we should only allow resources defined in the URL patterns here
         if (! request.isMainFrame)
         {
-            console.debug('accepted resource request to %1.'.arg(url))
-            request.action = WebEngineNavigationRequest.AcceptRequest
+            console.debug('accepted resource request to %1.'.arg(url));
+            request.action = WebEngineNavigationRequest.AcceptRequest;
         }
 
         else if (webview.shouldAllowNavigationTo(url))
         {
-            request.action = WebEngineNavigationRequest.AcceptRequest
+            request.action = WebEngineNavigationRequest.AcceptRequest;
         }
 
         // SAML requests are used for instance by Google Apps for your domain;
@@ -275,12 +293,12 @@ WebappWebview {
 
             if (request.isMainFrame)
             {
-                console.debug('Opening: %1 in the browser window.'.arg(url))
-                openUrlExternally(url, true)
+                console.debug('Opening: %1 in the browser window.'.arg(url));
+                openUrlExternally(url, true);
             }
             else
             {
-                console.debug('ignored request of current page to %1.'.arg(url))
+                console.debug('ignored request of current page to %1.'.arg(url));
             }
       }
     }

@@ -37,7 +37,6 @@ BrowserView {
 
     property Settings settings
     property var bookmarksModel: BookmarksModel
-    property var domainSettingsModel: DomainSettingsModel
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
@@ -179,22 +178,22 @@ BrowserView {
 
             if (request.isMainFrame)
             {
-                currentWebview.hideContextMenu()
+                currentWebview.hideContextMenu();
                 currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
                 console.log(currentWebview.context.__ua.defaultUA);
             }
 
-            var domain = UrlUtils.extractHost(currentWebview.url)
+            var domain = UrlUtils.extractHost(currentWebview.url);
 
             if (UrlUtils.hasCustomScheme(request.url) && ! internal.areCustomUrlSchemesAllowed(domain))
             {
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
 
                 var confirmDialog = PopupUtils.open(Qt.resolvedUrl("../ConfirmDialog.qml"), currentWebview);
-                confirmDialog.title = i18n.tr("Custom URL scheme")
+                confirmDialog.title = i18n.tr("Custom URL scheme");
                 confirmDialog.message = i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
                                         request.url + "\n\n" +
-                                        i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain))
+                                        i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
                 confirmDialog.accept.connect(function() {internal.allowCustomUrlSchemes(domain, true);});
             }
             else
@@ -295,7 +294,7 @@ BrowserView {
                 right: parent.right
                 top: chrome.bottom
             }
-            height: parent.height- osk.height - bottomEdgeBar.height
+            height: parent.height - osk.height - bottomEdgeBar.height
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear

@@ -61,6 +61,8 @@ public:
     Q_INVOKABLE void setUserAgent(const QString& domain, QString userAgent);
     Q_INVOKABLE double getZoomFactor(const QString& domain) const;
     Q_INVOKABLE void setZoomFactor(const QString& domain, double zoomFactor);
+    Q_INVOKABLE void insertEntry(const QString& domain);
+    Q_INVOKABLE void removeEntry(const QString& domain);
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -82,8 +84,6 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
-    void insertEntry(const QString& domain);
-    void removeEntry(const QString& domain);
     void removeObsoleteEntries();
     int getIndexForDomain(const QString& domain) const;
 };
