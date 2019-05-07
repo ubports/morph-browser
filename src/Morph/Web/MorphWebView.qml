@@ -304,6 +304,7 @@ WebEngineView {
         id: internal
         property int lastLoadRequestStatus: -1
         property string lastLoadRequestErrorString: ""
+        property int lastLoadRequestErrorDomain: -1
         property QtObject contextModel: null
 
         function dismissCurrentContextualMenu() {
@@ -321,12 +322,14 @@ WebEngineView {
     readonly property bool lastLoadStopped: false // TODO internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === WebEngineLoadRequest.LoadFailedStatus
     readonly property string lastLoadRequestErrorString: internal.lastLoadRequestErrorString
+    readonly property int lastLoadRequestErrorDomain: internal.lastLoadRequestErrorDomain
     onLoadingChanged: {
         if ((loadRequest.url === url) && (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus)) {
-            internal.lastLoadRequestStatus = loadRequest.status
-            internal.lastLoadRequestErrorString = loadRequest.errorString
+            internal.lastLoadRequestStatus = loadRequest.status;
+            internal.lastLoadRequestErrorString = loadRequest.errorString;
+            internal.lastLoadRequestErrorDomain = loadRequest.errorDomain;
         }
-        internal.dismissCurrentContextualMenu()
+        internal.dismissCurrentContextualMenu();
     }
 
     readonly property int screenOrientation: Screen.orientation

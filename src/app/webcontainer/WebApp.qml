@@ -221,11 +221,10 @@ BrowserView {
                 visible: containerWebView.currentWebview && ! containerWebView.currentWebview.loading && containerWebView.currentWebview.lastLoadFailed
                 url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
                 errorString: containerWebView.currentWebview ? containerWebView.currentWebview.lastLoadRequestErrorString : ""
-                onRefreshClicked: {
-                    if (containerWebView.currentWebview) {
-                        containerWebView.currentWebview.reload()
-                    }
-                }
+                errorDomain: containerWebView.currentWebview ? containerWebView.currentWebview.lastLoadRequestErrorDomain : -1
+                canGoBack: containerWebView.currentWebview && containerWebView.currentWebview.canGoBack
+                onBackToSafetyClicked: containerWebView.currentWebview.goBack()
+                onRefreshClicked: containerWebView.currentWebview.reload()
             }
             asynchronous: true
         }
