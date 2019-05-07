@@ -18,12 +18,16 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtWebEngine 1.7
 
 Rectangle {
     property string url
     property string errorString
+    property int errorDomain
+    property bool canGoBack
     color: theme.palette.normal.background
 
+    signal backToSafetyClicked()
     signal refreshClicked()
 
     Column {
@@ -35,7 +39,7 @@ Rectangle {
         Label {
             width: parent.width
             fontSize: "x-large"
-            text: i18n.tr("Network Error")
+            text: (errorDomain === WebEngineView.CertificateErrorDomain) ? i18n.tr("Certificate Error") : i18n.tr("Network Error")
             color: theme.palette.normal.overlayText
         }
 
@@ -54,10 +58,18 @@ Rectangle {
             color: theme.palette.normal.overlayText
         }
 
+        Button {
+            text: i18n.tr("Back to safety")
+            color: theme.palette.normal.positive
+            visible: canGoBack && (errorDomain === WebEngineView.CertificateErrorDomain)
+            onClicked: backToSafetyClicked()
+        }
+
         Label {
             width: parent.width
             text: i18n.tr("Please check your network settings and try refreshing the page.")
             wrapMode: Text.Wrap
+            visible: (errorDomain !== WebEngineView.CertificateErrorDomain)
             color: theme.palette.normal.overlayText
         }
 

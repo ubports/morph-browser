@@ -43,8 +43,7 @@ Popups.Dialog {
     }
 
     Button {
-        text: i18n.tr("Back to safety")
-        color: theme.palette.normal.positive
+        text: i18n.tr("Cancel")
         onClicked: reject()
     }
 

@@ -253,12 +253,12 @@ WebView {
           certificateError.defer()
           var certificateVerificationDialog = PopupUtils.open(Qt.resolvedUrl("CertificateVerificationDialog.qml"), this);
           certificateVerificationDialog.host = UrlUtils.extractHost(certificateError.url);
-          certificateErrorsMap[certificateVerificationDialog.host] = certificateError
-          certificateErrorsMapChanged()
-          certificateVerificationDialog.localizedErrorMessage = certificateError.description
-          certificateVerificationDialog.errorIsOverridable = certificateError.overridable
-          certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError)
-          certificateVerificationDialog.reject.connect(certificateError.rejectCertificate)
+          certificateErrorsMap[certificateVerificationDialog.host] = certificateError;
+          certificateErrorsMapChanged();
+          certificateVerificationDialog.localizedErrorMessage = certificateError.description;
+          certificateVerificationDialog.errorIsOverridable = certificateError.overridable;
+          certificateVerificationDialog.accept.connect(certificateError.ignoreCertificateError);
+          certificateVerificationDialog.reject.connect(certificateError.rejectCertificate);
       }
 
     function showMessage(text) {
