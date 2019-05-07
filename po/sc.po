@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-02-14 08:57+0000\n"
+"PO-Revision-Date: 2019-05-10 06:03+0000\n"
 "Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/sc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.1.1\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -66,7 +66,7 @@ msgstr "Cunfirma sa navigatzione"
 
 #: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
-msgstr "Essi"
+msgstr "Essi·nche"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
@@ -430,7 +430,7 @@ msgstr "Chirca in sa pàgina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "In antis"
+msgstr "Torra a imbiare"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -626,7 +626,7 @@ msgstr "Iscarrigamentos"
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr "Cunfiguratzione"
+msgstr "Cunfiguratziones"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
