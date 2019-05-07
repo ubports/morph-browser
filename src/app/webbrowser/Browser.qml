@@ -189,12 +189,12 @@ BrowserView {
             {
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
 
-                var confirmDialog = PopupUtils.open(Qt.resolvedUrl("../ConfirmDialog.qml"), currentWebview);
-                confirmDialog.title = i18n.tr("Custom URL scheme");
-                confirmDialog.message = i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
-                                        request.url + "\n\n" +
-                                        i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
-                confirmDialog.accept.connect(function() {internal.allowCustomUrlSchemes(domain, true);});
+                var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), currentWebview);
+                allowCustomSchemesDialog.url = request.url;
+                allowCustomSchemesDialog.domain = domain;
+                allowCustomSchemesDialog.showAllowPermantlyCheckBox = ! browser.incognito;
+                allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(domain, false);});
+                allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(domain, true);});
             }
             else
             {
@@ -1346,10 +1346,10 @@ BrowserView {
         // domains the user has allowed custom protocols for this (incognito) session
         property var domainsWithCustomUrlSchemesAllowed: []
 
-        function allowCustomUrlSchemes(domain) {
+        function allowCustomUrlSchemes(domain, allowPermanently) {
            domainsWithCustomUrlSchemesAllowed.push(domain);
 
-           if (! browser.incognito)
+           if (allowPermanently)
            {
                 DomainSettingsModel.allowCustomUrlSchemes(domain, true);
            }

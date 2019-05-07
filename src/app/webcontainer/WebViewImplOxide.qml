@@ -131,7 +131,6 @@ WebappWebview {
         openUrlExternally(request.requestedUrl, request.userInitiated)
       }
     }
-    onNavigationRequested: navigationRequestedDelegate(request)
 /*
     Connections {
         target: webview.visible ? webview : null
@@ -222,20 +221,49 @@ WebappWebview {
         webview.url = targetUrl
     }
 
+    // domains the user has allowed custom protocols for this (incognito) session
+    property var domainsWithCustomUrlSchemesAllowed: []
+
+    function allowCustomUrlSchemes(domain, allowPermanently) {
+       domainsWithCustomUrlSchemesAllowed.push(domain);
+
+       if (allowPermanently)
+       {
+            DomainSettingsModel.allowCustomUrlSchemes(domain, true);
+       }
+    }
+
+    function areCustomUrlSchemesAllowed(domain) {
+
+        for (var i in domainsWithCustomUrlSchemesAllowed) {
+            if (domain === domainsWithCustomUrlSchemesAllowed[i]) {
+                return true;
+            }
+        }
+
+        if (DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+        {
+            domainsWithCustomUrlSchemesAllowed.push(domain);
+            return true;
+        }
+
+        return false;
+    }
+
     function navigationRequestedDelegate(request) {
-        
+
         var domain = UrlUtils.extractHost(webview.url);
         
-        if (UrlUtils.hasCustomScheme(request.url) && ! DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+        if (UrlUtils.hasCustomScheme(request.url) && ! areCustomUrlSchemesAllowed(domain))
         {
             request.action = WebEngineNavigationRequest.IgnoreRequest;
 
-            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("../ConfirmDialog.qml"), webview);
-            confirmDialog.title = i18n.tr("Custom URL scheme");
-            confirmDialog.message = i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
-                                    request.url + "\n\n" +
-                                    i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
-            confirmDialog.accept.connect(function() {DomainSettingsModel.allowCustomUrlSchemes(domain, true);});
+            var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), webview);
+            allowCustomSchemesDialog.url = request.url;
+            allowCustomSchemesDialog.domain = domain;
+            allowCustomSchemesDialog.showAllowPermantlyCheckBox = ! browser.incognito;
+            allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(domain, false);});
+            allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(domain, true);});
             return;
         }
 
