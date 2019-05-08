@@ -221,6 +221,11 @@ WebappWebview {
         webview.url = targetUrl
     }
 
+    function navigateToUrlAsync(targetUrl)
+    {
+        currentWebview.runJavaScript("window.location.href = '%1';".arg(targetUrl));
+    }
+
     // domains the user has allowed custom protocols for this (incognito) session
     property var domainsWithCustomUrlSchemesAllowed: []
 
@@ -253,6 +258,7 @@ WebappWebview {
     function navigationRequestedDelegate(request) {
 
         var domain = UrlUtils.extractHost(webview.url);
+        var url = request.url.toString();
         
         if (UrlUtils.hasCustomScheme(request.url) && ! areCustomUrlSchemesAllowed(domain))
         {
@@ -262,13 +268,11 @@ WebappWebview {
             allowCustomSchemesDialog.url = request.url;
             allowCustomSchemesDialog.domain = domain;
             allowCustomSchemesDialog.showAllowPermantlyCheckBox = ! browser.incognito;
-            allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(domain, false);});
-            allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(domain, true);});
+            allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(domain, false); navigateToUrlAsync(url);});
+            allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(domain, true); navigateToUrlAsync(url);});
             return;
         }
 
-        var url = request.url.toString();
-        
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             openUrlExternally(url, true);

@@ -189,12 +189,13 @@ BrowserView {
             {
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
 
+                var url = request.url;
                 var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), currentWebview);
-                allowCustomSchemesDialog.url = request.url;
+                allowCustomSchemesDialog.url = url;
                 allowCustomSchemesDialog.domain = domain;
                 allowCustomSchemesDialog.showAllowPermantlyCheckBox = ! browser.incognito;
-                allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(domain, false);});
-                allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(domain, true);});
+                allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(domain, false); internal.navigateToUrlAsync(url);});
+                allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(domain, true); internal.navigateToUrlAsync(url);});
             }
             else
             {
@@ -1384,6 +1385,11 @@ BrowserView {
                 internal.resetFocus()
                 currentWebview.goForward()
             }
+        }
+
+        function navigateToUrlAsync(targetUrl)
+        {
+            currentWebview.runJavaScript("window.location.href = '%1';".arg(targetUrl));
         }
 
         property var currentBookmarkOptionsDialog: null
