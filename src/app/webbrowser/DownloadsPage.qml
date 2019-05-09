@@ -22,10 +22,11 @@ import Ubuntu.Components 1.3
 import Ubuntu.Content 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
+import ".." as Common
 
 import "../MimeTypeMapper.js" as MimeTypeMapper
 
-BrowserPage {
+Common.BrowserPage {
     id: downloadsItem
 
     //property var downloadManager

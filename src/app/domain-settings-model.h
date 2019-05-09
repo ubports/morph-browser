@@ -38,6 +38,7 @@ public:
 
     enum Roles {
         Domain = Qt::UserRole + 1,
+        DomainWithoutSubdomain,
         AllowCustomUrlSchemes,
         AllowLocation,
         UserAgent,
@@ -73,6 +74,7 @@ private:
 
     struct DomainSetting {
         QString domain;
+        QString domainWithoutSubdomain;
         bool allowCustomUrlSchemes;
         bool allowLocation;
         QString userAgent;
@@ -86,6 +88,7 @@ private:
     void populateFromDatabase();
     void removeObsoleteEntries();
     int getIndexForDomain(const QString& domain) const;
+    QString removeSubdomain(const QString& domain) const;
 };
 
 #endif

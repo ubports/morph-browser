@@ -19,6 +19,7 @@
 #include "domain-settings-model.h"
 
 #include <QtSql/QSqlQuery>
+#include <QUrl>
 
 #define CONNECTION_NAME "morph-browser-domainsettings"
 
@@ -58,6 +59,7 @@ QHash<int, QByteArray> DomainSettingsModel::roleNames() const
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
         roles[Domain] = "domain";
+        roles[DomainWithoutSubdomain] = "domainWithoutSubdomain";
         roles[AllowCustomUrlSchemes] = "allowCustomUrlSchemes";
         roles[AllowLocation] = "allowLocation";
         roles[UserAgent] = "userAgent";
@@ -81,6 +83,8 @@ QVariant DomainSettingsModel::data(const QModelIndex& index, int role) const
     switch (role) {
     case Domain:
         return entry.domain;
+    case DomainWithoutSubdomain:
+        return entry.domainWithoutSubdomain;
     case AllowCustomUrlSchemes:
         return entry.allowCustomUrlSchemes;
     case AllowLocation:
@@ -115,6 +119,7 @@ void DomainSettingsModel::populateFromDatabase()
     while (populateQuery.next()) {
         DomainSetting entry;
         entry.domain = populateQuery.value("domain").toString();
+        entry.domainWithoutSubdomain = removeSubdomain(entry.domain);
         entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
         entry.allowLocation = populateQuery.value("allowLocation").toBool();
         entry.userAgent = populateQuery.value("userAgent").toString();
@@ -288,6 +293,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     beginInsertRows(QModelIndex(), 0, 0);
     DomainSetting entry;
     entry.domain = domain;
+    entry.domainWithoutSubdomain = removeSubdomain(domain);
     entry.allowCustomUrlSchemes = false;
     entry.allowLocation = false;
     entry.userAgent = QString();
@@ -345,4 +351,17 @@ int DomainSettingsModel::getIndexForDomain(const QString& domain) const
         }
     }
     return -1;
+}
+
+QString DomainSettingsModel::removeSubdomain(const QString& domain) const
+{
+    // e.g. ci.ubports.com
+    // .com
+    QString topLevelDomain = QUrl("//" + domain).topLevelDomain();
+    // ci.ubports
+    QString urlWithoutTopLevelDomain = domain.mid(0, domain.length() - topLevelDomain.length());
+    // ubports (if no . is found, the string stays the same because lastIndexOf is -1)
+    QString hostName = urlWithoutTopLevelDomain.mid(urlWithoutTopLevelDomain.lastIndexOf('.') + 1);
+    // ubports.com
+    return hostName + topLevelDomain;
 }

@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.4
-import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
@@ -25,60 +24,87 @@ import webbrowsercommon.private 0.1
 BrowserPage {
     id: domainSettingsPage
 
-    title: i18n.tr("Domain specific settings")
+    property bool selectMode
 
     signal done()
 
-    onBack: {
-        done()
-    }
+    title: i18n.tr("Domain specific settings")
 
-    //showBackAction: true
+    showBackAction: !selectMode
 
-    /*
     leadingActions: [
         Action {
             objectName: "close"
             iconName: "close"
-            onTriggered: downloadsItem.selectMode = false
+            onTriggered: domainSettingsPage.selectMode = false
         }
     ]
-    */
 
+    trailingActions: [
+        Action {
+            text: i18n.tr("Select all")
+            iconName: "select"
+            visible: selectMode
+            onTriggered: {
+                if (domainSettingsListView.ViewItems.selectedIndices.length === domainSettingsListView.count) {
+                    domainSettingsListView.ViewItems.selectedIndices = []
+                } else {
+                    var indices = []
+                    for (var i = 0; i < domainSettingsListView.count; ++i) {
+                        indices.push(i)
+                    }
+                    domainSettingsListView.ViewItems.selectedIndices = indices
+                }
+            }
+        },
+        Action {
+            text: i18n.tr("Delete")
+            iconName: "delete"
+            visible: selectMode
+            enabled: domainSettingsListView.ViewItems.selectedIndices.length > 0
+            onTriggered: {
+                var toDelete = []
+                for (var i = 0; i < domainSettingsListView.ViewItems.selectedIndices.length; i++) {
+                    var selectedDomainSetting = domainSettingsListView.model.get(domainSettingsListView.ViewItems.selectedIndices[i])
+                    toDelete.push(selectedDomainSetting.domain)
+                }
+                console.log(JSON.stringify(DomainSettingsModel))
+                for (var i = 0; i < toDelete.length; i++) {
+                    DomainSettingsModel.removeEntry(toDelete[i])
+                }
+                domainSettingsListView.ViewItems.selectedIndices = []
+                domainSettingsPage.selectMode = false
+            }
+        },
+        Action {
+            iconName: "edit"
+            visible: !selectMode
+            enabled: domainSettingsListView.count > 0
+            onTriggered: {
+                selectMode = true
+            }
+        }
+    ]
+
+
+    onBack: {
+        selectMode = false;
+        done();
+    }
 
     ListView {
         id: domainSettingsListView
         anchors.fill: parent
         focus: true
-        model: DomainSettingsModel
-
-        property int selectedIndex: -1
-        /*
-        ViewItems.selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
-        ViewItems.onSelectedIndicesChanged: {
-            if (downloadsItem.multiSelect) {
-                return
-            }
-            // Enforce single selection mode to work around
-            // the lack of such a feature in the UITK.
-            if (ViewItems.selectedIndices.length > 1 && selectedIndex != -1) {
-                var selection = ViewItems.selectedIndices
-                selection.splice(selection.indexOf(selectedIndex), 1)
-                selectedIndex = selection[0]
-                ViewItems.selectedIndices = selection
-                return
-            }
-            if (ViewItems.selectedIndices.length > 0) {
-                selectedIndex = ViewItems.selectedIndices[0]
-            } else {
-                selectedIndex = -1
-            }
+        model: SortFilterModel {
+           model: DomainSettingsModel
+           sort.order: Qt.AscendingOrder
+           sort.property: "domainWithoutSubdomain"
         }
-        */
 
-        delegate:
+        ViewItems.selectMode: domainSettingsPage.selectMode
 
-            ListItem {
+        delegate: ListItem {
             id: item
             height: item.ListView.isCurrentItem ? layout.height : units.gu(5)
 
