@@ -257,19 +257,26 @@ WebappWebview {
 
     function navigationRequestedDelegate(request) {
 
-        var domain = UrlUtils.extractHost(webview.url);
         var url = request.url.toString();
-        
-        if (UrlUtils.hasCustomScheme(request.url) && ! areCustomUrlSchemesAllowed(domain))
+        // for file urls we set currentDomain to "scheme:file", because there is no host
+        var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
+
+        if (UrlUtils.hasCustomScheme(url) && ! areCustomUrlSchemesAllowed(currentDomain))
         {
             request.action = WebEngineNavigationRequest.IgnoreRequest;
 
             var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), webview);
-            allowCustomSchemesDialog.url = request.url;
-            allowCustomSchemesDialog.domain = domain;
-            allowCustomSchemesDialog.showAllowPermantlyCheckBox = ! browser.incognito;
-            allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(domain, false); navigateToUrlAsync(url);});
-            allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(domain, true); navigateToUrlAsync(url);});
+            allowCustomSchemesDialog.url = url;
+            allowCustomSchemesDialog.domain = currentDomain;
+            allowCustomSchemesDialog.showAllowPermanentlyCheckBox = true;
+            allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(currentDomain, false);
+                                                               navigateToUrlAsync(url);
+                                                              }
+                                                  );
+            allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(currentDomain, true);
+                                                                          navigateToUrlAsync(url);
+                                                                         }
+                                                             );
             return;
         }
 

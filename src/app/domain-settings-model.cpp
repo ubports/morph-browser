@@ -31,6 +31,7 @@ DomainSettingsModel::DomainSettingsModel(QObject* parent)
 : QAbstractListModel(parent)
 {
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
+    m_defaultZoomFactor = 1.0;
 }
 
 DomainSettingsModel::~DomainSettingsModel()
@@ -48,6 +49,7 @@ void DomainSettingsModel::resetDatabase(const QString& databaseName)
     m_database.setDatabaseName(databaseName);
     m_database.open();
     createOrAlterDatabaseSchema();
+    removeDefaultZoomFactorFromEntries();
     removeObsoleteEntries();
     endResetModel();
     populateFromDatabase();
@@ -119,7 +121,7 @@ void DomainSettingsModel::populateFromDatabase()
     while (populateQuery.next()) {
         DomainSetting entry;
         entry.domain = populateQuery.value("domain").toString();
-        entry.domainWithoutSubdomain = removeSubdomain(entry.domain);
+        entry.domainWithoutSubdomain = getDomainWithoutSubdomain(entry.domain);
         entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
         entry.allowLocation = populateQuery.value("allowLocation").toBool();
         entry.userAgent = populateQuery.value("userAgent").toString();
@@ -148,6 +150,16 @@ void DomainSettingsModel::setDatabasePath(const QString& path)
         }
         Q_EMIT databasePathChanged();
     }
+}
+
+double DomainSettingsModel::defaultZoomFactor() const
+{
+    return m_defaultZoomFactor;
+}
+
+void DomainSettingsModel::setDefaultZoomFactor(double defaultZoomFactor)
+{
+    m_defaultZoomFactor = defaultZoomFactor;
 }
 
 bool DomainSettingsModel::contains(const QString& domain) const
@@ -293,7 +305,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     beginInsertRows(QModelIndex(), 0, 0);
     DomainSetting entry;
     entry.domain = domain;
-    entry.domainWithoutSubdomain = removeSubdomain(domain);
+    entry.domainWithoutSubdomain = getDomainWithoutSubdomain(domain);
     entry.allowCustomUrlSchemes = false;
     entry.allowLocation = false;
     entry.userAgent = QString();
@@ -340,6 +352,16 @@ void DomainSettingsModel::removeObsoleteEntries()
     query.exec();
 }
 
+void DomainSettingsModel::removeDefaultZoomFactorFromEntries()
+{
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE ABS(zoomFactor-?) < 0.01");
+    query.prepare(updateStatement);
+    query.addBindValue(std::numeric_limits<double>::quiet_NaN());
+    query.addBindValue(m_defaultZoomFactor);
+    query.exec();
+}
+
 int DomainSettingsModel::getIndexForDomain(const QString& domain) const
 {
     int index = 0;
@@ -353,11 +375,18 @@ int DomainSettingsModel::getIndexForDomain(const QString& domain) const
     return -1;
 }
 
-QString DomainSettingsModel::removeSubdomain(const QString& domain) const
+QString DomainSettingsModel::getDomainWithoutSubDomain(const QString& domain) const
 {
-    // e.g. ci.ubports.com
+    // e.g. ci.ubports.com (does handle domains like .co.uk correctly)
     // .com
     QString topLevelDomain = QUrl("//" + domain).topLevelDomain();
+
+    // invalid top level domain (e.g. local device)
+    if (topLevelDomain.isEmpty())
+    {
+        topLevelDomain = domain.mid(domain.lastIndexOf('.'));
+    }
+
     // ci.ubports
     QString urlWithoutTopLevelDomain = domain.mid(0, domain.length() - topLevelDomain.length());
     // ubports (if no . is found, the string stays the same because lastIndexOf is -1)

@@ -31,29 +31,30 @@ QtObject {
     function init(urls, newSession, incognito) {
         i18n.domain = "morph-browser"
         if (!newSession && settings.restoreSession && !incognito) {
-            session.restore()
+            session.restore();
         }
         if (allWindows.length == 0) {
-            windowFactory.createObject(null, {"incognito": incognito}).show()
+            windowFactory.createObject(null, {"incognito": incognito}).show();
         }
-        var window = allWindows[allWindows.length - 1]
+        var window = allWindows[allWindows.length - 1];
         for (var i in urls) {
-            window.addTab(urls[i]).load()
-            window.tabsModel.currentIndex = window.tabsModel.count - 1
+            window.addTab(urls[i]).load();
+            window.tabsModel.currentIndex = window.tabsModel.count - 1;
         }
         if (window.tabsModel.count === 0) {
-            window.addTab(incognito ? "" : settings.homepage).load()
-            window.tabsModel.currentIndex = 0
+            window.addTab(incognito ? "" : settings.homepage).load();
+            window.tabsModel.currentIndex = 0;
         }
         for (var w in allWindows) {
-            allWindows[w].tabsModel.currentTab.load()
+            allWindows[w].tabsModel.currentTab.load();
         }
 
         // FIXME: do this asynchronously
-        BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
-        HistoryModel.databasePath = dataLocation + "/history.sqlite"
-        DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
-        DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite"
+        BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite";
+        HistoryModel.databasePath = dataLocation + "/history.sqlite";
+        DownloadsModel.databasePath = dataLocation + "/downloads.sqlite";
+        DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
+        DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
     }
 
     // Array of all windows, sorted chronologically (most recently active last)

@@ -33,6 +33,8 @@ WebView {
     readonly property real scaleFactor: Screen.devicePixelRatio
 
     property var currentWebview: webview
+    readonly property string currentDomain: UrlUtils.extractHost(webview.url)
+    property string previousDomain
     property ContextMenuRequest contextMenuRequest: null
 
     // scroll positions at the moment of the context menu request
@@ -43,6 +45,7 @@ WebView {
 
     // better way to detect that, or move context menu items only available for the browser to other files ?
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
+    readonly property bool incognito: ! isWebApp && browserTab.incognito
 
     readonly property alias findController: findController
     readonly property alias zoomController: zoomController
@@ -98,30 +101,68 @@ WebView {
 
         function save() {
             viewSpecificZoom = false
-            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
             confirmDialog.title = i18n.tr("Default Zoom")
             confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
             confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
+
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain();
+            }
         }
 
         function refresh() {
-            webview.zoomFactor = currentZoomFactor
+            webview.zoomFactor = currentZoomFactor;
         }
 
         function reset() {
-            viewSpecificZoom = false
-            currentZoomFactor = defaultZoomFactor
-            refresh()
+            viewSpecificZoom = false;
+            currentZoomFactor = defaultZoomFactor;
+            refresh();
         }
+
+        function saveZoomFactorForCurrentDomain()
+        {
+           var domain = UrlUtils.extractHost(webview.url);
+           if (domain === "")
+           {
+               // e.g. file:// urls
+               domain = "scheme:" + UrlUtils.extractScheme(webview.url);
+           }
+
+           if (Math.abs(currentZoomFactor - defaultZoomFactor) > 0.01)
+           {
+             DomainSettingsModel.setZoomFactor(domain, currentZoomFactor);
+           }
+           else
+           {
+             // if the zoom factor is the default, it is no longer saved in the domain settings database (NaN)
+             if (! isNaN(DomainSettingsModel.getZoomFactor(domain)))
+             {
+                 DomainSettingsModel.setZoomFactor(domain, NaN);
+             }
+           }
+        }
+
         function zoomIn() {
-            viewSpecificZoom = true
-            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
-            refresh()
+            viewSpecificZoom = true;
+            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05));
+            refresh();
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain();
+            }
+
         }
         function zoomOut() {
             viewSpecificZoom = true
-            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
-            refresh()
+            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05));
+            refresh();
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain()
+            }
         }
      }
 
@@ -232,11 +273,22 @@ WebView {
          {
              case WebEngineView.Geolocation:
 
-             // TODO: we might want to store the answer to avoid requesting
-             // the permission everytime the user visits this site.
+             var domain = UrlUtils.extractHost(securityOrigin);
+
+             if (DomainSettingsModel.isLocationAllowed(domain))
+             {
+                 grantFeaturePermission(securityOrigin, feature, true);
+                 return;
+             }
+
              var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"), this);
-             geoPermissionDialog.origin = securityOrigin;
-             geoPermissionDialog.feature = feature;
+             geoPermissionDialog.securityOrigin = securityOrigin;
+             geoPermissionDialog.showAllowPermanentlyCheckBox = (domain !== "") && ! incognito
+             geoPermissionDialog.allow.connect(function() { grantFeaturePermission(securityOrigin, feature, true); });
+             geoPermissionDialog.allowPermanently.connect(function() { grantFeaturePermission(securityOrigin, feature, true);
+                                                                       DomainSettingsModel.allowLocation(domain, true);
+                                                                     })
+             geoPermissionDialog.reject.connect(function() { grantFeaturePermission(securityOrigin, feature, false); });
              break;
 
              case WebEngineView.MediaAudioCapture:
@@ -823,9 +875,32 @@ WebView {
        // not about current url (e.g. finished loading of page we have already navigated away from)
        if (loadRequest.url !== webview.url) {
            return;
-       }
+        }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
+
+            if (currentDomain !== previousDomain)
+            {
+                var domain = currentDomain;
+                // e.g. for file scheme
+                if (domain === "")
+                {
+                   domain = "scheme:" + UrlUtils.extractScheme(webview.url);
+                }
+
+                var zoomFactor = DomainSettingsModel.getZoomFactor(domain);
+
+                if (isNaN(zoomFactor) ) {
+                  zoomController.viewSpecificZoom = false;
+                  zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
+                }
+                else {
+                  zoomController.viewSpecificZoom = true;
+                  zoomController.currentZoomFactor = zoomFactor;
+                }
+                previousDomain = currentDomain;
+            }
+
             zoomController.refresh()
         }
 

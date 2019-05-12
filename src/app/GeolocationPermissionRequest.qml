@@ -23,29 +23,37 @@ import Ubuntu.Components.Popups 1.3
 Dialog {
     id: dialog
 
-    //property QtObject request: null
-    property url origin
-    property int feature
+    property string securityOrigin
+    property bool showAllowPermanentlyCheckBox
 
     title: i18n.tr("Permission Request")
-    text: origin + "<br>" + i18n.tr("This page wants to know your device’s location.")
+    text: securityOrigin + "<br>" + i18n.tr("This page wants to know your device’s location.")
     
-    signal accept()
+    signal allow()
+    signal allowPermanently()
     signal reject()
     
-    onAccept: { PopupUtils.close(dialog); grantFeaturePermission(origin, feature, true); }
-    onReject: { PopupUtils.close(dialog); grantFeaturePermission(origin, feature, false); }
+    onAllow: { PopupUtils.close(dialog); }
+    onAllowPermanently: { PopupUtils.close(dialog); }
+    onReject: { PopupUtils.close(dialog); }
 
-    Button {
-        objectName: "deny"
-        text: i18n.tr("Deny")
-        onClicked: reject()
+    ListItemLayout {
+        visible: showAllowPermanentlyCheckBox
+        title.text: i18n.tr("Save permanently")
+        CheckBox {
+            id: allowPermanentlyCheckBox
+         }
     }
-
     Button {
         objectName: "allow"
         text: i18n.tr("Allow")
         color: theme.palette.normal.positive
-        onClicked: accept()
+        onClicked: allowPermanentlyCheckBox.checked ? allowPermanently() : allow()
+    }
+    Button {
+        objectName: "deny"
+        text: i18n.tr("Deny")
+        enabled: ! allowPermanentlyCheckBox.checked
+        onClicked: reject()
     }
 }

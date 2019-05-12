@@ -183,19 +183,26 @@ BrowserView {
                 console.log(currentWebview.context.__ua.defaultUA);
             }
 
-            var domain = UrlUtils.extractHost(currentWebview.url);
+            // for file urls we set currentDomain to "scheme:file", because there is no host
+            var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
 
-            if (UrlUtils.hasCustomScheme(request.url) && ! internal.areCustomUrlSchemesAllowed(domain))
+            if (UrlUtils.hasCustomScheme(request.url) && ! internal.areCustomUrlSchemesAllowed(currentDomain))
             {
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
 
                 var url = request.url;
                 var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), currentWebview);
                 allowCustomSchemesDialog.url = url;
-                allowCustomSchemesDialog.domain = domain;
-                allowCustomSchemesDialog.showAllowPermantlyCheckBox = ! browser.incognito;
-                allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(domain, false); internal.navigateToUrlAsync(url);});
-                allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(domain, true); internal.navigateToUrlAsync(url);});
+                allowCustomSchemesDialog.domain = currentDomain;
+                allowCustomSchemesDialog.showAllowPermanentlyCheckBox = ! browser.incognito;
+                allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(currentDomain, false);
+                                                                   internal.navigateToUrlAsync(url);
+                                                                  }
+                                                      );
+                allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(currentDomain, true);
+                                                                              internal.navigateToUrlAsync(url);
+                                                                             }
+                                                                 );
             }
             else
             {
@@ -293,7 +300,7 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: chrome.bottom
+                top: parent.top
             }
             height: parent.height - osk.height - bottomEdgeBar.height
             // disable when newTabView is shown otherwise webview can capture drag events

@@ -29,6 +29,7 @@ class DomainSettingsModel : public QAbstractListModel
 
     Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
+    Q_PROPERTY(double defaultZoomFactor READ defaultZoomFactor WRITE setDefaultZoomFactor)
 
     Q_ENUMS(Roles)
 
@@ -53,6 +54,9 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
+    double defaultZoomFactor() const;
+    void setDefaultZoomFactor(double defaultZoomFactor);
+    
     Q_INVOKABLE bool contains(const QString& domain) const;
     Q_INVOKABLE bool areCustomUrlSchemesAllowed(const QString& domain);
     Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow);
@@ -71,6 +75,7 @@ Q_SIGNALS:
 
 private:
     QSqlDatabase m_database;
+    double m_defaultZoomFactor;
 
     struct DomainSetting {
         QString domain;
@@ -86,9 +91,10 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
+    void removeDefaultZoomFactorFromEntries();
     void removeObsoleteEntries();
     int getIndexForDomain(const QString& domain) const;
-    QString removeSubdomain(const QString& domain) const;
+    QString getDomainWithoutSubdomain(const QString& domain) const;
 };
 
 #endif

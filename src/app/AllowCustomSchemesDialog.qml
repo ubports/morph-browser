@@ -25,7 +25,7 @@ ModalDialog {
 
     property string url
     property string domain
-    property bool showAllowPermantlyCheckBox
+    property bool showAllowPermanentlyCheckBox
 
     message: i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
                                            url + "\n\n" +
@@ -40,7 +40,7 @@ ModalDialog {
     onCancel: hide()
 
     ListItemLayout {
-        visible: showAllowPermantlyCheckBox
+        visible: showAllowPermanentlyCheckBox
         title.text: i18n.tr("Save permanently")
         CheckBox {
             id: allowPermanentlyCheckBox
@@ -55,6 +55,7 @@ ModalDialog {
     Button {
         objectName: "cancelButton"
         text: i18n.tr("Cancel")
+        enabled: ! allowPermanentlyCheckBox.checked
         onClicked: cancel()
     }
 }

@@ -136,7 +136,7 @@ BrowserPage {
                         visible: item.ListView.isCurrentItem
 
                         Label  {
-                            text: "allow custom schemes"
+                            text: i18n.tr("allow custom schemes")
                         }
 
                         CheckBox {
@@ -152,7 +152,7 @@ BrowserPage {
                         visible: item.ListView.isCurrentItem
 
                         Label  {
-                            text: "allow location access"
+                            text: i18n.tr("allow location access")
                         }
 
                         CheckBox {
@@ -163,14 +163,19 @@ BrowserPage {
 
                     Label  {
                         height: units.gu(1)
-                        text: "User agent: " + model.userAgent
+                        text: i18n.tr("User agent: ") + model.userAgent
                         visible: item.ListView.isCurrentItem
                     }
-
+                    // within one label the check if zoom factor is set could not be properly done
                     Label  {
                         height: units.gu(1)
-                        text: "Zoom factor: " + model.zoomFactor
-                        visible: item.ListView.isCurrentItem
+                        text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
+                        visible: item.ListView.isCurrentItem && ! isNaN(model.zoomFactor)
+                    }
+                    Label  {
+                        height: units.gu(1)
+                        text: i18n.tr("Zoom: ") + i18n.tr("not set")
+                        visible: item.ListView.isCurrentItem && isNaN(model.zoomFactor)
                     }
                 }
             }
