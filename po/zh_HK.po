@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2016-09-13 10:15+0000\n"
-"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
-"Language-Team: Chinese (Hong Kong) <zh_HK@li.org>\n"
+"PO-Revision-Date: 2019-05-10 06:03+0000\n"
+"Last-Translator: louies0623 <louies0623@gmail.com>\n"
+"Language-Team: Chinese (Hong Kong) <https://translate.ubports.com/projects/"
+"ubports/morph-browser/zh_Hant_HK/>\n"
+"Language: zh_HK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -326,7 +328,7 @@ msgstr "%1:%2 網站需要核證身分。"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "上一頁"
+msgstr "返回"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -511,7 +513,7 @@ msgstr ""
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
@@ -586,7 +588,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
@@ -627,7 +629,7 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
@@ -665,7 +667,7 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:249
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -839,7 +841,7 @@ msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:101
