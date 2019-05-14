@@ -98,8 +98,6 @@ BrowserPage {
         focus: true
         model: SortFilterModel {
            model: DomainSettingsModel
-           sort.order: Qt.AscendingOrder
-           sort.property: "domainWithoutSubdomain"
         }
 
         ViewItems.selectMode: domainSettingsPage.selectMode

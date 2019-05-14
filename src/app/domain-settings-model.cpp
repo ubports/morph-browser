@@ -23,6 +23,11 @@
 
 #define CONNECTION_NAME "morph-browser-domainsettings"
 
+namespace
+{
+  const double ZoomFactorCompareThreshold = 0.01;
+}
+
 /*!
     \class DomainSettingsModel
     \brief model that stores domain specific settings.
@@ -104,7 +109,7 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS domainsettings "
-                                  "(domain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation BOOL, "
+                                  "(domain VARCHAR, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation BOOL, "
                                   "userAgent VARCHAR, zoomFactor REAL); ");
     createQuery.prepare(query);
     createQuery.exec();
@@ -113,15 +118,15 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
 void DomainSettingsModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT domain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor "
-                                  "FROM domainsettings;");
+    QString query = QLatin1String("SELECT domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor "
+                                  "FROM domainsettings ORDER BY domainWithoutSubdomain ASC;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0; // size() isn't supported on the sqlite backend
     while (populateQuery.next()) {
         DomainSetting entry;
         entry.domain = populateQuery.value("domain").toString();
-        entry.domainWithoutSubdomain = getDomainWithoutSubdomain(entry.domain);
+        entry.domainWithoutSubdomain = populateQuery.value("domainWithoutSubdomain").toString();
         entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
         entry.allowLocation = populateQuery.value("allowLocation").toBool();
         entry.userAgent = populateQuery.value("userAgent").toString();
@@ -130,6 +135,7 @@ void DomainSettingsModel::populateFromDatabase()
 
         beginInsertRows(QModelIndex(), count, count);
         m_entries.append(entry);
+        std::sort(m_entries.begin(), m_entries.end(), domainWithoutSubdomainEarlierInAlphabet);
         endInsertRows();
         count++;
     }
@@ -276,20 +282,24 @@ double DomainSettingsModel::getZoomFactor(const QString& domain) const
 
 void DomainSettingsModel::setZoomFactor(const QString& domain, double zoomFactor)
 {
+    // if zoomFactor matches the default zoom factor, insert NULL instead
+    double newZoomFactor = (std::abs(zoomFactor - m_defaultZoomFactor) < ZoomFactorCompareThreshold) ? std::numeric_limits<double>::quiet_NaN()
+                                                                                                     : zoomFactor;
+
     insertEntry(domain);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainSetting& entry = m_entries[index];
-        if (std::abs(entry.zoomFactor - zoomFactor) < 0.0001) {
+        if (std::abs(entry.zoomFactor - newZoomFactor) < ZoomFactorCompareThreshold) {
             return;
         }
-        entry.zoomFactor = zoomFactor;
+        entry.zoomFactor = newZoomFactor;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << ZoomFactor);
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue(zoomFactor);
+        query.addBindValue(newZoomFactor);
         query.addBindValue(domain);
         query.exec();
     }
@@ -315,10 +325,11 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     Q_EMIT rowCountChanged();
 
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor)"
-                                                   " VALUES (?, ?, ?, ?, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor)"
+                                                   " VALUES (?, ?, ?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.domain);
+    query.addBindValue(entry.domainWithoutSubdomain);
     query.addBindValue(entry.allowCustomUrlSchemes);
     query.addBindValue(entry.allowLocation);
     query.addBindValue(entry.userAgent);
@@ -355,10 +366,11 @@ void DomainSettingsModel::removeObsoleteEntries()
 void DomainSettingsModel::removeDefaultZoomFactorFromEntries()
 {
     QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE ABS(zoomFactor-?) < 0.01");
+    static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE ABS(zoomFactor-?) < ?");
     query.prepare(updateStatement);
     query.addBindValue(std::numeric_limits<double>::quiet_NaN());
     query.addBindValue(m_defaultZoomFactor);
+    query.addBindValue(ZoomFactorCompareThreshold);
     query.exec();
 }
 
@@ -375,16 +387,22 @@ int DomainSettingsModel::getIndexForDomain(const QString& domain) const
     return -1;
 }
 
-QString DomainSettingsModel::getDomainWithoutSubDomain(const QString& domain) const
-{
+QString DomainSettingsModel::getDomainWithoutSubdomain(const QString& domain) const
+{   
     // e.g. ci.ubports.com (does handle domains like .co.uk correctly)
     // .com
     QString topLevelDomain = QUrl("//" + domain).topLevelDomain();
 
-    // invalid top level domain (e.g. local device)
+    // invalid top level domain (e.g. local device or IP address)
     if (topLevelDomain.isEmpty())
     {
-        topLevelDomain = domain.mid(domain.lastIndexOf('.'));
+        QString lastPartOfDomain = domain.mid(domain.lastIndexOf('.'));
+
+        // last part is numeric -> seems to be an IP address
+        bool convertToIntOk;
+        lastPartOfDomain.toInt(&convertToIntOk);
+
+        topLevelDomain = convertToIntOk ? "" : lastPartOfDomain;
     }
 
     // ci.ubports
@@ -393,4 +411,10 @@ QString DomainSettingsModel::getDomainWithoutSubDomain(const QString& domain) co
     QString hostName = urlWithoutTopLevelDomain.mid(urlWithoutTopLevelDomain.lastIndexOf('.') + 1);
     // ubports.com
     return hostName + topLevelDomain;
+}
+
+bool DomainSettingsModel::domainWithoutSubdomainEarlierInAlphabet (const DomainSetting & setting1, DomainSetting setting2)
+{
+    return QString::localeAwareCompare(setting1.domainWithoutSubdomain, setting2.domainWithoutSubdomain);
+
 }

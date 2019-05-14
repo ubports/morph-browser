@@ -184,7 +184,7 @@ BrowserView {
             }
 
             // for file urls we set currentDomain to "scheme:file", because there is no host
-            var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
+            var currentDomain = UrlUtils.schemeIs(currentWebview.url, "file") ? "scheme:file" : UrlUtils.extractHost(currentWebview.url);
 
             if (UrlUtils.hasCustomScheme(request.url) && ! internal.areCustomUrlSchemesAllowed(currentDomain))
             {
@@ -1719,6 +1719,11 @@ BrowserView {
             browser.showDownloadsPage()
             browser.setDownloadComplete(download)
         }
+    }
+
+    Connections {
+        target: settings
+        onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
     }
     /*
 
