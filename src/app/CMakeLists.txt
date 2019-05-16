@@ -20,6 +20,7 @@ set(COMMONLIB webbrowser-common)
 set(COMMONLIB_SRC
     browserapplication.cpp
     domain-settings-model.cpp
+    domain-settings-sorted-model.cpp
     favicon-fetcher.cpp
     input-method-handler.cpp
     meminfo.cpp
