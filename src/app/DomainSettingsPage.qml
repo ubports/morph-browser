@@ -92,13 +92,17 @@ BrowserPage {
         done();
     }
 
+    DomainSettingsSortedModel {
+        id: domainSettingsSortedModel
+        model: DomainSettingsModel
+        sortOrder: Qt.AscendingOrder
+    }
+
     ListView {
         id: domainSettingsListView
         anchors.fill: parent
         focus: true
-        model: SortFilterModel {
-           model: DomainSettingsModel
-        }
+        model:  domainSettingsSortedModel
 
         ViewItems.selectMode: domainSettingsPage.selectMode
 

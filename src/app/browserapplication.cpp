@@ -35,6 +35,7 @@
 #include "browserapplication.h"
 #include "config.h"
 #include "domain-settings-model.h"
+#include "domain-settings-sorted-model.h"
 #include "favicon-fetcher.h"
 #include "input-method-handler.h"
 #include "meminfo.h"
@@ -181,6 +182,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
     qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
+    qmlRegisterType<DomainSettingsSortedModel>(uri, 0, 1, "DomainSettingsSortedModel");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));

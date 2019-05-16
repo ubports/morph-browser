@@ -95,7 +95,6 @@ private:
     void removeObsoleteEntries();
     int getIndexForDomain(const QString& domain) const;
     QString getDomainWithoutSubdomain(const QString& domain) const;
-    static bool domainWithoutSubdomainEarlierInAlphabet (const DomainSetting & setting1, DomainSetting setting2);
 };
 
 #endif

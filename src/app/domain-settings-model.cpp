@@ -119,7 +119,7 @@ void DomainSettingsModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
     QString query = QLatin1String("SELECT domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor "
-                                  "FROM domainsettings ORDER BY domainWithoutSubdomain ASC;");
+                                  "FROM domainsettings;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0; // size() isn't supported on the sqlite backend
@@ -135,7 +135,6 @@ void DomainSettingsModel::populateFromDatabase()
 
         beginInsertRows(QModelIndex(), count, count);
         m_entries.append(entry);
-        std::sort(m_entries.begin(), m_entries.end(), domainWithoutSubdomainEarlierInAlphabet);
         endInsertRows();
         count++;
     }
@@ -411,10 +410,4 @@ QString DomainSettingsModel::getDomainWithoutSubdomain(const QString& domain) co
     QString hostName = urlWithoutTopLevelDomain.mid(urlWithoutTopLevelDomain.lastIndexOf('.') + 1);
     // ubports.com
     return hostName + topLevelDomain;
-}
-
-bool DomainSettingsModel::domainWithoutSubdomainEarlierInAlphabet (const DomainSetting & setting1, DomainSetting setting2)
-{
-    return QString::localeAwareCompare(setting1.domainWithoutSubdomain, setting2.domainWithoutSubdomain);
-
 }
