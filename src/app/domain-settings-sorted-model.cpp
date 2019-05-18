@@ -17,6 +17,7 @@
  */
 
 #include "domain-settings-sorted-model.h"
+#include "domain-settings-model.h"
 
 DomainSettingsSortedModel::DomainSettingsSortedModel(QObject *parent):
                    QSortFilterProxyModel(parent)
@@ -60,13 +61,10 @@ int DomainSettingsSortedModel::count()
 
 bool DomainSettingsSortedModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-    QObject* leftData = left.data(Qt::InitialSortOrderRole).value<QObject*>();
-    QObject* rightData = right.data(Qt::InitialSortOrderRole).value<QObject*>();
-
-    QString leftDomain = leftData->property("domain").toString();
-    QString leftDomainWithoutSubdomain = leftData->property("domainWithoutSubdomain").toString();
-    QString rightDomain = rightData->property("domain").toString();
-    QString rightDomainWithoutSubdomain = rightData->property("domainWithoutSubdomain").toString();
+    QString leftDomain = sourceModel()->data(left, DomainSettingsModel::Domain).toString();
+    QString leftDomainWithoutSubdomain = sourceModel()->data(left, DomainSettingsModel::DomainWithoutSubdomain).toString();
+    QString rightDomain = sourceModel()->data(right, DomainSettingsModel::Domain).toString();
+    QString rightDomainWithoutSubdomain = sourceModel()->data(right, DomainSettingsModel::DomainWithoutSubdomain).toString();
 
     // same domain -> different subdomains
     if (leftDomainWithoutSubdomain == rightDomainWithoutSubdomain)
