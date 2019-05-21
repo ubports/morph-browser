@@ -187,6 +187,7 @@ BrowserWindow {
             loadCustomUserScripts();
 
             DomainSettingsModel.databasePath = webappDataLocation + '/domainsettings.sqlite';
+            UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
         }
 
         function loadCustomUserScripts() {

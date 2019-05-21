@@ -21,6 +21,7 @@ set(COMMONLIB_SRC
     browserapplication.cpp
     domain-settings-model.cpp
     domain-settings-sorted-model.cpp
+    domain-settings-user-agents-model.cpp
     favicon-fetcher.cpp
     input-method-handler.cpp
     meminfo.cpp

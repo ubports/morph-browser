@@ -69,7 +69,7 @@ QHash<int, QByteArray> DomainSettingsModel::roleNames() const
         roles[DomainWithoutSubdomain] = "domainWithoutSubdomain";
         roles[AllowCustomUrlSchemes] = "allowCustomUrlSchemes";
         roles[AllowLocation] = "allowLocation";
-        roles[UserAgent] = "userAgent";
+        roles[UserAgentId] = "userAgentId";
         roles[ZoomFactor] = "zoomFactor";
     }
     return roles;
@@ -96,8 +96,8 @@ QVariant DomainSettingsModel::data(const QModelIndex& index, int role) const
         return entry.allowCustomUrlSchemes;
     case AllowLocation:
         return entry.allowLocation;
-    case UserAgent:
-        return entry.userAgent;
+    case UserAgentId:
+        return entry.userAgentId;
     case ZoomFactor:
         return entry.zoomFactor;
     default:
@@ -109,8 +109,8 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS domainsettings "
-                                  "(domain VARCHAR, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation BOOL, "
-                                  "userAgent VARCHAR, zoomFactor REAL); ");
+                                  "(domain VARCHAR NOT NULL UNIQUE, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation BOOL, "
+                                  "userAgentId INTEGER, zoomFactor REAL, PRIMARY KEY(domain), FOREIGN KEY(userAgentId) REFERENCES useragents(id)); ");
     createQuery.prepare(query);
     createQuery.exec();
 }
@@ -118,7 +118,7 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
 void DomainSettingsModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor "
+    QString query = QLatin1String("SELECT domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgentId, zoomFactor "
                                   "FROM domainsettings;");
     populateQuery.prepare(query);
     populateQuery.exec();
@@ -129,7 +129,7 @@ void DomainSettingsModel::populateFromDatabase()
         entry.domainWithoutSubdomain = populateQuery.value("domainWithoutSubdomain").toString();
         entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
         entry.allowLocation = populateQuery.value("allowLocation").toBool();
-        entry.userAgent = populateQuery.value("userAgent").toString();
+        entry.userAgentId = populateQuery.value("userAgentId").toInt();
         entry.zoomFactor =  populateQuery.value("zoomFactor").isNull() ? std::numeric_limits<double>::quiet_NaN()
                                                                        : populateQuery.value("zoomFactor").toDouble();
 
@@ -236,33 +236,33 @@ void DomainSettingsModel::allowLocation(const QString& domain, bool allow)
     }
 }
 
-QString DomainSettingsModel::getUserAgent(const QString& domain) const
+int DomainSettingsModel::getUserAgentId(const QString& domain) const
 {
     int index = getIndexForDomain(domain);
     if (index == -1)
     {
-        return QString();
+        return std::numeric_limits<int>::quiet_NaN();
     }
 
-    return m_entries[index].userAgent;
+    return m_entries[index].userAgentId;
 }
 
-void DomainSettingsModel::setUserAgent(const QString& domain, QString userAgent)
+void DomainSettingsModel::setUserAgentId(const QString& domain, int userAgentId)
 {
     insertEntry(domain);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainSetting& entry = m_entries[index];
-        if (entry.allowLocation == userAgent) {
+        if (entry.userAgentId == userAgentId) {
             return;
         }
-        entry.userAgent = userAgent;
-        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << UserAgent);
+        entry.userAgentId = userAgentId;
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << UserAgentId);
         QSqlQuery query(m_database);
-        static QString updateStatement = QLatin1String("UPDATE domainsettings SET userAgent=? WHERE domain=?;");
+        static QString updateStatement = QLatin1String("UPDATE domainsettings SET userAgentId=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue(userAgent.isEmpty() ? QString() : userAgent);
+        query.addBindValue(userAgentId);
         query.addBindValue(domain);
         query.exec();
     }
@@ -317,21 +317,21 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     entry.domainWithoutSubdomain = getDomainWithoutSubdomain(domain);
     entry.allowCustomUrlSchemes = false;
     entry.allowLocation = false;
-    entry.userAgent = QString();
+    entry.userAgentId = std::numeric_limits<int>::quiet_NaN();
     entry.zoomFactor = std::numeric_limits<double>::quiet_NaN();
     m_entries.append(entry);
     endInsertRows();
     Q_EMIT rowCountChanged();
 
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgent, zoomFactor)"
+    static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, userAgentId, zoomFactor)"
                                                    " VALUES (?, ?, ?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.domain);
     query.addBindValue(entry.domainWithoutSubdomain);
     query.addBindValue(entry.allowCustomUrlSchemes);
     query.addBindValue(entry.allowLocation);
-    query.addBindValue(entry.userAgent);
+    query.addBindValue(entry.userAgentId);
     query.addBindValue(entry.zoomFactor);
     query.exec();
 }
@@ -355,7 +355,7 @@ void DomainSettingsModel::removeEntry(const QString &domain)
 void DomainSettingsModel::removeObsoleteEntries()
 {
     QSqlQuery query(m_database);
-    static QString deleteStatement = QLatin1String("DELETE FROM domainsettings WHERE allowCustomUrlSchemes=? AND allowLocation=? AND userAgent IS NULL AND zoomFactor IS NULL;");
+    static QString deleteStatement = QLatin1String("DELETE FROM domainsettings WHERE allowCustomUrlSchemes=? AND allowLocation=? AND userAgentId IS NULL AND zoomFactor IS NULL;");
     query.prepare(deleteStatement);
     query.addBindValue(false);
     query.addBindValue(false);

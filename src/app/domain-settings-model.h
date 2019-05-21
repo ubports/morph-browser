@@ -42,7 +42,7 @@ public:
         DomainWithoutSubdomain,
         AllowCustomUrlSchemes,
         AllowLocation,
-        UserAgent,
+        UserAgentId,
         ZoomFactor
     };
 
@@ -62,8 +62,8 @@ public:
     Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow);
     Q_INVOKABLE bool isLocationAllowed(const QString& domain) const;
     Q_INVOKABLE void allowLocation(const QString& domain, bool allow);
-    Q_INVOKABLE QString getUserAgent(const QString& domain) const;
-    Q_INVOKABLE void setUserAgent(const QString& domain, QString userAgent);
+    Q_INVOKABLE int getUserAgentId(const QString& domain) const;
+    Q_INVOKABLE void setUserAgentId(const QString& domain, int userAgentId);
     Q_INVOKABLE double getZoomFactor(const QString& domain) const;
     Q_INVOKABLE void setZoomFactor(const QString& domain, double zoomFactor);
     Q_INVOKABLE void insertEntry(const QString& domain);
@@ -82,7 +82,7 @@ private:
         QString domainWithoutSubdomain;
         bool allowCustomUrlSchemes;
         bool allowLocation;
-        QString userAgent;
+        int userAgentId;
         double zoomFactor;
     };
 

@@ -109,6 +109,7 @@ BrowserPage {
         delegate: ListItem {
             id: item
             height: item.ListView.isCurrentItem ? layout.height : units.gu(5)
+            readonly property int userAgentId: model.userAgentId
 
             MouseArea {
                 anchors.fill: parent
@@ -167,6 +168,23 @@ BrowserPage {
                         height: units.gu(1)
                         text: i18n.tr("User agent: ") + model.userAgent
                         visible: item.ListView.isCurrentItem
+                    }
+                    OptionSelector{
+                        model: SortFilterModel {
+                            id: sortedUserAgentsModel
+                            model: UserAgentsModel
+                            sort.property: "userAgentName"
+                            sort.order: Qt.AscendingOrder
+                        }
+                        delegate: selectorDelegate
+                        selectedIndex: UserAgentsModel.getIndexForUserAgentId(item.userAgentId)
+                        onDelegateClicked: function(index) {
+                            DomainSettingsModel.setUserAgentId(UserAgentsModel.getUserAgentIdForIndex(index));
+                        }
+                    }
+                    Component {
+                        id: selectorDelegate
+                        OptionSelectorDelegate { text: userAgentName; subText: userAgentString; }
                     }
                     // within one label the check if zoom factor is set could not be properly done
                     Label  {

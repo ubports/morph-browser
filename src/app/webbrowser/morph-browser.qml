@@ -55,6 +55,7 @@ QtObject {
         DownloadsModel.databasePath = dataLocation + "/downloads.sqlite";
         DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
         DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
+        UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
     }
 
     // Array of all windows, sorted chronologically (most recently active last)
