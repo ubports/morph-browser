@@ -21,7 +21,7 @@
 #include <QtSql/QSqlQuery>
 #include <QUrl>
 
-#define CONNECTION_NAME "morph-browser-domainsettings"
+#define CONNECTION_NAME "morph-browser-domainsettings-user-agents"
 
 /*!
     \class UserAgentsModel
