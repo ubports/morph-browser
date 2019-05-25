@@ -262,7 +262,7 @@ void DomainSettingsModel::setUserAgentId(const QString& domain, int userAgentId)
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainsettings SET userAgentId=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue(userAgentId);
+        query.addBindValue((userAgentId == 0) ? std::numeric_limits<int>::quiet_NaN() : userAgentId);
         query.addBindValue(domain);
         query.exec();
     }

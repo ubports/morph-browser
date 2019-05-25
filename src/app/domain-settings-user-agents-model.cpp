@@ -195,6 +195,25 @@ void UserAgentsModel::setUserAgentString(int userAgentId, const QString& userAge
     }
 }
 
+void UserAgentsModel::setUserAgentName(int userAgentId, const QString& userAgentName)
+{
+    int index = getIndexForUserAgentId(userAgentId);
+    if (index != -1) {
+        UserAgent& entry = m_entries[index];
+        if (entry.name == userAgentName) {
+            return;
+        }
+        entry.name = userAgentName;
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << Name);
+        QSqlQuery query(m_database);
+        static QString updateStatement = QLatin1String("UPDATE useragents SET name=? WHERE id=?;");
+        query.prepare(updateStatement);
+        query.addBindValue(userAgentName);
+        query.addBindValue(userAgentId);
+        query.exec();
+    }
+}
+
 int UserAgentsModel::getIndexForUserAgentId(int userAgentId) const
 {
     int index = 0;
@@ -206,11 +225,6 @@ int UserAgentsModel::getIndexForUserAgentId(int userAgentId) const
         }
     }
     return -1;
-}
-
-int UserAgentsModel::getUserAgentIdForIndex(int index) const
-{
-    return m_entries[index].id;
 }
 
 int UserAgentsModel::getIndexForUserAgentName(const QString& userAgentName) const

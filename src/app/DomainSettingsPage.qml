@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
+import QtQuick 2.6
+import QtQuick.Controls 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
@@ -25,8 +26,8 @@ BrowserPage {
     id: domainSettingsPage
 
     property bool selectMode
-
     signal done()
+    signal reload()
 
     title: i18n.tr("Domain specific settings")
 
@@ -109,7 +110,9 @@ BrowserPage {
         delegate: ListItem {
             id: item
             height: item.ListView.isCurrentItem ? layout.height : units.gu(5)
+            readonly property string domain: model.domain
             readonly property int userAgentId: model.userAgentId
+            color: item.ListView.isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
 
             MouseArea {
                 anchors.fill: parent
@@ -126,11 +129,12 @@ BrowserPage {
 
                     spacing: units.gu(2)
 
+
                     Label {
                         width: parent.width
                         height: units.gu(1)
                         text: model.domain
-                        color: item.ListView.isCurrentItem ? "red" : "blue"
+                        font.bold: item.ListView.isCurrentItem
                     }
 
                     Row {
@@ -160,32 +164,67 @@ BrowserPage {
 
                         CheckBox {
                             checked: model.allowLocation
-                            onTriggered: DomainSettingsModel.allowLocation(model.domain, checked)
+                            onTriggered: {
+                                DomainSettingsModel.allowLocation(model.domain, checked);
+                            }
                         }
                     }
 
-                    Label  {
+                    Row {
+                        spacing: units.gu(1.5)
                         height: units.gu(1)
-                        text: i18n.tr("User agent: ") + model.userAgent
                         visible: item.ListView.isCurrentItem
+
+                        Label  {
+                            text: i18n.tr("custom user agent")
+                        }
+
+                        CheckBox {
+                            id: customUserAgentCheckbox
+                            checked: (model.userAgentId !== NaN)
+                            onTriggered: {
+                                if (! checked)
+                                {
+                                    DomainSettingsModel.setUserAgentId(model.domain, NaN);
+                                    optSelect.selectedIndex = -1;
+                                }
+                            }
+                        }
                     }
-                    OptionSelector{
+
+                    OptionSelector {
+
+                        id: optSelect
+                        visible: customUserAgentCheckbox.checked
+
                         model: SortFilterModel {
                             id: sortedUserAgentsModel
                             model: UserAgentsModel
-                            sort.property: "userAgentName"
+                            sort.property: "name"
                             sort.order: Qt.AscendingOrder
                         }
-                        delegate: selectorDelegate
-                        selectedIndex: UserAgentsModel.getIndexForUserAgentId(item.userAgentId)
-                        onDelegateClicked: function(index) {
-                            DomainSettingsModel.setUserAgentId(UserAgentsModel.getUserAgentIdForIndex(index));
+                        delegate: OptionSelectorDelegate {
+                            text: model.name
+                        }
+
+                        Component.onCompleted: {
+
+                            if (item.userAgentId !== NaN)
+                            {
+                                for (var i = 0; i < model.count; ++i) {
+                                    if (item.userAgentId === model.get(i).id)
+                                    {
+                                        selectedIndex = i;
+                                    }
+                                }
+                            }
+                        }
+
+                        onDelegateClicked: {
+                            DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
                         }
                     }
-                    Component {
-                        id: selectorDelegate
-                        OptionSelectorDelegate { text: userAgentName; subText: userAgentString; }
-                    }
+
                     // within one label the check if zoom factor is set could not be properly done
                     Label  {
                         height: units.gu(1)
@@ -228,5 +267,12 @@ BrowserPage {
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
         text: i18n.tr("No domain specific settings available")
+    }
+
+    Connections {
+        target: UserAgentsModel
+        // the OptionSelector does not properly update the model (duplicate entries instead of new user agents)
+        onDataChanged: reload()
+        onRowCountChanged: reload()
     }
 }

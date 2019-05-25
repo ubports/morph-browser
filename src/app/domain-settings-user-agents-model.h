@@ -53,9 +53,8 @@ public:
     Q_INVOKABLE bool contains(const QString& userAgentName) const;
     Q_INVOKABLE void insertEntry(const QString& userAgentName, const QString& userAgentString = "");
     Q_INVOKABLE void removeEntry(int userAgentId);
+    Q_INVOKABLE void setUserAgentName(int userAgentId, const QString& userAgentName);
     Q_INVOKABLE void setUserAgentString(int userAgentId, const QString& userAgentString);
-    Q_INVOKABLE int getIndexForUserAgentId(int userAgentId) const;
-    Q_INVOKABLE int getUserAgentIdForIndex(int index) const;
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -76,6 +75,7 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
+    int getIndexForUserAgentId(int userAgentId) const;
     int getIndexForUserAgentName(const QString& userAgentName) const;
 };
 
