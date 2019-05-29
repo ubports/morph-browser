@@ -73,6 +73,10 @@ FocusScope {
         Connections {
             target: domainSettingsViewLoader.item
             onDone: domainSettingsViewLoader.active = false
+            onReload: {
+                domainSettingsViewLoader.active = false
+                domainSettingsViewLoader.active = true
+            }
         }
     }
 }

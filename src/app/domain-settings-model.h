@@ -64,6 +64,7 @@ public:
     Q_INVOKABLE void allowLocation(const QString& domain, bool allow);
     Q_INVOKABLE int getUserAgentId(const QString& domain) const;
     Q_INVOKABLE void setUserAgentId(const QString& domain, int userAgentId);
+    Q_INVOKABLE void removeUserAgentIdFromAllDomains(int userAgentId);
     Q_INVOKABLE double getZoomFactor(const QString& domain) const;
     Q_INVOKABLE void setZoomFactor(const QString& domain, double zoomFactor);
     Q_INVOKABLE void insertEntry(const QString& domain);

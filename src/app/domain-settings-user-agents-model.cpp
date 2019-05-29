@@ -81,6 +81,8 @@ QVariant UserAgentsModel::data(const QModelIndex& index, int role) const
         return entry.id;
     case Name:
         return entry.name;
+    case UserAgentString:
+        return entry.userAgentString;
     default:
         return QVariant();
     }
@@ -174,6 +176,17 @@ void UserAgentsModel::removeEntry(int userAgentId)
         query.addBindValue(userAgentId);
         query.exec();
     }
+}
+
+QString UserAgentsModel::getUserAgentString(int userAgentId) const
+{
+    int index = getIndexForUserAgentId(userAgentId);
+    if (index == -1)
+    {
+        return QString();
+    }
+
+    return m_entries[index].userAgentString;
 }
 
 void UserAgentsModel::setUserAgentString(int userAgentId, const QString& userAgentString)

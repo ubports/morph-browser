@@ -19,260 +19,343 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.2
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
 
-BrowserPage {
-    id: domainSettingsPage
+FocusScope {
+    id: domainSettingsItem
 
+    property QtObject domainSettingsObject
     property bool selectMode
+
     signal done()
     signal reload()
 
-    title: i18n.tr("Domain specific settings")
+    BrowserPage {
+        id: domainSettingsPage
 
-    showBackAction: !selectMode
-
-    leadingActions: [
-        Action {
-            objectName: "close"
-            iconName: "close"
-            onTriggered: domainSettingsPage.selectMode = false
-        }
-    ]
-
-    trailingActions: [
-        Action {
-            text: i18n.tr("Select all")
-            iconName: "select"
-            visible: selectMode
-            onTriggered: {
-                if (domainSettingsListView.ViewItems.selectedIndices.length === domainSettingsListView.count) {
-                    domainSettingsListView.ViewItems.selectedIndices = []
-                } else {
-                    var indices = []
-                    for (var i = 0; i < domainSettingsListView.count; ++i) {
-                        indices.push(i)
-                    }
-                    domainSettingsListView.ViewItems.selectedIndices = indices
-                }
-            }
-        },
-        Action {
-            text: i18n.tr("Delete")
-            iconName: "delete"
-            visible: selectMode
-            enabled: domainSettingsListView.ViewItems.selectedIndices.length > 0
-            onTriggered: {
-                var toDelete = []
-                for (var i = 0; i < domainSettingsListView.ViewItems.selectedIndices.length; i++) {
-                    var selectedDomainSetting = domainSettingsListView.model.get(domainSettingsListView.ViewItems.selectedIndices[i])
-                    toDelete.push(selectedDomainSetting.domain)
-                }
-                console.log(JSON.stringify(DomainSettingsModel))
-                for (var i = 0; i < toDelete.length; i++) {
-                    DomainSettingsModel.removeEntry(toDelete[i])
-                }
-                domainSettingsListView.ViewItems.selectedIndices = []
-                domainSettingsPage.selectMode = false
-            }
-        },
-        Action {
-            iconName: "edit"
-            visible: !selectMode
-            enabled: domainSettingsListView.count > 0
-            onTriggered: {
-                selectMode = true
-            }
-        }
-    ]
-
-
-    onBack: {
-        selectMode = false;
-        done();
-    }
-
-    DomainSettingsSortedModel {
-        id: domainSettingsSortedModel
-        model: DomainSettingsModel
-        sortOrder: Qt.AscendingOrder
-    }
-
-    ListView {
-        id: domainSettingsListView
         anchors.fill: parent
         focus: true
-        model:  domainSettingsSortedModel
 
-        ViewItems.selectMode: domainSettingsPage.selectMode
+        title: i18n.tr("Domain specific settings")
 
-        delegate: ListItem {
-            id: item
-            height: item.ListView.isCurrentItem ? layout.height : units.gu(5)
-            readonly property string domain: model.domain
-            readonly property int userAgentId: model.userAgentId
-            color: item.ListView.isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
+        showBackAction: !selectMode
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: domainSettingsListView.currentIndex = index
+        leadingActions: [
+            Action {
+                objectName: "close"
+                iconName: "close"
+                onTriggered: selectMode = false
+            }
+        ]
+
+        trailingActions: [
+            Action {
+                text: i18n.tr("Select all")
+                iconName: "select"
+                visible: selectMode
+                onTriggered: {
+                    if (domainSettingsListView.ViewItems.selectedIndices.length === domainSettingsListView.count) {
+                        domainSettingsListView.ViewItems.selectedIndices = []
+                    } else {
+                        var indices = []
+                        for (var i = 0; i < domainSettingsListView.count; ++i) {
+                            indices.push(i)
+                        }
+                        domainSettingsListView.ViewItems.selectedIndices = indices
+                    }
+                }
+            },
+            Action {
+                text: i18n.tr("Delete")
+                iconName: "delete"
+                visible: selectMode
+                enabled: domainSettingsListView.ViewItems.selectedIndices.length > 0
+                onTriggered: {
+                    var toDelete = []
+                    for (var i = 0; i < domainSettingsListView.ViewItems.selectedIndices.length; i++) {
+                        var selectedDomainSetting = domainSettingsListView.model.get(domainSettingsListView.ViewItems.selectedIndices[i])
+                        toDelete.push(selectedDomainSetting.domain)
+                    }
+                    console.log(JSON.stringify(DomainSettingsModel))
+                    for (var i = 0; i < toDelete.length; i++) {
+                        DomainSettingsModel.removeEntry(toDelete[i])
+                    }
+                    domainSettingsListView.ViewItems.selectedIndices = []
+                    selectMode = false
+                }
+            },
+            Action {
+                iconName: "edit"
+                visible: !selectMode
+                enabled: domainSettingsListView.count > 0
+                onTriggered: {
+                    selectMode = true
+                }
+            },
+            Action {
+                iconName: "add"
+                visible: !selectMode
+
+                onTriggered: {
+                    var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), domainSettingsPage);
+                    promptDialog.title = i18n.tr("Add domain")
+                    promptDialog.message = i18n.tr("Add the name of the domain, e.g. m.example.com")
+                    promptDialog.accept.connect(function(text) {
+                        if (text !== "") {
+                            DomainSettingsModel.insertEntry(text);
+                            reload();
+                        }
+                    });
+                }
+            }
+        ]
+
+
+        onBack: {
+            selectMode = false;
+            domainSettingsItem.done();
+        }
+
+        DomainSettingsSortedModel {
+            id: domainSettingsSortedModel
+            model: DomainSettingsModel
+            sortOrder: Qt.AscendingOrder
+        }
+
+        Column {
+            anchors.fill: parent
+
+            ListItem {
+                objectName: "useragents"
+                id: useragentsMenu
+
+                ListItemLayout {
+                    title.text: i18n.tr("Custom User Agents")
+                    ProgressionSlot {}
+                }
+
+                onClicked: {
+                    console.log("CLICK...")
+                    UserAgentsModel.setUserAgentName(3, "a3: " + Date.now().toString())
+                    customUserAgentsViewLoader.active = true
+                }
             }
 
-            SlotsLayout {
-                id: layout
-                width: parent.width
+            ListView {
+                id: domainSettingsListView
+                anchors.top: useragentsMenu.bottom
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                focus: true
+                model:  domainSettingsSortedModel
 
-                mainSlot:
+                ViewItems.selectMode: selectMode
 
-                    Column {
+                delegate: ListItem {
+                    id: item
+                    readonly property bool isCurrentItem: item.ListView.isCurrentItem
+                    readonly property string domain: model.domain
+                    readonly property int userAgentId: model.userAgentId
+                    height: isCurrentItem ? layout.height : units.gu(5)
+                    color: isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
 
-                    spacing: units.gu(2)
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: domainSettingsListView.currentIndex = index
+                    }
 
-
-                    Label {
+                    SlotsLayout {
+                        id: layout
                         width: parent.width
-                        height: units.gu(1)
-                        text: model.domain
-                        font.bold: item.ListView.isCurrentItem
-                    }
 
-                    Row {
-                        spacing: units.gu(1.5)
-                        height: units.gu(1)
-                        visible: item.ListView.isCurrentItem
+                        mainSlot:
 
-                        Label  {
-                            text: i18n.tr("allow custom schemes")
-                        }
+                            Column {
 
-                        CheckBox {
-                            checked: model.allowCustomUrlSchemes
-                            onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked)
-                        }
-                    }
+                            spacing: units.gu(2)
 
 
-                    Row {
-                        spacing: units.gu(1.5)
-                        height: units.gu(1)
-                        visible: item.ListView.isCurrentItem
-
-                        Label  {
-                            text: i18n.tr("allow location access")
-                        }
-
-                        CheckBox {
-                            checked: model.allowLocation
-                            onTriggered: {
-                                DomainSettingsModel.allowLocation(model.domain, checked);
+                            Label {
+                                width: parent.width
+                                height: units.gu(1)
+                                text: model.domain
+                                font.bold: item.ListView.isCurrentItem
                             }
-                        }
-                    }
 
-                    Row {
-                        spacing: units.gu(1.5)
-                        height: units.gu(1)
-                        visible: item.ListView.isCurrentItem
+                            Row {
+                                spacing: units.gu(1.5)
+                                height: units.gu(1)
+                                visible: item.ListView.isCurrentItem
 
-                        Label  {
-                            text: i18n.tr("custom user agent")
-                        }
+                                Label  {
+                                    text: i18n.tr("allow custom schemes")
+                                }
 
-                        CheckBox {
-                            id: customUserAgentCheckbox
-                            checked: (model.userAgentId !== NaN)
-                            onTriggered: {
-                                if (! checked)
-                                {
-                                    DomainSettingsModel.setUserAgentId(model.domain, NaN);
-                                    optSelect.selectedIndex = -1;
+                                CheckBox {
+                                    checked: model.allowCustomUrlSchemes
+                                    onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked)
                                 }
                             }
-                        }
-                    }
 
-                    OptionSelector {
 
-                        id: optSelect
-                        visible: customUserAgentCheckbox.checked
+                            Row {
+                                spacing: units.gu(1.5)
+                                height: units.gu(1)
+                                visible: item.ListView.isCurrentItem
 
-                        model: SortFilterModel {
-                            id: sortedUserAgentsModel
-                            model: UserAgentsModel
-                            sort.property: "name"
-                            sort.order: Qt.AscendingOrder
-                        }
-                        delegate: OptionSelectorDelegate {
-                            text: model.name
-                        }
+                                Label  {
+                                    text: i18n.tr("allow location access")
+                                }
 
-                        Component.onCompleted: {
-
-                            if (item.userAgentId !== NaN)
-                            {
-                                for (var i = 0; i < model.count; ++i) {
-                                    if (item.userAgentId === model.get(i).id)
-                                    {
-                                        selectedIndex = i;
+                                CheckBox {
+                                    checked: model.allowLocation
+                                    onTriggered: {
+                                        DomainSettingsModel.allowLocation(model.domain, checked);
                                     }
                                 }
                             }
-                        }
 
-                        onDelegateClicked: {
-                            DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
+                            Row {
+                                spacing: units.gu(1.5)
+                                height: units.gu(1)
+                                visible: item.ListView.isCurrentItem
+
+                                Label  {
+                                    text: i18n.tr("custom user agent")
+                                }
+
+                                CheckBox {
+                                    id: customUserAgentCheckbox
+                                    checked: model.userAgentId > 0
+                                    onTriggered: {
+                                        optSelect.selectedIndex = -1;
+
+                                        if (checked) {
+                                            optSelect.currentlyExpanded = true;
+                                        }
+                                        else  {
+                                            DomainSettingsModel.setUserAgentId(model.domain, 0);
+                                        }
+                                    }
+                                }
+                            }
+
+                            /* ToDo: Can we do sth. about the following log messages ?
+                               file:///usr/lib/arm-linux-gnueabihf/qt5/qml/Ubuntu/Components/1.3/OptionSelector.qml:330:13:
+                               QML ListView: Binding loop detected for property "itemHeight"
+                            */
+                            OptionSelector {
+
+                                id: optSelect
+                                visible: customUserAgentCheckbox.checked
+
+                                model: SortFilterModel {
+                                    id: sortedUserAgentsModel
+                                    model: UserAgentsModel
+                                    sort.property: "name"
+                                    sort.order: Qt.AscendingOrder
+                                }
+                                delegate: OptionSelectorDelegate {
+                                    text: model.name
+                                }
+
+                                function updateIndex() {
+                                    for (var i = 0; i < model.count; ++i) {
+                                        if (item.userAgentId === model.get(i).id)
+                                        {
+                                            selectedIndex = i;
+                                        }
+                                    }
+                                }
+
+                                Connections {
+                                    target: item
+
+                                    onIsCurrentItemChanged: {
+                                        if (item.isCurrentItem && (item.userAgentId > 0)) {
+                                            optSelect.updateIndex();
+                                        }
+                                    }
+                                }
+
+                                onDelegateClicked: {
+                                    DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
+                                }
+                            }
+
+                            // within one label the check if zoom factor is set could not be properly done
+                            Label  {
+                                height: units.gu(1)
+                                text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
+                                visible: item.ListView.isCurrentItem && ! isNaN(model.zoomFactor)
+                            }
+                            Label  {
+                                height: units.gu(1)
+                                text: i18n.tr("Zoom: ") + i18n.tr("not set")
+                                visible: item.ListView.isCurrentItem && isNaN(model.zoomFactor)
+                            }
                         }
                     }
 
-                    // within one label the check if zoom factor is set could not be properly done
-                    Label  {
-                        height: units.gu(1)
-                        text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
-                        visible: item.ListView.isCurrentItem && ! isNaN(model.zoomFactor)
-                    }
-                    Label  {
-                        height: units.gu(1)
-                        text: i18n.tr("Zoom: ") + i18n.tr("not set")
-                        visible: item.ListView.isCurrentItem && isNaN(model.zoomFactor)
+                    leadingActions: deleteActionList
+
+                    ListItemActions {
+                        id: deleteActionList
+                        actions: [
+                            Action {
+                                objectName: "leadingAction.delete"
+                                iconName: "delete"
+                                enabled: true
+                                onTriggered: DomainSettingsModel.removeEntry(model.domain)
+                            }
+                        ]
                     }
                 }
             }
 
-            leadingActions: deleteActionList
+            Scrollbar {
+                flickableItem: domainSettingsListView
+            }
 
-            ListItemActions {
-                id: deleteActionList
-                actions: [
-                    Action {
-                        objectName: "leadingAction.delete"
-                        iconName: "delete"
-                        enabled: true
-                        onTriggered: DomainSettingsModel.removeEntry(model.domain)
-                    }
-                ]
+            Label {
+                id: emptyLabel
+                anchors.centerIn: parent
+                visible: domainSettingsListView.count == 0
+                wrapMode: Text.Wrap
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: i18n.tr("No domain specific settings available")
+            }
+
+            Connections {
+                target: UserAgentsModel
+                enabled: ! customUserAgentsViewLoader.active
+                // the OptionSelector does not properly update the model (duplicate entries instead of new user agents)
+                onRowCountChanged: reload()
             }
         }
     }
 
-    Scrollbar {
-        flickableItem: domainSettingsListView
-    }
+    Loader {
+        id: customUserAgentsViewLoader
 
-    Label {
-        id: emptyLabel
-        anchors.centerIn: parent
-        visible: domainSettingsListView.count == 0
-        wrapMode: Text.Wrap
-        width: parent.width
-        horizontalAlignment: Text.AlignHCenter
-        text: i18n.tr("No domain specific settings available")
-    }
+        anchors.fill: parent
+        active: false
+        asynchronous: true
+        Component.onCompleted: {
+            setSource("CustomUserAgentsPage.qml")
+        }
 
-    Connections {
-        target: UserAgentsModel
-        // the OptionSelector does not properly update the model (duplicate entries instead of new user agents)
-        onDataChanged: reload()
-        onRowCountChanged: reload()
+        Connections {
+            target: customUserAgentsViewLoader.item
+            onDone: customUserAgentsViewLoader.active = false
+            onReload: {
+                customUserAgentsViewLoader.active = false
+                customUserAgentsViewLoader.active = true
+            }
+        }
     }
 }

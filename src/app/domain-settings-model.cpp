@@ -262,8 +262,30 @@ void DomainSettingsModel::setUserAgentId(const QString& domain, int userAgentId)
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainsettings SET userAgentId=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue((userAgentId == 0) ? std::numeric_limits<int>::quiet_NaN() : userAgentId);
+        query.addBindValue((userAgentId > 0) ? userAgentId : QVariant());
         query.addBindValue(domain);
+        query.exec();
+    }
+}
+
+void DomainSettingsModel::removeUserAgentIdFromAllDomains(int userAgentId)
+{
+    bool foundDomainWithGivenUserAgentId = false;
+    for (int i = 0; i < m_entries.length(); i++)
+    {
+        if (m_entries[i].userAgentId == userAgentId) {
+            foundDomainWithGivenUserAgentId = true;
+            m_entries[i].userAgentId = 0;
+            Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), QVector<int>() << UserAgentId);
+        }
+    }
+
+    if (foundDomainWithGivenUserAgentId)
+    {
+        QSqlQuery query(m_database);
+        static QString updateStatement = QLatin1String("UPDATE domainsettings SET userAgentId=NULL WHERE userAgentId=?;");
+        query.prepare(updateStatement);
+        query.addBindValue(userAgentId);
         query.exec();
     }
 }
@@ -317,7 +339,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     entry.domainWithoutSubdomain = getDomainWithoutSubdomain(domain);
     entry.allowCustomUrlSchemes = false;
     entry.allowLocation = false;
-    entry.userAgentId = std::numeric_limits<int>::quiet_NaN();
+    entry.userAgentId = 0;
     entry.zoomFactor = std::numeric_limits<double>::quiet_NaN();
     m_entries.append(entry);
     endInsertRows();
@@ -331,7 +353,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     query.addBindValue(entry.domainWithoutSubdomain);
     query.addBindValue(entry.allowCustomUrlSchemes);
     query.addBindValue(entry.allowLocation);
-    query.addBindValue(entry.userAgentId);
+    query.addBindValue((entry.userAgentId > 0) ? entry.userAgentId : QVariant());
     query.addBindValue(entry.zoomFactor);
     query.exec();
 }
@@ -376,7 +398,7 @@ void DomainSettingsModel::removeDefaultZoomFactorFromEntries()
 int DomainSettingsModel::getIndexForDomain(const QString& domain) const
 {
     int index = 0;
-    Q_FOREACH(const DomainSetting& entry, m_entries) {
+    foreach(const DomainSetting& entry, m_entries) {
         if (entry.domain == domain) {
             return index;
         } else {

@@ -54,6 +54,7 @@ public:
     Q_INVOKABLE void insertEntry(const QString& userAgentName, const QString& userAgentString = "");
     Q_INVOKABLE void removeEntry(int userAgentId);
     Q_INVOKABLE void setUserAgentName(int userAgentId, const QString& userAgentName);
+    Q_INVOKABLE QString getUserAgentString(int userAgentId) const;
     Q_INVOKABLE void setUserAgentString(int userAgentId, const QString& userAgentString);
 
 Q_SIGNALS:
