@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-05-03 21:03+0000\n"
-"Last-Translator: louies0623 <louies0623@gmail.com>\n"
+"PO-Revision-Date: 2019-06-06 10:03+0000\n"
+"Last-Translator: P.-H. Lin <cypressyew@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -410,7 +410,7 @@ msgstr "在頁面上搜尋"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "發送"
+msgstr "轉寄"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -556,7 +556,7 @@ msgstr "建立新資料夾"
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr "保存"
+msgstr "儲存"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
@@ -606,7 +606,7 @@ msgstr "下載"
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr "設置"
+msgstr "設定"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
