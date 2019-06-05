@@ -28,11 +28,21 @@ BrowserPage {
 
     property bool selectMode
     signal done()
-    signal reload()
+    signal reload(string selectedUserAgent)
 
     title: i18n.tr("Custom User Agents")
 
     showBackAction: !selectMode
+
+    function setUserAgentAsCurrentItem(userAgentName) {
+        for (var index = 0; index < customUserAgentsListView.count; index++) {
+            var userAgent = customUserAgentsListView.model.get(index);
+            if (userAgent.name === userAgentName) {
+                customUserAgentsListView.currentIndex = index;
+                return;
+            }
+        }
+    }
 
     leadingActions: [
         Action {
@@ -66,11 +76,12 @@ BrowserPage {
             enabled: customUserAgentsListView.ViewItems.selectedIndices.length > 0
             onTriggered: {
                 var toDelete = []
-                for (var i = 0; i < customUserAgentsListView.ViewItems.selectedIndices.length; i++) {
-                    var selectedDomainSetting = customUserAgentsListView.model.get(customUserAgentsListView.ViewItems.selectedIndices[i])
-                    toDelete.push(selectedDomainSetting.domain)
+                for (var index = 0; index < customUserAgentsListView.ViewItems.selectedIndices.length; index++) {
+                    var selectedUserAgent = customUserAgentsListView.model.get(customUserAgentsListView.ViewItems.selectedIndices[index])
+                    toDelete.push(selectedUserAgent.id)
                 }
                 for (var i = 0; i < toDelete.length; i++) {
+                    DomainSettingsModel.removeUserAgentIdFromAllDomains(toDelete[i])
                     UserAgentsModel.removeEntry(toDelete[i])
                 }
                 customUserAgentsListView.ViewItems.selectedIndices = []
@@ -94,8 +105,13 @@ BrowserPage {
                 promptDialog.message = i18n.tr("Add the name for the new user agent")
                 promptDialog.accept.connect(function(text) {
                     if (text !== "") {
-                        UserAgentsModel.insertEntry(text, "");
-                        reload();
+                        if (UserAgentsModel.contains(text)) {
+                            customUserAgentsPage.setUserAgentAsCurrentItem(text);
+                        }
+                        else {
+                            UserAgentsModel.insertEntry(text, "");
+                            reload(text);
+                        }
                     }
                 });
             }
@@ -177,7 +193,10 @@ BrowserPage {
                         objectName: "leadingAction.delete"
                         iconName: "delete"
                         enabled: true
-                        onTriggered: UserAgentsModel.removeEntry(model.id)
+                        onTriggered: {
+                            DomainSettingsModel.removeUserAgentIdFromAllDomains(model.id)
+                            UserAgentsModel.removeEntry(model.id)
+                        }
                     }
                 ]
             }

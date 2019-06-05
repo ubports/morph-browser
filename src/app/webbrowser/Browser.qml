@@ -176,13 +176,6 @@ BrowserView {
 
         onNavigationRequested: {
 
-            if (request.isMainFrame)
-            {
-                currentWebview.hideContextMenu();
-                currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
-                console.log(currentWebview.context.__ua.defaultUA);
-            }
-
             // for file urls we set currentDomain to "scheme:file", because there is no host
             var currentDomain = UrlUtils.schemeIs(currentWebview.url, "file") ? "scheme:file" : UrlUtils.extractHost(currentWebview.url);
 
@@ -204,10 +197,33 @@ BrowserView {
                                                                              }
                                                                  );
             }
-            else
+
+            if (request.isMainFrame)
             {
-                request.action = WebEngineNavigationRequest.AcceptRequest;
+                currentWebview.hideContextMenu();
+                var requestDomain = UrlUtils.extractHost(request.url);
+                var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
+
+                // change of the custom user agent
+                if (newUserAgentId !== currentWebview.context.userAgentId)
+                {
+                    currentWebview.context.userAgentId = newUserAgentId;
+                    currentWebview.context.customUserAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId) : "";
+
+                    // for some reason when letting through the request, another navigation request will take us back to the
+                    // to the previous page. Therefore we block it first and navigate to the new url with the correct user agent.
+                    request.action = WebEngineNavigationRequest.IgnoreRequest;
+                    currentWebview.url = request.url;
+                    return;
+                }
+                else
+                {
+                    currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                    console.log("user agent: " + currentWebview.context.httpUserAgent);
+                }
             }
+
+            //currentWebview.showMessage(request.url)
         }
     }
 
@@ -1401,7 +1417,7 @@ BrowserView {
 
         property var currentBookmarkOptionsDialog: null
         function addBookmark(url, title, icon, location) {
-            if (title == "") title = UrlUtils.removeScheme(url)
+            if (title === "") title = UrlUtils.removeScheme(url)
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}

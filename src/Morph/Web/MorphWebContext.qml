@@ -26,7 +26,8 @@ WebEngineProfile {
     property alias dataPath: oxideContext.persistentStoragePath
     property alias maxCacheSizeHint: oxideContext.httpCacheMaximumSize
     property alias incognito: oxideContext.offTheRecord
-
+    property int userAgentId: 0
+    property string customUserAgent: ""
     readonly property string defaultUserAgent: __ua.defaultUA
 
     dataPath: dataLocation
@@ -34,7 +35,7 @@ WebEngineProfile {
     cachePath: cacheLocation
     maxCacheSizeHint: cacheSizeHint
 
-    userAgent: defaultUserAgent
+    userAgent: (customUserAgent !== "") ? customUserAgent : defaultUserAgent
 
     persistentCookiesPolicy: WebEngineProfile.ForcePersistentCookies
 

@@ -179,12 +179,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     }
 
     const char* uri = "webbrowsercommon.private";
+    qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
+    qmlRegisterType<DomainSettingsSortedModel>(uri, 0, 1, "DomainSettingsSortedModel");
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
-    qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
-    qmlRegisterType<DomainSettingsSortedModel>(uri, 0, 1, "DomainSettingsSortedModel");
     qmlRegisterSingletonType<UserAgentsModel>(uri, 0, 1, "UserAgentsModel", UserAgentsModel_singleton_factory);
 
     m_engine = new QQmlEngine;

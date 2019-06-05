@@ -76,6 +76,10 @@ FocusScope {
             onReload: {
                 domainSettingsViewLoader.active = false
                 domainSettingsViewLoader.active = true
+
+                if (selectedDomain) {
+                  domainSettingsViewLoader.item.setDomainAsCurrentItem(selectedDomain)
+                }
             }
         }
     }

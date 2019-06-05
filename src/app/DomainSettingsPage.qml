@@ -22,6 +22,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
+import "UrlUtils.js" as UrlUtils
 
 FocusScope {
     id: domainSettingsItem
@@ -30,7 +31,7 @@ FocusScope {
     property bool selectMode
 
     signal done()
-    signal reload()
+    signal reload(string selectedDomain)
 
     BrowserPage {
         id: domainSettingsPage
@@ -42,6 +43,15 @@ FocusScope {
 
         showBackAction: !selectMode
 
+        function setDomainAsCurrentItem(domain) {
+            for (var index = 0; index < domainSettingsListView.count; index++) {
+                var domainSetting = domainSettingsListView.model.get(index);
+                if (domainSetting.domain === domain) {
+                    domainSettingsListView.currentIndex = index;
+                    return;
+                }
+            }
+        }
         leadingActions: [
             Action {
                 objectName: "close"
@@ -74,8 +84,8 @@ FocusScope {
                 enabled: domainSettingsListView.ViewItems.selectedIndices.length > 0
                 onTriggered: {
                     var toDelete = []
-                    for (var i = 0; i < domainSettingsListView.ViewItems.selectedIndices.length; i++) {
-                        var selectedDomainSetting = domainSettingsListView.model.get(domainSettingsListView.ViewItems.selectedIndices[i])
+                    for (var index = 0; index < domainSettingsListView.ViewItems.selectedIndices.length; index++) {
+                        var selectedDomainSetting = domainSettingsListView.model.get(domainSettingsListView.ViewItems.selectedIndices[index])
                         toDelete.push(selectedDomainSetting.domain)
                     }
                     console.log(JSON.stringify(DomainSettingsModel))
@@ -104,14 +114,19 @@ FocusScope {
                     promptDialog.message = i18n.tr("Add the name of the domain, e.g. m.example.com")
                     promptDialog.accept.connect(function(text) {
                         if (text !== "") {
-                            DomainSettingsModel.insertEntry(text);
-                            reload();
+                            var domain = UrlUtils.extractHost(text)
+                            if (DomainSettingsModel.contains(domain)) {
+                                domainSettingsPage.setDomainAsCurrentItem(domain);
+                            }
+                            else {
+                                DomainSettingsModel.insertEntry(domain);
+                                reload(domain);
+                            }
                         }
                     });
                 }
             }
         ]
-
 
         onBack: {
             selectMode = false;
@@ -124,218 +139,214 @@ FocusScope {
             sortOrder: Qt.AscendingOrder
         }
 
-        Column {
-            anchors.fill: parent
-
-            ListItem {
-                objectName: "useragents"
-                id: useragentsMenu
-
-                ListItemLayout {
-                    title.text: i18n.tr("Custom User Agents")
-                    ProgressionSlot {}
-                }
-
-                onClicked: {
-                    console.log("CLICK...")
-                    UserAgentsModel.setUserAgentName(3, "a3: " + Date.now().toString())
-                    customUserAgentsViewLoader.active = true
-                }
+        ListItem {
+            id: useragentsMenu
+            z: 3
+            height: units.gu(6)
+            color: theme.palette.normal.background
+            ListItemLayout {
+                title.text: i18n.tr("Custom User Agents")
+                ProgressionSlot {}
             }
 
-            ListView {
-                id: domainSettingsListView
-                anchors.top: useragentsMenu.bottom
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                focus: true
-                model:  domainSettingsSortedModel
+            onClicked: customUserAgentsViewLoader.active = true
+        }
 
-                ViewItems.selectMode: selectMode
+        ListView {
+            id: domainSettingsListView
+            anchors.topMargin: units.gu(5)
+            anchors.fill: parent
+            focus: true
+            model:  SortFilterModel {
+                model: domainSettingsSortedModel
+            }
 
-                delegate: ListItem {
-                    id: item
-                    readonly property bool isCurrentItem: item.ListView.isCurrentItem
-                    readonly property string domain: model.domain
-                    readonly property int userAgentId: model.userAgentId
-                    height: isCurrentItem ? layout.height : units.gu(5)
-                    color: isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
+            ViewItems.selectMode: selectMode
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: domainSettingsListView.currentIndex = index
-                    }
+            delegate: ListItem {
+                id: item
+                readonly property bool isCurrentItem: item.ListView.isCurrentItem
+                readonly property string domain: model.domain
+                readonly property int userAgentId: model.userAgentId
+                height: isCurrentItem ? layout.height : units.gu(5)
+                color: isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
 
-                    SlotsLayout {
-                        id: layout
-                        width: parent.width
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: domainSettingsListView.currentIndex = index
+                }
 
-                        mainSlot:
+                SlotsLayout {
+                    id: layout
+                    width: parent.width
 
-                            Column {
+                    mainSlot:
 
-                            spacing: units.gu(2)
+                        Column {
 
+                        spacing: units.gu(2)
 
-                            Label {
-                                width: parent.width
-                                height: units.gu(1)
-                                text: model.domain
-                                font.bold: item.ListView.isCurrentItem
+                        Label {
+                            id: domainLabel
+                            width: parent.width
+                            height: units.gu(1)
+                            text: model.domain
+                            font.bold: item.ListView.isCurrentItem
+                        }
+
+                        Row {
+                            spacing: units.gu(1.5)
+                            height: units.gu(1)
+                            visible: item.ListView.isCurrentItem
+
+                            Label  {
+                                text: i18n.tr("allow custom schemes")
                             }
 
-                            Row {
-                                spacing: units.gu(1.5)
-                                height: units.gu(1)
-                                visible: item.ListView.isCurrentItem
+                            CheckBox {
+                                checked: model.allowCustomUrlSchemes
+                                onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked)
+                            }
+                        }
 
-                                Label  {
-                                    text: i18n.tr("allow custom schemes")
-                                }
 
-                                CheckBox {
-                                    checked: model.allowCustomUrlSchemes
-                                    onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked)
-                                }
+                        Row {
+                            spacing: units.gu(1.5)
+                            height: units.gu(1)
+                            visible: item.ListView.isCurrentItem
+
+                            Label  {
+                                text: i18n.tr("allow location access")
                             }
 
-
-                            Row {
-                                spacing: units.gu(1.5)
-                                height: units.gu(1)
-                                visible: item.ListView.isCurrentItem
-
-                                Label  {
-                                    text: i18n.tr("allow location access")
+                            CheckBox {
+                                checked: model.allowLocation
+                                onTriggered: {
+                                    DomainSettingsModel.allowLocation(model.domain, checked);
                                 }
+                            }
+                        }
 
-                                CheckBox {
-                                    checked: model.allowLocation
-                                    onTriggered: {
-                                        DomainSettingsModel.allowLocation(model.domain, checked);
+                        Row {
+                            spacing: units.gu(1.5)
+                            height: units.gu(1)
+                            visible: item.ListView.isCurrentItem
+
+                            Label  {
+                                text: i18n.tr("custom user agent")
+                                opacity: UserAgentsModel.count > 0 ? 1.0 : 0.5
+                            }
+
+                            CheckBox {
+                                id: customUserAgentCheckbox
+                                enabled: UserAgentsModel.count > 0
+                                checked: model.userAgentId > 0
+                                onTriggered: {
+                                    optSelect.selectedIndex = -1;
+
+                                    if (checked) {
+                                        optSelect.currentlyExpanded = true;
+                                    }
+                                    else  {
+                                        DomainSettingsModel.setUserAgentId(model.domain, 0);
                                     }
                                 }
                             }
+                        }
 
-                            Row {
-                                spacing: units.gu(1.5)
-                                height: units.gu(1)
-                                visible: item.ListView.isCurrentItem
-
-                                Label  {
-                                    text: i18n.tr("custom user agent")
-                                }
-
-                                CheckBox {
-                                    id: customUserAgentCheckbox
-                                    checked: model.userAgentId > 0
-                                    onTriggered: {
-                                        optSelect.selectedIndex = -1;
-
-                                        if (checked) {
-                                            optSelect.currentlyExpanded = true;
-                                        }
-                                        else  {
-                                            DomainSettingsModel.setUserAgentId(model.domain, 0);
-                                        }
-                                    }
-                                }
-                            }
-
-                            /* ToDo: Can we do sth. about the following log messages ?
+                        /* ToDo: Can we do sth. about the following log messages ?
                                file:///usr/lib/arm-linux-gnueabihf/qt5/qml/Ubuntu/Components/1.3/OptionSelector.qml:330:13:
                                QML ListView: Binding loop detected for property "itemHeight"
                             */
-                            OptionSelector {
+                        OptionSelector {
 
-                                id: optSelect
-                                visible: customUserAgentCheckbox.checked
+                            id: optSelect
+                            visible: customUserAgentCheckbox.checked
 
-                                model: SortFilterModel {
-                                    id: sortedUserAgentsModel
-                                    model: UserAgentsModel
-                                    sort.property: "name"
-                                    sort.order: Qt.AscendingOrder
-                                }
-                                delegate: OptionSelectorDelegate {
-                                    text: model.name
-                                }
+                            model: SortFilterModel {
+                                id: sortedUserAgentsModel
+                                model: UserAgentsModel
+                                sort.property: "name"
+                                sort.order: Qt.AscendingOrder
+                            }
+                            delegate: OptionSelectorDelegate {
+                                text: model.name
+                            }
 
-                                function updateIndex() {
-                                    for (var i = 0; i < model.count; ++i) {
-                                        if (item.userAgentId === model.get(i).id)
-                                        {
-                                            selectedIndex = i;
-                                        }
+                            function updateIndex() {
+                                for (var i = 0; i < model.count; ++i) {
+                                    if (item.userAgentId === model.get(i).id)
+                                    {
+                                        selectedIndex = i;
                                     }
-                                }
-
-                                Connections {
-                                    target: item
-
-                                    onIsCurrentItemChanged: {
-                                        if (item.isCurrentItem && (item.userAgentId > 0)) {
-                                            optSelect.updateIndex();
-                                        }
-                                    }
-                                }
-
-                                onDelegateClicked: {
-                                    DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
                                 }
                             }
 
-                            // within one label the check if zoom factor is set could not be properly done
-                            Label  {
-                                height: units.gu(1)
-                                text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
-                                visible: item.ListView.isCurrentItem && ! isNaN(model.zoomFactor)
+                            Connections {
+                                target: item
+
+                                onIsCurrentItemChanged: {
+                                    if (item.isCurrentItem && (item.userAgentId > 0)) {
+                                        optSelect.updateIndex();
+                                    }
+                                }
                             }
-                            Label  {
-                                height: units.gu(1)
-                                text: i18n.tr("Zoom: ") + i18n.tr("not set")
-                                visible: item.ListView.isCurrentItem && isNaN(model.zoomFactor)
+
+                            onDelegateClicked: {
+                                DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
                             }
                         }
-                    }
 
-                    leadingActions: deleteActionList
-
-                    ListItemActions {
-                        id: deleteActionList
-                        actions: [
-                            Action {
-                                objectName: "leadingAction.delete"
-                                iconName: "delete"
-                                enabled: true
-                                onTriggered: DomainSettingsModel.removeEntry(model.domain)
-                            }
-                        ]
+                        // within one label the check if zoom factor is set could not be properly done
+                        Label  {
+                            height: units.gu(1)
+                            text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
+                            visible: item.ListView.isCurrentItem && ! isNaN(model.zoomFactor)
+                        }
+                        Label  {
+                            height: units.gu(1)
+                            text: i18n.tr("Zoom: ") + i18n.tr("not set")
+                            visible: item.ListView.isCurrentItem && isNaN(model.zoomFactor)
+                        }
                     }
                 }
-            }
 
-            Scrollbar {
-                flickableItem: domainSettingsListView
-            }
+                leadingActions: deleteActionList
 
-            Label {
-                id: emptyLabel
-                anchors.centerIn: parent
-                visible: domainSettingsListView.count == 0
-                wrapMode: Text.Wrap
-                width: parent.width
-                horizontalAlignment: Text.AlignHCenter
-                text: i18n.tr("No domain specific settings available")
+                ListItemActions {
+                    id: deleteActionList
+                    actions: [
+                        Action {
+                            objectName: "leadingAction.delete"
+                            iconName: "delete"
+                            enabled: true
+                            onTriggered: DomainSettingsModel.removeEntry(model.domain)
+                        }
+                    ]
+                }
             }
+        }
 
-            Connections {
-                target: UserAgentsModel
-                enabled: ! customUserAgentsViewLoader.active
-                // the OptionSelector does not properly update the model (duplicate entries instead of new user agents)
-                onRowCountChanged: reload()
-            }
+        Scrollbar {
+            id: scrollBar
+            flickableItem: domainSettingsListView
+        }
+
+        Label {
+            id: emptyLabel
+            anchors.centerIn: parent
+            visible: domainSettingsListView.count == 0
+            wrapMode: Text.Wrap
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+            text: i18n.tr("No domain specific settings available")
+        }
+
+        Connections {
+            target: UserAgentsModel
+            enabled: ! customUserAgentsViewLoader.active
+            // the OptionSelector does not properly update the model (duplicate entries instead of new user agents)
+            onRowCountChanged: reload()
         }
     }
 
@@ -351,10 +362,17 @@ FocusScope {
 
         Connections {
             target: customUserAgentsViewLoader.item
-            onDone: customUserAgentsViewLoader.active = false
+            onDone: {
+                customUserAgentsViewLoader.active = false;
+                domainSettingsItem.reload();
+            }
             onReload: {
-                customUserAgentsViewLoader.active = false
-                customUserAgentsViewLoader.active = true
+                customUserAgentsViewLoader.active = false;
+                customUserAgentsViewLoader.active = true;
+
+                if (selectedUserAgent) {
+                    customUserAgentsViewLoader.item.setUserAgentAsCurrentItem(selectedUserAgent)
+                }
             }
         }
     }
