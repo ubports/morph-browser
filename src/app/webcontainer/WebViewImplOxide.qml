@@ -258,6 +258,49 @@ WebappWebview {
     function navigationRequestedDelegate(request) {
 
         var url = request.url.toString();
+        var requestDomain = UrlUtils.extractHost(request.url);
+        var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
+        var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
+
+        if (domainPermission === DomainPermissionsModel.Blocked)
+        {
+            if (request.isMainFrame)
+            {
+                browser.currentWebview.showMessage("Blocked navigation request to domain %1.".arg(requestDomainWithoutSubdomain));
+            }
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            return;
+        }
+
+        if ((domainPermission === DomainPermissionsModel.NotSet) && DomainPermissionsModel.whiteListMode)
+        {
+            if (browser.incognito)
+            {
+               browser.currentWebview.showMessage("Blocked navigation request to domain %1. (in incognito all navigation requests to unknown domains are blocked, if domain whitelist mode is active).".arg(requestDomain));
+            }
+
+            var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
+            allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
+            if (request.isMainFrame)
+            {
+            allowOrBlockDialog.allow.connect(function() {
+                DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
+                currentWebview.url = url;
+            });
+            }
+            else
+            {
+                allowOrBlockDialog.allow.connect(function() {
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
+                    browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));
+                });
+            }
+            allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked);});
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            return;
+        }
+
+
         // for file urls we set currentDomain to "scheme:file", because there is no host
         var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
 

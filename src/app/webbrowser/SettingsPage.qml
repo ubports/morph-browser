@@ -280,6 +280,36 @@ FocusScope {
                         width: parent.width
 
                         ListItem {
+                            objectName: "setDomainWhiteListMode"
+
+                            ListItemLayout {
+                                title.text: i18n.tr("Domain whitelist mode")
+                                CheckBox {
+                                    id: setDomainWhiteListModeCheckbox
+                                    SlotsLayout.position: SlotsLayout.Trailing
+                                    onTriggered: settingsObject.domainWhiteListMode = checked
+                                }
+                            }
+
+                            Binding {
+                                target: setDomainWhiteListModeCheckbox
+                                property: "checked"
+                                value: settingsObject.domainWhiteListMode
+                            }
+                        }
+
+                        ListItem {
+                            objectName: "DomainPermissions"
+
+                            ListItemLayout {
+                               title.text: "Domain specific permissions"
+                               ProgressionSlot {}
+                           }
+
+                           onClicked: domainPermissionsViewLoader.active = true
+                        }
+
+                        ListItem {
                             objectName: "privacy.mediaAccess"
                             ListItemLayout {
                                 title.text: i18n.tr("Camera & microphone")
@@ -493,6 +523,30 @@ FocusScope {
 
                 if (selectedDomain) {
                   domainSettingsViewLoader.item.setDomainAsCurrentItem(selectedDomain)
+                }
+            }
+        }
+    }
+
+    Loader {
+        id: domainPermissionsViewLoader
+
+        anchors.fill: parent
+        active: false
+        asynchronous: true
+        Component.onCompleted: {
+            setSource("../DomainPermissionsPage.qml")
+        }
+
+        Connections {
+            target: domainPermissionsViewLoader.item
+            onDone: domainPermissionsViewLoader.active = false
+            onReload: {
+                domainPermissionsViewLoader.active = false
+                domainPermissionsViewLoader.active = true
+
+                if (selectedDomain) {
+                  domainPermissionsViewLoader.item.setDomainAsCurrentItem(selectedDomain)
                 }
             }
         }

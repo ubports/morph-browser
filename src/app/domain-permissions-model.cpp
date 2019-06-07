@@ -105,9 +105,9 @@ void DomainPermissionsModel::createOrAlterDatabaseSchema()
 
 void DomainPermissionsModel::populateFromDatabase()
 {
-    // populate domainsettings
+    // populate domainpermissions
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT domain, permission FROM domainsettings;");
+    QString query = QLatin1String("SELECT domain, permission FROM domainpermissions;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0; // size() isn't supported on the sqlite backend
@@ -236,4 +236,9 @@ int DomainPermissionsModel::getIndexForDomain(const QString& domain) const
         }
     }
     return -1;
+}
+
+QString DomainPermissionsModel::getDomainWithoutSubdomain(const QString & domain)
+{
+    return DomainUtils::getDomainWithoutSubdomain(domain);
 }

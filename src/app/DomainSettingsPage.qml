@@ -18,7 +18,6 @@
 
 import QtQuick 2.6
 import Qt.labs.settings 1.0
-import QtQuick.Controls 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
@@ -27,11 +26,6 @@ import "UrlUtils.js" as UrlUtils
 
 FocusScope {
     id: domainSettingsItem
-
-    Settings {
-        id:settings
-     property string homepage2: "hello"
-    }
 
     property QtObject domainSettingsObject
     property bool selectMode
@@ -94,7 +88,6 @@ FocusScope {
                         var selectedDomainSetting = domainSettingsListView.model.get(domainSettingsListView.ViewItems.selectedIndices[index])
                         toDelete.push(selectedDomainSetting.domain)
                     }
-                    console.log(JSON.stringify(DomainSettingsModel))
                     for (var i = 0; i < toDelete.length; i++) {
                         DomainSettingsModel.removeEntry(toDelete[i])
                     }
@@ -206,7 +199,7 @@ FocusScope {
                             visible: item.ListView.isCurrentItem
 
                             Label  {
-                                text: i18n.tr("allow custom schemes" + settings.homepage2)
+                                text: i18n.tr("allow custom schemes")
                             }
 
                             CheckBox {

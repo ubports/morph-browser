@@ -54,7 +54,7 @@ QtObject {
         HistoryModel.databasePath = dataLocation + "/history.sqlite";
         DownloadsModel.databasePath = dataLocation + "/downloads.sqlite";
         DomainPermissionsModel.databasePath = dataLocation + "/domainpermissions.sqlite";
-        DomainPermissionsModel.whiteListMode = settings.whiteListMode;
+        DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode;
         DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
         DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
         UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
@@ -305,7 +305,7 @@ QtObject {
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
-        property string domainWhiteListMode: false
+        property bool domainWhiteListMode: false
 
         function restoreDefaults() {
             homepage  = "https://start.duckduckgo.com";

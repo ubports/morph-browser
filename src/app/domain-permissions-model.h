@@ -65,6 +65,7 @@ public:
     Q_INVOKABLE void setPermission(const QString& domain, DomainPermission permission);
     Q_INVOKABLE void insertEntry(const QString& domain);
     Q_INVOKABLE void removeEntry(const QString& domain);
+    Q_INVOKABLE static QString getDomainWithoutSubdomain(const QString & domain);
 
 Q_SIGNALS:
     void databasePathChanged() const;

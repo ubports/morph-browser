@@ -189,7 +189,7 @@ BrowserWindow {
 
             loadCustomUserScripts();
             DomainPermissionsModel.databasePath = webappDataLocation + '/domainpermissions.sqlite';
-            DomainPermissionsModel.whiteListMode = settings.whiteListMode;
+            DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode;
             DomainSettingsModel.databasePath = webappDataLocation + '/domainsettings.sqlite';
             DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
             UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
