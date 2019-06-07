@@ -93,7 +93,7 @@ WebView {
       QtObject {
         id: zoomController
 
-        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : 1.0
+        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0
         property real currentZoomFactor: defaultZoomFactor
@@ -821,7 +821,6 @@ WebView {
                     name: "zoomSave"
                     text: i18n.tr("Save")
                     iconName: "save"
-                    visible: ! isWebApp
                     enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
                     onTriggered: zoomController.save()
                 }

@@ -29,6 +29,9 @@ import "ColorUtils.js" as ColorUtils
 
 BrowserView {
     id: webapp
+
+    property Settings settings
+
     objectName: "webappBrowserView"
 
     currentWebview: containerWebView.currentWebview
@@ -299,7 +302,10 @@ BrowserView {
             active: false
             asynchronous: false
             Component.onCompleted: {
-                setSource("WebappSettingsPage.qml")
+                setSource("WebappSettingsPage.qml", {
+                              "focus": true,
+                              "settingsObject": settings
+                          })
             }
 
             Connections {
@@ -319,6 +325,11 @@ BrowserView {
                     chromeLoader.item.state === "shown"
                 }
             }
+       }
+
+       Connections {
+           target: settings
+           onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
        }
 
         ChromeController {

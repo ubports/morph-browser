@@ -17,6 +17,7 @@
  */
 
 #include "domain-settings-model.h"
+#include "domain-utils.h"
 
 #include <QtSql/QSqlQuery>
 #include <QUrl>
@@ -336,7 +337,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     beginInsertRows(QModelIndex(), 0, 0);
     DomainSetting entry;
     entry.domain = domain;
-    entry.domainWithoutSubdomain = getDomainWithoutSubdomain(domain);
+    entry.domainWithoutSubdomain = DomainUtils::getDomainWithoutSubdomain(domain);
     entry.allowCustomUrlSchemes = false;
     entry.allowLocation = false;
     entry.userAgentId = 0;
@@ -406,30 +407,4 @@ int DomainSettingsModel::getIndexForDomain(const QString& domain) const
         }
     }
     return -1;
-}
-
-QString DomainSettingsModel::getDomainWithoutSubdomain(const QString& domain) const
-{   
-    // e.g. ci.ubports.com (does handle domains like .co.uk correctly)
-    // .com
-    QString topLevelDomain = QUrl("//" + domain).topLevelDomain();
-
-    // invalid top level domain (e.g. local device or IP address)
-    if (topLevelDomain.isEmpty())
-    {
-        QString lastPartOfDomain = domain.mid(domain.lastIndexOf('.'));
-
-        // last part is numeric -> seems to be an IP address
-        bool convertToIntOk;
-        lastPartOfDomain.toInt(&convertToIntOk);
-
-        topLevelDomain = convertToIntOk ? "" : lastPartOfDomain;
-    }
-
-    // ci.ubports
-    QString urlWithoutTopLevelDomain = domain.mid(0, domain.length() - topLevelDomain.length());
-    // ubports (if no . is found, the string stays the same because lastIndexOf is -1)
-    QString hostName = urlWithoutTopLevelDomain.mid(urlWithoutTopLevelDomain.lastIndexOf('.') + 1);
-    // ubports.com
-    return hostName + topLevelDomain;
 }

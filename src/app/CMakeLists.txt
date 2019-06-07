@@ -19,6 +19,7 @@ set(COMMONLIB webbrowser-common)
 
 set(COMMONLIB_SRC
     browserapplication.cpp
+    domain-permissions-model.cpp
     domain-settings-model.cpp
     domain-settings-sorted-model.cpp
     domain-settings-user-agents-model.cpp

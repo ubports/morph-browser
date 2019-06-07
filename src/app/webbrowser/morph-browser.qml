@@ -53,6 +53,8 @@ QtObject {
         BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite";
         HistoryModel.databasePath = dataLocation + "/history.sqlite";
         DownloadsModel.databasePath = dataLocation + "/downloads.sqlite";
+        DomainPermissionsModel.databasePath = dataLocation + "/domainpermissions.sqlite";
+        DomainPermissionsModel.whiteListMode = settings.whiteListMode;
         DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
         DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
         UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
@@ -303,16 +305,18 @@ QtObject {
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
+        property string domainWhiteListMode: false
 
         function restoreDefaults() {
-            homepage  = "https://start.duckduckgo.com"
-            searchEngine = "duckduckgo"
-            restoreSession = true
-            setDesktopMode = false
-            zoomFactor = 1.0
-            newTabDefaultSection = 0
-            defaultAudioDevice = ""
-            defaultVideoDevice = ""
+            homepage  = "https://start.duckduckgo.com";
+            searchEngine = "duckduckgo";
+            restoreSession = true;
+            setDesktopMode = false;
+            zoomFactor = 1.0;
+            newTabDefaultSection = 0;
+            defaultAudioDevice = "";
+            defaultVideoDevice = "";
+            domainWhiteListMode = false;
         }
     }
 

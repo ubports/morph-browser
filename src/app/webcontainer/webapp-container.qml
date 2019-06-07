@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Qt.labs.settings 1.0
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.7
 import Morph.Web 0.1
@@ -83,6 +84,8 @@ BrowserWindow {
 
         WebApp {
             id: browser
+
+            settings: root.settings
 
             window: root
 
@@ -174,7 +177,7 @@ BrowserWindow {
         id: webappViewLoader
         anchors.fill: parent
 
-        property var webContextSessionCookieMode: ""
+        property string webContextSessionCookieMode: ""
         property var webappDataLocation
 
         focus: true
@@ -185,8 +188,10 @@ BrowserWindow {
             item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls;
 
             loadCustomUserScripts();
-
+            DomainPermissionsModel.databasePath = webappDataLocation + '/domainpermissions.sqlite';
+            DomainPermissionsModel.whiteListMode = settings.whiteListMode;
             DomainSettingsModel.databasePath = webappDataLocation + '/domainsettings.sqlite';
+            DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
             UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
         }
 
@@ -223,6 +228,16 @@ BrowserWindow {
         }
     }
 
+    property var settings: Settings {
+        property bool domainWhiteListMode: false;
+        property real zoomFactor: 1.0;
+
+        function restoreDefaults() {
+            domainWhiteListMode = false;
+            zoomFactor = 1.0;
+        }
+    }
+
     OnlineAccountsController {
         id: onlineAccountsController
         anchors.fill: parent
@@ -236,7 +251,7 @@ BrowserWindow {
         onAccountSelected: {
             var newWebappDataLocation = dataLocation + accountDataLocation
             console.log("Loading webview on " + newWebappDataLocation)
-            if (newWebappDataLocation == webappViewLoader.webappDataLocation) {
+            if (newWebappDataLocation === webappViewLoader.webappDataLocation) {
                 showWebView()
                 return
             }

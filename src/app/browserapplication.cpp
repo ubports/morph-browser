@@ -34,6 +34,7 @@
 // local
 #include "browserapplication.h"
 #include "config.h"
+#include "domain-permissions-model.h"
 #include "domain-settings-model.h"
 #include "domain-settings-sorted-model.h"
 #include "domain-settings-user-agents-model.h"
@@ -98,6 +99,7 @@ QString BrowserApplication::inspectorHost() const
 
 MAKE_SINGLETON_FACTORY(MemInfo)
 MAKE_SINGLETON_FACTORY(MimeDatabase)
+MAKE_SINGLETON_FACTORY(DomainPermissionsModel)
 MAKE_SINGLETON_FACTORY(DomainSettingsModel)
 MAKE_SINGLETON_FACTORY(UserAgentsModel)
 
@@ -179,6 +181,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     }
 
     const char* uri = "webbrowsercommon.private";
+    qmlRegisterSingletonType<DomainPermissionsModel>(uri, 0, 1, "DomainPermissionsModel", DomainPermissionsModel_singleton_factory);
     qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
     qmlRegisterType<DomainSettingsSortedModel>(uri, 0, 1, "DomainSettingsSortedModel");
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
