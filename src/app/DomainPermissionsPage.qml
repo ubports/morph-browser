@@ -169,13 +169,15 @@ FocusScope {
                         spacing: units.gu(2)
 
                         Label {
-                            property string permissionSymbol:
+                            readonly property string permissionSymbol:
                                 (model.permission === DomainPermissionsModel.Blocked) ? "🚫" :
                                 (model.permission === DomainPermissionsModel.Whitelisted) ? "✅" : ""
+                            readonly property string requestedByDomain:
+                                (model.requestedByDomain !== "") ? "(" + model.requestedByDomain + ")" : ""
                             id: domainLabel
                             width: parent.width
                             height: units.gu(1)
-                            text: model.domain + " " + permissionSymbol
+                            text: model.domain + " " + permissionSymbol + " " + requestedByDomain
                             font.bold: item.ListView.isCurrentItem
                             color: theme.palette.normal.foregroundText
                         }

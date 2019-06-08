@@ -187,6 +187,11 @@ BrowserView {
                 {
                     browser.currentWebview.showMessage("Blocked navigation request to domain %1.".arg(requestDomainWithoutSubdomain));
                 }
+                else
+                {
+                    var currentDomain = UrlUtils.extractHost(currentWebview.url);
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomain);
+                }
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
                 return;
             }
@@ -209,6 +214,8 @@ BrowserView {
                 }
                 else
                 {
+                    var currentDomain = UrlUtils.extractHost(currentWebview.url);
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomain);
                     allowOrBlockDialog.allow.connect(function() {
                         DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
                         browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));

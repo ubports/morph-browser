@@ -83,6 +83,8 @@ QVariant DomainPermissionsModel::data(const QModelIndex& index, int role) const
         return entry.domain;
     case Permission:
         return entry.permission;
+    case RequestedByDomain:
+        return entry.requestedByDomain;
     default:
         return QVariant();
     }
@@ -102,13 +104,14 @@ void DomainPermissionsModel::populateFromDatabase()
 {
     // populate domainpermissions
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT domain, permission FROM domainpermissions;");
+    QString query = QLatin1String("SELECT domain, requestedByDomain, permission FROM domainpermissions;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0; // size() isn't supported on the sqlite backend
     while (populateQuery.next()) {
         DomainPermissionEntry entry;
         entry.domain = populateQuery.value("domain").toString();
+        entry.requestedByDomain = populateQuery.value("requestedByDomain").toString();
         entry.permission = static_cast<DomainPermission>(populateQuery.value("permission").toInt());
         beginInsertRows(QModelIndex(), count, count);
         m_entries.append(entry);

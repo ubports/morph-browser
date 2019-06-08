@@ -363,7 +363,7 @@ FocusScope {
             target: customUserAgentsViewLoader.item
             onDone: {
                 customUserAgentsViewLoader.active = false;
-                domainSettingsItem.reload();
+                domainSettingsItem.reload(null);
             }
             onReload: {
                 customUserAgentsViewLoader.active = false;
