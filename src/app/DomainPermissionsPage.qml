@@ -169,13 +169,15 @@ FocusScope {
                         spacing: units.gu(2)
 
                         Label {
+                            property string permissionSymbol:
+                                (model.permission === DomainPermissionsModel.Blocked) ? "🚫" :
+                                (model.permission === DomainPermissionsModel.Whitelisted) ? "✅" : ""
                             id: domainLabel
                             width: parent.width
                             height: units.gu(1)
-                            text: model.domain
+                            text: model.domain + " " + permissionSymbol
                             font.bold: item.ListView.isCurrentItem
-                            color: (model.permission === DomainPermissionsModel.Blocked) ? theme.palette.normal.negative :
-                                   (model.permission === DomainPermissionsModel.Whitelisted) ? theme.palette.normal.positive : theme.palette.normal.foregroundText
+                            color: theme.palette.normal.foregroundText
                         }
 
 
@@ -227,7 +229,7 @@ FocusScope {
                             objectName: "leadingAction.delete"
                             iconName: "delete"
                             enabled: true
-                            onTriggered: domainPermissionsModel.removeEntry(model.domain)
+                            onTriggered: DomainPermissionsModel.removeEntry(model.domain)
                         }
                     ]
                 }

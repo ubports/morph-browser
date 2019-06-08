@@ -46,7 +46,8 @@ public:
 
     enum Roles {
         Domain = Qt::UserRole + 1,
-        Permission
+        Permission,
+        RequestedByDomain
     };
 
     // reimplemented from QAbstractListModel
@@ -61,8 +62,10 @@ public:
     void setWhiteListMode(bool whiteListMode);
     
     Q_INVOKABLE bool contains(const QString& domain) const;
+    Q_INVOKABLE void deleteAndResetDataBase();
     Q_INVOKABLE DomainPermission getPermission(const QString& domain) const;
     Q_INVOKABLE void setPermission(const QString& domain, DomainPermission permission);
+    Q_INVOKABLE void setRequestedByDomain(const QString& domain, const QString& requestedByDomain);
     Q_INVOKABLE void insertEntry(const QString& domain);
     Q_INVOKABLE void removeEntry(const QString& domain);
     Q_INVOKABLE static QString getDomainWithoutSubdomain(const QString & domain);
@@ -78,6 +81,7 @@ private:
 
     struct DomainPermissionEntry {
         QString domain;
+        QString requestedByDomain;
         DomainPermission permission;
     };
 

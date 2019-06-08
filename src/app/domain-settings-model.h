@@ -58,6 +58,7 @@ public:
     void setDefaultZoomFactor(double defaultZoomFactor);
     
     Q_INVOKABLE bool contains(const QString& domain) const;
+    Q_INVOKABLE void deleteAndResetDataBase();
     Q_INVOKABLE bool areCustomUrlSchemesAllowed(const QString& domain);
     Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow);
     Q_INVOKABLE bool isLocationAllowed(const QString& domain) const;

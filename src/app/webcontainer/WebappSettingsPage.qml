@@ -121,10 +121,16 @@ FocusScope {
                     objectName: "reset"
 
                     ListItemLayout {
-                        title.text: i18n.tr("Reset browser settings")
+                        title.text: i18n.tr("Reset webapp settings")
                     }
 
-                    onClicked: settingsObject.restoreDefaults()
+                    onClicked: {
+                        settingsObject.restoreDefaults();
+                        DomainSettingsModel.deleteAndResetDataBase();
+                        // it is a common database with DomainSettingsModel, so it is only for reset here
+                        UserAgentsModel.deleteAndResetDataBase();
+                        DomainPermissionsModel.deleteAndResetDataBase();
+                    }
                 }
             }
         }

@@ -19,6 +19,7 @@
 #include "domain-settings-model.h"
 #include "domain-utils.h"
 
+#include <QFile>
 #include <QtSql/QSqlQuery>
 #include <QUrl>
 
@@ -171,6 +172,15 @@ void DomainSettingsModel::setDefaultZoomFactor(double defaultZoomFactor)
 bool DomainSettingsModel::contains(const QString& domain) const
 {
     return (getIndexForDomain(domain) >= 0);
+}
+
+void DomainSettingsModel::deleteAndResetDataBase()
+{
+    if (QFile::exists(databasePath()))
+    {
+        QFile(databasePath()).remove();
+    }
+    resetDatabase(databasePath());
 }
 
 bool DomainSettingsModel::areCustomUrlSchemesAllowed(const QString& domain)

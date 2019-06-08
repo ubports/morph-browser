@@ -51,6 +51,7 @@ public:
     void setDatabasePath(const QString& path);
     
     Q_INVOKABLE bool contains(const QString& userAgentName) const;
+    Q_INVOKABLE void deleteAndResetDataBase();
     Q_INVOKABLE void insertEntry(const QString& userAgentName, const QString& userAgentString = "");
     Q_INVOKABLE void removeEntry(int userAgentId);
     Q_INVOKABLE void setUserAgentName(int userAgentId, const QString& userAgentName);

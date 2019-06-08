@@ -19,6 +19,7 @@
 #include "domain-permissions-model.h"
 #include "domain-utils.h"
 
+#include <QFile>
 #include <QtSql/QSqlQuery>
 #include <QUrl>
 
@@ -60,6 +61,7 @@ QHash<int, QByteArray> DomainPermissionsModel::roleNames() const
     if (roles.isEmpty()) {
         roles[Domain] = "domain";
         roles[Permission] = "permission";
+        roles[RequestedByDomain] = "requestedByDomain";
     }
     return roles;
 }
@@ -91,16 +93,9 @@ void DomainPermissionsModel::createOrAlterDatabaseSchema()
     // permissions table
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS domainpermissions "
-                                  "(domain VARCHAR NOT NULL UNIQUE, permission INTEGER, PRIMARY KEY(domain));");
+                                  "(domain VARCHAR NOT NULL UNIQUE, requestedByDomain VARCHAR, permission INTEGER, PRIMARY KEY(domain));");
     createQuery.prepare(query);
     createQuery.exec();
-
-    // settings table
-    QSqlQuery createSettingsQuery(m_database);
-    QString settingsQuery = QLatin1String("CREATE TABLE IF NOT EXISTS settings "
-                                  "(setting VARCHAR NOT NULL UNIQUE, value VARCHAR NOT NULL);");
-    createSettingsQuery.prepare(settingsQuery);
-    createSettingsQuery.exec();
 }
 
 void DomainPermissionsModel::populateFromDatabase()
@@ -175,15 +170,45 @@ void DomainPermissionsModel::setPermission(const QString& domain, DomainPermissi
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainpermissions SET permission=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue(permission);
+        query.addBindValue(entry.permission);
         query.addBindValue(domain);
         query.exec();
     }
 }
 
+void DomainPermissionsModel::setRequestedByDomain(const QString& domain, const QString& requestedByDomain)
+{
+    insertEntry(domain);
+    int index = getIndexForDomain(domain);
+    if (index != -1) {
+        DomainPermissionEntry& entry = m_entries[index];
+        if (entry.requestedByDomain == requestedByDomain) {
+            return;
+        }
+        entry.requestedByDomain = requestedByDomain;
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << RequestedByDomain);
+        QSqlQuery query(m_database);
+        static QString updateStatement = QLatin1String("UPDATE domainpermissions SET requestedByDomain=? WHERE domain=?;");
+        query.prepare(updateStatement);
+        query.addBindValue(entry.requestedByDomain);
+        query.addBindValue(domain);
+        query.exec();
+    }
+
+}
+
 bool DomainPermissionsModel::contains(const QString& domain) const
 {
     return (getIndexForDomain(domain) >= 0);
+}
+
+void DomainPermissionsModel::deleteAndResetDataBase()
+{
+    if (QFile::exists(databasePath()))
+    {
+        QFile(databasePath()).remove();
+    }
+    resetDatabase(databasePath());
 }
 
 void DomainPermissionsModel::insertEntry(const QString &domain)

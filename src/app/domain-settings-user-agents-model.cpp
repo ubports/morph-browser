@@ -18,6 +18,7 @@
 
 #include "domain-settings-user-agents-model.h"
 
+#include <QFile>
 #include <QtSql/QSqlQuery>
 #include <QUrl>
 
@@ -136,6 +137,15 @@ void UserAgentsModel::setDatabasePath(const QString& path)
 bool UserAgentsModel::contains(const QString& userAgentName) const
 {
     return (getIndexForUserAgentName(userAgentName) >= 0);
+}
+
+void UserAgentsModel::deleteAndResetDataBase()
+{
+    if (QFile::exists(databasePath()))
+    {
+        QFile(databasePath()).remove();
+    }
+    resetDatabase(databasePath());
 }
 
 void UserAgentsModel::insertEntry(const QString& userAgentName, const QString& userAgentString)
