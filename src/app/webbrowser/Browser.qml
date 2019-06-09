@@ -177,10 +177,38 @@ BrowserView {
         onNavigationRequested: {
 
             var url = request.url;
-            var requestDomain = UrlUtils.extractHost(request.url);
+
+            // for file urls we set currentDomain to "scheme:file", because there is no host
+            var currentDomain = UrlUtils.schemeIs(currentWebview.url, "file") ? "scheme:file" : UrlUtils.extractHost(currentWebview.url);
+
+            // handle custom schemes
+            if (UrlUtils.hasCustomScheme(url))
+            {
+                if (! internal.areCustomUrlSchemesAllowed(currentDomain))
+                {
+                  request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+                  var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), currentWebview);
+                  allowCustomSchemesDialog.url = url;
+                  allowCustomSchemesDialog.domain = currentDomain;
+                  allowCustomSchemesDialog.showAllowPermanentlyCheckBox = ! browser.incognito;
+                  allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(currentDomain, false);
+                                                                     internal.navigateToUrlAsync(url);
+                                                                   }
+                                                      );
+                  allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(currentDomain, true);
+                                                                                internal.navigateToUrlAsync(url);
+                                                                               }
+                                                                   );
+                }
+                return;
+            }
+
+            var requestDomain = UrlUtils.schemeIs(url, "file") ? "scheme:file" : UrlUtils.extractHost(url);
             var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
             var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
 
+            // handle domain permissions
             if (domainPermission === DomainPermissionsModel.Blocked)
             {
                 if (request.isMainFrame)
@@ -189,8 +217,8 @@ BrowserView {
                 }
                 else
                 {
-                    var currentDomain = UrlUtils.extractHost(currentWebview.url);
-                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomain);
+                    var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
                 }
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
                 return;
@@ -198,55 +226,30 @@ BrowserView {
 
             if ((domainPermission === DomainPermissionsModel.NotSet) && DomainPermissionsModel.whiteListMode)
             {
-                if (browser.incognito)
-                {
-                   browser.currentWebview.showMessage("Blocked navigation request to domain %1. (in incognito all navigation requests to unknown domains are blocked, if domain whitelist mode is active).".arg(requestDomain));
-                }
-
                 var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
                 allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
                 if (request.isMainFrame)
                 {
                 allowOrBlockDialog.allow.connect(function() {
-                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
                     currentWebview.url = url;
                 });
                 }
                 else
                 {
-                    var currentDomain = UrlUtils.extractHost(currentWebview.url);
-                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomain);
+                    var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain);
                     allowOrBlockDialog.allow.connect(function() {
-                        DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
+                        DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
                         browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));
                     });
                 }
-                allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked);});
+                allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, browser.incognito);});
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
                 return;
             }
 
-            // for file urls we set currentDomain to "scheme:file", because there is no host
-            var currentDomain = UrlUtils.schemeIs(currentWebview.url, "file") ? "scheme:file" : UrlUtils.extractHost(currentWebview.url);
-
-            if (UrlUtils.hasCustomScheme(request.url) && ! internal.areCustomUrlSchemesAllowed(currentDomain))
-            {
-                request.action = WebEngineNavigationRequest.IgnoreRequest;
-
-                var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), currentWebview);
-                allowCustomSchemesDialog.url = url;
-                allowCustomSchemesDialog.domain = currentDomain;
-                allowCustomSchemesDialog.showAllowPermanentlyCheckBox = ! browser.incognito;
-                allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(currentDomain, false);
-                                                                   internal.navigateToUrlAsync(url);
-                                                                  }
-                                                      );
-                allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(currentDomain, true);
-                                                                              internal.navigateToUrlAsync(url);
-                                                                             }
-                                                                 );
-            }
-
+            // handle user agents
             if (request.isMainFrame)
             {
                 currentWebview.hideContextMenu();
@@ -261,7 +264,7 @@ BrowserView {
                     // for some reason when letting through the request, another navigation request will take us back to the
                     // to the previous page. Therefore we block it first and navigate to the new url with the correct user agent.
                     request.action = WebEngineNavigationRequest.IgnoreRequest;
-                    currentWebview.url = request.url;
+                    currentWebview.url = url;
                     return;
                 }
                 else
@@ -271,7 +274,7 @@ BrowserView {
                 }
             }
 
-            //currentWebview.showMessage(request.url)
+            //currentWebview.showMessage(url)
         }
     }
 
@@ -1788,6 +1791,7 @@ BrowserView {
     Connections {
         target: settings
         onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
+        onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode
     }
     /*
 

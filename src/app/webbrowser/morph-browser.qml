@@ -318,6 +318,16 @@ QtObject {
             defaultVideoDevice = "";
             domainWhiteListMode = false;
         }
+
+        function resetDomainPermissions() {
+            DomainPermissionsModel.deleteAndResetDataBase();
+        }
+
+        function resetDomainSettings() {
+            DomainSettingsModel.deleteAndResetDataBase();
+            // it is a common database with DomainSettingsModel, so it is only for reset here
+            UserAgentsModel.deleteAndResetDataBase();
+        }
     }
 
     // Handle runtime requests to open urls as defined

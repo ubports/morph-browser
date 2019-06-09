@@ -236,6 +236,16 @@ BrowserWindow {
             domainWhiteListMode = false;
             zoomFactor = 1.0;
         }
+
+        function resetDomainPermissions() {
+            DomainPermissionsModel.deleteAndResetDataBase();
+        }
+
+        function resetDomainSettings() {
+            DomainSettingsModel.deleteAndResetDataBase();
+            // it is a common database with DomainSettingsModel, so it is only for reset here
+            UserAgentsModel.deleteAndResetDataBase();
+        }
     }
 
     OnlineAccountsController {

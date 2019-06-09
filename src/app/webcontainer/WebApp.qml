@@ -330,6 +330,7 @@ BrowserView {
        Connections {
            target: settings
            onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
+           onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode
        }
 
         ChromeController {

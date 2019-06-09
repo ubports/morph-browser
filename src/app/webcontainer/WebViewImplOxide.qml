@@ -258,7 +258,35 @@ WebappWebview {
     function navigationRequestedDelegate(request) {
 
         var url = request.url.toString();
-        var requestDomain = UrlUtils.extractHost(request.url);
+
+        // for file urls we set currentDomain to "scheme:file", because there is no host
+        var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
+
+        // handle custom schemes
+        if (UrlUtils.hasCustomScheme(url))
+        {
+            if (! areCustomUrlSchemesAllowed(currentDomain))
+            {
+              request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+              var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), webview);
+              allowCustomSchemesDialog.url = url;
+              allowCustomSchemesDialog.domain = currentDomain;
+              allowCustomSchemesDialog.showAllowPermanentlyCheckBox = true;
+              allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(currentDomain, false);
+                                                                 navigateToUrlAsync(url);
+                                                                }
+                                                    );
+              allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(currentDomain, true);
+                                                                            navigateToUrlAsync(url);
+                                                                           }
+                                                               );
+            }
+            return;
+        }
+
+        // handle domain permissions
+        var requestDomain = UrlUtils.schemeIs(url, "file") ? "scheme:file" : UrlUtils.extractHost(url);
         var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
         var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
 
@@ -270,8 +298,8 @@ WebappWebview {
             }
             else
             {
-                var currentDomain = UrlUtils.extractHost(currentWebview.url);
-                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomain);
+                var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
+                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
             }
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             return;
@@ -279,60 +307,32 @@ WebappWebview {
 
         if ((domainPermission === DomainPermissionsModel.NotSet) && DomainPermissionsModel.whiteListMode)
         {
-            if (browser.incognito)
-            {
-               browser.currentWebview.showMessage("Blocked navigation request to domain %1. (in incognito all navigation requests to unknown domains are blocked, if domain whitelist mode is active).".arg(requestDomain));
-            }
-
             var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
             allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
             if (request.isMainFrame)
             {
             allowOrBlockDialog.allow.connect(function() {
-                DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
+                DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
                 currentWebview.url = url;
             });
             }
             else
             {
-                var currentDomain = UrlUtils.extractHost(currentWebview.url);
-                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomain);
+                var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
+                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain);
                 allowOrBlockDialog.allow.connect(function() {
-                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
                     browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));
                 });
             }
-            allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked);});
+            allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, false);});
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             return;
         }
 
-
-        // for file urls we set currentDomain to "scheme:file", because there is no host
-        var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
-
-        if (UrlUtils.hasCustomScheme(url) && ! areCustomUrlSchemesAllowed(currentDomain))
-        {
-            request.action = WebEngineNavigationRequest.IgnoreRequest;
-
-            var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), webview);
-            allowCustomSchemesDialog.url = url;
-            allowCustomSchemesDialog.domain = currentDomain;
-            allowCustomSchemesDialog.showAllowPermanentlyCheckBox = true;
-            allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(currentDomain, false);
-                                                               navigateToUrlAsync(url);
-                                                              }
-                                                  );
-            allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(currentDomain, true);
-                                                                          navigateToUrlAsync(url);
-                                                                         }
-                                                             );
-            return;
-        }
-
+        // handle user agents
         if (request.isMainFrame)
         {
-          var requestDomain = UrlUtils.extractHost(request.url);
           var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
 
           // change of the custom user agent

@@ -207,10 +207,8 @@ FocusScope {
 
                     onClicked: {
                         settingsObject.restoreDefaults();
-                        DomainSettingsModel.deleteAndResetDataBase();
-                        // it is a common database with DomainSettingsModel, so it is only for reset here
-                        UserAgentsModel.deleteAndResetDataBase();
-                        DomainPermissionsModel.deleteAndResetDataBase();
+                        settingsObject.resetDomainPermissions();
+                        settingsObject.resetDomainSettings();
                     }
                 }
             }

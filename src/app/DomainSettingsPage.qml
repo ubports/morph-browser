@@ -110,7 +110,7 @@ FocusScope {
                 onTriggered: {
                     var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), domainSettingsPage);
                     promptDialog.title = i18n.tr("Add domain")
-                    promptDialog.message = i18n.tr("Add the name of the domain, e.g. m.example.com")
+                    promptDialog.message = i18n.tr("Enter the name of the domain, e.g. m.example.com")
                     promptDialog.accept.connect(function(text) {
                         if (text !== "") {
                             var domain = UrlUtils.extractHost(text)

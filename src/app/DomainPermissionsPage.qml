@@ -112,15 +112,15 @@ FocusScope {
                 onTriggered: {
                     var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), domainPermissionsPage);
                     promptDialog.title = i18n.tr("Add domain")
-                    promptDialog.message = i18n.tr("Add the name of the domain, e.g. m.example.com")
+                    promptDialog.message = i18n.tr("Enter the name of the domain, e.g. example.com (subdomains will be removed).")
                     promptDialog.accept.connect(function(text) {
                         if (text !== "") {
-                            var domain = UrlUtils.extractHost(text)
+                            var domain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(text));
                             if (DomainPermissionsModel.contains(domain)) {
                                 domainPermissionsPage.setDomainAsCurrentItem(domain);
                             }
                             else {
-                                DomainPermissionsModel.insertEntry(domain);
+                                DomainPermissionsModel.insertEntry(domain, false);
                                 reload(domain);
                             }
                         }
@@ -173,7 +173,7 @@ FocusScope {
                                 (model.permission === DomainPermissionsModel.Blocked) ? "🚫" :
                                 (model.permission === DomainPermissionsModel.Whitelisted) ? "✅" : ""
                             readonly property string requestedByDomain:
-                                (model.requestedByDomain !== "") ? "(" + model.requestedByDomain + ")" : ""
+                                (model.requestedByDomain !== "") ? "(→" + model.requestedByDomain + ")" : ""
                             id: domainLabel
                             width: parent.width
                             height: units.gu(1)
@@ -191,7 +191,7 @@ FocusScope {
                                 color: theme.palette.normal.foregroundText
                                 onCheckedChanged: {
                                     if (checked) {
-                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.NotSet)
+                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.NotSet, false)
                                     }
                                 }
                             }
@@ -202,7 +202,7 @@ FocusScope {
                                 color: theme.palette.normal.negative
                                 onCheckedChanged: {
                                     if (checked) {
-                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Blocked)
+                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Blocked, false)
                                     }
                                 }
                             }
@@ -214,7 +214,7 @@ FocusScope {
                                 color: theme.palette.normal.positive
                                 onCheckedChanged: {
                                     if (checked) {
-                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Whitelisted)
+                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Whitelisted, false)
                                     }
                                 }
                             }

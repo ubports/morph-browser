@@ -159,9 +159,9 @@ DomainPermissionsModel::DomainPermission DomainPermissionsModel::getPermission(c
     return m_entries[index].permission;
 }
 
-void DomainPermissionsModel::setPermission(const QString& domain, DomainPermissionsModel::DomainPermission permission)
+void DomainPermissionsModel::setPermission(const QString& domain, DomainPermissionsModel::DomainPermission permission, bool incognito)
 {
-    insertEntry(domain);
+    insertEntry(domain, incognito);
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainPermissionEntry& entry = m_entries[index];
@@ -170,6 +170,7 @@ void DomainPermissionsModel::setPermission(const QString& domain, DomainPermissi
         }
         entry.permission = permission;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << Permission);
+        // ignoring incognito here, because it will only affect an entry already present in the database
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainpermissions SET permission=? WHERE domain=?;");
         query.prepare(updateStatement);
@@ -179,9 +180,9 @@ void DomainPermissionsModel::setPermission(const QString& domain, DomainPermissi
     }
 }
 
-void DomainPermissionsModel::setRequestedByDomain(const QString& domain, const QString& requestedByDomain)
+void DomainPermissionsModel::setRequestedByDomain(const QString& domain, const QString& requestedByDomain, bool incognito)
 {
-    insertEntry(domain);
+    insertEntry(domain, incognito);
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainPermissionEntry& entry = m_entries[index];
@@ -190,6 +191,7 @@ void DomainPermissionsModel::setRequestedByDomain(const QString& domain, const Q
         }
         entry.requestedByDomain = requestedByDomain;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << RequestedByDomain);
+        // ignoring incognito here, because it will only affect an entry already present in the database
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainpermissions SET requestedByDomain=? WHERE domain=?;");
         query.prepare(updateStatement);
@@ -214,7 +216,7 @@ void DomainPermissionsModel::deleteAndResetDataBase()
     resetDatabase(databasePath());
 }
 
-void DomainPermissionsModel::insertEntry(const QString &domain)
+void DomainPermissionsModel::insertEntry(const QString &domain, bool incognito)
 {
     if (contains(domain))
     {
@@ -229,12 +231,15 @@ void DomainPermissionsModel::insertEntry(const QString &domain)
     endInsertRows();
     Q_EMIT rowCountChanged();
 
-    QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO domainpermissions (domain, permission) VALUES (?, ?);");
-    query.prepare(insertStatement);
-    query.addBindValue(entry.domain);
-    query.addBindValue(entry.permission);
-    query.exec();
+    if (! incognito)
+    {
+        QSqlQuery query(m_database);
+        static QString insertStatement = QLatin1String("INSERT INTO domainpermissions (domain, permission) VALUES (?, ?);");
+        query.prepare(insertStatement);
+        query.addBindValue(entry.domain);
+        query.addBindValue(entry.permission);
+        query.exec();
+    }
 }
 
 void DomainPermissionsModel::removeEntry(const QString &domain)
