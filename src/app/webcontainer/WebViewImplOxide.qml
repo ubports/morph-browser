@@ -258,6 +258,7 @@ WebappWebview {
     function navigationRequestedDelegate(request) {
 
         var url = request.url.toString();
+        var isMainFrame = request.isMainFrame;
 
         // for file urls we set currentDomain to "scheme:file", because there is no host
         var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
@@ -292,7 +293,7 @@ WebappWebview {
 
         if (domainPermission === DomainPermissionsModel.Blocked)
         {
-            if (request.isMainFrame)
+            if (isMainFrame)
             {
                 browser.currentWebview.showMessage("Blocked navigation request to domain %1.".arg(requestDomainWithoutSubdomain));
             }
@@ -309,7 +310,7 @@ WebappWebview {
         {
             var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
             allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
-            if (request.isMainFrame)
+            if (isMainFrame)
             {
             allowOrBlockDialog.allow.connect(function() {
                 DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
@@ -319,19 +320,22 @@ WebappWebview {
             else
             {
                 var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
-                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain);
                 allowOrBlockDialog.allow.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
                     DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
                     browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));
                 });
             }
-            allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, false);});
+            allowOrBlockDialog.block.connect(function() {
+                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, false);
+                DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, false);
+              });
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             return;
         }
 
         // handle user agents
-        if (request.isMainFrame)
+        if (isMainFrame)
         {
           var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
 
@@ -379,7 +383,7 @@ WebappWebview {
 
         // for now (as the old behavior) allow resources to be loaded
         // ToDo: maybe we should only allow resources defined in the URL patterns here
-        if (! request.isMainFrame)
+        if (! isMainFrame)
         {
             console.debug('accepted resource request to %1.'.arg(url));
             request.action = WebEngineNavigationRequest.AcceptRequest;
@@ -404,7 +408,7 @@ WebappWebview {
 
       if (request.action === WebEngineNavigationRequest.IgnoreRequest) {
 
-            if (request.isMainFrame)
+            if (isMainFrame)
             {
                 console.debug('Opening: %1 in the browser window.'.arg(url));
                 openUrlExternally(url, true);

@@ -140,9 +140,8 @@ BrowserPage {
         delegate: ListItem {
             id: item
             readonly property bool isCurrentItem: item.ListView.isCurrentItem
-            //readonly property string domain: model.domain
-            //readonly property int userAgentId: model.userAgentId
-            height: isCurrentItem ? layout.height : units.gu(5)
+            //height: isCurrentItem ? layout.height : units.gu(5)
+            height: layout.height
             color: isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
 
             MouseArea {
@@ -160,25 +159,56 @@ BrowserPage {
 
                     spacing: units.gu(2)
 
-
-                    Label {
+                    Row {
+                        spacing: units.gu(1.5)
+                        height: item.ListView.isCurrentItem ? units.gu(2) : units.gu(1)
                         width: parent.width
-                        height: units.gu(1)
-                        text: model.name
-                        visible: ! item.ListView.isCurrentItem
-                    }
 
-                    TextField {
-                        text: model.name
-                        onTextChanged: UserAgentsModel.setUserAgentName(model.id, text)
+                        Icon {
+                            anchors.verticalCenter: userAgentName.verticalCenter
+                            visible: item.ListView.isCurrentItem
+                            name: "avatar-default-symbolic"
+                            height: units.gu(2)
+                            width: height
+                        }
+
+                        Label {
+                            id: userAgentLabel
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: ! item.ListView.isCurrentItem
+                            width: parent.width
+                            height: units.gu(1)
+                            text: model.name
+                        }
+
+                        TextField {
+                            id: userAgentName
+                            visible: item.ListView.isCurrentItem
+                            text: model.name
+                            onFocusChanged: {
+                                if (!focus) {
+                                    if (text === "") {
+                                    text = model.name;
+                                    }
+                                    else {
+                                    UserAgentsModel.setUserAgentName(model.id, text);
+                                    }
+                                }
+                            }
+                        }
+
                     }
 
                     TextArea {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
+                        visible: item.ListView.isCurrentItem
+                        width: parent.width
                         text: model.userAgentString
-                        placeholderText: i18n.tr("user agent string")
-                        onTextChanged: UserAgentsModel.setUserAgentString(model.id, text)
+                        placeholderText: i18n.tr("enter user agent string...")
+                        onFocusChanged: {
+                            if (! focus) {
+                                UserAgentsModel.setUserAgentString(model.id, text);
+                            }
+                        }
                     }
                 }
             }

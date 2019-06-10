@@ -29,6 +29,16 @@ import "UrlUtils.js" as UrlUtils
 FocusScope {
     id: domainPermissionsItem
 
+    function setDomainAsCurrentItem(domain) {
+        for (var index = 0; index < domainPermissionsListView.count; index++) {
+            var domainSetting = domainPermissionsListView.model.get(index);
+            if (domainSetting.domain === domain) {
+                domainPermissionsListView.currentIndex = index;
+                return;
+            }
+        }
+    }
+
     property QtObject domainPermissionsObject
     property bool selectMode
 
@@ -45,15 +55,6 @@ FocusScope {
 
         showBackAction: !selectMode
 
-        function setDomainAsCurrentItem(domain) {
-            for (var index = 0; index < domainPermissionsListView.count; index++) {
-                var domainSetting = domainPermissionsListView.model.get(index);
-                if (domainSetting.domain === domain) {
-                    domainPermissionsListView.currentIndex = index;
-                    return;
-                }
-            }
-        }
         leadingActions: [
             Action {
                 objectName: "close"
@@ -117,7 +118,7 @@ FocusScope {
                         if (text !== "") {
                             var domain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(text));
                             if (DomainPermissionsModel.contains(domain)) {
-                                domainPermissionsPage.setDomainAsCurrentItem(domain);
+                                domainPermissionsItem.setDomainAsCurrentItem(domain);
                             }
                             else {
                                 DomainPermissionsModel.insertEntry(domain, false);
@@ -168,53 +169,80 @@ FocusScope {
 
                         spacing: units.gu(2)
 
-                        Label {
-                            readonly property string permissionSymbol:
-                                (model.permission === DomainPermissionsModel.Blocked) ? "🚫" :
-                                (model.permission === DomainPermissionsModel.Whitelisted) ? "✅" : ""
-                            readonly property string requestedByDomain:
-                                (model.requestedByDomain !== "") ? "(→" + model.requestedByDomain + ")" : ""
-                            id: domainLabel
-                            width: parent.width
+                        Row {
+                            spacing: units.gu(1.5)
                             height: units.gu(1)
-                            text: model.domain + " " + permissionSymbol + " " + requestedByDomain
-                            font.bold: item.ListView.isCurrentItem
-                            color: theme.palette.normal.foregroundText
-                        }
+                            width: parent.width
 
+                            Icon {
+                                visible: (model.permission === DomainPermissionsModel.NotSet)
+                                name: "dialog-question-symbolic"
+                                height: units.gu(2)
+                                width: height
+                            }
+
+                            IconWithColorOverlay {
+                                overlayColor: theme.palette.normal.positive
+                                visible: (model.permission === DomainPermissionsModel.Whitelisted)
+                                name: "emblem-default-symbolic"
+                                height: units.gu(2)
+                                width: height
+                            }
+
+                            IconWithColorOverlay {
+                                overlayColor: theme.palette.normal.negative
+                                visible: (model.permission === DomainPermissionsModel.Blocked)
+                                name: "action-unavailable-symbolic"
+                                height: units.gu(2)
+                                width: height
+                            }
+
+                            Label {
+                                text: model.domain
+                                font.bold: item.ListView.isCurrentItem
+                                color: theme.palette.normal.foregroundText
+                            }
+
+                            Label {
+                                visible: (model.requestedByDomain !== "")
+                                text:  "(→%1)".arg(model.requestedByDomain)
+                                color: theme.palette.normal.foregroundText
+                            }
+
+                        }
 
                         ColumnLayout {
                             visible: item.ListView.isCurrentItem
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.NotSet)
-                                text: "Not Set"
+                                text: i18n.tr("Not Set")
                                 color: theme.palette.normal.foregroundText
                                 onCheckedChanged: {
                                     if (checked) {
-                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.NotSet, false)
+                                        DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.NotSet, false)
                                     }
                                 }
                             }
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.Blocked)
-                                text: "Blocked"
+                                text: i18n.tr("Blocked")
                                 font.bold: true
                                 color: theme.palette.normal.negative
                                 onCheckedChanged: {
                                     if (checked) {
-                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Blocked, false)
+                                        DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Blocked, false)
                                     }
                                 }
                             }
 
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.Whitelisted)
-                                text: "Whitelisted"
+                                text: i18n.tr("Whitelisted")
                                 font.bold: true
                                 color: theme.palette.normal.positive
                                 onCheckedChanged: {
                                     if (checked) {
-                                    DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Whitelisted, false)
+                                        DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Whitelisted, false)
                                     }
                                 }
                             }

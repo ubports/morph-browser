@@ -191,13 +191,16 @@ void DomainPermissionsModel::setRequestedByDomain(const QString& domain, const Q
         }
         entry.requestedByDomain = requestedByDomain;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << RequestedByDomain);
-        // ignoring incognito here, because it will only affect an entry already present in the database
-        QSqlQuery query(m_database);
-        static QString updateStatement = QLatin1String("UPDATE domainpermissions SET requestedByDomain=? WHERE domain=?;");
-        query.prepare(updateStatement);
-        query.addBindValue(entry.requestedByDomain);
-        query.addBindValue(domain);
-        query.exec();
+
+        if (! incognito)
+        {
+            QSqlQuery query(m_database);
+            static QString updateStatement = QLatin1String("UPDATE domainpermissions SET requestedByDomain=? WHERE domain=?;");
+            query.prepare(updateStatement);
+            query.addBindValue(entry.requestedByDomain);
+            query.addBindValue(domain);
+            query.exec();
+        }
     }
 
 }

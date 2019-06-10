@@ -33,6 +33,16 @@ FocusScope {
     signal done()
     signal reload(string selectedDomain)
 
+    function setDomainAsCurrentItem(domain) {
+        for (var index = 0; index < domainSettingsListView.count; index++) {
+            var domainSetting = domainSettingsListView.model.get(index);
+            if (domainSetting.domain === domain) {
+                domainSettingsListView.currentIndex = index;
+                return;
+            }
+        }
+    }
+
     BrowserPage {
         id: domainSettingsPage
 
@@ -43,15 +53,6 @@ FocusScope {
 
         showBackAction: !selectMode
 
-        function setDomainAsCurrentItem(domain) {
-            for (var index = 0; index < domainSettingsListView.count; index++) {
-                var domainSetting = domainSettingsListView.model.get(index);
-                if (domainSetting.domain === domain) {
-                    domainSettingsListView.currentIndex = index;
-                    return;
-                }
-            }
-        }
         leadingActions: [
             Action {
                 objectName: "close"
@@ -115,7 +116,7 @@ FocusScope {
                         if (text !== "") {
                             var domain = UrlUtils.extractHost(text)
                             if (DomainSettingsModel.contains(domain)) {
-                                domainSettingsPage.setDomainAsCurrentItem(domain);
+                                domainSettingsItem.setDomainAsCurrentItem(domain);
                             }
                             else {
                                 DomainSettingsModel.insertEntry(domain);
@@ -244,7 +245,15 @@ FocusScope {
                                     optSelect.selectedIndex = -1;
 
                                     if (checked) {
-                                        optSelect.currentlyExpanded = true;
+                                        if( UserAgentsModel.count === 1)
+                                        {
+                                            optSelect.selectedIndex = 0;
+                                            DomainSettingsModel.setUserAgentId(item.domain, optSelect.model.get(optSelect.selectedIndex).id);
+                                        }
+                                        else
+                                        {
+                                            optSelect.currentlyExpanded = true;
+                                        }
                                     }
                                     else  {
                                         DomainSettingsModel.setUserAgentId(model.domain, 0);
@@ -261,6 +270,7 @@ FocusScope {
 
                             id: optSelect
                             visible: customUserAgentCheckbox.checked
+                            enabled: (UserAgentsModel.count > 1)
 
                             model: SortFilterModel {
                                 id: sortedUserAgentsModel

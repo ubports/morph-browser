@@ -177,6 +177,7 @@ BrowserView {
         onNavigationRequested: {
 
             var url = request.url;
+            var isMainFrame = request.isMainFrame;
 
             // for file urls we set currentDomain to "scheme:file", because there is no host
             var currentDomain = UrlUtils.schemeIs(currentWebview.url, "file") ? "scheme:file" : UrlUtils.extractHost(currentWebview.url);
@@ -211,9 +212,9 @@ BrowserView {
             // handle domain permissions
             if (domainPermission === DomainPermissionsModel.Blocked)
             {
-                if (request.isMainFrame)
+                if (isMainFrame)
                 {
-                    browser.currentWebview.showMessage("Blocked navigation request to domain %1.".arg(requestDomainWithoutSubdomain));
+                    browser.currentWebview.showMessage(i18n.tr("Blocked navigation request to domain %1.").arg(requestDomainWithoutSubdomain));
                 }
                 else
                 {
@@ -228,7 +229,7 @@ BrowserView {
             {
                 var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
                 allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
-                if (request.isMainFrame)
+                if (isMainFrame)
                 {
                 allowOrBlockDialog.allow.connect(function() {
                     DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
@@ -238,19 +239,22 @@ BrowserView {
                 else
                 {
                     var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
-                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain);
                     allowOrBlockDialog.allow.connect(function() {
+                        DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
                         DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
-                        browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));
+                        browser.currentWebview.showMessage(i18n.tr("domain %1 is now whitelisted, it will be active on the text page reload").arg(requestDomainWithoutSubdomain));
                     });
                 }
-                allowOrBlockDialog.block.connect(function() { DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, browser.incognito);});
+                allowOrBlockDialog.block.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, browser.incognito);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, browser.incognito);
+                  });
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
                 return;
             }
 
             // handle user agents
-            if (request.isMainFrame)
+            if (isMainFrame)
             {
                 currentWebview.hideContextMenu();
                 var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
