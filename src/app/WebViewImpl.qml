@@ -103,7 +103,7 @@ WebView {
             viewSpecificZoom = false
             var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
             confirmDialog.title = i18n.tr("Default Zoom")
-            confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
+            confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
             confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
 
             if (! incognito)

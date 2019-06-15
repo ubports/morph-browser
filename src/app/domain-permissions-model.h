@@ -20,6 +20,7 @@
 #define __DOMAIN_PERMISSIONS_MODEL_H__
 
 #include <QAbstractListModel>
+#include <QtCore/QDateTime>
 #include <QString>
 #include <QtSql/QSqlDatabase>
 
@@ -47,7 +48,8 @@ public:
     enum Roles {
         Domain = Qt::UserRole + 1,
         Permission,
-        RequestedByDomain
+        RequestedByDomain,
+        LastRequested
     };
 
     // reimplemented from QAbstractListModel
@@ -83,6 +85,7 @@ private:
         QString domain;
         QString requestedByDomain;
         DomainPermission permission;
+        QDateTime lastRequested;
     };
 
     QList<DomainPermissionEntry> m_entries;

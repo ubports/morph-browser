@@ -62,6 +62,7 @@ QHash<int, QByteArray> DomainPermissionsModel::roleNames() const
         roles[Domain] = "domain";
         roles[Permission] = "permission";
         roles[RequestedByDomain] = "requestedByDomain";
+        roles[LastRequested] = "lastRequested";
     }
     return roles;
 }
@@ -85,6 +86,8 @@ QVariant DomainPermissionsModel::data(const QModelIndex& index, int role) const
         return entry.permission;
     case RequestedByDomain:
         return entry.requestedByDomain;
+    case LastRequested:
+        return entry.lastRequested;
     default:
         return QVariant();
     }
@@ -95,7 +98,7 @@ void DomainPermissionsModel::createOrAlterDatabaseSchema()
     // permissions table
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS domainpermissions "
-                                  "(domain VARCHAR NOT NULL UNIQUE, requestedByDomain VARCHAR, permission INTEGER, PRIMARY KEY(domain));");
+                                  "(domain VARCHAR NOT NULL UNIQUE, requestedByDomain VARCHAR, permission INTEGER, lastRequested DATETIME, PRIMARY KEY(domain));");
     createQuery.prepare(query);
     createQuery.exec();
 }
@@ -104,7 +107,7 @@ void DomainPermissionsModel::populateFromDatabase()
 {
     // populate domainpermissions
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT domain, requestedByDomain, permission FROM domainpermissions;");
+    QString query = QLatin1String("SELECT domain, requestedByDomain, permission, lastRequested FROM domainpermissions;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0; // size() isn't supported on the sqlite backend
@@ -113,6 +116,7 @@ void DomainPermissionsModel::populateFromDatabase()
         entry.domain = populateQuery.value("domain").toString();
         entry.requestedByDomain = populateQuery.value("requestedByDomain").toString();
         entry.permission = static_cast<DomainPermission>(populateQuery.value("permission").toInt());
+        entry.lastRequested = QDateTime::fromTime_t(populateQuery.value("lastRequested").toUInt());
         beginInsertRows(QModelIndex(), count, count);
         m_entries.append(entry);
         endInsertRows();
@@ -186,23 +190,24 @@ void DomainPermissionsModel::setRequestedByDomain(const QString& domain, const Q
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainPermissionEntry& entry = m_entries[index];
-        if (entry.requestedByDomain == requestedByDomain) {
-            return;
+        if (entry.requestedByDomain != requestedByDomain) {
+            Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << RequestedByDomain);
         }
         entry.requestedByDomain = requestedByDomain;
-        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << RequestedByDomain);
+        entry.lastRequested = QDateTime::currentDateTimeUtc();
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << LastRequested);
 
         if (! incognito)
         {
             QSqlQuery query(m_database);
-            static QString updateStatement = QLatin1String("UPDATE domainpermissions SET requestedByDomain=? WHERE domain=?;");
+            static QString updateStatement = QLatin1String("UPDATE domainpermissions SET requestedByDomain=?, lastRequested=? WHERE domain=?;");
             query.prepare(updateStatement);
-            query.addBindValue(entry.requestedByDomain);
+            query.addBindValue(entry.requestedByDomain.isEmpty() ? QString() : entry.requestedByDomain);
+            query.addBindValue(entry.lastRequested.toTime_t());
             query.addBindValue(domain);
             query.exec();
         }
     }
-
 }
 
 bool DomainPermissionsModel::contains(const QString& domain) const
@@ -230,6 +235,7 @@ void DomainPermissionsModel::insertEntry(const QString &domain, bool incognito)
     DomainPermissionEntry entry;
     entry.domain = domain;
     entry.permission = DomainPermission::NotSet;
+    entry.lastRequested = QDateTime::currentDateTimeUtc();
     m_entries.append(entry);
     endInsertRows();
     Q_EMIT rowCountChanged();
@@ -237,10 +243,11 @@ void DomainPermissionsModel::insertEntry(const QString &domain, bool incognito)
     if (! incognito)
     {
         QSqlQuery query(m_database);
-        static QString insertStatement = QLatin1String("INSERT INTO domainpermissions (domain, permission) VALUES (?, ?);");
+        static QString insertStatement = QLatin1String("INSERT INTO domainpermissions (domain, permission, lastRequested) VALUES (?, ?, ?);");
         query.prepare(insertStatement);
         query.addBindValue(entry.domain);
         query.addBindValue(entry.permission);
+        query.addBindValue(entry.lastRequested.toTime_t());
         query.exec();
     }
 }
