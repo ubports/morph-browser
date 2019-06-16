@@ -214,21 +214,15 @@ QtObject {
                     window.show()
 
                 }
-                onOpenLinkInWindowRequested: {
-                    var window = null
-                    if (incognito) {
-                        window = getLastActiveWindow(true)
-                    }
-                    if (!window) {
-                        window = windowFactory.createObject(
-                            null,
-                            {
-                                "incognito": incognito,
-                                "height": parent.height,
-                                "width": parent.width,
-                            }
-                        )
-                    }
+                onOpenLinkInNewWindowRequested: {
+                    var window = windowFactory.createObject(
+                        null,
+                        {
+                            "incognito": incognito,
+                            "height": parent.height,
+                            "width": parent.width,
+                        }
+                    )
                     window.addTab(url)
                     window.tabsModel.currentIndex = window.tabsModel.count - 1
                     window.tabsModel.currentTab.load()

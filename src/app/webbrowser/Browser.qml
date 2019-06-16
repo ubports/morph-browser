@@ -128,7 +128,7 @@ BrowserView {
 
     signal newWindowRequested(bool incognito)
     signal newWindowFromTab(var tab, var callback)
-    signal openLinkInWindowRequested(url url, bool incognito)
+    signal openLinkInNewWindowRequested(url url, bool incognito)
     signal openLinkInNewTabRequested(url url, bool background)
     signal shareLinkRequested(url linkUrl, string title)
     signal shareTextRequested(string text)

@@ -396,13 +396,13 @@ WebView {
         }
         Actions.OpenLinkInNewWindow {
             objectName: "OpenLinkInNewWindowContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: !incognito && contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewWindow)
         }
-        Actions.OpenLinkInPrivateWindow {
-            objectName: "OpenLinkInPrivateWindowContextualAction"
+        Actions.OpenLinkInNewPrivateWindow {
+            objectName: "OpenLinkInNewPrivateWindowContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, true)
+            onTriggered: browser.openLinkInNewWindowRequested(contextMenuRequest.linkUrl, true)
         }
         Actions.BookmarkLink {
             objectName: "BookmarkLinkContextualAction"
