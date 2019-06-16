@@ -21,6 +21,7 @@ pragma Singleton
 import QtQuick 2.4
 import QtWebEngine 1.5
 import webbrowserapp.private 0.1
+import webbrowsercommon.private 0.1
 import Morph.Web 0.1
 
 Item {
@@ -35,13 +36,13 @@ Item {
         }
         function contains(url) {
             for (var i = 0; i < topSites.count; i++) {
-                if (topSites.get(i).url == url) return true
+                if (topSites.get(i).url === url) return true
             }
             return false
         }
         function containsHash(hash) {
             for (var i = 0; i < topSites.count; i++) {
-                if (Qt.md5(topSites.get(i).url) == hash) return true
+                if (Qt.md5(topSites.get(i).url) === hash) return true
             }
             return false
         }

@@ -1172,23 +1172,29 @@ BrowserView {
                 // clear Http cache
                 currentWebview.profile.clearHttpCache();
 
+                var cacheLocationUrl = Qt.resolvedUrl(cacheLocation);
+                var dataLocationUrl = Qt.resolvedUrl(dataLocation);
+
                 // clear favicons
-                FileOperations.removeDirRecursively(currentWebview.profile.cachePath + "/favicons");
+                FileOperations.removeDirRecursively(cacheLocationUrl + "/favicons");
 
                 // remove captures
-                FileOperations.removeDirRecursively(currentWebview.profile.cachePath + "/captures");
+                FileOperations.removeDirRecursively(cacheLocationUrl + "/captures");
 
                 // Application Cache
-                FileOperations.removeDirRecursively(dataLocation + "Application Cache");
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Application Cache");
 
                 // File System
-                FileOperations.removeDirRecursively(dataLocation + "File System");
+                FileOperations.removeDirRecursively(dataLocationUrl + "/File System");
 
                 // Local Storage
-                FileOperations.removeDirRecursively(dataLocation + "Local Storage");
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Local Storage");
+
+                // Service WorkerScript
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker")
 
                 // Visited Links
-                FileOperations.remove(dataLocation  + "/Visited Links");
+                FileOperations.remove(dataLocationUrl + "/Visited Links");
             }
             onDone: settingsViewLoader.active = false
         }
