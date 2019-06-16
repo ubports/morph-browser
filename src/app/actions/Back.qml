@@ -20,7 +20,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 
 UnityActions.Action {
-    text: i18n.tr("Back")
+    text: i18n.tr("Back") 
     // TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
     // Keywords may actually be sentences, and must be separated by semi-colons.
     keywords: i18n.tr("Older Page")
