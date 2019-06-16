@@ -31,13 +31,14 @@ ChromeBase {
     loadProgress: loading ? webview.loadProgress : 0
 
     function updateChromeElementsColor(color) {
-        chromeTextLabel.color = color
+        chromeTextLabel.color = color;
 
-        backButton.iconColor = color
-        forwardButton.iconColor = color
+        backButton.iconColor = color;
+        forwardButton.iconColor = color;
 
-        reloadButton.iconColor = color
-        accountsButton.iconColor = color
+        reloadButton.iconColor = color;
+        settingsButton.iconColor = color;
+        accountsButton.iconColor = color;
     }
 
     signal chooseAccount()
@@ -140,12 +141,31 @@ ChromeBase {
             width: visible ? height : 0
 
             anchors {
-                right: accountsButton.left
+                right: settingsButton.left
                 verticalCenter: parent.verticalCenter
             }
 
             enabled: chrome.webview.url && chrome.webview.url !== ""
             onTriggered: chrome.webview.reload()
+        }
+
+        ChromeButton {
+            id: settingsButton
+            objectName: "settingsButton"
+
+            iconName: "settings"
+            iconSize: 0.6 * height
+
+            height: parent.height
+            visible: chrome.navigationButtonsVisible
+            width: visible ? height : 0
+
+            anchors {
+                right: accountsButton.left
+                verticalCenter: parent.verticalCenter
+            }
+
+            onTriggered: webapp.showWebappSettings()
         }
 
         ChromeButton {

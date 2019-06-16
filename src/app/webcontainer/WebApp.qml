@@ -310,6 +310,29 @@ BrowserView {
 
             Connections {
                 target: webappSettingsViewLoader.item
+                onClearCache: {
+
+                    // clear http cache
+                    webapp.currentWebview.profile.clearHttpCache()
+
+                    // clear favicons
+                    FileOperations.removeDirRecursively(currentWebview.profile.cachePath + "/favicons");
+
+                    // remove captures
+                    FileOperations.removeDirRecursively(currentWebview.profile.cachePath + "/captures");
+
+                    // application cache
+                    FileOperations.removeDirRecursively(webapp.dataPath + "Application Cache");
+
+                    // File System
+                    FileOperations.removeDirRecursively(webapp.dataPath + "File System");
+
+                    // Local Storage
+                    FileOperations.removeDirRecursively(webapp.dataPath + "Local Storage");
+
+                    // visited Links
+                    FileOperations.remove(webapp.dataPath + "/Visited Links");
+                }
                 onDone: webappSettingsViewLoader.active = false
             }
         }

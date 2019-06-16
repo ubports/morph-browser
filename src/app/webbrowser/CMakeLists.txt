@@ -33,8 +33,6 @@ target_link_libraries(${WEBBROWSER_APP_MODELS}
 )
 
 set(WEBBROWSER_APP_SRC
-    cache-deleter.cpp
-    file-operations.cpp
     reparenter.cpp
     searchengine.cpp
     morph-browser.cpp

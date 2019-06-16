@@ -205,21 +205,23 @@ BrowserView {
                 return;
             }
 
+            // handle domain permissions
             var requestDomain = UrlUtils.schemeIs(url, "file") ? "scheme:file" : UrlUtils.extractHost(url);
             var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
+            var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
             var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
+            DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
 
-            // handle domain permissions
+            if (domainPermission !== DomainPermissionsModel.NotSet)
+            {
+                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, browser.incognito);
+            }
+
             if (domainPermission === DomainPermissionsModel.Blocked)
             {
                 if (isMainFrame)
                 {
                     browser.currentWebview.showMessage(i18n.tr("Blocked navigation request to domain %1.").arg(requestDomainWithoutSubdomain));
-                }
-                else
-                {
-                    var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
-                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
                 }
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
                 return;
@@ -232,13 +234,13 @@ BrowserView {
                 if (isMainFrame)
                 {
                 allowOrBlockDialog.allow.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", browser.incognito);
                     DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
                     currentWebview.url = url;
                 });
                 }
                 else
                 {
-                    var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
                     allowOrBlockDialog.allow.connect(function() {
                         DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
                         DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
@@ -1166,6 +1168,28 @@ BrowserView {
                                          })
         Connections {
             target: settingsViewLoader.item
+            onClearCache: {
+                // clear Http cache
+                currentWebview.profile.clearHttpCache();
+
+                // clear favicons
+                FileOperations.removeDirRecursively(currentWebview.profile.cachePath + "/favicons");
+
+                // remove captures
+                FileOperations.removeDirRecursively(currentWebview.profile.cachePath + "/captures");
+
+                // Application Cache
+                FileOperations.removeDirRecursively(dataLocation + "Application Cache");
+
+                // File System
+                FileOperations.removeDirRecursively(dataLocation + "File System");
+
+                // Local Storage
+                FileOperations.removeDirRecursively(dataLocation + "Local Storage");
+
+                // Visited Links
+                FileOperations.remove(dataLocation  + "/Visited Links");
+            }
             onDone: settingsViewLoader.active = false
         }
     }

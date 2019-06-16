@@ -41,6 +41,7 @@ FocusScope {
 
     property QtObject domainPermissionsObject
     property bool selectMode
+    property bool sortByLastRequested: false
 
     signal done()
     signal reload(string selectedDomain)
@@ -127,6 +128,11 @@ FocusScope {
                         }
                     });
                 }
+            },
+            Action {
+                iconName: sortByLastRequested ? "clock" : "indicator-keyboard-Az"
+                visible: !selectMode
+                onTriggered: sortByLastRequested = !sortByLastRequested
             }
         ]
 
@@ -141,8 +147,8 @@ FocusScope {
             focus: true
             model:  SortFilterModel {
                 model: DomainPermissionsModel
-                sort.order: Qt.AscendingOrder
-                sort.property: "domain"
+                sort.order: sortByLastRequested ? Qt.DescendingOrder : Qt.AscendingOrder
+                sort.property: sortByLastRequested ? "lastRequested" : "domain"
             }
 
             ViewItems.selectMode: selectMode

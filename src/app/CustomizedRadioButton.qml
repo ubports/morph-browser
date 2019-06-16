@@ -31,14 +31,13 @@ RadioButton {
         x: control.leftPadding
         y: parent.height / 2 - height / 2
         radius: 13
-        border.color: control.down ? theme.palette.normal.background : theme.palette.normal.foreground
 
         Rectangle {
             anchors.centerIn: parent
             width: units.gu(2)
             height: units.gu(2)
             radius: units.gu(1)
-            color: control.down ? theme.palette.normal.background : theme.palette.normal.foreground
+            color: theme.palette.selected.base
             visible: control.checked
         }
     }

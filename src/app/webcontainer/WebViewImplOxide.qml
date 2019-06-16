@@ -289,18 +289,19 @@ WebappWebview {
         // handle domain permissions
         var requestDomain = UrlUtils.schemeIs(url, "file") ? "scheme:file" : UrlUtils.extractHost(url);
         var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
+        var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(webview.url));
         var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
+
+        if (domainPermission !== DomainPermissionsModel.NotSet)
+        {
+            DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, false);
+        }
 
         if (domainPermission === DomainPermissionsModel.Blocked)
         {
             if (isMainFrame)
             {
                 browser.currentWebview.showMessage("Blocked navigation request to domain %1.".arg(requestDomainWithoutSubdomain));
-            }
-            else
-            {
-                var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
-                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
             }
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             return;
@@ -313,13 +314,13 @@ WebappWebview {
             if (isMainFrame)
             {
             allowOrBlockDialog.allow.connect(function() {
+                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", false);
                 DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
                 currentWebview.url = url;
             });
             }
             else
             {
-                var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
                 allowOrBlockDialog.allow.connect(function() {
                     DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
                     DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);

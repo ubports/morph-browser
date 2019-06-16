@@ -28,6 +28,7 @@ FocusScope {
 
     property QtObject settingsObject
 
+    signal clearCache()
     signal done()
 
     Common.BrowserPage {
@@ -196,11 +197,8 @@ FocusScope {
                                 title.text: i18n.tr("Clear Cache")
                             }
                             onClicked: {
-                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")})
-                                dialog.confirmed.connect(function() {
-                                    enabled = false;
-                                    CacheDeleter.clear(cacheLocation + "/Cache2", function() { enabled = true });
-                                })
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")});
+                                dialog.confirmed.connect(clearCache);
                             }
                         }
                     }

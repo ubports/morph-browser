@@ -24,6 +24,7 @@ set(COMMONLIB_SRC
     domain-settings-sorted-model.cpp
     domain-settings-user-agents-model.cpp
     favicon-fetcher.cpp
+    file-operations.cpp
     input-method-handler.cpp
     meminfo.cpp
     mime-database.cpp

@@ -39,6 +39,11 @@ bool FileOperations::remove(const QUrl& file) const
     return QFile::remove(file.toLocalFile());
 }
 
+bool FileOperations::removeDirRecursively(const QUrl& dir) const
+{
+    return QDir(dir.toLocalFile()).removeRecursively();
+}
+
 bool FileOperations::mkpath(const QUrl& path) const
 {
     return QDir::root().mkpath(path.toLocalFile());

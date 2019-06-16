@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of morph-browser.
  *
@@ -16,35 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __CACHE_DELETER_H__
-#define __CACHE_DELETER_H__
+#ifndef __FILE_OPERATIONS_H__
+#define __FILE_OPERATIONS_H__
 
-#include <QtCore/QFutureWatcher>
-#include <QtCore/QMutex>
 #include <QtCore/QObject>
-#include <QtQml/QJSValue>
+#include <QtCore/QStringList>
 
-class QString;
+class QUrl;
 
-class CacheDeleter : public QObject
+class FileOperations : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit CacheDeleter(QObject* parent=0);
+    explicit FileOperations(QObject* parent=0);
 
-    Q_INVOKABLE void clear(const QString& cachePath, const QJSValue& callback=QJSValue::UndefinedValue);
-
-private:
-    void doClear(const QString& cachePath);
-
-private Q_SLOTS:
-    void onCleared();
-
-private:
-    QMutex m_mutex;
-    QFutureWatcher<void> m_clearWatcher;
-    QJSValue m_callback;
+    Q_INVOKABLE bool exists(const QUrl& path) const;
+    Q_INVOKABLE bool remove(const QUrl& file) const;
+    Q_INVOKABLE bool removeDirRecursively(const QUrl& dir) const;
+    Q_INVOKABLE bool mkpath(const QUrl& path) const;
+    Q_INVOKABLE QStringList filesInDirectory(const QUrl& directory,
+                                             const QStringList& filters) const;
 };
 
-#endif // __CACHE_DELETER_H__
+#endif // __FILE_OPERATIONS_H__
