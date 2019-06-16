@@ -42,7 +42,7 @@ ModalDialog {
         onClicked: allow()
     }
     Button {
-        text: i18n.tr("block domain")
+        text: i18n.tr("Block domain")
         color: theme.palette.normal.negative
         objectName: "okButton"
         onClicked: block()
