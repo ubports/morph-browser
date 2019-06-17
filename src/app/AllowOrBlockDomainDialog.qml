@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import webbrowsercommon.private 0.1
 
 ModalDialog {
     objectName: "allowOrBlockDomain"
@@ -51,5 +52,14 @@ ModalDialog {
         objectName: "cancelButton"
         text: i18n.tr("Cancel")
         onClicked: cancel()
+    }
+
+    Connections {
+        target: DomainPermissionsModel
+        onDataChanged: {
+            if (DomainPermissionsModel.getPermission(domain) !== DomainPermissionsModel.NotSet) {
+                cancel();
+            }
+        }
     }
 }

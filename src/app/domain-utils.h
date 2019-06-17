@@ -63,7 +63,12 @@ static QString getDomainWithoutSubdomain(const QString& domain)
         bool convertToIntOk;
         lastPartOfDomain.toInt(&convertToIntOk);
 
-        topLevelDomain = convertToIntOk ? "" : lastPartOfDomain;
+        if (convertToIntOk)
+        {
+          return domain;
+        }
+
+        topLevelDomain = lastPartOfDomain;
     }
 
     // ci.ubports
