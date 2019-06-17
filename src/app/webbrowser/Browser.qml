@@ -210,7 +210,6 @@ BrowserView {
             var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
             var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
             var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
-            DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
 
             if (domainPermission !== DomainPermissionsModel.NotSet)
             {
