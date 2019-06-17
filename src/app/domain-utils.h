@@ -61,7 +61,7 @@ static QString getDomainWithoutSubdomain(const QString& domain)
 
         // last part is numeric -> seems to be an IP address
         bool convertToIntOk;
-        lastPartOfDomain.toInt(&convertToIntOk);
+        lastPartOfDomain.mid(1).toInt(&convertToIntOk);
 
         if (convertToIntOk)
         {
