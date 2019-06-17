@@ -294,7 +294,12 @@ WebappWebview {
 
         if (domainPermission !== DomainPermissionsModel.NotSet)
         {
-            DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, false);
+            if (isMainFrame) {
+              DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", false);
+            }
+            else if (requestDomainWithoutSubdomain !== currentDomainWithoutSubdomain) {
+              DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
+            }
         }
 
         if (domainPermission === DomainPermissionsModel.Blocked)

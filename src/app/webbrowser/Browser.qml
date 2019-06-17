@@ -214,7 +214,12 @@ BrowserView {
 
             if (domainPermission !== DomainPermissionsModel.NotSet)
             {
-                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, browser.incognito);
+                if (isMainFrame) {
+                  DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", browser.incognito);
+                }
+                else if (requestDomainWithoutSubdomain !== currentDomainWithoutSubdomain) {
+                  DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
+                }
             }
 
             if (domainPermission === DomainPermissionsModel.Blocked)
