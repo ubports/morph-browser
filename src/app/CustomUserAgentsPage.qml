@@ -109,6 +109,7 @@ BrowserPage {
                             customUserAgentsPage.setUserAgentAsCurrentItem(text);
                         }
                         else {
+                            customUserAgentsListView.currentIndex = -1;
                             UserAgentsModel.insertEntry(text, "");
                             reload(text);
                         }
