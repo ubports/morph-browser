@@ -142,7 +142,8 @@ FocusScope {
         ListItem {
             id: useragentsMenu
             z: 3
-            height: units.gu(6)
+            // custom user agents deactivated for now
+            height: 0 //units.gu(6)
             color: theme.palette.normal.background
             ListItemLayout {
                 title.text: i18n.tr("Custom User Agents")
@@ -154,7 +155,7 @@ FocusScope {
 
         ListView {
             id: domainSettingsListView
-            anchors.topMargin: units.gu(5)
+            anchors.topMargin: useragentsMenu.height
             anchors.fill: parent
             focus: true
             model:  SortFilterModel {
@@ -230,7 +231,8 @@ FocusScope {
                         Row {
                             spacing: units.gu(1.5)
                             height: units.gu(1)
-                            visible: item.ListView.isCurrentItem
+                            // deactivated for now
+                            visible: false //item.ListView.isCurrentItem
 
                             Label  {
                                 text: i18n.tr("custom user agent")
