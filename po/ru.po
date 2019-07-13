@@ -8,16 +8,18 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2015-07-06 09:31+0000\n"
-"Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"PO-Revision-Date: 2019-07-05 08:13+0000\n"
+"Last-Translator: Moshe Lazar <wersewikkov@gmail.com>\n"
+"Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ru/>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -124,7 +126,7 @@ msgstr "Запрос привилегий"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Эта страница хочет получить информацию о вашем местоположении"
+msgstr "Эта страница хочет получить информацию о вашем местоположении."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -379,7 +381,7 @@ msgstr "Закладка"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Добавить в закладки."
+msgstr "Добавить эту страницу в закладки"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
