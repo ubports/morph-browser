@@ -114,6 +114,7 @@ QtObject {
 
             onClosing: {
                 if (allWindows.length == 1) {
+                    allWindows[0].setFullscreen(false)
                     if (tabsModel.count > 0) {
                         session.save()
                     } else {
