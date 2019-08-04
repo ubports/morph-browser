@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-08-04 08:04+0000\n"
+"PO-Revision-Date: 2019-08-04 08:05+0000\n"
 "Last-Translator: Moshe Lazar <wersewikkov@gmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
@@ -711,7 +711,7 @@ msgstr "Сегодня"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "Данная вкладка открыта в режиме инкогнито."
+msgstr "Это анонимная вкладка"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
