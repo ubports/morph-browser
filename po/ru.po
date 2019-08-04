@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
 "PO-Revision-Date: 2019-08-04 08:03+0000\n"
-"Last-Translator: vokaliz <vokaliz@protonmail.com>\n"
+"Last-Translator: Moshe Lazar <wersewikkov@gmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
 "Language: ru\n"
@@ -68,7 +68,7 @@ msgstr "Подтвердите переход"
 
 #: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
-msgstr "Покинуть"
+msgstr "Выйти из беседы"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"
