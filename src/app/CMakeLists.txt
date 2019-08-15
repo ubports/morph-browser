@@ -23,6 +23,7 @@ set(COMMONLIB_SRC
     domain-settings-model.cpp
     domain-settings-sorted-model.cpp
     domain-settings-user-agents-model.cpp
+    downloads-model.cpp
     favicon-fetcher.cpp
     file-operations.cpp
     input-method-handler.cpp

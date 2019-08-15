@@ -22,14 +22,11 @@ import Ubuntu.Components 1.3
 import Ubuntu.Content 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
-import ".." as Common
 
-import "../MimeTypeMapper.js" as MimeTypeMapper
+import "MimeTypeMapper.js" as MimeTypeMapper
 
-Common.BrowserPage {
+BrowserPage {
     id: downloadsItem
-
-    //property var downloadManager
 
     // We can get file picking requests either via content-hub (activeTransfer)
     // Or via the internal oxide file picker (internalFilePicker) in the case
@@ -193,7 +190,6 @@ Common.BrowserPage {
         }
 
         delegate: DownloadDelegate {
-            //downloadManager: downloadsItem.downloadManager
             download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
             //title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()

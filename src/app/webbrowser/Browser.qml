@@ -766,7 +766,7 @@ BrowserView {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
                 iconName: "save-to"
-                enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
+                enabled: contentHandlerLoader.status == Loader.Ready
                 onTriggered: downloadsViewLoader.active = true
             },
             Action {
@@ -1193,8 +1193,7 @@ BrowserView {
         active: false
         asynchronous: true
         Component.onCompleted: {
-            setSource("DownloadsPage.qml", {
-                          "downloadManager": Qt.binding(function () {return downloadHandlerLoader.item}),
+            setSource("../DownloadsPage.qml", {
                           "incognito": incognito,
                           "focus": true
             })
@@ -1212,12 +1211,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-    }
-
-    Loader {
-        id: downloadHandlerLoader
-        source: "DownloadHandler.qml"
-        asynchronous: true
     }
 
     property Component tabComponent
@@ -1666,7 +1659,6 @@ BrowserView {
     Shortcut {
         sequence: "Ctrl+J"
         enabled: chrome.visible &&
-                 downloadHandlerLoader.status == Loader.Ready &&
                  contentHandlerLoader.status == Loader.Ready &&
                  !downloadsViewLoader.active
         onActivated: downloadsViewLoader.active = true
@@ -1730,13 +1722,11 @@ BrowserView {
     Connections {
         target: contentHandlerLoader.item
         onExportFromDownloads: {
-            if (downloadHandlerLoader.status == Loader.Ready) {
-                downloadsViewLoader.active = true
-                downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
-                downloadsViewLoader.item.activeTransfer = transfer
-                downloadsViewLoader.item.multiSelect = multiSelect
-                downloadsViewLoader.item.pickingMode = true
-            }
+            downloadsViewLoader.active = true
+            downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
+            downloadsViewLoader.item.activeTransfer = transfer
+            downloadsViewLoader.item.multiSelect = multiSelect
+            downloadsViewLoader.item.pickingMode = true
         }
     }
 

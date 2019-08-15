@@ -357,6 +357,42 @@ BrowserView {
        }
 
        Connections {
+
+           target: webapp.currentWebview ? webapp.currentWebview.context : null
+
+           onDownloadRequested: {
+
+               // with QtWebEngine 1.9 (Qt 5.13) the download path is configurable, so the output file name
+               // will then be determined automatically. Here we determine the file in webapp.dataPath, because the webapp does
+               // not have access to the /home/phablet/Downloads folder
+               var baseOfSuggestedFileName = FileOperations.baseName(download.path);
+               var extensionOfSuggestedFileName = FileOperations.extension(download.path);
+
+               download.path = webapp.dataPath + "/%1.%2".arg(baseOfSuggestedFileName).arg(extensionOfSuggestedFileName);
+
+               var i = fileNameCounter = 1;
+
+               while (FileOperations.exists(Qt.resolvedUrl(download.path))) {
+                   download.path = webapp.dataPath + "/%1(%2).%3".arg(baseOfSuggestedFileName).arg(i).arg(extensionOfSuggestedFileName);
+                   i++;
+               }
+
+               console.log("a download was requested with path %1".arg(download.path))
+
+               download.accept();
+               //browser.showDownloadsPage();
+               //browser.startDownload(download);
+           }
+
+           onDownloadFinished: {
+
+               console.log("a download was finished with path %1.".arg(download.path))
+               //browser.showDownloadsPage()
+               //browser.setDownloadComplete(download)
+           }
+       }
+
+       Connections {
            target: settings
            onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
            onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode

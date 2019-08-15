@@ -192,7 +192,11 @@ BrowserWindow {
             DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode;
             DomainSettingsModel.databasePath = webappDataLocation + '/domainsettings.sqlite';
             DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
+            DownloadsModel.databasePath = dataLocation + "/downloads.sqlite";
             UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
+
+            // this can be set from QtWebEngine version 1.9 (Qt 5.13)
+            //item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
         }
 
         function loadCustomUserScripts() {

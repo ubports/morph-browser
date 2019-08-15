@@ -207,6 +207,7 @@ WebViewImpl {
         }
     }
 
+    /*
     onShowDownloadDialog: {
        if (downloadDialogLoader.status === Loader.Ready) {
            var downloadDialog =
@@ -226,6 +227,7 @@ WebViewImpl {
         source: "ContentDownloadDialog.qml"
         asynchronous: true
     }
+    */
 
     Loader {
         id: filePickerLoader

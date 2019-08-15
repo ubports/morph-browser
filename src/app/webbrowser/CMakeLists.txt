@@ -13,7 +13,6 @@ set(WEBBROWSER_APP_MODELS_SRC
     bookmarks-model.cpp
     bookmarks-folder-model.cpp
     bookmarks-folderlist-model.cpp
-    downloads-model.cpp
     history-domain-model.cpp
     history-domainlist-model.cpp
     history-lastvisitdatelist-model.cpp
