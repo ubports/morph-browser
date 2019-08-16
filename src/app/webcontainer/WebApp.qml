@@ -25,6 +25,7 @@ import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Qt.labs.settings 1.0
 import "../actions" as Actions
 import ".."
+import "." as Local
 import "ColorUtils.js" as ColorUtils
 
 BrowserView {
@@ -154,6 +155,48 @@ BrowserView {
     function showWebappSettings()
     {
        webappSettingsViewLoader.active = true;
+    }
+
+    function showDownloadsPage() {
+        downloadsViewLoader.active = true
+        return downloadsViewLoader.item
+    }
+
+    function startDownload(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        // check if the ID has already been added
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        {
+           console.log("the download id " + downloadIdDataBase + " has already been added.")
+           return
+        }
+
+        console.log("adding download with id " + downloadIdDataBase)
+        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+        downloadsViewLoader.active = true
+    }
+
+    function setDownloadComplete(download) {
+
+        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        {
+            console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
+            return
+        }
+
+        console.log("download with id " + downloadIdDataBase + " is complete.")
+
+        DownloadsModel.setComplete(downloadIdDataBase, true)
+
+        if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
+        {
+          DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+        }
     }
 
     Item {
@@ -296,6 +339,25 @@ BrowserView {
 */
 
         Loader {
+            id: downloadsViewLoader
+
+            anchors.fill: parent
+            active: false
+            asynchronous: true
+            Component.onCompleted: {
+                setSource("../DownloadsPage.qml", {
+                              "incognito": false,
+                              "focus": true
+                })
+            }
+
+            Connections {
+                target: downloadsViewLoader.item
+                onDone: downloadsViewLoader.active = false
+            }
+        }
+
+        Loader {
             id: webappSettingsViewLoader
 
             anchors.fill: parent
@@ -365,30 +427,30 @@ BrowserView {
                // with QtWebEngine 1.9 (Qt 5.13) the download path is configurable, so the output file name
                // will then be determined automatically. Here we determine the file in webapp.dataPath, because the webapp does
                // not have access to the /home/phablet/Downloads folder
-               var baseOfSuggestedFileName = FileOperations.baseName(download.path);
-               var extensionOfSuggestedFileName = FileOperations.extension(download.path);
+               var baseName = FileOperations.baseName(download.path);
+               var extension = FileOperations.extension(download.path);
 
-               download.path = webapp.dataPath + "/%1.%2".arg(baseOfSuggestedFileName).arg(extensionOfSuggestedFileName);
+               download.path = webapp.dataPath + "/%1.%2".arg(baseName).arg(extension);
 
-               var i = fileNameCounter = 1;
+               var i = 1;
 
                while (FileOperations.exists(Qt.resolvedUrl(download.path))) {
-                   download.path = webapp.dataPath + "/%1(%2).%3".arg(baseOfSuggestedFileName).arg(i).arg(extensionOfSuggestedFileName);
+                   download.path = webapp.dataPath + "/%1(%2).%3".arg(baseName).arg(i).arg(extension);
                    i++;
                }
 
                console.log("a download was requested with path %1".arg(download.path))
 
                download.accept();
-               //browser.showDownloadsPage();
-               //browser.startDownload(download);
+               webapp.showDownloadsPage();
+               webapp.startDownload(download);
            }
 
            onDownloadFinished: {
 
                console.log("a download was finished with path %1.".arg(download.path))
-               //browser.showDownloadsPage()
-               //browser.setDownloadComplete(download)
+               webapp.showDownloadsPage()
+               webapp.setDownloadComplete(download)
            }
        }
 

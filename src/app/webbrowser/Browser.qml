@@ -29,10 +29,10 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
-import ".."
+import ".." as Common
 import "." as Local
 
-BrowserView {
+Common.BrowserView {
     id: browser
 
     property Settings settings
@@ -79,7 +79,7 @@ BrowserView {
         }
     }
 
-    property BrowserWindow thisWindow
+    property Common.BrowserWindow thisWindow
     property Component windowFactory
 
     onCurrentWebviewChanged: {
@@ -294,7 +294,7 @@ BrowserView {
         filter: InputInfo.TouchScreen
     }
 
-    FilteredKeyboardModel {
+    Common.FilteredKeyboardModel {
         id: keyboardModel
     }
 
@@ -521,7 +521,7 @@ BrowserView {
                 onCloseTabRequested: internal.closeCurrentTab()
             }
 
-            WebProcessMonitor {
+            Common.WebProcessMonitor {
                 id: webProcessMonitor
                 webview: currentWebview
             }
@@ -842,7 +842,7 @@ BrowserView {
         }
     }
 
-    ChromeStateTracker {
+    Common.ChromeStateTracker {
         webview: browser.currentWebview
         header: chrome
      }

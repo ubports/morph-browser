@@ -19,7 +19,6 @@
 #include "bookmarks-model.h"
 #include "bookmarks-folderlist-model.h"
 #include "config.h"
-#include "downloads-model.h"
 #include "history-domainlist-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
@@ -59,7 +58,6 @@ WebbrowserApp::WebbrowserApp(int& argc, char** argv)
 
 MAKE_SINGLETON_FACTORY(BookmarksModel)
 MAKE_SINGLETON_FACTORY(HistoryModel)
-MAKE_SINGLETON_FACTORY(DownloadsModel)
 MAKE_SINGLETON_FACTORY(Reparenter)
 
 bool WebbrowserApp::initialize()
@@ -73,7 +71,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<BookmarksModel>(uri, 0, 1, "BookmarksModel", BookmarksModel_singleton_factory);
     qmlRegisterType<BookmarksFolderListModel>(uri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
-    qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 

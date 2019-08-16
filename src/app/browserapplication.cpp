@@ -38,6 +38,7 @@
 #include "domain-settings-model.h"
 #include "domain-settings-sorted-model.h"
 #include "domain-settings-user-agents-model.h"
+#include "downloads-model.h"
 #include "favicon-fetcher.h"
 #include "file-operations.h"
 #include "input-method-handler.h"
@@ -100,6 +101,7 @@ QString BrowserApplication::inspectorHost() const
 
 MAKE_SINGLETON_FACTORY(DomainPermissionsModel)
 MAKE_SINGLETON_FACTORY(DomainSettingsModel)
+MAKE_SINGLETON_FACTORY(DownloadsModel)
 MAKE_SINGLETON_FACTORY(FileOperations)
 MAKE_SINGLETON_FACTORY(MemInfo)
 MAKE_SINGLETON_FACTORY(MimeDatabase)
@@ -186,6 +188,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     qmlRegisterSingletonType<DomainPermissionsModel>(uri, 0, 1, "DomainPermissionsModel", DomainPermissionsModel_singleton_factory);
     qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
     qmlRegisterType<DomainSettingsSortedModel>(uri, 0, 1, "DomainSettingsSortedModel");
+    qmlRegisterSingletonType<DownloadsModel>(uri, 0, 1, "DownloadsModel", DownloadsModel_singleton_factory);
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
