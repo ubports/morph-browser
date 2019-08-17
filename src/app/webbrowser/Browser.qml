@@ -19,8 +19,8 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
-import QtWebEngine 1.7
 import QtSystemInfo 5.5
+import QtWebEngine 1.7
 import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
@@ -991,10 +991,8 @@ Common.BrowserView {
         Label {
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter - parent.height / 4
                 verticalCenterOffset: units.dp(2)
             }
-
             fontSize: "small"
             color: theme.palette.normal.backgroundText
             // TRANSLATORS: %1 refers to the current number of tabs opened
@@ -1743,26 +1741,26 @@ Common.BrowserView {
 
     function startDownload(download) {
 
-        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
 
         // check if the ID has already been added
-        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
         {
            console.log("the download id " + downloadIdDataBase + " has already been added.")
            return
         }
 
         console.log("adding download with id " + downloadIdDataBase)
-        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
         DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
         downloadsViewLoader.active = true
     }
 
     function setDownloadComplete(download) {
 
-        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
 
-        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
         {
             console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
             return

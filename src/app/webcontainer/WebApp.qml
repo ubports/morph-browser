@@ -17,18 +17,18 @@
  */
 
 import QtQuick 2.5
+import QtWebEngine 1.7
+import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import Qt.labs.settings 1.0
 import "../actions" as Actions
-import ".."
-import "." as Local
+import ".." as Common
 import "ColorUtils.js" as ColorUtils
 
-BrowserView {
+Common.BrowserView {
     id: webapp
 
     property Settings settings
@@ -164,26 +164,26 @@ BrowserView {
 
     function startDownload(download) {
 
-        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
 
         // check if the ID has already been added
-        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
         {
            console.log("the download id " + downloadIdDataBase + " has already been added.")
            return
         }
 
         console.log("adding download with id " + downloadIdDataBase)
-        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+        Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, false)
         downloadsViewLoader.active = true
     }
 
     function setDownloadComplete(download) {
 
-        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
 
-        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
         {
             console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
             return
@@ -256,7 +256,7 @@ BrowserView {
                     webview: containerWebView.currentWebview
                     objectName: "mainWebviewSadPage"
                 }
-                WebProcessMonitor {
+                Common.WebProcessMonitor {
                     id: webProcessMonitor
                     webview: containerWebView.currentWebview
                 }
@@ -268,7 +268,7 @@ BrowserView {
             anchors {
                 fill: containerWebView
             }
-            sourceComponent: ErrorSheet {
+            sourceComponent: Common.ErrorSheet {
                 visible: containerWebView.currentWebview && ! containerWebView.currentWebview.loading && containerWebView.currentWebview.lastLoadFailed
                 url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
                 errorString: containerWebView.currentWebview ? containerWebView.currentWebview.lastLoadRequestErrorString : ""
@@ -314,7 +314,7 @@ BrowserView {
             Component {
                 id: progressbarComponent
 
-                ThinProgressBar {
+                Common.ThinProgressBar {
                     visible: webapp.currentWebview && webapp.currentWebview.loading
                              && webapp.currentWebview.loadProgress !== 100
                     value: visible ? webapp.currentWebview.loadProgress : 0
@@ -347,7 +347,8 @@ BrowserView {
             Component.onCompleted: {
                 setSource("../DownloadsPage.qml", {
                               "incognito": false,
-                              "focus": true
+                              "focus": true,
+                              "subtitle": webapp.dataPath.replace('/home/phablet', '~')
                 })
             }
 
@@ -430,12 +431,12 @@ BrowserView {
                var baseName = FileOperations.baseName(download.path);
                var extension = FileOperations.extension(download.path);
 
-               download.path = webapp.dataPath + "/%1.%2".arg(baseName).arg(extension);
+               download.path = webapp.dataPath + "/Downloads/%1.%2".arg(baseName).arg(extension);
 
                var i = 1;
 
                while (FileOperations.exists(Qt.resolvedUrl(download.path))) {
-                   download.path = webapp.dataPath + "/%1(%2).%3".arg(baseName).arg(i).arg(extension);
+                   download.path = webapp.dataPath + "/Downloads/%1(%2).%3".arg(baseName).arg(i).arg(extension);
                    i++;
                }
 
@@ -460,7 +461,7 @@ BrowserView {
            onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode
        }
 
-        ChromeController {
+        Common.ChromeController {
             webview: webapp.currentWebview
             forceHide: webapp.chromeless
         //    defaultMode: webapp.hasTouchScreen

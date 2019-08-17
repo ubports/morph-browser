@@ -44,7 +44,7 @@ Window {
 
     ScreenSaver {
         id: screenSaver
-        screenSaverEnabled: ! ( window.active && (window.currentWebview.isFullScreen || window.currentWebview.recentlyAudible) )
+        screenSaverEnabled: ! ( window.active && window.currentWebview && (window.currentWebview.isFullScreen || window.currentWebview.recentlyAudible) )
     }
 
     Connections {

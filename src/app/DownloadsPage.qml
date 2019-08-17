@@ -191,8 +191,7 @@ BrowserPage {
         delegate: DownloadDelegate {
             download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
-            //title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
-            title: ( model.path.substring(0,14) === "/home/phablet/" ) ? "~/" + model.path.substring(14) : model.path
+            title: getDisplayPath(model.path)
             url: model.url
             image: model.complete && thumbnailLoader.status == Loader.Ready 
                                   && (model.mimetype.indexOf("image") === 0 
@@ -202,8 +201,23 @@ BrowserPage {
             incomplete: !model.complete
             visible: !(selectMode && incomplete)
             errorMessage: model.error
-            paused: download && download.isPaused
+            paused: download ? download.isPaused : false
             incognito: model.incognito
+
+            function getDisplayPath(path)
+            {
+               if (path.substring(0,14) === "/home/phablet/")
+               {
+                  path = "~/" + model.path.substring(14);
+               }
+
+               if (path.substring(0, subtitle.length) === subtitle)
+               {
+                 path = "." + path.substring(subtitle.length);
+               }
+
+               return path;
+            }
 
             onClicked: {
                 if (model.complete && !selectMode) {

@@ -197,6 +197,7 @@ BrowserWindow {
 
             // this can be set from QtWebEngine version 1.9 (Qt 5.13)
             //item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
+            FileOperations.mkpath(webappDataLocation + "/Downloads");
         }
 
         function loadCustomUserScripts() {
