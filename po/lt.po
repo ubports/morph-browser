@@ -8,16 +8,19 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2014-08-23 18:36+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Lithuanian <lt@li.org>\n"
+"PO-Revision-Date: 2019-08-11 10:49+0000\n"
+"Last-Translator: Moo <moose@mail.ru>\n"
+"Language-Team: Lithuanian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/lt/>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
+"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -27,7 +30,7 @@ msgstr "„JavaScript“ įspėjimas"
 #: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr ""
+msgstr "Gerai"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -305,11 +308,11 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:72
 msgid "Yes"
-msgstr ""
+msgstr "Taip"
 
 #: src/app/MediaAccessDialog.qml:83
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -327,7 +330,7 @@ msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "Atgal"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -361,7 +364,7 @@ msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Kopijuoti"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -373,7 +376,7 @@ msgstr ""
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Iškirpti"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
@@ -450,7 +453,7 @@ msgstr ""
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Įdėti"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
@@ -485,11 +488,11 @@ msgstr ""
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
 msgid "Share"
-msgstr ""
+msgstr "Bendrinti"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Atšaukti"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:212
@@ -512,7 +515,7 @@ msgstr ""
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr ""
+msgstr "Pavadinimas"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
@@ -537,7 +540,7 @@ msgstr ""
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Save"
-msgstr ""
+msgstr "Įrašyti"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
@@ -566,11 +569,11 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr ""
+msgstr "Nauja kortelė"
 
 #: src/app/webbrowser/Browser.qml:585
 msgid "New window"
-msgstr ""
+msgstr "Naujas langas"
 
 #: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
@@ -587,13 +590,13 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
-msgstr ""
+msgstr "Nustatymai"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -628,7 +631,7 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:100
 msgid "Delete"
-msgstr ""
+msgstr "Ištrinti"
 
 #: src/app/webbrowser/DownloadsPage.qml:260
 msgid "No downloads available"
@@ -653,7 +656,7 @@ msgstr ""
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:251
 msgid "Yesterday"
-msgstr ""
+msgstr "Vakar"
 
 #: src/app/webbrowser/HistoryViewWide.qml:160
 msgid "search history"
@@ -666,7 +669,7 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:249
 #: src/app/webbrowser/HistoryViewWide.qml:336
 msgid "Today"
-msgstr ""
+msgstr "Šiandien"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -816,7 +819,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
-msgstr ""
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabComponent.qml:409
 msgid "Swipe Up To Exit Full Screen"
@@ -840,7 +843,7 @@ msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
-msgstr ""
+msgstr "Šalinti"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:101
@@ -874,7 +877,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Užverti"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -909,7 +912,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Praleisti"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"

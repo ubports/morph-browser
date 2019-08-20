@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-04-08 20:51+0000\n"
-"Last-Translator: Tom Dom <thomas@patoel.nl>\n"
+"PO-Revision-Date: 2019-08-12 12:49+0000\n"
+"Last-Translator: Joachim Lazaroms <joachim.pc@gmail.com>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
 "morph-browser/nl/>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.1.1\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -67,7 +67,7 @@ msgstr "Navigatie bevestigen"
 
 #: src/app/BeforeUnloadDialog.qml:27
 msgid "Leave"
-msgstr "Weggaan"
+msgstr "Verlaat"
 
 #: src/app/BeforeUnloadDialog.qml:35
 msgid "Stay"

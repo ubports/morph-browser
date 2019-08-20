@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-07-14 21:48+0000\n"
-"Last-Translator: Moshe Lazar <wersewikkov@gmail.com>\n"
+"PO-Revision-Date: 2019-08-05 11:49+0000\n"
+"Last-Translator: vokaliz <vokaliz@protonmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
 "Language: ru\n"
@@ -96,11 +96,11 @@ msgstr "Всё равно продолжить"
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:174
 msgid "Back to safety"
-msgstr "Уйти отсюда!"
+msgstr "Вернуться к безопасному режиму"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr "JavaScript подтверждение"
+msgstr "Подтверждение действий JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -395,7 +395,7 @@ msgstr "Очистить историю"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "История;Очистить;Удалить;Журнал;"
+msgstr "Удалить историю просмотров"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -711,7 +711,7 @@ msgstr "Сегодня"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "Данная вкладка открыта в режиме инкогнито."
+msgstr "Данная вкладка в режиме инкогнито"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
