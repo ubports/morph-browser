@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-08-11 10:49+0000\n"
+"PO-Revision-Date: 2019-09-01 16:50+0000\n"
 "Last-Translator: Moo <moose@mail.ru>\n"
 "Language-Team: Lithuanian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/lt/>\n"
@@ -498,7 +498,7 @@ msgstr "Atšaukti"
 #: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
@@ -811,11 +811,11 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
-msgstr ""
+msgstr "Išvalyti"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofonas"
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
@@ -887,7 +887,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Tapatybės nustatymas nepavyko"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
