@@ -171,7 +171,7 @@ FocusScope {
                 readonly property string domain: model.domain
                 readonly property int userAgentId: model.userAgentId
                 height: isCurrentItem ? layout.height : units.gu(5)
-                color: isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
+                color: isCurrentItem ? ((theme.palette.selected.background.hslLightness > 0.5) ? Qt.darker(theme.palette.selected.background, 1.05) : Qt.lighter(theme.palette.selected.background, 1.5)) : theme.palette.normal.background
 
                 MouseArea {
                     anchors.fill: parent
