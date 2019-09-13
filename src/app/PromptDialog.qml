@@ -20,10 +20,12 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 ModalDialog {
+    id: promptDialog
     objectName: "promptDialog"
     title: i18n.tr("JavaScript Prompt")
     
     property string defaultValue
+    property int inputMethodHints
     
     signal accept(string text)
     signal reject()
@@ -35,6 +37,8 @@ ModalDialog {
         id: input
         objectName: "inputTextField"
         text: defaultValue
+        inputMethodHints: promptDialog.inputMethodHints
+
         onAccepted: {
             Qt.inputMethod.commit()
             accept(input.text)

@@ -28,8 +28,8 @@ ModalDialog {
     property bool showAllowPermanentlyCheckBox
 
     message: i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
-                                           url + "\n\n" +
-                                           i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
+             url + "\n\n" +
+             i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
 
     signal allow()
     signal allowPermanently()

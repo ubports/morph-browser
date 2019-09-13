@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-16 21:09+0000\n"
+"POT-Creation-Date: 2019-09-13 16:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: src/app/AlertDialog.qml:31 src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/AuthenticationDialog.qml:47 src/app/ColorSelectDialog.qml:73
 #: src/app/ConfirmDialog.qml:33 src/app/HttpAuthenticationDialog.qml:70
-#: src/app/PromptDialog.qml:46 src/app/webbrowser/BookmarkOptions.qml:122
+#: src/app/PromptDialog.qml:50 src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr ""
 
@@ -48,9 +48,9 @@ msgid "Save permanently"
 msgstr ""
 
 #: src/app/AllowCustomSchemesDialog.qml:57
-#: src/app/AllowOrBlockDomainDialog.qml:52 src/app/AuthenticationDialog.qml:53
+#: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
-#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:57
+#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
 #: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
@@ -59,24 +59,24 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:423
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
-#: src/app/webcontainer/WebappSettingsPage.qml:225
+#: src/app/webcontainer/WebappSettingsPage.qml:226
 msgid "Cancel"
 msgstr ""
 
-#: src/app/AllowOrBlockDomainDialog.qml:24
+#: src/app/AllowOrBlockDomainDialog.qml:25
 msgid "Allow or block domain"
 msgstr ""
 
-#: src/app/AllowOrBlockDomainDialog.qml:28
+#: src/app/AllowOrBlockDomainDialog.qml:29
 #, qt-format
 msgid "Should navigation requests to domain %1 be allowed?"
 msgstr ""
 
-#: src/app/AllowOrBlockDomainDialog.qml:39
+#: src/app/AllowOrBlockDomainDialog.qml:40
 msgid "Whitelist domain"
 msgstr ""
 
-#: src/app/AllowOrBlockDomainDialog.qml:45
+#: src/app/AllowOrBlockDomainDialog.qml:46
 msgid "Block domain"
 msgstr ""
 
@@ -140,7 +140,7 @@ msgstr ""
 msgid "JavaScript Confirmation"
 msgstr ""
 
-#: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:148
+#: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
 msgstr ""
 
@@ -163,40 +163,40 @@ msgstr ""
 msgid "Add the name for the new user agent"
 msgstr ""
 
-#: src/app/CustomUserAgentsPage.qml:206
+#: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
 msgstr ""
 
-#: src/app/CustomUserAgentsPage.qml:247
+#: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
 msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:55
-msgid "Domain specific permissions"
+msgid "Domain blacklist/whitelist"
 msgstr ""
 
-#: src/app/DomainPermissionsPage.qml:116 src/app/DomainSettingsPage.qml:113
+#: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
 msgstr ""
 
-#: src/app/DomainPermissionsPage.qml:117
+#: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
 
-#: src/app/DomainPermissionsPage.qml:224
+#: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
 msgstr ""
 
-#: src/app/DomainPermissionsPage.qml:234
-msgid "Blocked"
+#: src/app/DomainPermissionsPage.qml:233
+msgid "Never allow access"
 msgstr ""
 
-#: src/app/DomainPermissionsPage.qml:246
-msgid "Whitelisted"
+#: src/app/DomainPermissionsPage.qml:245
+msgid "Always allow access"
 msgstr ""
 
-#: src/app/DomainPermissionsPage.qml:287
+#: src/app/DomainPermissionsPage.qml:286
 msgid "No domain specific permissions available"
 msgstr ""
 
@@ -208,27 +208,27 @@ msgstr ""
 msgid "Enter the name of the domain, e.g. m.example.com"
 msgstr ""
 
-#: src/app/DomainSettingsPage.qml:203
-msgid "allow custom schemes"
+#: src/app/DomainSettingsPage.qml:206
+msgid "allowed to launch other apps"
 msgstr ""
 
-#: src/app/DomainSettingsPage.qml:219
-msgid "allow location access"
+#: src/app/DomainSettingsPage.qml:223
+msgid "allowed to access your location"
 msgstr ""
 
-#: src/app/DomainSettingsPage.qml:236
+#: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
 msgstr ""
 
-#: src/app/DomainSettingsPage.qml:312 src/app/DomainSettingsPage.qml:317
+#: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
 msgstr ""
 
-#: src/app/DomainSettingsPage.qml:317
+#: src/app/DomainSettingsPage.qml:320
 msgid "not set"
 msgstr ""
 
-#: src/app/DomainSettingsPage.qml:351
+#: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
 msgstr ""
 
@@ -405,8 +405,8 @@ msgstr ""
 msgid "Save as PDF"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:147
-#: src/app/webcontainer/WebappSettingsPage.qml:66
+#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
+#: src/app/webcontainer/WebappSettingsPage.qml:55
 msgid "Default Zoom"
 msgstr ""
 
@@ -421,7 +421,7 @@ msgid ""
 "menu)"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:814
+#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:800
 msgid "Zoom"
 msgstr ""
 
@@ -500,7 +500,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:774
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:760
 msgid "Find in page"
 msgstr ""
 
@@ -530,7 +530,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:648
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:634
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr ""
@@ -600,7 +600,7 @@ msgstr ""
 msgid "Save video"
 msgstr ""
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:754
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:740
 msgid "Share"
 msgstr ""
 
@@ -658,14 +658,14 @@ msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
-#: src/app/webbrowser/Browser.qml:762 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:748 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
-#: src/app/webbrowser/Browser.qml:634 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/Browser.qml:620 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr ""
@@ -678,47 +678,47 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:224
+#: src/app/webbrowser/Browser.qml:228
 #, qt-format
 msgid "Blocked navigation request to domain %1."
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:247
+#: src/app/webbrowser/Browser.qml:251
 #, qt-format
 msgid "domain %1 is now whitelisted, it will be active on the text page reload"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:742
+#: src/app/webbrowser/Browser.qml:728
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:748
+#: src/app/webbrowser/Browser.qml:734
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:768 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:781 src/app/webbrowser/DownloadsPage.qml:48
+#: src/app/webbrowser/Browser.qml:767 src/app/webbrowser/DownloadsPage.qml:48
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:788 src/app/webbrowser/SettingsPage.qml:43
+#: src/app/webbrowser/Browser.qml:774 src/app/webbrowser/SettingsPage.qml:43
 msgid "Settings"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:794
+#: src/app/webbrowser/Browser.qml:780
 msgid "View source"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:801
+#: src/app/webbrowser/Browser.qml:787
 msgid "Save as HTML / PDF"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1015 src/app/webbrowser/Browser.qml:1053
+#: src/app/webbrowser/Browser.qml:1001 src/app/webbrowser/Browser.qml:1039
 #, qt-format
 msgid "(%1)"
 msgstr ""
@@ -854,7 +854,7 @@ msgid "Default"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:72
-#: src/app/webbrowser/SettingsPage.qml:234
+#: src/app/webbrowser/SettingsPage.qml:223
 msgid "Search engine"
 msgstr ""
 
@@ -866,20 +866,20 @@ msgstr ""
 msgid "Set Desktop mode"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:195
-#: src/app/webbrowser/SettingsPage.qml:277
-#: src/app/webcontainer/WebappSettingsPage.qml:114
-#: src/app/webcontainer/WebappSettingsPage.qml:154
+#: src/app/webbrowser/SettingsPage.qml:184
+#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webcontainer/WebappSettingsPage.qml:103
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:206
+#: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:291
-#: src/app/webcontainer/WebappSettingsPage.qml:168
-msgid "Domain whitelist mode"
+#: src/app/webbrowser/SettingsPage.qml:280
+#: src/app/webcontainer/WebappSettingsPage.qml:157
+msgid "Only allow browsing to whitelisted websites"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:320
@@ -896,17 +896,17 @@ msgid "Clear Browsing History?"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:341
-#: src/app/webcontainer/WebappSettingsPage.qml:197
+#: src/app/webcontainer/WebappSettingsPage.qml:198
 msgid "Clear Cache"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:344
-#: src/app/webcontainer/WebappSettingsPage.qml:200
+#: src/app/webcontainer/WebappSettingsPage.qml:201
 msgid "Clear Cache?"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:376
-#: src/app/webcontainer/WebappSettingsPage.qml:232
+#: src/app/webcontainer/WebappSettingsPage.qml:233
 msgid "Clear"
 msgstr ""
 
@@ -1024,7 +1024,7 @@ msgstr ""
 msgid "WebappContainer Settings"
 msgstr ""
 
-#: src/app/webcontainer/WebappSettingsPage.qml:125
+#: src/app/webcontainer/WebappSettingsPage.qml:114
 msgid "Reset webapp settings"
 msgstr ""
 

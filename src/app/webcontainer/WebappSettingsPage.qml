@@ -49,17 +49,6 @@ FocusScope {
                 width: parent.width
 
                 ListItem {
-                    objectName: "DomainSettings"
-
-                    ListItemLayout {
-                        title.text: "Domain specific settings"
-                        ProgressionSlot {}
-                    }
-
-                    onClicked: domainSettingsViewLoader.active = true
-                }
-
-                ListItem {
                     objectName: "defaultZoomFactor"
 
                     ListItemLayout {
@@ -165,7 +154,7 @@ FocusScope {
                             objectName: "setDomainWhiteListMode"
 
                             ListItemLayout {
-                                title.text: i18n.tr("Domain whitelist mode")
+                                title.text: i18n.tr("Only allow browsing to whitelisted websites")
                                 CheckBox {
                                     id: setDomainWhiteListModeCheckbox
                                     SlotsLayout.position: SlotsLayout.Trailing
@@ -184,12 +173,24 @@ FocusScope {
                             objectName: "DomainPermissions"
 
                             ListItemLayout {
-                                title.text: "Domain specific permissions"
+                                title.text: "Domain blacklist/whitelist"
                                 ProgressionSlot {}
                             }
 
                             onClicked: domainPermissionsViewLoader.active = true
                         }
+
+                        ListItem {
+                            objectName: "DomainSettings"
+
+                            ListItemLayout {
+                                title.text: "Domain specific settings"
+                                ProgressionSlot {}
+                            }
+
+                            onClicked: domainSettingsViewLoader.active = true
+                        }
+
 
                         ListItem {
                             objectName: "privacy.clearCache"

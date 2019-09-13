@@ -52,7 +52,7 @@ FocusScope {
         anchors.fill: parent
         focus: true
 
-        title: i18n.tr("Domain specific permissions")
+        title: i18n.tr("Domain blacklist/whitelist")
 
         showBackAction: !selectMode
 
@@ -103,9 +103,7 @@ FocusScope {
                 iconName: "edit"
                 visible: !selectMode
                 enabled: domainPermissionsListView.count > 0
-                onTriggered: {
-                    selectMode = true
-                }
+                onTriggered: selectMode = true
             },
             Action {
                 iconName: "add"
@@ -113,8 +111,9 @@ FocusScope {
 
                 onTriggered: {
                     var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), domainPermissionsPage);
-                    promptDialog.title = i18n.tr("Add domain")
-                    promptDialog.message = i18n.tr("Enter the name of the domain, e.g. example.com (subdomains will be removed).")
+                    promptDialog.title = i18n.tr("Add domain");
+                    promptDialog.message = i18n.tr("Enter the name of the domain, e.g. example.com (subdomains will be removed).");
+                    promptDialog.inputMethodHints = Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText;
                     promptDialog.accept.connect(function(text) {
                         if (text !== "") {
                             var domain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(text));
@@ -231,7 +230,7 @@ FocusScope {
                             }
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.Blocked)
-                                text: i18n.tr("Blocked")
+                                text: i18n.tr("Never allow access")
                                 font.bold: true
                                 color: theme.palette.normal.negative
                                 onCheckedChanged: {
@@ -243,7 +242,7 @@ FocusScope {
 
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.Whitelisted)
-                                text: i18n.tr("Whitelisted")
+                                text: i18n.tr("Always allow access")
                                 font.bold: true
                                 color: theme.palette.normal.positive
                                 onCheckedChanged: {

@@ -110,11 +110,12 @@ FocusScope {
 
                 onTriggered: {
                     var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), domainSettingsPage);
-                    promptDialog.title = i18n.tr("Add domain")
-                    promptDialog.message = i18n.tr("Enter the name of the domain, e.g. m.example.com")
+                    promptDialog.title = i18n.tr("Add domain");
+                    promptDialog.message = i18n.tr("Enter the name of the domain, e.g. m.example.com");
+                    promptDialog.inputMethodHints = Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText;
                     promptDialog.accept.connect(function(text) {
                         if (text !== "") {
-                            var domain = UrlUtils.extractHost(text)
+                            var domain = UrlUtils.extractHost(text);
                             if (DomainSettingsModel.contains(domain)) {
                                 domainSettingsItem.setDomainAsCurrentItem(domain);
                             }
@@ -185,7 +186,7 @@ FocusScope {
 
                         Column {
 
-                        spacing: units.gu(2)
+                        spacing: units.gu(3)
 
                         Label {
                             id: domainLabel
@@ -201,7 +202,8 @@ FocusScope {
                             visible: item.ListView.isCurrentItem
 
                             Label  {
-                                text: i18n.tr("allow custom schemes")
+                                width: parent.width * 0.9
+                                text: i18n.tr("allowed to launch other apps")
                             }
 
                             CheckBox {
@@ -217,14 +219,13 @@ FocusScope {
                             visible: item.ListView.isCurrentItem
 
                             Label  {
-                                text: i18n.tr("allow location access")
+                                width: parent.width * 0.9
+                                text: i18n.tr("allowed to access your location")
                             }
 
                             CheckBox {
                                 checked: model.allowLocation
-                                onTriggered: {
-                                    DomainSettingsModel.allowLocation(model.domain, checked);
-                                }
+                                onTriggered: DomainSettingsModel.allowLocation(model.domain, checked)
                             }
                         }
 
