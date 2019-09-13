@@ -283,7 +283,7 @@ FocusScope {
             wrapMode: Text.Wrap
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
-            text: i18n.tr("No domain specific permissions available")
+            text: i18n.tr("No sites have been granted special permissions")
         }
     }
 }
