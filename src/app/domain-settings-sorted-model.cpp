@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 ubports
+ * Copyright 2019 Chris Clime
  *
  * This file is part of morph-browser.
  *
