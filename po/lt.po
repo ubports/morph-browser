@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-08-11 10:49+0000\n"
+"PO-Revision-Date: 2019-09-08 20:50+0000\n"
 "Last-Translator: Moo <moose@mail.ru>\n"
 "Language-Team: Lithuanian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/lt/>\n"
@@ -34,13 +34,13 @@ msgstr "Gerai"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "Būtinas autentifikavimas."
+msgstr "Reikalingas tapatybės nustatymas."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Svetainė %1 reikalauja autentifikavimo."
+msgstr "Internetinė svetainė %1 reikalauja tapatybės nustatymo."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
@@ -68,16 +68,18 @@ msgid "Confirm Navigation"
 msgstr "Patvirtinti naršymą"
 
 #: src/app/BeforeUnloadDialog.qml:27
+#, fuzzy
 msgid "Leave"
 msgstr "Palikti"
 
 #: src/app/BeforeUnloadDialog.qml:35
+#, fuzzy
 msgid "Stay"
 msgstr "Likti"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Šis ryšys yra nepatikimas"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -86,11 +88,13 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Jūs bandote saugiai pasiekti %1, tačiau šios internetinės svetainės saugumo "
+"liudijimas nėra patikimas."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:161
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Vis tiek tęsti"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:174
@@ -99,11 +103,11 @@ msgstr ""
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript patvirtinimas"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "Tinklo klaida"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -114,10 +118,11 @@ msgstr ""
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Patikrinkite savo tinklo nustatymus ir bandykite įkelti puslapį iš naujo."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
+msgstr "Įkelti puslapį iš naujo"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -125,7 +130,7 @@ msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Šis puslapis nori žinoti jūsų įrenginio buvimo vietą."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -133,7 +138,7 @@ msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Allow"
-msgstr ""
+msgstr "Leisti"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
@@ -143,11 +148,11 @@ msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:56
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Šios internetinės svetainės saugumo liudijimas nėra patikimas.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:64
 msgid "Learn more"
-msgstr ""
+msgstr "Sužinoti daugiau"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:88
@@ -212,6 +217,8 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Kontrolinis kodas (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:154
 msgid ""
@@ -372,7 +379,7 @@ msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Kopijuoti nuorodą"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
@@ -394,7 +401,7 @@ msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "Pirmyn"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -415,13 +422,13 @@ msgstr ""
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
-msgstr ""
+msgstr "Nauja kortelė"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Atverti naujoje kortelėje"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
@@ -429,27 +436,27 @@ msgstr ""
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Atverti nuorodą numatytojoje naršyklėje"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Atverti nuorodą foninėje kortelėje"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Atverti nuorodą naujoje kortelėje"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Atverti nuorodą naujame lange"
 
 #: src/app/actions/OpenLinkInPrivateWindow.qml:22
 msgid "Open link in private window"
-msgstr ""
+msgstr "Atverti nuorodą privačiame lange"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Atverti vaizdo įrašą naujoje kortelėje"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
@@ -457,12 +464,12 @@ msgstr "Įdėti"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Grąžinti"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr ""
+msgstr "Įkelti iš naujo"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -476,11 +483,11 @@ msgstr ""
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Įrašyti nuorodą"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Įrašyti vaizdo įrašą"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
 msgid "Select all"
@@ -498,7 +505,7 @@ msgstr "Atšaukti"
 #: src/app/webbrowser/AddressBar.qml:212
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:248
 msgid "find in page"
@@ -531,11 +538,11 @@ msgstr ""
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr ""
+msgstr "Naujas aplankas"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr ""
+msgstr "Sukurti naują aplanką"
 
 #: src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:322
@@ -561,7 +568,7 @@ msgstr ""
 #: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
 #: src/app/webbrowser/HistoryViewWide.qml:407
 msgid "Done"
-msgstr ""
+msgstr "Atlikta"
 
 #: src/app/webbrowser/BookmarksView.qml:90
 #: src/app/webbrowser/BookmarksViewWide.qml:89
@@ -577,7 +584,7 @@ msgstr "Naujas langas"
 
 #: src/app/webbrowser/Browser.qml:591
 msgid "New private window"
-msgstr ""
+msgstr "Naujas privatus langas"
 
 #: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
 #: src/app/webbrowser/HistoryViewWide.qml:35
@@ -586,7 +593,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
 msgid "Downloads"
-msgstr ""
+msgstr "Atsiuntimai"
 
 #: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
 msgid "Settings"
@@ -609,21 +616,21 @@ msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "Atsisiųsti"
 
 #: src/app/webbrowser/DownloadDelegate.qml:151
 msgid "Download failed"
-msgstr ""
+msgstr "Atsiuntimas nepavyko"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:194
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:199
 msgid "Resume"
-msgstr ""
+msgstr "Pratęsti"
 
 #: src/app/webbrowser/DownloadsPage.qml:60
 msgid "Confirm selection"
@@ -641,8 +648,9 @@ msgstr ""
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 puslapis"
+msgstr[1] "%1 puslapiai"
+msgstr[2] "%1 puslapių"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
@@ -673,7 +681,7 @@ msgstr "Šiandien"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Tai yra privati kortelė"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -683,7 +691,7 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
-msgstr ""
+msgstr "Daugiau"
 
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
@@ -712,11 +720,11 @@ msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Užverti kortelę"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Šioje svetainėje yra nesaugus turinys"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
@@ -728,15 +736,15 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Serverio liudijimas neatitinka šios svetainės tapatybės."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Pasibaigė serverio liudijimo galiojimas."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Serverio liudijime yra neteisingos datos."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
@@ -744,15 +752,15 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Serverio liudijimas yra panaikintas."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Serverio liudijimas negalioja."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Serverio liudijimas yra nesaugus."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
@@ -760,7 +768,7 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "Esate prisijungę prie"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
@@ -773,7 +781,7 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:70
 #: src/app/webbrowser/SettingsPage.qml:150
 msgid "Search engine"
-msgstr ""
+msgstr "Paieškos sistema"
 
 #: src/app/webbrowser/SettingsPage.qml:96
 msgid "Restore previous session at startup"
@@ -782,16 +790,16 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:115
 #: src/app/webbrowser/SettingsPage.qml:193
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Privatumas ir leidimai"
 
 #: src/app/webbrowser/SettingsPage.qml:126
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Atstatyti naršyklės nustatymus"
 
 #: src/app/webbrowser/SettingsPage.qml:206
 #: src/app/webbrowser/SettingsPage.qml:342
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Kamera ir mikrofonas"
 
 #: src/app/webbrowser/SettingsPage.qml:215
 msgid "Clear Browsing History"
@@ -803,19 +811,19 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Clear Cache"
-msgstr ""
+msgstr "Išvalyti podėlį"
 
 #: src/app/webbrowser/SettingsPage.qml:230
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Išvalyti podėlį?"
 
 #: src/app/webbrowser/SettingsPage.qml:265
 msgid "Clear"
-msgstr ""
+msgstr "Išvalyti"
 
 #: src/app/webbrowser/SettingsPage.qml:354
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofonas"
 
 #: src/app/webbrowser/SettingsPage.qml:375
 msgid "Camera"
@@ -835,11 +843,11 @@ msgstr ""
 
 #: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr ""
+msgstr "Perkelti į naują langą"
 
 #: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
-msgstr ""
+msgstr "Užverti kortelę"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:137
 msgid "Remove"
@@ -850,12 +858,12 @@ msgstr "Šalinti"
 #: src/app/webcontainer/webapp-container.qml:73
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Ubuntu saityno naršyklė"
 
 #: src/app/webbrowser/morph-browser.qml:103
 #: src/app/webcontainer/webapp-container.qml:75
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Ubuntu saityno naršyklė"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -865,15 +873,15 @@ msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr ""
+msgstr "Pridėti paskyrą"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Nenaudoti paskyros"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Paskyros klaida"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -887,19 +895,19 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Nepavyko nustatyti tapatybę"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> reikia prieigos prie jūsų %2 internetinės paskyros."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> norėtų gauti prieigą prie jūsų %2 internetinės paskyros."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
@@ -920,15 +928,15 @@ msgstr ""
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Oi, kažkas nutiko."
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "Naršyklė"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "Saityno naršyklė"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
@@ -940,8 +948,8 @@ msgstr ""
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "Naujas langas"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "Naujas privatus langas"
