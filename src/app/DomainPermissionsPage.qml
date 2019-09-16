@@ -231,8 +231,7 @@ FocusScope {
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.Blocked)
                                 text: i18n.tr("Never allow access")
-                                font.bold: true
-                                color: theme.palette.normal.negative
+                                color: theme.palette.normal.backgroundText
                                 onCheckedChanged: {
                                     if (checked) {
                                         DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Blocked, false)
@@ -243,8 +242,7 @@ FocusScope {
                             CustomizedRadioButton {
                                 checked: (model.permission === DomainPermissionsModel.Whitelisted)
                                 text: i18n.tr("Always allow access")
-                                font.bold: true
-                                color: theme.palette.normal.positive
+                                color: theme.palette.normal.backgroundText
                                 onCheckedChanged: {
                                     if (checked) {
                                         DomainPermissionsModel.setPermission(model.domain, DomainPermissionsModel.Whitelisted, false)

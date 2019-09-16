@@ -27,9 +27,9 @@ ModalDialog {
     property string domain
     property bool showAllowPermanentlyCheckBox
 
-    message: i18n.tr("The following url with a custom scheme was blocked:") + "\n" +
+    message: i18n.tr("The site '%1' is trying to open the following URL with a custom scheme:").arg(domain) + "\n" +
              url + "\n\n" +
-             i18n.tr("Should all custom URL schemes from domain %1 be allowed?".arg(domain));
+             i18n.tr("This will try to dispatch this url to a system app if possible. Do you want to proceed?");
 
     signal allow()
     signal allowPermanently()
@@ -41,15 +41,15 @@ ModalDialog {
 
     ListItemLayout {
         visible: showAllowPermanentlyCheckBox
-        title.text: i18n.tr("Save permanently")
+        title.text: i18n.tr("Remember decision")
         CheckBox {
             id: allowPermanentlyCheckBox
          }
     }
     Button {
-        text: i18n.tr("OK")
+        text: i18n.tr("Allow")
         color: theme.palette.normal.positive
-        objectName: "okButton"
+        objectName: "allowButton"
         onClicked: allowPermanentlyCheckBox.checked ? allowPermanently() : allow()
     }
     Button {
