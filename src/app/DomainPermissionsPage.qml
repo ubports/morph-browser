@@ -189,7 +189,7 @@ FocusScope {
                             IconWithColorOverlay {
                                 overlayColor: theme.palette.normal.positive
                                 visible: (model.permission === DomainPermissionsModel.Whitelisted)
-                                name: "emblem-default-symbolic"
+                                name: "ok"
                                 height: units.gu(2)
                                 width: height
                             }
@@ -197,7 +197,7 @@ FocusScope {
                             IconWithColorOverlay {
                                 overlayColor: theme.palette.normal.negative
                                 visible: (model.permission === DomainPermissionsModel.Blocked)
-                                name: "action-unavailable-symbolic"
+                                name: "cancel"
                                 height: units.gu(2)
                                 width: height
                             }
