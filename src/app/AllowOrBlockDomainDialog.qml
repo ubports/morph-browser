@@ -22,11 +22,11 @@ import webbrowsercommon.private 0.1
 
 ModalDialog {
     objectName: "allowOrBlockDomain"
-    title: i18n.tr("Allow or block domain")
+    title: i18n.tr("Block domain")
 
     property string domain
 
-    message: i18n.tr("Should navigation requests to domain %1 be allowed?".arg(domain));
+    message: i18n.tr("About to access domain %1. Do you want to block this domain from now on?".arg(domain));
 
     signal allow()
     signal block()
@@ -37,16 +37,15 @@ ModalDialog {
     onCancel: hide()
 
     Button {
-        text: i18n.tr("Whitelist domain")
-        color: theme.palette.normal.positive
-        objectName: "okButton"
-        onClicked: allow()
-    }
-    Button {
         text: i18n.tr("Block domain")
         color: theme.palette.normal.negative
-        objectName: "okButton"
+        objectName: "blockButton"
         onClicked: block()
+    }
+    Button {
+        text: i18n.tr("Allow domain")
+        objectName: "allowButton"
+        onClicked: allow()
     }
     Button {
         objectName: "cancelButton"

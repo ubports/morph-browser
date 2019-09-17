@@ -225,7 +225,9 @@ BrowserView {
             {
                 if (isMainFrame)
                 {
-                    browser.currentWebview.showMessage(i18n.tr("Blocked navigation request to domain %1.").arg(requestDomainWithoutSubdomain));
+                    var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                    alertDialog.title = i18n.tr("Blocked domain");
+                    alertDialog.message = i18n.tr("Blocked navigation request to domain %1.").arg(requestDomainWithoutSubdomain);
                 }
                 request.action = WebEngineNavigationRequest.IgnoreRequest;
                 return;
