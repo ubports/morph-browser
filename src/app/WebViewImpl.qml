@@ -61,8 +61,6 @@ WebView {
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
 
-    //signal showDownloadDialog(string downloadId, var contentType, var downloader, string filename, string mimeType)
-
     QtObject {
         id: internal
 
