@@ -254,7 +254,7 @@ BrowserView {
                         DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
                         var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
                         alertDialog.title = i18n.tr("Whitelisted domain");
-                        alertDialog.message = i18n.tr("domain %1 is now whitelisted, it will be active on the text page reload.").arg(requestDomainWithoutSubdomain);
+                        alertDialog.message = i18n.tr("domain %1 is now whitelisted, it will be active on the next page reload.").arg(requestDomainWithoutSubdomain);
                     });
                 }
                 allowOrBlockDialog.block.connect(function() {

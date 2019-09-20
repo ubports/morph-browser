@@ -708,7 +708,7 @@ msgstr ""
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
-"domain %1 is now whitelisted, it will be active on the text page reload."
+"domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
 
 #: src/app/webbrowser/Browser.qml:734
