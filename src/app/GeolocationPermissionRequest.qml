@@ -39,7 +39,7 @@ Dialog {
 
     ListItemLayout {
         visible: showAllowPermanentlyCheckBox
-        title.text: i18n.tr("Save permanently")
+        title.text: i18n.tr("Remember decision")
         CheckBox {
             id: allowPermanentlyCheckBox
          }

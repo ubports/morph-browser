@@ -239,18 +239,22 @@ BrowserView {
                 allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
                 if (isMainFrame)
                 {
-                allowOrBlockDialog.allow.connect(function() {
-                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", browser.incognito);
-                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
-                    currentWebview.url = url;
-                });
+                    allowOrBlockDialog.parentDomain = "";
+                    allowOrBlockDialog.allow.connect(function() {
+                        DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", browser.incognito);
+                        DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
+                        currentWebview.url = url;
+                    });
                 }
                 else
                 {
+                    allowOrBlockDialog.parentDomain = currentDomainWithoutSubdomain;
                     allowOrBlockDialog.allow.connect(function() {
                         DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
                         DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
-                        browser.currentWebview.showMessage(i18n.tr("domain %1 is now whitelisted, it will be active on the text page reload").arg(requestDomainWithoutSubdomain));
+                        var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                        alertDialog.title = i18n.tr("Whitelisted domain");
+                        alertDialog.message = i18n.tr("domain %1 is now whitelisted, it will be active on the text page reload.").arg(requestDomainWithoutSubdomain);
                     });
                 }
                 allowOrBlockDialog.block.connect(function() {

@@ -320,18 +320,22 @@ WebappWebview {
             allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
             if (isMainFrame)
             {
-            allowOrBlockDialog.allow.connect(function() {
-                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", false);
-                DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
-                currentWebview.url = url;
-            });
+                allowOrBlockDialog.parentDomain = "";
+                allowOrBlockDialog.allow.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", false);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
+                    currentWebview.url = url;
+                });
             }
             else
             {
+                allowOrBlockDialog.parentDomain = currentDomainWithoutSubdomain;
                 allowOrBlockDialog.allow.connect(function() {
                     DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
                     DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
-                    browser.currentWebview.showMessage("domain %1 is now whitelisted, please reload the page.".arg(requestDomainWithoutSubdomain));
+                    var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                    alertDialog.title = i18n.tr("Whitelisted domain");
+                    alertDialog.message = i18n.tr("domain %1 is now whitelisted, please reload the page.").arg(requestDomainWithoutSubdomain);
                 });
             }
             allowOrBlockDialog.block.connect(function() {

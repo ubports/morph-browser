@@ -25,9 +25,10 @@ ModalDialog {
     title: i18n.tr("Block domain")
 
     property string domain
+    property string parentDomain
 
-    message: i18n.tr("About to access domain %1. Do you want to block this domain from now on?".arg(domain));
-
+    message: (parentDomain == "") ? i18n.tr("You're trying to access %1 but it is not on your approved domain whitelist. Would you like to continue to block the domain, allow browsing to the domain, or go back?").arg(domain)
+                                  : i18n.tr("%1 is trying to access %2 but it is not on your approved domain whitelist. Would you like to continue to block the domain, allow loading data from the domain, or just ignore this request ?").arg(parentDomain).arg(domain)
     signal allow()
     signal block()
     signal cancel()
