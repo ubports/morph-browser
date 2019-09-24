@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2017-03-15 20:08+0100\n"
-"PO-Revision-Date: 2019-09-21 00:14+0000\n"
+"PO-Revision-Date: 2019-09-25 20:51+0000\n"
 "Last-Translator: Moo <moose@mail.ru>\n"
 "Language-Team: Lithuanian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/lt/>\n"
@@ -68,9 +68,8 @@ msgid "Confirm Navigation"
 msgstr "Patvirtinti naršymą"
 
 #: src/app/BeforeUnloadDialog.qml:27
-#, fuzzy
 msgid "Leave"
-msgstr "Palikti"
+msgstr "Išeiti"
 
 #: src/app/BeforeUnloadDialog.qml:35
 #, fuzzy
