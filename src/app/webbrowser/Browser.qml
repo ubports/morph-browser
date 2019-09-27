@@ -36,6 +36,7 @@ BrowserView {
     id: browser
 
     property Settings settings
+    property var bookmarksModel: BookmarksModel
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
@@ -127,7 +128,7 @@ BrowserView {
 
     signal newWindowRequested(bool incognito)
     signal newWindowFromTab(var tab, var callback)
-    signal openLinkInWindowRequested(url url, bool incognito)
+    signal openLinkInNewWindowRequested(url url, bool incognito)
     signal openLinkInNewTabRequested(url url, bool background)
     signal shareLinkRequested(url linkUrl, string title)
     signal shareTextRequested(string text)
@@ -171,6 +172,107 @@ BrowserView {
             {
               console.debug("creating pdf %1 failed".arg(filePath))
             }
+        }
+
+        onNavigationRequested: {
+
+            var url = request.url;
+            var isMainFrame = request.isMainFrame;
+
+            // for file urls we set currentDomain to "scheme:file", because there is no host
+            var currentDomain = UrlUtils.schemeIs(currentWebview.url, "file") ? "scheme:file" : UrlUtils.extractHost(currentWebview.url);
+
+            // handle custom schemes
+            if (UrlUtils.hasCustomScheme(url))
+            {
+                if (! internal.areCustomUrlSchemesAllowed(currentDomain))
+                {
+                  request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+                  var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), currentWebview);
+                  allowCustomSchemesDialog.url = url;
+                  allowCustomSchemesDialog.domain = currentDomain;
+                  allowCustomSchemesDialog.showAllowPermanentlyCheckBox = ! browser.incognito;
+                  allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(currentDomain, false);
+                                                                     internal.navigateToUrlAsync(url);
+                                                                   }
+                                                      );
+                  allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(currentDomain, true);
+                                                                                internal.navigateToUrlAsync(url);
+                                                                               }
+                                                                   );
+                }
+                return;
+            }
+
+            // handle domain permissions
+            var requestDomain = UrlUtils.schemeIs(url, "file") ? "scheme:file" : UrlUtils.extractHost(url);
+            var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
+            var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(currentWebview.url));
+            var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
+
+            if (domainPermission !== DomainPermissionsModel.NotSet)
+            {
+                if (isMainFrame) {
+                  DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", browser.incognito);
+                }
+                else if (requestDomainWithoutSubdomain !== currentDomainWithoutSubdomain) {
+                  DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
+                }
+            }
+
+            if (domainPermission === DomainPermissionsModel.Blocked)
+            {
+                if (isMainFrame)
+                {
+                    var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                    alertDialog.title = i18n.tr("Blocked domain");
+                    alertDialog.message = i18n.tr("Blocked navigation request to domain %1.").arg(requestDomainWithoutSubdomain);
+                }
+                request.action = WebEngineNavigationRequest.IgnoreRequest;
+                return;
+            }
+
+            if ((domainPermission === DomainPermissionsModel.NotSet) && DomainPermissionsModel.whiteListMode)
+            {
+                var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
+                allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
+                if (isMainFrame)
+                {
+                    allowOrBlockDialog.parentDomain = "";
+                    allowOrBlockDialog.allow.connect(function() {
+                        DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", browser.incognito);
+                        DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
+                        currentWebview.url = url;
+                    });
+                }
+                else
+                {
+                    allowOrBlockDialog.parentDomain = currentDomainWithoutSubdomain;
+                    allowOrBlockDialog.allow.connect(function() {
+                        DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, browser.incognito);
+                        DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, browser.incognito);
+                        var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                        alertDialog.title = i18n.tr("Whitelisted domain");
+                        alertDialog.message = i18n.tr("domain %1 is now whitelisted, it will be active on the next page reload.").arg(requestDomainWithoutSubdomain);
+                    });
+                }
+                allowOrBlockDialog.block.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, browser.incognito);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, browser.incognito);
+                  });
+                request.action = WebEngineNavigationRequest.IgnoreRequest;
+                return;
+            }
+
+            // handle user agents
+            if (isMainFrame)
+            {
+                currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                console.log("user agent: " + currentWebview.context.httpUserAgent);
+            }
+
+            //currentWebview.showMessage(url)
         }
     }
 
@@ -263,9 +365,9 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: chrome.bottom
+                top: parent.top
             }
-            height: parent.height- osk.height - bottomEdgeBar.height
+            height: parent.height - osk.height - bottomEdgeBar.height
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
@@ -1061,6 +1163,34 @@ BrowserView {
                                          })
         Connections {
             target: settingsViewLoader.item
+            onClearCache: {
+                // clear Http cache
+                currentWebview.profile.clearHttpCache();
+
+                var cacheLocationUrl = Qt.resolvedUrl(cacheLocation);
+                var dataLocationUrl = Qt.resolvedUrl(dataLocation);
+
+                // clear favicons
+                FileOperations.removeDirRecursively(cacheLocationUrl + "/favicons");
+
+                // remove captures
+                FileOperations.removeDirRecursively(cacheLocationUrl + "/captures");
+
+                // Application Cache
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Application Cache");
+
+                // File System
+                FileOperations.removeDirRecursively(dataLocationUrl + "/File System");
+
+                // Local Storage
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Local Storage");
+
+                // Service WorkerScript
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker")
+
+                // Visited Links
+                FileOperations.remove(dataLocationUrl + "/Visited Links");
+            }
             onDone: settingsViewLoader.active = false
         }
     }
@@ -1317,6 +1447,35 @@ BrowserView {
             return false
         }
 
+        // domains the user has allowed custom protocols for this (incognito) session
+        property var domainsWithCustomUrlSchemesAllowed: []
+
+        function allowCustomUrlSchemes(domain, allowPermanently) {
+           domainsWithCustomUrlSchemesAllowed.push(domain);
+
+           if (allowPermanently)
+           {
+                DomainSettingsModel.allowCustomUrlSchemes(domain, true);
+           }
+        }
+
+        function areCustomUrlSchemesAllowed(domain) {
+
+            for (var i in domainsWithCustomUrlSchemesAllowed) {
+                if (domain === domainsWithCustomUrlSchemesAllowed[i]) {
+                    return true;
+                }
+            }
+
+            if (DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+            {
+                domainsWithCustomUrlSchemesAllowed.push(domain);
+                return true;
+            }
+
+            return false;
+        }
+
         function historyGoBack() {
             if (currentWebview && currentWebview.canGoBack) {
                 internal.resetFocus()
@@ -1331,9 +1490,14 @@ BrowserView {
             }
         }
 
+        function navigateToUrlAsync(targetUrl)
+        {
+            currentWebview.runJavaScript("window.location.href = '%1';".arg(targetUrl));
+        }
+
         property var currentBookmarkOptionsDialog: null
         function addBookmark(url, title, icon, location) {
-            if (title == "") title = UrlUtils.removeScheme(url)
+            if (title === "") title = UrlUtils.removeScheme(url)
             BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
@@ -1651,6 +1815,12 @@ BrowserView {
             browser.showDownloadsPage()
             browser.setDownloadComplete(download)
         }
+    }
+
+    Connections {
+        target: settings
+        onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
+        onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode
     }
     /*
 

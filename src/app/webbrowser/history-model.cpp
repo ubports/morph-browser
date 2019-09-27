@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "domain-utils.h"
+#include "../domain-utils.h"
 #include "history-model.h"
 
 // Qt

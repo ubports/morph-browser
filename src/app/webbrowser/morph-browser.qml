@@ -31,28 +31,33 @@ QtObject {
     function init(urls, newSession, incognito) {
         i18n.domain = "morph-browser"
         if (!newSession && settings.restoreSession && !incognito) {
-            session.restore()
+            session.restore();
         }
         if (allWindows.length == 0) {
-            windowFactory.createObject(null, {"incognito": incognito}).show()
+            windowFactory.createObject(null, {"incognito": incognito}).show();
         }
-        var window = allWindows[allWindows.length - 1]
+        var window = allWindows[allWindows.length - 1];
         for (var i in urls) {
-            window.addTab(urls[i]).load()
-            window.tabsModel.currentIndex = window.tabsModel.count - 1
+            window.addTab(urls[i]).load();
+            window.tabsModel.currentIndex = window.tabsModel.count - 1;
         }
         if (window.tabsModel.count === 0) {
-            window.addTab(incognito ? "" : settings.homepage).load()
-            window.tabsModel.currentIndex = 0
+            window.addTab(incognito ? "" : settings.homepage).load();
+            window.tabsModel.currentIndex = 0;
         }
         for (var w in allWindows) {
-            allWindows[w].tabsModel.currentTab.load()
+            allWindows[w].tabsModel.currentTab.load();
         }
 
         // FIXME: do this asynchronously
-        BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
-        HistoryModel.databasePath = dataLocation + "/history.sqlite"
-        DownloadsModel.databasePath = dataLocation + "/downloads.sqlite"
+        BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite";
+        HistoryModel.databasePath = dataLocation + "/history.sqlite";
+        DownloadsModel.databasePath = dataLocation + "/downloads.sqlite";
+        DomainPermissionsModel.databasePath = dataLocation + "/domainpermissions.sqlite";
+        DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode;
+        DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
+        DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
+        UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
     }
 
     // Array of all windows, sorted chronologically (most recently active last)
@@ -209,21 +214,15 @@ QtObject {
                     window.show()
 
                 }
-                onOpenLinkInWindowRequested: {
-                    var window = null
-                    if (incognito) {
-                        window = getLastActiveWindow(true)
-                    }
-                    if (!window) {
-                        window = windowFactory.createObject(
-                            null,
-                            {
-                                "incognito": incognito,
-                                "height": parent.height,
-                                "width": parent.width,
-                            }
-                        )
-                    }
+                onOpenLinkInNewWindowRequested: {
+                    var window = windowFactory.createObject(
+                        null,
+                        {
+                            "incognito": incognito,
+                            "height": parent.height,
+                            "width": parent.width,
+                        }
+                    )
                     window.addTab(url)
                     window.tabsModel.currentIndex = window.tabsModel.count - 1
                     window.tabsModel.currentTab.load()
@@ -300,16 +299,28 @@ QtObject {
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
+        property bool domainWhiteListMode: false
 
         function restoreDefaults() {
-            homepage  = "https://start.duckduckgo.com"
-            searchEngine = "duckduckgo"
-            restoreSession = true
-            setDesktopMode = false
-            zoomFactor = 1.0
-            newTabDefaultSection = 0
-            defaultAudioDevice = ""
-            defaultVideoDevice = ""
+            homepage  = "https://start.duckduckgo.com";
+            searchEngine = "duckduckgo";
+            restoreSession = true;
+            setDesktopMode = false;
+            zoomFactor = 1.0;
+            newTabDefaultSection = 0;
+            defaultAudioDevice = "";
+            defaultVideoDevice = "";
+            domainWhiteListMode = false;
+        }
+
+        function resetDomainPermissions() {
+            DomainPermissionsModel.deleteAndResetDataBase();
+        }
+
+        function resetDomainSettings() {
+            DomainSettingsModel.deleteAndResetDataBase();
+            // it is a common database with DomainSettingsModel, so it is only for reset here
+            UserAgentsModel.deleteAndResetDataBase();
         }
     }
 

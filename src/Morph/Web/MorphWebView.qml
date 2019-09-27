@@ -239,6 +239,9 @@ WebEngineView {
     readonly property string lastLoadRequestErrorString: internal.lastLoadRequestErrorString
     readonly property int lastLoadRequestErrorDomain: internal.lastLoadRequestErrorDomain
     onLoadingChanged: {
+        if (loadRequest.errorCode === 420) {
+            _webview.stop()
+        }
         if ((loadRequest.url === url) && (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus)) {
             internal.lastLoadRequestStatus = loadRequest.status;
             internal.lastLoadRequestErrorString = loadRequest.errorString;

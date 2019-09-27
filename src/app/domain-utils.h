@@ -48,6 +48,37 @@ static QString extractTopLevelDomainName(const QUrl& url)
     return sld + tld;
 }
 
+static QString getDomainWithoutSubdomain(const QString& domain)
+{
+    // e.g. ci.ubports.com (does handle domains like .co.uk correctly)
+    // .com
+    QString topLevelDomain = QUrl("//" + domain).topLevelDomain();
+
+    // invalid top level domain (e.g. local device or IP address)
+    if (topLevelDomain.isEmpty())
+    {
+        QString lastPartOfDomain = domain.mid(domain.lastIndexOf('.'));
+
+        // last part is numeric -> seems to be an IP address
+        bool convertToIntOk;
+        lastPartOfDomain.mid(1).toInt(&convertToIntOk);
+
+        if (convertToIntOk)
+        {
+          return domain;
+        }
+
+        topLevelDomain = lastPartOfDomain;
+    }
+
+    // ci.ubports
+    QString urlWithoutTopLevelDomain = domain.mid(0, domain.length() - topLevelDomain.length());
+    // ubports (if no . is found, the string stays the same because lastIndexOf is -1)
+    QString hostName = urlWithoutTopLevelDomain.mid(urlWithoutTopLevelDomain.lastIndexOf('.') + 1);
+    // ubports.com
+    return hostName + topLevelDomain;
+}
+
 } // namespace DomainUtils
 
 #endif // __DOMAIN_UTILS_H__

@@ -26,7 +26,6 @@ WebEngineProfile {
     property alias dataPath: oxideContext.persistentStoragePath
     property alias maxCacheSizeHint: oxideContext.httpCacheMaximumSize
     property alias incognito: oxideContext.offTheRecord
-
     readonly property string defaultUserAgent: __ua.defaultUA
 
     dataPath: dataLocation

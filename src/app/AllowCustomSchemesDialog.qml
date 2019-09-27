@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 Canonical Ltd.
+ * Copyright 2019 Chris Clime
  *
  * This file is part of morph-browser.
  *
@@ -18,24 +18,26 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 
-Dialog {
-    id: dialog
+ModalDialog {
+    objectName: "confirmDialog"
+    title: i18n.tr("Custom URL schemes")
 
-    property string securityOrigin
+    property string url
+    property string domain
     property bool showAllowPermanentlyCheckBox
 
-    title: i18n.tr("Permission Request")
-    text: securityOrigin + "<br>" + i18n.tr("This page wants to know your device’s location.")
-    
+    message: i18n.tr("The site '%1' is trying to open the following URL with a custom scheme:").arg(domain) + "\n" +
+             url + "\n\n" +
+             i18n.tr("This will try to dispatch this url to a system app if possible. Do you want to proceed?");
+
     signal allow()
     signal allowPermanently()
-    signal reject()
+    signal cancel()
     
-    onAllow: { PopupUtils.close(dialog); }
-    onAllowPermanently: { PopupUtils.close(dialog); }
-    onReject: { PopupUtils.close(dialog); }
+    onAllow: hide()
+    onAllowPermanently: hide()
+    onCancel: hide()
 
     ListItemLayout {
         visible: showAllowPermanentlyCheckBox
@@ -45,15 +47,15 @@ Dialog {
          }
     }
     Button {
-        objectName: "allow"
         text: i18n.tr("Allow")
         color: theme.palette.normal.positive
+        objectName: "allowButton"
         onClicked: allowPermanentlyCheckBox.checked ? allowPermanently() : allow()
     }
     Button {
-        objectName: "deny"
-        text: i18n.tr("Deny")
+        objectName: "cancelButton"
+        text: i18n.tr("Cancel")
         enabled: ! allowPermanentlyCheckBox.checked
-        onClicked: reject()
+        onClicked: cancel()
     }
 }

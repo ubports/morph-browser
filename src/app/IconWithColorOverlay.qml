@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Canonical Ltd.
+ * Copyright 2019 Chris Clime
  *
  * This file is part of morph-browser.
  *
@@ -16,8 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import QtQuick 2.6
+import QtGraphicalEffects 1.0
 import Ubuntu.Components 1.3
 
-Action {
-    text: i18n.tr("Open link in private window")
+Item {
+    id: iconWithColorOverlay
+    property string overlayColor
+    property string name
+
+    Icon {
+        id: icon
+        name: iconWithColorOverlay.name
+        width: iconWithColorOverlay.width
+        height: iconWithColorOverlay.height
+    }
+
+    ColorOverlay {
+        anchors.fill: icon
+        source: icon
+        color: overlayColor
+    }
+    
 }

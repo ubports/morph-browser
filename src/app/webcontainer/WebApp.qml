@@ -29,6 +29,9 @@ import "ColorUtils.js" as ColorUtils
 
 BrowserView {
     id: webapp
+
+    property Settings settings
+
     objectName: "webappBrowserView"
 
     currentWebview: containerWebView.currentWebview
@@ -146,6 +149,11 @@ BrowserView {
             }
         }
         return result
+    }
+
+    function showWebappSettings()
+    {
+       webappSettingsViewLoader.active = true;
     }
 
     Item {
@@ -286,6 +294,54 @@ BrowserView {
         }
 */
 
+        Loader {
+            id: webappSettingsViewLoader
+
+            anchors.fill: parent
+            active: false
+            asynchronous: false
+            Component.onCompleted: {
+                setSource("WebappSettingsPage.qml", {
+                              "focus": true,
+                              "settingsObject": settings
+                          })
+            }
+
+            Connections {
+                target: webappSettingsViewLoader.item
+                onClearCache: {
+
+                    // clear http cache
+                    webapp.currentWebview.profile.clearHttpCache();
+
+                    var cacheLocationUrl = Qt.resolvedUrl(cacheLocation);
+                    var dataLocationUrl = Qt.resolvedUrl(webapp.dataPath);
+
+                    // clear favicons
+                    FileOperations.removeDirRecursively(cacheLocationUrl + "/favicons");
+
+                    // remove captures
+                    FileOperations.removeDirRecursively(cacheLocationUrl + "/captures");
+
+                    // application cache
+                    FileOperations.removeDirRecursively(dataLocationUrl + "/Application Cache");
+
+                    // File System
+                    FileOperations.removeDirRecursively(dataLocationUrl + "/File System");
+
+                    // Local Storage
+                    FileOperations.removeDirRecursively(dataLocationUrl + "/Local Storage");
+
+                    // Service WorkerScript
+                    FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker")
+
+                    // visited Links
+                    FileOperations.remove(dataLocationUrl + "/Visited Links");
+                }
+                onDone: webappSettingsViewLoader.active = false
+            }
+        }
+
        Connections {
             target: webapp.currentWebview
             enabled: !webapp.chromeless
@@ -294,9 +350,15 @@ BrowserView {
                 if (webapp.currentWebview.isFullScreen) {
                     chromeLoader.item.state = "hidden"
                 } else {
-                    chromeLoader.item.state == "shown"
+                    chromeLoader.item.state === "shown"
                 }
             }
+       }
+
+       Connections {
+           target: settings
+           onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
+           onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode
        }
 
         ChromeController {

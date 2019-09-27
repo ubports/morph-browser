@@ -33,6 +33,8 @@ WebView {
     readonly property real scaleFactor: Screen.devicePixelRatio
 
     property var currentWebview: webview
+    readonly property string currentDomain: UrlUtils.extractHost(webview.url)
+    property string previousDomain
     property ContextMenuRequest contextMenuRequest: null
 
     // scroll positions at the moment of the context menu request
@@ -43,6 +45,7 @@ WebView {
 
     // better way to detect that, or move context menu items only available for the browser to other files ?
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
+    readonly property bool incognito: ! isWebApp && browserTab.incognito
 
     readonly property alias findController: findController
     readonly property alias zoomController: zoomController
@@ -52,6 +55,8 @@ WebView {
 
     //enable using plugins, such as widevine or flash, to be installed separate
     settings.pluginsEnabled: true
+
+    settings.unknownUrlSchemePolicy: WebEngineSettings.AllowAllUnknownUrlSchemes
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
@@ -88,7 +93,7 @@ WebView {
       QtObject {
         id: zoomController
 
-        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : 1.0
+        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0
         property real currentZoomFactor: defaultZoomFactor
@@ -96,30 +101,68 @@ WebView {
 
         function save() {
             viewSpecificZoom = false
-            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
             confirmDialog.title = i18n.tr("Default Zoom")
-            confirmDialog.message = i18n.tr("Set current zoom as default zoom for morph-browser ? (You can change it in the settings menu)")
+            confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
             confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
+
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain();
+            }
         }
 
         function refresh() {
-            webview.zoomFactor = currentZoomFactor
+            webview.zoomFactor = currentZoomFactor;
         }
 
         function reset() {
-            viewSpecificZoom = false
-            currentZoomFactor = defaultZoomFactor
-            refresh()
+            viewSpecificZoom = false;
+            currentZoomFactor = defaultZoomFactor;
+            refresh();
         }
+
+        function saveZoomFactorForCurrentDomain()
+        {
+           var domain = UrlUtils.extractHost(webview.url);
+           if (domain === "")
+           {
+               // e.g. file:// urls
+               domain = "scheme:" + UrlUtils.extractScheme(webview.url);
+           }
+
+           if (Math.abs(currentZoomFactor - defaultZoomFactor) > 0.01)
+           {
+             DomainSettingsModel.setZoomFactor(domain, currentZoomFactor);
+           }
+           else
+           {
+             // if the zoom factor is the default, it is no longer saved in the domain settings database (NaN)
+             if (! isNaN(DomainSettingsModel.getZoomFactor(domain)))
+             {
+                 DomainSettingsModel.setZoomFactor(domain, NaN);
+             }
+           }
+        }
+
         function zoomIn() {
-            viewSpecificZoom = true
-            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
-            refresh()
+            viewSpecificZoom = true;
+            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05));
+            refresh();
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain();
+            }
+
         }
         function zoomOut() {
             viewSpecificZoom = true
-            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05))
-            refresh()
+            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05));
+            refresh();
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain()
+            }
         }
      }
 
@@ -230,11 +273,22 @@ WebView {
          {
              case WebEngineView.Geolocation:
 
-             // TODO: we might want to store the answer to avoid requesting
-             // the permission everytime the user visits this site.
+             var domain = UrlUtils.extractHost(securityOrigin);
+
+             if (DomainSettingsModel.isLocationAllowed(domain))
+             {
+                 grantFeaturePermission(securityOrigin, feature, true);
+                 return;
+             }
+
              var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"), this);
-             geoPermissionDialog.origin = securityOrigin;
-             geoPermissionDialog.feature = feature;
+             geoPermissionDialog.securityOrigin = securityOrigin;
+             geoPermissionDialog.showAllowPermanentlyCheckBox = (domain !== "") && ! incognito
+             geoPermissionDialog.allow.connect(function() { grantFeaturePermission(securityOrigin, feature, true); });
+             geoPermissionDialog.allowPermanently.connect(function() { grantFeaturePermission(securityOrigin, feature, true);
+                                                                       DomainSettingsModel.allowLocation(domain, true);
+                                                                     })
+             geoPermissionDialog.reject.connect(function() { grantFeaturePermission(securityOrigin, feature, false); });
              break;
 
              case WebEngineView.MediaAudioCapture:
@@ -263,7 +317,7 @@ WebView {
 
     function showMessage(text) {
 
-         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"), this);
+         var alertDialog = PopupUtils.open(Qt.resolvedUrl("AlertDialog.qml"), webview);
          alertDialog.message = text;
      }
 
@@ -342,17 +396,17 @@ WebView {
         }
         Actions.OpenLinkInNewWindow {
             objectName: "OpenLinkInNewWindowContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: !incognito && contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: webview.triggerWebAction(WebEngineView.OpenLinkInNewWindow)
         }
-        Actions.OpenLinkInPrivateWindow {
-            objectName: "OpenLinkInPrivateWindowContextualAction"
+        Actions.OpenLinkInNewPrivateWindow {
+            objectName: "OpenLinkInNewPrivateWindowContextualAction"
             enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
-            onTriggered: browser.openLinkInWindowRequested(contextMenuRequest.linkUrl, true)
+            onTriggered: browser.openLinkInNewWindowRequested(contextMenuRequest.linkUrl, true)
         }
         Actions.BookmarkLink {
             objectName: "BookmarkLinkContextualAction"
-            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !BookmarksModel.contains(contextMenuRequest.linkUrl)
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString() && !browser.bookmarksModel.contains(contextMenuRequest.linkUrl)
             onTriggered: showMessage("Actions.BookmarkLink not implemented.");
         }
         Actions.CopyLink {
@@ -661,12 +715,20 @@ WebView {
                     onTriggered: webview.runJavaScript("window.getSelection().toString()", function(result) { browser.shareTextRequested(result) })
                 }
                 Action {
-                       objectName: "zoom"
-                       text: i18n.tr("Zoom")
-                       iconName: "zoom-in"
-                       enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
-                       visible: enabled
-                       onTriggered: webview.showZoomMenu()
+                    name: "zoom"
+                    text: i18n.tr("Zoom")
+                    iconName: "zoom-in"
+                    enabled: ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
+                    visible: enabled
+                    onTriggered: webview.showZoomMenu()
+                }
+                Action {
+                    name: "settings"
+                    text: i18n.dtr('ubuntu-ui-toolkit', "Settings")
+                    iconName: "settings"
+                    enabled: isWebApp && ! domElementOfContextMenu.hasSelectMethod && ( quickMenu.selectedTextLength === 0 || domElementOfContextMenu.isDocumentElement )
+                    visible: enabled
+                    onTriggered: webapp.showWebappSettings()
                 }
                 // only needed as long as we don't detect the "blur" event of the control
                 // -> try to get that via WebChannel / other mechanism and hide the quickMenu automatically if control has no longer focus
@@ -759,7 +821,6 @@ WebView {
                     name: "zoomSave"
                     text: i18n.tr("Save")
                     iconName: "save"
-                    visible: ! isWebApp
                     enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
                     onTriggered: zoomController.save()
                 }
@@ -804,16 +865,6 @@ WebView {
             }
         }
 
-    onNavigationRequested: function (request) {
-        if (request.isMainFrame)
-        {
-            quickMenu.visible = false;
-            context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
-            console.log(context.__ua.defaultUA);
-        }
-        request.action = WebEngineNavigationRequest.AcceptRequest;
-    }
-
     onFullScreenRequested: function(request) {
        request.accept();
    }
@@ -823,9 +874,32 @@ WebView {
        // not about current url (e.g. finished loading of page we have already navigated away from)
        if (loadRequest.url !== webview.url) {
            return;
-       }
+        }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
+
+            if (currentDomain !== previousDomain)
+            {
+                var domain = currentDomain;
+                // e.g. for file scheme
+                if (domain === "")
+                {
+                   domain = "scheme:" + UrlUtils.extractScheme(webview.url);
+                }
+
+                var zoomFactor = DomainSettingsModel.getZoomFactor(domain);
+
+                if (isNaN(zoomFactor) ) {
+                  zoomController.viewSpecificZoom = false;
+                  zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
+                }
+                else {
+                  zoomController.viewSpecificZoom = true;
+                  zoomController.currentZoomFactor = zoomFactor;
+                }
+                previousDomain = currentDomain;
+            }
+
             zoomController.refresh()
         }
 

@@ -23,6 +23,8 @@ import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.7
 import Morph.Web 0.1
+import webbrowsercommon.private 0.1
+import "../UrlUtils.js" as UrlUtils
 import ".."
 
 WebappWebview {
@@ -129,7 +131,6 @@ WebappWebview {
         openUrlExternally(request.requestedUrl, request.userInitiated)
       }
     }
-    onNavigationRequested: navigationRequestedDelegate(request)
 /*
     Connections {
         target: webview.visible ? webview : null
@@ -220,43 +221,165 @@ WebappWebview {
         webview.url = targetUrl
     }
 
+    function navigateToUrlAsync(targetUrl)
+    {
+        currentWebview.runJavaScript("window.location.href = '%1';".arg(targetUrl));
+    }
+
+    // domains the user has allowed custom protocols for this (incognito) session
+    property var domainsWithCustomUrlSchemesAllowed: []
+
+    function allowCustomUrlSchemes(domain, allowPermanently) {
+       domainsWithCustomUrlSchemesAllowed.push(domain);
+
+       if (allowPermanently)
+       {
+            DomainSettingsModel.allowCustomUrlSchemes(domain, true);
+       }
+    }
+
+    function areCustomUrlSchemesAllowed(domain) {
+
+        for (var i in domainsWithCustomUrlSchemesAllowed) {
+            if (domain === domainsWithCustomUrlSchemesAllowed[i]) {
+                return true;
+            }
+        }
+
+        if (DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
+        {
+            domainsWithCustomUrlSchemesAllowed.push(domain);
+            return true;
+        }
+
+        return false;
+    }
+
     function navigationRequestedDelegate(request) {
-        var url = request.url.toString()
+
+        var url = request.url.toString();
+        var isMainFrame = request.isMainFrame;
+
+        // for file urls we set currentDomain to "scheme:file", because there is no host
+        var currentDomain = UrlUtils.schemeIs(webview.url, "file") ? "scheme:file" : UrlUtils.extractHost(webview.url);
+
+        // handle custom schemes
+        if (UrlUtils.hasCustomScheme(url))
+        {
+            if (! areCustomUrlSchemesAllowed(currentDomain))
+            {
+              request.action = WebEngineNavigationRequest.IgnoreRequest;
+
+              var allowCustomSchemesDialog = PopupUtils.open(Qt.resolvedUrl("../AllowCustomSchemesDialog.qml"), webview);
+              allowCustomSchemesDialog.url = url;
+              allowCustomSchemesDialog.domain = currentDomain;
+              allowCustomSchemesDialog.showAllowPermanentlyCheckBox = true;
+              allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(currentDomain, false);
+                                                                 navigateToUrlAsync(url);
+                                                                }
+                                                    );
+              allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(currentDomain, true);
+                                                                            navigateToUrlAsync(url);
+                                                                           }
+                                                               );
+            }
+            return;
+        }
+
+        // handle domain permissions
+        var requestDomain = UrlUtils.schemeIs(url, "file") ? "scheme:file" : UrlUtils.extractHost(url);
+        var requestDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(requestDomain);
+        var currentDomainWithoutSubdomain = DomainPermissionsModel.getDomainWithoutSubdomain(UrlUtils.extractHost(webview.url));
+        var domainPermission = DomainPermissionsModel.getPermission(requestDomainWithoutSubdomain);
+
+        if (domainPermission !== DomainPermissionsModel.NotSet)
+        {
+            if (isMainFrame) {
+              DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", false);
+            }
+            else if (requestDomainWithoutSubdomain !== currentDomainWithoutSubdomain) {
+              DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
+            }
+        }
+
+        if (domainPermission === DomainPermissionsModel.Blocked)
+        {
+            if (isMainFrame)
+            {
+                var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                alertDialog.title = i18n.tr("Blocked domain");
+                alertDialog.message = i18n.tr("Blocked navigation request to domain %1.").arg(requestDomainWithoutSubdomain);
+            }
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            return;
+        }
+
+        if ((domainPermission === DomainPermissionsModel.NotSet) && DomainPermissionsModel.whiteListMode)
+        {
+            var allowOrBlockDialog = PopupUtils.open(Qt.resolvedUrl("../AllowOrBlockDomainDialog.qml"), currentWebview);
+            allowOrBlockDialog.domain = requestDomainWithoutSubdomain;
+            if (isMainFrame)
+            {
+                allowOrBlockDialog.parentDomain = "";
+                allowOrBlockDialog.allow.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, "", false);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
+                    currentWebview.url = url;
+                });
+            }
+            else
+            {
+                allowOrBlockDialog.parentDomain = currentDomainWithoutSubdomain;
+                allowOrBlockDialog.allow.connect(function() {
+                    DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, currentDomainWithoutSubdomain, false);
+                    DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Whitelisted, false);
+                    var alertDialog = PopupUtils.open(Qt.resolvedUrl("../AlertDialog.qml"), browser.currentWebview);
+                    alertDialog.title = i18n.tr("Whitelisted domain");
+                    alertDialog.message = i18n.tr("domain %1 is now whitelisted, please reload the page.").arg(requestDomainWithoutSubdomain);
+                });
+            }
+            allowOrBlockDialog.block.connect(function() {
+                DomainPermissionsModel.setRequestedByDomain(requestDomainWithoutSubdomain, isMainFrame ? "" : currentDomainWithoutSubdomain, false);
+                DomainPermissionsModel.setPermission(requestDomainWithoutSubdomain, DomainPermissionsModel.Blocked, false);
+              });
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            return;
+        }
+
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
-            request.action = WebEngineNavigationRequest.IgnoreRequest
-            openUrlExternally(url, true)
-            return
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            openUrlExternally(url, true);
+            return;
         }
 
         request.action = WebEngineNavigationRequest.IgnoreRequest
         if (isNewForegroundWebViewDisposition(request.disposition)) {
-            var shouldAcceptRequest =
-                    popupController.handleNewForegroundNavigationRequest(url, request, true);
+            var shouldAcceptRequest = popupController.handleNewForegroundNavigationRequest(url, request, true);
             if (shouldAcceptRequest) {
-                request.action = WebEngineNavigationRequest.AcceptRequest
+                request.action = WebEngineNavigationRequest.AcceptRequest;
             }
-            return
+            return;
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
         if ( ! webview.haveValidUrlPatterns() && ! webview.isRunningAsANamedWebapp()) {
-            request.action = WebEngineNavigationRequest.AcceptRequest
-            return
+            request.action = WebEngineNavigationRequest.AcceptRequest;
+            return;
         }
 
         // for now (as the old behavior) allow resources to be loaded
         // ToDo: maybe we should only allow resources defined in the URL patterns here
-        if (! request.isMainFrame)
+        if (! isMainFrame)
         {
-            console.debug('accepted resource request to %1.'.arg(url))
-            request.action = WebEngineNavigationRequest.AcceptRequest
+            console.debug('accepted resource request to %1.'.arg(url));
+            request.action = WebEngineNavigationRequest.AcceptRequest;
         }
 
         else if (webview.shouldAllowNavigationTo(url))
         {
-            request.action = WebEngineNavigationRequest.AcceptRequest
+            request.action = WebEngineNavigationRequest.AcceptRequest;
         }
 
         // SAML requests are used for instance by Google Apps for your domain;
@@ -273,14 +396,14 @@ WebappWebview {
 
       if (request.action === WebEngineNavigationRequest.IgnoreRequest) {
 
-            if (request.isMainFrame)
+            if (isMainFrame)
             {
-                console.debug('Opening: %1 in the browser window.'.arg(url))
-                openUrlExternally(url, true)
+                console.debug('Opening: %1 in the browser window.'.arg(url));
+                openUrlExternally(url, true);
             }
             else
             {
-                console.debug('ignored request of current page to %1.'.arg(url))
+                console.debug('ignored request of current page to %1.'.arg(url));
             }
       }
     }

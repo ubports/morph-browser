@@ -23,7 +23,7 @@ import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.5
 import Morph.Web 0.1
 import webbrowserapp.private 0.1
-
+import ".." as Common
 import "../UrlUtils.js" as UrlUtils
 
 FocusScope {
@@ -31,6 +31,7 @@ FocusScope {
 
     property QtObject settingsObject
 
+    signal clearCache()
     signal done()
 
     SearchEngines {
@@ -38,7 +39,7 @@ FocusScope {
         searchPaths: searchEnginesSearchPaths
     }
 
-    BrowserPage {
+    Common.BrowserPage {
         title: i18n.tr("Settings")
 
         anchors.fill: parent
@@ -194,7 +195,11 @@ FocusScope {
                         title.text: i18n.tr("Reset browser settings")
                     }
 
-                    onClicked: settingsObject.restoreDefaults()
+                    onClicked: {
+                        settingsObject.restoreDefaults();
+                        settingsObject.resetDomainPermissions();
+                        settingsObject.resetDomainSettings();
+                    }
                 }
             }
         }
@@ -209,7 +214,7 @@ FocusScope {
         Component {
             id: searchEngineComponent
 
-            BrowserPage {
+            Common.BrowserPage {
                 id: searchEngineItem
                 objectName: "searchEnginePage"
                 anchors.fill: parent
@@ -236,7 +241,7 @@ FocusScope {
                             title.text: searchEngineDelegate.displayName
                             CheckBox {
                                 SlotsLayout.position: SlotsLayout.Trailing
-                                checked: settingsObject.searchEngine == delegateSearchEngine.filename
+                                checked: settingsObject.searchEngine === delegateSearchEngine.filename
                                 onClicked: {
                                     settingsObject.searchEngine = delegateSearchEngine.filename
                                     searchEngineItem.destroy()
@@ -251,7 +256,7 @@ FocusScope {
         Component {
             id: privacyComponent
 
-            BrowserPage {
+            Common.BrowserPage {
                 id: privacyItem
                 objectName: "privacySettings"
 
@@ -267,6 +272,47 @@ FocusScope {
                     Column {
                         id: privacyCol
                         width: parent.width
+
+                        ListItem {
+                            objectName: "setDomainWhiteListMode"
+
+                            ListItemLayout {
+                                title.text: i18n.tr("Only allow browsing to whitelisted websites")
+                                CheckBox {
+                                    id: setDomainWhiteListModeCheckbox
+                                    SlotsLayout.position: SlotsLayout.Trailing
+                                    onTriggered: settingsObject.domainWhiteListMode = checked
+                                }
+                            }
+
+                            Binding {
+                                target: setDomainWhiteListModeCheckbox
+                                property: "checked"
+                                value: settingsObject.domainWhiteListMode
+                            }
+                        }
+
+                        ListItem {
+                            objectName: "DomainPermissions"
+
+                            ListItemLayout {
+                               title.text: "Domain blacklist/whitelist"
+                               ProgressionSlot {}
+                           }
+
+                           onClicked: domainPermissionsViewLoader.active = true
+                        }
+
+                        ListItem {
+                            objectName: "DomainSettings"
+
+                            ListItemLayout {
+                               title.text: "Domain specific settings"
+                               ProgressionSlot {}
+                           }
+
+                           onClicked: domainSettingsViewLoader.active = true
+                        }
 
                         ListItem {
                             objectName: "privacy.mediaAccess"
@@ -295,11 +341,8 @@ FocusScope {
                                 title.text: i18n.tr("Clear Cache")
                             }
                             onClicked: {
-                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")})
-                                dialog.confirmed.connect(function() {
-                                    enabled = false;
-                                    CacheDeleter.clear(cacheLocation + "/Cache2", function() { enabled = true });
-                                })
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")});
+                                dialog.confirmed.connect(clearCache);
                             }
                         }
                     }
@@ -401,7 +444,7 @@ FocusScope {
     Component {
         id: mediaAccessComponent
 
-        BrowserPage {
+        Common.BrowserPage {
             id: mediaAccessItem
             objectName: "mediaAccessSettings"
             anchors.fill: parent
@@ -458,6 +501,54 @@ FocusScope {
                             settingsObject.defaultVideoDevice = id
                         }
                     }
+                }
+            }
+        }
+    }
+
+    Loader {
+        id: domainSettingsViewLoader
+
+        anchors.fill: parent
+        active: false
+        asynchronous: true
+        Component.onCompleted: {
+            setSource("../DomainSettingsPage.qml")
+        }
+
+        Connections {
+            target: domainSettingsViewLoader.item
+            onDone: domainSettingsViewLoader.active = false
+            onReload: {
+                domainSettingsViewLoader.active = false
+                domainSettingsViewLoader.active = true
+
+                if (selectedDomain) {
+                  domainSettingsViewLoader.item.setDomainAsCurrentItem(selectedDomain)
+                }
+            }
+        }
+    }
+
+    Loader {
+        id: domainPermissionsViewLoader
+
+        anchors.fill: parent
+        active: false
+        asynchronous: true
+        Component.onCompleted: {
+            setSource("../DomainPermissionsPage.qml")
+        }
+
+        Connections {
+            target: domainPermissionsViewLoader.item
+            onDone: domainPermissionsViewLoader.active = false
+            onReload: {
+                domainPermissionsViewLoader.active = false
+                domainPermissionsViewLoader.active = true
+
+                if (selectedDomain) {
+                  domainPermissionsViewLoader.item.setDomainAsCurrentItem(selectedDomain)
                 }
             }
         }
