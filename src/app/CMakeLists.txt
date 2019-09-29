@@ -46,7 +46,7 @@ target_link_libraries(${COMMONLIB}
     ${LIBAPPARMOR_LDFLAGS}
 )
 
-file(GLOB QML_FILES *.qml)
+file(GLOB QML_FILES *.qml qmldir)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
 file(GLOB JS_FILES *.js)
 install(FILES ${JS_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
