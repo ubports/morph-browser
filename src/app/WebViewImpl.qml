@@ -414,7 +414,7 @@ WebView {
         }
         Actions.SaveLink {
             objectName: "SaveLinkContextualAction"
-            enabled: !isWebApp && contextMenuRequest && contextMenuRequest.linkUrl.toString()
+            enabled: contextMenuRequest && contextMenuRequest.linkUrl.toString()
             onTriggered: webview.triggerWebAction(WebEngineView.DownloadLinkToDisk)
         }
         Actions.Share {
@@ -441,7 +441,7 @@ WebView {
         }
         Actions.SaveImage {
             objectName: "SaveImageContextualAction"
-            enabled: !isWebApp && contextMenuRequest &&
+            enabled: contextMenuRequest &&
                      ((contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) ||
                       (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeCanvas)) // && contextModel.hasImageContents
 
@@ -457,7 +457,7 @@ WebView {
         }
         Actions.SaveVideo {
             objectName: "SaveVideoContextualAction"
-            enabled: !isWebApp && contextMenuRequest &&
+            enabled: contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
                      contextMenuRequest.mediaUrl.toString()
             onTriggered: webview.triggerWebAction(WebEngineView.DownloadMediaToDisk)
