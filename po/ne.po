@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-03-15 20:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-20 21:38+0000\n"
 "PO-Revision-Date: 2016-10-03 01:39+0000\n"
 "Last-Translator: sarojdhakal <Unknown>\n"
 "Language-Team: Nepali <ne@li.org>\n"
+"Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,11 +23,78 @@ msgstr ""
 msgid "JavaScript Alert"
 msgstr "जाभास्क्रिप्ट चेतावनी"
 
-#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
+#: src/app/AlertDialog.qml:31 src/app/AuthenticationDialog.qml:47
+#: src/app/ColorSelectDialog.qml:73 src/app/ConfirmDialog.qml:33
+#: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
+#: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr "ठीक छ"
+
+#: src/app/AllowCustomSchemesDialog.qml:24
+msgid "Custom URL schemes"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:30
+#, qt-format
+msgid "The site '%1' is trying to open the following URL with a custom scheme:"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:32
+msgid ""
+"This will try to dispatch this url to a system app if possible. Do you want "
+"to proceed?"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:44
+#: src/app/GeolocationPermissionRequest.qml:42
+msgid "Remember decision"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:50
+#: src/app/GeolocationPermissionRequest.qml:49
+msgid "Allow"
+msgstr "अनुमति दिनुहोस्"
+
+#: src/app/AllowCustomSchemesDialog.qml:57
+#: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
+#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
+#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/webbrowser/ContentDownloadDialog.qml:114
+#: src/app/webbrowser/ContextMenuMobile.qml:143
+#: src/app/webbrowser/DownloadDelegate.qml:181
+#: src/app/webbrowser/SettingsPage.qml:369
+#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:143
+#: src/app/webcontainer/WebappSettingsPage.qml:226
+msgid "Cancel"
+msgstr "रद्द गर्ने"
+
+#: src/app/AllowOrBlockDomainDialog.qml:25
+#: src/app/AllowOrBlockDomainDialog.qml:41
+msgid "Block domain"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:30
+#, qt-format
+msgid ""
+"You're trying to access %1 but it is not on your approved domain whitelist. "
+"Would you like to continue to block the domain, allow browsing to the "
+"domain, or go back?"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:31
+#, qt-format
+msgid ""
+"%1 is trying to access %2 but it is not on your approved domain whitelist. "
+"Would you like to continue to block the domain, allow loading data from the "
+"domain, or just ignore this request ?"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:47
+msgid "Allow domain"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -38,36 +106,23 @@ msgstr "प्रमाणीकरण आवश्यक।"
 msgid "The website %1 requires authentication."
 msgstr "वेबसाइट %1 लाई प्रमाणिकरण चाहिन्छ"
 
-#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:50
 msgid "Username"
 msgstr "प्रयोगकर्ता नाम:"
 
-#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
 msgstr "पासवर्ड"
-
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
-#: src/app/webbrowser/BookmarkOptions.qml:164
-#: src/app/webbrowser/ContentDownloadDialog.qml:114
-#: src/app/webbrowser/ContextMenuMobile.qml:141
-#: src/app/webbrowser/DownloadDelegate.qml:178
-#: src/app/webbrowser/SettingsPage.qml:258
-#: src/app/webbrowser/SettingsPage.qml:312
-#: src/app/webcontainer/AccountChooserDialog.qml:96
-#: src/app/webcontainer/ContextMenuMobile.qml:143
-msgid "Cancel"
-msgstr "रद्द गर्ने"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
 msgstr "नेभिगेसन गर्न निश्चित गर्नुहोस्"
 
-#: src/app/BeforeUnloadDialog.qml:27
+#: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
 msgstr "छोड्नुहोस्"
 
-#: src/app/BeforeUnloadDialog.qml:35
+#: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
 msgstr "यहीँ रहनुहोस्"
 
@@ -77,81 +132,177 @@ msgstr "यो जडान अविश्वासिलो छ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, qt-format
+#, fuzzy, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
-"website is not trusted."
+"website is not trusted. Reason: %2"
 msgstr ""
-"तपाईं सुरक्षित %1 पुग्न खोज्रनुभयेका छन्, तर यो वेबसाइटको सुरक्षा प्रमाणपत्र "
-"विश्वसनीय छैन।"
+"तपाईं सुरक्षित %1 पुग्न खोज्रनुभयेका छन्, तर यो वेबसाइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन।"
 
-#: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:161
+#: src/app/CertificateVerificationDialog.qml:39
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "जसरी अगाडि बढ्नुहोस्"
 
-#: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:174
+#: src/app/CertificateVerificationDialog.qml:46
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
 msgstr "सुरक्षित ठाउँमा फर्कने"
+
+#: src/app/ColorSelectDialog.qml:25
+#, fuzzy
+msgid "Select Color"
+msgstr "सबै चयन गर्नुहोस्"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "जाबास्क्रिप्ट निश्चित"
 
-#: src/app/ErrorSheet.qml:36
+#: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
+msgid "Custom User Agents"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
+#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
+#: src/app/webbrowser/DownloadsPage.qml:86
+msgid "Select all"
+msgstr "सबै चयन गर्नुहोस्"
+
+#: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
+#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+msgid "Delete"
+msgstr "मेट्नुहोस्"
+
+#: src/app/CustomUserAgentsPage.qml:104
+msgid "New User Agent"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:105
+msgid "Add the name for the new user agent"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:207
+msgid "enter user agent string..."
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:248
+#, fuzzy
+msgid "No custom user agents available"
+msgstr "डाउनलोड उपलब्ध छैन"
+
+#: src/app/DomainPermissionsPage.qml:55
+msgid "Domain blacklist/whitelist"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
+msgid "Add domain"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:115
+msgid ""
+"Enter the name of the domain, e.g. example.com (subdomains will be removed)."
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:223
+msgid "Not Set"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:233
+msgid "Never allow access"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:244
+msgid "Always allow access"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:284
+msgid "No sites have been granted special permissions"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:52
+msgid "Domain specific settings"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:114
+msgid "Enter the name of the domain, e.g. m.example.com"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:206
+msgid "allowed to launch other apps"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:223
+#, fuzzy
+msgid "allowed to access your location"
+msgstr "यस डोमेनलाई  तपाईँको क्यामेरा पहुँच अनुमति दिने हो?"
+
+#: src/app/DomainSettingsPage.qml:239
+msgid "custom user agent"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
+msgid "Zoom: "
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:320
+msgid "not set"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:354
+msgid "No domain specific settings available"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:38
 msgid "Network Error"
 msgstr "नेटवर्क त्रुटि"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:42
+#: src/app/ErrorSheet.qml:45
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "तपाईंलाईं %1 हेर्न समस्या भैरहेको देखिन्छ।"
 
-#: src/app/ErrorSheet.qml:48
-msgid "Please check your network settings and try refreshing the page."
+#: src/app/ErrorSheet.qml:52
+#, qt-format
+msgid "Error: %1"
 msgstr ""
-"क्रिपया आफ्नो नेटवर्क सेटिङहरू जाँच गर्नुहोस् र पृष्ठ रिफ्रेस गर्न प्रयास "
-"गर्नुहोस्।"
 
-#: src/app/ErrorSheet.qml:53
+#: src/app/ErrorSheet.qml:59
+msgid "Please check your network settings and try refreshing the page."
+msgstr "क्रिपया आफ्नो नेटवर्क सेटिङहरू जाँच गर्नुहोस् र पृष्ठ रिफ्रेस गर्न प्रयास गर्नुहोस्।"
+
+#: src/app/ErrorSheet.qml:65
 msgid "Refresh page"
 msgstr "पाना पुनःलोड गर्नुहोस्"
 
-#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/GeolocationPermissionRequest.qml:29
 msgid "Permission Request"
 msgstr "अनुमति अनुरोध"
 
-#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/GeolocationPermissionRequest.qml:30
 msgid "This page wants to know your device’s location."
 msgstr "यो पृष्ठ तपाइँको उपकरणको स्थान जान्न चाहनुहुन्छ।"
 
-#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/GeolocationPermissionRequest.qml:55
 msgid "Deny"
 msgstr "अस्वीकार गर्नुहोस्"
-
-#: src/app/GeolocationPermissionRequest.qml:42
-msgid "Allow"
-msgstr "अनुमति दिनुहोस्"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr ""
-"%1 मा रहेको वेबसाइटले प्रमाणीकरण चाहेको छ। वेबसाइटले  पठाएक सन्देश \"%2\""
+msgstr "%1 मा रहेको वेबसाइटले प्रमाणीकरण चाहेको छ। वेबसाइटले  पठाएक सन्देश \"%2\""
 
-#: src/app/InvalidCertificateErrorSheet.qml:56
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
 msgstr "यो साइट सुरक्षा प्रमाणपत्र विश्वसनीय छैन।\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:64
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
 msgstr "अझै जानौ"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:88
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -161,7 +312,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:95
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -171,7 +322,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:103
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -181,7 +332,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:114
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -191,7 +342,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:122
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -201,7 +352,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:133
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -211,7 +362,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:140
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -221,7 +372,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:147
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -230,127 +381,39 @@ msgstr ""
 "फिङ्गरप्रिन्ट (SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:154
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"यदि विशेष गरी तपाईंले यो  सायिटको लागी  यो चेतावनी कहिल्यै देख्नुभयेको छैन "
-"भने, तपाईं अगाडी बड्नु हुँदैन"
+"यदि विशेष गरी तपाईंले यो  सायिटको लागी  यो चेतावनी कहिल्यै देख्नुभयेको छैन भने, तपाईं "
+"अगाडी बड्नु हुँदैन"
 
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:188
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which does not match the identity of the site."
-msgstr ""
-"तपाईँले %1 मा पुग्न प्रयास गर्नु भयो तर सर्भरले सुरक्षा प्रमाणपत्र प्रस्तुत "
-"गर्‍यो जुन साइट को पहिचानसँग मेल खाँदैन।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:191
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which has expired."
-msgstr ""
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले समाप्त भैसकेको एक सुरक्षा "
-"प्रमाणपत्र प्रस्तुत गरेको छ​।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:194
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which contains invalid dates."
-msgstr ""
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले अमान्य मिति समावेश भएको एक "
-"सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:197
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"issued by an entity that is not trusted."
-msgstr ""
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले विश्वसनीय छैन भनेर एक इकाइ "
-"द्वारा जारी एक सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:200
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"that has been revoked."
-msgstr ""
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले खारेज भैसकेको सुरक्षा "
-"प्रमाणपत्र प्रस्तुत गरेको छ​।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:203
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented an invalid security "
-"certificate."
-msgstr ""
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक अमान्य सुरक्षा प्रमाणपत्र "
-"प्रस्तुत गरेको छ​।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:206
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented an insecure security "
-"certificate."
-msgstr ""
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक असुरक्षित सुरक्षा प्रमाणपत्र "
-"प्रस्तुत गरेको छ​।"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:209
-#, qt-format
-msgid ""
-"This site security certificate is not trusted\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"which failed our security checks for an unknown reason."
-msgstr ""
-"यो साइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन\n"
-"तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक सुरक्षा प्रमाणपत्र प्रस्तुत "
-"गर्यो जस्ले अज्ञात कारणले हाम्रो सुरक्षा जाँच असफल भएको छ​।"
-
-#: src/app/MediaAccessDialog.qml:31
+#: src/app/MediaAccessDialog.qml:39
 msgid "Permission"
 msgstr "अनुमति"
 
-#: src/app/MediaAccessDialog.qml:38
+#: src/app/MediaAccessDialog.qml:46
 msgid "Allow this domain to access your camera and microphone?"
 msgstr "यस डोमेनलाई तपाईँको क्यामेरा र माइक्रोफोन पहुँच अनुमति दिने हो?"
 
-#: src/app/MediaAccessDialog.qml:39
+#: src/app/MediaAccessDialog.qml:47
 msgid "Allow this domain to access your camera?"
 msgstr "यस डोमेनलाई  तपाईँको क्यामेरा पहुँच अनुमति दिने हो?"
 
-#: src/app/MediaAccessDialog.qml:40
+#: src/app/MediaAccessDialog.qml:48
 msgid "Allow this domain to access your microphone?"
 msgstr "यस डोमेनलाई तपाईँको माइक्रोफोन पहुँच अनुमति दिने हो?"
 
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/MediaAccessDialog.qml:48
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 ( %2 मा इम्बेडे गरिएको छ)"
-
-#: src/app/MediaAccessDialog.qml:72
+#: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
 msgstr "हो"
 
-#: src/app/MediaAccessDialog.qml:83
+#: src/app/MediaAccessDialog.qml:85
 msgid "No"
 msgstr "होइन"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
 msgstr "जाभास्क्रिप्ट प्रोम्ट"
 
@@ -363,6 +426,60 @@ msgstr "प्रोक्सी प्रमाणिकरण आवश्य�
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "वेबसाइट %1:%2 लाई प्रमाणीकरण आवश्यक छ।"
+
+#: src/app/SavePageDialog.qml:24
+msgid "Save page as HTML / PDF"
+msgstr ""
+
+#: src/app/SavePageDialog.qml:35
+msgid "Save as HTML"
+msgstr ""
+
+#: src/app/SavePageDialog.qml:44
+msgid "Save as PDF"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
+#: src/app/webcontainer/WebappSettingsPage.qml:55
+#, fuzzy
+msgid "Default Zoom"
+msgstr "पूर्वनिर्धारित"
+
+#: src/app/WebViewImpl.qml:106
+msgid "the current web app"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:106
+#, qt-format
+msgid ""
+"Set current zoom as default zoom for %1 ? (You can change it in the settings "
+"menu)"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
+msgid "Zoom"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:801
+msgid "Zoom Out"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:808
+msgid "Reset"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:815
+msgid "Zoom In"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:433
+msgid "Save"
+msgstr "सङ्ग्रह गर्नुहोस्"
+
+#: src/app/WebViewImpl.qml:861
+msgid "Current Zoom"
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -398,7 +515,7 @@ msgstr "इतिहास खाली गर्नुहोस्"
 msgid "Clear Navigation History"
 msgstr "नेभिगेसन इतिहास हटाउनुहोस्"
 
-#: src/app/actions/Copy.qml:22
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
 msgstr "प्रतिलिपि गर्नुहोस्"
 
@@ -410,7 +527,7 @@ msgstr "तस्वित प्रतिलिपी गर्नुहोस�
 msgid "Copy link"
 msgstr "लिङ्क प्रतिलिपी गर्नुहोस्"
 
-#: src/app/actions/Cut.qml:22
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
 msgid "Cut"
 msgstr "काट्नुहोस्"
 
@@ -418,7 +535,7 @@ msgstr "काट्नुहोस्"
 msgid "Erase"
 msgstr "मेटनुहोस्"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
 msgid "Find in page"
 msgstr "पानामा खोज्नुहोस्"
 
@@ -448,7 +565,7 @@ msgstr "जानुहोस्"
 msgid "Address;URL;www"
 msgstr "ठेगाना; URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "नयाँ ट्याब"
@@ -471,6 +588,11 @@ msgstr "पूर्व निर्धारित ब्राउजरमा 
 msgid "Open link in new background tab"
 msgstr "लिङ्कलाई नयाँ पृष्ठभूमि ट्याबमा खोल्नुहोस्"
 
+#: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
+#, fuzzy
+msgid "Open link in new private window"
+msgstr "लिङ्कलाई नयाँ ट्याबमा खोल्नुहोस्"
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "लिङ्कलाई नयाँ ट्याबमा खोल्नुहोस्"
@@ -479,15 +601,11 @@ msgstr "लिङ्कलाई नयाँ ट्याबमा खोल्
 msgid "Open link in new window"
 msgstr ""
 
-#: src/app/actions/OpenLinkInPrivateWindow.qml:22
-msgid "Open link in private window"
-msgstr ""
-
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "भिडियो नया ट्याबमा खोल्नुहोस"
 
-#: src/app/actions/Paste.qml:22
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
 msgid "Paste"
 msgstr "टाँस्नुहोस्"
 
@@ -495,7 +613,7 @@ msgstr "टाँस्नुहोस्"
 msgid "Redo"
 msgstr "फेरि गर्नुहोस्"
 
-#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "पुन:लोड गर्नुहोस्"
@@ -518,11 +636,7 @@ msgstr "लिङ्क सङ्ग्रह गर्नुहोस्"
 msgid "Save video"
 msgstr "भिडियो संग्र्ह गर्नुहोस"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
-msgid "Select all"
-msgstr "सबै चयन गर्नुहोस्"
-
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
 msgid "Share"
 msgstr "सेयर गर्नुहोस्"
 
@@ -530,19 +644,17 @@ msgstr "सेयर गर्नुहोस्"
 msgid "Undo"
 msgstr "पुर्वस्थितिमा फर्काउनुहोस्"
 
-#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:212
-#, qt-format
-msgid "%1/%2"
-msgstr "%1/%2"
-
-#: src/app/webbrowser/AddressBar.qml:248
+#: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
 msgstr "पानामा खोज्नुहोस्"
 
-#: src/app/webbrowser/AddressBar.qml:249
+#: src/app/webbrowser/AddressBar.qml:243
 msgid "search or enter an address"
 msgstr "ठेगाना लेख्नुहोस् या खोज्नुहोस्"
+
+#: src/app/webbrowser/AddressBar.qml:369
+msgid "Paste and Go"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -573,63 +685,88 @@ msgstr "नयाँ फोल्डर"
 msgid "Create new folder"
 msgstr "नयाँ फोल्डर बनाउनुहोस्"
 
-#: src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:322
-msgid "Save"
-msgstr "सङ्ग्रह गर्नुहोस्"
-
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
-#: src/app/webbrowser/SettingsPage.qml:286
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
+#: src/app/webbrowser/SettingsPage.qml:397
 msgid "Homepage"
 msgstr "गृह पृष्ठ"
 
-#: src/app/webbrowser/BookmarksView.qml:32
-#: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:33
+#: src/app/webbrowser/BookmarksViewWide.qml:33
+#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "पुस्तकचिनोहरू"
 
-#: src/app/webbrowser/BookmarksView.qml:76
-#: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
-#: src/app/webbrowser/HistoryViewWide.qml:407
+#: src/app/webbrowser/BookmarksView.qml:77
+#: src/app/webbrowser/BookmarksViewWide.qml:76
+#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "सम्पन्न भयो"
 
-#: src/app/webbrowser/BookmarksView.qml:90
-#: src/app/webbrowser/BookmarksViewWide.qml:89
-#: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/BookmarksView.qml:91
+#: src/app/webbrowser/BookmarksViewWide.qml:90
+#: src/app/webbrowser/HistoryView.qml:137
+#: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "नयाँ ट्याब"
 
-#: src/app/webbrowser/Browser.qml:585
+#: src/app/webbrowser/Browser.qml:229
+#: src/app/webcontainer/WebViewImplOxide.qml:310
+msgid "Blocked domain"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:230
+#: src/app/webcontainer/WebViewImplOxide.qml:311
+#, qt-format
+msgid "Blocked navigation request to domain %1."
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:256
+#: src/app/webcontainer/WebViewImplOxide.qml:337
+msgid "Whitelisted domain"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:257
+#, qt-format
+msgid ""
+"domain %1 is now whitelisted, it will be active on the next page reload."
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:734
 msgid "New window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:591
+#: src/app/webbrowser/Browser.qml:740
 msgid "New private window"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
-#: src/app/webbrowser/HistoryViewWide.qml:35
+#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "इतिहास"
 
-#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
 msgid "Downloads"
 msgstr "डाउनलोडहरू"
 
-#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
 msgid "Settings"
 msgstr "सेटिङ्"
 
+#: src/app/webbrowser/Browser.qml:786
+msgid "View source"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:793
+msgid "Save as HTML / PDF"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
+#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -638,8 +775,7 @@ msgstr "(%1)"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
-"थप्नुहोस।"
+"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा थप्नुहोस।"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
@@ -649,29 +785,29 @@ msgstr "अनुप्रयोग छान्नुहोस्"
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: src/app/webbrowser/DownloadDelegate.qml:151
+#: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
 msgstr "डाउनलोड असफल भयो"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:194
+#: src/app/webbrowser/DownloadDelegate.qml:196
 #, qt-format
 msgid "%1%"
 msgstr ""
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:202
+msgid "Pause"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
 msgstr "पुन: निरन्तरता दिनुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
 msgstr "चयन निश्चित गर्नुहोस्"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
-msgid "Delete"
-msgstr "मेट्नुहोस्"
-
-#: src/app/webbrowser/DownloadsPage.qml:260
+#: src/app/webbrowser/DownloadsPage.qml:268
 msgid "No downloads available"
 msgstr "डाउनलोड उपलब्ध छैन"
 
@@ -692,20 +828,20 @@ msgid "Last Visited"
 msgstr "पछिल्लो पटक भ्रमण गरिएको"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:251
+#: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
 msgstr "हिजो"
 
-#: src/app/webbrowser/HistoryViewWide.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
 msgstr "खोज इतिहास"
 
-#: src/app/webbrowser/HistoryViewWide.qml:235
+#: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
 msgstr "सबै इतिहास"
 
-#: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:336
+#: src/app/webbrowser/HistoryViewWide.qml:250
+#: src/app/webbrowser/HistoryViewWide.qml:337
 msgid "Today"
 msgstr "आज"
 
@@ -734,140 +870,110 @@ msgstr "शिर्ष साइटहरू"
 msgid "You haven't visited any site yet"
 msgstr "तपाईँले अहिलेसम्म कुनै साइट भ्रमण गर्नुभएको छैन"
 
-#: src/app/webbrowser/SadTab.qml:48
+#: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
 msgstr "यो ट्याबको लागि प्रतिपादन प्रक्रिया बन्द गरिएको छ।"
 
-#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
-#: src/app/webbrowser/SadTab.qml:65
+#: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
 msgstr "%1 देखाउने बेलामा केही त्रुटी भयो।"
 
-#: src/app/webbrowser/SadTab.qml:67
-msgid ""
-"The system is low on memory and can't display this webpage. Try closing "
-"unneeded tabs and reloading."
-msgstr ""
-"सिस्टम्को मेमोरी कम छ र वेबपेज प्रदर्शन गर्न सक्दैन। नचाहिने ट्याबहरू बन्द "
-"गर्नुहोस् र पुन: लोड गर्ने प्रयास गर्नुहोस्।"
-
-#: src/app/webbrowser/SadTab.qml:80
+#: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
 msgstr "ट्याब बन्द गर्नुहोस्"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "This site has insecure content"
 msgstr "यो साइटमा असुरक्षित सामग्री"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+#: src/app/webbrowser/SecurityCertificatePopover.qml:71
 msgid "Identity Not Verified"
 msgstr "परिचय प्रमाणिकरण गर्न सकिएन"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+#: src/app/webbrowser/SecurityCertificatePopover.qml:79
 msgid "The identity of this website has not been verified."
 msgstr "यो वेबसाइट को पहिचान प्रमाणित भैसकेको छैन।"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:89
-msgid "Server certificate does not match the identity of the site."
-msgstr "सर्भर सर्टिफिकेट र साइटको परिचय मिल्दैन ।"
+#: src/app/webbrowser/SecurityCertificatePopover.qml:109
+#, qt-format
+msgid "You are connected to %1 via HTTPS. The certificate is valid."
+msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:91
-msgid "Server certificate has expired."
-msgstr "सर्भर सर्टिफिकेटको समय सकिएको छ"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:93
-msgid "Server certificate contains invalid dates."
-msgstr "सर्भर सर्टिफिकेटमा अमान्य मितिहरू छन्"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
-msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "सर्भर प्रमाणपत्र एक अविश्वसनीय इकाइद्वारा जारी गरिएको छ।"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:97
-msgid "Server certificate has been revoked."
-msgstr "सर्भर प्रमाणपत्र खारेज गरिएको छ।"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:99
-msgid "Server certificate is invalid."
-msgstr "सर्भर सर्टिफिकेट अमान्य छ ।"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:101
-msgid "Server certificate is insecure."
-msgstr "सर्भर सर्टिफिकेट असुरक्षित छ ।"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:103
-msgid "Server certificate failed our security checks for an unknown reason."
-msgstr "एक अज्ञात कारण सर्भर प्रमाणपत्रमा हाम्रो सुरक्षा जाँच असफल भयो।"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
-msgid "You are connected to"
-msgstr "तपाईँ जोडिएको हुनुहुन्छ"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
-msgid "Which is run by"
-msgstr "यसका सञ्चालनकर्ता"
-
-#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+#: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
 msgstr "पूर्वनिर्धारित"
 
-#: src/app/webbrowser/SettingsPage.qml:70
-#: src/app/webbrowser/SettingsPage.qml:150
+#: src/app/webbrowser/SettingsPage.qml:72
+#: src/app/webbrowser/SettingsPage.qml:223
 msgid "Search engine"
 msgstr "खोज इन्जिन"
 
-#: src/app/webbrowser/SettingsPage.qml:96
+#: src/app/webbrowser/SettingsPage.qml:98
 msgid "Restore previous session at startup"
 msgstr "स्टार्टअपमा अघिल्लो सत्र पुनर्स्थापित गर्नुहोस्"
 
-#: src/app/webbrowser/SettingsPage.qml:115
-#: src/app/webbrowser/SettingsPage.qml:193
+#: src/app/webbrowser/SettingsPage.qml:117
+msgid "Set Desktop mode"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:184
+#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webcontainer/WebappSettingsPage.qml:103
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
 msgstr "गोपनीयता र अनुमतिहरू"
 
-#: src/app/webbrowser/SettingsPage.qml:126
+#: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
 msgstr "ब्राउजर सेटिङहरू पूर्वस्थितीमा फर्काउनुहोस्"
 
-#: src/app/webbrowser/SettingsPage.qml:206
-#: src/app/webbrowser/SettingsPage.qml:342
+#: src/app/webbrowser/SettingsPage.qml:280
+#: src/app/webcontainer/WebappSettingsPage.qml:157
+msgid "Only allow browsing to whitelisted websites"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:320
+#: src/app/webbrowser/SettingsPage.qml:453
 msgid "Camera & microphone"
 msgstr "क्यामेरा र माइक्रोफोन"
 
-#: src/app/webbrowser/SettingsPage.qml:215
+#: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
 msgstr "ब्राउजिङ इतिहास हटाउनुहोस्"
 
-#: src/app/webbrowser/SettingsPage.qml:219
+#: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
 msgstr "ब्राउजिङ इतिहास हटाउने हो?"
 
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:341
+#: src/app/webcontainer/WebappSettingsPage.qml:198
 msgid "Clear Cache"
 msgstr "क्यास खाली गर्नुहोस्"
 
-#: src/app/webbrowser/SettingsPage.qml:230
+#: src/app/webbrowser/SettingsPage.qml:344
+#: src/app/webcontainer/WebappSettingsPage.qml:201
 msgid "Clear Cache?"
 msgstr "क्यास खाली गर्ने हो ?"
 
-#: src/app/webbrowser/SettingsPage.qml:265
+#: src/app/webbrowser/SettingsPage.qml:376
+#: src/app/webcontainer/WebappSettingsPage.qml:233
 msgid "Clear"
 msgstr "खाली गर्नुहोस्"
 
-#: src/app/webbrowser/SettingsPage.qml:354
+#: src/app/webbrowser/SettingsPage.qml:465
 msgid "Microphone"
 msgstr "माइक्रोफोन"
 
-#: src/app/webbrowser/SettingsPage.qml:375
+#: src/app/webbrowser/SettingsPage.qml:486
 msgid "Camera"
 msgstr "क्यामेरा"
 
-#: src/app/webbrowser/TabComponent.qml:409
+#: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न माथि स्वाइप गर्नुहोस्"
 
-#: src/app/webbrowser/TabComponent.qml:410
+#: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
 msgstr "पुरा स्क्रिन छोड्न ESC थिच्नुहोस्"
 
@@ -883,21 +989,23 @@ msgstr ""
 msgid "Close Tab"
 msgstr "ट्याब बन्द गर्नुहोस्"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:137
+#: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
 msgstr "हटाउनुहोस्"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:101
-#: src/app/webcontainer/webapp-container.qml:73
-#, qt-format
-msgid "%1 - Ubuntu Web Browser"
+#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webcontainer/webapp-container.qml:76
+#, fuzzy, qt-format
+msgid "%1 - Morph Web Browser"
 msgstr "%1 - उबुन्टु वेब ब्राउजर"
 
-#: src/app/webbrowser/morph-browser.qml:103
-#: src/app/webcontainer/webapp-container.qml:75
-msgid "Ubuntu Web Browser"
-msgstr "उबुन्टु वेब ब्राउजर"
+#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webcontainer/webapp-container.qml:78
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
+#, fuzzy
+msgid "Morph Web Browser"
+msgstr "वेब ब्राउजर"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -926,8 +1034,8 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"खाता विन्डो खोल्न सकिएन। मात्र एक समयमा एउटा खाता सिर्जना गर्न सक्नुहुन्छ; "
-"सबै अन्य खाता विन्डोज् बन्द गरिसके पछि फेरि प्रयास गर्नुहोस्।"
+"खाता विन्डो खोल्न सकिएन। मात्र एक समयमा एउटा खाता सिर्जना गर्न सक्नुहुन्छ; सबै अन्य "
+"खाता विन्डोज् बन्द गरिसके पछि फेरि प्रयास गर्नुहोस्।"
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
@@ -950,8 +1058,7 @@ msgstr ""
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr ""
-"अहिले खाता छान्नुहोस् या यो भाग छोडेर पछि अनलाइन खाता छान्न पनि सक्नुहुनेछ ।"
+msgstr "अहिले खाता छान्नुहोस् या यो भाग छोडेर पछि अनलाइन खाता छान्न पनि सक्नुहुनेछ ।"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
@@ -969,16 +1076,28 @@ msgstr "खाता छान्नुहोस्"
 msgid "Oops, something went wrong."
 msgstr "ओहो, केही गलत भयो।"
 
+#: src/app/webcontainer/WebViewImplOxide.qml:338
+#, qt-format
+msgid "domain %1 is now whitelisted, please reload the page."
+msgstr ""
+
+#: src/app/webcontainer/WebappSettingsPage.qml:35
+msgid "WebappContainer Settings"
+msgstr ""
+
+#: src/app/webcontainer/WebappSettingsPage.qml:114
+#, fuzzy
+msgid "Reset webapp settings"
+msgstr "ब्राउजर सेटिङहरू पूर्वस्थितीमा फर्काउनुहोस्"
+
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-msgid "Browser"
+#, fuzzy
+msgid "Morph Browser"
 msgstr "ब्राउजर"
 
-#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-msgid "Web Browser"
-msgstr "वेब ब्राउजर"
-
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-msgid "Browse the World Wide Web"
+#, fuzzy
+msgid "Browse the World Wide Web using QtWebEngine"
 msgstr "वर्ल्ड वाइड वेब ब्राउज गर्नुहोस्"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
@@ -993,6 +1112,109 @@ msgstr ""
 msgid "New Private Window"
 msgstr ""
 
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which does not match the identity of the site."
+#~ msgstr ""
+#~ "तपाईँले %1 मा पुग्न प्रयास गर्नु भयो तर सर्भरले सुरक्षा प्रमाणपत्र प्रस्तुत गर्‍यो जुन साइट "
+#~ "को पहिचानसँग मेल खाँदैन।"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which has expired."
+#~ msgstr ""
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले समाप्त भैसकेको एक सुरक्षा प्रमाणपत्र प्रस्तुत "
+#~ "गरेको छ​।"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which contains invalid dates."
+#~ msgstr ""
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले अमान्य मिति समावेश भएको एक सुरक्षा "
+#~ "प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "issued by an entity that is not trusted."
+#~ msgstr ""
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले विश्वसनीय छैन भनेर एक इकाइ द्वारा जारी एक "
+#~ "सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "that has been revoked."
+#~ msgstr ""
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले खारेज भैसकेको सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​"
+#~ "।"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented an invalid security "
+#~ "certificate."
+#~ msgstr ""
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक अमान्य सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​।"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented an insecure security "
+#~ "certificate."
+#~ msgstr ""
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक असुरक्षित सुरक्षा प्रमाणपत्र प्रस्तुत गरेको छ​"
+#~ "।"
+
+#~ msgid ""
+#~ "This site security certificate is not trusted\n"
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which failed our security checks for an unknown reason."
+#~ msgstr ""
+#~ "यो साइटको सुरक्षा प्रमाणपत्र विश्वसनीय छैन\n"
+#~ "तपाईंले %1 पुग्न प्रयास गर्नु भयो तर सर्भरले एक सुरक्षा प्रमाणपत्र प्रस्तुत गर्यो जस्ले "
+#~ "अज्ञात कारणले हाम्रो सुरक्षा जाँच असफल भएको छ​।"
+
+#~ msgid "%1 (embedded in %2)"
+#~ msgstr "%1 ( %2 मा इम्बेडे गरिएको छ)"
+
+#~ msgid "%1/%2"
+#~ msgstr "%1/%2"
+
+#~ msgid ""
+#~ "The system is low on memory and can't display this webpage. Try closing "
+#~ "unneeded tabs and reloading."
+#~ msgstr ""
+#~ "सिस्टम्को मेमोरी कम छ र वेबपेज प्रदर्शन गर्न सक्दैन। नचाहिने ट्याबहरू बन्द गर्नुहोस् र पुन: "
+#~ "लोड गर्ने प्रयास गर्नुहोस्।"
+
+#~ msgid "Server certificate does not match the identity of the site."
+#~ msgstr "सर्भर सर्टिफिकेट र साइटको परिचय मिल्दैन ।"
+
+#~ msgid "Server certificate has expired."
+#~ msgstr "सर्भर सर्टिफिकेटको समय सकिएको छ"
+
+#~ msgid "Server certificate contains invalid dates."
+#~ msgstr "सर्भर सर्टिफिकेटमा अमान्य मितिहरू छन्"
+
+#~ msgid "Server certificate is issued by an entity that is not trusted."
+#~ msgstr "सर्भर प्रमाणपत्र एक अविश्वसनीय इकाइद्वारा जारी गरिएको छ।"
+
+#~ msgid "Server certificate has been revoked."
+#~ msgstr "सर्भर प्रमाणपत्र खारेज गरिएको छ।"
+
+#~ msgid "Server certificate is invalid."
+#~ msgstr "सर्भर सर्टिफिकेट अमान्य छ ।"
+
+#~ msgid "Server certificate is insecure."
+#~ msgstr "सर्भर सर्टिफिकेट असुरक्षित छ ।"
+
+#~ msgid "Server certificate failed our security checks for an unknown reason."
+#~ msgstr "एक अज्ञात कारण सर्भर प्रमाणपत्रमा हाम्रो सुरक्षा जाँच असफल भयो।"
+
+#~ msgid "You are connected to"
+#~ msgstr "तपाईँ जोडिएको हुनुहुन्छ"
+
+#~ msgid "Which is run by"
+#~ msgstr "यसका सञ्चालनकर्ता"
+
+#~ msgid "Ubuntu Web Browser"
+#~ msgstr "उबुन्टु वेब ब्राउजर"
+
 #~ msgid "Please choose a file"
 #~ msgstr "एक फाइल छान्नुहोस्"
 
@@ -1006,10 +1228,9 @@ msgstr ""
 #~ msgstr "खुल्ला ट्याबहरू"
 
 #~ msgid ""
-#~ "Ubuntu suggests you check your network settings and try refreshing the page."
-#~ msgstr ""
-#~ "उबुन्टु तपाईं आफ्नो नेटवर्क सेटिङहरू जाँच गर्न र पृष्ठ रिफ्रेस गर्न सुझाव "
-#~ "दिन्छ।"
+#~ "Ubuntu suggests you check your network settings and try refreshing the "
+#~ "page."
+#~ msgstr "उबुन्टु तपाईं आफ्नो नेटवर्क सेटिङहरू जाँच गर्न र पृष्ठ रिफ्रेस गर्न सुझाव दिन्छ।"
 
 #~ msgid "Allow opening new tabs in background"
 #~ msgstr "पृष्ठभूमिमा नयाँ ट्याबहरू खोल्न अनुमति दिनुहोस्"

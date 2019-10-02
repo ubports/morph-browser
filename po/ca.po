@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-03-15 20:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-20 21:38+0000\n"
 "PO-Revision-Date: 2019-05-03 21:03+0000\n"
 "Last-Translator: Joan CiberSheep <cibersheep@gmail.com>\n"
-"Language-Team: Catalan <https://translate.ubports.com/projects/ubports/"
-"morph-browser/ca/>\n"
+"Language-Team: Catalan <https://translate.ubports.com/projects/ubports/morph-"
+"browser/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,11 +24,78 @@ msgstr ""
 msgid "JavaScript Alert"
 msgstr "Alerta del JavaScript"
 
-#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
+#: src/app/AlertDialog.qml:31 src/app/AuthenticationDialog.qml:47
+#: src/app/ColorSelectDialog.qml:73 src/app/ConfirmDialog.qml:33
+#: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
+#: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr "D'acord"
+
+#: src/app/AllowCustomSchemesDialog.qml:24
+msgid "Custom URL schemes"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:30
+#, qt-format
+msgid "The site '%1' is trying to open the following URL with a custom scheme:"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:32
+msgid ""
+"This will try to dispatch this url to a system app if possible. Do you want "
+"to proceed?"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:44
+#: src/app/GeolocationPermissionRequest.qml:42
+msgid "Remember decision"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:50
+#: src/app/GeolocationPermissionRequest.qml:49
+msgid "Allow"
+msgstr "Permet"
+
+#: src/app/AllowCustomSchemesDialog.qml:57
+#: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
+#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
+#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/webbrowser/ContentDownloadDialog.qml:114
+#: src/app/webbrowser/ContextMenuMobile.qml:143
+#: src/app/webbrowser/DownloadDelegate.qml:181
+#: src/app/webbrowser/SettingsPage.qml:369
+#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:143
+#: src/app/webcontainer/WebappSettingsPage.qml:226
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/app/AllowOrBlockDomainDialog.qml:25
+#: src/app/AllowOrBlockDomainDialog.qml:41
+msgid "Block domain"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:30
+#, qt-format
+msgid ""
+"You're trying to access %1 but it is not on your approved domain whitelist. "
+"Would you like to continue to block the domain, allow browsing to the "
+"domain, or go back?"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:31
+#, qt-format
+msgid ""
+"%1 is trying to access %2 but it is not on your approved domain whitelist. "
+"Would you like to continue to block the domain, allow loading data from the "
+"domain, or just ignore this request ?"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:47
+msgid "Allow domain"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -40,36 +107,23 @@ msgstr "Cal autenticació."
 msgid "The website %1 requires authentication."
 msgstr "El lloc web %1 requereix autenticació."
 
-#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:50
 msgid "Username"
 msgstr "Nom d'usuari"
 
-#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
 msgstr "Contrasenya"
-
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
-#: src/app/webbrowser/BookmarkOptions.qml:164
-#: src/app/webbrowser/ContentDownloadDialog.qml:114
-#: src/app/webbrowser/ContextMenuMobile.qml:141
-#: src/app/webbrowser/DownloadDelegate.qml:178
-#: src/app/webbrowser/SettingsPage.qml:258
-#: src/app/webbrowser/SettingsPage.qml:312
-#: src/app/webcontainer/AccountChooserDialog.qml:96
-#: src/app/webcontainer/ContextMenuMobile.qml:143
-msgid "Cancel"
-msgstr "Cancel·la"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
 msgstr "Confirma la navegació"
 
-#: src/app/BeforeUnloadDialog.qml:27
+#: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
 msgstr "Abandona'l"
 
-#: src/app/BeforeUnloadDialog.qml:35
+#: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
 msgstr "Roman"
 
@@ -79,62 +133,162 @@ msgstr "Aquesta connexió no és fiable"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, qt-format
+#, fuzzy, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
-"website is not trusted."
+"website is not trusted. Reason: %2"
 msgstr ""
 "Esteu intentant accedir a %1 de forma segura, però el certificat de "
 "seguretat d'aquest lloc web no és fiable."
 
-#: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:161
+#: src/app/CertificateVerificationDialog.qml:39
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "Continua de totes maneres"
 
-#: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:174
+#: src/app/CertificateVerificationDialog.qml:46
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
 msgstr "Torna a la seguretat"
+
+#: src/app/ColorSelectDialog.qml:25
+#, fuzzy
+msgid "Select Color"
+msgstr "Selecciona-ho tot"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Confirmació del JavaScript"
 
-#: src/app/ErrorSheet.qml:36
+#: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
+msgid "Custom User Agents"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
+#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
+#: src/app/webbrowser/DownloadsPage.qml:86
+msgid "Select all"
+msgstr "Selecciona-ho tot"
+
+#: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
+#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/app/CustomUserAgentsPage.qml:104
+msgid "New User Agent"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:105
+msgid "Add the name for the new user agent"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:207
+msgid "enter user agent string..."
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:248
+#, fuzzy
+msgid "No custom user agents available"
+msgstr "No hi ha cap baixada disponible"
+
+#: src/app/DomainPermissionsPage.qml:55
+msgid "Domain blacklist/whitelist"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
+msgid "Add domain"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:115
+msgid ""
+"Enter the name of the domain, e.g. example.com (subdomains will be removed)."
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:223
+msgid "Not Set"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:233
+msgid "Never allow access"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:244
+msgid "Always allow access"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:284
+msgid "No sites have been granted special permissions"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:52
+msgid "Domain specific settings"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:114
+msgid "Enter the name of the domain, e.g. m.example.com"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:206
+msgid "allowed to launch other apps"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:223
+#, fuzzy
+msgid "allowed to access your location"
+msgstr "Voleu permetre a aquest domini accedir a la càmera?"
+
+#: src/app/DomainSettingsPage.qml:239
+msgid "custom user agent"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
+msgid "Zoom: "
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:320
+msgid "not set"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:354
+msgid "No domain specific settings available"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:38
 msgid "Network Error"
 msgstr "Error de xarxa"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:42
+#: src/app/ErrorSheet.qml:45
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Sembla ser que teniu problemes per mostrar: %1."
 
-#: src/app/ErrorSheet.qml:48
+#: src/app/ErrorSheet.qml:52
+#, qt-format
+msgid "Error: %1"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
 "Verifiqueu els paràmetres de la xarxa i intenteu actualitzar la pàgina."
 
-#: src/app/ErrorSheet.qml:53
+#: src/app/ErrorSheet.qml:65
 msgid "Refresh page"
 msgstr "Actualitza la pàgina"
 
-#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/GeolocationPermissionRequest.qml:29
 msgid "Permission Request"
 msgstr "Sol·licitud de permís"
 
-#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/GeolocationPermissionRequest.qml:30
 msgid "This page wants to know your device’s location."
 msgstr "Aquesta pàgina vol saber la vostra ubicació."
 
-#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/GeolocationPermissionRequest.qml:55
 msgid "Deny"
 msgstr "Denega"
-
-#: src/app/GeolocationPermissionRequest.qml:42
-msgid "Allow"
-msgstr "Permet"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
@@ -142,16 +296,16 @@ msgstr "Permet"
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr "La pàgina web a %1 requereix autenticació. La pàgina web diu «%2»"
 
-#: src/app/InvalidCertificateErrorSheet.qml:56
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
 msgstr "No es pot confiar en aquest certificat de seguretat del lloc.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:64
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
 msgstr "Més informació"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:88
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -161,7 +315,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:95
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -171,7 +325,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:103
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -181,7 +335,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:114
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -191,7 +345,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:122
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -201,7 +355,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:133
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -211,7 +365,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:140
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -221,7 +375,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:147
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -230,7 +384,7 @@ msgstr ""
 "Empremta digital (SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:154
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -238,120 +392,31 @@ msgstr ""
 "No hauríeu de continuar, especialment si mai heu vist aquest avís en aquest "
 "lloc abans."
 
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:188
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which does not match the identity of the site."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat que no coincideix amb la identitat del lloc."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:191
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which has expired."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat que ha caducat."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:194
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which contains invalid dates."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat que conté dates no vàlides."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:197
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"issued by an entity that is not trusted."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat emès per una entitat que no és de confiança."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:200
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"that has been revoked."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat revocat."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:203
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented an invalid security "
-"certificate."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat no vàlid."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:206
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented an insecure security "
-"certificate."
-msgstr ""
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat que no és segur."
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:209
-#, qt-format
-msgid ""
-"This site security certificate is not trusted\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"which failed our security checks for an unknown reason."
-msgstr ""
-"El certificat de seguretat d'aquest lloc no és de confiança.\n"
-"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
-"seguretat que ha fallat les comprovacions de seguretat per raons "
-"desconegudes."
-
-#: src/app/MediaAccessDialog.qml:31
+#: src/app/MediaAccessDialog.qml:39
 msgid "Permission"
 msgstr "Permís"
 
-#: src/app/MediaAccessDialog.qml:38
+#: src/app/MediaAccessDialog.qml:46
 msgid "Allow this domain to access your camera and microphone?"
 msgstr "Voleu permetre a aquest domini accedir a la càmera i el micròfon?"
 
-#: src/app/MediaAccessDialog.qml:39
+#: src/app/MediaAccessDialog.qml:47
 msgid "Allow this domain to access your camera?"
 msgstr "Voleu permetre a aquest domini accedir a la càmera?"
 
-#: src/app/MediaAccessDialog.qml:40
+#: src/app/MediaAccessDialog.qml:48
 msgid "Allow this domain to access your microphone?"
 msgstr "Voleu permetre aquest domini accedir al micròfon?"
 
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/MediaAccessDialog.qml:48
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (incrustada a %2)"
-
-#: src/app/MediaAccessDialog.qml:72
+#: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
 msgstr "Sí"
 
-#: src/app/MediaAccessDialog.qml:83
+#: src/app/MediaAccessDialog.qml:85
 msgid "No"
 msgstr "No"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
 msgstr "Indicador del JavaScript"
 
@@ -364,6 +429,60 @@ msgstr "Es requereix autenticació del servidor intermediari."
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "El lloc web %1:%2 requereix autentificació."
+
+#: src/app/SavePageDialog.qml:24
+msgid "Save page as HTML / PDF"
+msgstr ""
+
+#: src/app/SavePageDialog.qml:35
+msgid "Save as HTML"
+msgstr ""
+
+#: src/app/SavePageDialog.qml:44
+msgid "Save as PDF"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
+#: src/app/webcontainer/WebappSettingsPage.qml:55
+#, fuzzy
+msgid "Default Zoom"
+msgstr "Predeterminat"
+
+#: src/app/WebViewImpl.qml:106
+msgid "the current web app"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:106
+#, qt-format
+msgid ""
+"Set current zoom as default zoom for %1 ? (You can change it in the settings "
+"menu)"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
+msgid "Zoom"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:801
+msgid "Zoom Out"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:808
+msgid "Reset"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:815
+msgid "Zoom In"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:433
+msgid "Save"
+msgstr "Desa"
+
+#: src/app/WebViewImpl.qml:861
+msgid "Current Zoom"
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -399,7 +518,7 @@ msgstr "Neteja l'historial"
 msgid "Clear Navigation History"
 msgstr "Neteja l'historial de navegació"
 
-#: src/app/actions/Copy.qml:22
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
 msgstr "Copia"
 
@@ -411,7 +530,7 @@ msgstr "Copia la imatge"
 msgid "Copy link"
 msgstr "Copia l'enllaç"
 
-#: src/app/actions/Cut.qml:22
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
 msgid "Cut"
 msgstr "Retalla"
 
@@ -419,7 +538,7 @@ msgstr "Retalla"
 msgid "Erase"
 msgstr "Suprimeix"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
 msgid "Find in page"
 msgstr "Cerca a la pàgina"
 
@@ -449,7 +568,7 @@ msgstr "Vés-hi"
 msgid "Address;URL;www"
 msgstr "Adreça;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "Pestanya nova"
@@ -472,6 +591,11 @@ msgstr "Obre l'enllaç al navegador predeterminat"
 msgid "Open link in new background tab"
 msgstr "Obre l'enllaç en una pestanya de segon pla"
 
+#: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
+#, fuzzy
+msgid "Open link in new private window"
+msgstr "Obre l'enllaç a una finestra privada"
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Obre l'enllaç en una pestanya nova"
@@ -480,15 +604,11 @@ msgstr "Obre l'enllaç en una pestanya nova"
 msgid "Open link in new window"
 msgstr "Obre l'enllac a una finestra nova"
 
-#: src/app/actions/OpenLinkInPrivateWindow.qml:22
-msgid "Open link in private window"
-msgstr "Obre l'enllaç a una finestra privada"
-
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "Obre el vídeo en una pestanya nova"
 
-#: src/app/actions/Paste.qml:22
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
 msgid "Paste"
 msgstr "Enganxa"
 
@@ -496,7 +616,7 @@ msgstr "Enganxa"
 msgid "Redo"
 msgstr "Refés"
 
-#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Actualitza"
@@ -519,11 +639,7 @@ msgstr "Desa l'enllaç"
 msgid "Save video"
 msgstr "Desa el vídeo"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
-msgid "Select all"
-msgstr "Selecciona-ho tot"
-
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
 msgid "Share"
 msgstr "Comparteix"
 
@@ -531,19 +647,17 @@ msgstr "Comparteix"
 msgid "Undo"
 msgstr "Desfés"
 
-#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:212
-#, qt-format
-msgid "%1/%2"
-msgstr "%1/%2"
-
-#: src/app/webbrowser/AddressBar.qml:248
+#: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
 msgstr "cerca a la pàgina"
 
-#: src/app/webbrowser/AddressBar.qml:249
+#: src/app/webbrowser/AddressBar.qml:243
 msgid "search or enter an address"
 msgstr "Cerqueu o escriviu una adreça"
+
+#: src/app/webbrowser/AddressBar.qml:369
+msgid "Paste and Go"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -574,63 +688,88 @@ msgstr "Carpeta nova"
 msgid "Create new folder"
 msgstr "Crea una carpeta nova"
 
-#: src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:322
-msgid "Save"
-msgstr "Desa"
-
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
-#: src/app/webbrowser/SettingsPage.qml:286
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
+#: src/app/webbrowser/SettingsPage.qml:397
 msgid "Homepage"
 msgstr "Pàgina d'inici"
 
-#: src/app/webbrowser/BookmarksView.qml:32
-#: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:33
+#: src/app/webbrowser/BookmarksViewWide.qml:33
+#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Adreces d'interès"
 
-#: src/app/webbrowser/BookmarksView.qml:76
-#: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
-#: src/app/webbrowser/HistoryViewWide.qml:407
+#: src/app/webbrowser/BookmarksView.qml:77
+#: src/app/webbrowser/BookmarksViewWide.qml:76
+#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "Fet"
 
-#: src/app/webbrowser/BookmarksView.qml:90
-#: src/app/webbrowser/BookmarksViewWide.qml:89
-#: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/BookmarksView.qml:91
+#: src/app/webbrowser/BookmarksViewWide.qml:90
+#: src/app/webbrowser/HistoryView.qml:137
+#: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "Pestanya nova"
 
-#: src/app/webbrowser/Browser.qml:585
+#: src/app/webbrowser/Browser.qml:229
+#: src/app/webcontainer/WebViewImplOxide.qml:310
+msgid "Blocked domain"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:230
+#: src/app/webcontainer/WebViewImplOxide.qml:311
+#, qt-format
+msgid "Blocked navigation request to domain %1."
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:256
+#: src/app/webcontainer/WebViewImplOxide.qml:337
+msgid "Whitelisted domain"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:257
+#, qt-format
+msgid ""
+"domain %1 is now whitelisted, it will be active on the next page reload."
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:734
 msgid "New window"
 msgstr "Finestra nova"
 
-#: src/app/webbrowser/Browser.qml:591
+#: src/app/webbrowser/Browser.qml:740
 msgid "New private window"
 msgstr "Finestra privada nova"
 
-#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
-#: src/app/webbrowser/HistoryViewWide.qml:35
+#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
 msgid "Downloads"
 msgstr "Baixades"
 
-#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
 msgid "Settings"
 msgstr "Configuració"
 
+#: src/app/webbrowser/Browser.qml:786
+msgid "View source"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:793
+msgid "Save as HTML / PDF"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
+#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -650,29 +789,29 @@ msgstr "Trieu una aplicació"
 msgid "Download"
 msgstr "Baixa"
 
-#: src/app/webbrowser/DownloadDelegate.qml:151
+#: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
 msgstr "Ha fallat la baixada"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:194
+#: src/app/webbrowser/DownloadDelegate.qml:196
 #, qt-format
 msgid "%1%"
 msgstr "%1%"
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:202
+msgid "Pause"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
 msgstr "Continua"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
 msgstr "Confirma la selecció"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
-msgid "Delete"
-msgstr "Elimina"
-
-#: src/app/webbrowser/DownloadsPage.qml:260
+#: src/app/webbrowser/DownloadsPage.qml:268
 msgid "No downloads available"
 msgstr "No hi ha cap baixada disponible"
 
@@ -693,20 +832,20 @@ msgid "Last Visited"
 msgstr "Darreres visites"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:251
+#: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
 msgstr "Ahir"
 
-#: src/app/webbrowser/HistoryViewWide.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
 msgstr "Historial de cerques"
 
-#: src/app/webbrowser/HistoryViewWide.qml:235
+#: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
 msgstr "Tot l'historial"
 
-#: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:336
+#: src/app/webbrowser/HistoryViewWide.qml:250
+#: src/app/webbrowser/HistoryViewWide.qml:337
 msgid "Today"
 msgstr "Avui"
 
@@ -736,144 +875,110 @@ msgstr "Llocs destacats"
 msgid "You haven't visited any site yet"
 msgstr "Encara no heu visitat cap pàgina web"
 
-#: src/app/webbrowser/SadTab.qml:48
+#: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
 msgstr "S'ha tancat el procés de renderització per a aquesta pestanya."
 
-#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
-#: src/app/webbrowser/SadTab.qml:65
+#: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
 msgstr "Quelcom ha fallat en mostrar %1."
 
-#: src/app/webbrowser/SadTab.qml:67
-msgid ""
-"The system is low on memory and can't display this webpage. Try closing "
-"unneeded tabs and reloading."
-msgstr ""
-"El sistema té poca memòria i no pot mostrar aquesta pàgina web. Intenteu "
-"tancar pestanyes que no siguin necessàries i torneu-la a carregar."
-
-#: src/app/webbrowser/SadTab.qml:80
+#: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
 msgstr "Tanca la pestanya"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "This site has insecure content"
 msgstr "Aquest lloc conté contingut insegur"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+#: src/app/webbrowser/SecurityCertificatePopover.qml:71
 msgid "Identity Not Verified"
 msgstr "Identitat no verificada"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+#: src/app/webbrowser/SecurityCertificatePopover.qml:79
 msgid "The identity of this website has not been verified."
 msgstr "La identitat d'aquest lloc web no ha estat verificada."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:89
-msgid "Server certificate does not match the identity of the site."
+#: src/app/webbrowser/SecurityCertificatePopover.qml:109
+#, qt-format
+msgid "You are connected to %1 via HTTPS. The certificate is valid."
 msgstr ""
-"El certificat del servidor no concorda amb la identitat del lloc web."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:91
-msgid "Server certificate has expired."
-msgstr "El certificat del servidor ha vençut."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:93
-msgid "Server certificate contains invalid dates."
-msgstr "El certificat del servidor conté dates no vàlides."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
-msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
-"El certificat del servidor l'ha emès una entitat en què no es confia."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:97
-msgid "Server certificate has been revoked."
-msgstr "El certificat del servidor s'ha revocat."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:99
-msgid "Server certificate is invalid."
-msgstr "El certificat del servidor no és vàlid."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:101
-msgid "Server certificate is insecure."
-msgstr "El certificat del servidor no és segur."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:103
-msgid "Server certificate failed our security checks for an unknown reason."
-msgstr ""
-"El certificat del servidor no ha superat els controls de seguretat per una "
-"raó desconeguda."
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
-msgid "You are connected to"
-msgstr "Esteu connectat a"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
-msgid "Which is run by"
-msgstr "Que s'execute per"
-
-#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+#: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
 msgstr "Predeterminat"
 
-#: src/app/webbrowser/SettingsPage.qml:70
-#: src/app/webbrowser/SettingsPage.qml:150
+#: src/app/webbrowser/SettingsPage.qml:72
+#: src/app/webbrowser/SettingsPage.qml:223
 msgid "Search engine"
 msgstr "Motor de cerca"
 
-#: src/app/webbrowser/SettingsPage.qml:96
+#: src/app/webbrowser/SettingsPage.qml:98
 msgid "Restore previous session at startup"
 msgstr "Recupera la sessió anterior a l'inici"
 
-#: src/app/webbrowser/SettingsPage.qml:115
-#: src/app/webbrowser/SettingsPage.qml:193
+#: src/app/webbrowser/SettingsPage.qml:117
+msgid "Set Desktop mode"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:184
+#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webcontainer/WebappSettingsPage.qml:103
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
 msgstr "Privadesa i permisos"
 
-#: src/app/webbrowser/SettingsPage.qml:126
+#: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
 msgstr "Restableix la configuració del navegador"
 
-#: src/app/webbrowser/SettingsPage.qml:206
-#: src/app/webbrowser/SettingsPage.qml:342
+#: src/app/webbrowser/SettingsPage.qml:280
+#: src/app/webcontainer/WebappSettingsPage.qml:157
+msgid "Only allow browsing to whitelisted websites"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:320
+#: src/app/webbrowser/SettingsPage.qml:453
 msgid "Camera & microphone"
 msgstr "Càmera i micròfon"
 
-#: src/app/webbrowser/SettingsPage.qml:215
+#: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
 msgstr "Neteja l'historial de navegació"
 
-#: src/app/webbrowser/SettingsPage.qml:219
+#: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
 msgstr "Voleu suprimir l'historial de navegació?"
 
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:341
+#: src/app/webcontainer/WebappSettingsPage.qml:198
 msgid "Clear Cache"
 msgstr "Neteja la memòria cau"
 
-#: src/app/webbrowser/SettingsPage.qml:230
+#: src/app/webbrowser/SettingsPage.qml:344
+#: src/app/webcontainer/WebappSettingsPage.qml:201
 msgid "Clear Cache?"
 msgstr "Voleu netejar la memòria cau?"
 
-#: src/app/webbrowser/SettingsPage.qml:265
+#: src/app/webbrowser/SettingsPage.qml:376
+#: src/app/webcontainer/WebappSettingsPage.qml:233
 msgid "Clear"
 msgstr "Neteja-ho"
 
-#: src/app/webbrowser/SettingsPage.qml:354
+#: src/app/webbrowser/SettingsPage.qml:465
 msgid "Microphone"
 msgstr "Micròfon"
 
-#: src/app/webbrowser/SettingsPage.qml:375
+#: src/app/webbrowser/SettingsPage.qml:486
 msgid "Camera"
 msgstr "Càmera"
 
-#: src/app/webbrowser/TabComponent.qml:409
+#: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Llisqueu el dit per sortir de la pantalla completa"
 
-#: src/app/webbrowser/TabComponent.qml:410
+#: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
 msgstr "Premeu la tecla Esc per sortir de la pantalla completa"
 
@@ -889,21 +994,23 @@ msgstr "Canvia a una finestra nova"
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:137
+#: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
 msgstr "Suprimeix"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:101
-#: src/app/webcontainer/webapp-container.qml:73
-#, qt-format
-msgid "%1 - Ubuntu Web Browser"
+#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webcontainer/webapp-container.qml:76
+#, fuzzy, qt-format
+msgid "%1 - Morph Web Browser"
 msgstr "%1 - Navegador web de l'Ubuntu"
 
-#: src/app/webbrowser/morph-browser.qml:103
-#: src/app/webcontainer/webapp-container.qml:75
-msgid "Ubuntu Web Browser"
-msgstr "Navegador web de l'Ubuntu"
+#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webcontainer/webapp-container.qml:78
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
+#, fuzzy
+msgid "Morph Web Browser"
+msgstr "Navegador web"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -975,16 +1082,28 @@ msgstr "Trieu el compte"
 msgid "Oops, something went wrong."
 msgstr "S'ha produït un error."
 
+#: src/app/webcontainer/WebViewImplOxide.qml:338
+#, qt-format
+msgid "domain %1 is now whitelisted, please reload the page."
+msgstr ""
+
+#: src/app/webcontainer/WebappSettingsPage.qml:35
+msgid "WebappContainer Settings"
+msgstr ""
+
+#: src/app/webcontainer/WebappSettingsPage.qml:114
+#, fuzzy
+msgid "Reset webapp settings"
+msgstr "Restableix la configuració del navegador"
+
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-msgid "Browser"
+#, fuzzy
+msgid "Morph Browser"
 msgstr "Navegador"
 
-#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-msgid "Web Browser"
-msgstr "Navegador web"
-
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-msgid "Browse the World Wide Web"
+#, fuzzy
+msgid "Browse the World Wide Web using QtWebEngine"
 msgstr "Navegueu per la web"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
@@ -1000,7 +1119,117 @@ msgid "New Private Window"
 msgstr "Finestra privada nova"
 
 #~ msgid ""
-#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which does not match the identity of the site."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat que no coincideix amb la identitat del lloc."
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which has expired."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat que ha caducat."
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which contains invalid dates."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat que conté dates no vàlides."
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "issued by an entity that is not trusted."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat emès per una entitat que no és de confiança."
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "that has been revoked."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat revocat."
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented an invalid security "
+#~ "certificate."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat no vàlid."
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented an insecure security "
+#~ "certificate."
+#~ msgstr ""
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat que no és segur."
+
+#~ msgid ""
+#~ "This site security certificate is not trusted\n"
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which failed our security checks for an unknown reason."
+#~ msgstr ""
+#~ "El certificat de seguretat d'aquest lloc no és de confiança.\n"
+#~ "Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+#~ "seguretat que ha fallat les comprovacions de seguretat per raons "
+#~ "desconegudes."
+
+#~ msgid "%1 (embedded in %2)"
+#~ msgstr "%1 (incrustada a %2)"
+
+#~ msgid "%1/%2"
+#~ msgstr "%1/%2"
+
+#~ msgid ""
+#~ "The system is low on memory and can't display this webpage. Try closing "
+#~ "unneeded tabs and reloading."
+#~ msgstr ""
+#~ "El sistema té poca memòria i no pot mostrar aquesta pàgina web. Intenteu "
+#~ "tancar pestanyes que no siguin necessàries i torneu-la a carregar."
+
+#~ msgid "Server certificate does not match the identity of the site."
+#~ msgstr ""
+#~ "El certificat del servidor no concorda amb la identitat del lloc web."
+
+#~ msgid "Server certificate has expired."
+#~ msgstr "El certificat del servidor ha vençut."
+
+#~ msgid "Server certificate contains invalid dates."
+#~ msgstr "El certificat del servidor conté dates no vàlides."
+
+#~ msgid "Server certificate is issued by an entity that is not trusted."
+#~ msgstr ""
+#~ "El certificat del servidor l'ha emès una entitat en què no es confia."
+
+#~ msgid "Server certificate has been revoked."
+#~ msgstr "El certificat del servidor s'ha revocat."
+
+#~ msgid "Server certificate is invalid."
+#~ msgstr "El certificat del servidor no és vàlid."
+
+#~ msgid "Server certificate is insecure."
+#~ msgstr "El certificat del servidor no és segur."
+
+#~ msgid "Server certificate failed our security checks for an unknown reason."
+#~ msgstr ""
+#~ "El certificat del servidor no ha superat els controls de seguretat per "
+#~ "una raó desconeguda."
+
+#~ msgid "You are connected to"
+#~ msgstr "Esteu connectat a"
+
+#~ msgid "Which is run by"
+#~ msgstr "Que s'execute per"
+
+#~ msgid "Ubuntu Web Browser"
+#~ msgstr "Navegador web de l'Ubuntu"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the "
+#~ "page."
 #~ msgstr "Comproveu els paràmetres de la xarxa i actualitzeu la pàgina."
 
 #~ msgid "Please choose a file"

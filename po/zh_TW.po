@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-03-15 20:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-20 21:38+0000\n"
 "PO-Revision-Date: 2019-06-06 10:03+0000\n"
 "Last-Translator: P.-H. Lin <cypressyew@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
@@ -24,11 +24,78 @@ msgstr ""
 msgid "JavaScript Alert"
 msgstr "JavaScript 警示"
 
-#: src/app/AlertDialog.qml:27 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:27 src/app/HttpAuthenticationDialog.qml:59
-#: src/app/PromptDialog.qml:34 src/app/webbrowser/BookmarkOptions.qml:122
+#: src/app/AlertDialog.qml:31 src/app/AuthenticationDialog.qml:47
+#: src/app/ColorSelectDialog.qml:73 src/app/ConfirmDialog.qml:33
+#: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
+#: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
 msgstr "確定"
+
+#: src/app/AllowCustomSchemesDialog.qml:24
+msgid "Custom URL schemes"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:30
+#, qt-format
+msgid "The site '%1' is trying to open the following URL with a custom scheme:"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:32
+msgid ""
+"This will try to dispatch this url to a system app if possible. Do you want "
+"to proceed?"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:44
+#: src/app/GeolocationPermissionRequest.qml:42
+msgid "Remember decision"
+msgstr ""
+
+#: src/app/AllowCustomSchemesDialog.qml:50
+#: src/app/GeolocationPermissionRequest.qml:49
+msgid "Allow"
+msgstr "同意"
+
+#: src/app/AllowCustomSchemesDialog.qml:57
+#: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
+#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
+#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/webbrowser/ContentDownloadDialog.qml:114
+#: src/app/webbrowser/ContextMenuMobile.qml:143
+#: src/app/webbrowser/DownloadDelegate.qml:181
+#: src/app/webbrowser/SettingsPage.qml:369
+#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webcontainer/AccountChooserDialog.qml:96
+#: src/app/webcontainer/ContextMenuMobile.qml:143
+#: src/app/webcontainer/WebappSettingsPage.qml:226
+msgid "Cancel"
+msgstr "取消"
+
+#: src/app/AllowOrBlockDomainDialog.qml:25
+#: src/app/AllowOrBlockDomainDialog.qml:41
+msgid "Block domain"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:30
+#, qt-format
+msgid ""
+"You're trying to access %1 but it is not on your approved domain whitelist. "
+"Would you like to continue to block the domain, allow browsing to the "
+"domain, or go back?"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:31
+#, qt-format
+msgid ""
+"%1 is trying to access %2 but it is not on your approved domain whitelist. "
+"Would you like to continue to block the domain, allow loading data from the "
+"domain, or just ignore this request ?"
+msgstr ""
+
+#: src/app/AllowOrBlockDomainDialog.qml:47
+msgid "Allow domain"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -40,36 +107,23 @@ msgstr "需要驗證。"
 msgid "The website %1 requires authentication."
 msgstr "網頁 %1 需要驗證。"
 
-#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:50
 msgid "Username"
 msgstr "使用者名稱"
 
-#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
 msgstr "密碼"
-
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:35
-#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:42
-#: src/app/webbrowser/BookmarkOptions.qml:164
-#: src/app/webbrowser/ContentDownloadDialog.qml:114
-#: src/app/webbrowser/ContextMenuMobile.qml:141
-#: src/app/webbrowser/DownloadDelegate.qml:178
-#: src/app/webbrowser/SettingsPage.qml:258
-#: src/app/webbrowser/SettingsPage.qml:312
-#: src/app/webcontainer/AccountChooserDialog.qml:96
-#: src/app/webcontainer/ContextMenuMobile.qml:143
-msgid "Cancel"
-msgstr "取消"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
 msgstr "確認導覽"
 
-#: src/app/BeforeUnloadDialog.qml:27
+#: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
 msgstr "離開"
 
-#: src/app/BeforeUnloadDialog.qml:35
+#: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
 msgstr "留下"
 
@@ -79,59 +133,159 @@ msgstr "此連結未受信任"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, qt-format
+#, fuzzy, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
-"website is not trusted."
+"website is not trusted. Reason: %2"
 msgstr "您想以安全方式連接 %1，但此網站的憑證未受信任。"
 
-#: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:161
+#: src/app/CertificateVerificationDialog.qml:39
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "仍要繼續"
 
-#: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:174
+#: src/app/CertificateVerificationDialog.qml:46
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
 msgstr "回到安全頁面"
+
+#: src/app/ColorSelectDialog.qml:25
+#, fuzzy
+msgid "Select Color"
+msgstr "全選"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "JavaScript 確認"
 
-#: src/app/ErrorSheet.qml:36
+#: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
+msgid "Custom User Agents"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
+#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
+#: src/app/webbrowser/DownloadsPage.qml:86
+msgid "Select all"
+msgstr "全選"
+
+#: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
+#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+msgid "Delete"
+msgstr "刪除"
+
+#: src/app/CustomUserAgentsPage.qml:104
+msgid "New User Agent"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:105
+msgid "Add the name for the new user agent"
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:207
+msgid "enter user agent string..."
+msgstr ""
+
+#: src/app/CustomUserAgentsPage.qml:248
+#, fuzzy
+msgid "No custom user agents available"
+msgstr "沒有下載可以提供"
+
+#: src/app/DomainPermissionsPage.qml:55
+msgid "Domain blacklist/whitelist"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
+msgid "Add domain"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:115
+msgid ""
+"Enter the name of the domain, e.g. example.com (subdomains will be removed)."
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:223
+msgid "Not Set"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:233
+msgid "Never allow access"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:244
+msgid "Always allow access"
+msgstr ""
+
+#: src/app/DomainPermissionsPage.qml:284
+msgid "No sites have been granted special permissions"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:52
+msgid "Domain specific settings"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:114
+msgid "Enter the name of the domain, e.g. m.example.com"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:206
+msgid "allowed to launch other apps"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:223
+#, fuzzy
+msgid "allowed to access your location"
+msgstr "是否允許此網域存取您的攝影機？"
+
+#: src/app/DomainSettingsPage.qml:239
+msgid "custom user agent"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
+msgid "Zoom: "
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:320
+msgid "not set"
+msgstr ""
+
+#: src/app/DomainSettingsPage.qml:354
+msgid "No domain specific settings available"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:38
 msgid "Network Error"
 msgstr "網路錯誤"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:42
+#: src/app/ErrorSheet.qml:45
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "您在查看時似乎出現了問題：%1。"
 
-#: src/app/ErrorSheet.qml:48
+#: src/app/ErrorSheet.qml:52
+#, qt-format
+msgid "Error: %1"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
 msgstr "請檢查您的網路設定，然後重新整理頁面。"
 
-#: src/app/ErrorSheet.qml:53
+#: src/app/ErrorSheet.qml:65
 msgid "Refresh page"
 msgstr "重新整理頁面"
 
-#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/GeolocationPermissionRequest.qml:29
 msgid "Permission Request"
 msgstr "請求許可"
 
-#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/GeolocationPermissionRequest.qml:30
 msgid "This page wants to know your device’s location."
 msgstr "此頁面想要知道您的位置。"
 
-#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/GeolocationPermissionRequest.qml:55
 msgid "Deny"
 msgstr "拒絕"
-
-#: src/app/GeolocationPermissionRequest.qml:42
-msgid "Allow"
-msgstr "同意"
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
@@ -139,16 +293,16 @@ msgstr "同意"
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr "%1 的網頁需要驗證。網頁的要求是「%2」"
 
-#: src/app/InvalidCertificateErrorSheet.qml:56
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
 msgstr "此網頁的安全憑證未受信任。\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:64
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
 msgstr "了解更多"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:88
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -158,7 +312,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:95
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -168,7 +322,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:103
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -178,7 +332,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:114
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -188,7 +342,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:122
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -198,7 +352,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:133
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -208,7 +362,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:140
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -218,7 +372,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:147
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -227,110 +381,37 @@ msgstr ""
 "指紋 (SHA1)：\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:154
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr "您不應該繼續，尤其是在當您從未在此網頁上看過這個警告的時候。"
 
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:188
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which does not match the identity of the site."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證與網頁的身份不符。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:191
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which has expired."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證已失效。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:194
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which contains invalid dates."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證所包含的日期無效。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:197
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"issued by an entity that is not trusted."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證是由未受信任的單位所發送的。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:200
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"that has been revoked."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證已遭撤銷。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:203
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented an invalid security "
-"certificate."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證無效。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:206
-#, qt-format
-msgid ""
-"You attempted to reach %1 but the server presented an insecure security "
-"certificate."
-msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證並不安全。"
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:209
-#, qt-format
-msgid ""
-"This site security certificate is not trusted\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"which failed our security checks for an unknown reason."
-msgstr ""
-"此網頁的安全憑證未受信任。\n"
-"試圖進入到 %1，但伺服器顯示的安全憑證由於不明原因而並未通過我們的安全檢查。"
-
-#: src/app/MediaAccessDialog.qml:31
+#: src/app/MediaAccessDialog.qml:39
 msgid "Permission"
 msgstr "權限"
 
-#: src/app/MediaAccessDialog.qml:38
+#: src/app/MediaAccessDialog.qml:46
 msgid "Allow this domain to access your camera and microphone?"
 msgstr "是否允許此網域存取您的攝影機及麥克風？"
 
-#: src/app/MediaAccessDialog.qml:39
+#: src/app/MediaAccessDialog.qml:47
 msgid "Allow this domain to access your camera?"
 msgstr "是否允許此網域存取您的攝影機？"
 
-#: src/app/MediaAccessDialog.qml:40
+#: src/app/MediaAccessDialog.qml:48
 msgid "Allow this domain to access your microphone?"
 msgstr "是否允許此網域存取您的麥克風？"
 
-#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
-#: src/app/MediaAccessDialog.qml:48
-#, qt-format
-msgid "%1 (embedded in %2)"
-msgstr "%1 (內嵌於 %2)"
-
-#: src/app/MediaAccessDialog.qml:72
+#: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
 msgstr "是"
 
-#: src/app/MediaAccessDialog.qml:83
+#: src/app/MediaAccessDialog.qml:85
 msgid "No"
 msgstr "否"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
 msgstr "JavaScript 提示"
 
@@ -343,6 +424,60 @@ msgstr "代理伺服器需要驗證。"
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "%1:%2 網頁需要驗證。"
+
+#: src/app/SavePageDialog.qml:24
+msgid "Save page as HTML / PDF"
+msgstr ""
+
+#: src/app/SavePageDialog.qml:35
+msgid "Save as HTML"
+msgstr ""
+
+#: src/app/SavePageDialog.qml:44
+msgid "Save as PDF"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
+#: src/app/webcontainer/WebappSettingsPage.qml:55
+#, fuzzy
+msgid "Default Zoom"
+msgstr "預設"
+
+#: src/app/WebViewImpl.qml:106
+msgid "the current web app"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:106
+#, qt-format
+msgid ""
+"Set current zoom as default zoom for %1 ? (You can change it in the settings "
+"menu)"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
+msgid "Zoom"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:801
+msgid "Zoom Out"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:808
+msgid "Reset"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:815
+msgid "Zoom In"
+msgstr ""
+
+#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:433
+msgid "Save"
+msgstr "儲存"
+
+#: src/app/WebViewImpl.qml:861
+msgid "Current Zoom"
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -378,7 +513,7 @@ msgstr "清除歷史"
 msgid "Clear Navigation History"
 msgstr "清除瀏覽歷史"
 
-#: src/app/actions/Copy.qml:22
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
 msgstr "複製"
 
@@ -390,7 +525,7 @@ msgstr "複製影像"
 msgid "Copy link"
 msgstr "複製連結"
 
-#: src/app/actions/Cut.qml:22
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
 msgid "Cut"
 msgstr "剪下"
 
@@ -398,7 +533,7 @@ msgstr "剪下"
 msgid "Erase"
 msgstr "清除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:617
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
 msgid "Find in page"
 msgstr "在頁面上尋找"
 
@@ -428,7 +563,7 @@ msgstr "前往"
 msgid "Address;URL;www"
 msgstr "位址;網址;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:484
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "新分頁"
@@ -451,6 +586,11 @@ msgstr "在預設瀏覽器中開啟連結"
 msgid "Open link in new background tab"
 msgstr "在新的背景分頁中開啟連結"
 
+#: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
+#, fuzzy
+msgid "Open link in new private window"
+msgstr "在無痕式視窗中開啟連結"
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "在新分頁中開啟連結"
@@ -459,15 +599,11 @@ msgstr "在新分頁中開啟連結"
 msgid "Open link in new window"
 msgstr "在新視窗中開啟連結"
 
-#: src/app/actions/OpenLinkInPrivateWindow.qml:22
-msgid "Open link in private window"
-msgstr "在無痕式視窗中開啟連結"
-
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
 msgstr "在新分頁中開啟影片"
 
-#: src/app/actions/Paste.qml:22
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
 msgid "Paste"
 msgstr "貼上"
 
@@ -475,7 +611,7 @@ msgstr "貼上"
 msgid "Redo"
 msgstr "重做"
 
-#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "重新載入"
@@ -498,11 +634,7 @@ msgstr "儲存連結"
 msgid "Save video"
 msgstr "儲存影片"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:84
-msgid "Select all"
-msgstr "全選"
-
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:597
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
 msgid "Share"
 msgstr "分享"
 
@@ -510,19 +642,17 @@ msgstr "分享"
 msgid "Undo"
 msgstr "復原"
 
-#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:212
-#, qt-format
-msgid "%1/%2"
-msgstr "%1/%2"
-
-#: src/app/webbrowser/AddressBar.qml:248
+#: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
 msgstr "在頁面上尋找"
 
-#: src/app/webbrowser/AddressBar.qml:249
+#: src/app/webbrowser/AddressBar.qml:243
 msgid "search or enter an address"
 msgstr "搜尋或輸入位址"
+
+#: src/app/webbrowser/AddressBar.qml:369
+msgid "Paste and Go"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -553,63 +683,88 @@ msgstr "新增資料夾"
 msgid "Create new folder"
 msgstr "建立新資料夾"
 
-#: src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:322
-msgid "Save"
-msgstr "儲存"
-
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:85
-#: src/app/webbrowser/SettingsPage.qml:286
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
+#: src/app/webbrowser/SettingsPage.qml:397
 msgid "Homepage"
 msgstr "首頁"
 
-#: src/app/webbrowser/BookmarksView.qml:32
-#: src/app/webbrowser/BookmarksViewWide.qml:32
-#: src/app/webbrowser/Browser.qml:605 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:33
+#: src/app/webbrowser/BookmarksViewWide.qml:33
+#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: src/app/webbrowser/BookmarksView.qml:76
-#: src/app/webbrowser/BookmarksViewWide.qml:75
-#: src/app/webbrowser/Browser.qml:470 src/app/webbrowser/HistoryView.qml:126
-#: src/app/webbrowser/HistoryViewWide.qml:407
+#: src/app/webbrowser/BookmarksView.qml:77
+#: src/app/webbrowser/BookmarksViewWide.qml:76
+#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "完成"
 
-#: src/app/webbrowser/BookmarksView.qml:90
-#: src/app/webbrowser/BookmarksViewWide.qml:89
-#: src/app/webbrowser/HistoryView.qml:140
-#: src/app/webbrowser/HistoryViewWide.qml:421 src/app/webbrowser/TabsBar.qml:64
+#: src/app/webbrowser/BookmarksView.qml:91
+#: src/app/webbrowser/BookmarksViewWide.qml:90
+#: src/app/webbrowser/HistoryView.qml:137
+#: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
 msgstr "新分頁"
 
-#: src/app/webbrowser/Browser.qml:585
+#: src/app/webbrowser/Browser.qml:229
+#: src/app/webcontainer/WebViewImplOxide.qml:310
+msgid "Blocked domain"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:230
+#: src/app/webcontainer/WebViewImplOxide.qml:311
+#, qt-format
+msgid "Blocked navigation request to domain %1."
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:256
+#: src/app/webcontainer/WebViewImplOxide.qml:337
+msgid "Whitelisted domain"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:257
+#, qt-format
+msgid ""
+"domain %1 is now whitelisted, it will be active on the next page reload."
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:734
 msgid "New window"
 msgstr "新視窗"
 
-#: src/app/webbrowser/Browser.qml:591
+#: src/app/webbrowser/Browser.qml:740
 msgid "New private window"
 msgstr "新無痕式視窗"
 
-#: src/app/webbrowser/Browser.qml:611 src/app/webbrowser/HistoryView.qml:30
-#: src/app/webbrowser/HistoryViewWide.qml:35
+#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "歷史"
 
-#: src/app/webbrowser/Browser.qml:624 src/app/webbrowser/DownloadsPage.qml:46
+#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
 msgid "Downloads"
 msgstr "下載"
 
-#: src/app/webbrowser/Browser.qml:631 src/app/webbrowser/SettingsPage.qml:41
+#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
 msgid "Settings"
 msgstr "設定"
 
+#: src/app/webbrowser/Browser.qml:786
+msgid "View source"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:793
+msgid "Save as HTML / PDF"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:804 src/app/webbrowser/Browser.qml:842
+#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -627,29 +782,29 @@ msgstr "選擇一個應用程式"
 msgid "Download"
 msgstr "下載"
 
-#: src/app/webbrowser/DownloadDelegate.qml:151
+#: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
 msgstr "下載失敗"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:194
+#: src/app/webbrowser/DownloadDelegate.qml:196
 #, qt-format
 msgid "%1%"
 msgstr "%1%"
 
-#: src/app/webbrowser/DownloadDelegate.qml:199
+#: src/app/webbrowser/DownloadDelegate.qml:202
+msgid "Pause"
+msgstr ""
+
+#: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
 msgstr "恢復"
 
-#: src/app/webbrowser/DownloadsPage.qml:60
+#: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
 msgstr "確認選擇"
 
-#: src/app/webbrowser/DownloadsPage.qml:100
-msgid "Delete"
-msgstr "刪除"
-
-#: src/app/webbrowser/DownloadsPage.qml:260
+#: src/app/webbrowser/DownloadsPage.qml:268
 msgid "No downloads available"
 msgstr "沒有下載可以提供"
 
@@ -669,20 +824,20 @@ msgid "Last Visited"
 msgstr "最後訪問"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:251
+#: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
 msgstr "昨天"
 
-#: src/app/webbrowser/HistoryViewWide.qml:160
+#: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
 msgstr "搜尋歷史"
 
-#: src/app/webbrowser/HistoryViewWide.qml:235
+#: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
 msgstr "所有歷史"
 
-#: src/app/webbrowser/HistoryViewWide.qml:249
-#: src/app/webbrowser/HistoryViewWide.qml:336
+#: src/app/webbrowser/HistoryViewWide.qml:250
+#: src/app/webbrowser/HistoryViewWide.qml:337
 msgid "Today"
 msgstr "今天"
 
@@ -711,138 +866,110 @@ msgstr "熱門網頁"
 msgid "You haven't visited any site yet"
 msgstr "您尚未瀏覽過任何的網頁"
 
-#: src/app/webbrowser/SadTab.qml:48
+#: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
 msgstr "此分頁的編排繪製程序已經關閉。"
 
-#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
-#: src/app/webbrowser/SadTab.qml:65
+#: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
 msgstr "顯示 %1 時發生了問題。"
 
-#: src/app/webbrowser/SadTab.qml:67
-msgid ""
-"The system is low on memory and can't display this webpage. Try closing "
-"unneeded tabs and reloading."
-msgstr "系統記憶體不足，無法顯示此網頁。試試關閉不需要的分頁，再重新載入。"
-
-#: src/app/webbrowser/SadTab.qml:80
+#: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
 msgstr "關閉分頁"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "This site has insecure content"
 msgstr "此網頁的內容並不安全"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+#: src/app/webbrowser/SecurityCertificatePopover.qml:71
 msgid "Identity Not Verified"
 msgstr "身份尚未經驗證"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+#: src/app/webbrowser/SecurityCertificatePopover.qml:79
 msgid "The identity of this website has not been verified."
 msgstr "此網站的身份尚未經驗證。"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:89
-msgid "Server certificate does not match the identity of the site."
-msgstr "伺服器的憑證與網頁的身份不符。"
+#: src/app/webbrowser/SecurityCertificatePopover.qml:109
+#, qt-format
+msgid "You are connected to %1 via HTTPS. The certificate is valid."
+msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:91
-msgid "Server certificate has expired."
-msgstr "伺服器的憑證已失效。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:93
-msgid "Server certificate contains invalid dates."
-msgstr "伺服器的憑證所包含的日期無效。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
-msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "伺服器的憑證是由未受信任的單位所發出。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:97
-msgid "Server certificate has been revoked."
-msgstr "伺服器的憑證已遭撤銷。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:99
-msgid "Server certificate is invalid."
-msgstr "伺服器的憑證無效。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:101
-msgid "Server certificate is insecure."
-msgstr "伺服器的憑證並不安全。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:103
-msgid "Server certificate failed our security checks for an unknown reason."
-msgstr "伺服器的憑證由於不明原因而並未通過我們的安全檢查。"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
-msgid "You are connected to"
-msgstr "您已連接到"
-
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
-msgid "Which is run by"
-msgstr "要用哪一個來執行"
-
-#: src/app/webbrowser/SettingsDeviceSelector.qml:43
+#: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
 msgstr "預設"
 
-#: src/app/webbrowser/SettingsPage.qml:70
-#: src/app/webbrowser/SettingsPage.qml:150
+#: src/app/webbrowser/SettingsPage.qml:72
+#: src/app/webbrowser/SettingsPage.qml:223
 msgid "Search engine"
 msgstr "搜尋引擎"
 
-#: src/app/webbrowser/SettingsPage.qml:96
+#: src/app/webbrowser/SettingsPage.qml:98
 msgid "Restore previous session at startup"
 msgstr "啟動時回復之前工作階段"
 
-#: src/app/webbrowser/SettingsPage.qml:115
-#: src/app/webbrowser/SettingsPage.qml:193
+#: src/app/webbrowser/SettingsPage.qml:117
+msgid "Set Desktop mode"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:184
+#: src/app/webbrowser/SettingsPage.qml:266
+#: src/app/webcontainer/WebappSettingsPage.qml:103
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
 msgstr "隱私及權限"
 
-#: src/app/webbrowser/SettingsPage.qml:126
+#: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
 msgstr "重設瀏覽器設定"
 
-#: src/app/webbrowser/SettingsPage.qml:206
-#: src/app/webbrowser/SettingsPage.qml:342
+#: src/app/webbrowser/SettingsPage.qml:280
+#: src/app/webcontainer/WebappSettingsPage.qml:157
+msgid "Only allow browsing to whitelisted websites"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:320
+#: src/app/webbrowser/SettingsPage.qml:453
 msgid "Camera & microphone"
 msgstr "攝影機及麥克風"
 
-#: src/app/webbrowser/SettingsPage.qml:215
+#: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
 msgstr "清除瀏覽歷史"
 
-#: src/app/webbrowser/SettingsPage.qml:219
+#: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
 msgstr "是否清除瀏覽歷史？"
 
-#: src/app/webbrowser/SettingsPage.qml:227
+#: src/app/webbrowser/SettingsPage.qml:341
+#: src/app/webcontainer/WebappSettingsPage.qml:198
 msgid "Clear Cache"
 msgstr "清除快取"
 
-#: src/app/webbrowser/SettingsPage.qml:230
+#: src/app/webbrowser/SettingsPage.qml:344
+#: src/app/webcontainer/WebappSettingsPage.qml:201
 msgid "Clear Cache?"
 msgstr "是否清除網頁快取？"
 
-#: src/app/webbrowser/SettingsPage.qml:265
+#: src/app/webbrowser/SettingsPage.qml:376
+#: src/app/webcontainer/WebappSettingsPage.qml:233
 msgid "Clear"
 msgstr "清除"
 
-#: src/app/webbrowser/SettingsPage.qml:354
+#: src/app/webbrowser/SettingsPage.qml:465
 msgid "Microphone"
 msgstr "麥克風"
 
-#: src/app/webbrowser/SettingsPage.qml:375
+#: src/app/webbrowser/SettingsPage.qml:486
 msgid "Camera"
 msgstr "相機"
 
-#: src/app/webbrowser/TabComponent.qml:409
+#: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
 msgstr "向上掃以結束全螢幕"
 
-#: src/app/webbrowser/TabComponent.qml:410
+#: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
 msgstr "按 ESC 以結束全螢幕"
 
@@ -858,21 +985,23 @@ msgstr "移至新視窗"
 msgid "Close Tab"
 msgstr "關閉分頁"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:137
+#: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
 msgstr "移除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:101
-#: src/app/webcontainer/webapp-container.qml:73
-#, qt-format
-msgid "%1 - Ubuntu Web Browser"
+#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webcontainer/webapp-container.qml:76
+#, fuzzy, qt-format
+msgid "%1 - Morph Web Browser"
 msgstr "%1 - Ubuntu 網頁瀏覽器"
 
-#: src/app/webbrowser/morph-browser.qml:103
-#: src/app/webcontainer/webapp-container.qml:75
-msgid "Ubuntu Web Browser"
-msgstr "Ubuntu 網頁瀏覽器"
+#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webcontainer/webapp-container.qml:78
+#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
+#, fuzzy
+msgid "Morph Web Browser"
+msgstr "網頁瀏覽器"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -900,7 +1029,9 @@ msgstr "關閉"
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
-msgstr "無法開啟帳號視窗。目前一次只能建立一個帳號；請先關閉其他帳號視窗，然後再試一次。"
+msgstr ""
+"無法開啟帳號視窗。目前一次只能建立一個帳號；請先關閉其他帳號視窗，然後再試一"
+"次。"
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
@@ -939,16 +1070,28 @@ msgstr "選擇帳號"
 msgid "Oops, something went wrong."
 msgstr "糟糕... 發生了問題。"
 
+#: src/app/webcontainer/WebViewImplOxide.qml:338
+#, qt-format
+msgid "domain %1 is now whitelisted, please reload the page."
+msgstr ""
+
+#: src/app/webcontainer/WebappSettingsPage.qml:35
+msgid "WebappContainer Settings"
+msgstr ""
+
+#: src/app/webcontainer/WebappSettingsPage.qml:114
+#, fuzzy
+msgid "Reset webapp settings"
+msgstr "重設瀏覽器設定"
+
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-msgid "Browser"
+#, fuzzy
+msgid "Morph Browser"
 msgstr "瀏覽器"
 
-#: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-msgid "Web Browser"
-msgstr "網頁瀏覽器"
-
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-msgid "Browse the World Wide Web"
+#, fuzzy
+msgid "Browse the World Wide Web using QtWebEngine"
 msgstr "瀏覽網際網路"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
@@ -964,7 +1107,96 @@ msgid "New Private Window"
 msgstr "新無痕式視窗"
 
 #~ msgid ""
-#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which does not match the identity of the site."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證與網頁的身份不符。"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which has expired."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證已失效。"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which contains invalid dates."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證所包含的日期無效。"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "issued by an entity that is not trusted."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證是由未受信任的單位所發送的。"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "that has been revoked."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證已遭撤銷。"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented an invalid security "
+#~ "certificate."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證無效。"
+
+#~ msgid ""
+#~ "You attempted to reach %1 but the server presented an insecure security "
+#~ "certificate."
+#~ msgstr "您試圖進入到 %1，但伺服器顯示的安全憑證並不安全。"
+
+#~ msgid ""
+#~ "This site security certificate is not trusted\n"
+#~ "You attempted to reach %1 but the server presented a security certificate "
+#~ "which failed our security checks for an unknown reason."
+#~ msgstr ""
+#~ "此網頁的安全憑證未受信任。\n"
+#~ "試圖進入到 %1，但伺服器顯示的安全憑證由於不明原因而並未通過我們的安全檢"
+#~ "查。"
+
+#~ msgid "%1 (embedded in %2)"
+#~ msgstr "%1 (內嵌於 %2)"
+
+#~ msgid "%1/%2"
+#~ msgstr "%1/%2"
+
+#~ msgid ""
+#~ "The system is low on memory and can't display this webpage. Try closing "
+#~ "unneeded tabs and reloading."
+#~ msgstr "系統記憶體不足，無法顯示此網頁。試試關閉不需要的分頁，再重新載入。"
+
+#~ msgid "Server certificate does not match the identity of the site."
+#~ msgstr "伺服器的憑證與網頁的身份不符。"
+
+#~ msgid "Server certificate has expired."
+#~ msgstr "伺服器的憑證已失效。"
+
+#~ msgid "Server certificate contains invalid dates."
+#~ msgstr "伺服器的憑證所包含的日期無效。"
+
+#~ msgid "Server certificate is issued by an entity that is not trusted."
+#~ msgstr "伺服器的憑證是由未受信任的單位所發出。"
+
+#~ msgid "Server certificate has been revoked."
+#~ msgstr "伺服器的憑證已遭撤銷。"
+
+#~ msgid "Server certificate is invalid."
+#~ msgstr "伺服器的憑證無效。"
+
+#~ msgid "Server certificate is insecure."
+#~ msgstr "伺服器的憑證並不安全。"
+
+#~ msgid "Server certificate failed our security checks for an unknown reason."
+#~ msgstr "伺服器的憑證由於不明原因而並未通過我們的安全檢查。"
+
+#~ msgid "You are connected to"
+#~ msgstr "您已連接到"
+
+#~ msgid "Which is run by"
+#~ msgstr "要用哪一個來執行"
+
+#~ msgid "Ubuntu Web Browser"
+#~ msgstr "Ubuntu 網頁瀏覽器"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the "
+#~ "page."
 #~ msgstr "Ubuntu 建議您檢查網路設定，並嘗試重新整理該頁面。"
 
 #~ msgid "Please choose a file"
