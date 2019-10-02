@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-09-15 11:50+0000\n"
+"PO-Revision-Date: 2019-10-02 18:25+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <https://translate.ubports.com/projects/ubports/"
 "morph-browser/pt/>\n"
@@ -33,23 +33,27 @@ msgstr "Ok"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Esquemas de URL personalizados"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"O site '%1' está a tentar abrir o seguinte endereço com um esquema "
+"personalizado:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Isto tentará enviar este URL para uma app de sistema, se possível. Deseja "
+"proceder?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Lembrar decisão"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -75,7 +79,7 @@ msgstr "Cancelar"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Bloquear domínio"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -84,6 +88,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Você está a tentar aceder %1 mas não na sua lista de domínios permitidos. "
+"Deseja continuar e bloquear o domínio, permitir a navegação para o domínio, "
+"ou voltar para trás?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -92,10 +99,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 está a tentar aceder %2 mas não está na tua lista de permissões de "
+"domínios. Deseja continuar a bloquear o domínio, permitir o carregamento de "
+"dados do domínio, ou ignorar este pedido?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Permitir domínio"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -133,13 +143,13 @@ msgstr "Esta ligação não é confiável"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Está a tentar aceder em segurança %1, mas o certificado de segurança desta "
-"página não é confiável."
+"página não é confiável. Razão: %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -152,9 +162,8 @@ msgid "Back to safety"
 msgstr "Retroceder para segurança"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Selecionar tudo"
+msgstr "Selecionar cor"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -162,7 +171,7 @@ msgstr "Confirmação do JavaScript"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Agente de utilizadores personalizados"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -177,82 +186,80 @@ msgstr "Eliminar"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Novo agente de utilizador"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Adicionar o nome para um novo agente de utilizador"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "introduzir a string do agente de  utilizador..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Sem transferências disponíveis"
+msgstr "Sem agentes de utilizadores disponíveis"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Domínios bloqueados/permitidos"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Adicionar domínio"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
-msgstr ""
+msgstr "Introduzir o nome do domínio, exemplo (subdomínios serão removidos)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Não definido"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Nunca permitir acesso"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Permitir sempre acesso"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Sem sites com permissões especiais concedidas"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Definições específicas do domínio"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Introduza o nome do domínio, exemplo m.exemplo.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "permissão para iniciar outras apps"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Permitir a este domínio aceder à sua câmara?"
+msgstr "permissão para aceder à sua localização"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "agente de utilizador personalizado"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Aumentar: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "não definido"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Sem definições de domínio disponíveis"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -267,7 +274,7 @@ msgstr "Parece que você está com problemas para visualizar:% 1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Erro: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -429,25 +436,24 @@ msgstr "A página %1:%2 requer autenticação."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Guardar página como HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Guardar como HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Guardar como PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Padrão"
+msgstr "Zoom predefinido"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "a web app atual"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -455,22 +461,24 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Definir o zoom atual como predefinido para %1? (Pode alterar novamente das "
+"definições)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Aumentar"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Diminuir"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Repor"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Ampliar"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -479,7 +487,7 @@ msgstr "Guardar"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Zoom atual"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -589,9 +597,8 @@ msgid "Open link in new background tab"
 msgstr "Abrir o link numa nova guia em segundo plano"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Abrir hiperligação numa janela"
+msgstr "Abrir hiperligação numa janela privada"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -654,7 +661,7 @@ msgstr "procurar ou introduzir endereço"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Colar e ir"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -717,24 +724,26 @@ msgstr "Novo separador"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Domínios bloqueados"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Pedido de navegação bloqueado para domínio %1."
 
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Domínios com permissões"
 
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"o domínio %1 está agora na lista de permissões, será ativo na próximo "
+"carregamento da página."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -759,11 +768,11 @@ msgstr "Definições"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Ver código-fonte"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Guardar como HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -798,7 +807,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pausar"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -899,7 +908,7 @@ msgstr "A identidade desta página não foi verificada."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Está ligado a %1 através de HTTPS. O certificado é válido."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -916,7 +925,7 @@ msgstr "Restaurar sessão anterior ao iniciar"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Definir modo computador"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
@@ -932,7 +941,7 @@ msgstr "Repor as definições do navegador"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Permitir apenas navegar para websites permitidos"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -997,16 +1006,15 @@ msgstr "Remover"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Ubuntu Web Browser"
+msgstr "%1 - Morph Web Browser"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Navegador Web"
+msgstr "Morph Web Browser"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1082,25 +1090,23 @@ msgstr "Ups... algo correu mal."
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr ""
+"o domínio %1 está agora com permissão, por favor carregue a página novamente."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "Definições do WebappContainer"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Repor as definições do navegador"
+msgstr "Repor as definições das webapp"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Navegador"
+msgstr "Morph Browser"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Navegue na World Wide Web"
+msgstr "Navegue na World Wide Web utilizando o QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
