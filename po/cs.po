@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-09-15 11:50+0000\n"
+"PO-Revision-Date: 2019-10-03 17:55+0000\n"
 "Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
-"Language-Team: Czech <https://translate.ubports.com/projects/ubports/morph-"
-"browser/cs/>\n"
+"Language-Team: Czech <https://translate.ubports.com/projects/ubports/"
+"morph-browser/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,23 +33,26 @@ msgstr "Přijmout"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Vlastní URL objekty"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
+msgstr "Stránka '%1' se pokouší otevřít následující URL s vlastními objekty:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Pokud to bude možné dojde k pokusu o odeslání URL do aplikace systému, "
+"Přejete \n"
+"si pokračovat?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Pamatovat si volbu"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -75,7 +78,7 @@ msgstr "Zrušit"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Blokovat doménu"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -84,6 +87,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Pokoušíte se otevřít stránku %1, která není na seznamu mezi povolenými "
+"doménami. Přejete si pokračovat v blokování domény, povolit prohlížení "
+"domény, anebo se chcete vrátit zpět?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -92,10 +98,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 se pokouší o přístup k %2 který není v seznamu schválených domén. Přejete "
+"si pokračovat v blokování domény, povolit stažení dat z domény, anebo pouze "
+"ignorovat tento požadavek?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Povolit doménu"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -133,13 +142,13 @@ msgstr "Toto spojení není důvěryhodné"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Pokoušíte se bezpečně spojit s %1, ale bezpečnostní certifikát této stránky "
-"není důvěryhodný."
+"není důvěryhodný. Důvod: %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -152,9 +161,8 @@ msgid "Back to safety"
 msgstr "Zpět na bezpečnější stránku"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Vybrat vše"
+msgstr "Vybrat barvu"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -162,7 +170,7 @@ msgstr "Potvrezení JavaScriptu"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Vlastní uživatelský agent"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -177,82 +185,80 @@ msgstr "Smazat"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Nový uživatelský agent"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Přidat název novému uživatelskému agentovi"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "vložte řetězec uživatelského agenta..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Stahování je nedostupné"
+msgstr "Žádní vlastní uživatelští agenti"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Seznam blokovaných/povolených domén"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Přidat doménu"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
-msgstr ""
+msgstr "Vložte název domény, např. «example.com» (subdomény budou odstraněny)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Bez nastavení"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Nikdy nepovolit přístup"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Vždy povolit přstup"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Žádným stránkám nebyly uděleny zvláštní oprávnění"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Specifická nastavení domény"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Vložte název domény, např. «m.example.com»"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "spuštění dalších aplikací je povoleno"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Povolit této doméně přístup ke kameře?"
+msgstr "přístup k vaší poloze je povolen"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "vlastní uživatelský agent"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Přiblížit: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "bez nastavení"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Pro doménu není dostupné žadné specifické nastavení"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -267,7 +273,7 @@ msgstr "Zdá se, že máte potíže se zobrazením %1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Chyba: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -431,25 +437,24 @@ msgstr "Stránka %1:%2 vyžaduje ověření."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Uložit stránku jako HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Uložit jako HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Uložit jako PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Výchozí"
+msgstr "Výchozí přiblížení"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "aktuální web app"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -457,22 +462,23 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Nastavit aktuální přiblí6ní jako výchozí pro %1 ? (Lze změnit v nastavení)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Přiblížení"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Oddálit"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Obnovit"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Přiblížit"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -481,7 +487,7 @@ msgstr "Uložit"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Aktuální přiblížení"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -591,9 +597,8 @@ msgid "Open link in new background tab"
 msgstr "Otevřít odkaz v novém panelu na pozadí"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Otevřít odkaz v soukromém okně"
+msgstr "Otevřít odkaz v novém soukromém okně"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -656,7 +661,7 @@ msgstr "hledat nebo zadat adresu"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Vložit a spustit"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -719,24 +724,24 @@ msgstr "Nová záložka"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Blokovaná doména"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Požadavek navigace na doménu %1 zablokován."
 
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Doména na seznamu povolených"
 
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
-msgstr ""
+msgstr "doména %1 je nyní mezi povolenými, a bude aktivní po obnovení stránky."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -761,11 +766,11 @@ msgstr "Nastavení"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Podívat se na zdrojový kód"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Uložit jako HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -800,7 +805,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Přerušit"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -902,7 +907,7 @@ msgstr "Totožnost této internetové stránky nebyla ověřena."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "K %1 jste připojeni pomocí HTTP. Certifikát je platný."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -919,7 +924,7 @@ msgstr "Obnovit předchozí relaci při startu"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Spustit Desktop režim"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
@@ -935,7 +940,7 @@ msgstr "Obnovit nastavení prohlížeče"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Umožnit prohlížení pouze stránek ze seznamu povolených"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -1000,16 +1005,15 @@ msgstr "Odstranit"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Internetový prohlížeč Ubuntu"
+msgstr "%1 - webový prohlížeč Morph"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Internetový prohlížeč"
+msgstr "Webový prohlížeč Morph"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1083,26 +1087,23 @@ msgstr "Jejda, něco se pokazilo."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr ""
+msgstr "doména %1 je nyní mezi povolenými, prosím obnovte stránku."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "«WebappContainer» nastavení"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Obnovit nastavení prohlížeče"
+msgstr "Obnovit nastavení webapp aplikací"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Prohlížeč"
+msgstr "Prohlížeč Morph"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Prohlížeč World Wide Webu"
+msgstr "Brouzdejte po internetu s «QtWebEngine»"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
