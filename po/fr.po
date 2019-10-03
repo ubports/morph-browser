@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
 "PO-Revision-Date: 2019-10-03 17:46+0000\n"
-"Last-Translator: RedXXIII <redxxiii@zaclys.net>\n"
+"Last-Translator: Anne Onyme <anneonyme017@netcourrier.com>\n"
 "Language-Team: French <https://translate.ubports.com/projects/ubports/"
 "morph-browser/fr/>\n"
 "Language: fr\n"
@@ -33,18 +33,21 @@ msgstr "Valider"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Schémas d'URL personnalisés"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"Le site « %1 » tente d'ouvrir l'URL suivante avec un schéma personnalisé :"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Cette URL va tenter d'être ouverte avec une application du système. Voulez-"
+"vous continuer ?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
