@@ -30,6 +30,7 @@ FocusScope {
 
     signal clearCache()
     signal done()
+    signal showDownloadsPage()
 
     Common.BrowserPage {
         title: i18n.tr("WebappContainer Settings")
@@ -108,6 +109,20 @@ FocusScope {
                 }
 
                 ListItem {
+                    objectName: "downloads"
+
+                    ListItemLayout {
+                        title.text: i18n.tr("Downloads")
+                        ProgressionSlot {}
+                    }
+
+                    onClicked: {
+                        showDownloadsPage();
+                        done();
+                    }
+                }
+
+                ListItem {
                     objectName: "privacy"
 
                     ListItemLayout {
@@ -116,6 +131,7 @@ FocusScope {
                     }
 
                     onClicked: privacyComponent.createObject(subpageContainer)
+
                 }
 
                 ListItem {

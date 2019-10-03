@@ -403,6 +403,7 @@ Common.BrowserView {
                     FileOperations.remove(dataLocationUrl + "/Visited Links");
                 }
                 onDone: webappSettingsViewLoader.active = false
+                onShowDownloadsPage: webapp.showDownloadsPage()
             }
         }
 
