@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
 "PO-Revision-Date: 2019-10-03 17:46+0000\n"
-"Last-Translator: Mathieu H <wiiu3dsxl13127@gmail.com>\n"
+"Last-Translator: RedXXIII <redxxiii@zaclys.net>\n"
 "Language-Team: French <https://translate.ubports.com/projects/ubports/"
 "morph-browser/fr/>\n"
 "Language: fr\n"
@@ -133,13 +133,13 @@ msgstr "Cette connexion n'est pas sécurisée"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
-"Vous tentez de vous connecter de manière sécurisée à %1, mais le certificat "
-"de sécurité de ce site web n'est pas autorisé."
+"Vous essayez d'atteindre de manière sécurisée %1, mais le certificat de "
+"sécurité de ce site n'est pas fiable. Raison : %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -152,9 +152,8 @@ msgid "Back to safety"
 msgstr "Retour à la sécurité"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Tout sélectionner"
+msgstr "Sélectionner une couleur"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -190,7 +189,7 @@ msgstr ""
 #: src/app/CustomUserAgentsPage.qml:248
 #, fuzzy
 msgid "No custom user agents available"
-msgstr "Aucun téléchargement disponible"
+msgstr "Aucun agent utilisateur personnalisé disponible"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
@@ -234,9 +233,8 @@ msgid "allowed to launch other apps"
 msgstr ""
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Autoriser ce domaine à accéder à votre caméra ?"
+msgstr "autorisé à accéder à votre position"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
@@ -447,9 +445,8 @@ msgstr ""
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Par défaut"
+msgstr "Zoom par défaut"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
@@ -472,7 +469,7 @@ msgstr ""
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialiser"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
@@ -595,9 +592,8 @@ msgid "Open link in new background tab"
 msgstr "Ouvrir le lien dans un nouvel onglet en arrière-plan"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Ouvrir le lien dans une fenêtre en navigation privée"
+msgstr "Ouvrir le lien dans une nouvelle fenêtre privée"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -804,7 +800,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -1006,14 +1002,14 @@ msgstr "Supprimer"
 #: src/app/webcontainer/webapp-container.qml:76
 #, fuzzy, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Navigateur web Ubuntu"
+msgstr "%1 - Navigateur internet Morph"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 #, fuzzy
 msgid "Morph Web Browser"
-msgstr "Navigateur web"
+msgstr "Navigateur internet Morph"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1099,17 +1095,15 @@ msgstr ""
 #: src/app/webcontainer/WebappSettingsPage.qml:114
 #, fuzzy
 msgid "Reset webapp settings"
-msgstr "Réinitialiser les paramètres du navigateur"
+msgstr "Réinitialiser les paramètres de la webapp"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Navigateur"
+msgstr "Navigateur Morph"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Naviguer sur le Web"
+msgstr "Naviguez sur internet à l'aide de QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
