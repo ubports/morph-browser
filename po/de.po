@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-02 18:26+0000\n"
-"Last-Translator: Florian Leeber <flori@bin.org.in>\n"
+"PO-Revision-Date: 2019-10-07 11:53+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.ubports.com/projects/ubports/"
 "morph-browser/de/>\n"
 "Language: de\n"
@@ -95,7 +95,7 @@ msgstr ""
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Domain erlauben"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -133,13 +133,14 @@ msgstr "Dieser Verbindung wird nicht vertraut"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Sie versuchen eine sichere Verbindung zu %1 aufzubauen, aber das "
-"Sicherheitszertifikat dieser Internetseite ist nicht vertrauenswürdig."
+"Sicherheitszertifikat dieser Internetseite ist nicht vertrauenswürdig. Grund:"
+" %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -152,9 +153,8 @@ msgid "Back to safety"
 msgstr "Zurück zu sicherer Internetseite"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Alle auswählen"
+msgstr "Farbe auswählen"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -177,7 +177,7 @@ msgstr "Löschen"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Neuer Benutzer-Agent"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
@@ -188,9 +188,8 @@ msgid "enter user agent string..."
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Keine Downloads verfügbar"
+msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
@@ -198,7 +197,7 @@ msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Domain hinzufügen"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
@@ -207,23 +206,24 @@ msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Nicht festgelegt"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Zugriff niemals erlauben"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Zugriff immer erlauben"
 
 #: src/app/DomainPermissionsPage.qml:284
+#, fuzzy
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Es wurde keinen Webseiten besondere Berechtigungen erteilt"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Domain-spezifische Einstellungen"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
@@ -234,25 +234,25 @@ msgid "allowed to launch other apps"
 msgstr ""
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Dieser Domain den Zugriff zur Kamera erlauben?"
+msgstr ""
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
 msgstr ""
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
+#, fuzzy
 msgid "Zoom: "
-msgstr ""
+msgstr "Zoom: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "nicht festgelegt"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Keine Domain-spezifischen Einstellungen verfügbar"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -267,7 +267,7 @@ msgstr "Anscheinend gibt es Probleme beim Anzeigen von %1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Fehler: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -435,21 +435,20 @@ msgstr "Die Internetseite %1:%2 erfordert eine Legitimierung."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Seite als HTML / PDF speichern"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Als HTML speichern"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Als PDF speichern"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Standard"
+msgstr "Standard-Zoom"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
@@ -464,19 +463,19 @@ msgstr ""
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Verkleinern"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Vergrößern"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -485,7 +484,7 @@ msgstr "Speichern"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Aktueller Zoom"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -597,7 +596,7 @@ msgstr "Verweis in neuem Hintergrundreiter öffnen"
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
 #, fuzzy
 msgid "Open link in new private window"
-msgstr "Verweis in privatem Fenster öffnen"
+msgstr "Verweis in neuem privaten Fenster öffnen"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -660,7 +659,7 @@ msgstr "Suchen oder eine Adresse eingeben"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Einfügen und los"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -723,7 +722,7 @@ msgstr "Neuer Tab"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Blockierte Domain"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
@@ -765,11 +764,11 @@ msgstr "Einstellungen"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Quelltext anzeigen"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Als HTML / PDF speichern"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -803,7 +802,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -905,7 +904,7 @@ msgstr "Die Identität dieser Website wurde nicht verifiziert."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Sie sind über HTTPS mit %1 verbunden. Das Zertifikat ist gültig."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -1003,16 +1002,15 @@ msgstr "Entfernen"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 – Ubuntus Internet-Browser"
+msgstr "%1 - Morph Web-Browser"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Internet-Browser"
+msgstr "Morph Web-Browser"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1093,22 +1091,19 @@ msgstr ""
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "WebappContainer-Einstellungen"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Browsereinstellungen zurücksetzen"
+msgstr "Webapp-Einstellungen zurücksetzen"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Browser"
+msgstr "Morph Browser"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Im »World Wide Web« surfen"
+msgstr "Im World Wide Web mit der QtWebEngine surfen"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
