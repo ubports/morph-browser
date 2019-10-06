@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-03 17:55+0000\n"
+"PO-Revision-Date: 2019-10-07 11:53+0000\n"
 "Last-Translator: Anne Onyme <anneonyme017@netcourrier.com>\n"
 "Language-Team: French <https://translate.ubports.com/projects/ubports/"
 "morph-browser/fr/>\n"
@@ -98,6 +98,9 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 tente d'accéder à %2 qui n'est pas dans la liste des domaines approuvés. "
+"Voulez-vous continuer à bloquer ce domaine, autoriser le chargement des "
+"données ou ignorer la requête ?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
@@ -111,11 +114,11 @@ msgstr "Authentification requise."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Le site web %1 requiert de s'authentifier."
+msgstr "Le site internet %1 demande une authentification."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:50
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Identifiant"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
@@ -144,8 +147,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
-"Vous essayez d'atteindre de manière sécurisée %1, mais le certificat de "
-"sécurité de ce site n'est pas fiable. Raison : %2"
+"Vous essayez d'atteindre %1 de manière sécurisée, mais le certificat de "
+"sécurité de ce site n'est pas fiable. Explication : %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -155,7 +158,7 @@ msgstr "Poursuivre quand même"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Retour à la sécurité"
+msgstr "Retour en sécurité"
 
 #: src/app/ColorSelectDialog.qml:25
 msgid "Select Color"
@@ -167,7 +170,7 @@ msgstr "Confirmation JavaScript"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Agents utilisateur personnalisés"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -182,81 +185,82 @@ msgstr "Supprimer"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Nouvel agent utilisateur"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Ajoutez le nom du nouvel agent utilisateur"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "Saisissez le nom de l'agent utilisateur..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
 msgstr "Aucun agent utilisateur personnalisé disponible"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Liste blanche/noire de domaines"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Ajouter un domaine"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
+"Saisissez le nom de domaine, par exemple domaine.com (les sous-domaines "
+"seront supprimés)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Non défini"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Ne jamais autoriser l'accès"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Toujours autoriser l'accès"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Aucun site n'a obtenu d'autorisation spéciale"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Paramètres spécifiques au domaine"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Saisissez le nom du domaine, par exemple m.domaine.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "Autorisé à lancer d'autres applications"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
-msgstr "autorisé à accéder à votre position"
+msgstr "Autorisé à accéder à votre position"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "Agent utilisateur personnalisé"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Zoom : "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "Non défini"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Aucun paramètre spécifique au domaine disponible"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -271,12 +275,12 @@ msgstr "Il semblerait que vous rencontriez des problèmes pour afficher : %1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Erreur : %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Veuillez vérifier vos préférences de réseau et essayer de réactualiser la "
+"Veuillez vérifier vos paramètres de réseau et essayer de réactualiser la "
 "page."
 
 #: src/app/ErrorSheet.qml:65
@@ -300,7 +304,7 @@ msgstr "Refuser"
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr ""
-"Le site Web %1 demande une authentification. Voilà ce que dit le site : "
+"Le site internet %1 demande une authentification. Voilà ce que dit le site : "
 "\"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
@@ -429,25 +433,25 @@ msgstr "Invite JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Authentification Proxy requise."
+msgstr "Authentification proxy requise."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "Le site web %1:%2 requiert une authentification."
+msgstr "Le site internet %1:%2 demande une authentification."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Enregistrer la page en HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Enregistrer en HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Enregistrer en PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
@@ -456,7 +460,7 @@ msgstr "Zoom par défaut"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "L'application Web actuelle"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -464,14 +468,16 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Définir le zoom par défaut pour %1 au niveau actuel ? (Vous pouvez le "
+"changer dans le menu des paramètres)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Dézoomer"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
@@ -479,7 +485,7 @@ msgstr "Réinitialiser"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoomer"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -488,7 +494,7 @@ msgstr "Enregistrer"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Zoom actuel"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -572,7 +578,7 @@ msgstr "Aller à"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Adresse;URL;www"
+msgstr "Adresse;lien;URL;www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
 #: src/app/webbrowser/TabsBar.qml:88
@@ -662,7 +668,7 @@ msgstr "rechercher ou saisir une adresse"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Coller et ouvrir"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -676,7 +682,7 @@ msgstr "Nom"
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
-msgstr "Dossier"
+msgstr "Enregistrer dans"
 
 #: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
@@ -725,24 +731,26 @@ msgstr "Nouvel onglet"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Domaine bloqué"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Demande de navigation vers le domaine %1 bloquée."
 
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Domaine en liste blanche"
 
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"Le domaine %1 est désormais ajouté à la liste blanche. Ceci sera pris en "
+"compte au prochain chargement de la page."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -767,11 +775,11 @@ msgstr "Paramètres"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Afficher le code source"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Enregistrer en HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -783,7 +791,7 @@ msgstr "(%1)"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"Choisissez une application pour ouvrir ce fichier ou ajoutez le dans le "
+"Choisissez une application pour ouvrir ce fichier ou ajoutez-le dans le "
 "dossier Téléchargements."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
@@ -843,7 +851,7 @@ msgstr "Hier"
 
 #: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
-msgstr "chercher dans l'historique"
+msgstr "Chercher dans l'historique"
 
 #: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
@@ -887,7 +895,7 @@ msgstr "Le processus de rendu a été fermé pour cet onglet."
 #: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr "Quelque chose s'est mal passé lors de l'affichage de %1."
+msgstr "Un problème est survenu lors de l'affichage de %1."
 
 #: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
@@ -903,12 +911,12 @@ msgstr "Identité non vérifiée"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:79
 msgid "The identity of this website has not been verified."
-msgstr "L'identité de ce site web n'a pas été vérifiée."
+msgstr "L'identité de ce site internet n'a pas été vérifiée."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Vous êtes connecté à %1 en HTTPS. Le certificat est valide."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -925,14 +933,14 @@ msgstr "Restaurer la session précédente au démarrage"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Activer le mode ordinateur"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
 #: src/app/webcontainer/WebappSettingsPage.qml:103
 #: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
-msgstr "Vie privée & permissions"
+msgstr "Vie privée & autorisations"
 
 #: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
@@ -941,7 +949,7 @@ msgstr "Réinitialiser les paramètres du navigateur"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Autoriser uniquement la navigation vers les sites en liste blanche"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -1006,14 +1014,13 @@ msgstr "Supprimer"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Navigateur internet Morph"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
 msgstr "Navigateur internet Morph"
 
@@ -1022,7 +1029,7 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Aucun compte n’a été associé à cette application Web ; cliquez ci-dessous "
+"Aucun compte n’a été associé à cette application Web. Cliquez ci-dessous "
 "pour ajouter un compte."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
@@ -1047,7 +1054,7 @@ msgid ""
 "time; please try again after closing all other account windows."
 msgstr ""
 "La fenêtre des comptes n’a pas pu être ouverte. Il n’est possible de créer "
-"qu’un seul compte à la fois ; veuillez essayer à nouveau après avoir fermé "
+"qu’un seul compte à la fois. Veuillez essayer à nouveau après avoir fermé "
 "les autres fenêtres de comptes."
 
 #: src/app/webcontainer/AccountsLogic.qml:214
@@ -1070,7 +1077,7 @@ msgstr "<b>%1</b> souhaite accéder à votre compte %2."
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
-"Choisissez un compte maintenant, ou ignorez cette étape pour choisir un "
+"Choisissez un compte maintenant ou ignorez cette étape pour choisir un "
 "compte plus tard."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
@@ -1093,19 +1100,19 @@ msgstr "Oups, une erreur s'est produite."
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr ""
+"Le domaine %1 est désormais en liste blanche. Veuillez recharger la page."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "Paramètres de WebappContainer"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Réinitialiser les paramètres de la webapp"
+msgstr "Réinitialiser les paramètres de l'application Web"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Morph Browser"
-msgstr "Navigateur Morph"
+msgstr "Navigateur"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web using QtWebEngine"
