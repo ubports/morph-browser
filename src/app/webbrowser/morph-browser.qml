@@ -295,6 +295,7 @@ QtObject {
         property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property bool setDesktopMode: false
+        property bool autoFitToWidthEnabled: false
         property real zoomFactor: 1.0
         property int newTabDefaultSection: 0
         property string defaultAudioDevice: ""
@@ -306,6 +307,7 @@ QtObject {
             searchEngine = "duckduckgo";
             restoreSession = true;
             setDesktopMode = false;
+            autoFitToWidthEnabled = false;
             zoomFactor = 1.0;
             newTabDefaultSection = 0;
             defaultAudioDevice = "";

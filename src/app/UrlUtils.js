@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+/*jslint node: true */
 'use strict';
 
 function extractScheme(url) {
@@ -71,7 +71,7 @@ function extractHost(url) {
     if (indexOfAt !== -1) {
         host = host.slice(indexOfAt + 1);
     }
-    var indexOfColon = host.indexOf(":")
+    var indexOfColon = host.indexOf(":");
     if (indexOfColon !== -1) {
         host = host.slice(0, indexOfColon);
     }
@@ -83,7 +83,7 @@ function hostIs(url, expectedHost) {
 }
 
 function fixUrl(address) {
-    var url = address
+    var url = address;
     if (address.toLowerCase() === "about:blank") {
         return address.toLowerCase();
     } else if (address.match(/^data:/i)) {

@@ -51,6 +51,26 @@ FocusScope {
                 width: parent.width
 
                 ListItem {
+                    objectName: "autoFitToWidthEnabled"
+
+                    ListItemLayout {
+                        title.text: i18n.tr("Automatic Fit to Width")
+                        subtitle.text: i18n.tr("Zooms to body.scrollWidth after domain changed, if no specific zoom is saved.")
+                        CheckBox {
+                            id: autoFitToWidthEnabledCheckbox
+                            SlotsLayout.position: SlotsLayout.Trailing
+                            onTriggered: settingsObject.autoFitToWidthEnabled = checked
+                        }
+                    }
+
+                    Binding {
+                        target: autoFitToWidthEnabledCheckbox
+                        property: "checked"
+                        value: settingsObject.autoFitToWidthEnabled
+                    }
+                }
+
+                ListItem {
                     objectName: "defaultZoomFactor"
 
                     ListItemLayout {
