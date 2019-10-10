@@ -889,6 +889,15 @@ WebView {
                 if (isNaN(zoomFactor) ) {
                   zoomController.viewSpecificZoom = false;
                   zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
+
+                  // Autozoom to scrollWidth
+                  webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                      if (width !== null) {
+                          zoomController.viewSpecificZoom = true;
+                          zoomController.currentZoomFactor = webview.width / width;
+                          zoomController.refresh()
+                      }
+                  });
                 }
                 else {
                   zoomController.viewSpecificZoom = true;
