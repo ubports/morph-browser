@@ -111,7 +111,23 @@ WebView {
         }
 
         function refresh() {
-            webview.zoomFactor = currentZoomFactor;
+            if (viewSpecificZoom) {
+                webview.zoomFactor = currentZoomFactor;
+            }
+            else {
+                webview.zoomFactor = 1.0;
+                // Zoom to document.body.scrollWidth if autoZoom enabled in settings.
+                if (autoZoom) {
+                    webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                        if (width !== null) {
+                            webview.zoomFactor = webview.width / width;
+                        }
+                        else {
+                            webview.zoomFactor = 1.0;
+                        }
+                    });
+                }
+            }
         }
 
         function reset() {
@@ -890,17 +906,6 @@ WebView {
                 if (isNaN(zoomFactor) ) {
                   zoomController.viewSpecificZoom = false;
                   zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
-
-                  // Zoom to document.body.scrollWidth if autoZoom enabled in settings.
-                  if (zoomController.autoZoom) {
-                      webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                          if (width !== null) {
-                              zoomController.viewSpecificZoom = true;
-                              zoomController.currentZoomFactor = webview.width / width;
-                              zoomController.refresh()
-                          }
-                      });
-                  }
                 }
                 else {
                   zoomController.viewSpecificZoom = true;
