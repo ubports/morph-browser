@@ -237,10 +237,12 @@ BrowserWindow {
 
     property var settings: Settings {
         property bool domainWhiteListMode: false;
+        property bool autoZoom: false;
         property real zoomFactor: 1.0;
 
         function restoreDefaults() {
             domainWhiteListMode = false;
+            autoZoom = false;
             zoomFactor = 1.0;
         }
 

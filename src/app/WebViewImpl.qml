@@ -90,6 +90,7 @@ WebView {
       QtObject {
         id: zoomController
 
+        readonly property bool autoZoom: browser.settings ? browser.settings.autoZoom : webapp.settings.autoZoom
         readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0
@@ -890,14 +891,16 @@ WebView {
                   zoomController.viewSpecificZoom = false;
                   zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
 
-                  // Autozoom to scrollWidth
-                  webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                      if (width !== null) {
-                          zoomController.viewSpecificZoom = true;
-                          zoomController.currentZoomFactor = webview.width / width;
-                          zoomController.refresh()
-                      }
-                  });
+                  // Zoom to document.body.scrollWidth if autoZoom enabled in settings.
+                  if (zoomController.autoZoom) {
+                      webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                          if (width !== null) {
+                              zoomController.viewSpecificZoom = true;
+                              zoomController.currentZoomFactor = webview.width / width;
+                              zoomController.refresh()
+                          }
+                      });
+                  }
                 }
                 else {
                   zoomController.viewSpecificZoom = true;

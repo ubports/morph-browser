@@ -130,6 +130,26 @@ FocusScope {
                 }
 
                 ListItem {
+                    objectName: "autoZoom"
+
+                    ListItemLayout {
+                        title.text: i18n.tr("Enable Automatic Page Zoom")
+                        subtitle.text: i18n.tr("Zooms page to body.scrollWidth if no zoom is saved for domain.")
+                        CheckBox {
+                            id: autoZoomCheckbox
+                            SlotsLayout.position: SlotsLayout.Trailing
+                            onTriggered: settingsObject.autoZoom = checked
+                        }
+                    }
+
+                    Binding {
+                        target: autoZoomCheckbox
+                        property: "checked"
+                        value: settingsObject.autoZoom
+                    }
+                }
+
+                ListItem {
                     objectName: "defaultZoomFactor"
 
                     ListItemLayout {
