@@ -115,15 +115,12 @@ WebView {
                 webview.zoomFactor = currentZoomFactor;
             }
             else {
-                webview.zoomFactor = 1.0;
+                webview.zoomFactor = defaultZoomFactor;
                 // Zoom to document.body.scrollWidth if autoZoom enabled in settings.
                 if (autoZoom) {
                     webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
                         if (width !== null) {
-                            webview.zoomFactor = webview.width / width;
-                        }
-                        else {
-                            webview.zoomFactor = 1.0;
+                            webview.zoomFactor = (webview.width / width) * defaultZoomFactor;
                         }
                     });
                 }
@@ -912,9 +909,9 @@ WebView {
                   zoomController.currentZoomFactor = zoomFactor;
                 }
                 previousDomain = currentDomain;
+                zoomController.refresh()
             }
 
-            zoomController.refresh()
         }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
