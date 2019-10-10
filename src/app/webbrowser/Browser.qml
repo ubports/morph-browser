@@ -1186,10 +1186,17 @@ BrowserView {
                 FileOperations.removeDirRecursively(dataLocationUrl + "/Local Storage");
 
                 // Service WorkerScript
-                FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker")
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker");
 
                 // Visited Links
                 FileOperations.remove(dataLocationUrl + "/Visited Links");
+            }
+            onClearAllCookies: {
+
+                var dataLocationUrl = Qt.resolvedUrl(dataLocation);
+
+                FileOperations.remove(dataLocationUrl + "/Cookies");
+                FileOperations.remove(dataLocationUrl + "/Cookies-journal");
             }
             onDone: settingsViewLoader.active = false
         }

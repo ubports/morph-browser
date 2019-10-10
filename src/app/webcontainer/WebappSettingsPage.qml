@@ -29,6 +29,7 @@ FocusScope {
     property QtObject settingsObject
 
     signal clearCache()
+    signal clearAllCookies()
     signal done()
 
     Common.BrowserPage {
@@ -200,6 +201,17 @@ FocusScope {
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")});
                                 dialog.confirmed.connect(clearCache);
+                            }
+                        }
+
+                        ListItem {
+                            objectName: "privacy.clearAllCookies"
+                            ListItemLayout {
+                                title.text: i18n.tr("Clear all cookies")
+                            }
+                            onClicked: {
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear all Cookies?")});
+                                dialog.confirmed.connect(clearAllCookies);
                             }
                         }
                     }

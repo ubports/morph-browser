@@ -338,6 +338,13 @@ BrowserView {
                     // visited Links
                     FileOperations.remove(dataLocationUrl + "/Visited Links");
                 }
+                onClearAllCookies: {
+
+                    var dataLocationUrl = Qt.resolvedUrl(webapp.dataPath);
+
+                    FileOperations.remove(dataLocationUrl + "/Cookies");
+                    FileOperations.remove(dataLocationUrl + "/Cookies-journal");
+                }
                 onDone: webappSettingsViewLoader.active = false
             }
         }
