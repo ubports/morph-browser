@@ -111,19 +111,19 @@ WebView {
         }
 
         function refresh() {
-            if (viewSpecificZoom) {
-                webview.zoomFactor = currentZoomFactor;
+            if (autoZoom) {
+                // Zoom to document.body.scrollWidth, then apply currentZoomFactor.
+                webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                    if (width !== null) {
+                        webview.zoomFactor = (webview.width / width) * currentZoomFactor;
+                    }
+                    else {
+                        webview.zoomFactor = currentZoomFactor;
+                    }
+                });
             }
             else {
-                webview.zoomFactor = defaultZoomFactor;
-                // Zoom to document.body.scrollWidth if autoZoom enabled in settings.
-                if (autoZoom) {
-                    webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                        if (width !== null) {
-                            webview.zoomFactor = (webview.width / width) * defaultZoomFactor;
-                        }
-                    });
-                }
+                webview.zoomFactor = currentZoomFactor;
             }
         }
 
@@ -880,6 +880,15 @@ WebView {
        request.accept();
    }
 
+    onUrlChanged: {
+        if (zoomController.autoZoom) {
+            var nextDomain = UrlUtils.extractHost(url);
+            if (currentDomain !== nextDomain) {
+                webview.zoomFactor=1.0;
+            }
+        }
+    }
+
    onLoadingChanged: {
 
        // not about current url (e.g. finished loading of page we have already navigated away from)
@@ -909,9 +918,9 @@ WebView {
                   zoomController.currentZoomFactor = zoomFactor;
                 }
                 previousDomain = currentDomain;
-                zoomController.refresh()
             }
 
+            zoomController.refresh()
         }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
