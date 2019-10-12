@@ -882,7 +882,8 @@ WebView {
                 id: currentZoomText
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
-                text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
+                text: (zoomController.autoZoom ? i18n.tr("Automatic Zoom: %1%\n".arg((isNaN(zoomController.autoZoomFactor)?"-":Math.round(zoomController.autoZoomFactor * 100)))) : "")
+                      + i18n.tr("Current Zoom: %1%".arg(Math.round(zoomController.currentZoomFactor * 100)))
                 color: theme.palette.normal.backgroundText
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
