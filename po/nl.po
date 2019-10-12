@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-08-12 12:49+0000\n"
-"Last-Translator: Joachim Lazaroms <joachim.pc@gmail.com>\n"
-"Language-Team: Dutch <https://translate.ubports.com/projects/ubports/morph-"
-"browser/nl/>\n"
+"PO-Revision-Date: 2019-10-13 21:55+0000\n"
+"Last-Translator: Tom Dom <thomas@patoel.nl>\n"
+"Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
+"morph-browser/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.6.1\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -29,27 +29,30 @@ msgstr "JavaScript-melding"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "Oké"
+msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Aangepaste URL schema's"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"De website '%1' probeert de volgende URL te openen met een aangepast schema:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Deze URL wordt indien mogelijk verzonden naar een systeem-app. Wil je "
+"doorgaan?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Beslissing onthouden"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -75,7 +78,7 @@ msgstr "Annuleren"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Domein blokkeren"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -84,6 +87,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"U probeert %1 te bezoeken, maar het staat niet op uw goedgekeurde witte "
+"domeinlijst. Wilt u het domein blijven blokkeren, browsen naar het domein "
+"toestaan, of teruggaan?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -92,10 +98,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 probeert toegang te krijgen tot %2, maar staat niet op uw witte lijst van "
+"goedgekeurde domeinen. Wilt u doorgaan met het blokkeren van het domein, het "
+"laden van gegevens van het domein toestaan, of dit verzoek negeren?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Domein toestaan"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
