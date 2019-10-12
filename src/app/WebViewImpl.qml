@@ -96,6 +96,7 @@ WebView {
         readonly property real maxZoomFactor: 5.0
         property real currentZoomFactor: defaultZoomFactor
         property bool viewSpecificZoom: false
+        property real autoZoomFactor: NaN;
 
         function save() {
             viewSpecificZoom = false
@@ -112,15 +113,22 @@ WebView {
 
         function refresh() {
             if (autoZoom) {
-                // Zoom to document.body.scrollWidth, then apply currentZoomFactor.
-                webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                    if (width !== null) {
-                        webview.zoomFactor = (webview.width / width) * currentZoomFactor;
-                    }
-                    else {
-                        webview.zoomFactor = currentZoomFactor;
-                    }
-                });
+                if (isNaN(autoZoomFactor)) {
+                    webview.zoomFactor = defaultZoomFactor;
+                    // Zoom to document.body.scrollWidth, then apply currentZoomFactor.
+                    webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                        if (width !== null) {
+                            autoZoomFactor = (webview.width / width);
+                        }
+                        else {
+                            autoZoomFactor = 1.0;
+                        }
+                        webview.zoomFactor = autoZoomFactor * currentZoomFactor;
+                  });
+                }
+                else {
+                    webview.zoomFactor = autoZoomFactor * currentZoomFactor;
+                }
             }
             else {
                 webview.zoomFactor = currentZoomFactor;
@@ -130,7 +138,12 @@ WebView {
         function reset() {
             viewSpecificZoom = false;
             currentZoomFactor = defaultZoomFactor;
+            autoZoomFactor = NaN
             refresh();
+            if (! incognito)
+            {
+               saveZoomFactorForCurrentDomain();
+            }
         }
 
         function saveZoomFactorForCurrentDomain()
@@ -884,7 +897,7 @@ WebView {
         if (zoomController.autoZoom) {
             var nextDomain = UrlUtils.extractHost(url);
             if (currentDomain !== nextDomain) {
-                webview.zoomFactor=1.0;
+                webview.zoomFactor = zoomController.defaultZoomFactor;
             }
         }
     }
@@ -917,10 +930,13 @@ WebView {
                   zoomController.viewSpecificZoom = true;
                   zoomController.currentZoomFactor = zoomFactor;
                 }
-                previousDomain = currentDomain;
-            }
 
-            zoomController.refresh()
+                zoomController.autoZoomFactor = NaN;
+
+                previousDomain = currentDomain;
+
+                zoomController.refresh()
+            }
         }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
