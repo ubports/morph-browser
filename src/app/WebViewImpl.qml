@@ -34,7 +34,6 @@ WebView {
 
     property var currentWebview: webview
     readonly property string currentDomain: UrlUtils.extractHost(webview.url)
-    property string previousDomain
     property ContextMenuRequest contextMenuRequest: null
 
     // scroll positions at the moment of the context menu request
@@ -90,13 +89,14 @@ WebView {
       QtObject {
         id: zoomController
 
-        readonly property bool autoZoom: browser.settings ? browser.settings.autoZoom : webapp.settings.autoZoom
         readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0
         property real currentZoomFactor: defaultZoomFactor
         property bool viewSpecificZoom: false
-        property real autoZoomFactor: NaN;
+
+        readonly property bool autoFitWidth: browser.settings ? browser.settings.autoFitWidth : webapp.settings.autoFitWidth
+        property bool autoFitWidthAfterLoad: false
 
         function save() {
             viewSpecificZoom = false
@@ -111,34 +111,39 @@ WebView {
             }
         }
 
+        function fitToWidth() {
+            // Run JavaScript in webview, to get body.scrollWidth and fit zoom if needed.
+            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                if (width !== null && width != 0) {
+                    var newZoomFactor = webview.width / width;
+
+                    // New zoom factor has to exceed 2% ratio to be applied.
+                    // This is to prevent "zoom traveling" after repeatedly pushing fit to width.
+                    if (Math.abs(1 - (newZoomFactor/currentZoomFactor)) < 0.02) {
+                      return;
+                    }
+
+                    // Round new zoom factor to nearest lower integer divisible by 2 in precents and fit into min/max zoom values.
+                    newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.round((newZoomFactor - (newZoomFactor % 0.02))*100) / 100));
+
+                    viewSpecificZoom = true;
+                    currentZoomFactor = newZoomFactor;
+                    refresh();
+                    if (! incognito)
+                    {
+                       saveZoomFactorForCurrentDomain();
+                    }
+                }
+            });
+        }
+
         function refresh() {
-            if (autoZoom) {
-                if (isNaN(autoZoomFactor)) {
-                    webview.zoomFactor = defaultZoomFactor;
-                    // Zoom to document.body.scrollWidth, then apply currentZoomFactor.
-                    webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                        if (width !== null) {
-                            autoZoomFactor = (webview.width / width);
-                        }
-                        else {
-                            autoZoomFactor = 1.0;
-                        }
-                        webview.zoomFactor = autoZoomFactor * currentZoomFactor;
-                  });
-                }
-                else {
-                    webview.zoomFactor = autoZoomFactor * currentZoomFactor;
-                }
-            }
-            else {
-                webview.zoomFactor = currentZoomFactor;
-            }
+            webview.zoomFactor = currentZoomFactor;
         }
 
         function reset() {
             viewSpecificZoom = false;
             currentZoomFactor = defaultZoomFactor;
-            autoZoomFactor = NaN
             refresh();
             if (! incognito)
             {
@@ -171,7 +176,7 @@ WebView {
 
         function zoomIn() {
             viewSpecificZoom = true;
-            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05));
+            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
             refresh();
             if (! incognito)
             {
@@ -181,11 +186,11 @@ WebView {
         }
         function zoomOut() {
             viewSpecificZoom = true
-            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.05));
+            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
             refresh();
             if (! incognito)
             {
-               saveZoomFactorForCurrentDomain()
+               saveZoomFactorForCurrentDomain();
             }
         }
      }
@@ -821,6 +826,12 @@ WebView {
             ActionList {
                 id: zoomActions
                 Action {
+                    name: "fitToWidth"
+                    text: i18n.tr("Zoom Fit")
+                    iconName: "zoom-fit-best"
+                    onTriggered: zoomController.fitToWidth()
+                }
+                Action {
                     name: "zoomOut"
                     text: i18n.tr("Zoom Out")
                     iconName: "zoom-out"
@@ -882,8 +893,7 @@ WebView {
                 id: currentZoomText
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
-                text: (zoomController.autoZoom ? i18n.tr("Automatic Zoom: %1%\n".arg((isNaN(zoomController.autoZoomFactor)?"-":Math.round(zoomController.autoZoomFactor * 100)))) : "")
-                      + i18n.tr("Current Zoom: %1%".arg(Math.round(zoomController.currentZoomFactor * 100)))
+                text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
                 color: theme.palette.normal.backgroundText
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
@@ -894,12 +904,29 @@ WebView {
        request.accept();
    }
 
-    onUrlChanged: {
-        if (zoomController.autoZoom) {
-            var nextDomain = UrlUtils.extractHost(url);
-            if (currentDomain !== nextDomain) {
-                webview.zoomFactor = zoomController.defaultZoomFactor;
-            }
+    onCurrentDomainChanged: {
+        var domain = currentDomain;
+        // e.g. for file scheme
+        if (domain === "")
+        {
+           domain = "scheme:" + UrlUtils.extractScheme(webview.url);
+        }
+
+        var zoomFactor = DomainSettingsModel.getZoomFactor(domain);
+
+        if (isNaN(zoomFactor) ) {
+          zoomController.viewSpecificZoom = false;
+          zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
+        }
+        else {
+          zoomController.viewSpecificZoom = true;
+          zoomController.currentZoomFactor = zoomFactor;
+        }
+
+        zoomController.refresh()
+
+        if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+            zoomController.autoFitWidthAfterLoad = true;
         }
     }
 
@@ -910,34 +937,9 @@ WebView {
            return;
         }
 
-        if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
-
-            if (currentDomain !== previousDomain)
-            {
-                var domain = currentDomain;
-                // e.g. for file scheme
-                if (domain === "")
-                {
-                   domain = "scheme:" + UrlUtils.extractScheme(webview.url);
-                }
-
-                var zoomFactor = DomainSettingsModel.getZoomFactor(domain);
-
-                if (isNaN(zoomFactor) ) {
-                  zoomController.viewSpecificZoom = false;
-                  zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
-                }
-                else {
-                  zoomController.viewSpecificZoom = true;
-                  zoomController.currentZoomFactor = zoomFactor;
-                }
-
-                zoomController.autoZoomFactor = NaN;
-
-                previousDomain = currentDomain;
-
-                zoomController.refresh()
-            }
+        if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus && zoomController.autoFitWidthAfterLoad) {
+            zoomController.autoFitWidthAfterLoad = false;
+            zoomController.fitToWidth();
         }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {

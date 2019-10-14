@@ -50,22 +50,22 @@ FocusScope {
                 width: parent.width
 
                 ListItem {
-                    objectName: "autoZoom"
+                    objectName: "autoFitWidth"
 
                     ListItemLayout {
-                        title.text: i18n.tr("Enable Automatic Page Zoom")
-                        subtitle.text: i18n.tr("Zooms page to body.scrollWidth if no zoom is saved for domain.")
+                        title.text: i18n.tr("Automatic Fit to Width")
+                        subtitle.text: i18n.tr("Zooms page after load to body.scrollWidth if no specific zoom is saved for domain.")
                         CheckBox {
-                            id: autoZoomCheckbox
+                            id: autoFitWidthCheckbox
                             SlotsLayout.position: SlotsLayout.Trailing
-                            onTriggered: settingsObject.autoZoom = checked
+                            onTriggered: settingsObject.autoFitWidth = checked
                         }
                     }
 
                     Binding {
-                        target: autoZoomCheckbox
+                        target: autoFitWidthCheckbox
                         property: "checked"
-                        value: settingsObject.autoZoom
+                        value: settingsObject.autoFitWidth
                     }
                 }
 
