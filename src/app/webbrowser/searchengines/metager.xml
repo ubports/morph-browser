@@ -1,0 +1,5 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>MetaGer</ShortName>
+  <Description>Meta Suchmaschine from the club SUMA-EV</Description>
+  <Url type="text/html" template="https://metager.de/meta/meta.ger3?eingabe={searchTerms}&amp;focus=web"/>
+</OpenSearchDescription>
