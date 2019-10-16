@@ -98,6 +98,10 @@ WebView {
         readonly property bool autoFitWidth: browser.settings ? browser.settings.autoFitWidth : webapp.settings.autoFitWidth
         property bool autoFitWidthAfterLoad: false
 
+        onCurrentZoomFactorChanged: {
+            webview.zoomFactor = currentZoomFactor;
+        }
+
         function save() {
             viewSpecificZoom = false
             var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
@@ -112,23 +116,27 @@ WebView {
         }
 
         function fitToWidth() {
+            console.log("zoomController.fitToWidth called");
             // Run JavaScript in webview, to get body.scrollWidth and fit zoom if needed.
             webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
                 if (width !== null && width != 0) {
                     var newZoomFactor = webview.width / width;
 
-                    // New zoom factor has to exceed 2% ratio to be applied.
+                    console.log("currentZoomFactor: %1".arg(currentZoomFactor));
+                    console.log("newZoomFactor: %1".arg(newZoomFactor));
+                    console.log("newZoomFactor - currentZoomFactor: %1".arg(newZoomFactor - currentZoomFactor));
+                    // New zoom factor has to be less than 5pp or more than 10pp.
                     // This is to prevent "zoom traveling" after repeatedly pushing fit to width.
-                    if (Math.abs(1 - (newZoomFactor/currentZoomFactor)) < 0.02) {
+                    if (newZoomFactor - currentZoomFactor > -0.05 && newZoomFactor - currentZoomFactor < 0.1) {
                       return;
                     }
 
-                    // Round new zoom factor to nearest lower integer divisible by 2 in precents and fit into min/max zoom values.
-                    newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.round((newZoomFactor - (newZoomFactor % 0.02))*100) / 100));
+                    // Round new zoom factor to nearest lower integer divisible by 1 in precents and fit into min/max zoom values.
+                    newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.round((newZoomFactor - (newZoomFactor % 0.01))*100) / 100));
+                    console.log("applying newZoomFactor: %1".arg(newZoomFactor));
 
                     viewSpecificZoom = true;
                     currentZoomFactor = newZoomFactor;
-                    refresh();
                     if (! incognito)
                     {
                        saveZoomFactorForCurrentDomain();
@@ -137,14 +145,9 @@ WebView {
             });
         }
 
-        function refresh() {
-            webview.zoomFactor = currentZoomFactor;
-        }
-
         function reset() {
             viewSpecificZoom = false;
             currentZoomFactor = defaultZoomFactor;
-            refresh();
             if (! incognito)
             {
                saveZoomFactorForCurrentDomain();
@@ -153,7 +156,7 @@ WebView {
 
         function saveZoomFactorForCurrentDomain()
         {
-           var domain = UrlUtils.extractHost(webview.url);
+           var domain = webview.currentDomain;
            if (domain === "")
            {
                // e.g. file:// urls
@@ -177,7 +180,6 @@ WebView {
         function zoomIn() {
             viewSpecificZoom = true;
             currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
-            refresh();
             if (! incognito)
             {
                saveZoomFactorForCurrentDomain();
@@ -187,7 +189,6 @@ WebView {
         function zoomOut() {
             viewSpecificZoom = true
             currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
-            refresh();
             if (! incognito)
             {
                saveZoomFactorForCurrentDomain();
@@ -905,6 +906,11 @@ WebView {
    }
 
     onCurrentDomainChanged: {
+        console.log("onCurrentDomainChanged called: %1".arg(currentDomain));
+        if (DomainSettingsModel.databasePath === "") {
+          return
+        }
+
         var domain = currentDomain;
         // e.g. for file scheme
         if (domain === "")
@@ -922,15 +928,17 @@ WebView {
           zoomController.viewSpecificZoom = true;
           zoomController.currentZoomFactor = zoomFactor;
         }
+        console.log("zoomController.viewSpecificZoom: %1".arg(zoomController.viewSpecificZoom));
+        console.log("zoomController.currentZoomFactor: %1".arg(zoomController.currentZoomFactor));
 
-        zoomController.refresh()
-
+        zoomController.autoFitWidthAfterLoad = false;
         if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
             zoomController.autoFitWidthAfterLoad = true;
         }
     }
 
    onLoadingChanged: {
+        console.log("onLoadingChanged called: %1 - %2".arg(loadRequest.status).arg(loadRequest.url));
 
        // not about current url (e.g. finished loading of page we have already navigated away from)
        if (loadRequest.url !== webview.url) {
@@ -947,7 +955,12 @@ WebView {
            // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
            webview.runJavaScript("if (document.documentElement) {document.removeChild(document.documentElement);}")
         }
+
+        // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
+        // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
+        zoomController.currentZoomFactorChanged();
     }
+
 
     // https://github.com/ubports/morph-browser/issues/92
     // this is not perfect, because if the user types very quickly after entering the field, the first typed letter can be missing
@@ -978,6 +991,17 @@ WebView {
            inputMethodTimer.restart()
          }
        }
+    }
+
+    Connections {
+      // If database changed, reload zoomFactor according to new db.
+      // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
+      // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
+      // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
+      target: DomainSettingsModel
+      onDatabasePathChanged: {
+        currentDomainChanged();
+      }
     }
 }
 
