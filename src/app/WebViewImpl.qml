@@ -45,7 +45,6 @@ WebView {
 
     // better way to detect that, or move context menu items only available for the browser to other files ?
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
-    readonly property bool incognito: ! isWebApp && browserTab.incognito
 
     readonly property alias findController: findController
     readonly property alias zoomController: zoomController
