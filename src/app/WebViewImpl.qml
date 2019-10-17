@@ -96,10 +96,29 @@ WebView {
         property bool viewSpecificZoom: false
 
         readonly property bool autoFitWidth: browser.settings ? browser.settings.autoFitWidth : webapp.settings.autoFitWidth
-        property bool autoFitWidthAfterLoad: false
+        property bool autoFitToWidthOnFitToWidthFactorChanged: false
+        property int scrollWidth: 0
+        property real fitToWidthFactor: scrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, webview.width / scrollWidth)) : currentZoomFactor
 
         onCurrentZoomFactorChanged: {
+            console.log("webview.zoomController.onCurrentZoomFactorChanged: %1".arg(currentZoomFactor));
             webview.zoomFactor = currentZoomFactor;
+        }
+
+        onFitToWidthFactorChanged: {
+            console.log("webview.zoomController.onFitToWidthFactorChanged: %1".arg(fitToWidthFactor));
+            if (autoFitToWidthOnFitToWidthFactorChanged) {
+                autoFitToWidthOnFitToWidthFactorChanged = false;
+
+                console.log("  fitToWidthFactor - currentZoomFactor: %1".arg(fitToWidthFactor - currentZoomFactor));
+                // New zoom factor has to be less than 5pp or more than 10pp.
+                // This is to prevent "zoom traveling" after repeatedly pushing fit to width.
+                if (fitToWidthFactor - currentZoomFactor > -0.09 && fitToWidthFactor - currentZoomFactor < 0.1) {
+                  return;
+                }
+
+                fitToWidth();
+            }
         }
 
         function save() {
@@ -115,34 +134,32 @@ WebView {
             }
         }
 
-        function fitToWidth() {
-            console.log("zoomController.fitToWidth called");
-            // Run JavaScript in webview, to get body.scrollWidth and fit zoom if needed.
+        function retrieveScrollWidth() {
+            console.log("webview.zoomController.retrieveScrollWidth called");
             webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                if (width !== null && width != 0) {
-                    var newZoomFactor = webview.width / width;
-
-                    console.log("currentZoomFactor: %1".arg(currentZoomFactor));
-                    console.log("newZoomFactor: %1".arg(newZoomFactor));
-                    console.log("newZoomFactor - currentZoomFactor: %1".arg(newZoomFactor - currentZoomFactor));
-                    // New zoom factor has to be less than 5pp or more than 10pp.
-                    // This is to prevent "zoom traveling" after repeatedly pushing fit to width.
-                    if (newZoomFactor - currentZoomFactor > -0.05 && newZoomFactor - currentZoomFactor < 0.1) {
-                      return;
-                    }
-
-                    // Round new zoom factor to nearest lower integer divisible by 1 in precents and fit into min/max zoom values.
-                    newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.round((newZoomFactor - (newZoomFactor % 0.01))*100) / 100));
-                    console.log("applying newZoomFactor: %1".arg(newZoomFactor));
-
-                    viewSpecificZoom = true;
-                    currentZoomFactor = newZoomFactor;
-                    if (! incognito)
-                    {
-                       saveZoomFactorForCurrentDomain();
-                    }
-                }
+                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
+                scrollWidth = width > 0 ? width : 0;
             });
+        }
+
+        function fitToWidth() {
+            console.log("webview.zoomController.fitToWidth(): %1".arg(fitToWidthFactor));
+
+            if (Math.abs(currentZoomFactor - fitToWidthFactor) < 0.01) {
+              return;
+            }
+
+            // Round new zoom factor to nearest lower integer divisible by 1 in precents and fit into min/max zoom values.
+            var roundedFitToWidthFactor = Math.round((fitToWidthFactor - (fitToWidthFactor % 0.01))*100) / 100;
+
+            console.log("  applying fitToWidthFactor: %1".arg(roundedFitToWidthFactor));
+            viewSpecificZoom = true;
+            currentZoomFactor = roundedFitToWidthFactor;
+            if (! incognito)
+            {
+              saveZoomFactorForCurrentDomain();
+            }
+            retrieveScrollWidth();
         }
 
         function reset() {
@@ -152,6 +169,7 @@ WebView {
             {
                saveZoomFactorForCurrentDomain();
             }
+            retrieveScrollWidth();
         }
 
         function saveZoomFactorForCurrentDomain()
@@ -163,7 +181,7 @@ WebView {
                domain = "scheme:" + UrlUtils.extractScheme(webview.url);
            }
 
-           if (Math.abs(currentZoomFactor - defaultZoomFactor) > 0.01)
+           if (Math.abs(currentZoomFactor - defaultZoomFactor) >= 0.01)
            {
              DomainSettingsModel.setZoomFactor(domain, currentZoomFactor);
            }
@@ -184,7 +202,7 @@ WebView {
             {
                saveZoomFactorForCurrentDomain();
             }
-
+            retrieveScrollWidth();
         }
         function zoomOut() {
             viewSpecificZoom = true
@@ -193,6 +211,7 @@ WebView {
             {
                saveZoomFactorForCurrentDomain();
             }
+            retrieveScrollWidth();
         }
      }
 
@@ -505,6 +524,7 @@ WebView {
 
         quickMenu.visible = false
         zoomMenu.visible = true
+        zoomController.retrieveScrollWidth();
     }
 
     function hideZoomMenu() {
@@ -828,36 +848,37 @@ WebView {
                 id: zoomActions
                 Action {
                     name: "fitToWidth"
-                    text: i18n.tr("Zoom Fit")
+                    text: i18n.tr("Fit (%1%)".arg(Math.round((zoomController.fitToWidthFactor - (zoomController.fitToWidthFactor % 0.01)) * 100)))
                     iconName: "zoom-fit-best"
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01
                     onTriggered: zoomController.fitToWidth()
                 }
                 Action {
                     name: "zoomOut"
                     text: i18n.tr("Zoom Out")
                     iconName: "zoom-out"
-                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) >= 0.01
                     onTriggered: zoomController.zoomOut()
                 }
                 Action {
                     name: "zoomOriginal"
-                    text: i18n.tr("Reset") + " (%1 %)".arg(zoomController.defaultZoomFactor * 100)
+                    text: i18n.tr("Reset") + " (%1%)".arg(zoomController.defaultZoomFactor * 100)
                     iconName: "reset"
-                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
                     onTriggered: zoomController.reset()
                 }
                 Action {
                     name: "zoomIn"
                     text: i18n.tr("Zoom In")
                     iconName: "zoom-in"
-                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) >= 0.01
                     onTriggered: zoomController.zoomIn()
                 }
                 Action {
                     name: "zoomSave"
                     text: i18n.tr("Save")
                     iconName: "save"
-                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) > 0.01
+                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
                     onTriggered: zoomController.save()
                 }
                 Action {
@@ -902,11 +923,11 @@ WebView {
         }
 
     onFullScreenRequested: function(request) {
-       request.accept();
-   }
+        request.accept();
+    }
 
     onCurrentDomainChanged: {
-        console.log("onCurrentDomainChanged called: %1".arg(currentDomain));
+        console.log("webview.onCurrentDomainChanged called: %1".arg(currentDomain));
         if (DomainSettingsModel.databasePath === "") {
           return
         }
@@ -918,49 +939,47 @@ WebView {
            domain = "scheme:" + UrlUtils.extractScheme(webview.url);
         }
 
-        var zoomFactor = DomainSettingsModel.getZoomFactor(domain);
+        zoomController.scrollWidth = 0;
 
-        if (isNaN(zoomFactor) ) {
+        var domainZoomFactor = DomainSettingsModel.getZoomFactor(domain);
+        if (isNaN(domainZoomFactor) ) {
           zoomController.viewSpecificZoom = false;
           zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
         }
         else {
           zoomController.viewSpecificZoom = true;
-          zoomController.currentZoomFactor = zoomFactor;
+          zoomController.currentZoomFactor = domainZoomFactor;
         }
-        console.log("zoomController.viewSpecificZoom: %1".arg(zoomController.viewSpecificZoom));
-        console.log("zoomController.currentZoomFactor: %1".arg(zoomController.currentZoomFactor));
+        console.log("  zoomController.viewSpecificZoom: %1".arg(zoomController.viewSpecificZoom));
+        console.log("  zoomController.currentZoomFactor: %1".arg(zoomController.currentZoomFactor));
 
-        zoomController.autoFitWidthAfterLoad = false;
+        zoomController.autoFitToWidthOnFitToWidthFactorChanged = false;
         if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
-            zoomController.autoFitWidthAfterLoad = true;
+            zoomController.autoFitToWidthOnFitToWidthFactorChanged = true;
         }
     }
 
-   onLoadingChanged: {
-        console.log("onLoadingChanged called: %1 - %2".arg(loadRequest.status).arg(loadRequest.url));
+    onLoadingChanged: {
 
-       // not about current url (e.g. finished loading of page we have already navigated away from)
-       if (loadRequest.url !== webview.url) {
-           return;
+        // not about current url (e.g. finished loading of page we have already navigated away from)
+        if (loadRequest.url !== webview.url) {
+            return;
         }
 
-        if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus && zoomController.autoFitWidthAfterLoad) {
-            zoomController.autoFitWidthAfterLoad = false;
-            zoomController.fitToWidth();
+        if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
+            console.log("webview.onLoadingChanged: LoadSucceeded");
+            // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
+            // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
+            zoomController.currentZoomFactorChanged();
+            zoomController.retrieveScrollWidth();
         }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
-           // ToDo: Is there a way to not load the "blink error message" in the first place ?
-           // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
-           webview.runJavaScript("if (document.documentElement) {document.removeChild(document.documentElement);}")
+            // ToDo: Is there a way to not load the "blink error message" in the first place ?
+            // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
+            webview.runJavaScript("if (document.documentElement) {document.removeChild(document.documentElement);}")
         }
-
-        // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
-        // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
-        zoomController.currentZoomFactorChanged();
     }
-
 
     // https://github.com/ubports/morph-browser/issues/92
     // this is not perfect, because if the user types very quickly after entering the field, the first typed letter can be missing
