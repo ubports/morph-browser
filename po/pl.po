@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-09-17 15:50+0000\n"
+"PO-Revision-Date: 2019-10-02 18:26+0000\n"
 "Last-Translator: Daniel Frańczak <danielfranczak5@wp.pl>\n"
-"Language-Team: Polish <https://translate.ubports.com/projects/ubports/morph-"
-"browser/pl/>\n"
+"Language-Team: Polish <https://translate.ubports.com/projects/ubports/"
+"morph-browser/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,23 +34,27 @@ msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Niestandardowe schematy adresów URL"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"Witryna '%1' próbuje otworzyć następujący adres URL za pomocą "
+"niestandardowego schematu:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Jeśli to możliwe, spróbuje wysłać ten adres URL do aplikacji systemowej. Czy "
+"chcesz kontynuować?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Zapamiętaj decyzję"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -76,7 +80,7 @@ msgstr "Anuluj"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Zablokuj domenę"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -85,6 +89,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Próbujesz uzyskać dostęp do %1, ale nie ma go na białej liście "
+"zatwierdzonych domen. Czy chcesz nadal blokować domenę, zezwalać na "
+"przeglądanie domeny lub wrócić?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -93,10 +100,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 próbuje uzyskać dostęp do %2, ale nie ma go na białej liście "
+"zatwierdzonych domen. Czy chcesz nadal blokować domenę, zezwalać na "
+"ładowanie danych z domeny, czy po prostu zignorować to żądanie?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Zezwalaj na domenę"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -134,13 +144,13 @@ msgstr "To połączenie nie jest zaufane"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
-"Bezpieczne połączenie ze stroną %1 nie jest możliwe. Wystąpił problem "
-"certyfikatu bezpieczeństwa."
+"Próbujesz bezpiecznie dotrzeć do %1, ale certyfikat bezpieczeństwa tej "
+"witryny nie jest zaufany. Powód: %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -153,9 +163,8 @@ msgid "Back to safety"
 msgstr "Powrót do trybu bezpiecznego"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Zaznacz wszystko"
+msgstr "Wybierz kolor"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -163,7 +172,7 @@ msgstr "Potwierdzenie JavaScriptu"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Niestandardowy agent użytkownika"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -178,82 +187,80 @@ msgstr "Usuń"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Nowy agent użytkownika"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Dodaj nazwę nowego agenta użytkownika"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "wprowadź ciąg agenta użytkownika..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Brak pobranych plików"
+msgstr "Brak dostępnych niestandardowych agentów użytkownika"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Czarna lista/biała lista domen"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Dodaj domenę"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
-msgstr ""
+msgstr "Wpisz nazwę domeny, np. przyklad.com (poddomeny zostaną usunięte)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Nie ustawiony"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Nigdy nie zezwalaj na dostęp"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Zawsze zezwalaj na dostęp"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Żadna strona nie otrzymała specjalnych uprawnień"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Specyficzne ustawienia dla domeny"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Wpisz nazwę domeny, np. m.przyklad.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "zezwolono na uruchamianie innych aplikacji"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Zezwolić tej domenie na dostęp do aparatu?"
+msgstr "zezwolono na dostęp do Twojej lokalizacji"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "niestandardowy agent użytkownika"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Zoom: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "nie ustawiony"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Brak dostępnych specyficznych ustawień dla domeny"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -268,7 +275,7 @@ msgstr "Wystąpił problem z wyświetleniem: %1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Błąd: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -432,25 +439,24 @@ msgstr "Strona %1:%2 wymaga autoryzacji."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Zapisz stronę jako HTML/PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Zapisz jako HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Zapisz jako PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Domyślny"
+msgstr "Domyślny Zoom"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "aktualna aplikacja internetowa"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -458,22 +464,24 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Ustawić bieżące powiększenie jako domyślne powiększenie dla %1? (Możesz to "
+"zmienić w menu ustawień)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Pomniejsz"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Przywróć"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Powiększ"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -482,7 +490,7 @@ msgstr "Zapisz"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Aktualny zoom"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -592,9 +600,8 @@ msgid "Open link in new background tab"
 msgstr "Otwórz link w karcie w tle"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Otwórz odnośnik w prywatnym oknie"
+msgstr "Otwórz link w nowym oknie prywatnym"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -657,7 +664,7 @@ msgstr "wyszukaj lub wprowadź adres"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Wklej i przejdź"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -720,24 +727,26 @@ msgstr "Nowa karta"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Zablokowana domena"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Zablokowane żądanie nawigacji do domeny %1."
 
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Domena z białej listy"
 
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"domena %1 jest teraz na białej liście, będzie aktywna podczas ponownego "
+"ładowania następnej strony."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -762,11 +771,11 @@ msgstr "Ustawienia"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Zobacz źródło"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Zapisz jako HTML/PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -800,7 +809,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Wstrzymaj"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -903,7 +912,7 @@ msgstr "Tożsamość witryny nie została zweryfikowana."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Jesteś połączony z %1 przez HTTPS. Certyfikat jest ważny."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -920,7 +929,7 @@ msgstr "Przywróć poprzednią sesję przy starcie"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Tryb Desktopowy"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
@@ -936,7 +945,7 @@ msgstr "Zresetuj ustawienia przeglądarki"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Zezwalaj tylko na przeglądanie witryn z białej listy"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -1001,14 +1010,13 @@ msgstr "Usuń"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Przeglądarka internetowa Ubuntu"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
 msgstr "Przeglądarka internetowa"
 
@@ -1084,26 +1092,23 @@ msgstr "Ups... Coś poszło źle."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr ""
+msgstr "domena %1 jest teraz na białej liście, przeładuj stronę."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "Ustawienia aplikacji internetowych"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Zresetuj ustawienia przeglądarki"
+msgstr "Zresetuj ustawienia aplikacji internetowej"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Przeglądarka"
+msgstr "Przeglądarka internetowa"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Przeglądaj Internet"
+msgstr "Przeglądaj sieć WWW za pomocą QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
