@@ -407,9 +407,8 @@ FocusScope {
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
                 onAccepted: {
-                    if (UrlUtils.looksLikeAUrl(text)) {
-                        settingsObject.homepage = UrlUtils.fixUrl(text)
-                        PopupUtils.close(dialogue)
+                    if (saveButton.enabled) {
+                        saveButton.clicked();
                     }
                 }
             }
@@ -425,16 +424,17 @@ FocusScope {
             }
 
             Button {
+                id: saveButton
                 objectName: "homepageDialog.saveButton"
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
                 text: i18n.tr("Save")
-                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim())
+                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim()) || (homepageTextField.text === "")
                 color: "#3fb24f"
                 onClicked: {
-                    settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text)
+                    settingsObject.homepage = (homepageTextField.text === "") ? "" : UrlUtils.fixUrl(homepageTextField.text)
                     PopupUtils.close(dialogue)
                 }
             }
