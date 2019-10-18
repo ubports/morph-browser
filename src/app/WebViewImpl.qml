@@ -98,7 +98,7 @@ WebView {
         readonly property bool autoFitWidth: browser.settings ? browser.settings.autoFitWidth : webapp.settings.autoFitWidth
         property bool autoFitToWidthOnFitToWidthFactorChanged: false
         property int scrollWidth: 0
-        property real fitToWidthFactor: scrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, webview.width / scrollWidth)) : currentZoomFactor
+        property real fitToWidthFactor: scrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / scrollWidth) * 100) / 100)) : NaN
 
         onCurrentZoomFactorChanged: {
             console.log("webview.zoomController.onCurrentZoomFactorChanged: %1".arg(currentZoomFactor));
@@ -107,6 +107,10 @@ WebView {
 
         onFitToWidthFactorChanged: {
             console.log("webview.zoomController.onFitToWidthFactorChanged: %1".arg(fitToWidthFactor));
+            if (isNaN(fitToWidthFactor)) {
+                return;
+            }
+
             if (autoFitToWidthOnFitToWidthFactorChanged) {
                 autoFitToWidthOnFitToWidthFactorChanged = false;
 
@@ -144,17 +148,17 @@ WebView {
 
         function fitToWidth() {
             console.log("webview.zoomController.fitToWidth(): %1".arg(fitToWidthFactor));
+            if (isNaN(fitToWidthFactor)) {
+                return;
+            }
 
             if (Math.abs(currentZoomFactor - fitToWidthFactor) < 0.01) {
               return;
             }
 
-            // Round new zoom factor to nearest lower integer divisible by 1 in precents and fit into min/max zoom values.
-            var roundedFitToWidthFactor = Math.round((fitToWidthFactor - (fitToWidthFactor % 0.01))*100) / 100;
-
-            console.log("  applying fitToWidthFactor: %1".arg(roundedFitToWidthFactor));
+            console.log("  applying fitToWidthFactor: %1".arg(fitToWidthFactor));
             viewSpecificZoom = true;
-            currentZoomFactor = roundedFitToWidthFactor;
+            currentZoomFactor = fitToWidthFactor;
             if (! incognito)
             {
               saveZoomFactorForCurrentDomain();
@@ -848,9 +852,9 @@ WebView {
                 id: zoomActions
                 Action {
                     name: "fitToWidth"
-                    text: i18n.tr("Fit (%1%)".arg(Math.round((zoomController.fitToWidthFactor - (zoomController.fitToWidthFactor % 0.01)) * 100)))
+                    text: i18n.tr("Fit (%1%)".arg(isNaN(zoomController.fitToWidthFactor) ? "-" : zoomController.fitToWidthFactor * 100))
                     iconName: "zoom-fit-best"
-                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01
+                    enabled: !isNaN(zoomController.fitToWidthFactor) && Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01
                     onTriggered: zoomController.fitToWidth()
                 }
                 Action {
