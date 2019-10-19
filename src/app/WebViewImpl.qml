@@ -32,8 +32,10 @@ WebView {
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
     readonly property real scaleFactor: Screen.devicePixelRatio
 
+    // Contains domain, or scheme if webview.url has no domain.
+    readonly property string currentDomain: UrlUtils.hostIs(webview.url, "") ? "scheme:" + UrlUtils.extractScheme(webview.url) : UrlUtils.extractHost(webview.url)
+
     property var currentWebview: webview
-    readonly property string currentDomain: UrlUtils.extractHost(webview.url)
     property ContextMenuRequest contextMenuRequest: null
 
     // scroll positions at the moment of the context menu request
@@ -96,7 +98,6 @@ WebView {
         property bool viewSpecificZoom: false
 
         readonly property bool autoFitWidth: browser.settings ? browser.settings.autoFitWidth : webapp.settings.autoFitWidth
-        property bool autoFitToWidthOnFitToWidthFactorChanged: false
         property int scrollWidth: 0
         property real fitToWidthFactor: scrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / scrollWidth) * 100) / 100)) : NaN
 
@@ -111,17 +112,15 @@ WebView {
                 return;
             }
 
-            if (autoFitToWidthOnFitToWidthFactorChanged) {
-                autoFitToWidthOnFitToWidthFactorChanged = false;
-
-                console.log("  fitToWidthFactor - currentZoomFactor: %1".arg(fitToWidthFactor - currentZoomFactor));
-                // New zoom factor has to be less than 5pp or more than 10pp.
-                // This is to prevent "zoom traveling" after repeatedly pushing fit to width.
-                if (fitToWidthFactor - currentZoomFactor > -0.09 && fitToWidthFactor - currentZoomFactor < 0.1) {
-                  return;
+            if (autoFitWidth && viewSpecificZoom === false) {
+                console.log("  fitToWidthFactor / currentZoomFactor: %1 / %2 = %3".arg(fitToWidthFactor).arg(currentZoomFactor).arg(fitToWidthFactor / currentZoomFactor));
+                console.log("  (fitToWidthFactor / currentZoomFactor) - 1 = %1".arg((fitToWidthFactor / currentZoomFactor) - 1));
+                // Automatic fit to width, only if fitToWidthFactor is 10% less, or 20% more than currentZoomFactor.
+                if (((fitToWidthFactor / currentZoomFactor) - 1 ) <= -0.1 || ((fitToWidthFactor / currentZoomFactor) - 1 >= 0.2)) {
+                    // Fit to width, but don't save to domain settings.
+                    fitToWidth(false);
                 }
 
-                fitToWidth();
             }
         }
 
@@ -146,24 +145,26 @@ WebView {
             });
         }
 
-        function fitToWidth() {
-            console.log("webview.zoomController.fitToWidth(): %1".arg(fitToWidthFactor));
+        function fitToWidth(saveDomainZoomFactor) {
+            console.log("webview.zoomController.fitToWidth(%2): %1".arg(fitToWidthFactor).arg(saveDomainZoomFactor));
             if (isNaN(fitToWidthFactor)) {
                 return;
             }
 
-            if (Math.abs(currentZoomFactor - fitToWidthFactor) < 0.01) {
+            if (!saveDomainZoomFactor && Math.abs(currentZoomFactor - fitToWidthFactor) < 0.01) {
               return;
             }
 
             console.log("  applying fitToWidthFactor: %1".arg(fitToWidthFactor));
-            viewSpecificZoom = true;
             currentZoomFactor = fitToWidthFactor;
-            if (! incognito)
-            {
-              saveZoomFactorForCurrentDomain();
+            if (saveDomainZoomFactor) {
+                console.log("  setting specific zoom");
+                viewSpecificZoom = true;
+                if (! incognito) {
+                    saveZoomFactorForCurrentDomain();
+                }
+                retrieveScrollWidth();
             }
-            retrieveScrollWidth();
         }
 
         function reset() {
@@ -176,44 +177,28 @@ WebView {
             retrieveScrollWidth();
         }
 
-        function saveZoomFactorForCurrentDomain()
-        {
-           var domain = webview.currentDomain;
-           if (domain === "")
-           {
-               // e.g. file:// urls
-               domain = "scheme:" + UrlUtils.extractScheme(webview.url);
-           }
-
-           if (Math.abs(currentZoomFactor - defaultZoomFactor) >= 0.01)
-           {
-             DomainSettingsModel.setZoomFactor(domain, currentZoomFactor);
-           }
-           else
-           {
-             // if the zoom factor is the default, it is no longer saved in the domain settings database (NaN)
-             if (! isNaN(DomainSettingsModel.getZoomFactor(domain)))
-             {
-                 DomainSettingsModel.setZoomFactor(domain, NaN);
-             }
-           }
+        function saveZoomFactorForCurrentDomain() {
+            if (viewSpecificZoom) {
+                DomainSettingsModel.setZoomFactor(currentDomain, currentZoomFactor);
+            }
+            else {
+                DomainSettingsModel.setZoomFactor(currentDomain, NaN);
+            }
         }
 
         function zoomIn() {
             viewSpecificZoom = true;
             currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
-            if (! incognito)
-            {
-               saveZoomFactorForCurrentDomain();
+            if (! incognito) {
+                saveZoomFactorForCurrentDomain();
             }
             retrieveScrollWidth();
         }
         function zoomOut() {
             viewSpecificZoom = true
             currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
-            if (! incognito)
-            {
-               saveZoomFactorForCurrentDomain();
+            if (! incognito) {
+                saveZoomFactorForCurrentDomain();
             }
             retrieveScrollWidth();
         }
@@ -854,8 +839,8 @@ WebView {
                     name: "fitToWidth"
                     text: i18n.tr("Fit (%1%)".arg(isNaN(zoomController.fitToWidthFactor) ? "-" : zoomController.fitToWidthFactor * 100))
                     iconName: "zoom-fit-best"
-                    enabled: !isNaN(zoomController.fitToWidthFactor) && Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01
-                    onTriggered: zoomController.fitToWidth()
+                    enabled: !isNaN(zoomController.fitToWidthFactor) && (Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01 || zoomController.viewSpecificZoom === false)
+                    onTriggered: zoomController.fitToWidth(true)
                 }
                 Action {
                     name: "zoomOut"
@@ -868,7 +853,7 @@ WebView {
                     name: "zoomOriginal"
                     text: i18n.tr("Reset") + " (%1%)".arg(zoomController.defaultZoomFactor * 100)
                     iconName: "reset"
-                    enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
+                    enabled: zoomController.viewSpecificZoom || Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
                     onTriggered: zoomController.reset()
                 }
                 Action {
@@ -920,6 +905,7 @@ WebView {
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
                 text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
+                      + " (%1)".arg(zoomController.viewSpecificZoom ? i18n.tr("saved") : (zoomController.currentZoomFactor === zoomController.defaultZoomFactor ? i18n.tr("default") : i18n.tr("auto-fit")))
                 color: theme.palette.normal.backgroundText
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
@@ -931,21 +917,14 @@ WebView {
     }
 
     onCurrentDomainChanged: {
-        console.log("webview.onCurrentDomainChanged called: %1".arg(currentDomain));
+        console.log("webview.onCurrentDomainOrSchemeChanged called: %1".arg(currentDomain));
         if (DomainSettingsModel.databasePath === "") {
           return
         }
 
-        var domain = currentDomain;
-        // e.g. for file scheme
-        if (domain === "")
-        {
-           domain = "scheme:" + UrlUtils.extractScheme(webview.url);
-        }
-
         zoomController.scrollWidth = 0;
 
-        var domainZoomFactor = DomainSettingsModel.getZoomFactor(domain);
+        var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
         if (isNaN(domainZoomFactor) ) {
           zoomController.viewSpecificZoom = false;
           zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
@@ -956,11 +935,6 @@ WebView {
         }
         console.log("  zoomController.viewSpecificZoom: %1".arg(zoomController.viewSpecificZoom));
         console.log("  zoomController.currentZoomFactor: %1".arg(zoomController.currentZoomFactor));
-
-        zoomController.autoFitToWidthOnFitToWidthFactorChanged = false;
-        if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
-            zoomController.autoFitToWidthOnFitToWidthFactorChanged = true;
-        }
     }
 
     onLoadingChanged: {
