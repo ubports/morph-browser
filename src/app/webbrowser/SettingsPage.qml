@@ -86,6 +86,24 @@ FocusScope {
                     ListItemLayout {
                         title.text: i18n.tr("Homepage")
                         subtitle.text: homepageListItem.currentHomepage
+                        Icon {
+                            id: resetHomepage
+                            name: "reset"
+
+                            height: units.gu(2)
+                            width: height
+                            opacity: (settingsObject.homepage.toString() === settingsObject.getDefaultHomepage()) ? 0.5 : 1
+
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: settingsObject.resetHomepage()
+                            }
+
+                            anchors {
+                                leftMargin: units.gu(1)
+                                topMargin: units.gu(2)
+                            }
+                        }
                     }
 
                     onClicked: PopupUtils.open(homepageDialog)
