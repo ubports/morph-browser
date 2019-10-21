@@ -103,6 +103,11 @@ WebView {
 
         function retrieveScrollWidth() {
             console.log("webview.zoomController.retrieveScrollWidth called");
+            if (scrollWidth !== 0) {
+              console.log("  not retrieving, scrollWidth allredy set");
+              // Don't retrieve scrollWidth, if allredy retrieved.
+              return;
+            }
             // Trigger js resize event in page, to be sure currentZoomFactor is set.
             webview.runJavaScript("var resizeEvent = window.document.createEvent('UIEvents'); resizeEvent.initUIEvent('resize', true, false, window, 0); window.dispatchEvent(resizeEvent);", function() {
                 // Determine and set scrollWidth.
@@ -137,7 +142,7 @@ WebView {
 
         function autoFitToWidth() {
             console.log("zoomController.autoFitToWidth called");
-            if (!autoFitWidth || viewSpecificZoom === true) {
+            if (scrollWidth > 0 || !autoFitWidth || viewSpecificZoom === true) {
                 console.log("  not autofitting");
                 return;
             }
@@ -149,14 +154,19 @@ WebView {
                 webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
                     console.log("  autoFtToWidth body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
                     if (width > 0) {
-                        console.log("  after js autoFitToWidth: %1".arg(webview.width / width));
-                        currentZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
+                        var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
+                        if (Math.abs(currentZoomFactor - newZoomFactor) > 0.05) {
+                            console.log("  after js autoFitToWidth: %1".arg(webview.width / width));
+                            currentZoomFactor = newZoomFactor;
+                        } else {
+                            console.log("  not autofitting, close to currentZoomFactor");
+                            webview.zoomFactor = currentZoomFactor;
+                        }
                         scrollWidth = width;
                     }
                     else {
-                        console.log("  not autofitting");
+                        console.log("  not autofitting, no scrollWidth");
                         webview.zoomFactor = currentZoomFactor;
-                        scrollWidth = 0;
                     }
                 });
             });
@@ -165,31 +175,30 @@ WebView {
         function fitToWidth() {
             console.log("webview.zoomController.fitToWidth: %1".arg(fitToWidthFactor));
             if (isNaN(fitToWidthFactor)) {
+                console.log("  not applying");
                 return;
             }
 
-            if (Math.abs(currentZoomFactor - fitToWidthFactor) < 0.01) {
-              return;
-            }
-
-            console.log("  applying fitToWidthFactor: %1".arg(fitToWidthFactor));
             viewSpecificZoom = true;
             currentZoomFactor = fitToWidthFactor;
             if (! incognito) {
                 saveZoomFactorForCurrentDomain();
             }
-            retrieveScrollWidth();
         }
 
         function reset() {
             viewSpecificZoom = false;
             currentZoomFactor = defaultZoomFactor;
+        }
+
+        function resetSaveFit() {
+            reset();
             if (! incognito)
             {
                saveZoomFactorForCurrentDomain();
             }
+            scrollWidth = 0;
             if (webview.loading === false && zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
-                console.log("after reset autoFitToWidth");
                 autoFitToWidth();
             }
             else {
@@ -212,7 +221,6 @@ WebView {
             if (! incognito) {
                 saveZoomFactorForCurrentDomain();
             }
-            retrieveScrollWidth();
         }
         function zoomOut() {
             viewSpecificZoom = true
@@ -220,7 +228,6 @@ WebView {
             if (! incognito) {
                 saveZoomFactorForCurrentDomain();
             }
-            retrieveScrollWidth();
         }
      }
 
@@ -874,7 +881,7 @@ WebView {
                     text: i18n.tr("Reset") + " (%1%)".arg(zoomController.defaultZoomFactor * 100)
                     iconName: "reset"
                     enabled: zoomController.viewSpecificZoom || Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
-                    onTriggered: zoomController.reset()
+                    onTriggered: zoomController.resetSaveFit()
                 }
                 Action {
                     name: "zoomIn"
@@ -938,6 +945,7 @@ WebView {
 
     onCurrentDomainChanged: {
         console.log("webview.onCurrentDomainChanged called: %1".arg(currentDomain));
+        console.log("  webview.loading: %1".arg(webview.loading));
         if (DomainSettingsModel.databasePath === "") {
           return
         }
@@ -958,6 +966,8 @@ WebView {
     }
 
     onLoadingChanged: {
+        console.log("webview.onLoadingChanged: %1".arg(webview.url));
+        console.log("  webview.loading: %1".arg(webview.loading));
 
         // not about current url (e.g. finished loading of page we have already navigated away from)
         if (loadRequest.url !== webview.url) {
@@ -965,14 +975,15 @@ WebView {
         }
 
         if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
-            console.log("webview.onLoadingChanged: LoadSucceeded");
+            console.log("  webview.onLoadingChanged: LoadSucceeded");
+            // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
+            // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
+            zoomController.currentZoomFactorChanged();
+
             if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
                 zoomController.autoFitToWidth();
-            } else {
-                // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
-                // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
-                // However, this needs to be here, cause we get scrollWidth after currentZoomFactorChanged.
-                zoomController.currentZoomFactorChanged();
+            } else   if (zoomMenu.visible) {
+                zoomController.retrieveScrollWidth();
             }
         }
 
@@ -983,8 +994,15 @@ WebView {
         }
     }
 
+    property bool onWidthChangedFirstCall: true
     onWidthChanged: {
         console.log("webview.onWidthChanged called: %1".arg(width));
+        if (onWidthChangedFirstCall) {
+          // Skip first call, cause it is the webview.width init trigger and it allways happens before page is loaded.
+            onWidthChangedFirstCall = false;
+            return;
+        }
+        zoomController.scrollWidth = 0;
         if (webview.loading === false && zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
             zoomController.autoFitToWidth();
         }
