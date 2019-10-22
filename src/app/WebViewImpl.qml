@@ -88,7 +88,7 @@ WebView {
         }
     }
 
-      QtObject {
+    QtObject {
         id: zoomController
 
         readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
@@ -103,18 +103,9 @@ WebView {
 
         function retrieveScrollWidth() {
             console.log("webview.zoomController.retrieveScrollWidth called");
-            if (scrollWidth !== 0) {
-              console.log("  not retrieving, scrollWidth allredy set");
-              // Don't retrieve scrollWidth, if allredy retrieved.
-              return;
-            }
-            // Trigger js resize event in page, to be sure currentZoomFactor is set.
-            webview.runJavaScript("var resizeEvent = window.document.createEvent('UIEvents'); resizeEvent.initUIEvent('resize', true, false, window, 0); window.dispatchEvent(resizeEvent);", function() {
-                // Determine and set scrollWidth.
-                webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                    console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
-                    scrollWidth = width > 0 ? width : 0;
-                });
+            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
+                scrollWidth = width > 0 ? width : 0;
             });
         }
 
@@ -128,37 +119,28 @@ WebView {
         }
 
         function save() {
-            viewSpecificZoom = false
             var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
             confirmDialog.title = i18n.tr("Default Zoom")
             confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
             confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
-
-            if (! incognito)
-            {
-               saveZoomFactorForCurrentDomain();
-            }
         }
 
         function autoFitToWidth() {
             console.log("zoomController.autoFitToWidth called");
-            if (scrollWidth > 0 || !autoFitWidth || viewSpecificZoom === true) {
-                console.log("  not autofitting");
-                return;
-            }
-            // Zoom to defaultZoomFactor before determining scrollWidth, to allways get consistent numbers. 
+            // Zoom to defaultZoomFactor before determining scrollWidth, to allways get consistent numbers.
             webview.zoomFactor = defaultZoomFactor;
             // Trigger js resize event in page, to be sure defaultZoomFactor is set.
             webview.runJavaScript("var resizeEvent = window.document.createEvent('UIEvents'); resizeEvent.initUIEvent('resize', true, false, window, 0); window.dispatchEvent(resizeEvent);", function() {
                 // Determine scrollWidth and use it to fit to width.
                 webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                    console.log("  autoFtToWidth body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
+                    console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
                     if (width > 0) {
                         var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
                         if (Math.abs(currentZoomFactor - newZoomFactor) > 0.05) {
-                            console.log("  after js autoFitToWidth: %1".arg(webview.width / width));
+                            console.log("  newZoomFactor: %1".arg(newZoomFactor));
                             currentZoomFactor = newZoomFactor;
-                        } else {
+                        }
+                        else {
                             console.log("  not autofitting, close to currentZoomFactor");
                             webview.zoomFactor = currentZoomFactor;
                         }
@@ -193,16 +175,18 @@ WebView {
 
         function resetSaveFit() {
             reset();
-            if (! incognito)
-            {
-               saveZoomFactorForCurrentDomain();
+            if (! incognito) {
+                saveZoomFactorForCurrentDomain();
             }
+
             scrollWidth = 0;
-            if (webview.loading === false && zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
-                autoFitToWidth();
-            }
-            else {
-                retrieveScrollWidth();
+            if (webview.loading === false) {
+                if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+                    autoFitToWidth();
+                }
+                else {
+                    retrieveScrollWidth();
+                }
             }
         }
 
@@ -222,6 +206,7 @@ WebView {
                 saveZoomFactorForCurrentDomain();
             }
         }
+
         function zoomOut() {
             viewSpecificZoom = true
             currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
@@ -229,7 +214,7 @@ WebView {
                 saveZoomFactorForCurrentDomain();
             }
         }
-     }
+    }
 
     onJavaScriptDialogRequested: function(request) {
 
@@ -540,7 +525,9 @@ WebView {
 
         quickMenu.visible = false
         zoomMenu.visible = true
-        zoomController.retrieveScrollWidth();
+        if (zoomController.scrollWidth === 0) {
+            zoomController.retrieveScrollWidth();
+        }
     }
 
     function hideZoomMenu() {
@@ -867,7 +854,7 @@ WebView {
                     text: i18n.tr("Fit (%1%)".arg(isNaN(zoomController.fitToWidthFactor) ? "-" : zoomController.fitToWidthFactor * 100))
                     iconName: "zoom-fit-best"
                     enabled: !isNaN(zoomController.fitToWidthFactor) && (Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01 || zoomController.viewSpecificZoom === false)
-                    onTriggered: zoomController.fitToWidth(true)
+                    onTriggered: zoomController.fitToWidth()
                 }
                 Action {
                     name: "zoomOut"
@@ -932,7 +919,7 @@ WebView {
                 anchors.top: zoomActionsRow.bottom
                 anchors.right: zoomActionsRow.right
                 text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
-                      + " (%1)".arg(zoomController.viewSpecificZoom ? i18n.tr("saved") : (zoomController.currentZoomFactor === zoomController.defaultZoomFactor ? i18n.tr("default") : i18n.tr("auto-fit")))
+                      + " (%1)".arg(zoomController.viewSpecificZoom ? i18n.tr("domain") : (zoomController.currentZoomFactor === zoomController.defaultZoomFactor ? i18n.tr("default") : i18n.tr("auto-fit")))
                 color: theme.palette.normal.backgroundText
                 width: zoomActionsRow.width
                 horizontalAlignment: Text.AlignHCenter
@@ -945,21 +932,20 @@ WebView {
 
     onCurrentDomainChanged: {
         console.log("webview.onCurrentDomainChanged called: %1".arg(currentDomain));
-        console.log("  webview.loading: %1".arg(webview.loading));
         if (DomainSettingsModel.databasePath === "") {
-          return
+            console.log("  no database for domain settings");
+            return;
         }
 
         zoomController.scrollWidth = 0;
-
         var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
         if (isNaN(domainZoomFactor) ) {
-          zoomController.viewSpecificZoom = false;
-          zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
+            zoomController.viewSpecificZoom = false;
+            zoomController.currentZoomFactor = zoomController.defaultZoomFactor;
         }
         else {
-          zoomController.viewSpecificZoom = true;
-          zoomController.currentZoomFactor = domainZoomFactor;
+            zoomController.viewSpecificZoom = true;
+            zoomController.currentZoomFactor = domainZoomFactor;
         }
         console.log("  zoomController.viewSpecificZoom: %1".arg(zoomController.viewSpecificZoom));
         console.log("  zoomController.currentZoomFactor: %1".arg(zoomController.currentZoomFactor));
@@ -980,10 +966,13 @@ WebView {
             // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
             zoomController.currentZoomFactorChanged();
 
-            if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
-                zoomController.autoFitToWidth();
-            } else   if (zoomMenu.visible) {
-                zoomController.retrieveScrollWidth();
+            if (zoomController.scrollWidth === 0) {
+                if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+                    zoomController.autoFitToWidth();
+                }
+                else if (zoomMenu.visible) {
+                    zoomController.retrieveScrollWidth();
+                }
             }
         }
 
@@ -994,18 +983,34 @@ WebView {
         }
     }
 
+    Timer {
+        id: widthChangedTimer
+        interval: 500
+        running: false
+        repeat: false
+        onTriggered: {
+            console.log("webview.widthChangedTimer triggered");
+            if (webview.loading === false) {
+                if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+                    zoomController.autoFitToWidth();
+                }
+                else if (zoomMenu.visible) {
+                    zoomController.retrieveScrollWidth();
+                }
+            }
+        }
+    }
     property bool onWidthChangedFirstCall: true
     onWidthChanged: {
         console.log("webview.onWidthChanged called: %1".arg(width));
         if (onWidthChangedFirstCall) {
-          // Skip first call, cause it is the webview.width init trigger and it allways happens before page is loaded.
+            // Skip first call, cause it is the webview.width init trigger and it allways happens before page is loaded.
+            console.log("  skipping first call");
             onWidthChangedFirstCall = false;
             return;
         }
         zoomController.scrollWidth = 0;
-        if (webview.loading === false && zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
-            zoomController.autoFitToWidth();
-        }
+        widthChangedTimer.restart();
     }
 
     // https://github.com/ubports/morph-browser/issues/92
@@ -1040,14 +1045,14 @@ WebView {
     }
 
     Connections {
-      // If database changed, reload zoomFactor according to new db.
-      // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
-      // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
-      // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
-      target: DomainSettingsModel
-      onDatabasePathChanged: {
-        currentDomainChanged();
-      }
+        // If database changed, reload zoomFactor according to new db.
+        // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
+        // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
+        // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
+        target: DomainSettingsModel
+        onDatabasePathChanged: {
+            console.log("DomainSettingsModel.onDatabasePathChanged Connection triggered");
+            currentDomainChanged();
+        }
     }
 }
-
