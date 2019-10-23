@@ -82,13 +82,6 @@ Common.BrowserView {
     property Common.BrowserWindow thisWindow
     property Component windowFactory
 
-    onCurrentWebviewChanged: {
-       if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
-       {
-           currentWebview.zoomController.reset()
-       }
-    }
-
     function serializeTabState(tab) {
         var state = {}
         state.uniqueId = tab.uniqueId
@@ -1148,10 +1141,6 @@ Common.BrowserView {
                 forceActiveFocus()
             } else {
                 internal.resetFocus()
-                if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
-                {
-                    currentWebview.zoomController.reset()
-                }
             }
         }
 
@@ -1717,7 +1706,7 @@ Common.BrowserView {
     Shortcut {
         sequence: "Ctrl+0"
         enabled: currentWebview
-        onActivated: currentWebview.zoomController.reset()
+        onActivated: currentWebview.zoomController.resetSaveFit()
     }
 
     Loader {

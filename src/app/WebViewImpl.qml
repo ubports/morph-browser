@@ -97,16 +97,34 @@ WebView {
         property real currentZoomFactor: defaultZoomFactor
         property bool viewSpecificZoom: false
 
-        readonly property bool autoFitWidth: browser.settings ? browser.settings.autoFitWidth : webapp.settings.autoFitWidth
-        property int scrollWidth: 0
-        property real fitToWidthFactor: scrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / scrollWidth) * 100) / 100)) : NaN
+        readonly property bool autoFitToWidthEnabled: browser.settings ? browser.settings.autoFitToWidthEnabled : webapp.settings.autoFitToWidthEnabled
+        property int currentDomainScrollWidth: 0
+        property real fitToWidthFactor: currentDomainScrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / currentDomainScrollWidth) * 100) / 100)) : NaN
 
-        function retrieveScrollWidth() {
-            console.log("webview.zoomController.retrieveScrollWidth called");
-            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
-                scrollWidth = width > 0 ? width : 0;
-            });
+        onDefaultZoomFactorChanged: {
+            console.log("webview.zoomController.onDefaultZoomFactorChanged: %1 (%2)".arg(defaultZoomFactor).arg(webview.url));
+            if (viewSpecificZoom === false) {
+                // Page is currently in default zoom mode, change current zoom and handle fit to width.
+                currentZoomFactor = defaultZoomFactor;
+                currentDomainScrollWidth = 0;
+                console.log("  l: %1".arg(webview.loading));
+                if (webview.loading === false) {
+                    console.log("  a: %1".arg(zoomController.autoFitToWidthEnabled));
+                    console.log("  v: %1".arg(zoomMenu.visible));
+                    if (zoomController.autoFitToWidthEnabled) {
+                        autoFitToWidth();
+                    }
+                    else if (zoomMenu.visible) {
+                        retrieveScrollWidth();
+                    }
+                }
+            }
+        }
+
+        onAutoFitToWidthEnabledChanged: {
+            console.log("webview.zoomController.onAutoFitToWidthEnabledChanged: %1".arg(autoFitToWidthEnabled));
+            // Handling is the same as onDefaultZoomFactorChanged, so just trigger it.
+            defaultZoomFactorChanged();
         }
 
         onCurrentZoomFactorChanged: {
@@ -136,7 +154,7 @@ WebView {
                     console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
                     if (width > 0) {
                         var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
-                        if (Math.abs(currentZoomFactor - newZoomFactor) > 0.05) {
+                        if (Math.abs(currentZoomFactor - newZoomFactor) >= 0.1) {
                             console.log("  newZoomFactor: %1".arg(newZoomFactor));
                             currentZoomFactor = newZoomFactor;
                         }
@@ -144,13 +162,21 @@ WebView {
                             console.log("  not autofitting, close to currentZoomFactor");
                             webview.zoomFactor = currentZoomFactor;
                         }
-                        scrollWidth = width;
+                        currentDomainScrollWidth = width;
                     }
                     else {
                         console.log("  not autofitting, no scrollWidth");
                         webview.zoomFactor = currentZoomFactor;
                     }
                 });
+            });
+        }
+
+        function retrieveScrollWidth() {
+            console.log("webview.zoomController.retrieveScrollWidth called");
+            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
+                currentDomainScrollWidth = width > 0 ? width : 0;
             });
         }
 
@@ -179,9 +205,9 @@ WebView {
                 saveZoomFactorForCurrentDomain();
             }
 
-            scrollWidth = 0;
+            currentDomainScrollWidth = 0;
             if (webview.loading === false) {
-                if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+                if (zoomController.autoFitToWidthEnabled && zoomController.viewSpecificZoom === false) {
                     autoFitToWidth();
                 }
                 else {
@@ -525,9 +551,6 @@ WebView {
 
         quickMenu.visible = false
         zoomMenu.visible = true
-        if (zoomController.scrollWidth === 0) {
-            zoomController.retrieveScrollWidth();
-        }
     }
 
     function hideZoomMenu() {
@@ -841,6 +864,13 @@ WebView {
             x: (webview.width - width) / 2
             y: (webview.height - height) / 2
 
+            onVisibleChanged: {
+                console.log("zoomMenu.visible triggered: %1".arg(visible));
+                if (visible && zoomController.currentDomainScrollWidth === 0) {
+                    zoomController.retrieveScrollWidth();
+                }
+            }
+
             MouseArea {
                 // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
                 anchors.fill: zoomMenu
@@ -937,7 +967,7 @@ WebView {
             return;
         }
 
-        zoomController.scrollWidth = 0;
+        zoomController.currentDomainScrollWidth = 0;
         var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
         if (isNaN(domainZoomFactor) ) {
             zoomController.viewSpecificZoom = false;
@@ -966,8 +996,8 @@ WebView {
             // although the webview.zoomFactor (and zoomController.currentZoomFactor) is correctly set.
             zoomController.currentZoomFactorChanged();
 
-            if (zoomController.scrollWidth === 0) {
-                if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+            if (zoomController.currentDomainScrollWidth === 0) {
+                if (zoomController.autoFitToWidthEnabled && zoomController.viewSpecificZoom === false) {
                     zoomController.autoFitToWidth();
                 }
                 else if (zoomMenu.visible) {
@@ -991,7 +1021,7 @@ WebView {
         onTriggered: {
             console.log("webview.widthChangedTimer triggered");
             if (webview.loading === false) {
-                if (zoomController.autoFitWidth && zoomController.viewSpecificZoom === false) {
+                if (zoomController.autoFitToWidthEnabled && zoomController.viewSpecificZoom === false) {
                     zoomController.autoFitToWidth();
                 }
                 else if (zoomMenu.visible) {
@@ -1009,7 +1039,7 @@ WebView {
             onWidthChangedFirstCall = false;
             return;
         }
-        zoomController.scrollWidth = 0;
+        zoomController.currentDomainScrollWidth = 0;
         widthChangedTimer.restart();
     }
 
