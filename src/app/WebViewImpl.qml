@@ -88,6 +88,17 @@ WebView {
         }
     }
 
+    Timer {
+      id: autoFitToWidthTimer
+      interval: 1000
+      running: false
+      repeat: false
+      onTriggered: {
+        console.log("autoFitToWidthTimer triggered");
+        zoomController.autoFitToWidth();
+      }
+    }
+
     QtObject {
         id: zoomController
 
@@ -107,10 +118,7 @@ WebView {
                 // Page is currently in default zoom mode, change current zoom and handle fit to width.
                 currentZoomFactor = defaultZoomFactor;
                 currentDomainScrollWidth = 0;
-                console.log("  l: %1".arg(webview.loading));
                 if (webview.loading === false) {
-                    console.log("  a: %1".arg(zoomController.autoFitToWidthEnabled));
-                    console.log("  v: %1".arg(zoomMenu.visible));
                     if (zoomController.autoFitToWidthEnabled) {
                         autoFitToWidth();
                     }
@@ -144,32 +152,36 @@ WebView {
         }
 
         function autoFitToWidth() {
-            console.log("zoomController.autoFitToWidth called");
+          // This function might be called when webview.zoomFactor != currentZoomFactor.
+          console.log("zoomController.autoFitToWidth called");
+
+          // Determine scrollWidth and use it to fit to width.
+          webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+            console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(webview.zoomFactor));
+            if (width > 0) {
+              var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
+              if (Math.abs(currentZoomFactor - newZoomFactor) >= 0.1) {
+                console.log("  newZoomFactor: %1".arg(newZoomFactor));
+                currentZoomFactor = newZoomFactor;
+              }
+              else {
+                console.log("  not autofitting, close to currentZoomFactor");
+                webview.zoomFactor = currentZoomFactor;
+              }
+              currentDomainScrollWidth = width;
+            }
+            else {
+              console.log("  not autofitting, no scrollWidth");
+              webview.zoomFactor = currentZoomFactor;
+            }
+          });
+        }
+
+        function autoFitToWidthFromDefaultZoomFactor() {
+            console.log("zoomController.autoFitToWidthFromDefaultZoomFactor called");
             // Zoom to defaultZoomFactor before determining scrollWidth, to allways get consistent numbers.
             webview.zoomFactor = defaultZoomFactor;
-            // Trigger js resize event in page, to be sure defaultZoomFactor is set.
-            webview.runJavaScript("var resizeEvent = window.document.createEvent('UIEvents'); resizeEvent.initUIEvent('resize', true, false, window, 0); window.dispatchEvent(resizeEvent);", function() {
-                // Determine scrollWidth and use it to fit to width.
-                webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                    console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
-                    if (width > 0) {
-                        var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
-                        if (Math.abs(currentZoomFactor - newZoomFactor) >= 0.1) {
-                            console.log("  newZoomFactor: %1".arg(newZoomFactor));
-                            currentZoomFactor = newZoomFactor;
-                        }
-                        else {
-                            console.log("  not autofitting, close to currentZoomFactor");
-                            webview.zoomFactor = currentZoomFactor;
-                        }
-                        currentDomainScrollWidth = width;
-                    }
-                    else {
-                        console.log("  not autofitting, no scrollWidth");
-                        webview.zoomFactor = currentZoomFactor;
-                    }
-                });
-            });
+            autoFitToWidthTimer.restart();
         }
 
         function retrieveScrollWidth() {
@@ -208,7 +220,7 @@ WebView {
             currentDomainScrollWidth = 0;
             if (webview.loading === false) {
                 if (zoomController.autoFitToWidthEnabled && zoomController.viewSpecificZoom === false) {
-                    autoFitToWidth();
+                    autoFitToWidthFromDefaultZoomFactor();
                 }
                 else {
                     retrieveScrollWidth();
@@ -998,7 +1010,7 @@ WebView {
 
             if (zoomController.currentDomainScrollWidth === 0) {
                 if (zoomController.autoFitToWidthEnabled && zoomController.viewSpecificZoom === false) {
-                    zoomController.autoFitToWidth();
+                    zoomController.autoFitToWidthFromDefaultZoomFactor();
                 }
                 else if (zoomMenu.visible) {
                     zoomController.retrieveScrollWidth();
@@ -1022,7 +1034,7 @@ WebView {
             console.log("webview.widthChangedTimer triggered");
             if (webview.loading === false) {
                 if (zoomController.autoFitToWidthEnabled && zoomController.viewSpecificZoom === false) {
-                    zoomController.autoFitToWidth();
+                    zoomController.autoFitToWidthFromDefaultZoomFactor();
                 }
                 else if (zoomMenu.visible) {
                     zoomController.retrieveScrollWidth();
