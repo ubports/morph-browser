@@ -48,7 +48,9 @@ WebView {
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
 
     readonly property alias findController: findController
-    readonly property alias zoomController: zoomController
+    readonly property ZoomController zoomController: ZoomController {}
+
+
 
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
@@ -695,10 +697,6 @@ WebView {
             }
         }
 
-    ZoomController {
-        id: zoomController
-    }
-
     UbuntuShape {
         z:3
         id: zoomMenu
@@ -852,17 +850,5 @@ WebView {
            inputMethodTimer.restart()
          }
        }
-    }
-
-    Connections {
-        // If database changed, reload zoomFactor according to new db.
-        // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
-        // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
-        // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
-        target: DomainSettingsModel
-        onDatabasePathChanged: {
-            console.log("DomainSettingsModel.onDatabasePathChanged Connection triggered");
-            currentDomainChanged();
-        }
     }
 }

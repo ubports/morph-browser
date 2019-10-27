@@ -1,6 +1,13 @@
 import QtQuick 2.4
 import QtWebEngine 1.7
+import webbrowsercommon.private 0.1 // For DomainSettingsModel singleton.
+import Ubuntu.Components.Popups 1.3 // For PopupUtils.
 
+// ZoomController object to provide zoom controll for WebViewImpl.
+// Scope requirements:
+//     webview:             An WebViewImpl object for zoomFactor manipulation and signal bindings.
+//     browser (or webapp): An Browser (or WebApp) object for settings operations.
+//     zoomMenu:            An UbuntuShape object just to see if menu si visible.
 QtObject {
 
     readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
@@ -49,7 +56,14 @@ QtObject {
         var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
         confirmDialog.title = i18n.tr("Default Zoom")
         confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
-        confirmDialog.accept.connect(function() {browser.settings.zoomFactor = currentZoomFactor});
+        confirmDialog.accept.connect(function() {
+            if (browser.settings) {
+                browser.settings.zoomFactor = currentZoomFactor;
+            }
+            else {
+                webapp.settings.zoomFactor = currentZoomFactor;
+            }
+        });
     }
 
 
@@ -113,7 +127,7 @@ QtObject {
 
         viewSpecificZoom = true;
         currentZoomFactor = fitToWidthFactor;
-        if (! incognito) {
+        if (! webview.incognito) {
             saveZoomFactorForCurrentDomain();
         }
     }
@@ -125,7 +139,7 @@ QtObject {
 
     function resetSaveFit() {
         reset();
-        if (! incognito) {
+        if (! webview.incognito) {
             saveZoomFactorForCurrentDomain();
         }
 
@@ -152,7 +166,7 @@ QtObject {
     function zoomIn() {
         viewSpecificZoom = true;
         currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
-        if (! incognito) {
+        if (! webview.incognito) {
             saveZoomFactorForCurrentDomain();
         }
     }
@@ -160,7 +174,7 @@ QtObject {
     function zoomOut() {
         viewSpecificZoom = true
         currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
-        if (! incognito) {
+        if (! webview.incognito) {
             saveZoomFactorForCurrentDomain();
         }
     }
@@ -213,7 +227,8 @@ QtObject {
                 console.log("  webview.onLoadingChanged: LoadSucceeded");
                 // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
                 // although the webview.zoomFactor (and currentZoomFactor) is correctly set.
-                currentZoomFactorChanged();
+                webview.zoomFactor = currentZoomFactor;
+                // End of workaround.
 
                 if (currentDomainScrollWidth === 0) {
                     if (autoFitToWidthEnabled && viewSpecificZoom === false) {
@@ -227,28 +242,46 @@ QtObject {
         }
     }
 
+    function zoomPageForCurrentDomain() {
+        console.log("ZoomController.zoomPageForCurrentDomain called: %1".arg(webview.currentDomain));
+        if (DomainSettingsModel.databasePath === "") {
+            console.log("  no database for domain settings");
+            viewSpecificZoom = false;
+            currentZoomFactor = defaultZoomFactor;
+            return;
+        }
+
+        currentDomainScrollWidth = 0;
+        var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
+        if (isNaN(domainZoomFactor) ) {
+            viewSpecificZoom = false;
+            currentZoomFactor = defaultZoomFactor;
+        }
+        else {
+            viewSpecificZoom = true;
+            currentZoomFactor = domainZoomFactor;
+        }
+        console.log("  viewSpecificZoom: %1".arg(viewSpecificZoom));
+        console.log("  currentZoomFactor: %1".arg(currentZoomFactor));
+    }
 
     property Connections webview_onCurrentDomainChanged: Connections {
         target: webview
         onCurrentDomainChanged: {
-            console.log("ZoomController webview.onCurrentDomainChanged called: %1".arg(currentDomain));
-            if (DomainSettingsModel.databasePath === "") {
-                console.log("  no database for domain settings");
-                return;
-            }
+            console.log("ZoomController webview.onCurrentDomainChanged triggered");
+            zoomPageForCurrentDomain();
+        }
+    }
 
-            currentDomainScrollWidth = 0;
-            var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
-            if (isNaN(domainZoomFactor) ) {
-                viewSpecificZoom = false;
-                currentZoomFactor = defaultZoomFactor;
-            }
-            else {
-                viewSpecificZoom = true;
-                currentZoomFactor = domainZoomFactor;
-            }
-            console.log("  viewSpecificZoom: %1".arg(viewSpecificZoom));
-            console.log("  currentZoomFactor: %1".arg(currentZoomFactor));
+    property Connections domainSettingsModel_onDatabasePathChanged: Connections {
+        // If database changed, reload zoomFactor according to new db.
+        // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
+        // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
+        // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
+        target: DomainSettingsModel
+        onDatabasePathChanged: {
+            console.log("ZoomController DomainSettingsModel.onDatabasePathChanged triggered");
+            zoomPageForCurrentDomain();
         }
     }
 }
