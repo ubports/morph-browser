@@ -45,7 +45,7 @@ WebView {
     readonly property bool isWebApp: (typeof browserTab === 'undefined')
 
     readonly property alias findController: findController
-    readonly property ZoomController zoomController: ZoomController {}
+    readonly property alias zoomController: zoomMenu.controller
 
 
 
@@ -694,112 +694,10 @@ WebView {
             }
         }
 
-    UbuntuShape {
-        z:3
-        id: zoomMenu
-        objectName: "zoomActions"
-        visible: false
-        aspect: UbuntuShape.DropShadow
-        backgroundColor: theme.palette.normal.background
-        readonly property int padding: units.gu(1)
-        width: zoomActionsRow.width + padding * 2
-        height: zoomActionsRow.height + currentZoomText.height + padding * 2
-
-        readonly property real spacing: units.gu(0.5)
-        x: (webview.width - width) / 2
-        y: (webview.height - height) / 2
-
-        onVisibleChanged: {
-            console.log("zoomMenu.visible triggered: %1".arg(visible));
-            if (visible && zoomController.currentDomainScrollWidth === 0) {
-                zoomController.retrieveScrollWidth();
-            }
+        // Creates and handles zoom menu, control and autofit logic.
+        ZoomController {
+          id: zoomMenu
         }
-
-        MouseArea {
-            // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
-            anchors.fill: zoomMenu
-            onClicked: console.log("inactive part of zoom menu clicked.")
-        }
-
-        ActionList {
-            id: zoomActions
-            Action {
-                name: "fitToWidth"
-                text: i18n.tr("Fit (%1%)".arg(isNaN(zoomController.fitToWidthFactor) ? "-" : zoomController.fitToWidthFactor * 100))
-                iconName: "zoom-fit-best"
-                enabled: !isNaN(zoomController.fitToWidthFactor) && (Math.abs(zoomController.currentZoomFactor - zoomController.fitToWidthFactor) >= 0.01 || zoomController.viewSpecificZoom === false)
-                onTriggered: zoomController.fitToWidth()
-            }
-            Action {
-                name: "zoomOut"
-                text: i18n.tr("Zoom Out")
-                iconName: "zoom-out"
-                enabled: Math.abs(zoomController.currentZoomFactor - zoomController.minZoomFactor) >= 0.01
-                onTriggered: zoomController.zoomOut()
-            }
-            Action {
-                name: "zoomOriginal"
-                text: i18n.tr("Reset") + " (%1%)".arg(zoomController.defaultZoomFactor * 100)
-                iconName: "reset"
-                enabled: zoomController.viewSpecificZoom || Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
-                onTriggered: zoomController.resetSaveFit()
-            }
-            Action {
-                name: "zoomIn"
-                text: i18n.tr("Zoom In")
-                iconName: "zoom-in"
-                enabled: Math.abs(zoomController.currentZoomFactor - zoomController.maxZoomFactor) >= 0.01
-                onTriggered: zoomController.zoomIn()
-            }
-            Action {
-                name: "zoomSave"
-                text: i18n.tr("Save")
-                iconName: "save"
-                enabled: Math.abs(zoomController.currentZoomFactor - zoomController.defaultZoomFactor) >= 0.01
-                onTriggered: zoomController.save()
-            }
-            Action {
-                name: "close"
-                text: i18n.dtr('ubuntu-ui-toolkit', "Close")
-                iconName: "close"
-                enabled: true
-                onTriggered: zoomMenu.visible = false
-            }
-        }
-
-        Row {
-            id: zoomActionsRow
-            x: parent.padding
-            y: parent.padding
-            height: units.gu(6)
-
-            Repeater {
-                model: zoomActions.children
-                AbstractButton {
-                    objectName: "pageAction_" + action.name
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                    }
-                    width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
-                    action: modelData
-                    styleName: "ToolbarButtonStyle"
-                    activeFocusOnPress: false
-                }
-            }
-        }
-        Text {
-            id: currentZoomText
-            anchors.top: zoomActionsRow.bottom
-            anchors.right: zoomActionsRow.right
-            text: i18n.tr("Current Zoom") + ": " + Math.round(zoomController.currentZoomFactor * 100) + "%"
-            + " (%1)".arg(zoomController.viewSpecificZoom ? i18n.tr("domain") : (zoomController.currentZoomFactor === zoomController.defaultZoomFactor ? i18n.tr("default") : i18n.tr("auto-fit")))
-            color: theme.palette.normal.backgroundText
-            width: zoomActionsRow.width
-            horizontalAlignment: Text.AlignHCenter
-        }
-    }
 
     onFullScreenRequested: function(request) {
         request.accept();
