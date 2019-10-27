@@ -32,9 +32,6 @@ WebView {
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
     readonly property real scaleFactor: Screen.devicePixelRatio
 
-    // Contains domain, or scheme if webview.url has no domain.
-    readonly property string currentDomain: UrlUtils.hostIs(webview.url, "") ? "scheme:" + UrlUtils.extractScheme(webview.url) : UrlUtils.extractHost(webview.url)
-
     property var currentWebview: webview
     property ContextMenuRequest contextMenuRequest: null
 

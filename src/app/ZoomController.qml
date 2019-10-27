@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtWebEngine 1.7
 import webbrowsercommon.private 0.1 // For DomainSettingsModel singleton.
 import Ubuntu.Components.Popups 1.3 // For PopupUtils.
+import "UrlUtils.js" as UrlUtils
 
 // ZoomController object to provide zoom controll for WebViewImpl.
 // Scope requirements:
@@ -9,6 +10,9 @@ import Ubuntu.Components.Popups 1.3 // For PopupUtils.
 //     browser (or webapp): An Browser (or WebApp) object for settings operations.
 //     zoomMenu:            An UbuntuShape object just to see if menu si visible.
 QtObject {
+
+    // Contains domain, or scheme if webview.url has no domain.
+    readonly property string currentDomain: UrlUtils.hostIs(webview.url, "") ? "scheme:" + UrlUtils.extractScheme(webview.url) : UrlUtils.extractHost(webview.url)
 
     readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
     readonly property real minZoomFactor: 0.25
@@ -243,7 +247,7 @@ QtObject {
     }
 
     function zoomPageForCurrentDomain() {
-        console.log("ZoomController.zoomPageForCurrentDomain called: %1".arg(webview.currentDomain));
+        console.log("ZoomController.zoomPageForCurrentDomain called: %1".arg(currentDomain));
         if (DomainSettingsModel.databasePath === "") {
             console.log("  no database for domain settings");
             viewSpecificZoom = false;
@@ -265,12 +269,9 @@ QtObject {
         console.log("  currentZoomFactor: %1".arg(currentZoomFactor));
     }
 
-    property Connections webview_onCurrentDomainChanged: Connections {
-        target: webview
-        onCurrentDomainChanged: {
-            console.log("ZoomController webview.onCurrentDomainChanged triggered");
-            zoomPageForCurrentDomain();
-        }
+    onCurrentDomainChanged: {
+        console.log("ZoomController.onCurrentDomainChanged triggered");
+        zoomPageForCurrentDomain();
     }
 
     property Connections domainSettingsModel_onDatabasePathChanged: Connections {
