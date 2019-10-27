@@ -695,7 +695,7 @@ WebView {
         }
 
         // Creates and handles zoom menu, control and autofit logic.
-        ZoomController {
+        ZoomControls {
           id: zoomMenu
         }
 
