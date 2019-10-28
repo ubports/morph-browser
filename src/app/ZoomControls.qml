@@ -16,20 +16,13 @@ UbuntuShape {
     visible: false
     aspect: UbuntuShape.DropShadow
     backgroundColor: theme.palette.normal.background
-    readonly property int padding: units.gu(1)
     width: zoomActionsRow.width + padding * 2
     height: zoomActionsRow.height + currentZoomText.height + padding * 2
-
-    readonly property real spacing: units.gu(0.5)
     x: (webview.width - width) / 2
     y: (webview.height - height) / 2
 
-    onVisibleChanged: {
-        console.log("menu.visible triggered: %1".arg(visible));
-        if (visible && controller.currentDomainScrollWidth === 0) {
-            controller.retrieveScrollWidth();
-        }
-    }
+    readonly property int padding: units.gu(1)
+    readonly property alias controller: controller
 
     MouseArea {
         // without that MouseArea the user can click "through" inactive parts of the page menu (e.g the text of current zoom value)
@@ -104,6 +97,7 @@ UbuntuShape {
             }
         }
     }
+
     Text {
         id: currentZoomText
         anchors.top: zoomActionsRow.bottom
@@ -115,69 +109,20 @@ UbuntuShape {
         horizontalAlignment: Text.AlignHCenter
     }
 
-    readonly property alias controller: controller
+    onVisibleChanged: {
+        console.log("menu.visible triggered: %1".arg(visible));
+        if (visible && internal.currentDomainScrollWidth === 0) {
+            controller.retrieveScrollWidth();
+        }
+    }
+
     QtObject {
-        id: controller
+        id: internal
 
-        // Contains domain, or scheme if webview.url has no domain.
-        readonly property string currentDomain: UrlUtils.hostIs(webview.url, "") ? "scheme:" + UrlUtils.extractScheme(webview.url) : UrlUtils.extractHost(webview.url)
-
-        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
-        readonly property real minZoomFactor: 0.25
-        readonly property real maxZoomFactor: 5.0
-        property real currentZoomFactor: defaultZoomFactor
         property bool viewSpecificZoom: false
+        property real currentZoomFactor: controller.defaultZoomFactor
 
-        readonly property bool autoFitToWidthEnabled: browser.settings ? browser.settings.autoFitToWidthEnabled : webapp.settings.autoFitToWidthEnabled
         property int currentDomainScrollWidth: 0
-        property real fitToWidthFactor: currentDomainScrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / currentDomainScrollWidth) * 100) / 100)) : NaN
-
-        onDefaultZoomFactorChanged: {
-            console.log("ZoomController.onDefaultZoomFactorChanged: %1 (%2)".arg(defaultZoomFactor).arg(webview.url));
-            if (viewSpecificZoom === false) {
-                // Page is currently in default zoom mode, change current zoom and handle fit to width.
-                currentZoomFactor = defaultZoomFactor;
-                currentDomainScrollWidth = 0;
-                if (webview.loading === false) {
-                    if (autoFitToWidthEnabled) {
-                        autoFitToWidthFromDefaultZoomFactor();
-                    }
-                    else if (menu.visible) {
-                        retrieveScrollWidth();
-                    }
-                }
-            }
-        }
-
-        onAutoFitToWidthEnabledChanged: {
-            console.log("ZoomController.onAutoFitToWidthEnabledChanged: %1".arg(autoFitToWidthEnabled));
-            // Handling is the same as onDefaultZoomFactorChanged, so just trigger it.
-            defaultZoomFactorChanged();
-        }
-
-        onCurrentZoomFactorChanged: {
-            console.log("ZoomController.onCurrentZoomFactorChanged: %1".arg(currentZoomFactor));
-            webview.zoomFactor = currentZoomFactor;
-        }
-
-        onFitToWidthFactorChanged: {
-            console.log("ZoomController.onFitToWidthFactorChanged: %1".arg(fitToWidthFactor));
-        }
-
-        function save() {
-            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
-            confirmDialog.title = i18n.tr("Default Zoom")
-            confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
-            confirmDialog.accept.connect(function() {
-                if (browser.settings) {
-                    browser.settings.zoomFactor = currentZoomFactor;
-                }
-                else {
-                    webapp.settings.zoomFactor = currentZoomFactor;
-                }
-            });
-        }
-
 
         property Timer autoFitToWidthTimer: Timer {
             interval: 1000
@@ -186,108 +131,6 @@ UbuntuShape {
             onTriggered: {
                 console.log("autoFitToWidthTimer triggered");
                 controller.autoFitToWidth();
-            }
-        }
-
-        function autoFitToWidth() {
-            // This function might be called when webview.zoomFactor != currentZoomFactor.
-            console.log("ZoomController.autoFitToWidth called");
-
-            // Determine scrollWidth and use it to fit to width.
-            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(webview.zoomFactor));
-                if (width > 0) {
-                    var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
-                    if (Math.abs(currentZoomFactor - newZoomFactor) >= 0.1) {
-                        console.log("  newZoomFactor: %1".arg(newZoomFactor));
-                        currentZoomFactor = newZoomFactor;
-                    }
-                    else {
-                        console.log("  not autofitting, close to currentZoomFactor");
-                        webview.zoomFactor = currentZoomFactor;
-                    }
-                    currentDomainScrollWidth = width;
-                }
-                else {
-                    console.log("  not autofitting, no scrollWidth");
-                    webview.zoomFactor = currentZoomFactor;
-                }
-            });
-        }
-
-        function autoFitToWidthFromDefaultZoomFactor() {
-            console.log("ZoomController.autoFitToWidthFromDefaultZoomFactor called");
-            // Zoom to defaultZoomFactor before determining scrollWidth, to allways get consistent numbers.
-            webview.zoomFactor = defaultZoomFactor;
-            autoFitToWidthTimer.restart();
-        }
-
-        function retrieveScrollWidth() {
-            console.log("ZoomController.retrieveScrollWidth called");
-            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
-                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
-                currentDomainScrollWidth = width > 0 ? width : 0;
-            });
-        }
-
-        function fitToWidth() {
-            console.log("ZoomController.fitToWidth: %1".arg(fitToWidthFactor));
-            if (isNaN(fitToWidthFactor)) {
-                console.log("  not applying");
-                return;
-            }
-
-            viewSpecificZoom = true;
-            currentZoomFactor = fitToWidthFactor;
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
-        }
-
-        function reset() {
-            viewSpecificZoom = false;
-            currentZoomFactor = defaultZoomFactor;
-        }
-
-        function resetSaveFit() {
-            reset();
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
-
-            currentDomainScrollWidth = 0;
-            if (webview.loading === false) {
-                if (autoFitToWidthEnabled && viewSpecificZoom === false) {
-                    autoFitToWidthFromDefaultZoomFactor();
-                }
-                else {
-                    retrieveScrollWidth();
-                }
-            }
-        }
-
-        function saveZoomFactorForCurrentDomain() {
-            if (viewSpecificZoom) {
-                DomainSettingsModel.setZoomFactor(currentDomain, currentZoomFactor);
-            }
-            else {
-                DomainSettingsModel.setZoomFactor(currentDomain, NaN);
-            }
-        }
-
-        function zoomIn() {
-            viewSpecificZoom = true;
-            currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
-        }
-
-        function zoomOut() {
-            viewSpecificZoom = true
-            currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
             }
         }
 
@@ -319,8 +162,8 @@ UbuntuShape {
                     firstCall = false;
                     return;
                 }
-                controller.currentDomainScrollWidth = 0;
-                controller.widthChangedTimer.restart();
+                internal.currentDomainScrollWidth = 0;
+                internal.widthChangedTimer.restart();
             }
         }
 
@@ -342,7 +185,7 @@ UbuntuShape {
                     webview.zoomFactor = controller.currentZoomFactor;
                     // End of workaround.
 
-                    if (controller.currentDomainScrollWidth === 0) {
+                    if (internal.currentDomainScrollWidth === 0) {
                         if (controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false) {
                             controller.autoFitToWidthFromDefaultZoomFactor();
                         }
@@ -352,34 +195,6 @@ UbuntuShape {
                     }
                 }
             }
-        }
-
-        function zoomPageForCurrentDomain() {
-            console.log("ZoomController.zoomPageForCurrentDomain called: %1".arg(currentDomain));
-            if (DomainSettingsModel.databasePath === "") {
-                console.log("  no database for domain settings");
-                viewSpecificZoom = false;
-                currentZoomFactor = defaultZoomFactor;
-                return;
-            }
-
-            currentDomainScrollWidth = 0;
-            var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
-            if (isNaN(domainZoomFactor) ) {
-                viewSpecificZoom = false;
-                currentZoomFactor = defaultZoomFactor;
-            }
-            else {
-                viewSpecificZoom = true;
-                currentZoomFactor = domainZoomFactor;
-            }
-            console.log("  viewSpecificZoom: %1".arg(viewSpecificZoom));
-            console.log("  currentZoomFactor: %1".arg(currentZoomFactor));
-        }
-
-        onCurrentDomainChanged: {
-            console.log("ZoomController.onCurrentDomainChanged triggered");
-            controller.zoomPageForCurrentDomain();
         }
 
         property Connections domainSettingsModel_onDatabasePathChanged: Connections {
@@ -392,6 +207,194 @@ UbuntuShape {
                 console.log("ZoomController DomainSettingsModel.onDatabasePathChanged triggered");
                 controller.zoomPageForCurrentDomain();
             }
+        }
+    }
+
+    QtObject {
+        id: controller
+
+        // Contains domain, or scheme if webview.url has no domain.
+        readonly property string currentDomain: UrlUtils.hostIs(webview.url, "") ? "scheme:" + UrlUtils.extractScheme(webview.url) : UrlUtils.extractHost(webview.url)
+
+        readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
+        readonly property real minZoomFactor: 0.25
+        readonly property real maxZoomFactor: 5.0
+        readonly property alias currentZoomFactor: internal.currentZoomFactor
+        readonly property alias viewSpecificZoom: internal.viewSpecificZoom
+
+        readonly property bool autoFitToWidthEnabled: browser.settings ? browser.settings.autoFitToWidthEnabled : webapp.settings.autoFitToWidthEnabled
+        readonly property real fitToWidthFactor: internal.currentDomainScrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / internal.currentDomainScrollWidth) * 100) / 100)) : NaN
+
+        function fitToWidth() {
+            console.log("ZoomController.fitToWidth: %1".arg(fitToWidthFactor));
+            if (isNaN(fitToWidthFactor)) {
+                console.log("  not applying");
+                return;
+            }
+
+            internal.viewSpecificZoom = true;
+            internal.currentZoomFactor = fitToWidthFactor;
+            if (! webview.incognito) {
+                saveZoomFactorForCurrentDomain();
+            }
+        }
+
+        function zoomIn() {
+            internal.viewSpecificZoom = true;
+            internal.currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
+            if (! webview.incognito) {
+                saveZoomFactorForCurrentDomain();
+            }
+        }
+
+        function resetSaveFit() {
+            internal.viewSpecificZoom = false;
+            internal.currentZoomFactor = defaultZoomFactor;
+            if (! webview.incognito) {
+                saveZoomFactorForCurrentDomain();
+            }
+
+            internal.currentDomainScrollWidth = 0;
+            if (webview.loading === false) {
+                if (autoFitToWidthEnabled && viewSpecificZoom === false) {
+                    autoFitToWidthFromDefaultZoomFactor();
+                }
+                else {
+                    retrieveScrollWidth();
+                }
+            }
+        }
+
+        function zoomOut() {
+            internal.viewSpecificZoom = true
+            internal.currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
+            if (! webview.incognito) {
+                saveZoomFactorForCurrentDomain();
+            }
+        }
+
+        function save() {
+            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
+            confirmDialog.title = i18n.tr("Default Zoom")
+            confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
+            confirmDialog.accept.connect(function() {
+                if (browser.settings) {
+                    browser.settings.zoomFactor = currentZoomFactor;
+                }
+                else {
+                    webapp.settings.zoomFactor = currentZoomFactor;
+                }
+            });
+        }
+
+        function saveZoomFactorForCurrentDomain() {
+            if (viewSpecificZoom) {
+                DomainSettingsModel.setZoomFactor(currentDomain, currentZoomFactor);
+            }
+            else {
+                DomainSettingsModel.setZoomFactor(currentDomain, NaN);
+            }
+        }
+
+        function autoFitToWidthFromDefaultZoomFactor() {
+            console.log("ZoomController.autoFitToWidthFromDefaultZoomFactor called");
+            // Zoom to defaultZoomFactor before determining scrollWidth, to allways get consistent numbers.
+            webview.zoomFactor = defaultZoomFactor;
+            internal.autoFitToWidthTimer.restart();
+        }
+
+        function autoFitToWidth() {
+            // This function might be called when webview.zoomFactor != currentZoomFactor.
+            console.log("ZoomController.autoFitToWidth called");
+
+            // Determine scrollWidth and use it to fit to width.
+            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(webview.zoomFactor));
+                if (width > 0) {
+                    var newZoomFactor = Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / width) * 100) / 100));
+                    if (Math.abs(currentZoomFactor - newZoomFactor) >= 0.1) {
+                        console.log("  newZoomFactor: %1".arg(newZoomFactor));
+                        internal.currentZoomFactor = newZoomFactor;
+                    }
+                    else {
+                        console.log("  not autofitting, close to currentZoomFactor");
+                        webview.zoomFactor = currentZoomFactor;
+                    }
+                    internal.currentDomainScrollWidth = width;
+                }
+                else {
+                    console.log("  not autofitting, no scrollWidth");
+                    webview.zoomFactor = currentZoomFactor;
+                }
+            });
+        }
+
+        function retrieveScrollWidth() {
+            console.log("ZoomController.retrieveScrollWidth called");
+            webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
+                console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
+                internal.currentDomainScrollWidth = width > 0 ? width : 0;
+            });
+        }
+
+        function zoomPageForCurrentDomain() {
+            console.log("ZoomController.zoomPageForCurrentDomain called: %1".arg(currentDomain));
+            if (DomainSettingsModel.databasePath === "") {
+                console.log("  no database for domain settings");
+                internal.viewSpecificZoom = false;
+                internal.currentZoomFactor = defaultZoomFactor;
+                return;
+            }
+
+            internal.currentDomainScrollWidth = 0;
+            var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
+            if (isNaN(domainZoomFactor) ) {
+                internal.viewSpecificZoom = false;
+                internal.currentZoomFactor = defaultZoomFactor;
+            }
+            else {
+                internal.viewSpecificZoom = true;
+                internal.currentZoomFactor = domainZoomFactor;
+            }
+            console.log("  viewSpecificZoom: %1".arg(viewSpecificZoom));
+            console.log("  currentZoomFactor: %1".arg(currentZoomFactor));
+        }
+
+        onCurrentDomainChanged: {
+            console.log("ZoomController.onCurrentDomainChanged triggered");
+            controller.zoomPageForCurrentDomain();
+        }
+
+        onDefaultZoomFactorChanged: {
+            console.log("ZoomController.onDefaultZoomFactorChanged: %1 (%2)".arg(defaultZoomFactor).arg(webview.url));
+            if (viewSpecificZoom === false) {
+                // Page is currently in default zoom mode, change current zoom and handle fit to width.
+                internal.currentZoomFactor = defaultZoomFactor;
+                internal.currentDomainScrollWidth = 0;
+                if (webview.loading === false) {
+                    if (autoFitToWidthEnabled) {
+                        autoFitToWidthFromDefaultZoomFactor();
+                    }
+                    else if (menu.visible) {
+                        retrieveScrollWidth();
+                    }
+                }
+            }
+        }
+
+        onCurrentZoomFactorChanged: {
+            console.log("ZoomController.onCurrentZoomFactorChanged: %1".arg(currentZoomFactor));
+            webview.zoomFactor = currentZoomFactor;
+        }
+
+        onAutoFitToWidthEnabledChanged: {
+            console.log("ZoomController.onAutoFitToWidthEnabledChanged: %1".arg(autoFitToWidthEnabled));
+            // Handling is the same as onDefaultZoomFactorChanged, so just trigger it.
+            defaultZoomFactorChanged();
+        }
+
+        onFitToWidthFactorChanged: {
+            console.log("ZoomController.onFitToWidthFactorChanged: %1".arg(fitToWidthFactor));
         }
     }
 }
