@@ -5,7 +5,7 @@ import QtWebEngine 1.7
 import webbrowsercommon.private 0.1 // For DomainSettingsModel singleton.
 import "UrlUtils.js" as UrlUtils
 
-// ZoomController object to provide zoom menu, control and autofit logic for WebViewImpl.
+// ZoomControls object to provide zoom menu, control and autofit logic for WebViewImpl.
 // Scope requirements:
 //     webview:             An WebViewImpl object for zoomFactor manipulation and signal bindings.
 //     browser (or webapp): An Browser (or WebApp) object for settings operations.
@@ -124,6 +124,9 @@ UbuntuShape {
 
         property int currentDomainScrollWidth: 0
 
+        property bool refreshZoomOnWebViewVisible: false
+        property bool anyPageLoaded: false
+
         property Timer autoFitToWidthTimer: Timer {
             interval: 1000
             running: false
@@ -135,33 +138,40 @@ UbuntuShape {
         }
 
         property Timer widthChangedTimer: Timer {
-            interval: 500
+            interval: 300
             running: false
             repeat: false
             onTriggered: {
                 console.log("webview.widthChangedTimer triggered");
-                if (webview.loading === false) {
-                    if (controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false) {
-                        controller.autoFitToWidthFromDefaultZoomFactor();
-                    }
-                    else if (menu.visible) {
-                        controller.retrieveScrollWidth();
-                    }
+                if (webview.loading === true) {
+                    console.log("  webview is currently loading, skipping fit to width");
+                    return;
+                }
+
+                if (controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false) {
+                    controller.autoFitToWidthFromDefaultZoomFactor();
+                }
+                else if (menu.visible) {
+                    controller.retrieveScrollWidth();
                 }
             }
         }
 
         property Connections webview_onWidthChangedConnection: Connections {
             target: webview
-            property bool firstCall: true
             onWidthChanged: {
-                console.log("ZoomController: webview.onWidthChanged called: %1".arg(width));
-                if (firstCall) {
-                    // Skip first call, cause it is the webview.width init trigger and it allways happens before page is loaded.
-                    console.log("  skipping first call");
-                    firstCall = false;
+                console.log("ZoomControls: webview.onWidthChanged called: %1".arg(width));
+                if (internal.anyPageLoaded === false) {
+                    console.log("  no page was loaded")
                     return;
                 }
+
+                if (webview.visible === false) {
+                    console.log("  webview not visible, setting flag to refresh after visible and skipping fit to width");
+                    internal.refreshZoomOnWebViewVisible = true;
+                    return;
+                }
+
                 internal.currentDomainScrollWidth = 0;
                 internal.widthChangedTimer.restart();
             }
@@ -170,7 +180,7 @@ UbuntuShape {
         property Connections webview_onLoadingChanged: Connections {
             target: webview
             onLoadingChanged: {
-                console.log("ZoomController webview.onLoadingChanged: %1".arg(webview.url));
+                console.log("ZoomControls webview.onLoadingChanged: %1".arg(webview.url));
                 console.log("  webview.loading: %1".arg(webview.loading));
 
                 // not about current url (e.g. finished loading of page we have already navigated away from)
@@ -180,6 +190,14 @@ UbuntuShape {
 
                 if (loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) {
                     console.log("  webview.onLoadingChanged: LoadSucceeded");
+                    internal.anyPageLoaded = true;
+
+                    if (webview.visible === false) {
+                        console.log("  webview not visible, setting flag to refresh after visible and skipping fit to width");
+                        internal.refreshZoomOnWebViewVisible = true;
+                        return;
+                    }
+
                     // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
                     // although the webview.zoomFactor (and currentZoomFactor) is correctly set.
                     webview.zoomFactor = controller.currentZoomFactor;
@@ -204,8 +222,45 @@ UbuntuShape {
             // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
             target: DomainSettingsModel
             onDatabasePathChanged: {
-                console.log("ZoomController DomainSettingsModel.onDatabasePathChanged triggered");
+                console.log("ZoomControls DomainSettingsModel.onDatabasePathChanged triggered");
+                if (webview.visible === false) {
+                    console.log("  webview not visible, setting flag to refresh after visible and skipping fit to width");
+                    internal.refreshZoomOnWebViewVisible = true;
+                    return;
+                }
+
                 controller.zoomPageForCurrentDomain();
+            }
+        }
+
+        property Connections webview_onVisibleChanged: Connections {
+            target: webview
+            onVisibleChanged: {
+                console.log("ZoomControls webview.onVisibleChanged triggered: %1 (%2)".arg(webview.visible).arg(webview.url));
+                if (internal.anyPageLoaded === false) {
+                    console.log("  no page was loaded")
+                    return;
+                }
+                if (webview.visible === true && internal.refreshZoomOnWebViewVisible === true) {
+                    console.log("  refreshing zoom and fit after visible");
+                    internal.refreshZoomOnWebViewVisible = false;
+
+                    // Reload zoom levels for current domain.
+                    controller.zoomPageForCurrentDomain();
+
+                    if (webview.loading === true) {
+                        // If webview is currently loading a page, no need to refresh fit, cause it will be refreshed after loading (if neccessary).
+                        console.log("  webview is currently loading, skipping fit to width");
+                        return;
+                    }
+
+                    if (controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false) {
+                        controller.autoFitToWidthFromDefaultZoomFactor();
+                    }
+                    else if (menu.visible) {
+                        controller.retrieveScrollWidth();
+                    }
+                }
             }
         }
     }
@@ -226,7 +281,7 @@ UbuntuShape {
         readonly property real fitToWidthFactor: internal.currentDomainScrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / internal.currentDomainScrollWidth) * 100) / 100)) : NaN
 
         function fitToWidth() {
-            console.log("ZoomController.fitToWidth: %1".arg(fitToWidthFactor));
+            console.log("ZoomControls.fitToWidth: %1".arg(fitToWidthFactor));
             if (isNaN(fitToWidthFactor)) {
                 console.log("  not applying");
                 return;
@@ -254,14 +309,18 @@ UbuntuShape {
                 saveZoomFactorForCurrentDomain();
             }
 
+            if (webview.loading === true) {
+                // If webview is currently loading a page, no need to refresh fit, cause it will be refreshed after loading (if neccessary).
+                console.log("  webview is currently loading, skipping fit to width");
+                return;
+            }
+
             internal.currentDomainScrollWidth = 0;
-            if (webview.loading === false) {
-                if (autoFitToWidthEnabled && viewSpecificZoom === false) {
-                    autoFitToWidthFromDefaultZoomFactor();
-                }
-                else {
-                    retrieveScrollWidth();
-                }
+            if (autoFitToWidthEnabled && viewSpecificZoom === false) {
+                autoFitToWidthFromDefaultZoomFactor();
+            }
+            else {
+                retrieveScrollWidth();
             }
         }
 
@@ -297,7 +356,10 @@ UbuntuShape {
         }
 
         function autoFitToWidthFromDefaultZoomFactor() {
-            console.log("ZoomController.autoFitToWidthFromDefaultZoomFactor called");
+            console.log("ZoomControls.autoFitToWidthFromDefaultZoomFactor called");
+            if (internal.currentDomainScrollWidth !== 0 || webview.loading === true || autoFitToWidthEnabled === false || viewSpecificZoom === true) {
+                console.log("Warning: calling autoFitToWidthFromDefaultZoomFactor when not intended?");
+            }
             // Zoom to defaultZoomFactor before determining scrollWidth, to allways get consistent numbers.
             webview.zoomFactor = defaultZoomFactor;
             internal.autoFitToWidthTimer.restart();
@@ -305,7 +367,7 @@ UbuntuShape {
 
         function autoFitToWidth() {
             // This function might be called when webview.zoomFactor != currentZoomFactor.
-            console.log("ZoomController.autoFitToWidth called");
+            console.log("ZoomControls.autoFitToWidth called");
 
             // Determine scrollWidth and use it to fit to width.
             webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
@@ -330,7 +392,10 @@ UbuntuShape {
         }
 
         function retrieveScrollWidth() {
-            console.log("ZoomController.retrieveScrollWidth called");
+            console.log("ZoomControls.retrieveScrollWidth called");
+            if (internal.currentDomainScrollWidth !== 0 || webview.loading === true || autoFitToWidthEnabled === true || viewSpecificZoom === false || menu.visible === false) {
+                console.log("Warning: calling retrieveScrollWidth when not intended?");
+            }
             webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
                 console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
                 internal.currentDomainScrollWidth = width > 0 ? width : 0;
@@ -338,11 +403,9 @@ UbuntuShape {
         }
 
         function zoomPageForCurrentDomain() {
-            console.log("ZoomController.zoomPageForCurrentDomain called: %1".arg(currentDomain));
+            console.log("ZoomControls.zoomPageForCurrentDomain called: %1".arg(currentDomain));
             if (DomainSettingsModel.databasePath === "") {
                 console.log("  no database for domain settings");
-                internal.viewSpecificZoom = false;
-                internal.currentZoomFactor = defaultZoomFactor;
                 return;
             }
 
@@ -361,40 +424,57 @@ UbuntuShape {
         }
 
         onCurrentDomainChanged: {
-            console.log("ZoomController.onCurrentDomainChanged triggered");
+            console.log("ZoomControls.onCurrentDomainChanged triggered");
+            if (webview.visible === false) {
+                console.log("  webview not visible, setting flag to refresh after visible and skipping page zoom");
+                internal.refreshZoomOnWebViewVisible = true;
+                return;
+            }
+
             controller.zoomPageForCurrentDomain();
         }
 
         onDefaultZoomFactorChanged: {
-            console.log("ZoomController.onDefaultZoomFactorChanged: %1 (%2)".arg(defaultZoomFactor).arg(webview.url));
+            console.log("ZoomControls.onDefaultZoomFactorChanged: %1 (%2)".arg(defaultZoomFactor).arg(webview.url));
+            if (internal.anyPageLoaded === false) {
+                console.log("  no page was loaded")
+                return;
+            }
+
+            if (webview.visible === false) {
+                console.log("  webview not visible, setting flag to refresh after visible and skipping page zoom");
+                internal.refreshZoomOnWebViewVisible = true;
+                return;
+            }
+
             if (viewSpecificZoom === false) {
                 // Page is currently in default zoom mode, change current zoom and handle fit to width.
                 internal.currentZoomFactor = defaultZoomFactor;
+
+                if (webview.loading === true) {
+                    // If webview is currently loading a page, no need to refresh fit, cause it will be refreshed after loading (if neccessary).
+                    console.log("  webview is currently loading, skipping fit to width");
+                    return;
+                }
                 internal.currentDomainScrollWidth = 0;
-                if (webview.loading === false) {
-                    if (autoFitToWidthEnabled) {
-                        autoFitToWidthFromDefaultZoomFactor();
-                    }
-                    else if (menu.visible) {
-                        retrieveScrollWidth();
-                    }
+                if (autoFitToWidthEnabled) {
+                    autoFitToWidthFromDefaultZoomFactor();
+                }
+                else if (menu.visible) {
+                    retrieveScrollWidth();
                 }
             }
         }
 
         onCurrentZoomFactorChanged: {
-            console.log("ZoomController.onCurrentZoomFactorChanged: %1".arg(currentZoomFactor));
+            console.log("ZoomControls.onCurrentZoomFactorChanged: %1".arg(currentZoomFactor));
             webview.zoomFactor = currentZoomFactor;
         }
 
         onAutoFitToWidthEnabledChanged: {
-            console.log("ZoomController.onAutoFitToWidthEnabledChanged: %1".arg(autoFitToWidthEnabled));
+            console.log("ZoomControls.onAutoFitToWidthEnabledChanged: %1".arg(autoFitToWidthEnabled));
             // Handling is the same as onDefaultZoomFactorChanged, so just trigger it.
             defaultZoomFactorChanged();
-        }
-
-        onFitToWidthFactorChanged: {
-            console.log("ZoomController.onFitToWidthFactorChanged: %1".arg(fitToWidthFactor));
         }
     }
 }
