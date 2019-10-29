@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-28 16:36+0000\n"
-"Last-Translator: louies0623 <louies0623@gmail.com>\n"
+"PO-Revision-Date: 2019-10-30 10:36+0000\n"
+"Last-Translator: P.-H. Lin <cypressyew@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -33,12 +33,12 @@ msgstr "確定"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "自訂 URL 主題"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
+msgstr "網站 '%1\" 正嘗試開啟下列含有自訂主題的網址："
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
@@ -49,7 +49,7 @@ msgstr ""
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "記住我的決定"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -75,7 +75,7 @@ msgstr "取消"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "阻擋網域"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
