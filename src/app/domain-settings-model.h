@@ -74,6 +74,7 @@ public:
 Q_SIGNALS:
     void databasePathChanged() const;
     void rowCountChanged();
+    void domainZoomFactorChanged(const QString& domain);
 
 private:
     QSqlDatabase m_database;
@@ -93,7 +94,6 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
-    void removeDefaultZoomFactorFromEntries();
     void removeObsoleteEntries();
     int getIndexForDomain(const QString& domain) const;
 };

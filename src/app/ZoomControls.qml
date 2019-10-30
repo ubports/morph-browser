@@ -110,8 +110,8 @@ UbuntuShape {
     }
 
     onVisibleChanged: {
-        console.log("menu.visible triggered: %1".arg(visible));
-        if (visible && internal.currentDomainScrollWidth === 0) {
+        console.log("menu.visible triggered: %1 (%2)".arg(visible).arg(webview.url));
+        if (visible && webview.url != "" && internal.currentDomainScrollWidth === 0) {
             controller.retrieveScrollWidth();
         }
     }
@@ -157,7 +157,7 @@ UbuntuShape {
             }
         }
 
-        property Connections webview_onWidthChangedConnection: Connections {
+        property Connections webviewConnections: Connections {
             target: webview
             onWidthChanged: {
                 console.log("ZoomControls: webview.onWidthChanged called: %1".arg(width));
@@ -175,10 +175,7 @@ UbuntuShape {
                 internal.currentDomainScrollWidth = 0;
                 internal.widthChangedTimer.restart();
             }
-        }
 
-        property Connections webview_onLoadingChanged: Connections {
-            target: webview
             onLoadingChanged: {
                 console.log("ZoomControls webview.onLoadingChanged: %1".arg(webview.url));
                 console.log("  webview.loading: %1".arg(webview.loading));
@@ -215,12 +212,13 @@ UbuntuShape {
             }
         }
 
-        property Connections domainSettingsModel_onDatabasePathChanged: Connections {
+        property Connections domainSettingsModelConnections: Connections {
+            target: DomainSettingsModel
+
             // If database changed, reload zoomFactor according to new db.
             // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
             // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
             // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
-            target: DomainSettingsModel
             onDatabasePathChanged: {
                 console.log("ZoomControls DomainSettingsModel.onDatabasePathChanged triggered");
                 if (webview.visible === false) {
@@ -230,6 +228,50 @@ UbuntuShape {
                 }
 
                 controller.zoomPageForCurrentDomain();
+            }
+            onDomainZoomFactorChanged: {
+                console.log("ZoomControls DomainSettingsModel.onDomainZoomFactorChanged triggered: %1".arg(domain));
+                if (domain != controller.currentDomain) {
+                    // Not my current domain changed, nothing to do here.
+                    console.log("  not my domain (%1) changed".arg(controller.currentDomain));
+                    return;
+                }
+
+                // Zoom factor for current domain was changed, check if we are up to date with the change.
+                var domainZoomFactor = DomainSettingsModel.getZoomFactor(controller.currentDomain);
+                if (
+                    (isNaN(domainZoomFactor) && internal.viewSpecificZoom === false)
+                    ||
+                    (!isNaN(domainZoomFactor) && internal.viewSpecificZoom === true && internal.currentZoomFactor === domainZoomFactor)
+                ) {
+                    // Our zoom settings are up to date to domainZoomFactor, nothing to do here.
+                    console.log("  up to date");
+                    return;
+                }
+
+                // We need to adjust zoom settings now, or in the future.
+                if (webview.visible === false) {
+                    // Webview is not visible, flag to update after visible and return.
+                    console.log("  webview not visible, setting flag to refresh after visible and skipping zoom setting update");
+                    internal.refreshZoomOnWebViewVisible = true;
+                    return;
+                }
+
+                // Adjust zoom settings according to domainZoomFactor and fit if neccessary.
+                controller.zoomPageForCurrentDomain();
+
+                if (webview.loading === true) {
+                    // Webview is currently loading a page, so no need to refresh fit, cause it will be refreshed after loading.
+                    console.log("  webview is currently loading, skipping fit to width");
+                    return;
+                }
+
+                if (controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false) {
+                    controller.autoFitToWidthFromDefaultZoomFactor();
+                }
+                else if (menu.visible) {
+                    controller.retrieveScrollWidth();
+                }
             }
         }
 
@@ -393,8 +435,8 @@ UbuntuShape {
 
         function retrieveScrollWidth() {
             console.log("ZoomControls.retrieveScrollWidth called");
-            if (internal.currentDomainScrollWidth !== 0 || webview.loading === true || autoFitToWidthEnabled === true || viewSpecificZoom === false || menu.visible === false) {
-                console.log("Warning: calling retrieveScrollWidth when not intended?");
+            if (internal.currentDomainScrollWidth !== 0 || webview.loading === true || (autoFitToWidthEnabled === true && viewSpecificZoom === false) || menu.visible === false) {
+                console.log("Warning: calling retrieveScrollWidth when not intended?\n%1 %2 %3 %4 %5".arg(internal.currentDomainScrollWidth).arg(webview.loading).arg(autoFitToWidthEnabled).arg(viewSpecificZoom).arg(menu.visible));
             }
             webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
                 console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
