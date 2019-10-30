@@ -93,7 +93,6 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
-    void removeDefaultZoomFactorFromEntries();
     void removeObsoleteEntries();
     int getIndexForDomain(const QString& domain) const;
 };

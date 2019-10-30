@@ -110,8 +110,8 @@ UbuntuShape {
     }
 
     onVisibleChanged: {
-        console.log("menu.visible triggered: %1".arg(visible));
-        if (visible && internal.currentDomainScrollWidth === 0) {
+        console.log("menu.visible triggered: %1 (%2)".arg(visible).arg(webview.url));
+        if (visible && webview.url != "" && internal.currentDomainScrollWidth === 0) {
             controller.retrieveScrollWidth();
         }
     }
@@ -157,7 +157,7 @@ UbuntuShape {
             }
         }
 
-        property Connections webview_onWidthChangedConnection: Connections {
+        property Connections webviewConnections: Connections {
             target: webview
             onWidthChanged: {
                 console.log("ZoomControls: webview.onWidthChanged called: %1".arg(width));
@@ -175,10 +175,7 @@ UbuntuShape {
                 internal.currentDomainScrollWidth = 0;
                 internal.widthChangedTimer.restart();
             }
-        }
 
-        property Connections webview_onLoadingChanged: Connections {
-            target: webview
             onLoadingChanged: {
                 console.log("ZoomControls webview.onLoadingChanged: %1".arg(webview.url));
                 console.log("  webview.loading: %1".arg(webview.loading));
@@ -215,12 +212,13 @@ UbuntuShape {
             }
         }
 
-        property Connections domainSettingsModel_onDatabasePathChanged: Connections {
+        property Connections domainSettingsModelConnections: Connections {
+            target: DomainSettingsModel
+
             // If database changed, reload zoomFactor according to new db.
             // This is a workaround. Because if browser runs with previously opened pages (session), the DomainSettingsModel is not initialized yet
             // when onCurrentDomainChanged is trigerred first time. I couldn't figure out, how to initialize DomainSettingsModel prior signaling.
             // So wait, until db is initialized, then trigger onCurrentDomainChanged again.
-            target: DomainSettingsModel
             onDatabasePathChanged: {
                 console.log("ZoomControls DomainSettingsModel.onDatabasePathChanged triggered");
                 if (webview.visible === false) {
