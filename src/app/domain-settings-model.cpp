@@ -323,6 +323,7 @@ void DomainSettingsModel::setZoomFactor(const QString& domain, double zoomFactor
         }
         entry.zoomFactor = zoomFactor;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << ZoomFactor);
+        Q_EMIT domainZoomFactorChanged(domain);
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE domain=?;");
         query.prepare(updateStatement);
@@ -368,10 +369,15 @@ void DomainSettingsModel::removeEntry(const QString &domain)
 {
     int index = getIndexForDomain(domain);
     if (index != -1) {
+        DomainSetting& entry = m_entries[index];
         beginRemoveRows(QModelIndex(), index, index);
         m_entries.removeAt(index);
         endRemoveRows();
         Q_EMIT rowCountChanged();
+        if (!std::isnan(entry.zoomFactor))
+        {
+            Q_EMIT domainZoomFactorChanged(domain);
+        }
         QSqlQuery query(m_database);
         static QString deleteStatement = QLatin1String("DELETE FROM domainsettings WHERE domain=?;");
         query.prepare(deleteStatement);

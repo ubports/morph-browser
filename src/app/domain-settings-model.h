@@ -74,6 +74,7 @@ public:
 Q_SIGNALS:
     void databasePathChanged() const;
     void rowCountChanged();
+    void domainZoomFactorChanged(const QString& domain);
 
 private:
     QSqlDatabase m_database;

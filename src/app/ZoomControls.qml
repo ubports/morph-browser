@@ -229,6 +229,50 @@ UbuntuShape {
 
                 controller.zoomPageForCurrentDomain();
             }
+            onDomainZoomFactorChanged: {
+                console.log("ZoomControls DomainSettingsModel.onDomainZoomFactorChanged triggered: %1".arg(domain));
+                if (domain != controller.currentDomain) {
+                    // Not my current domain changed, nothing to do here.
+                    console.log("  not my domain (%1) changed".arg(controller.currentDomain));
+                    return;
+                }
+
+                // Zoom factor for current domain was changed, check if we are up to date with the change.
+                var domainZoomFactor = DomainSettingsModel.getZoomFactor(controller.currentDomain);
+                if (
+                    (isNaN(domainZoomFactor) && internal.viewSpecificZoom === false)
+                    ||
+                    (!isNaN(domainZoomFactor) && internal.viewSpecificZoom === true && internal.currentZoomFactor === domainZoomFactor)
+                ) {
+                    // Our zoom settings are up to date to domainZoomFactor, nothing to do here.
+                    console.log("  up to date");
+                    return;
+                }
+
+                // We need to adjust zoom settings now, or in the future.
+                if (webview.visible === false) {
+                    // Webview is not visible, flag to update after visible and return.
+                    console.log("  webview not visible, setting flag to refresh after visible and skipping zoom setting update");
+                    internal.refreshZoomOnWebViewVisible = true;
+                    return;
+                }
+
+                // Adjust zoom settings according to domainZoomFactor and fit if neccessary.
+                controller.zoomPageForCurrentDomain();
+
+                if (webview.loading === true) {
+                    // Webview is currently loading a page, so no need to refresh fit, cause it will be refreshed after loading.
+                    console.log("  webview is currently loading, skipping fit to width");
+                    return;
+                }
+
+                if (controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false) {
+                    controller.autoFitToWidthFromDefaultZoomFactor();
+                }
+                else if (menu.visible) {
+                    controller.retrieveScrollWidth();
+                }
+            }
         }
 
         property Connections webview_onVisibleChanged: Connections {
@@ -391,8 +435,8 @@ UbuntuShape {
 
         function retrieveScrollWidth() {
             console.log("ZoomControls.retrieveScrollWidth called");
-            if (internal.currentDomainScrollWidth !== 0 || webview.loading === true || autoFitToWidthEnabled === true || viewSpecificZoom === false || menu.visible === false) {
-                console.log("Warning: calling retrieveScrollWidth when not intended?");
+            if (internal.currentDomainScrollWidth !== 0 || webview.loading === true || (autoFitToWidthEnabled === true && viewSpecificZoom === false) || menu.visible === false) {
+                console.log("Warning: calling retrieveScrollWidth when not intended?\n%1 %2 %3 %4 %5".arg(internal.currentDomainScrollWidth).arg(webview.loading).arg(autoFitToWidthEnabled).arg(viewSpecificZoom).arg(menu.visible));
             }
             webview.runJavaScript("document && document.body ? document.body.scrollWidth : null", function(width) {
                 console.log("  body.scrollWidth: %1 (%2 * %3)".arg(width).arg(webview.width).arg(currentZoomFactor));
