@@ -553,7 +553,6 @@ Common.BrowserView {
         onVisibleChanged: {
             if (visible)
             {
-                currentWebview.hideZoomMenu()
                 currentWebview.hideContextMenu()
             }
         }
