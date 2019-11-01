@@ -8,27 +8,28 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2016-12-21 19:55+0000\n"
-"Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
-"Language-Team: Asturian <ast@li.org>\n"
+"PO-Revision-Date: 2019-10-30 10:36+0000\n"
+"Last-Translator: enolp <enolp@softastur.org>\n"
+"Language-Team: Asturian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ast/>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr "Alerta de JavaScript"
+msgstr ""
 
 #: src/app/AlertDialog.qml:31 src/app/AuthenticationDialog.qml:47
 #: src/app/ColorSelectDialog.qml:73 src/app/ConfirmDialog.qml:33
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "Aceutar"
+msgstr ""
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
@@ -53,7 +54,7 @@ msgstr ""
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
 msgid "Allow"
-msgstr "Permitir"
+msgstr ""
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
@@ -98,66 +99,63 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "Necesítase autenticación."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "El sitiu %1 necesita autenticación."
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:50
 msgid "Username"
-msgstr "Nome d'usuariu"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr "Confirmar navegación"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
-msgstr "Colar"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
-msgstr "Quedase"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Nun hai enfotu nesta conexón"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
-"Tas tentando l'accesu en mou seguru a %1, pero nun hai enfotu nel certificáu "
-"d'esti sitiu web."
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Siguir de toles maneres"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Volver a la seguridá"
+msgstr ""
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Esbillalo too"
+msgstr ""
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr "Confirmación JavaScript"
+msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
@@ -167,7 +165,7 @@ msgstr ""
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
 #: src/app/webbrowser/DownloadsPage.qml:86
 msgid "Select all"
-msgstr "Esbillalo too"
+msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
 #: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
@@ -187,9 +185,8 @@ msgid "enter user agent string..."
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Nun hai descargues disponibles"
+msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
@@ -233,9 +230,8 @@ msgid "allowed to launch other apps"
 msgstr ""
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "¿Permití-y a esti dominiu acceder a la cámara?"
+msgstr ""
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
@@ -255,13 +251,13 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Fallu de rede"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:45
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Paez qu'hai problemes pa ver: %1"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:52
 #, qt-format
@@ -270,37 +266,37 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
-msgstr "Comprueba la configuración de la rede ya intenta refrescar la páxina."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:65
 msgid "Refresh page"
-msgstr "Recargar páxina"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "Permission Request"
-msgstr "Solicitú de permisu"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:30
 msgid "This page wants to know your device’s location."
-msgstr "Esta páxina quier saber l'allugamientu del preséu."
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:55
 msgid "Deny"
-msgstr "Refugar"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current website and %2 is a string that the website sends with more information about the authentication challenge (technically called "realm")
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr "El sitiu web de %1 rique autenticación. El sitiu web diz que «%2»"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "Nun hai enfotu nel certificáu de seguridá d'esti sitiu.\n"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr "Saber más"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -309,8 +305,6 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
-"Númberu de serie:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -319,8 +313,6 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"Titular:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -329,8 +321,6 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Direición del titular:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -339,8 +329,6 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"Emisor:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -349,8 +337,6 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"Direición del emisor:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -359,8 +345,6 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"Válidu dende:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -369,8 +353,6 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"Válidu hasta:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -379,32 +361,28 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"Buelga dixital (SHA1):\n"
-"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Nun tendríes de siguir, especialmente si nun visti enxamás esti avisu pa "
-"esti sitiu."
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Permission"
-msgstr "Permisu"
+msgstr ""
 
 #: src/app/MediaAccessDialog.qml:46
 msgid "Allow this domain to access your camera and microphone?"
-msgstr "¿Permití-y a esti dominiu acceder a la cámara y micrófonu?"
+msgstr ""
 
 #: src/app/MediaAccessDialog.qml:47
 msgid "Allow this domain to access your camera?"
-msgstr "¿Permití-y a esti dominiu acceder a la cámara?"
+msgstr ""
 
 #: src/app/MediaAccessDialog.qml:48
 msgid "Allow this domain to access your microphone?"
-msgstr "¿Permití-y a esti dominiu acceder al micrófonu?"
+msgstr ""
 
 #: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
@@ -416,17 +394,17 @@ msgstr "Non"
 
 #: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
-msgstr "JavaScript Prompt"
+msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Necesítase autenticación de proxy."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "El sitiu %1:%2 necesita autenticación."
+msgstr ""
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
@@ -442,9 +420,8 @@ msgstr ""
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Predetermináu"
+msgstr ""
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
@@ -484,37 +461,37 @@ msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Atrás"
+msgstr "Atrás"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Páxina anterior"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Marcador"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Amestar esta páxina a marcadores"
+msgstr ""
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Enllaz de marcador"
+msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Llimpiar historial"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Llimpiar l'historial de navegación"
+msgstr ""
 
 #: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
@@ -522,136 +499,135 @@ msgstr "Copiar"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Copiar imaxe"
+msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Copiar enllaz"
+msgstr ""
 
 #: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
 msgid "Cut"
-msgstr "Cortar"
+msgstr ""
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr "Esborrar"
+msgstr ""
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
 msgid "Find in page"
-msgstr "Alcontrar na páxina"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr "Testu a buscar na páxina"
+msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Alantre"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Páxina más recién"
+msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Dir a"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Direición;URL;www"
+msgstr ""
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
-msgstr "Llingüeta nueva"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Abrir una llingüeta nueva"
+msgstr ""
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Abrir imaxe en llingüeta nueva"
+msgstr ""
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr "Abrir l'enllaz nel restolador predetermináu"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Abrir enllaz en llingüeta en 2ᵁ planu"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Abrir enllaz en ventana privada"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Abrir enllaz en llingüeta nueva"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr "Abrir enllaz en ventana nueva"
+msgstr ""
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr "Abrir videu nuna ventana nueva"
+msgstr ""
 
 #: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
 msgid "Paste"
-msgstr "Apegar"
+msgstr ""
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "Refacer"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr "Recargar"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Abandonar páxina"
+msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Guardar imaxe"
+msgstr ""
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr "Guardar enllaz"
+msgstr ""
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr "Guardar videu"
+msgstr ""
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
 msgid "Share"
-msgstr "Compartir"
+msgstr ""
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "Desfacer"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
-msgstr "alcontrar na páxina"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:243
 msgid "search or enter an address"
-msgstr "guetar o introduz una direición"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
@@ -659,53 +635,53 @@ msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
-msgstr "Añadíu marcador"
+msgstr ""
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
-msgstr "Guardar en"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
-msgstr "Tolos marcadores"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr "Carpeta nueva"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr "Crear una carpeta nueva"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
 #: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
 #: src/app/webbrowser/SettingsPage.qml:397
 msgid "Homepage"
-msgstr "Sitiu web"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
 #: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
-msgstr "Marcadores"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
 #: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
-msgstr "Fecho"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:91
 #: src/app/webbrowser/BookmarksViewWide.qml:90
@@ -713,7 +689,7 @@ msgstr "Fecho"
 #: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "Llingüeta nueva"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
@@ -739,24 +715,24 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
-msgstr "Ventana nueva"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:740
 msgid "New private window"
-msgstr "Ventana privada nueva"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
-msgstr "Historial"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
 msgid "Downloads"
-msgstr "Descargues"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
 msgid "Settings"
-msgstr "Preferencies"
+msgstr "Axustes"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
@@ -770,32 +746,30 @@ msgstr ""
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
 #, qt-format
 msgid "(%1)"
-msgstr "(%1)"
+msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"Escueye una aplicación p'abrir esti ficheru o añádelu a la carpeta de "
-"descargues."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
-msgstr "Escueye una aplicación"
+msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr "Descargar"
+msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
-msgstr "Falló la descarga"
+msgstr ""
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:196
 #, qt-format
 msgid "%1%"
-msgstr "%1%"
+msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
@@ -803,44 +777,44 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
-msgstr "Siguir"
+msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
-msgstr "Confirmar la esbilla"
+msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:268
 msgid "No downloads available"
-msgstr "Nun hai descargues disponibles"
+msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 páxina"
-msgstr[1] "%1 páxines"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:132
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "Less"
-msgstr "Menos"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
-msgstr "Caberu visitáu"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
-msgstr "Ayeri"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
-msgstr "historial de gueta"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
-msgstr "Tol historial"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:250
 #: src/app/webbrowser/HistoryViewWide.qml:337
@@ -849,54 +823,51 @@ msgstr "Güei"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "Esta ye una llingüeta privada"
+msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-"Les páxines que veas nesta llingüeta nun apaecerán nel historial del "
-"restolador.\n"
-"Sicasí, los marcadores que crees conservaránse."
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
-msgstr "Más"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:326
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
-msgstr "Meyores sitios"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
-msgstr "Inda nun visitasti nengún sitiu"
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
-msgstr "El procesu de dibuxáu zarróse pa esta llingüeta."
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr "Daqué salió mal al amosar %1."
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
-msgstr "Zarrar llingüeta"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "This site has insecure content"
-msgstr "Esti sitiu tien conteníu non seguru"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:71
 msgid "Identity Not Verified"
-msgstr "Identidá non verificada"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:79
 msgid "The identity of this website has not been verified."
-msgstr "Nun se verificó la identidá d'esti sitiu web."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
@@ -905,16 +876,16 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr "Predetermináu"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:72
 #: src/app/webbrowser/SettingsPage.qml:223
 msgid "Search engine"
-msgstr "Motor de gueta"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:98
 msgid "Restore previous session at startup"
-msgstr "Restaurar la sesión anterior nel aniciu"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
@@ -925,11 +896,11 @@ msgstr ""
 #: src/app/webcontainer/WebappSettingsPage.qml:103
 #: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
-msgstr "Privacidá y permisos"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
-msgstr "Reaniciar les preferencies del restolador"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
@@ -939,96 +910,93 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
 msgid "Camera & microphone"
-msgstr "Cámara y micrófonu"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
-msgstr "Llimpiar l'historial de navegación"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
-msgstr "¿Llimpiar l'historial de navegación?"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:341
 #: src/app/webcontainer/WebappSettingsPage.qml:198
 msgid "Clear Cache"
-msgstr "Llimpiar la caché"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:344
 #: src/app/webcontainer/WebappSettingsPage.qml:201
 msgid "Clear Cache?"
-msgstr "¿Llimpiar la caché?"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:376
 #: src/app/webcontainer/WebappSettingsPage.qml:233
 msgid "Clear"
-msgstr "Llimpiar"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:465
 msgid "Microphone"
-msgstr "Micrófonu"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:486
 msgid "Camera"
-msgstr "Cámara"
+msgstr ""
 
 #: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
-msgstr "Esliza arriba pa salir de pantalla completa"
+msgstr ""
 
 #: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
-msgstr "Calca ESC pa salir de pantalla completa"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
-msgstr "Toca pa ver"
+msgstr ""
 
 #: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr "Mover a una ventana nueva"
+msgstr ""
 
 #: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
-msgstr "Zarrar llingüeta"
+msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr "Desaniciar"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Restolador web d'Ubuntu"
+msgstr ""
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Restolador web"
+msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Nun s'enllazaron cuentes a esta aplicación web; primi l'elementu d'embaxo "
-"p'amestar una cuenta."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr "Amestar cuenta"
+msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr "Nun usar una cuenta"
+msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr "Error de cuenta"
+msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -1039,48 +1007,43 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"Nun pudo abrise la ventana de cuentes. Namái pues crear una cuenta cada "
-"vegada; inténtalo de nueves dempués de zarrar toles otres ventanes de "
-"cuentes por favor."
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Falló l'autenticación"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr "<b>%1</b> necesita accesu a la cuenta en llinia %2."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr "<b>%1</b> quier tener accesu a la cuenta en llinia %2."
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
-"Escueyi una cuenta agora o salta esti pasu y escueyi una cuenta en llinia "
-"sero."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr "Zarrar la app"
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "Saltar"
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr "Escoyer cuenta"
+msgstr ""
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr "Ups, daqué salió mal."
+msgstr ""
 
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
@@ -1092,23 +1055,20 @@ msgid "WebappContainer Settings"
 msgstr ""
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Reaniciar les preferencies del restolador"
+msgstr ""
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Restolador"
+msgstr ""
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Restolar na Rede Global (www)"
+msgstr ""
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Internet;WWW;Restolador;Web;Esplorador"
+msgstr ""
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"

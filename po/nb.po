@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-02 18:26+0000\n"
+"PO-Revision-Date: 2019-10-26 15:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://translate.ubports.com/projects/"
 "ubports/morph-browser/nb/>\n"
@@ -33,12 +33,13 @@ msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Tilpassede nettadresseavarter"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
-#, qt-format
+#, fuzzy, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"Siden \"%1\" prøver å åpne følgende nettadresse med følgende tilpasset avart:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 #, fuzzy
@@ -87,6 +88,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Du prøver å nå \"%1\", men det er ikke i din liste over godkjente domener. "
+"Ønsker du å fortsette å blokkere domenet, tillate surfing til det, eller gå "
+"tilbake?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -95,6 +99,9 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 prøver å få tilgang til %2, men er ikke i din liste over godkjente "
+"domener. Ønsker du å fortsette å blokkere domenet, tillate innlasting av "
+"data fra det, eller bare ignorere denne forespørselen?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
@@ -249,7 +256,7 @@ msgstr "Egendefinert brukeragent"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Førstørrelse: "
 
 #: src/app/DomainSettingsPage.qml:320
 #, fuzzy
@@ -455,7 +462,7 @@ msgstr "Standard"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "Nåværende nettprogram"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -463,10 +470,12 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Sett nåværende forstørrelse som forvalg for %1? (Du kan endre det senere i "
+"innstillingsmenyen)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Forstørrelse"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
@@ -743,6 +752,7 @@ msgstr "Hvitlistet domene"
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"Domenet %1 er nå hvitlistet, det vil være aktivt ved neste sideinnlasting."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -1093,7 +1103,7 @@ msgstr "Domenet «%1» er nå hvitlistet, last inn siden igjen."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "Nettprogramsbeholder-innstillinger"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
 #, fuzzy
