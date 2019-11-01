@@ -9,16 +9,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2014-08-03 02:48+0000\n"
-"Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
-"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"PO-Revision-Date: 2019-10-21 11:55+0000\n"
+"Last-Translator: Henrik Holm <hbir@post10.tele.dk>\n"
+"Language-Team: Danish <https://translate.ubports.com/projects/ubports/"
+"morph-browser/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -33,23 +34,25 @@ msgstr "O.k."
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Tilpasede URL-skemaer"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
+msgstr "Siden '%1'  forsøger at åbne følgende URL med tilpasset skema:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Dette vil prøve at sende denne url til en systemapp, hvis det er muligt. Vil "
+"du fortsætte?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Husk valg"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -75,7 +78,7 @@ msgstr "Annullér"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Bloker domæne"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -92,6 +95,9 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 prøver at forbinde til %2, men det er ikke på din liste af godkendte "
+"domæner. Vil du fortsætte med at blokere dette domæne, tillade at hente data "
+"fra domænet eller bare ignorere denne anmodning?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
