@@ -1,8 +1,8 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3        // For UbuntuShape.
-import Ubuntu.Components.Popups 1.3 // For PopupUtils.
+import Ubuntu.Components 1.3                  // For UbuntuShape.
+import Ubuntu.Components.Popups 1.3 as Popups // For saveDialog.
 import QtWebEngine 1.7
-import webbrowsercommon.private 0.1 // For DomainSettingsModel singleton.
+import webbrowsercommon.private 0.1           // For DomainSettingsModel singleton.
 import "UrlUtils.js" as UrlUtils
 
 // ZoomControls object to provide zoom menu, control and autofit logic for WebViewImpl.
@@ -64,7 +64,7 @@ UbuntuShape {
             name: "zoomSave"
             text: i18n.tr("Save")
             iconName: "save"
-            enabled: Math.abs(controller.currentZoomFactor - controller.defaultZoomFactor) >= 0.01
+            enabled: saveDomainButton.enabled || saveDefaultButton.enabled
             onTriggered: controller.save()
         }
         Action {
@@ -123,6 +123,7 @@ UbuntuShape {
         property real currentZoomFactor: controller.defaultZoomFactor
 
         property int currentDomainScrollWidth: 0
+        property real currentDomainZoomFactor: NaN
 
         property bool refreshZoomOnWebViewVisible: false
         property bool anyPageLoaded: false
@@ -238,11 +239,11 @@ UbuntuShape {
                 }
 
                 // Zoom factor for current domain was changed, check if we are up to date with the change.
-                var domainZoomFactor = DomainSettingsModel.getZoomFactor(controller.currentDomain);
+                internal.currentDomainZoomFactor = DomainSettingsModel.getZoomFactor(controller.currentDomain);
                 if (
-                    (isNaN(domainZoomFactor) && internal.viewSpecificZoom === false)
+                    (isNaN(internal.currentDomainZoomFactor) && internal.viewSpecificZoom === false)
                     ||
-                    (!isNaN(domainZoomFactor) && internal.viewSpecificZoom === true && internal.currentZoomFactor === domainZoomFactor)
+                    (!isNaN(internal.currentDomainZoomFactor) && internal.viewSpecificZoom === true && internal.currentZoomFactor === internal.currentDomainZoomFactor)
                 ) {
                     // Our zoom settings are up to date to domainZoomFactor, nothing to do here.
                     console.log("  up to date");
@@ -375,17 +376,7 @@ UbuntuShape {
         }
 
         function save() {
-            var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), webview);
-            confirmDialog.title = i18n.tr("Default Zoom")
-            confirmDialog.message = i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
-            confirmDialog.accept.connect(function() {
-                if (browser.settings) {
-                    browser.settings.zoomFactor = currentZoomFactor;
-                }
-                else {
-                    webapp.settings.zoomFactor = currentZoomFactor;
-                }
-            });
+            saveDialog.show();
         }
 
         function saveZoomFactorForCurrentDomain() {
@@ -445,21 +436,21 @@ UbuntuShape {
         }
 
         function zoomPageForCurrentDomain() {
-            console.log("ZoomControls.zoomPageForCurrentDomain called: %1".arg(currentDomain));
+            console.log("ZoomControls.zoomPageForCurrentDomain called: %1".arg(controller.currentDomain));
             if (DomainSettingsModel.databasePath === "") {
                 console.log("  no database for domain settings");
                 return;
             }
 
             internal.currentDomainScrollWidth = 0;
-            var domainZoomFactor = DomainSettingsModel.getZoomFactor(currentDomain);
-            if (isNaN(domainZoomFactor) ) {
+            internal.currentDomainZoomFactor = DomainSettingsModel.getZoomFactor(controller.currentDomain);
+            if (isNaN(internal.currentDomainZoomFactor) ) {
                 internal.viewSpecificZoom = false;
                 internal.currentZoomFactor = defaultZoomFactor;
             }
             else {
                 internal.viewSpecificZoom = true;
-                internal.currentZoomFactor = domainZoomFactor;
+                internal.currentZoomFactor = internal.currentDomainZoomFactor;
             }
             console.log("  viewSpecificZoom: %1".arg(viewSpecificZoom));
             console.log("  currentZoomFactor: %1".arg(currentZoomFactor));
@@ -517,6 +508,58 @@ UbuntuShape {
             console.log("ZoomControls.onAutoFitToWidthEnabledChanged: %1".arg(autoFitToWidthEnabled));
             // Handling is the same as onDefaultZoomFactorChanged, so just trigger it.
             defaultZoomFactorChanged();
+        }
+    }
+
+    Popups.Dialog {
+        id: saveDialog
+        parent: webapp
+        objectName: "saveZoomFactorDialog"
+        title: i18n.tr("Save Zoom")
+        readonly property string saveDomainText: saveDomainButton.enabled ? i18n.tr("domain zoom (which is currently %1 and can be removed with reset button or from domain specific settings in privacy settings)".arg(isNaN(internal.currentDomainZoomFactor) ? i18n.tr("none") : Math.round(internal.currentDomainZoomFactor * 100) + "%")) : ""
+        readonly property string saveDefaultText: saveDefaultButton.enabled ? i18n.tr("default zoom (whis is crrently %1% and can be changed from setting menu)".arg(Math.round(controller.defaultZoomFactor * 100))) : ""
+        text: i18n.tr("Current zoom (%1%) can be saved as ".arg(Math.round(controller.currentZoomFactor * 100)))
+        + saveDomainText
+        + (saveDomainButton.enabled && saveDefaultButton.enabled ? i18n.tr(" or ") : "")
+        + saveDefaultText
+        // i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
+
+        Button {
+            id: saveDomainButton
+            text: i18n.tr("Save for domain")
+            color: theme.palette.normal.positive
+            objectName: "saveDomainButton"
+            enabled: isNaN(internal.currentDomainZoomFactor) || Math.abs(controller.currentZoomFactor - internal.currentDomainZoomFactor) >= 0.01
+            onClicked: {
+                internal.viewSpecificZoom = true;
+                controller.saveZoomFactorForCurrentDomain();
+                saveDialog.hide();
+            }
+        }
+
+        Button {
+            id: saveDefaultButton
+            text: i18n.tr("Save as default")
+            color: theme.palette.normal.positive
+            objectName: "saveDefaultButton"
+            enabled: Math.abs(controller.currentZoomFactor - controller.defaultZoomFactor) >= 0.01
+            onClicked: {
+                if (browser.settings) {
+                    browser.settings.zoomFactor = controller.currentZoomFactor;
+                }
+                else {
+                    webapp.settings.zoomFactor = controller.currentZoomFactor;
+                }
+                saveDialog.hide();
+            }
+        }
+
+        Button {
+            objectName: "cancelButton"
+            text: i18n.tr("Cancel")
+            onClicked: {
+                saveDialog.hide();
+            }
         }
     }
 }
