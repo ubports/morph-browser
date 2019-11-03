@@ -339,7 +339,7 @@ BrowserView {
                     FileOperations.remove(dataLocationUrl + "/Visited Links");
                 }
                 onClearAllCookies: {
-                    BrowserUtils.deleteAllCookies(webapp.currentWebview.profile);
+                    BrowserUtils.deleteAllCookiesOfProfile(webapp.currentWebview.profile);
                 }
                 onDone: webappSettingsViewLoader.active = false
             }

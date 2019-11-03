@@ -28,7 +28,7 @@ class BrowserUtils : public QObject
 public:
     explicit BrowserUtils(QObject* parent=0);
 
-    Q_INVOKABLE void deleteAllCookies(QObject * profileObject) const;
+    Q_INVOKABLE void deleteAllCookiesOfProfile(QObject * profileObject) const;
 };
 
 #endif // __BROWSER_UTILS_H__

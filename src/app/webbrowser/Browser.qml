@@ -1194,8 +1194,8 @@ BrowserView {
             }
             onClearAllCookies: {
 
-                BrowserUtils.deleteAllCookies(SharedWebContext.sharedContext);
-                BrowserUtils.deleteAllCookies(SharedWebContext.sharedIncognitoContext);
+                BrowserUtils.deleteAllCookiesOfProfile(SharedWebContext.sharedContext);
+                BrowserUtils.deleteAllCookiesOfProfile(SharedWebContext.sharedIncognitoContext);
             }
             onDone: settingsViewLoader.active = false
         }

@@ -25,7 +25,7 @@ BrowserUtils::BrowserUtils(QObject* parent) : QObject(parent)
 {
 }
 
-void BrowserUtils::deleteAllCookies(QObject * profileObject) const
+void BrowserUtils::deleteAllCookiesOfProfile(QObject * profileObject) const
 {
     QQuickWebEngineProfile * profile = qobject_cast<QQuickWebEngineProfile *>(profileObject);
     profile->cookieStore()->deleteAllCookies();
