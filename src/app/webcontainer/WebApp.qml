@@ -339,11 +339,7 @@ BrowserView {
                     FileOperations.remove(dataLocationUrl + "/Visited Links");
                 }
                 onClearAllCookies: {
-
-                    var dataLocationUrl = Qt.resolvedUrl(webapp.dataPath);
-
-                    FileOperations.remove(dataLocationUrl + "/Cookies");
-                    FileOperations.remove(dataLocationUrl + "/Cookies-journal");
+                    BrowserUtils.deleteAllCookies(webapp.currentWebview.profile);
                 }
                 onDone: webappSettingsViewLoader.active = false
             }

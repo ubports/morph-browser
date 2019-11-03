@@ -1165,7 +1165,8 @@ BrowserView {
             target: settingsViewLoader.item
             onClearCache: {
                 // clear Http cache
-                currentWebview.profile.clearHttpCache();
+                SharedWebContext.sharedContext.clearHttpCache();
+                SharedWebContext.sharedIncognitoContext.clearHttpCache();
 
                 var cacheLocationUrl = Qt.resolvedUrl(cacheLocation);
                 var dataLocationUrl = Qt.resolvedUrl(dataLocation);
@@ -1193,10 +1194,8 @@ BrowserView {
             }
             onClearAllCookies: {
 
-                var dataLocationUrl = Qt.resolvedUrl(dataLocation);
-
-                FileOperations.remove(dataLocationUrl + "/Cookies");
-                FileOperations.remove(dataLocationUrl + "/Cookies-journal");
+                BrowserUtils.deleteAllCookies(SharedWebContext.sharedContext);
+                BrowserUtils.deleteAllCookies(SharedWebContext.sharedIncognitoContext);
             }
             onDone: settingsViewLoader.active = false
         }

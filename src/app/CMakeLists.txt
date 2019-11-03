@@ -19,6 +19,7 @@ set(COMMONLIB webbrowser-common)
 
 set(COMMONLIB_SRC
     browserapplication.cpp
+    browser-utils.cpp
     domain-permissions-model.cpp
     domain-settings-model.cpp
     domain-settings-sorted-model.cpp
@@ -42,6 +43,8 @@ target_link_libraries(${COMMONLIB}
     Qt5::Qml
     Qt5::Quick
     Qt5::Widgets
+    Qt5WebEngine
+    Qt5WebEngineCore
     ${LIBAPPARMOR_LDFLAGS}
 )
 
