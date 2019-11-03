@@ -31,6 +31,8 @@ RadioButton {
         x: control.leftPadding
         y: parent.height / 2 - height / 2
         radius: 13
+        border.color: theme.palette.selected.base
+        antialiasing: true
 
         Rectangle {
             anchors.centerIn: parent
@@ -39,6 +41,7 @@ RadioButton {
             radius: units.gu(1)
             color: theme.palette.selected.base
             visible: control.checked
+            antialiasing: true
         }
     }
 

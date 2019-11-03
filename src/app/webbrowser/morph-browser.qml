@@ -291,7 +291,7 @@ QtObject {
     }
 
     property var settings: Settings {
-        property url homepage: getDefaultHomepage()
+        property url homepage: ""
         property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property bool setDesktopMode: false
@@ -302,7 +302,7 @@ QtObject {
         property bool domainWhiteListMode: false
 
         function restoreDefaults() {
-            resetHomepage();
+            homepage = ""
             searchEngine = "duckduckgo";
             restoreSession = true;
             setDesktopMode = false;
@@ -311,14 +311,6 @@ QtObject {
             defaultAudioDevice = "";
             defaultVideoDevice = "";
             domainWhiteListMode = false;
-        }
-
-        function getDefaultHomepage() {
-            return "https://start.duckduckgo.com";
-        }
-        
-        function resetHomepage() {
-            homepage = getDefaultHomepage();
         }
 
         function resetDomainPermissions() {

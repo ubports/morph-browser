@@ -82,21 +82,22 @@ FocusScope {
                     id: homepageListItem
                     objectName: "homepage"
                     readonly property url currentHomepage: settingsObject.homepage
+                    readonly property url defaultHomepage: "https://start.duckduckgo.com"
 
                     ListItemLayout {
                         title.text: i18n.tr("Homepage")
-                        subtitle.text: homepageListItem.currentHomepage
+                        subtitle.text: (homepageListItem.currentHomepage.toString() === "") ? i18n.tr("New Tab Page") : homepageListItem.currentHomepage
                         Icon {
                             id: resetHomepage
                             name: "reset"
 
                             height: units.gu(2)
                             width: height
-                            opacity: (settingsObject.homepage.toString() === settingsObject.getDefaultHomepage()) ? 0.5 : 1
+                            opacity: (settingsObject.homepage.toString() === "") ? 0.5 : 1
 
                             MouseArea {
                                anchors.fill: parent
-                               onClicked: settingsObject.resetHomepage()
+                               onClicked: settingsObject.homepage = ""
                             }
 
                             anchors {
@@ -415,20 +416,58 @@ FocusScope {
             title: i18n.tr("Homepage")
 
             Component.onCompleted: {
-                homepageTextField.forceActiveFocus()
-                homepageTextField.cursorPosition = homepageTextField.text.length
+                if (settingsObject.homepage.toString() === "") {
+                    newTabPageOption.checked = true;
+                }
+                else if (settingsObject.homepage === homepageListItem.defaultHomepage) {
+                    defaultHomePageOption.checked = true;
+                }
+                else {
+                    customHomepageOption.checked = true;
+                }
+            }
+
+            Column {
+
+            Common.CustomizedRadioButton {
+                id: newTabPageOption
+                text: i18n.tr("New Tab Page")
+                color: theme.palette.normal.foregroundText
+            }
+
+            Common.CustomizedRadioButton {
+                id: defaultHomePageOption
+                text: "start.duckduckgo.com"
+                color: theme.palette.normal.foregroundText
+            }
+
+            Common.CustomizedRadioButton {
+                id: customHomepageOption
+                text: i18n.tr("Custom hompage")
+                color: theme.palette.normal.foregroundText
+                onCheckedChanged: {
+                if (checked) {
+                    homepageTextField.forceActiveFocus()
+                    homepageTextField.cursorPosition = homepageTextField.text.length
+                }
+
+                }
             }
 
             TextField {
                 id: homepageTextField
+                width: parent.width
                 objectName: "homepageDialog.text"
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
+                enabled: customHomepageOption.checked
                 onAccepted: {
                     if (saveButton.enabled) {
                         saveButton.clicked();
                     }
                 }
+            }
+
             }
 
             Button {
@@ -449,11 +488,20 @@ FocusScope {
                     right: parent.right
                 }
                 text: i18n.tr("Save")
-                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim()) || (homepageTextField.text === "")
-                color: "#3fb24f"
+                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim()) || ! customHomepageOption.checked
+                color: theme.palette.normal.positive
                 onClicked: {
-                    settingsObject.homepage = (homepageTextField.text === "") ? "" : UrlUtils.fixUrl(homepageTextField.text)
-                    PopupUtils.close(dialogue)
+                    if (newTabPageOption.checked) {
+                        settingsObject.homepage = "";
+                    }
+                    else if (defaultHomePageOption.checked) {
+                        settingsObject.homepage = homepageListItem.defaultHomepage;
+                    }
+                    else if (customHomepageOption.checked) {
+                        settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text);
+                    }
+
+                    PopupUtils.close(dialogue);
                 }
             }
         }
