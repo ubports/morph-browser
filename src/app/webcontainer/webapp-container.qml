@@ -196,6 +196,8 @@ BrowserWindow {
             UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
 
             // this can be set from QtWebEngine version 1.9 (Qt 5.13)
+            // see issue [https://github.com/ubports/morph-browser/issues/254]
+            // --> uncomment the following line for QtWebEngine >= 1.9, and remove the marked code for this issue in WebApp.qml
             //item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
             FileOperations.mkpath(webappDataLocation + "/Downloads");
         }

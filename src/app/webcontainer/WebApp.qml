@@ -426,9 +426,14 @@ Common.BrowserView {
 
            onDownloadRequested: {
 
-               // with QtWebEngine 1.9 (Qt 5.13) the download path is configurable, so the output file name
+               // with QtWebEngine 1.9 (Qt 5.13) the download folder is configurable, so the output file name
                // will then be determined automatically. Here we determine the file in webapp.dataPath, because the webapp does
                // not have access to the /home/phablet/Downloads folder
+               // see issue [https://github.com/ubports/morph-browser/issues/254]
+
+               // the respective line can be uncommented in webapp-container.qml, and the following lines can be removed:
+
+               // <<< begin only needed for QtWebEngine < 1.9
                var baseName = FileOperations.baseName(download.path);
                var extension = FileOperations.extension(download.path);
 
@@ -440,6 +445,7 @@ Common.BrowserView {
                    download.path = webapp.dataPath + "/Downloads/%1(%2).%3".arg(baseName).arg(i).arg(extension);
                    i++;
                }
+               // >>> end only needed for QtWebEngine < 1.9
 
                console.log("a download was requested with path %1".arg(download.path))
 
