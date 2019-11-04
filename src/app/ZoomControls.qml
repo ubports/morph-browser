@@ -196,13 +196,12 @@ UbuntuShape {
         parent: webview
         objectName: "saveZoomFactorDialog"
         title: i18n.tr("Save Zoom")
-        readonly property string saveDomainText: saveDomainButton.enabled ? i18n.tr("domain zoom (which is currently %1 and can be removed with reset button or from domain specific settings in privacy settings)".arg(isNaN(internal.currentDomainZoomFactor) ? i18n.tr("none") : Math.round(internal.currentDomainZoomFactor * 100) + "%")) : ""
-        readonly property string saveDefaultText: saveDefaultButton.enabled ? i18n.tr("default zoom (whis is crrently %1% and can be changed from setting menu)".arg(Math.round(controller.defaultZoomFactor * 100))) : ""
-        text: i18n.tr("Current zoom (%1%) can be saved as ".arg(Math.round(controller.currentZoomFactor * 100)))
+        readonly property string saveDomainText: saveDomainButton.enabled ? i18n.tr("domain zoom (currently %1 and can be removed with reset button or from domain specific settings in privacy settings)".arg(isNaN(internal.currentDomainZoomFactor) ? i18n.tr("none") : Math.round(internal.currentDomainZoomFactor * 100) + "%")) : ""
+        readonly property string saveDefaultText: saveDefaultButton.enabled ? i18n.tr("default zoom (crrently %1% and can be changed from setting menu)".arg(Math.round(controller.defaultZoomFactor * 100))) : ""
+        text: i18n.tr("Current zoom (%1%) can be saved for %2 as ".arg(Math.round(controller.currentZoomFactor * 100)).arg(isWebApp ? i18n.tr("the current web app") : "morph-browser")) + "\n"
         + saveDomainText
-        + (saveDomainButton.enabled && saveDefaultButton.enabled ? i18n.tr(" or ") : "")
+        + (saveDomainButton.enabled && saveDefaultButton.enabled ? "\n" + i18n.tr("or") + "\n": "")
         + saveDefaultText
-        // i18n.tr("Set current zoom as default zoom for %1 ? (You can change it in the settings menu)".arg(isWebApp ? i18n.tr("the current web app") : "morph-browser"))
 
         Button {
             id: saveDomainButton
