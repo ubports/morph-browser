@@ -188,6 +188,20 @@ UbuntuShape {
                 DomainSettingsModel.setZoomFactor(currentDomain, NaN);
             }
         }
+
+        // If current domain has changed, we have to forget about previous zoom factors and update page zoom.
+        // This also means, that loading is in progress, fit to widt updates will be done there.
+        onCurrentDomainChanged: {
+            console.log("[ZC] controller.onCurrentDomainChanged triggered: %1".arg(controller.currentDomain));
+            internal.currentDomainScrollWidth = 0;
+            internal.updatePageZoom();
+        }
+
+        // To keep webview.zoomFactor in sync with currentZoomFactor.
+        onCurrentZoomFactorChanged: {
+            console.log("[ZC] controller.onCurrentZoomFactorChanged: %1".arg(controller.currentZoomFactor));
+            webview.zoomFactor = controller.currentZoomFactor;
+        }
     }
 
     // Popup dialog for saving in zoom menu.
@@ -510,23 +524,9 @@ UbuntuShape {
             }
         }
 
-        // This could be in controller object, but here we have all connections together.
+        // This is here and not in controller object, because if the binding are set here, they won't trigger on controller property initialization.
         property Connections controllerConnections: Connections {
             target: controller
-
-            // If current domain has changed, we have to forget about previous zoom factors and update page zoom.
-            // This also means, that loading is in progress, fit to widt updates will be done there.
-            onCurrentDomainChanged: {
-                console.log("[ZC] controller.onCurrentDomainChanged triggered: %1".arg(controller.currentDomain));
-                internal.currentDomainScrollWidth = 0;
-                internal.updatePageZoom();
-            }
-
-            // To keep webview.zoomFactor in sync with currentZoomFactor.
-            onCurrentZoomFactorChanged: {
-                console.log("[ZC] controller.onCurrentZoomFactorChanged: %1".arg(controller.currentZoomFactor));
-                webview.zoomFactor = controller.currentZoomFactor;
-            }
 
             // If page uses defaultZoomFactor, refresh zoom and fit to width.
             onDefaultZoomFactorChanged: {
