@@ -143,7 +143,7 @@ FocusScope {
                 return null
             }
 
-            if (folders.currentItem.isAllBookmarksFolder) {
+            if (folders.currentItem.isAllBookmarksFolder && (bookmarksFoldersViewItem.homeBookmarkUrl.toString() !== "")) {
                 return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model, {
                     title: i18n.tr("Homepage"),
                     url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
