@@ -132,26 +132,20 @@ UbuntuShape {
 
             internal.viewSpecificZoom = true;
             internal.currentZoomFactor = fitToWidthZoomFactor;
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
+            saveZoomFactorForCurrentDomain();
         }
 
         function zoomIn() {
             internal.viewSpecificZoom = true;
             internal.currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
+            saveZoomFactorForCurrentDomain();
         }
 
         function resetSaveFit() {
             console.log("[ZC] controller.resetSaveFit called");
             internal.viewSpecificZoom = false;
             internal.currentZoomFactor = defaultZoomFactor;
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
+            saveZoomFactorForCurrentDomain();
 
             internal.currentDomainScrollWidth = 0;
             internal.updateFitToWidth();
@@ -160,9 +154,7 @@ UbuntuShape {
         function zoomOut() {
             internal.viewSpecificZoom = true
             internal.currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
-            if (! webview.incognito) {
-                saveZoomFactorForCurrentDomain();
-            }
+            saveZoomFactorForCurrentDomain();
         }
 
         function save() {
@@ -170,6 +162,12 @@ UbuntuShape {
         }
 
         function saveZoomFactorForCurrentDomain() {
+            console.log("[ZC] controller.saveZoomFactorForCurrentDomain() called");
+            if (webview.incognito) {
+                console.log("[ZC]   incognito, not saving");
+                return;
+            }
+
             if (viewSpecificZoom) {
                 DomainSettingsModel.setZoomFactor(currentDomain, currentZoomFactor);
             }
@@ -201,18 +199,19 @@ UbuntuShape {
         objectName: "saveZoomFactorDialog"
         title: i18n.tr("Save Zoom")
         readonly property string saveDomainText: saveDomainButton.enabled ? i18n.tr("domain zoom (currently %1 and can be removed with reset button or from domain specific settings in privacy settings)".arg(isNaN(internal.currentDomainZoomFactor) ? i18n.tr("none") : Math.round(internal.currentDomainZoomFactor * 100) + "%")) : ""
-        readonly property string saveDefaultText: saveDefaultButton.enabled ? i18n.tr("default zoom (crrently %1% and can be changed from setting menu)".arg(Math.round(controller.defaultZoomFactor * 100))) : ""
-        text: i18n.tr("Current zoom (%1%) can be saved for %2 as ".arg(Math.round(controller.currentZoomFactor * 100)).arg(isWebApp ? i18n.tr("the current web app") : "morph-browser")) + "\n"
+        readonly property string saveDefaultText: saveDefaultButton.enabled ? i18n.tr("default zoom (currently %1%, can be changed from settings menu%2)".arg(Math.round(controller.defaultZoomFactor * 100)).arg(controller.viewSpecificZoom ? i18n.tr(" and resets domain zoom") : "")) : ""
+        text: i18n.tr("Current zoom (%1%) can be saved for %2 as ".arg(Math.round(controller.currentZoomFactor * 100)).arg(isWebApp ? i18n.tr("the current web app") : "morph-browser")) + "\n\n"
         + saveDomainText
-        + (saveDomainButton.enabled && saveDefaultButton.enabled ? "\n" + i18n.tr("or") + "\n": "")
+        + (saveDomainButton.enabled && saveDefaultButton.enabled ? "\n\n" + i18n.tr("or") + "\n\n": "")
         + saveDefaultText
+        + "."
 
         Button {
             id: saveDomainButton
             text: i18n.tr("Save for domain")
             color: theme.palette.normal.positive
             objectName: "saveDomainButton"
-            enabled: isNaN(internal.currentDomainZoomFactor) || Math.abs(controller.currentZoomFactor - internal.currentDomainZoomFactor) >= 0.01
+            enabled: webview.incognito === false && (isNaN(internal.currentDomainZoomFactor) || Math.abs(controller.currentZoomFactor - internal.currentDomainZoomFactor) >= 0.01)
             onClicked: {
                 internal.viewSpecificZoom = true;
                 controller.saveZoomFactorForCurrentDomain();
@@ -233,6 +232,8 @@ UbuntuShape {
                 else {
                     webapp.settings.zoomFactor = controller.currentZoomFactor;
                 }
+                internal.viewSpecificZoom = false;
+                controller.saveZoomFactorForCurrentDomain();
                 saveDialog.hide();
             }
         }
