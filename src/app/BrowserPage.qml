@@ -26,6 +26,7 @@ Page {
     property list<Action> leadingActions
     property list<Action> trailingActions
     property alias title: pageHeader.title
+    property alias subtitle: pageHeader.subtitle
     property alias headerContents: pageHeader.contents
 
     default property alias contents: contentsItem.data

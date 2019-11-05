@@ -17,17 +17,18 @@
  */
 
 import QtQuick 2.5
+import QtWebEngine 1.7
+import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import Qt.labs.settings 1.0
 import "../actions" as Actions
-import ".."
+import ".." as Common
 import "ColorUtils.js" as ColorUtils
 
-BrowserView {
+Common.BrowserView {
     id: webapp
 
     property Settings settings
@@ -156,6 +157,48 @@ BrowserView {
        webappSettingsViewLoader.active = true;
     }
 
+    function showDownloadsPage() {
+        downloadsViewLoader.active = true
+        return downloadsViewLoader.item
+    }
+
+    function startDownload(download) {
+
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        // check if the ID has already been added
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        {
+           console.log("the download id " + downloadIdDataBase + " has already been added.")
+           return
+        }
+
+        console.log("adding download with id " + downloadIdDataBase)
+        Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, false)
+        downloadsViewLoader.active = true
+    }
+
+    function setDownloadComplete(download) {
+
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        {
+            console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
+            return
+        }
+
+        console.log("download with id " + downloadIdDataBase + " is complete.")
+
+        DownloadsModel.setComplete(downloadIdDataBase, true)
+
+        if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
+        {
+          DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+        }
+    }
+
     Item {
         id: webviewContainer
         anchors.fill: parent
@@ -213,7 +256,7 @@ BrowserView {
                     webview: containerWebView.currentWebview
                     objectName: "mainWebviewSadPage"
                 }
-                WebProcessMonitor {
+                Common.WebProcessMonitor {
                     id: webProcessMonitor
                     webview: containerWebView.currentWebview
                 }
@@ -225,7 +268,7 @@ BrowserView {
             anchors {
                 fill: containerWebView
             }
-            sourceComponent: ErrorSheet {
+            sourceComponent: Common.ErrorSheet {
                 visible: containerWebView.currentWebview && ! containerWebView.currentWebview.loading && containerWebView.currentWebview.lastLoadFailed
                 url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
                 errorString: containerWebView.currentWebview ? containerWebView.currentWebview.lastLoadRequestErrorString : ""
@@ -270,7 +313,7 @@ BrowserView {
             Component {
                 id: progressbarComponent
 
-                ThinProgressBar {
+                Common.ThinProgressBar {
                     visible: webapp.currentWebview && webapp.currentWebview.loading
                              && webapp.currentWebview.loadProgress !== 100
                     value: visible ? webapp.currentWebview.loadProgress : 0
@@ -293,6 +336,26 @@ BrowserView {
             value: webapp.currentWebview.visible ? chromeLoader.item.height : 0
         }
 */
+
+        Loader {
+            id: downloadsViewLoader
+
+            anchors.fill: parent
+            active: false
+            asynchronous: true
+            Component.onCompleted: {
+                setSource("../DownloadsPage.qml", {
+                              "incognito": false,
+                              "focus": true,
+                              "subtitle": webapp.dataPath.replace('/home/phablet', '~')
+                })
+            }
+
+            Connections {
+                target: downloadsViewLoader.item
+                onDone: downloadsViewLoader.active = false
+            }
+        }
 
         Loader {
             id: webappSettingsViewLoader
@@ -339,6 +402,7 @@ BrowserView {
                     FileOperations.remove(dataLocationUrl + "/Visited Links");
                 }
                 onDone: webappSettingsViewLoader.active = false
+                onShowDownloadsPage: webapp.showDownloadsPage()
             }
         }
 
@@ -356,12 +420,54 @@ BrowserView {
        }
 
        Connections {
+
+           target: webapp.currentWebview ? webapp.currentWebview.context : null
+
+           onDownloadRequested: {
+
+               // with QtWebEngine 1.9 (Qt 5.13) the download folder is configurable, so the output file name
+               // will then be determined automatically. Here we determine the file in webapp.dataPath, because the webapp does
+               // not have access to the /home/phablet/Downloads folder
+               // see issue [https://github.com/ubports/morph-browser/issues/254]
+
+               // the respective line can be uncommented in webapp-container.qml, and the following lines can be removed:
+
+               // <<< begin only needed for QtWebEngine < 1.9
+               var baseName = FileOperations.baseName(download.path);
+               var extension = FileOperations.extension(download.path);
+
+               download.path = webapp.dataPath + "/Downloads/%1.%2".arg(baseName).arg(extension);
+
+               var i = 1;
+
+               while (FileOperations.exists(Qt.resolvedUrl(download.path))) {
+                   download.path = webapp.dataPath + "/Downloads/%1(%2).%3".arg(baseName).arg(i).arg(extension);
+                   i++;
+               }
+               // >>> end only needed for QtWebEngine < 1.9
+
+               console.log("a download was requested with path %1".arg(download.path))
+
+               download.accept();
+               webapp.showDownloadsPage();
+               webapp.startDownload(download);
+           }
+
+           onDownloadFinished: {
+
+               console.log("a download was finished with path %1.".arg(download.path))
+               webapp.showDownloadsPage()
+               webapp.setDownloadComplete(download)
+           }
+       }
+
+       Connections {
            target: settings
            onZoomFactorChanged: DomainSettingsModel.defaultZoomFactor = settings.zoomFactor
            onDomainWhiteListModeChanged: DomainPermissionsModel.whiteListMode = settings.domainWhiteListMode
        }
 
-        ChromeController {
+        Common.ChromeController {
             webview: webapp.currentWebview
             forceHide: webapp.chromeless
         //    defaultMode: webapp.hasTouchScreen

@@ -1,5 +1,6 @@
 usr/bin/morph-browser
 usr/share/morph-browser/*.qml
+usr/share/morph-browser/qmldir
 usr/share/morph-browser/*.js
 usr/share/morph-browser/*.png
 usr/share/morph-browser/actions/*.qml

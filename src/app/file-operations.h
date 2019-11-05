@@ -31,6 +31,8 @@ class FileOperations : public QObject
 public:
     explicit FileOperations(QObject* parent=0);
 
+    Q_INVOKABLE QString baseName(const QString& path) const;
+    Q_INVOKABLE QString extension(const QString& path) const;
     Q_INVOKABLE bool exists(const QUrl& path) const;
     Q_INVOKABLE bool remove(const QUrl& file) const;
     Q_INVOKABLE bool removeDirRecursively(const QUrl& dir) const;

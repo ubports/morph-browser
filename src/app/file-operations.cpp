@@ -28,6 +28,16 @@ FileOperations::FileOperations(QObject* parent)
 {
 }
 
+QString FileOperations::baseName(const QString& path) const
+{
+    return QFileInfo(path).baseName();
+}
+
+QString FileOperations::extension(const QString& path) const
+{
+    return QFileInfo(path).completeSuffix();
+}
+
 bool FileOperations::exists(const QUrl& path) const
 {
     // works for both files and directories

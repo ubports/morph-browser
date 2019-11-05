@@ -61,26 +61,6 @@ WebViewImpl {
         }
     }
 
-    onShowDownloadDialog: {
-       if (downloadDialogLoader.status === Loader.Ready) {
-           var downloadDialog =
-                   PopupUtils.open(downloadDialogLoader.item,
-                                   webappWebview,
-                                   {"contentType" : contentType,
-                                    "downloadId" : downloadId,
-                                    "singleDownload" : downloader,
-                                    "filename" : filename,
-                                    "mimeType" : mimeType})
-           downloadDialog.startDownload.connect(startDownload)
-        }
-    }
-
-    Loader {
-        id: downloadDialogLoader
-        source: "ContentDownloadDialog.qml"
-        asynchronous: true
-    }
-
     Loader {
         id: filePickerLoader
         source: "ContentPickerDialog.qml"

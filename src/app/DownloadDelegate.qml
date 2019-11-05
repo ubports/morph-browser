@@ -22,9 +22,6 @@ import ".."
 
 ListItem {
     id: downloadDelegate
-
-    //property var downloadManager
-
     property string icon
     property alias image: thumbimage.source
     property alias title: title.text
@@ -43,25 +40,6 @@ ListItem {
     signal cancelled()
 
     height: visible ? layout.height : 0
-
-    /*
-    QtObject {
-        id: internal
-
-        function connectToDownloadObject() {
-            if (incomplete && !download && downloadManager) {
-                for(var i = 0; i < downloadManager.downloads.length; i++) {
-                    if (downloadManager.downloads[i].downloadId == downloadId) {
-                        download = downloadManager.downloads[i]
-                    }
-                }
-            }
-        }
-    }
-    */
-
-    //Component.onCompleted: internal.connectToDownloadObject()
-    //onDownloadManagerChanged: internal.connectToDownloadObject()
 
     SlotsLayout {
         id: layout

@@ -19,8 +19,8 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
-import QtWebEngine 1.7
 import QtSystemInfo 5.5
+import QtWebEngine 1.7
 import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
@@ -29,10 +29,10 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import "../UrlUtils.js" as UrlUtils
-import ".."
+import ".." as Common
 import "." as Local
 
-BrowserView {
+Common.BrowserView {
     id: browser
 
     property Settings settings
@@ -79,7 +79,7 @@ BrowserView {
         }
     }
 
-    property BrowserWindow thisWindow
+    property Common.BrowserWindow thisWindow
     property Component windowFactory
 
     onCurrentWebviewChanged: {
@@ -300,7 +300,7 @@ BrowserView {
         filter: InputInfo.TouchScreen
     }
 
-    FilteredKeyboardModel {
+    Common.FilteredKeyboardModel {
         id: keyboardModel
     }
 
@@ -530,7 +530,7 @@ BrowserView {
                 onCloseTabRequested: internal.closeCurrentTab()
             }
 
-            WebProcessMonitor {
+            Common.WebProcessMonitor {
                 id: webProcessMonitor
                 webview: currentWebview
             }
@@ -775,7 +775,7 @@ BrowserView {
                 objectName: "downloads"
                 text: i18n.tr("Downloads")
                 iconName: "save-to"
-                enabled: downloadHandlerLoader.status == Loader.Ready && contentHandlerLoader.status == Loader.Ready
+                enabled: contentHandlerLoader.status == Loader.Ready
                 onTriggered: downloadsViewLoader.active = true
             },
             Action {
@@ -851,7 +851,7 @@ BrowserView {
         }
     }
 
-    ChromeStateTracker {
+    Common.ChromeStateTracker {
         webview: browser.currentWebview
         header: chrome
      }
@@ -1000,10 +1000,8 @@ BrowserView {
         Label {
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter - parent.height / 4
                 verticalCenterOffset: units.dp(2)
             }
-
             fontSize: "small"
             color: theme.palette.normal.backgroundText
             // TRANSLATORS: %1 refers to the current number of tabs opened
@@ -1202,8 +1200,7 @@ BrowserView {
         active: false
         asynchronous: true
         Component.onCompleted: {
-            setSource("DownloadsPage.qml", {
-                          "downloadManager": Qt.binding(function () {return downloadHandlerLoader.item}),
+            setSource("../DownloadsPage.qml", {
                           "incognito": incognito,
                           "focus": true
             })
@@ -1221,12 +1218,6 @@ BrowserView {
                 internal.resetFocus()
             }
         }
-    }
-
-    Loader {
-        id: downloadHandlerLoader
-        source: "DownloadHandler.qml"
-        asynchronous: true
     }
 
     property Component tabComponent
@@ -1675,7 +1666,6 @@ BrowserView {
     Shortcut {
         sequence: "Ctrl+J"
         enabled: chrome.visible &&
-                 downloadHandlerLoader.status == Loader.Ready &&
                  contentHandlerLoader.status == Loader.Ready &&
                  !downloadsViewLoader.active
         onActivated: downloadsViewLoader.active = true
@@ -1739,13 +1729,11 @@ BrowserView {
     Connections {
         target: contentHandlerLoader.item
         onExportFromDownloads: {
-            if (downloadHandlerLoader.status == Loader.Ready) {
-                downloadsViewLoader.active = true
-                downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
-                downloadsViewLoader.item.activeTransfer = transfer
-                downloadsViewLoader.item.multiSelect = multiSelect
-                downloadsViewLoader.item.pickingMode = true
-            }
+            downloadsViewLoader.active = true
+            downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
+            downloadsViewLoader.item.activeTransfer = transfer
+            downloadsViewLoader.item.multiSelect = multiSelect
+            downloadsViewLoader.item.pickingMode = true
         }
     }
 
@@ -1762,26 +1750,26 @@ BrowserView {
 
     function startDownload(download) {
 
-        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
 
         // check if the ID has already been added
-        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] === download )
         {
            console.log("the download id " + downloadIdDataBase + " has already been added.")
            return
         }
 
         console.log("adding download with id " + downloadIdDataBase)
-        ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
+        Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
         DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
         downloadsViewLoader.active = true
     }
 
     function setDownloadComplete(download) {
 
-        var downloadIdDataBase = ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
+        var downloadIdDataBase = Common.ActiveDownloadsSingleton.downloadIdPrefixOfCurrentSession.concat(download.id)
 
-        if ( ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
+        if ( Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] !== download )
         {
             console.log("the download id " + downloadIdDataBase + " is not in the current downloads.")
             return

@@ -23,6 +23,7 @@ set(COMMONLIB_SRC
     domain-settings-model.cpp
     domain-settings-sorted-model.cpp
     domain-settings-user-agents-model.cpp
+    downloads-model.cpp
     favicon-fetcher.cpp
     file-operations.cpp
     input-method-handler.cpp
@@ -45,7 +46,7 @@ target_link_libraries(${COMMONLIB}
     ${LIBAPPARMOR_LDFLAGS}
 )
 
-file(GLOB QML_FILES *.qml)
+file(GLOB QML_FILES *.qml qmldir)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
 file(GLOB JS_FILES *.js)
 install(FILES ${JS_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
