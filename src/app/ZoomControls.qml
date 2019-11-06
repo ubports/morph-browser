@@ -137,6 +137,10 @@ UbuntuShape {
             internal.viewSpecificZoom = true;
             internal.currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
             saveZoomFactorForCurrentDomain();
+
+            internal.updateFitToWidthTimer.stop();
+            internal.currentDomainScrollWidth = 0;
+            internal.updateFitToWidth();
         }
 
         function resetSaveFit() {
@@ -144,6 +148,7 @@ UbuntuShape {
             internal.currentZoomFactor = defaultZoomFactor;
             saveZoomFactorForCurrentDomain();
 
+            internal.updateFitToWidthTimer.stop();
             internal.currentDomainScrollWidth = 0;
             internal.updateFitToWidth();
         }
@@ -152,6 +157,10 @@ UbuntuShape {
             internal.viewSpecificZoom = true
             internal.currentZoomFactor = Math.max(minZoomFactor, currentZoomFactor - ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : currentZoomFactor % 0.1));
             saveZoomFactorForCurrentDomain();
+
+            internal.updateFitToWidthTimer.stop();
+            internal.currentDomainScrollWidth = 0;
+            internal.updateFitToWidth();
         }
 
         function save() {
