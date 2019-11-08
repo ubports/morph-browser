@@ -93,7 +93,7 @@ FocusScope {
 
                             height: units.gu(2)
                             width: height
-                            opacity: (settingsObject.homepage.toString() === "") ? 0.5 : 1
+                            opacity: (settingsObject.homepage.toString() === "") ? 0.3 : 1
 
                             MouseArea {
                                anchors.fill: parent
@@ -175,7 +175,7 @@ FocusScope {
 
                             height: units.gu(2)
                             width: height
-                            opacity: (settingsObject.zoomFactor === 1.0) ? 0.5 : 1
+                            opacity: (settingsObject.zoomFactor === 1.0) ? 0.3 : 1
 
                             MouseArea {
                                anchors.fill: parent
