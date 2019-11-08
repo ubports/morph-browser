@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-26 15:36+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2019-11-09 16:50+0000\n"
+"Last-Translator: Ari Börde Kröyer <ari.kroyer@online.no>\n"
 "Language-Team: Norwegian Bokmål <https://translate.ubports.com/projects/"
 "ubports/morph-browser/nb/>\n"
 "Language: nb\n"
@@ -42,12 +42,11 @@ msgstr ""
 "Siden \"%1\" prøver å åpne følgende nettadresse med følgende tilpasset avart:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
-#, fuzzy
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
-"Dette ville videresende denne nettadressen til en systemapp om mulig. Vil du "
+"Dette vil videresende denne nettadressen til en systemapp om mulig. Vil du "
 "fortsette?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
@@ -143,13 +142,13 @@ msgstr "Denne tilkoblingen er ikke sikker"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Du prøver å lage en sikker tilkobling til %1, men sikkerhetssertifikatet "
-"regnes ikke som sikkert."
+"regnes ikke som sikkert. Årsak: %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -162,9 +161,8 @@ msgid "Back to safety"
 msgstr "Tilbake til sikkerhet"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Velg alle"
+msgstr "Velg farge"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -194,14 +192,12 @@ msgid "Add the name for the new user agent"
 msgstr "Legg til navn på den nye brukeragenten"
 
 #: src/app/CustomUserAgentsPage.qml:207
-#, fuzzy
 msgid "enter user agent string..."
 msgstr "skriv inn brukeragentstreng…"
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Ingen nedlastinger tilgjengelig"
+msgstr "Ingen tilpassede brukeragenter foreligger"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
@@ -245,23 +241,20 @@ msgid "allowed to launch other apps"
 msgstr "tilates å starte andre programmer"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Vil du la dette domenet bruke kameraet ditt?"
+msgstr "får tilgang til din posisjon"
 
 #: src/app/DomainSettingsPage.qml:239
-#, fuzzy
 msgid "custom user agent"
-msgstr "Egendefinert brukeragent"
+msgstr "egendefinert brukeragent"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
 msgstr "Førstørrelse: "
 
 #: src/app/DomainSettingsPage.qml:320
-#, fuzzy
 msgid "not set"
-msgstr "Ikke satt"
+msgstr "ikke satt"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
@@ -456,9 +449,8 @@ msgstr "Lagre som PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Standard"
+msgstr "Standard skalering"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
@@ -606,7 +598,6 @@ msgid "Open link in new background tab"
 msgstr "Åpne lenke i ny bakgrunnsfane"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
 msgstr "Åpne lenke i privat vindu"
 
@@ -738,7 +729,7 @@ msgstr "Blokkert domene"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
-#, fuzzy, qt-format
+#, qt-format
 msgid "Blocked navigation request to domain %1."
 msgstr "Blokkerte navigeringsforespørsel til domenet «%1»."
 
@@ -1014,16 +1005,15 @@ msgstr "Fjern"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Ubuntu nettleser"
+msgstr "%1 - Morph nettleser"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Nettleser"
+msgstr "Morph nettleser"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1106,19 +1096,16 @@ msgid "WebappContainer Settings"
 msgstr "Nettprogramsbeholder-innstillinger"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Tilbakestill nettleseroppsett"
+msgstr "Tilbakestill nettleserinnstillinger"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Nettleser"
+msgstr "Morph nettleser"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Surf på nettet"
+msgstr "Surf på nettet med QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
