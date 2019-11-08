@@ -196,10 +196,10 @@ FocusScope {
                         ListItem {
                             objectName: "privacy.clearCache"
                             ListItemLayout {
-                                title.text: i18n.tr("Clear Cache")
+                                title.text: i18n.tr("Clear cache")
                             }
                             onClicked: {
-                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")});
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear cache?")});
                                 dialog.confirmed.connect(clearCache);
                             }
                         }
