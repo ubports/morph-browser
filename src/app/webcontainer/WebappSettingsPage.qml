@@ -84,9 +84,11 @@ FocusScope {
                             function formatValue(v) { return Math.round(v * 100 / 5) * 5 + "%" }
                             value: settingsObject.zoomFactor
                             onValueChanged: {
-                                // round for 5% steps (e.g. 95%, 100%)
-                                var percentValue = Math.round(value * 100 / 5) * 5
-                                settingsObject.zoomFactor = percentValue / 100
+                                if (Math.abs(value - settingsObject.zoomFactor) > 0.0001) {
+                                    // round for 5% steps (e.g. 95%, 100%)
+                                    var percentValue = Math.round(value * 100 / 5) * 5
+                                    settingsObject.zoomFactor = percentValue / 100
+                                }
                             }
                             SlotsLayout.position: SlotsLayout.Trailing
                         }
