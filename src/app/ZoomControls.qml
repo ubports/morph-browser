@@ -226,7 +226,6 @@ UbuntuShape {
         Button {
             id: saveDefaultButton
             text: i18n.tr("Save as default")
-            color: theme.palette.normal.positive
             objectName: "saveDefaultButton"
             enabled: Math.abs(controller.currentZoomFactor - controller.defaultZoomFactor) >= 0.01
             onClicked: {
