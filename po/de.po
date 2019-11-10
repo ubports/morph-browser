@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-07 11:53+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2019-11-11 23:36+0000\n"
+"Last-Translator: Kai Goldbeck <kaiuwe.goldbeck@mailbox.org>\n"
 "Language-Team: German <https://translate.ubports.com/projects/ubports/"
 "morph-browser/de/>\n"
 "Language: de\n"
@@ -33,18 +33,22 @@ msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Benutzerdefiniertes URL Schema"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"Die Seite '%1' versuchte die folgende URL mit einem benutzerdefiniertem "
+"Schema zu öffnen:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Dies wird versuchen diese URL nach Möglichkeit an eine System-App zu senden. "
+"Möchten Sie fortfahren?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
@@ -84,6 +88,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Sie versuchen, auf %1 zuzugreifen, aber es ist nicht auf der Whitelist Ihrer "
+"genehmigten Domäne. Möchten Sie die Domain weiterhin blockieren, das Surfen "
+"zur Domain erlauben oder zurückgehen?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -92,6 +99,9 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 versucht, auf %2 zuzugreifen, aber es ist nicht auf der Whitelist Ihrer "
+"genehmigten Domain. Möchten Sie die Domain weiterhin blockieren, das Laden "
+"von Daten aus der Domain erlauben oder diese Anfrage einfach ignorieren?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
@@ -162,7 +172,7 @@ msgstr "JavaScript-Bestätigung"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Benutzerdefinierter User Agent"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -181,19 +191,19 @@ msgstr "Neuer Benutzer-Agent"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Fügen Sie den Namen für den neuen User Agent hinzu"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "Geben Sie die Zeichenfolge des User Agents ein..."
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
-msgstr ""
+msgstr "Keine benutzerdefinierten User Agents verfügbar"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Domain Blacklist/Whitelist"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
@@ -203,6 +213,8 @@ msgstr "Domain hinzufügen"
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
+"Geben Sie den Namen der Domain ein, z.B. example.com (Subdomains werden "
+"entfernt)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
@@ -217,9 +229,8 @@ msgid "Always allow access"
 msgstr "Zugriff immer erlauben"
 
 #: src/app/DomainPermissionsPage.qml:284
-#, fuzzy
 msgid "No sites have been granted special permissions"
-msgstr "Es wurde keinen Webseiten besondere Berechtigungen erteilt"
+msgstr "Es wurden keine besonderen Berechtigungen für Websites erteilt"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
@@ -227,22 +238,21 @@ msgstr "Domain-spezifische Einstellungen"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Geben Sie den Namen der Domain ein, z.B. m.example.com."
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "Erlaubt, andere Apps zu starten"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
-msgstr ""
+msgstr "Erlaubt, deine Position abzurufen"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "Benutzerdefinierter User Agent"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
-#, fuzzy
 msgid "Zoom: "
 msgstr "Zoom: "
 
@@ -452,7 +462,7 @@ msgstr "Standard-Zoom"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "Die aktuelle Web-App"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -460,6 +470,8 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Setzt den aktuellen Zoom als Standardzoom für %1? (Es kann im "
+"Einstellungsmenü geändert werden)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
@@ -594,9 +606,8 @@ msgid "Open link in new background tab"
 msgstr "Verweis in neuem Hintergrundreiter öffnen"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Verweis in neuem privaten Fenster öffnen"
+msgstr "Link in neuem privaten Fenster öffnen"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -728,18 +739,20 @@ msgstr "Blockierte Domain"
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Blockierte Navigationsanforderung an die Domäne %1."
 
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Whitelisted Domain"
 
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"Domain %1 ist nun auf der Whitelist, sie wird beim Neuladen der nächsten "
+"Seite aktiv sein."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -921,7 +934,7 @@ msgstr "Vorige Sitzung beim Start wiederherstellen"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Desktop-Modus einstellen"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
@@ -937,7 +950,7 @@ msgstr "Browsereinstellungen zurücksetzen"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Nur das Surfen auf Whitelist-Webseiten erlauben"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -1087,7 +1100,7 @@ msgstr "Hoppla, etwas ist schiefgelaufen."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr ""
+msgstr "Domain %1 ist nun in der Whitelist. Bitte die Seite neu laden."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
