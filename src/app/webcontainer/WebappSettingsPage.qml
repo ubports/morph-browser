@@ -82,11 +82,10 @@ FocusScope {
                             id: defaultZoomFactorSlider
                             minimumValue: 0.25
                             maximumValue: 5.0
-                            function formatValue(v) { return Math.round(v * 100 / 5) * 5 + "%" }
                             value: settingsObject.zoomFactor
                             onValueChanged: {
-                                if (Math.abs(value - settingsObject.zoomFactor) > 0.0001) {
-                                    // round for 5% steps (e.g. 95%, 100%)
+                                if (value !== settingsObject.zoomFactor) {
+                                    // Round for 5% steps (e.g. 95%, 100%).
                                     var percentValue = Math.round(value * 100 / 5) * 5
                                     settingsObject.zoomFactor = percentValue / 100
                                 }
