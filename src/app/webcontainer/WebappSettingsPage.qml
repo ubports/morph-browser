@@ -84,6 +84,7 @@ FocusScope {
                             maximumValue: 5.0
                             value: settingsObject.zoomFactor
                             onValueChanged: {
+                                // Round value only if slider changed.
                                 if (value !== settingsObject.zoomFactor) {
                                     // Round for 5% steps (e.g. 95%, 100%).
                                     var percentValue = Math.round(value * 100 / 5) * 5
