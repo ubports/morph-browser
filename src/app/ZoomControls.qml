@@ -108,6 +108,14 @@ UbuntuShape {
         horizontalAlignment: Text.AlignHCenter
     }
 
+    onVisibleChanged: {
+        //console.log("[ZC] menu.onVisibleChanged triggered: %1".arg(menu.visible));
+        if (menu.visible === true && internal.currentDomainScrollWidth === 0) {
+            // Zoom menu is visible, but fitToWidthZoomFactor was not fetched yet. Update fit to width.
+            internal.updateFitToWidth();
+        }
+    }
+
     QtObject {
         id: controller
 
@@ -323,13 +331,27 @@ UbuntuShape {
                 return;
             }
 
-            // Update fit to width and auto fit to width if contitions are met.
-
-            if (controller.autoFitToWidthEnabled === true && controller.viewSpecificZoom === false && webview.zoomFactor !== controller.defaultZoomFactor) {
-                //console.log("[ZC]   zooming to default before autofitting");
+            // Update auto fit to width if contitions are met.
+            if (controller.autoFitToWidthEnabled === true && controller.viewSpecificZoom === false) {
+                //console.log("[ZC]   zooming to default and autofitting");
                 // Automatic fit to width is done from defaultZoomFactor
                 webview.zoomFactor = controller.defaultZoomFactor;
+                // Wait, to be sure that any page layout change (css, js, ...) after previous zoom or width change takes effect.
+                internal.updateFitToWidthTimer.restart();
+                // No need to continue.
+                return;
             }
+
+            // Not doing automatic fit to width.
+            // See is fit to width factor needs to be updated.
+            if (menu.visible === false) {
+                //console.log("[ZC]   zoom menu not visible");
+                // Zoom menu is not visible, no need to update.
+                // The fitToWidthZoomFactor will be refreshed on menu visible if needed.
+                return;
+            }
+
+            // Update fit to width zoom factor.
             // Wait, to be sure that any page layout change (css, js, ...) after previous zoom or width change takes effect.
             internal.updateFitToWidthTimer.restart();
         }
