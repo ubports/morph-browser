@@ -82,6 +82,7 @@ FocusScope {
                             id: defaultZoomFactorSlider
                             minimumValue: 0.25
                             maximumValue: 5.0
+                            function formatValue(v) { return Math.round(v * 100 / 5) * 5 + "%" }
                             value: settingsObject.zoomFactor
                             onValueChanged: {
                                 // Round value only if slider changed.
