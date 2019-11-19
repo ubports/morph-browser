@@ -471,16 +471,6 @@ FocusScope {
             }
 
             Button {
-                objectName: "homepageDialog.cancelButton"
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                text: i18n.tr("Cancel")
-                onClicked: PopupUtils.close(dialogue)
-            }
-
-            Button {
                 id: saveButton
                 objectName: "homepageDialog.saveButton"
                 anchors {
@@ -503,6 +493,16 @@ FocusScope {
 
                     PopupUtils.close(dialogue);
                 }
+            }
+            
+            Button {
+                objectName: "homepageDialog.cancelButton"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogue)
             }
         }
     }
