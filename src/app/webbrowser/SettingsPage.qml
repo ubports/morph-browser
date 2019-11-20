@@ -32,6 +32,7 @@ FocusScope {
     property QtObject settingsObject
 
     signal clearCache()
+    signal clearAllCookies()
     signal done()
 
     SearchEngines {
@@ -326,11 +327,11 @@ FocusScope {
                         ListItem {
                             objectName: "privacy.clearHistory"
                             ListItemLayout {
-                                title.text: i18n.tr("Clear Browsing History")
+                                title.text: i18n.tr("Clear browsing history")
                             }
                             enabled: HistoryModel.count > 0
                             onClicked: {
-                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear browsing history?")})
                                 dialog.confirmed.connect(HistoryModel.clearAll)
                             }
                         }
@@ -338,11 +339,22 @@ FocusScope {
                         ListItem {
                             objectName: "privacy.clearCache"
                             ListItemLayout {
-                                title.text: i18n.tr("Clear Cache")
+                                title.text: i18n.tr("Clear cache")
                             }
                             onClicked: {
-                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")});
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear cache?")});
                                 dialog.confirmed.connect(clearCache);
+                            }
+                        }
+
+                        ListItem {
+                            objectName: "privacy.clearAllCookies"
+                            ListItemLayout {
+                                title.text: i18n.tr("Clear all cookies")
+                            }
+                            onClicked: {
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear all Cookies?")});
+                                dialog.confirmed.connect(clearAllCookies);
                             }
                         }
                     }

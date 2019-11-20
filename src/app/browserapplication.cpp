@@ -33,6 +33,7 @@
 
 // local
 #include "browserapplication.h"
+#include "browser-utils.h"
 #include "config.h"
 #include "domain-permissions-model.h"
 #include "domain-settings-model.h"
@@ -99,6 +100,7 @@ QString BrowserApplication::inspectorHost() const
         return new type(); \
     }
 
+MAKE_SINGLETON_FACTORY(BrowserUtils)
 MAKE_SINGLETON_FACTORY(DomainPermissionsModel)
 MAKE_SINGLETON_FACTORY(DomainSettingsModel)
 MAKE_SINGLETON_FACTORY(DownloadsModel)
@@ -185,6 +187,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     }
 
     const char* uri = "webbrowsercommon.private";
+    qmlRegisterSingletonType<BrowserUtils>(uri, 0, 1, "BrowserUtils", BrowserUtils_singleton_factory);
     qmlRegisterSingletonType<DomainPermissionsModel>(uri, 0, 1, "DomainPermissionsModel", DomainPermissionsModel_singleton_factory);
     qmlRegisterSingletonType<DomainSettingsModel>(uri, 0, 1, "DomainSettingsModel", DomainSettingsModel_singleton_factory);
     qmlRegisterType<DomainSettingsSortedModel>(uri, 0, 1, "DomainSettingsSortedModel");
