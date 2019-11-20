@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-09-25 20:51+0000\n"
+"PO-Revision-Date: 2019-11-11 23:36+0000\n"
 "Last-Translator: Moo <moose@mail.ru>\n"
 "Language-Team: Lithuanian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/lt/>\n"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: src/app/ColorSelectDialog.qml:25
 msgid "Select Color"
-msgstr ""
+msgstr "Pasirinkite spalvą"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -208,15 +208,15 @@ msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Nenustatyta"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Niekada neleisti prieigos"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Visada leisti prieigą"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
@@ -232,11 +232,11 @@ msgstr ""
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "leidžiama paleisti kitas programėles"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
-msgstr ""
+msgstr "leidžiama gauti prieigą prie jūsų buvimo vietos"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
@@ -267,7 +267,7 @@ msgstr ""
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Klaida: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -351,6 +351,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Galioja nuo:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -359,6 +361,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Galioja iki:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -375,10 +379,12 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Jūs neturėtumėte tęsti. Ypač, jei anksčiau šioje svetainėje niekada nesate "
+"matę šio įspėjimo."
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Permission"
-msgstr ""
+msgstr "Leidimas"
 
 #: src/app/MediaAccessDialog.qml:46
 msgid "Allow this domain to access your camera and microphone?"
@@ -416,20 +422,20 @@ msgstr ""
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Įrašyti puslapį kaip HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Įrašyti kaip HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Įrašyti kaip PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
 msgid "Default Zoom"
-msgstr ""
+msgstr "Numatytasis mastelis"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
@@ -444,19 +450,19 @@ msgstr ""
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Mastelis"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Mažinti"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Atstatyti"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Didinti"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -465,7 +471,7 @@ msgstr "Įrašyti"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Dabartinis mastelis"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -493,7 +499,7 @@ msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Išvalyti istoriją"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -576,9 +582,8 @@ msgid "Open link in new background tab"
 msgstr "Atverti nuorodą foninėje kortelėje"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Atverti nuorodą privačiame lange"
+msgstr "Atverti nuorodą naujame privačiame lange"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -734,7 +739,7 @@ msgstr "Naujas privatus langas"
 #: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
-msgstr ""
+msgstr "Istorija"
 
 #: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
 msgid "Downloads"
@@ -750,7 +755,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Įrašyti kaip HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -783,7 +788,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pristabdyti"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -825,7 +830,7 @@ msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
-msgstr ""
+msgstr "Visa istorija"
 
 #: src/app/webbrowser/HistoryViewWide.qml:250
 #: src/app/webbrowser/HistoryViewWide.qml:337
@@ -862,7 +867,7 @@ msgstr ""
 #: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Kažkas nutiko atvaizduojant %1."
 
 #: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
@@ -883,7 +888,7 @@ msgstr ""
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Esate prisijungę prie %1 naudodami HTTPS. Liudijimas galioja."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -900,7 +905,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Nustatyti darbalaukio veikseną"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
@@ -925,11 +930,11 @@ msgstr "Kamera ir mikrofonas"
 
 #: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Išvalyti naršymo istoriją"
 
 #: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Išvalyti naršymo istoriją?"
 
 #: src/app/webbrowser/SettingsPage.qml:341
 #: src/app/webcontainer/WebappSettingsPage.qml:198
@@ -956,7 +961,7 @@ msgstr "Kamera"
 
 #: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Perbraukite aukštyn norėdami išeiti iš viso ekrano"
 
 #: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
@@ -981,16 +986,15 @@ msgstr "Šalinti"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Ubuntu saityno naršyklė"
+msgstr "%1 - Morph saityno naršyklė"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Saityno naršyklė"
+msgstr "Morph saityno naršyklė"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1040,10 +1044,12 @@ msgstr "<b>%1</b> norėtų gauti prieigą prie jūsų %2 internetinės paskyros.
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Pasirinkite paskyrą dabar arba praleiskite šį žingsnį ir vėliau pasirinkite "
+"internetinę paskyrą."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Užverti programėlę"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
@@ -1072,17 +1078,16 @@ msgid "Reset webapp settings"
 msgstr "Atstatyti naršyklės nustatymus"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Naršyklė"
+msgstr "Morph naršyklė"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr ""
+msgstr "Naršyti saityną naudojant QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Internetas;WWW;Naršyklė;Narsykle;Saitynas;Žiniatinklis;Ziniatinklis"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
