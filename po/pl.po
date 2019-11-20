@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-02 18:26+0000\n"
+"PO-Revision-Date: 2019-11-21 23:36+0000\n"
 "Last-Translator: Daniel Frańczak <danielfranczak5@wp.pl>\n"
 "Language-Team: Polish <https://translate.ubports.com/projects/ubports/"
 "morph-browser/pl/>\n"
@@ -187,15 +187,15 @@ msgstr "Usuń"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr "Nowy agent użytkownika"
+msgstr "Nowa aplikacja kliencka"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr "Dodaj nazwę nowego agenta użytkownika"
+msgstr "Dodaj nazwę nowej aplikacji klienckiej"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr "wprowadź ciąg agenta użytkownika..."
+msgstr "wprowadź ciąg aplikacji klienckiej..."
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
@@ -248,7 +248,7 @@ msgstr "zezwolono na dostęp do Twojej lokalizacji"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr "niestandardowy agent użytkownika"
+msgstr "niestandardowa aplikacja kliencka"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
