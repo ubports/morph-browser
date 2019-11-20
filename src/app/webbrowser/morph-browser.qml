@@ -291,7 +291,7 @@ QtObject {
     }
 
     property var settings: Settings {
-        property url homepage: "https://start.duckduckgo.com"
+        property url homepage: ""
         property string searchEngine: "duckduckgo"
         property bool restoreSession: true
         property bool setDesktopMode: false
@@ -302,7 +302,7 @@ QtObject {
         property bool domainWhiteListMode: false
 
         function restoreDefaults() {
-            homepage  = "https://start.duckduckgo.com";
+            homepage = ""
             searchEngine = "duckduckgo";
             restoreSession = true;
             setDesktopMode = false;

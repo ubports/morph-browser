@@ -82,10 +82,29 @@ FocusScope {
                     id: homepageListItem
                     objectName: "homepage"
                     readonly property url currentHomepage: settingsObject.homepage
+                    readonly property url defaultHomepage: "https://start.duckduckgo.com"
 
                     ListItemLayout {
                         title.text: i18n.tr("Homepage")
-                        subtitle.text: homepageListItem.currentHomepage
+                        subtitle.text: (homepageListItem.currentHomepage.toString() === "") ? i18n.tr("New Tab Page") : homepageListItem.currentHomepage
+                        Icon {
+                            id: resetHomepage
+                            name: "reset"
+
+                            height: units.gu(2)
+                            width: height
+                            opacity: (settingsObject.homepage.toString() === "") ? 0.3 : 1
+
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: settingsObject.homepage = ""
+                            }
+
+                            anchors {
+                                leftMargin: units.gu(1)
+                                topMargin: units.gu(2)
+                            }
+                        }
                     }
 
                     onClicked: PopupUtils.open(homepageDialog)
@@ -156,7 +175,7 @@ FocusScope {
 
                             height: units.gu(2)
                             width: height
-                            opacity: (settingsObject.zoomFactor === 1.0) ? 0.5 : 1
+                            opacity: (settingsObject.zoomFactor === 1.0) ? 0.3 : 1
 
                             MouseArea {
                                anchors.fill: parent
@@ -397,23 +416,85 @@ FocusScope {
             title: i18n.tr("Homepage")
 
             Component.onCompleted: {
-                homepageTextField.forceActiveFocus()
-                homepageTextField.cursorPosition = homepageTextField.text.length
+                if (settingsObject.homepage.toString() === "") {
+                    newTabPageOption.checked = true;
+                }
+                else if (settingsObject.homepage === homepageListItem.defaultHomepage) {
+                    defaultHomePageOption.checked = true;
+                }
+                else {
+                    customHomepageOption.checked = true;
+                }
+            }
+
+            Column {
+
+            Common.CustomizedRadioButton {
+                id: newTabPageOption
+                text: i18n.tr("New Tab Page")
+                color: theme.palette.normal.foregroundText
+            }
+
+            Common.CustomizedRadioButton {
+                id: defaultHomePageOption
+                text: "start.duckduckgo.com"
+                color: theme.palette.normal.foregroundText
+            }
+
+            Common.CustomizedRadioButton {
+                id: customHomepageOption
+                text: i18n.tr("Custom hompage")
+                color: theme.palette.normal.foregroundText
+                onCheckedChanged: {
+                if (checked) {
+                    homepageTextField.forceActiveFocus()
+                    homepageTextField.cursorPosition = homepageTextField.text.length
+                }
+
+                }
             }
 
             TextField {
                 id: homepageTextField
+                width: parent.width
                 objectName: "homepageDialog.text"
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
+                enabled: customHomepageOption.checked
                 onAccepted: {
-                    if (UrlUtils.looksLikeAUrl(text)) {
-                        settingsObject.homepage = UrlUtils.fixUrl(text)
-                        PopupUtils.close(dialogue)
+                    if (saveButton.enabled) {
+                        saveButton.clicked();
                     }
                 }
             }
 
+            }
+
+            Button {
+                id: saveButton
+                objectName: "homepageDialog.saveButton"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                text: i18n.tr("Save")
+                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim()) || ! customHomepageOption.checked
+                color: theme.palette.normal.positive
+                onClicked: {
+                    if (newTabPageOption.checked) {
+                        settingsObject.homepage = "";
+                    }
+                    else if (defaultHomePageOption.checked) {
+                        settingsObject.homepage = homepageListItem.defaultHomepage;
+                    }
+                    else if (customHomepageOption.checked) {
+                        settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text);
+                    }
+
+                    PopupUtils.close(dialogue);
+                }
+            }
+            
             Button {
                 objectName: "homepageDialog.cancelButton"
                 anchors {
@@ -422,21 +503,6 @@ FocusScope {
                 }
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialogue)
-            }
-
-            Button {
-                objectName: "homepageDialog.saveButton"
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                text: i18n.tr("Save")
-                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim())
-                color: "#3fb24f"
-                onClicked: {
-                    settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text)
-                    PopupUtils.close(dialogue)
-                }
             }
         }
     }

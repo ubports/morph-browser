@@ -235,7 +235,7 @@ FocusScope {
                     focus: true
                     interactive: false
                     readonly property real delegateHeight: units.gu(5)
-                    height: count * delegateHeight
+                    height: (newTabView.settingsObject.homepage.toString() === "") ? ((count - 1) * delegateHeight) : (count * delegateHeight)
 
                     model: limitedBookmarksModel.count + 1
 
@@ -245,13 +245,14 @@ FocusScope {
                             left: parent.left
                             right: parent.right
                         }
-                        height: delegateHeight
+                        height: visible ? delegateHeight : 0
                         removable: index > 0
 
                         readonly property var data: BookmarksModel.count ? limitedBookmarksModel.get(index - 1) : null
                         icon: (index > 0) ? data.icon : ""
                         title: (index > 0) ? data.title : i18n.tr("Homepage")
                         url: (index > 0) ? data.url : newTabView.settingsObject.homepage
+                        visible: (index > 0) ? true : (newTabView.settingsObject.homepage.toString() !== "")
 
                         onClicked: newTabView.bookmarkClicked(url)
                         onRemoved: {
