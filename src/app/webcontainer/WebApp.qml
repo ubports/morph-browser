@@ -401,6 +401,9 @@ Common.BrowserView {
                     // visited Links
                     FileOperations.remove(dataLocationUrl + "/Visited Links");
                 }
+                onClearAllCookies: {
+                    BrowserUtils.deleteAllCookiesOfProfile(webapp.currentWebview.profile);
+                }
                 onDone: webappSettingsViewLoader.active = false
                 onShowDownloadsPage: webapp.showDownloadsPage()
             }

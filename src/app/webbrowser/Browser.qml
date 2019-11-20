@@ -1163,7 +1163,8 @@ Common.BrowserView {
             target: settingsViewLoader.item
             onClearCache: {
                 // clear Http cache
-                currentWebview.profile.clearHttpCache();
+                SharedWebContext.sharedContext.clearHttpCache();
+                SharedWebContext.sharedIncognitoContext.clearHttpCache();
 
                 var cacheLocationUrl = Qt.resolvedUrl(cacheLocation);
                 var dataLocationUrl = Qt.resolvedUrl(dataLocation);
@@ -1184,10 +1185,15 @@ Common.BrowserView {
                 FileOperations.removeDirRecursively(dataLocationUrl + "/Local Storage");
 
                 // Service WorkerScript
-                FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker")
+                FileOperations.removeDirRecursively(dataLocationUrl + "/Service Worker");
 
                 // Visited Links
                 FileOperations.remove(dataLocationUrl + "/Visited Links");
+            }
+            onClearAllCookies: {
+
+                BrowserUtils.deleteAllCookiesOfProfile(SharedWebContext.sharedContext);
+                BrowserUtils.deleteAllCookiesOfProfile(SharedWebContext.sharedIncognitoContext);
             }
             onDone: settingsViewLoader.active = false
         }
