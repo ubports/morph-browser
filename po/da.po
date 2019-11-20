@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-21 11:55+0000\n"
-"Last-Translator: Henrik Holm <hbir@post10.tele.dk>\n"
+"PO-Revision-Date: 2019-11-15 16:36+0000\n"
+"Last-Translator: Bjørn curtis Knutson <b.knutson@tutanota.com>\n"
 "Language-Team: Danish <https://translate.ubports.com/projects/ubports/"
 "morph-browser/da/>\n"
 "Language: da\n"
@@ -87,6 +87,8 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Du prøver at tilgå %1 men det er ikke i din godkendte whitelist domæne. Vil "
+"du fortsætte med at blokere domænet, tillade domænet, eller gå tilbage?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -101,7 +103,7 @@ msgstr ""
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Tillad domæne"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -139,13 +141,13 @@ msgstr "Der er ikke tillid til denne forbindelse"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Du prøver at forbinde til %1 sikkert, men der er ikke tillid til "
-"sikkerhedscertifikatet på dette websted."
+"sikkerhedscertifikatet på dette websted. på grund af %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -158,9 +160,8 @@ msgid "Back to safety"
 msgstr "Tilbage i sikkerhed"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Vælg alt"
+msgstr "Vælg farve"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -182,12 +183,14 @@ msgid "Delete"
 msgstr "Slet"
 
 #: src/app/CustomUserAgentsPage.qml:104
+#, fuzzy
 msgid "New User Agent"
-msgstr ""
+msgstr "Ny bruger"
 
 #: src/app/CustomUserAgentsPage.qml:105
+#, fuzzy
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Tilføj navn til den nye brugere"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
@@ -200,28 +203,30 @@ msgstr "Ingen tilgængelige hentede filer"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Domæne blacklist/whitelist"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Tilføj domæne"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
+"Skriv det navnet på domænet, fx. Eksempel.com (sub domæner vil blive "
+"fjernet)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Ikke sat"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Tillad aldrig adgang"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Tillad altid adgang"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
