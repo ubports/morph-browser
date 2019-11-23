@@ -32,13 +32,6 @@ UbuntuShape {
     ActionList {
         id: zoomActions
         Action {
-            name: "fitToWidth"
-            text: i18n.tr("Fit (%1%)".arg(isNaN(controller.fitToWidthZoomFactor) ? "-" : controller.fitToWidthZoomFactor * 100))
-            iconName: "zoom-fit-best"
-            enabled: !isNaN(controller.fitToWidthZoomFactor) && (Math.abs(controller.currentZoomFactor - controller.fitToWidthZoomFactor) >= 0.01 || controller.viewSpecificZoom === false)
-            onTriggered: controller.fitToWidth()
-        }
-        Action {
             name: "zoomOut"
             text: i18n.tr("Zoom Out")
             iconName: "zoom-out"
@@ -47,10 +40,11 @@ UbuntuShape {
         }
         Action {
             name: "zoomOriginal"
-            text: i18n.tr("Reset") + " (%1%)".arg(controller.defaultZoomFactor * 100)
-            iconName: "reset"
-            enabled: controller.viewSpecificZoom || Math.abs(controller.currentZoomFactor - controller.defaultZoomFactor) >= 0.01
-            onTriggered: controller.resetSaveFit()
+            readonly property bool isFitButton: !controller.autoFitToWidthEnabled && controller.viewSpecificZoom === false && !isNaN(controller.fitToWidthZoomFactor)
+            text: isFitButton ? i18n.tr("Fit (%1%)".arg(isNaN(controller.fitToWidthZoomFactor) ? "-" : controller.fitToWidthZoomFactor * 100)) : i18n.tr("Reset") + " (%1%)".arg(controller.defaultZoomFactor * 100)
+            iconName: isFitButton ? "zoom-fit-best" : "reset"
+            enabled: isFitButton ? !isNaN(controller.fitToWidthZoomFactor) && (Math.abs(controller.currentZoomFactor - controller.fitToWidthZoomFactor) >= 0.01 || controller.viewSpecificZoom === false) : controller.viewSpecificZoom || Math.abs(controller.currentZoomFactor - controller.defaultZoomFactor) >= 0.01
+            onTriggered: isFitButton ? controller.fitToWidth() : controller.resetSaveFit()
         }
         Action {
             name: "zoomIn"
