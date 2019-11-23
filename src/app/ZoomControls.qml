@@ -32,13 +32,6 @@ UbuntuShape {
     ActionList {
         id: zoomActions
         Action {
-            name: "fitToWidth"
-            text: i18n.tr("Fit (%1%)".arg(isNaN(controller.fitToWidthZoomFactor) ? "-" : controller.fitToWidthZoomFactor * 100))
-            iconName: "zoom-fit-best"
-            enabled: !isNaN(controller.fitToWidthZoomFactor) && (Math.abs(controller.currentZoomFactor - controller.fitToWidthZoomFactor) >= 0.01 || controller.viewSpecificZoom === false)
-            onTriggered: controller.fitToWidth()
-        }
-        Action {
             name: "zoomOut"
             text: i18n.tr("Zoom Out")
             iconName: "zoom-out"
@@ -108,14 +101,6 @@ UbuntuShape {
         horizontalAlignment: Text.AlignHCenter
     }
 
-    onVisibleChanged: {
-        //console.log("[ZC] menu.onVisibleChanged triggered: %1".arg(menu.visible));
-        if (menu.visible === true && internal.currentDomainScrollWidth === 0) {
-            // Zoom menu is visible, but fitToWidthZoomFactor was not fetched yet. Update fit to width.
-            internal.updateFitToWidth();
-        }
-    }
-
     QtObject {
         id: controller
 
@@ -131,24 +116,12 @@ UbuntuShape {
         readonly property bool autoFitToWidthEnabled: browser.settings ? browser.settings.autoFitToWidthEnabled : webapp.settings.autoFitToWidthEnabled
         readonly property real fitToWidthZoomFactor: internal.currentDomainScrollWidth > 0 ? Math.max(minZoomFactor, Math.min(maxZoomFactor, Math.floor((webview.width / internal.currentDomainScrollWidth) * 100) / 100)) : NaN
 
-        function fitToWidth() {
-            if (isNaN(fitToWidthZoomFactor)) {
-                return;
-            }
-
-            internal.viewSpecificZoom = true;
-            internal.currentZoomFactor = fitToWidthZoomFactor;
-            saveZoomFactorForCurrentDomain();
-        }
-
         function zoomIn() {
             internal.viewSpecificZoom = true;
             internal.currentZoomFactor = Math.min(maxZoomFactor, currentZoomFactor + ((Math.round(currentZoomFactor * 100) % 10 === 0) ? 0.1 : 0.1 - (currentZoomFactor % 0.1)));
             saveZoomFactorForCurrentDomain();
 
             internal.updateFitToWidthTimer.stop();
-            internal.currentDomainScrollWidth = 0;
-            internal.updateFitToWidth();
         }
 
         function resetSaveFit() {
@@ -167,8 +140,6 @@ UbuntuShape {
             saveZoomFactorForCurrentDomain();
 
             internal.updateFitToWidthTimer.stop();
-            internal.currentDomainScrollWidth = 0;
-            internal.updateFitToWidth();
         }
 
         function save() {
@@ -313,6 +284,13 @@ UbuntuShape {
 
         function updateFitToWidth() {
             //console.log("[ZC] internal.updateFitToWidth called");
+
+            if (controller.autoFitToWidthEnabled === false || controller.viewSpecificZoom === true) {
+                //console.log("[ZC]   autofit not enabled or specific zoom is set");
+                // Not doing automatic fit to width.
+                return;
+            }
+
             if (internal.currentDomainScrollWidth !== 0) {
                 //console.log("[ZC]   scroll width allready retrieved");
                 // Fit to width was allready handled for this domain, so don't continue.
@@ -331,27 +309,9 @@ UbuntuShape {
                 return;
             }
 
-            // Update auto fit to width if contitions are met.
-            if (controller.autoFitToWidthEnabled === true && controller.viewSpecificZoom === false) {
-                //console.log("[ZC]   zooming to default and autofitting");
-                // Automatic fit to width is done from defaultZoomFactor
-                webview.zoomFactor = controller.defaultZoomFactor;
-                // Wait, to be sure that any page layout change (css, js, ...) after previous zoom or width change takes effect.
-                internal.updateFitToWidthTimer.restart();
-                // No need to continue.
-                return;
-            }
-
-            // Not doing automatic fit to width.
-            // See is fit to width factor needs to be updated.
-            if (menu.visible === false) {
-                //console.log("[ZC]   zoom menu not visible");
-                // Zoom menu is not visible, no need to update.
-                // The fitToWidthZoomFactor will be refreshed on menu visible if needed.
-                return;
-            }
-
-            // Update fit to width zoom factor.
+            //console.log("[ZC]   zooming to default and autofitting");
+            // Automatic fit to width is done from defaultZoomFactor
+            webview.zoomFactor = controller.defaultZoomFactor;
             // Wait, to be sure that any page layout change (css, js, ...) after previous zoom or width change takes effect.
             internal.updateFitToWidthTimer.restart();
         }
@@ -378,13 +338,6 @@ UbuntuShape {
 
                     internal.currentDomainScrollWidth = width;
                     //console.log("[ZC]   fitToWidthZoomFactor: %1".arg(controller.fitToWidthZoomFactor));
-
-                    if (controller.autoFitToWidthEnabled === false || controller.viewSpecificZoom === true) {
-                        //console.log("[ZC]   autofitting conditions not met");
-                        // Sync zoom factors in case they are out of sync.
-                        webview.zoomFactor = currentZoomFactor;
-                        return;
-                    }
 
                     // If fitToWidthZoomFactor is to close to currentZoomFactor, don't bother to fit.
                     if (Math.abs(controller.currentZoomFactor - controller.fitToWidthZoomFactor) < 0.1) {
