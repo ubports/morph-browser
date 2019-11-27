@@ -370,6 +370,12 @@ Common.BrowserView {
                           })
             }
 
+            onStatusChanged: {
+                if (status != Loader.Ready) {
+                    webapp.currentWebview.zoomController.reset()
+                }
+            }
+
             Connections {
                 target: webappSettingsViewLoader.item
                 onClearCache: {
