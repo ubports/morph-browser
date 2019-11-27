@@ -165,7 +165,7 @@ FocusScope {
                             return value + "%"
                           }
                           onValueModified: {
-                            settingsObject.zoomFactor = value / 100
+                            settingsObject.zoomFactor = (Math.round(value / 5) * 5) / 100
                           }
                         }
                         Icon {
