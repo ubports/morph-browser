@@ -58,7 +58,7 @@ FocusScope {
                         title.text: i18n.tr("Default Zoom")
                         SpinBox {
                           id: defaultZoomFactorSelector
-                          value: Math.round(settingsObject.zoomFactor * 100 * 5) / 5
+                          value: Math.round(settingsObject.zoomFactor * 100 * stepSize) / stepSize
                           from: 25
                           to: 500
                           stepSize: 5
@@ -66,7 +66,7 @@ FocusScope {
                             return value + "%"
                           }
                           onValueModified: {
-                            settingsObject.zoomFactor = (Math.round(value / 5) * 5) / 100
+                            settingsObject.zoomFactor = (Math.round(value / stepSize) * stepSize) / 100
                           }
                         }
                         Icon {
