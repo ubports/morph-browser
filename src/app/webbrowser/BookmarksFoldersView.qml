@@ -186,11 +186,16 @@ FocusScope {
                         currentIndex: 0
 
                         model: {
-                            if (isAllBookmarksFolder && (bookmarksFoldersViewItem.homeBookmarkUrl.toString() !== "")) {
-                                return BookmarksModelUtils.prependHomepageToBookmarks(entries, {
-                                    title: i18n.tr("Homepage"),
-                                    url: bookmarksFoldersViewItem.homeBookmarkUrl
-                                })
+                            if (isAllBookmarksFolder) {
+                                if (bookmarksFoldersViewItem.homeBookmarkUrl.toString() !== "") {
+                                    return BookmarksModelUtils.prependHomepageToBookmarks(entries, {
+                                        title: i18n.tr("Homepage"),
+                                        url: bookmarksFoldersViewItem.homeBookmarkUrl
+                                    });
+                                }
+                                else {
+                                    return BookmarksModelUtils.getBookmarks(entries);
+                                }
                             }
 
                             return entries
