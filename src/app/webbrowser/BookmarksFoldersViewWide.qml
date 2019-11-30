@@ -159,7 +159,7 @@ FocusScope {
         delegate: DraggableUrlDelegateWide {
             objectName: "bookmarkItem"
 
-            property var entry: folders.currentItem.isAllBookmarksFolder && (homeBookmarkUrl.toString() !== "") ? modelData : model
+            property var entry: (folders.currentItem.isAllBookmarksFolder && (homeBookmarkUrl.toString() !== "")) ? modelData : model
             property string folder: entry.folder
             readonly property bool isHomeBookmark: (homeBookmarkUrl.toString() !== "") && (folder === "") && (index === 0)
 
