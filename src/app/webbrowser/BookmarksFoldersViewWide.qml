@@ -134,13 +134,13 @@ FocusScope {
 
         onActiveFocusChanged: {
             if (activeFocus) {
-                internal.lastFocusedColumn = bookmarksList
+                internal.lastFocusedColumn = bookmarksList;
             }
         }
 
         model: {
             if (!folders.currentItem || !folders.currentItem.model) {
-                return null
+                return null;
             }
 
             if (folders.currentItem.isAllBookmarksFolder) {
@@ -156,7 +156,7 @@ FocusScope {
                 }
             }
 
-            return folders.currentItem.model
+            return folders.currentItem.model;
         }
 
         currentIndex: 0
