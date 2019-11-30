@@ -25,12 +25,3 @@ function prependHomepageToBookmarks(model, homeEntry) {
     }
     return items;
 }
-
-/* get the items of the bookmarks model without homepage */
-function getBookmarks(model) {
-    var items = [];
-    for (var i = 0; i < model.count; i++) {
-        items.push(model.get(i));
-    }
-    return items;
-}

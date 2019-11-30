@@ -143,17 +143,12 @@ FocusScope {
                 return null;
             }
 
-            if (folders.currentItem.isAllBookmarksFolder) {
-                if (bookmarksFoldersViewWideItem.homeBookmarkUrl.toString() !== "") {
-                    return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model, {
-                        title: i18n.tr("Homepage"),
-                        url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
-                        folder: ""
-                    });
-                }
-                else {
-                    return BookmarksModelUtils.getBookmarks(folders.currentItem.model);
-                }
+            if (folders.currentItem.isAllBookmarksFolder && (homeBookmarkUrl.toString() !== "")) {
+                return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model, {
+                    title: i18n.tr("Homepage"),
+                    url: homeBookmarkUrl,
+                    folder: ""
+                });
             }
 
             return folders.currentItem.model;
@@ -164,9 +159,9 @@ FocusScope {
         delegate: DraggableUrlDelegateWide {
             objectName: "bookmarkItem"
 
-            property var entry: folders.currentItem.isAllBookmarksFolder ? modelData : model
+            property var entry: folders.currentItem.isAllBookmarksFolder && (homeBookmarkUrl.toString() !== "") ? modelData : model
             property string folder: entry.folder
-            readonly property bool isHomeBookmark: (bookmarksFoldersViewWideItem.homeBookmarkUrl.toString() !== "") && (folder === "") && (index === 0)
+            readonly property bool isHomeBookmark: (homeBookmarkUrl.toString() !== "") && (folder === "") && (index === 0)
 
             clip: true
             title: entry.title

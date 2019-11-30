@@ -186,16 +186,11 @@ FocusScope {
                         currentIndex: 0
 
                         model: {
-                            if (isAllBookmarksFolder) {
-                                if (bookmarksFoldersViewItem.homeBookmarkUrl.toString() !== "") {
-                                    return BookmarksModelUtils.prependHomepageToBookmarks(entries, {
-                                        title: i18n.tr("Homepage"),
-                                        url: bookmarksFoldersViewItem.homeBookmarkUrl
-                                    });
-                                }
-                                else {
-                                    return BookmarksModelUtils.getBookmarks(entries);
-                                }
+                            if (isAllBookmarksFolder && (homeBookmarkUrl.toString() !== "")) {
+                                return BookmarksModelUtils.prependHomepageToBookmarks(entries, {
+                                    title: i18n.tr("Homepage"),
+                                    url: homeBookmarkUrl
+                                });
                             }
 
                             return entries;
@@ -205,12 +200,12 @@ FocusScope {
                             id: urlDelegate
                             objectName: "urlDelegate_%1".arg(index)
 
-                            property var entry: isAllBookmarksFolder ? modelData : model
+                            property var entry: (isAllBookmarksFolder && (homeBookmarkUrl.toString() !== "")) ? modelData : model
 
                             width: parent.width
                             height: units.gu(5)
 
-                            removable: !isAllBookmarksFolder || index !== 0
+                            removable: !isAllBookmarksFolder || (homeBookmarkUrl.toString() === "") || (index !== 0)
 
                             icon: entry.icon ? entry.icon : ""
                             title: entry.title ? entry.title : entry.url
