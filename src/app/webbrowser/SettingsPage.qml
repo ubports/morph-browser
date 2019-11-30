@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.4
+import QtQuick.Controls 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
@@ -174,24 +175,18 @@ FocusScope {
 
                     ListItemLayout {
                         title.text: i18n.tr("Default Zoom")
-                        subtitle.text: Math.round(defaultZoomFactorSlider.value * 100) + "%"
-
-                        Slider {
-                            width: settingsCol.width * 0.45
-                            id: defaultZoomFactorSlider
-                            minimumValue: 0.25
-                            maximumValue: 5.0
-                            function formatValue(v) { return Math.round(v * 100 / 5) * 5 + "%" }
-                            value: settingsObject.zoomFactor
-                            onValueChanged: {
-                                // Round value only if slider changed.
-                                if (value !== settingsObject.zoomFactor) {
-                                    // Round for 5% steps (e.g. 95%, 100%).
-                                    var percentValue = Math.round(value * 100 / 5) * 5
-                                    settingsObject.zoomFactor = percentValue / 100
-                                }
-                            }
-                            SlotsLayout.position: SlotsLayout.Trailing
+                        SpinBox {
+                          id: defaultZoomFactorSelector
+                          value: Math.round(settingsObject.zoomFactor * 100 * stepSize) / stepSize
+                          from: 25
+                          to: 500
+                          stepSize: 5
+                          textFromValue: function(value, locale) {
+                            return value + "%"
+                          }
+                          onValueModified: {
+                            settingsObject.zoomFactor = (Math.round(value / stepSize) * stepSize) / 100
+                          }
                         }
                         Icon {
                             id: resetZoom
@@ -212,12 +207,6 @@ FocusScope {
                             }
                         }
                    }
-
-                    Binding {
-                        target: defaultZoomFactorSlider
-                        property: "value"
-                        value: settingsObject.zoomFactor
-                    }
                 }
 
                 ListItem {
