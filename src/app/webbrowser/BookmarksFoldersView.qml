@@ -198,7 +198,7 @@ FocusScope {
                                 }
                             }
 
-                            return entries
+                            return entries;
                         }
 
                         delegate: UrlDelegate{
