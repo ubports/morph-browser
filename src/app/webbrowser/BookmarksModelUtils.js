@@ -18,10 +18,19 @@
 
 /* Prepend the homepage bookmark item to bookmarks model */
 function prependHomepageToBookmarks(model, homeEntry) {
-    var items = []
+    var items = [];
     items.push(homeEntry)
     for (var i = 0; i < model.count; i++) {
-        items.push(model.get(i))
+        items.push(model.get(i));
     }
-    return items
+    return items;
+}
+
+/* get the items of the bookmarks model without homepage */
+function getBookmarks(model) {
+    var items = [];
+    for (var i = 0; i < model.count; i++) {
+        items.push(model.get(i));
+    }
+    return items;
 }

@@ -143,12 +143,17 @@ FocusScope {
                 return null
             }
 
-            if (folders.currentItem.isAllBookmarksFolder && (bookmarksFoldersViewItem.homeBookmarkUrl.toString() !== "")) {
-                return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model, {
-                    title: i18n.tr("Homepage"),
-                    url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
-                    folder: ""
-                })
+            if (folders.currentItem.isAllBookmarksFolder) {
+                if (bookmarksFoldersViewWideItem.homeBookmarkUrl.toString() !== "") {
+                    return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model, {
+                        title: i18n.tr("Homepage"),
+                        url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
+                        folder: ""
+                    });
+                }
+                else {
+                    return BookmarksModelUtils.getBookmarks(folders.currentItem.model);
+                }
             }
 
             return folders.currentItem.model
@@ -161,7 +166,7 @@ FocusScope {
 
             property var entry: folders.currentItem.isAllBookmarksFolder ? modelData : model
             property string folder: entry.folder
-            readonly property bool isHomeBookmark: folder === "" && index === 0
+            readonly property bool isHomeBookmark: (bookmarksFoldersViewWideItem.homeBookmarkUrl.toString() !== "") && (folder === "") && (index === 0)
 
             clip: true
             title: entry.title
