@@ -153,7 +153,7 @@ FocusScope {
                     objectName: "autoFitToWidthEnabled"
 
                     ListItemLayout {
-                        title.text: i18n.tr("Automatic Fit to Width")
+                        title.text: i18n.tr("Automatic fit to width")
                         subtitle.text: i18n.tr("Adjusts the width of the website to the window")
                         CheckBox {
                             id: autoFitToWidthEnabledCheckbox
