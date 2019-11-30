@@ -54,7 +54,7 @@ FocusScope {
 
                     ListItemLayout {
                         title.text: i18n.tr("Automatic Fit to Width")
-                        subtitle.text: i18n.tr("Zooms to body.scrollWidth after domain changed, if no specific zoom is saved.")
+                        subtitle.text: i18n.tr("Adjusts the width of the website to the window")
                         CheckBox {
                             id: autoFitToWidthEnabledCheckbox
                             SlotsLayout.position: SlotsLayout.Trailing
