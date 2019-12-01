@@ -25,6 +25,7 @@
 #include <QtCore/QtGlobal>
 #include <QtGui/QTouchDevice>
 #include <QtNetwork/QNetworkInterface>
+#include <QtQuickControls2/QQuickStyle>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
@@ -228,6 +229,8 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
         }
     }
     QQmlProperty::write(m_object, QStringLiteral("hasTouchScreen"), hasTouchScreen);
+
+    QQuickStyle::setStyle("Suru");
 
     inputMethodHandler * handler = new inputMethodHandler();
     this->installEventFilter(handler);
