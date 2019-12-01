@@ -76,6 +76,7 @@ FocusScope {
 
                     ListItemLayout {
                         title.text: i18n.tr("Default Zoom")
+                        subtitle.text: defaultZoomFactorSelector.value + "%"
                         SpinBox {
                           id: defaultZoomFactorSelector
                           value: Math.round(settingsObject.zoomFactor * 100 * stepSize) / stepSize
@@ -83,7 +84,7 @@ FocusScope {
                           to: 500
                           stepSize: 5
                           textFromValue: function(value, locale) {
-                            return value + "%"
+                            return value + "%";
                           }
                           onValueModified: {
                             settingsObject.zoomFactor = (Math.round(value / stepSize) * stepSize) / 100
