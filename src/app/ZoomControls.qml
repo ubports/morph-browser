@@ -40,7 +40,7 @@ UbuntuShape {
         }
         Action {
             name: "zoomOriginal"
-            text: i18n.tr("Reset") + " (%1%)".arg(controller.defaultZoomFactor * 100)
+            text: i18n.tr("Reset") + " (%1%)".arg(controller.defaultZoomFactor * 100) + (controller.autoFitToWidthEnabled ? (" + " + i18n.tr("fit")): "")
             iconName: "reset"
             enabled: controller.viewSpecificZoom || Math.abs(controller.currentZoomFactor - controller.defaultZoomFactor) >= 0.01
             onTriggered: controller.resetSaveFit()
