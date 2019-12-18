@@ -29,6 +29,7 @@ import "UrlUtils.js" as UrlUtils
 WebView {
     id: webview
 
+
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
     readonly property real scaleFactor: Screen.devicePixelRatio
 
@@ -59,6 +60,7 @@ WebView {
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
+
 
     QtObject {
         id: internal
@@ -162,6 +164,14 @@ WebView {
             }
         }
      }
+      userScripts: WebEngineScript {
+          runOnSubframes: true
+          id: selectOverrides
+          //FIXME other way to check for small screens ? (borrowed from UserAgent02 )
+          sourceUrl: (screenDiagonal > 0 && screenDiagonal < 190)  ? Qt.resolvedUrl("userscripts/select_overrides.js") : ""
+          injectionPoint: WebEngineScript.DocumentReady  // DOM ready but page load may not be finished, can we try WebEngineScript.Deferred ?
+          worldId: WebEngineScript.MainWorld
+      }
 
     onJavaScriptDialogRequested: function(request) {
 
@@ -176,7 +186,8 @@ WebView {
 
             case JavaScriptDialogRequest.DialogTypeConfirm:
                 request.accepted = true;
-                var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
+
+               var confirmDialog = PopupUtils.open(Qt.resolvedUrl("ConfirmDialog.qml"), this);
                 confirmDialog.message = request.message;
                 confirmDialog.accept.connect(request.dialogAccept);
                 confirmDialog.reject.connect(request.dialogReject);
@@ -184,11 +195,21 @@ WebView {
 
             case JavaScriptDialogRequest.DialogTypePrompt:
                 request.accepted = true;
-                var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
-                promptDialog.message = request.message;
-                promptDialog.defaultValue = request.defaultText;
-                promptDialog.accept.connect(request.dialogAccept);
-                promptDialog.reject.connect(request.dialogReject);
+                //See selectOverrides WebEngineScript
+                var dialog;
+                if (request.message==='XXMORPHXX') {
+                    dialog = PopupUtils.open(Qt.resolvedUrl("SelectOverrideDialog.qml"), this);
+                    dialog.rawData = request.defaultText;
+                    dialog.dismiss.connect(request.dialogReject);
+                    dialog.accept.connect(request.dialogAccept);
+                }else{
+                    dialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
+                    dialog.message = request.message;
+                    dialog.defaultValue = request.defaultText;
+                    dialog.accept.connect(request.dialogAccept);
+                    dialog.reject.connect(request.dialogReject);
+                }
+
                 break;
 
             // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)
@@ -894,6 +915,7 @@ WebView {
                   zoomController.viewSpecificZoom = true;
                   zoomController.currentZoomFactor = zoomFactor;
                 }
+
                 previousDomain = currentDomain;
             }
 
@@ -922,6 +944,7 @@ WebView {
    // the keyboard is already open, but its type changes
    // e.g. focus is in address bar, then the user clicks in a text field
    onActiveFocusChanged: {
+
        if (webview.activeFocus && ! inputMethodTimer.running && Qt.inputMethod.visible)
        {
            inputMethodTimer.restart()
