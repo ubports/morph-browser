@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
 "PO-Revision-Date: 2020-01-19 19:39+0000\n"
-"Last-Translator: Dmitriy Pushkov <ezze@ezze.org>\n"
+"Last-Translator: Eugene <uralhistory@gmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
 "Language: ru\n"
@@ -42,15 +42,18 @@ msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
 
 #: src/app/AllowCustomSchemesDialog.qml:32
+#, fuzzy
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Этот URL  будет открыт через системное приложение, если это возможно. Вы "
+"хотите продолжить?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Запомнить выбор"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -76,7 +79,7 @@ msgstr "Отменить"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Заблокировать домен"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -85,6 +88,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Вы пытаетесь открыть адрес %1, но он отсутствует в вашем списке разрешенных "
+"доменов. Хотите ли Вы продолжать блокировать этот домен, разрешить его "
+"просмотр или вернуться назад?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -93,10 +99,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 пытается открыть %2, но этот адрес не содержится в списке разрешенных "
+"доменов. Продолжить блокировку этого домена, разрешить загрузку данных от "
+"него или игнорировать запрос?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Разрешить домен"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -178,7 +187,7 @@ msgstr "Удалить"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Новый User Agent"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
@@ -186,7 +195,7 @@ msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "Введите значение для user agent..."
 
 #: src/app/CustomUserAgentsPage.qml:248
 #, fuzzy
@@ -195,16 +204,16 @@ msgstr "Нет доступных загрузок"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Чёрный/белый список доменов"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Добавить домен"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
-msgstr ""
+msgstr "Введите имя домена. Например, example.com (субдомены будут удалены)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
@@ -644,8 +653,9 @@ msgid "Share"
 msgstr "Поделиться"
 
 #: src/app/actions/Undo.qml:22
+#, fuzzy
 msgid "Undo"
-msgstr "Отменить"
+msgstr "Отменить предыдущее действие"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
