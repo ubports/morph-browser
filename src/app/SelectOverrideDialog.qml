@@ -27,23 +27,20 @@ Popups.Dialog {
     modal: true
 
     __closeOnDismissAreaPress: true
+    __dimBackground: false //avoid default opaque background
 
-
-    property string rawData : ""
-    property var selectData: rawData.length > 0 ? JSON.parse(rawData) :  []
-    //property string selectId: selectData.selectId
-    //property var selectOptions: selectData.options
-    property string selectedOption: "-1"
+    property string options: ""
+    property var selectOptions: options.length > 0 ? JSON.parse(options) :  []
     
     signal accept(string text)
-    signal dismiss()
+    signal reject()
 
     onAccept: PopupUtils.close(selectOverlay)
-    onDismiss: PopupUtils.close(selectOverlay)
+    onReject: PopupUtils.close(selectOverlay)
 
 
     Repeater {
-        model: selectOverlay.selectData
+        model: selectOverlay.selectOptions
         delegate: ListItems.Empty {
             showDivider: true
 
@@ -57,7 +54,6 @@ Popups.Dialog {
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-                //fontSize: "x-small"
                 text: modelData
             }
 
@@ -71,17 +67,11 @@ Popups.Dialog {
     Connections {
         target: __eventGrabber
         onPressed: {
-            dismiss()
+            reject()
 
         }
     }
 
-//    // adjust default dialog visuals to custom requirements
-//    Binding {
-//        target: background
-//        property: "opacity"
-//        value: 0.2
-//    }
 
 
 

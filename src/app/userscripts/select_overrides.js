@@ -12,7 +12,7 @@ take a list of select options, pass it to a window.prompt so that it can be hand
             opts.push(select.options[i].innerText);
         }
         //Send a prompt so that WebEngine can intercept it with onJavascriptDialogRequested event
-        var index = window.prompt("XXMORPHXX", JSON.stringify(opts));
+        var index = window.prompt("XX-MORPH-SELECT-OVERRIDE-XX", JSON.stringify(opts));
         if (index !== null)  {
             select.options[index].selected = true;
             //fire the onchange event

@@ -29,7 +29,6 @@ import "UrlUtils.js" as UrlUtils
 WebView {
     id: webview
 
-
     // ToDo: does not yet take into account browser zoom and pinch (pinch is not connected to zoomFactor property of WebEngineView
     readonly property real scaleFactor: Screen.devicePixelRatio
 
@@ -60,7 +59,6 @@ WebView {
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
-
 
     QtObject {
         id: internal
@@ -164,6 +162,7 @@ WebView {
             }
         }
      }
+      //html select override
       userScripts: WebEngineScript {
           runOnSubframes: true
           id: selectOverrides
@@ -197,18 +196,16 @@ WebView {
                 request.accepted = true;
                 //See selectOverrides WebEngineScript
                 var dialog;
-                if (request.message==='XXMORPHXX') {
+                if (request.message==='XX-MORPH-SELECT-OVERRIDE-XX') {
                     dialog = PopupUtils.open(Qt.resolvedUrl("SelectOverrideDialog.qml"), this);
-                    dialog.rawData = request.defaultText;
-                    dialog.dismiss.connect(request.dialogReject);
-                    dialog.accept.connect(request.dialogAccept);
+                    dialog.options = request.defaultText;
                 }else{
                     dialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
-                    dialog.message = request.message;
                     dialog.defaultValue = request.defaultText;
-                    dialog.accept.connect(request.dialogAccept);
-                    dialog.reject.connect(request.dialogReject);
+                    dialog.message = request.message;
                 }
+                dialog.accept.connect(request.dialogAccept);
+                dialog.reject.connect(request.dialogReject);
 
                 break;
 
@@ -915,7 +912,6 @@ WebView {
                   zoomController.viewSpecificZoom = true;
                   zoomController.currentZoomFactor = zoomFactor;
                 }
-
                 previousDomain = currentDomain;
             }
 
@@ -944,7 +940,6 @@ WebView {
    // the keyboard is already open, but its type changes
    // e.g. focus is in address bar, then the user clicks in a text field
    onActiveFocusChanged: {
-
        if (webview.activeFocus && ! inputMethodTimer.running && Qt.inputMethod.visible)
        {
            inputMethodTimer.restart()
