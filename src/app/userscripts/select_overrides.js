@@ -26,6 +26,11 @@ take a list of select options, pass it to a window.prompt so that it can be hand
             //disable default opening of select drop box
             evt.preventDefault();
             handleSelect(evt.target);
+        }else if (evt.composedPath()[0].tagName === 'SELECT') { // in case of event retargeting, original event is stored in composedPath array
+            //disable default opening of select drop box
+            evt.preventDefault();
+            handleSelect(evt.composedPath()[0]);
+
         }
 
     });
