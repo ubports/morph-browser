@@ -5,6 +5,7 @@ usr/share/morph-browser/*.js
 usr/share/morph-browser/*.png
 usr/share/morph-browser/actions/*.qml
 usr/share/morph-browser/webbrowser/
+usr/share/morph-browser/userscripts/
 usr/share/applications/morph-browser.desktop
 usr/share/locale/*/LC_MESSAGES/morph-browser.mo
 usr/share/url-dispatcher/
