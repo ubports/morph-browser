@@ -325,9 +325,9 @@ FocusScope {
                             }
 
                             Binding {
-                                target: setDomainWhiteListModeCheckbox
+                                target: startInPrivateModeCheckbox
                                 property: "checked"
-                                value: settingsObject.domainWhiteListMode
+                                value: settingsObject.incognitoOnStart
                             }
                         }
 
