@@ -229,6 +229,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     }
     QQmlProperty::write(m_object, QStringLiteral("hasTouchScreen"), hasTouchScreen);
 
+    // set suru style
+    if (qgetenv("QT_QUICK_CONTROLS_STYLE") == QString())
+    {
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Suru");
+    }
+
     inputMethodHandler * handler = new inputMethodHandler();
     this->installEventFilter(handler);
 

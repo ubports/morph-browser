@@ -56,7 +56,6 @@ void DomainSettingsModel::resetDatabase(const QString& databaseName)
     m_database.setDatabaseName(databaseName);
     m_database.open();
     createOrAlterDatabaseSchema();
-    removeDefaultZoomFactorFromEntries();
     removeObsoleteEntries();
     endResetModel();
     populateFromDatabase();
@@ -314,24 +313,21 @@ double DomainSettingsModel::getZoomFactor(const QString& domain) const
 
 void DomainSettingsModel::setZoomFactor(const QString& domain, double zoomFactor)
 {
-    // if zoomFactor matches the default zoom factor, insert NULL instead
-    double newZoomFactor = (std::abs(zoomFactor - m_defaultZoomFactor) < ZoomFactorCompareThreshold) ? std::numeric_limits<double>::quiet_NaN()
-                                                                                                     : zoomFactor;
-
     insertEntry(domain);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainSetting& entry = m_entries[index];
-        if (std::abs(entry.zoomFactor - newZoomFactor) < ZoomFactorCompareThreshold) {
+        if (std::abs(entry.zoomFactor - zoomFactor) < ZoomFactorCompareThreshold) {
             return;
         }
-        entry.zoomFactor = newZoomFactor;
+        entry.zoomFactor = zoomFactor;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << ZoomFactor);
+        Q_EMIT domainZoomFactorChanged(domain);
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue(newZoomFactor);
+        query.addBindValue(zoomFactor);
         query.addBindValue(domain);
         query.exec();
     }
@@ -373,10 +369,15 @@ void DomainSettingsModel::removeEntry(const QString &domain)
 {
     int index = getIndexForDomain(domain);
     if (index != -1) {
+        DomainSetting& entry = m_entries[index];
         beginRemoveRows(QModelIndex(), index, index);
         m_entries.removeAt(index);
         endRemoveRows();
         Q_EMIT rowCountChanged();
+        if (!std::isnan(entry.zoomFactor))
+        {
+            Q_EMIT domainZoomFactorChanged(domain);
+        }
         QSqlQuery query(m_database);
         static QString deleteStatement = QLatin1String("DELETE FROM domainsettings WHERE domain=?;");
         query.prepare(deleteStatement);
@@ -392,17 +393,6 @@ void DomainSettingsModel::removeObsoleteEntries()
     query.prepare(deleteStatement);
     query.addBindValue(false);
     query.addBindValue(false);
-    query.exec();
-}
-
-void DomainSettingsModel::removeDefaultZoomFactorFromEntries()
-{
-    QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE domainsettings SET zoomFactor=? WHERE ABS(zoomFactor-?) < ?");
-    query.prepare(updateStatement);
-    query.addBindValue(std::numeric_limits<double>::quiet_NaN());
-    query.addBindValue(m_defaultZoomFactor);
-    query.addBindValue(ZoomFactorCompareThreshold);
     query.exec();
 }
 

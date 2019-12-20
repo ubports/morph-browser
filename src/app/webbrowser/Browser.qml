@@ -82,13 +82,6 @@ Common.BrowserView {
     property Common.BrowserWindow thisWindow
     property Component windowFactory
 
-    onCurrentWebviewChanged: {
-       if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
-       {
-           currentWebview.zoomController.reset()
-       }
-    }
-
     function serializeTabState(tab) {
         var state = {}
         state.uniqueId = tab.uniqueId
@@ -560,7 +553,6 @@ Common.BrowserView {
         onVisibleChanged: {
             if (visible)
             {
-                currentWebview.hideZoomMenu()
                 currentWebview.hideContextMenu()
             }
         }
@@ -788,14 +780,14 @@ Common.BrowserView {
                 objectName: "view source"
                 text: i18n.tr("View source")
                 iconName: "text-xml-symbolic"
-                enabled: currentWebview && (currentWebview.url.toString().substring(0,12) !== "view-source:")
+                enabled: currentWebview && (currentWebview.url.toString() !== "") && (currentWebview.url.toString().substring(0,12) !== "view-source:")
                 onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
             },
             Action {
                 objectName: "save"
                 text: i18n.tr("Save as HTML / PDF")
                 iconName: "save-as"
-                enabled: currentWebview
+                enabled: currentWebview && (currentWebview.url.toString() !== "")
                 onTriggered: {
                     var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), currentWebview);
                     savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage) } )
@@ -808,7 +800,7 @@ Common.BrowserView {
                 objectName: "zoom"
                 text: i18n.tr("Zoom")
                 iconName: "zoom-in"
-                enabled: currentWebview
+                enabled: currentWebview && (currentWebview.url.toString() !== "")
                 onTriggered: currentWebview.showZoomMenu()
             }
 
@@ -1148,10 +1140,6 @@ Common.BrowserView {
                 forceActiveFocus()
             } else {
                 internal.resetFocus()
-                if (currentWebview && ! currentWebview.zoomController.viewSpecificZoom)
-                {
-                    currentWebview.zoomController.reset()
-                }
             }
         }
 
@@ -1723,7 +1711,7 @@ Common.BrowserView {
     Shortcut {
         sequence: "Ctrl+0"
         enabled: currentWebview
-        onActivated: currentWebview.zoomController.reset()
+        onActivated: currentWebview.zoomController.resetSaveFit()
     }
 
     Loader {
