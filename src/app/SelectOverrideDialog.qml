@@ -35,8 +35,8 @@ Popups.Dialog {
     signal accept(string text)
     signal reject()
 
-    onAccept: PopupUtils.close(selectOverlay)
-    onReject: PopupUtils.close(selectOverlay)
+    onAccept: hide()
+    onReject: hide()
 
 
     Repeater {
@@ -71,9 +71,6 @@ Popups.Dialog {
 
         }
     }
-
-
-
 
 
 }
