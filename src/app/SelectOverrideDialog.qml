@@ -28,6 +28,7 @@ Popups.Dialog {
 
     __closeOnDismissAreaPress: true
     __dimBackground: false //avoid default opaque background
+    grabDismissAreaEvents: false
 
     property string options: ""
     property var selectOptions: options.length > 0 ? JSON.parse(options) :  []
