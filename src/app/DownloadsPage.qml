@@ -36,7 +36,7 @@ BrowserPage {
     property bool selectMode
     property bool pickingMode
     property bool multiSelect
-    property alias mimetypeFilter: downloadModelFilter.pattern
+    property var mimetypeFilter: RegExp()
     property bool incognito: false
 
     signal done()
@@ -163,6 +163,7 @@ BrowserPage {
             filter {
                 id: downloadModelFilter
                 property: "mimetype"
+                pattern: downloadsItem.mimetypeFilter
             }
         }
 
