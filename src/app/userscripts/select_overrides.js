@@ -3,8 +3,6 @@ take a list of select options, pass it to a window.prompt so that it can be hand
 **/
 (function() {
 
-    var generatedId = 0;
-
     function handleSelect(select) {
 
         var opts = []

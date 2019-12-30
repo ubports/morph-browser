@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2016-2020 Ubports.
  *
  * This file is part of morph-browser.
  *
@@ -26,9 +26,8 @@ Popups.Dialog {
     objectName: "selectOverrideDialog"
     modal: true
 
-    __closeOnDismissAreaPress: true
     __dimBackground: false //avoid default opaque background
-    grabDismissAreaEvents: false
+    grabDismissAreaEvents: false //allow this component to handle the click on the background
 
     property string options: ""
     property var selectOptions: options.length > 0 ? JSON.parse(options) :  []
@@ -64,7 +63,7 @@ Popups.Dialog {
 
     }
 
-
+    //make sure reject is fired when closing the popup
     Connections {
         target: __eventGrabber
         onPressed: {
