@@ -17,7 +17,6 @@ take a list of select options, pass it to a window.prompt so that it can be hand
             select.dispatchEvent(new Event('change', {bubbles: true}));
         }
     }
-    var i=0;
     //listen to mousedown events and see if it comes from a SELECT tag
     document.addEventListener('mousedown', function(evt) {
         var select = null
