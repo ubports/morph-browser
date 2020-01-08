@@ -1,5 +1,6 @@
 /*
- * Copyright 2016-2020 Ubports.
+ * Copyright 2013-2016 Canonical Ltd.
+ * Copyright 2016-2020 Ubports
  *
  * This file is part of morph-browser.
  *
@@ -30,20 +31,30 @@ Popups.Dialog {
     grabDismissAreaEvents: false //allow this component to handle the click on the background
 
     property string options: ""
-    property var selectOptions: options.length > 0 ? JSON.parse(options) :  []
+    property int selectedIndex: -1
+    property var selectOptions:  []
     
     signal accept(string text)
     signal reject()
 
-    onAccept: hide()
-    onReject: hide()
+    onOptionsChanged: {
+        if (options.length > 0) {
+            var props = JSON.parse(options)
+            selectOptions = props.options
+            selectedIndex = props.selectedIndex
+        }
+    }
 
 
-    Repeater {
+    ListView {
         model: selectOverlay.selectOptions
-        delegate: ListItems.Empty {
-            showDivider: true
+        currentIndex: selectedIndex
+        highlightMoveDuration : 0
+        height: Math.min(units.gu(60), units.gu(5 * count))
 
+        delegate: ListItems.Standard {
+            showDivider: true
+            selected: index == selectedIndex
             height: units.gu(5)
 
             Label {
@@ -54,23 +65,21 @@ Popups.Dialog {
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
+                elide: Label.ElideRight
                 text: modelData
             }
 
-            onTriggered: accept(index)
+            onTriggered: selectOverlay.accept(index)
         }
-
 
     }
 
     //make sure reject is fired when closing the popup
     Connections {
         target: __eventGrabber
-        onPressed: {
-            reject()
-
-        }
+        onPressed: selectOverlay.reject()
     }
+
 
 
 }
