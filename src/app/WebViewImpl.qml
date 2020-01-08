@@ -89,8 +89,8 @@ WebView {
 
     //html select override
     userScripts: WebEngineScript {
-        runOnSubframes: true
         id: selectOverrides
+        runOnSubframes: true
         //FIXME other way to check for small screens ? (borrowed from UserAgent02 )
         sourceUrl: (screenDiagonal > 0 && screenDiagonal < 190)  ? Qt.resolvedUrl("userscripts/select_overrides.js") : ""
         injectionPoint: WebEngineScript.DocumentReady  // DOM ready but page load may not be finished, can we try WebEngineScript.Deferred ?
@@ -130,7 +130,9 @@ WebView {
                 }
                 dialog.accept.connect(request.dialogAccept);
                 dialog.reject.connect(request.dialogReject);
-
+                //make sure to close dialogs after returning a value
+                dialog.accept.connect(function() { PopupUtils.close(dialog) })
+                dialog.reject.connect(function() { PopupUtils.close(dialog) })
                 break;
 
             // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)
