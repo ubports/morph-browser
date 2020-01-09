@@ -123,16 +123,20 @@ WebView {
                 if (request.message==='XX-MORPH-SELECT-OVERRIDE-XX') {
                     dialog = PopupUtils.open(Qt.resolvedUrl("SelectOverrideDialog.qml"), this);
                     dialog.options = request.defaultText;
+                    dialog.accept.connect(request.dialogAccept);
+                    dialog.reject.connect(request.dialogReject);
+                     //make sure to close dialogs after returning a value ( fix freeze with big dropdowns )
+                    dialog.accept.connect(function() { PopupUtils.close(dialog) })
+                    dialog.reject.connect(function() { PopupUtils.close(dialog) })
                 }else{
                     dialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
                     dialog.defaultValue = request.defaultText;
                     dialog.message = request.message;
+                    dialog.accept.connect(request.dialogAccept);
+                    dialog.reject.connect(request.dialogReject);
                 }
-                dialog.accept.connect(request.dialogAccept);
-                dialog.reject.connect(request.dialogReject);
-                //make sure to close dialogs after returning a value
-                dialog.accept.connect(function() { PopupUtils.close(dialog) })
-                dialog.reject.connect(function() { PopupUtils.close(dialog) })
+
+
                 break;
 
             // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)

@@ -30,6 +30,9 @@ ModalDialog {
     signal accept(string text)
     signal reject()
     
+    onAccept: hide()
+    onReject: hide()
+
     TextField {
         id: input
         objectName: "inputTextField"
