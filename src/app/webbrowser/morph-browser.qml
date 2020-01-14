@@ -30,11 +30,11 @@ QtObject {
 
     function init(urls, newSession, incognito) {
         i18n.domain = "morph-browser"
-        if (!newSession && settings.restoreSession && !incognito) {
+        if (!newSession && settings.restoreSession && ! (incognito || settings.incognitoOnStart)) {
             session.restore();
         }
         if (allWindows.length == 0) {
-            windowFactory.createObject(null, {"incognito": incognito}).show();
+            windowFactory.createObject(null, {"incognito": (incognito || settings.incognitoOnStart)}).show();
         }
         var window = allWindows[allWindows.length - 1];
         for (var i in urls) {
@@ -42,7 +42,7 @@ QtObject {
             window.tabsModel.currentIndex = window.tabsModel.count - 1;
         }
         if (window.tabsModel.count === 0) {
-            window.addTab(incognito ? "" : settings.homepage).load();
+            window.addTab(settings.homepage).load();
             window.tabsModel.currentIndex = 0;
         }
         for (var w in allWindows) {
@@ -301,6 +301,7 @@ QtObject {
         property string defaultAudioDevice: ""
         property string defaultVideoDevice: ""
         property bool domainWhiteListMode: false
+        property bool incognitoOnStart: false
 
         function restoreDefaults() {
             homepage = ""
@@ -313,6 +314,7 @@ QtObject {
             defaultAudioDevice = "";
             defaultVideoDevice = "";
             domainWhiteListMode = false;
+            incognitoOnStart = false;
         }
 
         function resetDomainPermissions() {
@@ -334,7 +336,7 @@ QtObject {
     // url-dispatcher/upstart level.
     property var openUrlsHandler: Connections {
         target: UriHandler
-        onOpened: webbrowserapp.openUrls(uris, false, false)
+        onOpened: webbrowserapp.openUrls(uris, false, settings.incognitoOnStart)
     }
 
     property var session: SessionStorage {
