@@ -47,7 +47,7 @@ WebView {
     readonly property alias findController: findController
     readonly property alias zoomController: zoomMenu.controller
 
-    enableSelectOverride: false //let Morph.Web handle the dropdowns overlay
+    enableSelectOverride: true //let Morph.Web handle the dropdowns overlay
 
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
