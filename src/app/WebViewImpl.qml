@@ -47,7 +47,7 @@ WebView {
     readonly property alias findController: findController
     readonly property alias zoomController: zoomMenu.controller
 
-
+    enableSelectOverride: false //let Morph.Web handle the dropdowns overlay
 
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
@@ -87,17 +87,9 @@ WebView {
         }
     }
 
-    //html select override
-    userScripts: WebEngineScript {
-        id: selectOverrides
-        runOnSubframes: true
-        //FIXME other way to check for small screens ? (borrowed from UserAgent02 )
-        sourceUrl: (screenDiagonal > 0 && screenDiagonal < 190)  ? Qt.resolvedUrl("userscripts/select_overrides.js") : ""
-        injectionPoint: WebEngineScript.DocumentReady  // DOM ready but page load may not be finished, can we try WebEngineScript.Deferred ?
-        worldId: WebEngineScript.MainWorld
-    }
-
     onJavaScriptDialogRequested: function(request) {
+
+        if (isASelectRequest(request)) return; //this is a select box , Morp.Web handled it already
 
         switch (request.type)
         {
@@ -118,25 +110,11 @@ WebView {
 
             case JavaScriptDialogRequest.DialogTypePrompt:
                 request.accepted = true;
-                //See selectOverrides WebEngineScript
-                var dialog;
-                if (request.message==='XX-MORPH-SELECT-OVERRIDE-XX') {
-                    dialog = PopupUtils.open(Qt.resolvedUrl("SelectOverrideDialog.qml"), this);
-                    dialog.options = request.defaultText;
-                    dialog.accept.connect(request.dialogAccept);
-                    dialog.reject.connect(request.dialogReject);
-                     //make sure to close dialogs after returning a value ( fix freeze with big dropdowns )
-                    dialog.accept.connect(function() { PopupUtils.close(dialog) })
-                    dialog.reject.connect(function() { PopupUtils.close(dialog) })
-                }else{
-                    dialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
-                    dialog.defaultValue = request.defaultText;
-                    dialog.message = request.message;
-                    dialog.accept.connect(request.dialogAccept);
-                    dialog.reject.connect(request.dialogReject);
-                }
-
-
+                var dialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
+                dialog.defaultValue = request.defaultText;
+                dialog.message = request.message;
+                dialog.accept.connect(request.dialogAccept);
+                dialog.reject.connect(request.dialogReject);
                 break;
 
             // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)
