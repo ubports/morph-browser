@@ -56,7 +56,7 @@ WebEngineView {
       **/
     property bool enableSelectOverride: false
     property var selectOverride: function(request) {
-        var dialog = PopupUtils.open(Qt.resolvedUrl("SelectOverrideDialog.qml"), this);
+        var dialog = PopupUtils.open(Qt.resolvedUrl("MorphSelectOverrideDialog.qml"), this);
         dialog.options = request.defaultText;
         dialog.accept.connect(request.dialogAccept);
         dialog.reject.connect(request.dialogReject);
@@ -93,8 +93,6 @@ WebEngineView {
     function navigationRequestedDelegate(request) { }
 
     context: incognito ? SharedWebContext.sharedIncognitoContext : SharedWebContext.sharedContext
-
-
 
     /*
     messageHandlers: [
@@ -301,11 +299,4 @@ WebEngineView {
             console.error(msg)
         }
     }
-
-    Connections {
-        target: _webview
-    }
-
-
-
 }
