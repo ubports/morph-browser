@@ -1200,6 +1200,13 @@ Common.BrowserView {
             })
         }
 
+        function loadSynchronously() {
+            // temporarily set asynchronous to false
+            asynchronous = false;
+            active = true;
+            asynchronous = true;
+        }
+
         Connections {
             target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
@@ -1723,7 +1730,8 @@ Common.BrowserView {
     Connections {
         target: contentHandlerLoader.item
         onExportFromDownloads: {
-            downloadsViewLoader.active = true
+            downloadsViewLoader.loadSynchronously();
+            // export from downloads
             downloadsViewLoader.item.mimetypeFilter = mimetypeFilter
             downloadsViewLoader.item.activeTransfer = transfer
             downloadsViewLoader.item.multiSelect = multiSelect
