@@ -81,6 +81,17 @@ Item {
             }
         }
 
+        Rectangle {
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
+            height: units.dp(1)
+
+            color: theme.palette.normal.base
+        }
+
         Label {
             visible: showContent && !previewContainer.visible
             text: i18n.tr("Tap to view")
