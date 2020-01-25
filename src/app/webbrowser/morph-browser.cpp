@@ -168,6 +168,7 @@ int main(int argc, char** argv)
         qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --disable-viz-display-compositor");
     }
     qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
+    qputenv("QT_SCALE_FACTOR", "2");
 
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
