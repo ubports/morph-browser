@@ -223,7 +223,7 @@ FocusScope {
                     anchors.centerIn: parent
 
                     name: addressbar.bookmarked ? "starred" : "non-starred"
-                    color: addressbar.bookmarked ? UbuntuColors.orange : addressbar.fgColor
+                    color: addressbar.bookmarked ? theme.palette.normal.focus : addressbar.fgColor
                 }
 
                 onClicked: addressbar.toggleBookmark()

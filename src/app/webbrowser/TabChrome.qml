@@ -31,31 +31,16 @@ Item {
 
     height: units.gu(4)
 
-    Item {
+    Image {
         anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
+            fill: tabItem
+            topMargin: - units.dp(4)
+            bottomMargin: - units.dp(4)
+            rightMargin: - units.dp(2)
+            leftMargin: - units.dp(2)
         }
-        height: units.gu(5)
-        clip: true
-
-        BorderImage {
-            // We are basically splitting the shadow asset in two parts.
-            // The left side is never scaled and it stays fixed below the
-            // tab itself (with 4dp of the shadow poking out at the sides).
-            // The right side will scale across the remaining width of the
-            // component (which is empty and lets the previous preview show
-            // through)
-            border {
-                left: tabWidth + units.dp(4)
-            }
-            anchors.fill: parent
-            anchors.bottomMargin: - units.gu(3)
-            height: units.gu(8)
-            source: "assets/tab-shadow-narrow.png"
-            asynchronous: true
-        }
+        source: "assets/tab-shadow-narrow.png"
+        asynchronous: true
     }
 
     TabItem {

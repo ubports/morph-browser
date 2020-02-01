@@ -403,7 +403,7 @@ Common.BrowserPage {
                 verticalCenter: parent.verticalCenter
             }
 
-            strokeColor: UbuntuColors.darkGrey
+            strokeColor: theme.palette.normal.baseText
 
             text: i18n.tr("Done")
 
