@@ -110,11 +110,11 @@ WebView {
 
             case JavaScriptDialogRequest.DialogTypePrompt:
                 request.accepted = true;
-                var dialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
-                dialog.defaultValue = request.defaultText;
-                dialog.message = request.message;
-                dialog.accept.connect(request.dialogAccept);
-                dialog.reject.connect(request.dialogReject);
+                var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), this);
+                promptDialog.message = request.message;
+                promptDialog.defaultValue = request.defaultText;
+                promptDialog.accept.connect(request.dialogAccept);
+                promptDialog.reject.connect(request.dialogReject);
                 break;
 
             // did not work with JavaScriptDialogRequest.DialogTypeUnload (the default dialog was shown)
