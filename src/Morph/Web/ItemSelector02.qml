@@ -142,7 +142,7 @@ Item {
                 title.onContentWidthChanged: maximumLabelWidth = Math.max(title.contentWidth, maximumLabelWidth)
             }
 
-            color: selected ? theme.palette.normal.focus : "transparent"
+            color: selected ? theme.palette.selected.focus : "transparent"
             selected: focus
             Component.onCompleted: if (model.selected) listView.initialIndex = model.index
 

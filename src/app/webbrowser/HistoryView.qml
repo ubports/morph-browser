@@ -118,7 +118,7 @@ Common.BrowserPage {
                 verticalCenter: parent.verticalCenter
             }
 
-            strokeColor: theme.palette.selected.base
+            strokeColor: theme.palette.normal.baseText
 
             text: i18n.tr("Done")
 
