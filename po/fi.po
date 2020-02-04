@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-21 11:55+0000\n"
+"PO-Revision-Date: 2020-01-19 19:39+0000\n"
 "Last-Translator: Sami Törmänen <tormanen.sami@gmail.com>\n"
 "Language-Team: Finnish <https://translate.ubports.com/projects/ubports/"
 "morph-browser/fi/>\n"
@@ -33,18 +33,21 @@ msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Mukautetut URL skeemat"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
+msgstr "Sivusto %1 yrittää avata seuraavaa URL:a mukautetulla skeemalla:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
+#, fuzzy
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Tämä yrittää lähettää tätä url:ia järjestelmäsovellukseen, jos mahdollista. "
+"Haluatko jatkaa?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
@@ -70,7 +73,7 @@ msgstr "Salli"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:226
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "Keskeytä"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
@@ -193,7 +196,7 @@ msgstr "Ei latauksia"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Estetyt/sallitut verkkotunnukset"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
@@ -220,11 +223,11 @@ msgstr "Salli pääsy aina"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Yhdellekään sivustolle ei ole myönnetty erityisoikeuksia"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Verkkotunnuskohtaiset asetukset"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
@@ -232,12 +235,11 @@ msgstr "Syötä verkkotunnuksen nimi, esim. m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "lupa avata muita sovelluksia"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Sallitko tämän sivuston käyttää kameraa?"
+msgstr "lupa käyttää sijaintiasi"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
@@ -249,11 +251,11 @@ msgstr ""
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "ei asetettu"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Ei verkkotunnuskohtaisia asetuksia saatavilla"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -268,7 +270,7 @@ msgstr "Ongelmia selatessa: %1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Virhe: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -434,21 +436,20 @@ msgstr "Sivusto %1:%2 vaatii tunnistautumisen."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Tallenna sivu HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Tallenna HTML:nä"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Tallenna PDF:nä"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Oletus"
+msgstr "Oletus suurennos"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
@@ -460,22 +461,24 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Aseta nykyinen suurennos oletukseksi %1 :lle ? (Voit muuttaa sitä asetukset- "
+"valikossa)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Suurennos"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Loitonna"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Resetoi"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Lähennä"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -484,7 +487,7 @@ msgstr "Tallenna"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Nykyinen suurennos"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -594,7 +597,6 @@ msgid "Open link in new background tab"
 msgstr "Avaa linkki uudessa taustavälilehdessä"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
 msgstr "Avaa linkki yksityisessä ikkunassa"
 
@@ -659,7 +661,7 @@ msgstr "etsi tai kirjoita osoite"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Liitä ja mene"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -722,7 +724,7 @@ msgstr "Uusi välilehti"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Estetty verkkotunnus"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
@@ -733,13 +735,14 @@ msgstr ""
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Sallittu verkkotunnus"
 
 #: src/app/webbrowser/Browser.qml:257
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"verkkotunnus %1 on nyt sallittu, se aktivoituu seuraavalla sivun latauksella."
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -764,11 +767,11 @@ msgstr "Asetukset"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Näytä lähdekoodi"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Tallenna HTML / PDF:nä"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
@@ -801,11 +804,11 @@ msgstr "%1 %"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pysäytä"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
-msgstr "Palauta"
+msgstr "Jatka"
 
 #: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
@@ -903,6 +906,8 @@ msgstr "Tämän sivuston identiteettiä ei ole vahvistettu."
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
 msgstr ""
+"Olet yhdistetty sivustolle %1 HTTPS-yhteydellä. Sivun sertifikaatti on "
+"luotettava."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -919,7 +924,7 @@ msgstr "Palauta edellinen istunto käynnistyksen yhteydessä"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Aseta työpöytätila"
 
 #: src/app/webbrowser/SettingsPage.qml:184
 #: src/app/webbrowser/SettingsPage.qml:266
@@ -935,7 +940,7 @@ msgstr "Palauta selaimen oletusasetukset"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Salli selaaminen ainoastaan sallituilla sivustoilla"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -944,7 +949,7 @@ msgstr "Kamera ja mikrofoni"
 
 #: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
-msgstr "Tyhjennä selailuhistoria"
+msgstr "Tyhjennä selaushistoria"
 
 #: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
@@ -1000,16 +1005,15 @@ msgstr "Poista"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Ubuntun verkkoselain"
+msgstr "%1 - Morph- verkkoselain"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Verkkoselain"
+msgstr "Morph- verkkoselain"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1084,7 +1088,7 @@ msgstr "Hups, jokin meni pieleen."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr ""
+msgstr "verkkotunnus %1 on nyt sallittu, ole hyvä ja lataa sivu uudelleen."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
@@ -1096,14 +1100,12 @@ msgid "Reset webapp settings"
 msgstr "Palauta selaimen oletusasetukset"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Selain"
+msgstr "Morph selain"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Selaa Internetin WWW-sivuja"
+msgstr "Selaa Internetin WWW-sivuja käyttäen QTWebEngine:ä"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"

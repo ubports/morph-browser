@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-04-24 21:36+0000\n"
+"PO-Revision-Date: 2020-01-19 19:39+0000\n"
 "Last-Translator: M.Sugahara <equaaqua@hotmail.com>\n"
 "Language-Team: Japanese <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.2.2\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -644,7 +644,7 @@ msgstr "共有"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "元に戻す"
+msgstr "戻る"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
@@ -740,7 +740,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
-msgstr ""
+msgstr "新しいウィンドウ"
 
 #: src/app/webbrowser/Browser.qml:740
 msgid "New private window"
@@ -993,7 +993,7 @@ msgstr "タブを閉じる"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr "削除する"
+msgstr "削除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
@@ -1044,7 +1044,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "認証に失敗しました"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
