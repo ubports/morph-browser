@@ -1,6 +1,5 @@
 /*
- * Copyright 2013-2016 Canonical Ltd.
- * Copyright 2016-2020 UBports Fondation
+ * Copyright 2016-2020 UBports Foundation
  *
  * This file is part of morph-browser.
  *
