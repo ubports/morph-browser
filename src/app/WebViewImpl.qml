@@ -89,7 +89,7 @@ WebView {
 
     onJavaScriptDialogRequested: function(request) {
 
-        if (isASelectRequest(request)) return; //this is a select box , Morp.Web handled it already
+        if (isASelectRequest(request)) return; //this is a select box , Morph.Web handled it already
 
         switch (request.type)
         {

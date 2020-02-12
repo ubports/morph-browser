@@ -1,6 +1,6 @@
-/**Workaround for https://github.com/ubports/morph-browser/issues/239 ( OTA-12 ) Until it is fixed in low level.
-take a list of select options, pass it to a window.prompt so that it can be handled in QML with onJavascriptDialogRequested
-**/
+/*Workaround for https://github.com/ubports/morph-browser/issues/239 ( OTA-12 ) Until it is fixed in low level.
+take a list of select options, pass it to a window.prompt so that it can be handled in QML with onJavascriptDialogRequested*/
+
 (function() {
 
     function handleSelect(select) {

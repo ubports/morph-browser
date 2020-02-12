@@ -48,12 +48,14 @@ WebEngineView {
         certificateError = null
     }
 
+    /
     /**
-       html select override
-       set enableSelectOverride to true to make Morph.Web handle select
-       note that as it uses javascript prompt,
-       make sure that onJavaScriptDialogRequested signal handler don't overplay prompt dialog by checking the isASelectRequest(request)
-      **/
+    *   html select override
+    *   set enableSelectOverride to true to make Morph.Web handle select
+    *   note that as it uses javascript prompt,
+    *   make sure that onJavaScriptDialogRequested signal handler don't overplay prompt dialog by checking the isASelectRequest(request)
+    */
+
     property bool enableSelectOverride: false
     property var selectOverride: function(request) {
         var dialog = PopupUtils.open(Qt.resolvedUrl("MorphSelectOverrideDialog.qml"), this);

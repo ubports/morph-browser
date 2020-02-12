@@ -1,6 +1,6 @@
 /*
  * Copyright 2013-2016 Canonical Ltd.
- * Copyright 2016-2020 Ubports Fondation
+ * Copyright 2016-2020 UBports Fondation
  *
  * This file is part of morph-browser.
  *
@@ -80,7 +80,4 @@ Popups.Dialog {
         target: __eventGrabber
         onPressed: selectOverlay.reject()
     }
-
-
-
 }
