@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 UBports Foundation
+ * Copyright 2020 UBports Foundation
  *
  * This file is part of morph-browser.
  *
