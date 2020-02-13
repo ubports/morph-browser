@@ -48,6 +48,44 @@ WebEngineView {
         certificateError = null
     }
 
+    /
+    /**
+    *   html select override
+    *   set enableSelectOverride to true to make Morph.Web handle select
+    *   note that as it uses javascript prompt,
+    *   make sure that onJavaScriptDialogRequested signal handler don't overplay prompt dialog by checking the isASelectRequest(request)
+    */
+
+    property bool enableSelectOverride: false
+    property var selectOverride: function(request) {
+        var dialog = PopupUtils.open(Qt.resolvedUrl("MorphSelectOverrideDialog.qml"), this);
+        dialog.options = request.defaultText;
+        dialog.accept.connect(request.dialogAccept);
+        dialog.reject.connect(request.dialogReject);
+        //make sure to close dialogs after returning a value ( fix freeze with big dropdowns )
+        dialog.accept.connect(function() { PopupUtils.close(dialog) })
+        dialog.reject.connect(function() { PopupUtils.close(dialog) })
+    }
+    readonly property var isASelectRequest: function(request){
+        return (request.type === JavaScriptDialogRequest.DialogTypePrompt && request.message==='XX-MORPH-SELECT-OVERRIDE-XX')
+    }
+
+    userScripts: WebEngineScript {
+        runOnSubframes: true
+        sourceUrl: enableSelectOverride && (screenDiagonal > 0 && screenDiagonal < 190)  ? Qt.resolvedUrl("select_overrides.js") : ""
+        injectionPoint: WebEngineScript.DocumentReady
+        worldId: WebEngineScript.MainWorld
+    }
+
+    onJavaScriptDialogRequested: function(request) {
+
+        if (enableSelectOverride && isASelectRequest(request)) {
+            request.accepted = true
+            selectOverride(request)
+        }
+    }
+
+
     /**
      * Client overridable function called before the default treatment of a
      *  valid navigation request. This function can stop the navigation request

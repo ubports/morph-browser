@@ -47,7 +47,7 @@ WebView {
     readonly property alias findController: findController
     readonly property alias zoomController: zoomMenu.controller
 
-
+    enableSelectOverride: true //let Morph.Web handle the dropdowns overlay
 
     //property real contextMenux: contextMenuRequest.x + (webview.scrollPosition.x - contextMenuStartScroll.x)
     //property real contextMenuy: contextMenuRequest.y + (webview.scrollPosition.y - contextMenuStartScroll.y)
@@ -88,6 +88,8 @@ WebView {
     }
 
     onJavaScriptDialogRequested: function(request) {
+
+        if (isASelectRequest(request)) return; //this is a select box , Morph.Web handled it already
 
         switch (request.type)
         {
