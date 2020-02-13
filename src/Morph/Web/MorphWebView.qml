@@ -48,7 +48,6 @@ WebEngineView {
         certificateError = null
     }
 
-    /
     /**
     *   html select override
     *   set enableSelectOverride to true to make Morph.Web handle select
