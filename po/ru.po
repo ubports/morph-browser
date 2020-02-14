@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-01-19 19:39+0000\n"
+"PO-Revision-Date: 2020-02-08 19:21+0000\n"
 "Last-Translator: Eugene <uralhistory@gmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
@@ -216,16 +216,18 @@ msgid ""
 msgstr "Введите имя домена. Например, example.com (субдомены будут удалены)."
 
 #: src/app/DomainPermissionsPage.qml:223
+#, fuzzy
 msgid "Not Set"
-msgstr ""
+msgstr "Не установлено"
 
 #: src/app/DomainPermissionsPage.qml:233
+#, fuzzy
 msgid "Never allow access"
-msgstr ""
+msgstr "Никогда не разрешать доступ"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Всегда разрешать доступ"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
@@ -237,7 +239,7 @@ msgstr ""
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Введите имя домена. Например, m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
@@ -257,12 +259,14 @@ msgid "Zoom: "
 msgstr ""
 
 #: src/app/DomainSettingsPage.qml:320
+#, fuzzy
 msgid "not set"
-msgstr ""
+msgstr "не задано"
 
 #: src/app/DomainSettingsPage.qml:354
+#, fuzzy
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Не заданы настройки для домена"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -275,9 +279,9 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "Похоже, возникли проблемы с просмотром: %1."
 
 #: src/app/ErrorSheet.qml:52
-#, qt-format
+#, fuzzy, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Ошибка: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
