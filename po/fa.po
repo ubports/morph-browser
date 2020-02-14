@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2016-10-18 07:05+0000\n"
-"Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
-"Language-Team: Persian <fa@li.org>\n"
+"PO-Revision-Date: 2020-02-12 17:21+0000\n"
+"Last-Translator: HSN80 <hosseinabbasi80@outlook.com>\n"
+"Language-Team: Persian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -32,23 +33,25 @@ msgstr "قبول"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "طرح های URL سفارشی"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
+msgstr "سایت '%1' سعی دارد URL زیر را با یک طرح سفارشی باز کند:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"این کار می تواند در صورت امکان این آدرس اینترنتی را به یک برنامه سیستمی "
+"ارسال کند. آیا ادامه می دهید؟"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "تصمیم را بخاطر بسپار"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -69,12 +72,12 @@ msgstr "اجازه دادن"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:226
 msgid "Cancel"
-msgstr "لغو"
+msgstr "انصراف"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "دامنه مسدود"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -83,6 +86,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"شما در حال تلاش برای دسترسی به %1 هستید اما در لیست سفید مورد تأیید شما "
+"نیست. آیا می خواهید به مسدود کردن دامنه ادامه دهید ، به مرور در دامنه اجازه "
+"دهید یا به عقب برگردید؟"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -91,10 +97,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 سعی در دستیابی به %2 دارد اما در لیست سفید مورد تأیید شما نیست. آیا می "
+"خواهید همچنان به مسدود کردن دامنه دهید ، اجازه بارگذاری داده از دامنه را "
+"میدهید، یا فقط این درخواست را نادیده می گیرید؟"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "دامنه مجاز است"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -132,13 +141,13 @@ msgstr "این ارتباط غیرقابل اطمینان است"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
-"تلاش می‌کنید به صورت امن به %1 وصل شوید، ولی گواهینامهٔ امنیتی این پایگاه وب "
-"قابل اطمینان نیست."
+"در حال تلاش برای اتصال امن به %1، ولی گواهینامهٔ امنیتی این پایگاه وب قابل "
+"اطمینان نیست. نتیجه:%2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -151,9 +160,8 @@ msgid "Back to safety"
 msgstr "بازگشت به ایمنی"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "گزینش همه"
+msgstr "انتخاب رنگ"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -161,7 +169,7 @@ msgstr "تایید جاوا اسکریپت"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "عامل کاربر سفارشی"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -176,11 +184,11 @@ msgstr "حذف"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "عامل کاربر جدید"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "افزودن نام برای عامل کاربر جدید"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
@@ -639,7 +647,7 @@ msgstr "ذخیرهٔ ویدیو"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
 msgid "Share"
-msgstr "هم‌رسانی"
+msgstr "به‌اشتراک گذاری"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
