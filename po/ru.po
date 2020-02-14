@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-01-19 19:39+0000\n"
+"PO-Revision-Date: 2020-02-11 14:21+0000\n"
 "Last-Translator: Eugene <uralhistory@gmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
@@ -216,53 +216,61 @@ msgid ""
 msgstr "Введите имя домена. Например, example.com (субдомены будут удалены)."
 
 #: src/app/DomainPermissionsPage.qml:223
+#, fuzzy
 msgid "Not Set"
-msgstr ""
+msgstr "Не установлено"
 
 #: src/app/DomainPermissionsPage.qml:233
+#, fuzzy
 msgid "Never allow access"
-msgstr ""
+msgstr "Никогда не разрешать доступ"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Всегда разрешать доступ"
 
 #: src/app/DomainPermissionsPage.qml:284
+#, fuzzy
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Ни один сайт не получил специальных полномочий"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Специальные настройки для домена"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Введите имя домена. Например, m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
+#, fuzzy
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "разрешить запускать другие приложения?"
 
 #: src/app/DomainSettingsPage.qml:223
 #, fuzzy
 msgid "allowed to access your location"
-msgstr "Разрешить домену доступ к камере?"
+msgstr "Разрешить домену узнать Ваше местоположение?"
 
 #: src/app/DomainSettingsPage.qml:239
+#, fuzzy
 msgid "custom user agent"
-msgstr ""
+msgstr "настраиваемый user-agent"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
+#, fuzzy
 msgid "Zoom: "
-msgstr ""
+msgstr "Увеличение: "
 
 #: src/app/DomainSettingsPage.qml:320
+#, fuzzy
 msgid "not set"
-msgstr ""
+msgstr "не задано"
 
 #: src/app/DomainSettingsPage.qml:354
+#, fuzzy
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Не заданы настройки для домена"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -277,7 +285,7 @@ msgstr "Похоже, возникли проблемы с просмотром:
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Ошибка: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -441,15 +449,15 @@ msgstr "Сайт %1:%2 требует аутентификацию."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Сохранить страницу как HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Сохранить как HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Сохранить как PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
@@ -667,7 +675,7 @@ msgstr "Введите поисковый запрос или адрес"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Вставить из буфера обмена и перейти"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -729,8 +737,9 @@ msgstr "Новая вкладка"
 
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
+#, fuzzy
 msgid "Blocked domain"
-msgstr ""
+msgstr "Заблокированный домен"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
@@ -744,10 +753,12 @@ msgid "Whitelisted domain"
 msgstr ""
 
 #: src/app/webbrowser/Browser.qml:257
-#, qt-format
+#, fuzzy, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"домен %1 теперь находится в списке разрешённых адресов, он станет доступным "
+"при перезагрузке страницы"
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
@@ -772,11 +783,11 @@ msgstr "Настройки"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Просмотр кода страницы"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "Сохранить как HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
