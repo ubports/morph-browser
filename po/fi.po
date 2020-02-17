@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-01-19 19:39+0000\n"
-"Last-Translator: Sami Törmänen <tormanen.sami@gmail.com>\n"
+"PO-Revision-Date: 2020-02-11 14:21+0000\n"
+"Last-Translator: Oi Suomi On! <oisuomion@protonmail.com>\n"
 "Language-Team: Finnish <https://translate.ubports.com/projects/ubports/"
 "morph-browser/fi/>\n"
 "Language: fi\n"
@@ -29,7 +29,7 @@ msgstr "JavaScript-ilmoitus"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "OK"
+msgstr "Selvä"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
@@ -41,13 +41,12 @@ msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr "Sivusto %1 yrittää avata seuraavaa URL:a mukautetulla skeemalla:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
-#, fuzzy
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
-"Tämä yrittää lähettää tätä url:ia järjestelmäsovellukseen, jos mahdollista. "
-"Haluatko jatkaa?"
+"Tämä tulee yrittämään tämän url-osoitetteen lähettämistä "
+"järjestelmäsovellukseen mikäli mahdollista. Haluatko jatkaa?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
@@ -87,6 +86,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Yrität päästä käsiksi %1 mutta se ei ole hyväksyttujen domain:ien listalla. "
+"Haluatko jatkaa tuon domain:in estoa, sallia domain:in tarkastelun, vai "
+"mennä takaisin?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -95,6 +97,9 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 yrittää päästä käsiksi %2 mutta se ei ole hyväksyttujen domain:ien "
+"listalla. Haluatko jatkaa tuon domain:in estoa, sallia sen tarkastelun, vai "
+"mennä takaisin?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
@@ -164,7 +169,7 @@ msgstr "JavaScript-vahvistus"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Omanlaiseksi muovattavat käyttäjä-agentit"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -179,20 +184,19 @@ msgstr "Poista"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Uusi käyttäjä-agentti"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Lisää nimi uudelle käyttäjä-agentille"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "syötä käyttäjä-agentin merkkijono..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Ei latauksia"
+msgstr "Omanlaiseksi muovattuja käyttäjä-agentteja ei saatavilla"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
@@ -243,11 +247,11 @@ msgstr "lupa käyttää sijaintiasi"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "omanalaiseksi muovattu käyttäjä-agentti"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Lähennä: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
@@ -453,7 +457,7 @@ msgstr "Oletus suurennos"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "tämänhetkinen verkkosovellus"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -730,7 +734,7 @@ msgstr "Estetty verkkotunnus"
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Navigointi-pyyntö domain:iin %1 estetty."
 
 #: src/app/webbrowser/Browser.qml:256
 #: src/app/webcontainer/WebViewImplOxide.qml:337
@@ -1092,12 +1096,11 @@ msgstr "verkkotunnus %1 on nyt sallittu, ole hyvä ja lataa sivu uudelleen."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "VerkkosovellusSäiliöiden asetukset"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Palauta selaimen oletusasetukset"
+msgstr "Palauta verkkosovellusten oletusasetukset"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Morph Browser"
