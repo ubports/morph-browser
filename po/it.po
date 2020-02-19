@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-03 17:21+0000\n"
-"Last-Translator: nathangiovannini3 <nathan95@live.it>\n"
+"PO-Revision-Date: 2020-02-20 11:21+0000\n"
+"Last-Translator: Mike <miguel2000@livecom.it>\n"
 "Language-Team: Italian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/it/>\n"
 "Language: it\n"
@@ -192,7 +192,7 @@ msgstr "Aggiungi un nome per il nuovo user agent"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "digita la stringa dell'user agent..."
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
@@ -200,7 +200,7 @@ msgstr "Nessun user agent personalizzato disponibile"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Blacklist/whitelist dei domini"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
@@ -213,23 +213,23 @@ msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Non definito"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Non concedere mai l'accesso"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Consenti sempre l'accesso"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Nessun sito ha permessi speciali"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Impostazioni specifiche del dominio"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
@@ -240,25 +240,24 @@ msgid "allowed to launch other apps"
 msgstr ""
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Consentire a questo dominio di accedere alla fotocamera?"
+msgstr ""
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "User agenti presonalizzato"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Zoom: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "non impostato"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Nessuna impostazione specifica del dominio disponsibile"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -273,7 +272,7 @@ msgstr "Sembra ci siano problemi nel visualizzare: %1."
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Errore: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -437,25 +436,24 @@ msgstr "Il sito web %1:%2 richiede l'autenticazione."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Salva pagina come HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "Salva come HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "Salva come PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "Predefinito"
+msgstr "Zoom predefinito"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "Web app attuale"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -463,10 +461,12 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"Imposta lo zoom correbte come default per %1 ? (Puoi cambiarlo nel menu "
+"delle impostazioni)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
@@ -487,7 +487,7 @@ msgstr "Salva"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "Zoom attuale"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -597,7 +597,6 @@ msgid "Open link in new background tab"
 msgstr "Apri collegamento in nuova scheda in secondo piano"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
 msgstr "Apri collegamento in finestra privata"
 
@@ -662,7 +661,7 @@ msgstr "Cercare o immettere un indirizzo"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "Incolla e vai"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -725,7 +724,7 @@ msgstr "Nuova scheda"
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Domini bloccati"
 
 #: src/app/webbrowser/Browser.qml:230
 #: src/app/webcontainer/WebViewImplOxide.qml:311
@@ -767,7 +766,7 @@ msgstr "Impostazioni"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr ""
+msgstr "Vedi sorgenti"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
