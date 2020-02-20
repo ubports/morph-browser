@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2014-07-15 14:21+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: French (Canada) <fr_CA@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-02-21 19:21+0000\n"
+"Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
+"Language-Team: French (Canada) <https://translate.ubports.com/projects/"
+"ubports/morph-browser/fr_CA/>\n"
+"Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -767,7 +768,7 @@ msgstr ""
 #: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -840,7 +841,7 @@ msgstr ""
 #: src/app/webbrowser/HistoryViewWide.qml:250
 #: src/app/webbrowser/HistoryViewWide.qml:337
 msgid "Today"
-msgstr ""
+msgstr "Aujourd'hui"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -986,7 +987,7 @@ msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
@@ -1022,7 +1023,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
