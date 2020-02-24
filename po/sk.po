@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-17 08:21+0000\n"
+"PO-Revision-Date: 2020-02-25 20:21+0000\n"
 "Last-Translator: dano6 <dano.kutka@gmail.com>\n"
 "Language-Team: Slovak <https://translate.ubports.com/projects/ubports/"
 "morph-browser/sk/>\n"
@@ -118,7 +118,7 @@ msgstr "Stránka %1 vyžaduje overenie."
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:50
 msgid "Username"
-msgstr "Používateľské meno"
+msgstr "Užívateľské meno"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
@@ -130,7 +130,7 @@ msgstr "Potvrdiť navigáciu"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
-msgstr "Opustiť"
+msgstr "Opustiť chat"
 
 #: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
@@ -289,7 +289,7 @@ msgstr "Žiadosť o povolenie"
 
 #: src/app/GeolocationPermissionRequest.qml:30
 msgid "This page wants to know your device’s location."
-msgstr "Táto stránka chce poznať polohu zariadenia"
+msgstr "Táto stránka chce poznať polohu zariadenia."
 
 #: src/app/GeolocationPermissionRequest.qml:55
 msgid "Deny"
@@ -556,7 +556,7 @@ msgstr "Hľadať na stránke"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Dopredu"
+msgstr "Preposlať"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -884,7 +884,7 @@ msgstr "Nenavštívili ste ešte žiadnu stránku"
 
 #: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
-msgstr "Proces vykresľovania bol na tejto karte ukončený"
+msgstr "Proces vykresľovania bol na tejto karte ukončený."
 
 #: src/app/webbrowser/SadTab.qml:60
 #, qt-format
@@ -914,7 +914,7 @@ msgstr "K %1 ste pripojení pomocou HTTPS. Certifikát je platný."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr "Predvolené"
+msgstr "Predvolený"
 
 #: src/app/webbrowser/SettingsPage.qml:72
 #: src/app/webbrowser/SettingsPage.qml:223
@@ -1090,7 +1090,7 @@ msgstr "Ups, niečo sa pokazilo."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr "doména %1 je teraz medzi povolenými, prosím obnovte stránku"
+msgstr "doména %1 je teraz medzi povolenými, prosím obnovte stránku."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
