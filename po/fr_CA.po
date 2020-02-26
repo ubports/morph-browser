@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-21 19:21+0000\n"
+"PO-Revision-Date: 2020-02-28 05:22+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -152,9 +152,8 @@ msgid "Back to safety"
 msgstr "Retour vers la sécurité"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Tout sélectionner"
+msgstr "Choisir une couleur"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -799,7 +798,7 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
-msgstr ""
+msgstr "Reprendre"
 
 #: src/app/webbrowser/DownloadsPage.qml:62
 msgid "Confirm selection"
@@ -1058,7 +1057,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Ignorer"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
