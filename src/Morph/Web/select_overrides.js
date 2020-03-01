@@ -7,7 +7,7 @@ take a list of select options, pass it to a window.prompt so that it can be hand
 
         var opts = []
         for (var i = 0; i < select.options.length; i++) {
-            opts.push(select.options[i].innerText);
+            opts.push(select.options[i].innerText.trim());
         }
         //Send a prompt so that WebEngine can intercept it with onJavascriptDialogRequested event
         var index = window.prompt("XX-MORPH-SELECT-OVERRIDE-XX",JSON.stringify({selectedIndex: select.selectedIndex, options: opts}));
