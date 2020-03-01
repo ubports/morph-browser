@@ -72,7 +72,7 @@ WebEngineView {
     userScripts: WebEngineScript {
         runOnSubframes: true
         sourceUrl: enableSelectOverride && (screenDiagonal > 0 && screenDiagonal < 190)  ? Qt.resolvedUrl("select_overrides.js") : ""
-        injectionPoint: WebEngineScript.DocumentReady
+        injectionPoint: WebEngineScript.DocumentCreation
         worldId: WebEngineScript.MainWorld
     }
 
