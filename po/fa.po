@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-12 17:21+0000\n"
+"PO-Revision-Date: 2020-02-17 08:21+0000\n"
 "Last-Translator: HSN80 <hosseinabbasi80@outlook.com>\n"
 "Language-Team: Persian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/fa/>\n"
@@ -192,74 +192,74 @@ msgstr "افزودن نام برای عامل کاربر جدید"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "رشته عامل کاربر را وارد کنید ..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "هیج بارگیری‌ای موجود نیست"
+msgstr "هیچ نماینده کاربر سفارشی در دسترس نیست"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "دامنه لیست‌سیاه\\لیست‌سفید"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "افزودن دامنه"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
+"نام دامنه را وارد کنید ، به عنوان مثال example.com (زیر دامنه ها حذف می "
+"شوند)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "تنظیم نشده"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "هیچوقت اجازه دسترسی نده"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "همیشه اجازه دسترسی دهید"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "به هیچ سایتی مجوزهای ویژه داده نشده است"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "تنظیمات خاص دامنه"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "نام دامنه را وارد کنید ، به عنوان مثال m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "مجاز به راه اندازی برنامه های دیگر"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "به این دامنه اجازه داده شود به دوربینتان دسترسی داشته باشد؟"
+msgstr "اجازه دسترسی به موقعیت مکانی شما را دارد"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "نماینده کاربر سفارشی"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "زوم: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "تنظیم نشده"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "تنظیمات خاص دامنه موجود نیست"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -274,7 +274,7 @@ msgstr "به نظر می‌رسد که شما در دیدن %1 مشکل داری
 #: src/app/ErrorSheet.qml:52
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "ارور: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
@@ -438,25 +438,24 @@ msgstr "پایگاه وب %1:%2 نیاز به احراز هویت دارد."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "ذخیره صفحه به صورت HTML/PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "ذخیره به صورت HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "ذخیره به صورت PDF"
 
 #: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
 #: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
 msgid "Default Zoom"
-msgstr "پیش‌گزیده"
+msgstr "بزرگنمایی پیش فرض"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr ""
+msgstr "برنامه وب فعلی"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -464,22 +463,24 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
+"بزرگنمایی فعلی را به عنوان بزرگنمایی پیش فرض برای %1 تنظیم کنید؟ (می توانید "
+"آن را در فهرست تنظیمات تغییر دهید)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "بزرگنمایی"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "کوچک نمایی"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "بازنشانی"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "بزرگنمایی"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -488,7 +489,7 @@ msgstr "ذخیره"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr ""
+msgstr "بزرگنمایی فعلی"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -556,7 +557,7 @@ msgstr "جست‌وجو در صفحه"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "جلو"
+msgstr "فرستادن"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -598,7 +599,6 @@ msgid "Open link in new background tab"
 msgstr "گشودن تصویر در زبانهٔ پس‌زمینهٔ جدید"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
 msgstr "گشودن پیوند در پنجرهٔ خصوصی"
 
