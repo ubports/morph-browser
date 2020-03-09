@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-29 19:22+0000\n"
+"PO-Revision-Date: 2020-03-03 20:01+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.ubports.com/projects/ubports/"
 "morph-browser/cs/>\n"
@@ -921,7 +921,7 @@ msgstr "Vyhledávač"
 
 #: src/app/webbrowser/SettingsPage.qml:98
 msgid "Restore previous session at startup"
-msgstr "Obnovit předchozí relaci při startu"
+msgstr "Při spuštění obnovit předchozí otevřené stránky"
 
 #: src/app/webbrowser/SettingsPage.qml:117
 msgid "Set Desktop mode"
@@ -932,11 +932,11 @@ msgstr "Spustit Desktop režim"
 #: src/app/webcontainer/WebappSettingsPage.qml:103
 #: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Privacy & permissions"
-msgstr "Soukromí & oprávnění"
+msgstr "Soukromí a oprávnění"
 
 #: src/app/webbrowser/SettingsPage.qml:195
 msgid "Reset browser settings"
-msgstr "Obnovit nastavení prohlížeče"
+msgstr "Vrátit nastavení prohlížeče na výchozí hodnoty"
 
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
@@ -946,20 +946,20 @@ msgstr "Umožnit prohlížení pouze stránek ze seznamu povolených"
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
 msgid "Camera & microphone"
-msgstr "Kamera & mikrofón"
+msgstr "Kamera a mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:329
 msgid "Clear Browsing History"
-msgstr "Smazat historii procházení"
+msgstr "Smazat historii prohlížení"
 
 #: src/app/webbrowser/SettingsPage.qml:333
 msgid "Clear Browsing History?"
-msgstr "Smazat historii?"
+msgstr "Smazat historii prohlížení?"
 
 #: src/app/webbrowser/SettingsPage.qml:341
 #: src/app/webcontainer/WebappSettingsPage.qml:198
 msgid "Clear Cache"
-msgstr "Vymazat Cache"
+msgstr "Vyčistit vyrovnávací paměť"
 
 #: src/app/webbrowser/SettingsPage.qml:344
 #: src/app/webcontainer/WebappSettingsPage.qml:201
@@ -981,15 +981,15 @@ msgstr "Kamera"
 
 #: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
-msgstr "Přejeďte prstem nahoru pro ukončení módu celé obrazovky"
+msgstr "Režim na celou obrazovku ukončíte přejetím prstem nahoru"
 
 #: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
-msgstr "Stiskněte ESC pro ukončení módu celé obrazovky"
+msgstr "Režim na celou obrazovku ukončíte stiskem ESC"
 
 #: src/app/webbrowser/TabPreview.qml:86
 msgid "Tap to view"
-msgstr "Klepnout pro zobrazení"
+msgstr "Zobrazíte klepnutím"
 
 #: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
@@ -1008,7 +1008,7 @@ msgstr "Odstranit"
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - webový prohlížeč Morph"
+msgstr "%1 – webový prohlížeč Morph"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
@@ -1050,7 +1050,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Ověření selhalo"
+msgstr "Ověření se nezdařilo"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -1088,15 +1088,15 @@ msgstr "Jejda, něco se pokazilo."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr "doména %1 je nyní mezi povolenými, prosím obnovte stránku."
+msgstr "doména %1 je nyní na seznamu povolených – načtěte stránku znovu."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:35
 msgid "WebappContainer Settings"
-msgstr "«WebappContainer» nastavení"
+msgstr "nastavení pro WebappContainer"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
 msgid "Reset webapp settings"
-msgstr "Obnovit nastavení webapp aplikací"
+msgstr "Vrátit nastavení webapp aplikací do výchozího stavu"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Morph Browser"
@@ -1104,7 +1104,7 @@ msgstr "Prohlížeč Morph"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Brouzdejte po internetu s «QtWebEngine»"
+msgstr "Brouzdejte po Internetu s QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
@@ -1116,7 +1116,7 @@ msgstr "Nové okno"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr "Nové soukromé okno"
+msgstr "Nové anonymní okno"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "
