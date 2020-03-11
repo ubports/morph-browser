@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-28 05:22+0000\n"
+"PO-Revision-Date: 2020-03-12 10:22+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
