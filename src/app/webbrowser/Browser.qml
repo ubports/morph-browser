@@ -20,7 +20,7 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import QtSystemInfo 5.5
-import QtWebEngine 1.7
+import QtWebEngine 1.10
 import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
@@ -163,7 +163,7 @@ Common.BrowserView {
             }
             else
             {
-              console.debug("creating pdf %1 failed".arg(filePath))
+              console.debug(incognito ? "creating pdf failed" : "creating pdf %1 failed".arg(filePath))
             }
         }
 
@@ -781,7 +781,13 @@ Common.BrowserView {
                 text: i18n.tr("View source")
                 iconName: "text-xml-symbolic"
                 enabled: currentWebview && (currentWebview.url.toString() !== "") && (currentWebview.url.toString().substring(0,12) !== "view-source:")
-                onTriggered: openLinkInNewTabRequested("view-source:%1".arg(currentWebview.url), false);
+                onTriggered: {
+                    var currentUrl = currentWebview.url;
+                    if (UrlUtils.isPdfViewerExtensionUrl(currentWebview.url)) {
+                        currentUrl = currentWebview.url.toString().substr(UrlUtils.getPdfViewerExtensionUrlPrefix().length);
+                    }
+                    openLinkInNewTabRequested("view-source:%1".arg(currentUrl), false);
+                }
             },
             Action {
                 objectName: "save"
@@ -793,7 +799,7 @@ Common.BrowserView {
                     savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage) } )
                     // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
                     // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
-                    savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("/tmp/%1.pdf".arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_'))) } )
+                    savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("%1/pdf_tmp/%2.pdf".arg(cacheLocation).arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_'))) } )
                 }
             },
             Action {
@@ -1210,6 +1216,10 @@ Common.BrowserView {
         Connections {
             target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
+            onPreview: {
+                    downloadsViewLoader.active = false
+                    currentWebview.url = url;
+            }
         }
 
         onStatusChanged: {
@@ -1340,6 +1350,14 @@ Common.BrowserView {
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
                 closeTab(tabsModel.currentIndex)
+            }
+        }
+
+        function closeTabsWithUrl(url) {
+            var i;
+            for (i = 0; i < tabsModel.count; i++) {
+                if (tabsModel.get(i).url === url)
+                    closeTab(i);
             }
         }
 
@@ -1763,7 +1781,7 @@ Common.BrowserView {
 
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
+        DownloadsModel.add(downloadIdDataBase, download.url, download.path, download.mimeType, incognito)
         downloadsViewLoader.active = true
     }
 
@@ -1793,6 +1811,17 @@ Common.BrowserView {
 
         onDownloadRequested: {
 
+            if (currentWebview.url.toString().match(/^view-source:/i)) {
+                console.log(incognito ? "a download was rejected" : "a download was rejected with url %1".arg(download.url));
+                return;
+            }
+
+            // already downloaded item
+            if (download.url.toString().indexOf("file://%1".arg(currentWebview.profile.downloadPath)) === 0) {
+               console.log(incognito ? "download rejected (item has already been downloaded)" : "download rejected (%1 has already been downloaded)".arg(download.url));
+               return;
+            }
+
             console.log("a download was requested with path %1".arg(download.path))
             download.accept();
             browser.showDownloadsPage();
@@ -1801,9 +1830,15 @@ Common.BrowserView {
 
         onDownloadFinished: {
 
-            console.log("a download was finished with path %1.".arg(download.path))
-            browser.showDownloadsPage()
-            browser.setDownloadComplete(download)
+            console.log(incognito? "download finished" : "a download was finished with path %1.".arg(download.path));
+            browser.showDownloadsPage();
+            browser.setDownloadComplete(download);
+
+            // delete pdf in cache / close the tab
+            if (download.url.toString().indexOf("file://%1/pdf_tmp".arg(cacheLocation)) === 0) {
+              FileOperations.remove(download.url);
+              internal.closeTabsWithUrl(download.url);
+            }
         }
     }
 

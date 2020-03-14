@@ -23,6 +23,7 @@ import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
 
 import "MimeTypeMapper.js" as MimeTypeMapper
+import "UrlUtils.js" as UrlUtils
 
 BrowserPage {
     id: downloadsItem
@@ -40,6 +41,7 @@ BrowserPage {
     property bool incognito: false
 
     signal done()
+    signal preview(string url)
 
     title: i18n.tr("Downloads")
 
@@ -114,11 +116,18 @@ BrowserPage {
         },
         Action {
             iconName: "edit"
-            visible: !selectMode && !pickingMode
+            visible: !selectMode && !pickingMode && !exportPeerPicker.visible
             enabled: downloadsListView.count > 0
             onTriggered: {
                 selectMode = true
                 multiSelect = true
+            }
+        },
+        Action {
+            iconName: "external-link"
+            visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown)
+            onTriggered: {
+                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(exportPeerPicker.path) : exportPeerPicker.path);
             }
         }
     ]
@@ -222,9 +231,10 @@ BrowserPage {
 
             onClicked: {
                 if (model.complete && !selectMode) {
-                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                    exportPeerPicker.visible = true
-                    exportPeerPicker.path = model.path
+                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype);
+                    exportPeerPicker.visible = true;
+                    exportPeerPicker.path = model.path;
+                    exportPeerPicker.mimeType = model.mimetype;
                 }
             }
 
@@ -290,6 +300,7 @@ BrowserPage {
         anchors.fill: parent
         handler: ContentHandler.Destination
         property string path
+        property string mimeType
         onPeerSelected: {
             var transfer = peer.request()
             if (transfer.state === ContentTransfer.InProgress) {

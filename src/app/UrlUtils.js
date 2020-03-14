@@ -44,6 +44,7 @@ function schemeIs(url, expectedScheme) {
 function hasCustomScheme(url) {
 
     switch (extractScheme(url)) {
+     case 'chrome-extension':
      case 'http':
      case 'https':
      case 'file':
@@ -100,6 +101,12 @@ function looksLikeAUrl(address) {
     if (address.match(/^data:/i)) {
         return true;
     }
+    if (address.match(/^view-source:/i)) {
+        return true;
+    }
+    if (address.match(/^chrome-extension:/i)) {
+        return true;
+    }
     var terms = address.split(/\s/);
     if (terms.length > 1) {
         return false;
@@ -122,4 +129,13 @@ function looksLikeAUrl(address) {
         return true;
     }
     return false;
+}
+
+// special extension urls
+function getPdfViewerExtensionUrlPrefix() {
+    return "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/index.html?";
+}
+
+function isPdfViewerExtensionUrl(url) {
+    return (url.toString().indexOf(getPdfViewerExtensionUrlPrefix()) === 0);
 }
