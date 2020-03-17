@@ -62,22 +62,23 @@ BrowserPage {
             visible: pickingMode
             enabled: downloadsListView.ViewItems.selectedIndices.length > 0
             onTriggered: {
-                var results = []
+                var results = [];
+                var selectedDownload, i;
                 if (internalFilePicker) {
-                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                        results.push(selectedDownload.path)
+                    for (i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i]);
+                        results.push(selectedDownload.path);
                     }
-                    internalFilePicker.accept(results)
+                    internalFilePicker.accept(results);
                 } else {
-                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                        results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+                    for (i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i]);
+                        results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}));
                     }
-                    activeTransfer.items = results
-                    activeTransfer.state = ContentTransfer.Charged
+                    activeTransfer.items = results;
+                    activeTransfer.state = ContentTransfer.Charged;
                 }
-                downloadsItem.done()
+                downloadsItem.done();
             }
         },
         Action {
@@ -86,13 +87,13 @@ BrowserPage {
             visible: selectMode
             onTriggered: {
                 if (downloadsListView.ViewItems.selectedIndices.length === downloadsListView.count) {
-                    downloadsListView.ViewItems.selectedIndices = []
+                    downloadsListView.ViewItems.selectedIndices = [];
                 } else {
-                    var indices = []
+                    var indices = [];
                     for (var i = 0; i < downloadsListView.count; ++i) {
-                        indices.push(i)
+                        indices.push(i);
                     }
-                    downloadsListView.ViewItems.selectedIndices = indices
+                    downloadsListView.ViewItems.selectedIndices = indices;
                 }
             }
         },
@@ -125,6 +126,13 @@ BrowserPage {
         },
         Action {
             iconName: "external-link"
+            visible: exportPeerPicker.visible && (exportPeerPicker.downloadUrl !== "") && (exportPeerPicker.contentType !== ContentType.Unknown)
+            onTriggered: {
+                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + exportPeerPicker.downloadUrl : exportPeerPicker.downloadUrl);
+            }
+        },
+        Action {
+            iconName: "document-open"
             visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown)
             onTriggered: {
                 preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(exportPeerPicker.path) : exportPeerPicker.path);
@@ -235,6 +243,7 @@ BrowserPage {
                     exportPeerPicker.visible = true;
                     exportPeerPicker.path = model.path;
                     exportPeerPicker.mimeType = model.mimetype;
+                    exportPeerPicker.downloadUrl = model.url;
                 }
             }
 
@@ -301,6 +310,7 @@ BrowserPage {
         handler: ContentHandler.Destination
         property string path
         property string mimeType
+        property string downloadUrl
         onPeerSelected: {
             var transfer = peer.request()
             if (transfer.state === ContentTransfer.InProgress) {

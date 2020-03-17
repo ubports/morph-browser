@@ -24,10 +24,12 @@ ModalDialog {
     title: i18n.tr("Save page as HTML / PDF")
     
     signal saveAsHtml()
+    signal download()
     signal saveAsPdf()
     signal cancel()
     
     onSaveAsHtml: hide()
+    onDownload: hide()
     onSaveAsPdf: hide()
     onCancel: hide()
 
@@ -36,6 +38,13 @@ ModalDialog {
         color: theme.palette.normal.foreground
         objectName: "savehtml"
         onClicked: saveAsHtml()
+    }
+
+    Button {
+        text: i18n.tr("Download")
+        color: theme.palette.normal.foreground
+        objectName: "download"
+        onClicked: download()
     }
 
     // ToDo: add page size and orientation for the PDF

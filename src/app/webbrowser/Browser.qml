@@ -796,10 +796,11 @@ Common.BrowserView {
                 enabled: currentWebview && (currentWebview.url.toString() !== "")
                 onTriggered: {
                     var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), currentWebview);
-                    savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage) } )
+                    savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage);});
+                    savePageDialog.download.connect( function() {currentWebview.runJavaScript("var link = document.createElement('a');link.download='';link.href='%1';link.click();".arg(currentWebview.url));});
                     // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
                     // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
-                    savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("%1/pdf_tmp/%2.pdf".arg(cacheLocation).arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_'))) } )
+                    savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("%1/pdf_tmp/%2.pdf".arg(cacheLocation).arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_')));});
                 }
             },
             Action {

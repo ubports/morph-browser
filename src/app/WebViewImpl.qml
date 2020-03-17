@@ -708,6 +708,12 @@ WebView {
             return;
         }
 
+       // normally the "canGoBack" should be automatically updated, but does not for webview.url changes.
+       // this is a workaround for https://github.com/ubports/morph-browser/issues/306
+       if (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus) {
+          webview.onUrlChanged();
+       }
+
         if (loadRequest.status === WebEngineLoadRequest.LoadFailedStatus) {
             // ToDo: Is there a way to not load the "blink error message" in the first place ?
             // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
