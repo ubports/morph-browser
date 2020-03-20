@@ -64,9 +64,6 @@ WebView {
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
 
-    // current content type (e.g. text/html)
-    property string contentType
-
       QtObject {
         id: findController
 
@@ -722,8 +719,7 @@ WebView {
 
         if ((loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) && ! UrlUtils.isPdfViewerExtensionUrl(webview.url)) {
            webview.runJavaScript("document.contentType", function(docContentType) {
-               webview.contentType = docContentType;
-               if (webview.contentType === "application/pdf") {
+               if (docContentType === "application/pdf") {
                    // ToDo: decide how we handle PDFs:
                    // - ask the user if the file should be viewn / downloaded ?
                    // - both download the PDF and show the preview ?

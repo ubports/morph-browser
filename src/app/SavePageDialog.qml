@@ -21,8 +21,12 @@ import Ubuntu.Components 1.3
 
 ModalDialog {
     objectName: "savePageDialog"
-    title: i18n.tr("Save page as HTML / PDF")
+    title: i18n.tr(canSaveAsHtml && canSaveAsPdf ? "Save page as HTML / PDF" : "Save page")
     
+    property bool canSaveAsHtml: false
+    property bool canDownload: false
+    property bool canSaveAsPdf: false
+
     signal saveAsHtml()
     signal download()
     signal saveAsPdf()
@@ -38,6 +42,7 @@ ModalDialog {
         color: theme.palette.normal.foreground
         objectName: "savehtml"
         onClicked: saveAsHtml()
+        visible: canSaveAsHtml
     }
 
     Button {
@@ -45,6 +50,7 @@ ModalDialog {
         color: theme.palette.normal.foreground
         objectName: "download"
         onClicked: download()
+        visible: canDownload
     }
 
     // ToDo: add page size and orientation for the PDF
@@ -54,6 +60,7 @@ ModalDialog {
         color: theme.palette.normal.foreground
         objectName: "savepdf"
         onClicked: saveAsPdf()
+        visible: canSaveAsPdf
     }
 
     Button {

@@ -101,6 +101,9 @@ function looksLikeAUrl(address) {
     if (address.match(/^data:/i)) {
         return true;
     }
+    if (address.match(/^file:/i)) {
+        return true;
+    }
     if (address.match(/^view-source:/i)) {
         return true;
     }

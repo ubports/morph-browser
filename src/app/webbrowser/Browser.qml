@@ -791,16 +791,23 @@ Common.BrowserView {
             },
             Action {
                 objectName: "save"
-                text: i18n.tr("Save as HTML / PDF")
+                text: i18n.tr("Save / Print to PDF")
                 iconName: "save-as"
                 enabled: currentWebview && (currentWebview.url.toString() !== "")
                 onTriggered: {
-                    var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), currentWebview);
-                    savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage);});
-                    savePageDialog.download.connect( function() {currentWebview.runJavaScript("var link = document.createElement('a');link.download='';link.href='%1';link.click();".arg(currentWebview.url));});
-                    // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
-                    // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
-                    savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("%1/pdf_tmp/%2.pdf".arg(cacheLocation).arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_')));});
+                    currentWebview.runJavaScript("document.contentType", function(docContentType) {
+                        var savePageDialog = PopupUtils.open(Qt.resolvedUrl("../SavePageDialog.qml"), currentWebview);
+                        savePageDialog.saveAsHtml.connect( function() { currentWebview.triggerWebAction(WebEngineView.SavePage);});
+                        savePageDialog.canSaveAsHtml = (docContentType.indexOf("text/") === 0) && ! UrlUtils.isPdfViewerExtensionUrl(currentWebview.url);
+
+                        savePageDialog.download.connect( function() {currentWebview.runJavaScript("var link = document.createElement('a');link.download='';link.href='%1';link.click();".arg(UrlUtils.isPdfViewerExtensionUrl(currentWebview.url) ? currentWebview.url.toString().substr(UrlUtils.getPdfViewerExtensionUrlPrefix().length) : currentWebview.url));});
+                        savePageDialog.canDownload = (docContentType !== "text/html") || (UrlUtils.isPdfViewerExtensionUrl(currentWebview.url) && ! currentWebview.url.toString().substr(UrlUtils.getPdfViewerExtensionUrlPrefix().length).indexOf("file://%1".arg(currentWebview.profile.downloadPath)) === 0);
+
+                        // the filename of the PDF is determined from the title (replace not allowed / problematic chars with '_')
+                        // the QtWebEngine does give the filename (.mhtml) for the SavePage action with that pattern as well
+                        savePageDialog.saveAsPdf.connect( function() { currentWebview.printToPdf("%1/pdf_tmp/%2.pdf".arg(cacheLocation).arg(currentWebview.title.replace(/["/:*?\\<>|~]/g,'_')));});
+                        savePageDialog.canSaveAsPdf = ((docContentType.indexOf("text/") === 0) || (docContentType.indexOf("image/") === 0)) && ! UrlUtils.isPdfViewerExtensionUrl(currentWebview.url);
+                    });
                 }
             },
             Action {
@@ -1782,7 +1789,7 @@ Common.BrowserView {
 
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-        DownloadsModel.add(downloadIdDataBase, download.url, download.path, download.mimeType, incognito)
+        DownloadsModel.add(downloadIdDataBase, (download.url.toString().indexOf("file://%1/pdf_tmp".arg(cacheLocation)) === 0) ? "" : download.url, download.path, download.mimeType, incognito)
         downloadsViewLoader.active = true
     }
 
@@ -1818,8 +1825,9 @@ Common.BrowserView {
             }
 
             // already downloaded item
-            if (download.url.toString().indexOf("file://%1".arg(currentWebview.profile.downloadPath)) === 0) {
+            if ((download.url.toString().indexOf("file://%1".arg(currentWebview.profile.downloadPath)) === 0) && FileOperations.extension(download.path) !== "mhtml" ) {
                console.log(incognito ? "download rejected (item has already been downloaded)" : "download rejected (%1 has already been downloaded)".arg(download.url));
+               currentWebview.showMessage(i18n.tr("the file is already in the downloads folder."))
                return;
             }
 
