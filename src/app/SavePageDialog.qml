@@ -37,6 +37,11 @@ ModalDialog {
     onSaveAsPdf: hide()
     onCancel: hide()
 
+    Label {
+        text: i18n.tr("No save actions are available")
+        visible: !canSaveAsHtml && !canDownload && !canSaveAsPdf
+    }
+
     Button {
         text: i18n.tr("Save as HTML")
         color: theme.palette.normal.foreground
