@@ -725,6 +725,18 @@ Common.BrowserView {
 
         drawerActions: [
             Action {
+                iconName: "help"
+                objectName: "canGoBackProblem"
+                text: "currentWebview<br>.canGoBack:<br>" + currentWebview.canGoBack
+                onTriggered: currentWebview.showMessage("currentWebview.canGoBack:<br>" + currentWebview.canGoBack)
+            },
+            Action {
+                iconName: "external-link"
+                objectName: "linkUbuntuTouch"
+                text: "ubuntu-touch.io"
+                onTriggered: currentWebview.url = "https://ubuntu-touch.io"
+            },
+            Action {
                 objectName: "newwindow"
                 text: i18n.tr("New window")
                 iconName: "browser-tabs"
