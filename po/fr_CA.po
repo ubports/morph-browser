@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-03-12 10:22+0000\n"
+"PO-Revision-Date: 2020-03-22 15:22+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -962,7 +962,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:486
 msgid "Camera"
-msgstr ""
+msgstr "Caméra"
 
 #: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
