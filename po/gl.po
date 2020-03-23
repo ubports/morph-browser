@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-03-06 08:22+0000\n"
+"PO-Revision-Date: 2020-03-24 09:22+0000\n"
 "Last-Translator: Neutrum N <neutro@tutanota.com>\n"
 "Language-Team: Galician <https://translate.ubports.com/projects/ubports/"
 "morph-browser/gl/>\n"
@@ -800,7 +800,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr ""
+msgstr "Pausar"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
