@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-11-09 16:50+0000\n"
+"PO-Revision-Date: 2020-03-26 18:22+0000\n"
 "Last-Translator: Ari Börde Kröyer <ari.kroyer@online.no>\n"
 "Language-Team: Norwegian Bokmål <https://translate.ubports.com/projects/"
 "ubports/morph-browser/nb/>\n"
@@ -36,10 +36,9 @@ msgid "Custom URL schemes"
 msgstr "Tilpassede nettadresseavarter"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
-#, fuzzy, qt-format
+#, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
-"Siden \"%1\" prøver å åpne følgende nettadresse med følgende tilpasset avart:"
+msgstr "Siden \"%1\" prøver å åpne følgende nettadresse med en tilpasset avart:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
