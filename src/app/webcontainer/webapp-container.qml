@@ -409,4 +409,9 @@ BrowserWindow {
         root.url = requestedUrl
         root.currentWebview.url = requestedUrl
     }
+
+    property var openUrlsHandler: Connections {
+        target: UriHandler
+        onOpened: root.openUrls(uris)
+    }
 }
