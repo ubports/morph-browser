@@ -335,6 +335,21 @@ WebappWebview {
             return;
         }
 
+        // handle user agents
+        if (isMainFrame)
+        {
+          var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
+
+          // change of the custom user agent
+          if (newUserAgentId !== webview.context.userAgentId)
+          {
+            webview.context.userAgentId = newUserAgentId;
+            webview.context.userAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId)
+                                                             : localUserAgentOverride ? localUserAgentOverride : webview.context.defaultUserAgent;
+          }
+          console.log("user agent: " + webview.context.httpUserAgent)
+        }
+
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             openUrlExternally(url, true);
