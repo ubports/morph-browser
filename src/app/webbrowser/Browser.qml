@@ -266,11 +266,22 @@ Common.BrowserView {
             // handle user agents
             if (isMainFrame)
             {
-                currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                currentWebview.hideContextMenu();
+                var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
+
+                // change of the custom user agent
+                if (newUserAgentId !== currentWebview.context.userAgentId)
+                {
+                    currentWebview.context.userAgentId = newUserAgentId;
+                    currentWebview.context.customUserAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId) : "";
+                }
+                else
+                {
+                    currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                }
+
                 console.log("user agent: " + currentWebview.context.httpUserAgent);
             }
-
-            //currentWebview.showMessage(url)
         }
     }
 

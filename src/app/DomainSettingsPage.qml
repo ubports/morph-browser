@@ -143,8 +143,7 @@ FocusScope {
         ListItem {
             id: useragentsMenu
             z: 3
-            // custom user agents deactivated for now
-            height: 0 //units.gu(6)
+            height: units.gu(6)
             color: theme.palette.normal.background
             ListItemLayout {
                 title.text: i18n.tr("Custom User Agents")
@@ -232,8 +231,7 @@ FocusScope {
                         Row {
                             spacing: units.gu(1.5)
                             height: units.gu(1)
-                            // deactivated for now
-                            visible: false //item.ListView.isCurrentItem
+                            visible: item.ListView.isCurrentItem
 
                             Label  {
                                 text: i18n.tr("custom user agent")
