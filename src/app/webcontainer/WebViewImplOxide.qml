@@ -346,8 +346,17 @@ WebappWebview {
             webview.context.userAgentId = newUserAgentId;
             webview.context.userAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId)
                                                              : localUserAgentOverride ? localUserAgentOverride : webview.context.defaultUserAgent;
+
+            // for some reason when letting through the request, another navigation request will take us back to the
+            // to the previous page. Therefore we block it first and navigate to the new url with the correct user agent.
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            webview.url = url;
+            return;
           }
-          console.log("user agent: " + webview.context.httpUserAgent)
+          else
+          {
+              console.log("user agent: " + webview.context.httpUserAgent);
+          }
         }
 
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
