@@ -274,13 +274,18 @@ Common.BrowserView {
                 {
                     currentWebview.context.userAgentId = newUserAgentId;
                     currentWebview.context.customUserAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId) : "";
+
+		    // for some reason when letting through the request, another navigation request will take us back to the
+                    // to the previous page. Therefore we block it first and navigate to the new url with the correct user agent.
+                    request.action = WebEngineNavigationRequest.IgnoreRequest;
+                    currentWebview.url = url;
+                    return;
                 }
                 else
                 {
                     currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                    console.log("user agent: " + currentWebview.context.httpUserAgent);
                 }
-
-                console.log("user agent: " + currentWebview.context.httpUserAgent);
             }
         }
     }
