@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-04-07 16:23+0000\n"
+"PO-Revision-Date: 2020-04-10 10:23+0000\n"
 "Last-Translator: Neutrum N <neutro@tutanota.com>\n"
 "Language-Team: Galician <https://translate.ubports.com/projects/ubports/"
 "morph-browser/gl/>\n"
@@ -47,7 +47,7 @@ msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
-"Esto tentará enviar a URL a unha aplicación do sistema, se é posible. Quere "
+"Esto tentará enviar a URL a un aplicativo do sistema, se é posible. Quere "
 "continuar?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
@@ -240,7 +240,7 @@ msgstr "Introducir o nome do dominio, p.ex. m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr "permitido lanzar outras aplicacións"
+msgstr "permitido lanzar outros aplicativos"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
@@ -456,7 +456,7 @@ msgstr "Zoom predeterminado"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr "a aplicación web actual"
+msgstr "o aplicativo web actual"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -518,13 +518,13 @@ msgstr "Engadir a ligazón aos marcadores"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Limpar o historial"
+msgstr "Borrar o historial"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Limpar o historial de navegación"
+msgstr "Borrar o historial de navegación"
 
 #: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
@@ -1101,7 +1101,7 @@ msgstr "Axustes do WebappContainer"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
 msgid "Reset webapp settings"
-msgstr "Restabelecer os axustes da aplicación web"
+msgstr "Restabelecer os axustes do aplicativo web"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Morph Browser"
