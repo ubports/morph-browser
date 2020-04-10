@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-04-10 10:23+0000\n"
+"PO-Revision-Date: 2020-04-12 09:23+0000\n"
 "Last-Translator: Neutrum N <neutro@tutanota.com>\n"
 "Language-Team: Galician <https://translate.ubports.com/projects/ubports/"
 "morph-browser/gl/>\n"
@@ -39,7 +39,7 @@ msgstr "Esquemas de URL personalizados"
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
-"O sitio '%1' está tentando abrir o seguinte URL cun esquema de URL "
+"O sitio «%1» está tentando abrir o seguinte URL cun esquema de URL "
 "personalizado:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
@@ -88,7 +88,7 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
-"Vostede está tentando acceder a %1 que non está na lista branca de  dominios "
+"Vostede está tentando acceder a %1 que non está na lista branca de dominios "
 "aprobados. Gustaríalle continuar bloqueando o dominio, permitir navegar ao "
 "dominio, ou volver atrás?"
 
@@ -194,7 +194,7 @@ msgstr "Engadir un nome para o axente de usuario novo"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr "escribir cadea de axente de usuario..."
+msgstr "introducir cadea de axente de usuario..."
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
@@ -240,7 +240,7 @@ msgstr "Introducir o nome do dominio, p.ex. m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr "permitido lanzar outros aplicativos"
+msgstr "permitido iniciar outros aplicativos"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
@@ -279,7 +279,7 @@ msgstr "Erro: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
-msgstr "Comprobe os axustes de rede e probe a actualizar a páxina."
+msgstr "Comprobe os axustes de rede e tente actualizar a páxina."
 
 #: src/app/ErrorSheet.qml:65
 msgid "Refresh page"
@@ -800,7 +800,7 @@ msgstr "Descargar"
 
 #: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
-msgstr "Non se puido descargar"
+msgstr "A descarga fallou"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:196
@@ -1024,7 +1024,7 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Non hai contas ligadas a este aplicativo web, prema no elemento de debaixo "
+"Non hai contas ligadas a este aplicativo web, prema no elemento de baixo "
 "para engadir unha."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
@@ -1053,7 +1053,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Fallou a autenticación"
+msgstr "A autenticación fallou"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
