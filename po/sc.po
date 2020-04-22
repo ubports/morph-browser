@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-10-03 17:55+0000\n"
+"PO-Revision-Date: 2020-04-23 15:23+0000\n"
 "Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/sc/>\n"
@@ -912,7 +912,8 @@ msgstr "S'identidade de custu situ web no est istada verificada."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr "Ses in collegamentu a %1 tràmite HTTPS. Su tzertificadu est vàlidu."
+msgstr ""
+"Ses in connessione cun %1 pro mèdiu de HTTPS. Su tzertificadu est vàlidu."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -1025,7 +1026,7 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Perunu contu collegadu a custa aplicatzione web. Preme su butone in bàsciu "
+"Perunu contu connètidu a custa aplicatzione web. Preme su butone in bàsciu "
 "pro nd'agiùnghere."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
