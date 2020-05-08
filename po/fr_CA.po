@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-03-22 15:22+0000\n"
+"PO-Revision-Date: 2020-05-11 06:24+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -33,23 +33,26 @@ msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Schémas d'URL personnalisés"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"Le site « %1 » tente d'ouvrir l'URL suivante avec un schéma personnalisé :"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"Cette URL va tenter d'être ouverte avec une application du système. Voulez-"
+"vous continuer?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Se souvenir de la décision"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -75,7 +78,7 @@ msgstr "Annuler"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Bloquer le domaine"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -84,6 +87,9 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"Vous essayez d'accéder à %1 qui n'est pas dans la liste des domaines "
+"approuvés. Voulez-vous continuer à bloquer ce domaine, l'autoriser ou "
+"revenir à la page précédente?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -92,10 +98,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 tente d'accéder à %2 qui n'est pas dans la liste des domaines approuvés. "
+"Voulez-vous continuer à bloquer ce domaine, autoriser le chargement des "
+"données ou ignorer la requête?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Autoriser le domaine"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -133,13 +142,13 @@ msgstr "Cette connexion n'est pas fiable"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Vous essayez d'atteindre %1 de façon sécurisée, mais le certificat de "
-"sécurité de ce site Web n'est pas fiable."
+"sécurité de ce site Web n'est pas fiable. Explication : %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -161,7 +170,7 @@ msgstr "Confirmation JavaScript"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Agents utilisateur personnalisés"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
@@ -176,11 +185,11 @@ msgstr "Supprimer"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "Nouvel agent utilisateur"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Ajoutez le nom du nouvel agent utilisateur"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
@@ -188,15 +197,15 @@ msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
-msgstr ""
+msgstr "Aucun agent utilisateur personnalisé disponible"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Liste blanche/noire de domaines"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Ajouter un domaine"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
@@ -205,23 +214,23 @@ msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Non défini"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Ne jamais permettre l'accès"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Toujours permettre l'accès"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Aucun site n'a obtenu d'autorisation spéciale"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Paramètres spécifiques au domaine"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
@@ -527,7 +536,7 @@ msgstr "Copier le lien"
 
 #: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
 msgid "Cut"
-msgstr ""
+msgstr "Couper"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
@@ -587,9 +596,8 @@ msgid "Open link in new background tab"
 msgstr "Ouvrir le lien dans un nouvel onglet d'arrière-plan"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "Ouvrir le lien dans un nouvel onglet"
+msgstr "Ouvrir le lien dans une nouvelle fenêtre privée"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -609,7 +617,7 @@ msgstr ""
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Refaire"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -640,7 +648,7 @@ msgstr "Partager"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Annuler"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
@@ -661,7 +669,7 @@ msgstr ""
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
@@ -790,7 +798,7 @@ msgstr ""
 #: src/app/webbrowser/DownloadDelegate.qml:196
 #, qt-format
 msgid "%1%"
-msgstr ""
+msgstr "%1 %"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
@@ -991,16 +999,15 @@ msgstr "Supprimer"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Navigateur Web Ubuntu"
+msgstr "%1 - Navigateur Web Morph"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Navigateur Web"
+msgstr "Navigateur Web Morph"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1032,7 +1039,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr ""
+msgstr "Échec lors de l'authentification"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -1077,19 +1084,16 @@ msgid "WebappContainer Settings"
 msgstr ""
 
 #: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Réinitialiser les paramètres du navigateur"
+msgstr "Réinitialiser les paramètres de l'application Web"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Navigateur"
+msgstr "Navigateur Morph"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Parcourir sur le Web"
+msgstr "Parcourir sur le Web à l'aide de QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
