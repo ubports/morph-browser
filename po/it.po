@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-04-17 09:23+0000\n"
+"PO-Revision-Date: 2020-05-11 06:23+0000\n"
 "Last-Translator: Federico Turbino <bisio.97@gmail.com>\n"
 "Language-Team: Italian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/it/>\n"
@@ -241,11 +241,11 @@ msgstr "Inserisci il nome del dominio, ad esempio m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "autorizzato a lanciare altre app"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
-msgstr ""
+msgstr "autorizzato ad accedere alla tua posizione"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
@@ -474,7 +474,7 @@ msgstr "Zoom"
 
 #: src/app/WebViewImpl.qml:801
 msgid "Zoom Out"
-msgstr ""
+msgstr "Riduci Zoom"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
@@ -482,7 +482,7 @@ msgstr "Reset"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
-msgstr ""
+msgstr "Aumenta Zoom"
 
 #: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:433
@@ -946,7 +946,7 @@ msgstr "Ripristina le impostazioni del browser"
 #: src/app/webbrowser/SettingsPage.qml:280
 #: src/app/webcontainer/WebappSettingsPage.qml:157
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Autorizza la navigazione solo ai siti in whitelist"
 
 #: src/app/webbrowser/SettingsPage.qml:320
 #: src/app/webbrowser/SettingsPage.qml:453
@@ -1011,16 +1011,15 @@ msgstr "Rimuovi"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Browser web Ubuntu"
+msgstr "%1 - Morph Web Browser"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Browser web"
+msgstr "Morph Web Browser"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
