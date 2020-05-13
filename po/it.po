@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-05-11 06:23+0000\n"
-"Last-Translator: Federico Turbino <bisio.97@gmail.com>\n"
+"PO-Revision-Date: 2020-05-14 16:24+0000\n"
+"Last-Translator: Mike <miguel2000@livecom.it>\n"
 "Language-Team: Italian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/it/>\n"
 "Language: it\n"
@@ -1013,13 +1013,13 @@ msgstr "Rimuovi"
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Morph Web Browser"
+msgstr "%1 - Morph Browser Web"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
-msgstr "Morph Web Browser"
+msgstr "Morph Browser Web"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
