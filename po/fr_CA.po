@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-05-11 06:24+0000\n"
+"PO-Revision-Date: 2020-05-26 23:24+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -193,7 +193,7 @@ msgstr "Ajoutez le nom du nouvel agent utilisateur"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "saisissez le nom de l'agent utilisateur..."
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
@@ -211,6 +211,8 @@ msgstr "Ajouter un domaine"
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
+"Saisissez le nom de domaine, par exemple domaine.com (les sous-domaines "
+"seront supprimés)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
@@ -473,7 +475,7 @@ msgstr ""
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialiser"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
@@ -613,7 +615,7 @@ msgstr ""
 
 #: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
 msgid "Paste"
-msgstr ""
+msgstr "Coller"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
@@ -788,7 +790,7 @@ msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 #: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
@@ -905,7 +907,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr ""
+msgstr "Par défaut"
 
 #: src/app/webbrowser/SettingsPage.qml:72
 #: src/app/webbrowser/SettingsPage.qml:223
@@ -966,7 +968,7 @@ msgstr "Effacer"
 
 #: src/app/webbrowser/SettingsPage.qml:465
 msgid "Microphone"
-msgstr ""
+msgstr "Microphone"
 
 #: src/app/webbrowser/SettingsPage.qml:486
 msgid "Camera"
