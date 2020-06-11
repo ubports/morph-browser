@@ -32,6 +32,7 @@ class DomainPermissionsModel : public QAbstractListModel
     Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
     Q_PROPERTY(bool whiteListMode READ whiteListMode WRITE setWhiteListMode NOTIFY whiteListModeChanged)
 
+    Q_ENUMS(DomainPermission)
     Q_ENUMS(Roles)
 
 public:
@@ -43,7 +44,6 @@ public:
         Blocked = 1,
         Whitelisted = 2
     };
-    Q_ENUMS(DomainPermission)
 
     enum Roles {
         Domain = Qt::UserRole + 1,
