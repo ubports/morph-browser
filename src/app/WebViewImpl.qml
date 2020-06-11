@@ -196,21 +196,31 @@ WebView {
              case WebEngineView.Geolocation:
 
              var domain = UrlUtils.extractHost(securityOrigin);
+             var locationPreference = DomainSettingsModel.getLocationPreference(domain);
 
-             if (DomainSettingsModel.isLocationAllowed(domain))
+             if (locationPreference === DomainSettingsModel.AllowLocationAccess)
              {
                  grantFeaturePermission(securityOrigin, feature, true);
                  return;
              }
 
+             if (locationPreference === DomainSettingsModel.DenyLocationAccess)
+             {
+                 grantFeaturePermission(securityOrigin, feature, false);
+                 return;
+             }
+
              var geoPermissionDialog = PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"), this);
              geoPermissionDialog.securityOrigin = securityOrigin;
-             geoPermissionDialog.showAllowPermanentlyCheckBox = (domain !== "") && ! incognito
+             geoPermissionDialog.showRememberDecisionCheckBox = (domain !== "") && ! incognito
              geoPermissionDialog.allow.connect(function() { grantFeaturePermission(securityOrigin, feature, true); });
              geoPermissionDialog.allowPermanently.connect(function() { grantFeaturePermission(securityOrigin, feature, true);
-                                                                       DomainSettingsModel.allowLocation(domain, true);
+                                                                       DomainSettingsModel.setLocationPreference(domain, DomainSettingsModel.AllowLocationAccess);
                                                                      })
              geoPermissionDialog.reject.connect(function() { grantFeaturePermission(securityOrigin, feature, false); });
+             geoPermissionDialog.rejectPermanently.connect(function() { grantFeaturePermission(securityOrigin, feature, false);
+                                                                       DomainSettingsModel.setLocationPreference(domain, DomainSettingsModel.DenyLocationAccess);
+                                                                     })
              break;
 
              case WebEngineView.MediaAudioCapture:

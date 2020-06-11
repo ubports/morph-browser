@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.6
+import QtQuick.Controls 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
@@ -169,6 +170,7 @@ FocusScope {
                 readonly property bool isCurrentItem: item.ListView.isCurrentItem
                 readonly property string domain: model.domain
                 readonly property int userAgentId: model.userAgentId
+                readonly property int locationPreference: model.allowLocation
                 height: isCurrentItem ? layout.height : units.gu(5)
                 color: isCurrentItem ? ((theme.palette.selected.background.hslLightness > 0.5) ? Qt.darker(theme.palette.selected.background, 1.05) : Qt.lighter(theme.palette.selected.background, 1.5)) : theme.palette.normal.background
 
@@ -203,14 +205,35 @@ FocusScope {
                             Label  {
                                 width: parent.width * 0.9
                                 text: i18n.tr("allowed to launch other apps")
+                                anchors.verticalCenter: parent.verticalCenter
                             }
 
                             CheckBox {
                                 checked: model.allowCustomUrlSchemes
                                 onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked)
+                                anchors.verticalCenter: parent.verticalCenter
                             }
                         }
 
+
+                        Row {
+                            spacing: units.gu(1.5)
+                            height: units.gu(1)
+                            visible: item.ListView.isCurrentItem
+
+                            Label  {
+                                width: parent.width * 0.5
+                                text: i18n.tr("access your location")
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            ComboBox {
+                               model: [ i18n.tr("Ask each time"), i18n.tr("Allowed"), i18n.tr("Denied") ]
+                               currentIndex: item.locationPreference
+                               onCurrentIndexChanged: DomainSettingsModel.setLocationPreference(item.domain, currentIndex)
+                               anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
 
                         Row {
                             spacing: units.gu(1.5)
@@ -219,23 +242,9 @@ FocusScope {
 
                             Label  {
                                 width: parent.width * 0.9
-                                text: i18n.tr("allowed to access your location")
-                            }
-
-                            CheckBox {
-                                checked: model.allowLocation
-                                onTriggered: DomainSettingsModel.allowLocation(model.domain, checked)
-                            }
-                        }
-
-                        Row {
-                            spacing: units.gu(1.5)
-                            height: units.gu(1)
-                            visible: item.ListView.isCurrentItem
-
-                            Label  {
                                 text: i18n.tr("custom user agent")
                                 opacity: UserAgentsModel.count > 0 ? 1.0 : 0.5
+                                anchors.verticalCenter: parent.verticalCenter
                             }
 
                             CheckBox {
@@ -260,6 +269,7 @@ FocusScope {
                                         DomainSettingsModel.setUserAgentId(model.domain, 0);
                                     }
                                 }
+                                anchors.verticalCenter: parent.verticalCenter
                             }
                         }
 
@@ -307,16 +317,22 @@ FocusScope {
                             }
                         }
 
-                        // within one label the check if zoom factor is set could not be properly done
-                        Label  {
+                        Row {
+                            spacing: units.gu(1.5)
                             height: units.gu(1)
-                            text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
-                            visible: item.ListView.isCurrentItem && ! isNaN(model.zoomFactor)
-                        }
-                        Label  {
-                            height: units.gu(1)
-                            text: i18n.tr("Zoom: ") + i18n.tr("not set")
-                            visible: item.ListView.isCurrentItem && isNaN(model.zoomFactor)
+                            visible: item.ListView.isCurrentItem
+
+                            // within one label the check if zoom factor is set could not be properly done
+                            Label  {
+                                text: i18n.tr("Zoom: ") + Math.round(model.zoomFactor * 100) + "%"
+                                visible: ! isNaN(model.zoomFactor)
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                            Label  {
+                                text: i18n.tr("Zoom: ") + i18n.tr("not set")
+                                visible: isNaN(model.zoomFactor)
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
                         }
                     }
                 }
