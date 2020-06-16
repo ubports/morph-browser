@@ -54,9 +54,9 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    // https://github.com/qt/qtwebengine/blob/5.14.0/dist/changes-5.14.0
+    // https://github.com/qt/qtwebengine/blob/5.13.0/dist/changes-5.13.0
     // Updated the Chromium version to ...
-    readonly property string _chromiumVersion: "77.0.3865.129"
+    readonly property string _chromiumVersion: "73.0.3683.105"
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
