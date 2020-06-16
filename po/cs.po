@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-03-03 20:01+0000\n"
+"PO-Revision-Date: 2020-05-21 08:24+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.ubports.com/projects/ubports/"
 "morph-browser/cs/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr "Varování JavaScriptu"
+msgstr "Varování ohledně JavaScript"
 
 #: src/app/AlertDialog.qml:31 src/app/AuthenticationDialog.qml:47
 #: src/app/ColorSelectDialog.qml:73 src/app/ConfirmDialog.qml:33
@@ -33,12 +33,14 @@ msgstr "OK"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr "Vlastní URL objekty"
+msgstr "Uživatelsky určené URL schémata"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr "Stránka '%1' se pokouší otevřít následující URL s vlastními objekty:"
+msgstr ""
+"Stránka „%1“ se pokouší otevřít následující URL s uživatelsky určeným "
+"schématem:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
@@ -57,7 +59,7 @@ msgstr "Pamatovat si volbu"
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
 msgid "Allow"
-msgstr "Povolit"
+msgstr "Umožnit"
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
@@ -130,7 +132,7 @@ msgstr "Potvrdit navigaci"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
-msgstr "Opustit chat"
+msgstr "Opustit"
 
 #: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
@@ -166,7 +168,7 @@ msgstr "Vybrat barvu"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr "Potvrezení JavaScriptu"
+msgstr "Potvrzení JavaScriptu"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
@@ -193,7 +195,7 @@ msgstr "Přidat název novému uživatelskému agentovi"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr "vložte řetězec uživatelského agenta..."
+msgstr "vložte řetězec uživatelského agenta…"
 
 #: src/app/CustomUserAgentsPage.qml:248
 msgid "No custom user agents available"
@@ -210,7 +212,7 @@ msgstr "Přidat doménu"
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
-msgstr "Vložte název domény, např. «example.com» (subdomény budou odstraněny)."
+msgstr "Vložte název domény, např. example.com (subdomény budou odstraněny)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
@@ -226,7 +228,7 @@ msgstr "Vždy povolit přstup"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr "Žádným stránkám nebyly uděleny zvláštní oprávnění"
+msgstr "Žádným stránkám nebyla udělena zvláštní oprávnění"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
@@ -234,7 +236,7 @@ msgstr "Specifická nastavení domény"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr "Vložte název domény, např. «m.example.com»"
+msgstr "Vložte název domény, např. m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
@@ -268,7 +270,7 @@ msgstr "Chyba sítě"
 #: src/app/ErrorSheet.qml:45
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Zdá se, že máte potíže se zobrazením %1."
+msgstr "Zdá se, že máte potíže se zobrazením: %1."
 
 #: src/app/ErrorSheet.qml:52
 #, qt-format
@@ -277,11 +279,11 @@ msgstr "Chyba: %1"
 
 #: src/app/ErrorSheet.qml:59
 msgid "Please check your network settings and try refreshing the page."
-msgstr "Prosím zkontrolujte připojení a zkuste obnovit stránku."
+msgstr "Prosím zkontrolujte připojení a zkuste stránku načíst znovu."
 
 #: src/app/ErrorSheet.qml:65
 msgid "Refresh page"
-msgstr "Obnovit stránku"
+msgstr "Načíst stránku znovu"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "Permission Request"
@@ -299,7 +301,7 @@ msgstr "Odmítnout"
 #: src/app/HttpAuthenticationDialog.qml:27
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
-msgstr "Webová stránka %1 požaduje ověření. Stránka hlásí \"%2\""
+msgstr "Webová stránka %1 požaduje ověření. Stránka hlásí „%2“"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -366,7 +368,7 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"Platná od:\n"
+"Platné od:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
@@ -376,7 +378,7 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"Platná do:\n"
+"Platné do:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
@@ -427,7 +429,7 @@ msgstr "Výzva JavaScriptu"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Je vyžadována proxy autorizace."
+msgstr "Proxy vyžaduje ověření se."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
@@ -454,7 +456,7 @@ msgstr "Výchozí přiblížení"
 
 #: src/app/WebViewImpl.qml:106
 msgid "the current web app"
-msgstr "aktuální web app"
+msgstr "stávající webová aplikace"
 
 #: src/app/WebViewImpl.qml:106
 #, qt-format
@@ -462,7 +464,7 @@ msgid ""
 "Set current zoom as default zoom for %1 ? (You can change it in the settings "
 "menu)"
 msgstr ""
-"Nastavit aktuální přiblížení jako výchozí pro %1 ? (Lze dodatečně změnit v "
+"Nastavit stávající přiblížení jako výchozí pro %1 ? (Lze dodatečně změnit v "
 "nastavení)"
 
 #: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
@@ -475,7 +477,7 @@ msgstr "Oddálit"
 
 #: src/app/WebViewImpl.qml:808
 msgid "Reset"
-msgstr "Obnovit"
+msgstr "Resetovat"
 
 #: src/app/WebViewImpl.qml:815
 msgid "Zoom In"
@@ -488,7 +490,7 @@ msgstr "Uložit"
 
 #: src/app/WebViewImpl.qml:861
 msgid "Current Zoom"
-msgstr "Aktuální přiblížení"
+msgstr "Stávající přiblížení"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -599,7 +601,7 @@ msgstr "Otevřít odkaz v novém panelu na pozadí"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
 msgid "Open link in new private window"
-msgstr "Otevřít odkaz v novém soukromém okně"
+msgstr "Otevřít odkaz v novém anonymním okně"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -611,7 +613,7 @@ msgstr "Otevřít odkaz v novém okně"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr "Otevřít video v novém tabu"
+msgstr "Otevřít video v novém panelu"
 
 #: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
 msgid "Paste"
@@ -687,11 +689,11 @@ msgstr "Všechny záložky"
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr "Nový adresář"
+msgstr "Nová složka"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr "Vytvořit nový adresář"
+msgstr "Vytvořit novou složku"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
@@ -720,7 +722,7 @@ msgstr "Hotovo"
 #: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "Nová záložka"
+msgstr "Nový panel"
 
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
@@ -767,7 +769,7 @@ msgstr "Nastavení"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
-msgstr "Podívat se na zdrojový kód"
+msgstr "Zobrazit zdrojový kód"
 
 #: src/app/webbrowser/Browser.qml:793
 msgid "Save as HTML / PDF"
@@ -796,7 +798,7 @@ msgstr "Stáhnout"
 
 #: src/app/webbrowser/DownloadDelegate.qml:153
 msgid "Download failed"
-msgstr "Stahování selhalo"
+msgstr "Stahování se nezdařilo"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/webbrowser/DownloadDelegate.qml:196
@@ -806,7 +808,7 @@ msgstr "%1%"
 
 #: src/app/webbrowser/DownloadDelegate.qml:202
 msgid "Pause"
-msgstr "Přerušit"
+msgstr "Pozastavit"
 
 #: src/app/webbrowser/DownloadDelegate.qml:213
 msgid "Resume"
@@ -853,7 +855,7 @@ msgstr "Celá historie"
 #: src/app/webbrowser/HistoryViewWide.qml:250
 #: src/app/webbrowser/HistoryViewWide.qml:337
 msgid "Today"
-msgstr "dnes"
+msgstr "Dnes"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -878,7 +880,7 @@ msgstr "Nejnavštěvovanější stránky"
 
 #: src/app/webbrowser/NewTabView.qml:357
 msgid "You haven't visited any site yet"
-msgstr "Nebyly navštíveny žádné stránky"
+msgstr "Doposud nebyly navštíveny žádné stránky"
 
 #: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
@@ -887,7 +889,7 @@ msgstr "Pro tento panel vykreslování skončilo."
 #: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr "Bohužel se nepodařilo zobrazit %1."
+msgstr "Při zobrazování %1 se něco nezdařilo."
 
 #: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
