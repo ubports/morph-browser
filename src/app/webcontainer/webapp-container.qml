@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Qt.labs.settings 1.0
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import QtWebEngine 1.10
+import QtWebEngine 1.9
 import Morph.Web 0.1
 import webcontainer.private 0.1
 import webbrowsercommon.private 0.1
@@ -220,7 +220,7 @@ BrowserWindow {
             var i;
             for (i = 0; i < customScripts.length; i++)
             {
-              var script = Qt.createQmlObject('import QtWebEngine 1.10; WebEngineScript {}', webappViewLoader);
+              var script = Qt.createQmlObject('import QtWebEngine 1.9; WebEngineScript {}', webappViewLoader);
               script.sourceUrl = customScripts[i];
               script.injectionPoint = WebEngineScript.DocumentCreation;
               script.worldId = WebEngineScript.MainWorld;

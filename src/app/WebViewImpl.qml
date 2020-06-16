@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.10
+import QtWebEngine 1.9
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions

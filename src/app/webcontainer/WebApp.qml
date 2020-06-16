@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.5
-import QtWebEngine 1.10
+import QtWebEngine 1.9
 import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
 import Morph.Web 0.1
