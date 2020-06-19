@@ -1,5 +1,5 @@
 {
-  "template": "cmake",
+  "builder": "cmake",
   "kill": "morph-browser",
   "build_args": "-DCLICK_MODE=ON",
   "dependencies_target": [
