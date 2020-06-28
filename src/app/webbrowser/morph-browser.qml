@@ -58,6 +58,9 @@ QtObject {
         DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
         DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
         UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
+
+        // create path for pages printed to PDF
+        FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
     }
 
     // Array of all windows, sorted chronologically (most recently active last)

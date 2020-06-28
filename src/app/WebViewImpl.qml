@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.7
+import QtWebEngine 1.9
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
@@ -57,16 +57,12 @@ WebView {
 
     settings.unknownUrlSchemePolicy: WebEngineSettings.AllowAllUnknownUrlSchemes
 
+    // setting it to false, because "true" opens the PDF viewer extension but makes it difficult to download the pdf (only possible with context menu)
+    // furthermore pages saved as PDF would not be downloaded but only displayed as PDF
+    settings.pdfViewerEnabled: false
+
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
-
-    QtObject {
-        id: internal
-
-        readonly property var downloadMimeTypesBlacklist: [
-            "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
-        ]
-    }
 
       QtObject {
         id: findController
@@ -353,7 +349,6 @@ WebView {
             enabled: !isWebApp && contextMenuRequest &&
                        (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) &&
                        contextMenuRequest.mediaUrl.toString()
-            //onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.mediaUrl, false);
         }
         Actions.CopyImage {
@@ -377,7 +372,6 @@ WebView {
             enabled: !isWebApp && contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
                      contextMenuRequest.mediaUrl.toString()
-            //onTriggered: internal.openUrlInNewTab(contextMenuRequest.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.mediaUrl, false);
         }
         Actions.SaveVideo {
@@ -715,6 +709,19 @@ WebView {
             // ToDo: Is there a way to not load the "blink error message" in the first place ?
             // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
             webview.runJavaScript("if (document.documentElement) {document.removeChild(document.documentElement);}")
+        }
+
+        if ((loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) && ! UrlUtils.isPdfViewerExtensionUrl(webview.url)) {
+           webview.runJavaScript("document.contentType", function(docContentType) {
+               if (docContentType === "application/pdf") {
+                   // ToDo: decide how we handle PDFs:
+                   // - ask the user if the file should be viewn / downloaded ?
+                   // - both download the PDF and show the preview ?
+                   // - create a user setting ?
+                   webview.goBack();
+                   browser.closeCurrentTab()
+               }
+           });
         }
     }
 

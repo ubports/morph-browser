@@ -34,6 +34,7 @@ function mimeTypeToContentType(mimeType) {
                || mimeType.search("application/x-ms-reader") === 0) {
         return ContentType.EBooks
     } else if (mimeType.search("text/") === 0
+               || mimeType.search("application/x-mimearchive") === 0
                || mimeType.search("application/pdf") === 0
                || mimeType.search("application/x-pdf") === 0
                || mimeType.search("application/vnd\.pdf") === 0

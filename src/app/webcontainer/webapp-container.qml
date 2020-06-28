@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Qt.labs.settings 1.0
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import QtWebEngine 1.7
+import QtWebEngine 1.9
 import Morph.Web 0.1
 import webcontainer.private 0.1
 import webbrowsercommon.private 0.1
@@ -184,6 +184,7 @@ BrowserWindow {
 
         onLoaded: {
             var context = item.currentWebview.context;
+            context.offTheRecord = false;
             onlineAccountsController.setupWebcontextForAccount(context);
             item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls;
 
@@ -195,11 +196,12 @@ BrowserWindow {
             DownloadsModel.databasePath = webappDataLocation + "/downloads.sqlite";
             UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
 
-            // this can be set from QtWebEngine version 1.9 (Qt 5.13)
-            // see issue [https://github.com/ubports/morph-browser/issues/254]
-            // --> uncomment the following line for QtWebEngine >= 1.9, and remove the marked code for this issue in WebApp.qml
-            //item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
+            // create downloads path
+            item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
             FileOperations.mkpath(webappDataLocation + "/Downloads");
+
+            // create path for pages printed to PDF
+            FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
         }
 
         function loadCustomUserScripts() {
@@ -218,7 +220,7 @@ BrowserWindow {
             var i;
             for (i = 0; i < customScripts.length; i++)
             {
-              var script = Qt.createQmlObject('import QtWebEngine 1.7; WebEngineScript {}', webappViewLoader);
+              var script = Qt.createQmlObject('import QtWebEngine 1.9; WebEngineScript {}', webappViewLoader);
               script.sourceUrl = customScripts[i];
               script.injectionPoint = WebEngineScript.DocumentCreation;
               script.worldId = WebEngineScript.MainWorld;
