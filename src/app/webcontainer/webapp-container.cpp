@@ -525,10 +525,8 @@ int main(int argc, char** argv)
     {
         qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu");
     }
-    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
 
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WebappContainer app(argc, argv);
     if (app.initialize()) {
         return app.run();
