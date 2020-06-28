@@ -32,6 +32,9 @@ QtObject {
     // mobile UA string is used, screens bigger than that will get desktop content.
     property string screenSize: calcScreenSize()
 
+    // To be set from outside
+    property string chromiumVersion
+
     // %1: Ubuntu version, e.g. "14.04"
     // %2: optional token to specify further attributes of the platform, e.g. "like Android"
     // %3: optional hardware ID token
@@ -54,8 +57,6 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    readonly property string _chromiumVersion: "65.0.3325.151" // TODO figure out how to get this
-
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
     readonly property string _more: ""
@@ -74,7 +75,7 @@ QtObject {
         ua = ua.arg((_attributes !== "") ? " %1".arg(_attributes) : "") // %2
         ua = ua.arg((_hardwareID !== "") ? "; %1".arg(_hardwareID) : "") // %3
         ua = ua.arg(_webkitVersion) // %4
-        ua = ua.arg(_chromiumVersion) // %5
+        ua = ua.arg(chromiumVersion) // %5
         ua = ua.arg((_formFactor !== "") ? "%1 ".arg(_formFactor) : "") // %6
         ua = ua.arg(_webkitVersion) // %7
         ua = ua.arg((_more !== "") ? " %1".arg(_more) : "") // %8

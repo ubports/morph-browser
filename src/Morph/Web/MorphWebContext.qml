@@ -28,12 +28,12 @@ WebEngineProfile {
     property alias incognito: oxideContext.offTheRecord
     readonly property string defaultUserAgent: __ua.defaultUA
 
+    property string chromiumVersion
+
     dataPath: dataLocation
 
     cachePath: cacheLocation
     maxCacheSizeHint: cacheSizeHint
-
-    userAgent: defaultUserAgent
 
     persistentCookiesPolicy: WebEngineProfile.ForcePersistentCookies
 
@@ -70,6 +70,8 @@ WebEngineProfile {
     ]
 
     property QtObject __ua: UserAgent02 {
+        chromiumVersion: oxideContext.chromiumVersion
+
         onScreenSizeChanged: reloadOverrides()
         Component.onCompleted: reloadOverrides()
 
@@ -91,16 +93,22 @@ WebEngineProfile {
             }
             if (temp !== null) {
                 console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-                var chromiumVersion = "65.0.3325.151" // TODO: find out how to get this from QtWebEngine
                 var overrides = []
                 for (var o in temp.overrides) {
                     var override = temp.overrides[o]
-                    overrides.push([override[0], override[1].replace(/\$\{CHROMIUM_VERSION\}/g, chromiumVersion)])
+                    overrides.push([override[0], override[1].replace(/\$\{CHROMIUM_VERSION\}/g, oxideContext.chromiumVersion)])
                 }
                 userAgentOverrides = overrides
                 temp.destroy()
             }
         }
+    }
+
+    Component.onCompleted: {
+        // Get Chromium version from the QtWebEngine's default UA.
+        var regex = /(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/;
+        chromiumVersion = userAgent.match(regex)[3];
+        userAgent = defaultUserAgent;
     }
 
     /*
