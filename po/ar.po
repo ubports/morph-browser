@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2015-07-14 12:27+0000\n"
-"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
-"Language-Team: Arabic <ar@li.org>\n"
+"PO-Revision-Date: 2020-06-05 14:24+0000\n"
+"Last-Translator: Abuabdellah <abuabdellah.abdurahman@gmail.com>\n"
+"Language-Team: Arabic <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -711,7 +712,7 @@ msgstr "تم"
 #: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "لسان جديد"
+msgstr "صفحة جديدة"
 
 #: src/app/webbrowser/Browser.qml:229
 #: src/app/webcontainer/WebViewImplOxide.qml:310
@@ -737,7 +738,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:734
 msgid "New window"
-msgstr ""
+msgstr "نافذة أخرى"
 
 #: src/app/webbrowser/Browser.qml:740
 msgid "New private window"

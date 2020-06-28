@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2015-08-14 15:19+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Thai <th@li.org>\n"
+"PO-Revision-Date: 2020-05-26 23:24+0000\n"
+"Last-Translator: Somnuk Limsiroratana <mailsomnuk@yahoo.com>\n"
+"Language-Team: Thai <https://translate.ubports.com/projects/ubports/"
+"morph-browser/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -636,7 +637,7 @@ msgstr "บันทึกวิดีโอ"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
 msgid "Share"
-msgstr "แบ่งปัน"
+msgstr "แชร์"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
@@ -753,7 +754,7 @@ msgstr "ดาวน์โหลด"
 
 #: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
 msgid "Settings"
-msgstr "การตั้งค่า"
+msgstr "ตั้งค่า"
 
 #: src/app/webbrowser/Browser.qml:786
 msgid "View source"
@@ -826,7 +827,7 @@ msgstr "เยี่ยมชมล่าสุด"
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
-msgstr "เมื่อวานนี้"
+msgstr "เมื่อวาน"
 
 #: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
