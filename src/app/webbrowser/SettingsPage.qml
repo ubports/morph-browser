@@ -181,7 +181,7 @@ FocusScope {
                           id: defaultZoomFactorSelector
                           value: Math.round(settingsObject.zoomFactor * 100 * stepSize) / stepSize
                           from: 25
-                          to: 500
+                          to: 500 / screenScaleFactor
                           stepSize: 5
                           textFromValue: function(value, locale) {
                             return value + "%";
