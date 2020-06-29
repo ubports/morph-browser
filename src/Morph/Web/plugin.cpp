@@ -34,11 +34,6 @@
 #include <QtQml>
 #include <QtQml/QQmlInfo>
 
-namespace
-{
-    const int LINUX_DEFAULT_DPI = 96;
-}
-
 class MorphWebPluginContext : public QObject
 {
     Q_OBJECT
@@ -46,7 +41,6 @@ class MorphWebPluginContext : public QObject
     Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
     Q_PROPERTY(qreal screenDiagonal READ screenDiagonal NOTIFY screenDiagonalChanged)
-    Q_PROPERTY(qreal screenScaleFactor READ screenScaleFactor NOTIFY screenScaleFactorChanged)
     Q_PROPERTY(int cacheSizeHint READ cacheSizeHint NOTIFY cacheSizeHintChanged)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
@@ -59,7 +53,6 @@ public:
     QString cacheLocation() const;
     QString dataLocation() const;
     qreal screenDiagonal() const;
-    qreal screenScaleFactor() const;
     int cacheSizeHint() const;
     QString devtoolsHost();
     int devtoolsPort();
@@ -70,7 +63,6 @@ Q_SIGNALS:
     void cacheLocationChanged() const;
     void dataLocationChanged() const;
     void screenDiagonalChanged() const;
-    void screenScaleFactorChanged() const;
     void cacheSizeHintChanged() const;
 
 private Q_SLOTS:
@@ -79,7 +71,6 @@ private Q_SLOTS:
 
 private:
     qreal m_screenDiagonal; // in millimeters
-    qreal m_screenScaleFactor;
     QString m_devtoolsHost;
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
@@ -89,7 +80,6 @@ private:
 MorphWebPluginContext::MorphWebPluginContext(QObject* parent)
     : QObject(parent)
     , m_screenDiagonal(0)
-    , m_screenScaleFactor(1.0)
     , m_devtoolsPort(-2)
     , m_hostMappingRulesQueried(false)
 {
@@ -106,18 +96,11 @@ void MorphWebPluginContext::updateScreen()
     if (window) {
         QScreen* screen = window->screen();
         if (screen) {
-            // screen diagonal
             QSizeF size = screen->physicalSize();
             qreal diagonal = qSqrt(size.width() * size.width() + size.height() * size.height());
             if (diagonal != m_screenDiagonal) {
                 m_screenDiagonal = diagonal;
                 Q_EMIT screenDiagonalChanged();
-            }
-            // screen scale factor
-            qreal scaleFactor = screen->logicalDotsPerInch() / LINUX_DEFAULT_DPI;
-            if (scaleFactor != m_screenScaleFactor) {
-                m_screenScaleFactor = scaleFactor;
-                Q_EMIT screenScaleFactorChanged();
             }
         }
     }
@@ -148,11 +131,6 @@ QString MorphWebPluginContext::dataLocation() const
 qreal MorphWebPluginContext::screenDiagonal() const
 {
     return m_screenDiagonal;
-}
-
-qreal MorphWebPluginContext::screenScaleFactor() const
-{
-    return m_screenScaleFactor;
 }
 
 int MorphWebPluginContext::cacheSizeHint() const
