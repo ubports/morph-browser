@@ -3,6 +3,7 @@ import Ubuntu.Components 1.3                  // For UbuntuShape.
 import Ubuntu.Components.Popups 1.3 as Popups // For saveDialog.
 import QtWebEngine 1.7
 import webbrowsercommon.private 0.1           // For DomainSettingsModel singleton.
+import Morph.Web 0.1                          // For screenScaleFactor
 import "UrlUtils.js" as UrlUtils
 
 // ZoomControls object to provide zoom menu, control and autofit logic for WebViewImpl.
@@ -109,7 +110,8 @@ UbuntuShape {
 
         readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
         readonly property real minZoomFactor: 0.25
-        readonly property real maxZoomFactor: 5.0
+        readonly property real maxZoomFactor: 5.0 / scaleFactor
+        readonly property real scaleFactor: screenScaleFactor
         readonly property alias currentZoomFactor: internal.currentZoomFactor
         readonly property alias viewSpecificZoom: internal.viewSpecificZoom
 
@@ -171,7 +173,7 @@ UbuntuShape {
         // To keep webview.zoomFactor in sync with currentZoomFactor.
         onCurrentZoomFactorChanged: {
             //console.log("[ZC] controller.onCurrentZoomFactorChanged: %1".arg(controller.currentZoomFactor));
-            webview.zoomFactor = controller.currentZoomFactor;
+            webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
         }
     }
 
@@ -311,7 +313,7 @@ UbuntuShape {
 
             //console.log("[ZC]   zooming to default and autofitting");
             // Automatic fit to width is done from defaultZoomFactor
-            webview.zoomFactor = controller.defaultZoomFactor;
+            webview.zoomFactor = controller.defaultZoomFactor * controller.scaleFactor;
             // Wait, to be sure that any page layout change (css, js, ...) after previous zoom or width change takes effect.
             internal.updateFitToWidthTimer.restart();
         }
@@ -332,7 +334,7 @@ UbuntuShape {
                     if (width === null || width <= 0) {
                         //console.log("[ZC]   no scrollWidth");
                         // Sync zoom factors in case they are out of sync.
-                        webview.zoomFactor = currentZoomFactor;
+                        webview.zoomFactor = currentZoomFactor * controller.scaleFactor;
                         return;
                     }
 
@@ -343,7 +345,7 @@ UbuntuShape {
                     if (Math.abs(controller.currentZoomFactor - controller.fitToWidthZoomFactor) < 0.1) {
                         //console.log("[ZC]   not autofitting, close to currentZoomFactor");
                         // Sync zoom factors in case they are out of sync.
-                        webview.zoomFactor = controller.currentZoomFactor;
+                        webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
                         return;
                     }
 
@@ -399,7 +401,7 @@ UbuntuShape {
 
                 // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
                 // although the webview.zoomFactor (and currentZoomFactor) is correctly set.
-                webview.zoomFactor = controller.currentZoomFactor;
+                webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
                 // End of workaround.
 
                 if (webview.visible === false) {
