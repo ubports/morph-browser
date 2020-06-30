@@ -175,6 +175,10 @@ UbuntuShape {
             //console.log("[ZC] controller.onCurrentZoomFactorChanged: %1".arg(controller.currentZoomFactor));
             webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
         }
+
+        onScaleFactorChanged: {
+            webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor
+        }
     }
 
     // Popup dialog for saving in zoom menu.
