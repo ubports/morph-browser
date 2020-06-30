@@ -89,7 +89,7 @@ private:
 MorphWebPluginContext::MorphWebPluginContext(QObject* parent)
     : QObject(parent)
     , m_screenDiagonal(0)
-    , m_screenScaleFactor(qApp->primaryScreen() ? (qApp->primaryScreen()->logicalDotsPerInch() / LINUX_DEFAUL_DPI) : 1.0)
+    , m_screenScaleFactor(qApp->primaryScreen() ? (qApp->primaryScreen()->logicalDotsPerInch() / LINUX_DEFAULT_DPI) : 1.0)
     , m_devtoolsPort(-2)
     , m_hostMappingRulesQueried(false)
 {
