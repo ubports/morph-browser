@@ -17,6 +17,7 @@
  */
 
 import QtQml 2.0
+import QtWebEngine 1.9
 
 /*
  * Useful documentation:
@@ -31,6 +32,13 @@ QtObject {
     // Empirical value: screens smaller than 19cm are considered small enough that a
     // mobile UA string is used, screens bigger than that will get desktop content.
     property string screenSize: calcScreenSize()
+
+    // get chromium version from default profile
+    property QtObject defaultProfile: WebEngineProfile {
+        id: defaultProfile
+        offTheRecord: true
+        readonly property string chromiumVersion: defaultProfile.httpUserAgent.match(/(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/)[3]
+    }
 
     // %1: Ubuntu version, e.g. "14.04"
     // %2: optional token to specify further attributes of the platform, e.g. "like Android"
@@ -55,8 +63,7 @@ QtObject {
     readonly property string _webkitVersion: "537.36"
 
     // https://github.com/qt/qtwebengine/blob/5.14.0/dist/changes-5.14.0
-    // Updated the Chromium version to ...
-    readonly property string _chromiumVersion: "77.0.3865.129"
+    readonly property string _chromiumVersion: defaultProfile.chromiumVersion
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
