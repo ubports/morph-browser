@@ -33,13 +33,6 @@ QtObject {
     // mobile UA string is used, screens bigger than that will get desktop content.
     property string screenSize: calcScreenSize()
 
-    // get chromium version from default profile
-    property QtObject defaultProfile: WebEngineProfile {
-        id: defaultProfile
-        offTheRecord: true
-        readonly property string chromiumVersion: defaultProfile.httpUserAgent.match(/(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/)[3]
-    }
-
     // %1: Ubuntu version, e.g. "14.04"
     // %2: optional token to specify further attributes of the platform, e.g. "like Android"
     // %3: optional hardware ID token
@@ -62,12 +55,15 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    // https://github.com/qt/qtwebengine/blob/5.14.0/dist/changes-5.14.0
-    readonly property string _chromiumVersion: defaultProfile.chromiumVersion
+    readonly property string _chromiumVersion: getChromiumVersionOfDefaultProfile()
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
     readonly property string _more: ""
+
+    readonly property QtObject temporaryDefaultProfile: WebEngineProfile {
+        offTheRecord: true
+    }
 
     function setDesktopMode(val) {
         screenSize = val ? "large" : calcScreenSize()
@@ -75,6 +71,18 @@ QtObject {
 
     function calcScreenSize() {
         return (screenDiagonal === 0) ? "unknown" : (screenDiagonal > 0 && screenDiagonal < 190) ? "small" : "large"
+    }
+
+    function getChromiumVersionOfDefaultProfile() {
+
+        if (! temporaryDefaultProfile) {
+           console.warn("the temporary default profile does no longer exit");
+           return;
+        }
+        var regex = /(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/;
+        var chromiumVersion = temporaryDefaultProfile.httpUserAgent.match(regex)[3];
+        temporaryDefaultProfile.destroy();
+        return chromiumVersion;
     }
 
     property string defaultUA: {
