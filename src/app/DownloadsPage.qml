@@ -221,11 +221,29 @@ BrowserPage {
             }
 
             onClicked: {
-                if (model.complete && !selectMode) {
-                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                    exportPeerPicker.visible = true
-                    exportPeerPicker.path = model.path
+//~                 if (model.complete && !selectMode) {
+//~                     exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+//~                     exportPeerPicker.visible = true
+//~                     exportPeerPicker.path = model.path
+//~                 }
+                if (!selectMode) {
+                    if (model.complete) {
+                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+                        exportPeerPicker.visible = true
+                        exportPeerPicker.path = model.path
+                    } else {
+                        if (download) {
+                            if (paused) {
+                                download.resume()
+                            } else {
+                                download.pause()
+                            }
+                        }
+                    }
                 }
+                
+
+                    
             }
 
             onPressAndHold: {
