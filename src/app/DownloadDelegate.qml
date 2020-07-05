@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtQuick.Layouts 1.3
 import ".."
 
 ListItem {
@@ -31,6 +32,7 @@ ListItem {
     property string downloadId
     property var download
     readonly property int progress: download ? 100 * (download.receivedBytes / download.totalBytes) : -1
+    property real speed: 0
     property bool paused: download.isPaused
     property alias incognito: incognitoIcon.visible
 
@@ -40,31 +42,78 @@ ListItem {
     signal cancelled()
 
     height: visible ? layout.height : 0
+    
+    function formatBytes(bytes, decimals) {
+        decimals = decimals ? decimals : 2
+        if (bytes === 0) return '0 Bytes';
+
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = [i18n.tr("bytes"), i18n.tr("KB"), i18n.tr("MB"), i18n.tr("GB"), i18n.tr("TB")];
+
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+    
+    Timer {
+        id: speedTimer
+        
+        property real prevBytes: 0
+        
+        interval: 1000
+        running: download && !paused? true : false
+        repeat: true
+        onTriggered: {
+            if (download) {
+                speed = download.receivedBytes - prevBytes
+                prevBytes = download.receivedBytes
+            }
+        }
+    }
+
+
 
     SlotsLayout {
         id: layout
 
-        Item {
+        ColumnLayout {
             SlotsLayout.position: SlotsLayout.Leading
-            width: units.gu(3)
-            height: units.gu(3)
+            spacing: units.gu(1)
+            Item {
+                Layout.alignment: Qt.AlignHCenter
+//~                 SlotsLayout.position: SlotsLayout.Leading
+                implicitWidth: units.gu(3)
+                implicitHeight: units.gu(3)
 
-            Image {
-                id: thumbimage
-                asynchronous: true
-                anchors.fill: parent
-                fillMode: Image.PreserveAspectFit
-                sourceSize.width: width
-                sourceSize.height: height
+                Image {
+                    id: thumbimage
+                    asynchronous: true
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    sourceSize.width: width
+                    sourceSize.height: height
+                }
+
+                Image {
+                    asynchronous: true
+                    anchors.fill: parent
+                    anchors.margins: units.gu(0.2)
+                    source: "image://theme/%1".arg(downloadDelegate.icon || "save")
+                    visible: thumbimage.status !== Image.Ready
+                    cache: true
+                }
             }
-
-            Image {
-                asynchronous: true
-                anchors.fill: parent
-                anchors.margins: units.gu(0.2)
-                source: "image://theme/%1".arg(downloadDelegate.icon || "save")
-                visible: thumbimage.status !== Image.Ready
-                cache: true
+            
+            Label {
+                Layout.alignment: Qt.AlignHCenter
+                visible: !progressBar.indeterminateProgress && incomplete
+    //~                         width: cancelButton.width
+                horizontalAlignment: Text.AlignHCenter
+//~                 textSize: Label.Small
+                // TRANSLATORS: %1 is the percentage of the download completed so far
+                text: i18n.tr("%1%").arg(progressBar.progress)
+                opacity: paused ? 0.5 : 1
             }
         }
 
@@ -132,71 +181,114 @@ ListItem {
                     elide: Text.ElideRight
                 }
             }
-
-            IndeterminateProgressBar {
-                id: progressBar
+            
+            ColumnLayout {
+                visible: incomplete && !error.visible
+                
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
-                height: units.gu(0.5)
-                visible: incomplete && !error.visible
-                progress: downloadDelegate.progress
-                // Work around UDM bug #1450144
-                indeterminateProgress: progress < 0 || progress > 100
-                opacity: paused ? 0.5 : 1
+
+                IndeterminateProgressBar {
+                    id: progressBar
+//~                     anchors {
+//~                         left: parent.left
+//~                         right: parent.right
+//~                     }
+                    Layout.fillWidth: true
+                    implicitHeight: units.gu(0.5)
+                    progress: downloadDelegate.progress
+                    // Work around UDM bug #1450144
+                    indeterminateProgress: progress < 0 || progress > 100
+                    opacity: paused ? 0.5 : 1
+                }
+                
+                RowLayout {
+                    Layout.fillWidth: true
+                    implicitHeight: units.gu(4)
+                    
+                    Label {
+                        horizontalAlignment: Text.AlignHCenter
+                        textSize: Label.Small
+                        // TRANSLATORS: %1 is the percentage of the download completed so far
+                        text: download ? formatBytes(download.receivedBytes) + " / " + formatBytes(download.totalBytes) : i18n.tr("Unknown")
+                        opacity: paused ? 0.5 : 1
+                    }
+                    
+                    Label {
+                        horizontalAlignment: Text.AlignHCenter
+                        textSize: Label.Small
+                        // TRANSLATORS: %1 is the percentage of the download completed so far
+                        text: "(" + i18n.tr("%1/s").arg(formatBytes(downloadDelegate.speed)) + ")"
+                        opacity: paused ? 0.5 : 1
+                    }
+                }
             }
         }
+        
+        Icon {
+            id: iconMenu
 
-        Column {
+            implicitWidth: units.gu(4)
+            implicitHeight: implicitWidth
             SlotsLayout.position: SlotsLayout.Trailing
-            spacing: units.gu(1)
-            width: (incomplete && !error.visible) ? cancelButton.width : 0
+            asynchronous: true
+            name: paused ? "media-playback-start" : "media-playback-pause"
+            visible: incomplete && !error.visible
+            color: theme.palette.normal.overlayText
+         }
 
-            Button {
-                id: cancelButton
-                visible: incomplete && !error.visible
-                text: i18n.tr("Cancel")
-                onClicked: {
-                    if (download) {
-                        download.cancel()
-                        cancelled()
-                    }
-                }
-            }
+//~         Column {
+//~             SlotsLayout.position: SlotsLayout.Trailing
+//~             spacing: units.gu(1)
+//~             width: (incomplete && !error.visible) ? cancelButton.width : 0
 
-            Label {
-                visible: !progressBar.indeterminateProgress && incomplete && !error.visible
-                width: cancelButton.width
-                horizontalAlignment: Text.AlignHCenter
-                textSize: Label.Small
-                // TRANSLATORS: %1 is the percentage of the download completed so far
-                text: i18n.tr("%1%").arg(progressBar.progress)
-                opacity: paused ? 0.5 : 1
-            }
+//~             Button {
+//~                 id: cancelButton
+//~                 visible: incomplete && !error.visible
+//~                 text: i18n.tr("Cancel")
+//~                 onClicked: {
+//~                     if (download) {
+//~                         download.cancel()
+//~                         cancelled()
+//~                     }
+//~                 }
+//~             }
 
-            Button {
-                visible: incomplete && ! paused && ! error.visible
-                text: i18n.tr("Pause")
-                width: cancelButton.width
-                onClicked: {
-                    if (download) {
-                        download.pause()
-                    }
-                }
-            }
+//~             Label {
+//~                 visible: !progressBar.indeterminateProgress && incomplete && !error.visible
+//~                 width: cancelButton.width
+//~                 horizontalAlignment: Text.AlignHCenter
+//~                 textSize: Label.Small
+//~                 // TRANSLATORS: %1 is the percentage of the download completed so far
+//~                 text: i18n.tr("%1%").arg(progressBar.progress)
+//~                 opacity: paused ? 0.5 : 1
+//~             }
 
-            Button {
-                visible: incomplete && paused && ! error.visible
-                text: i18n.tr("Resume")
-                width: cancelButton.width
-                onClicked: {
-                    if (download) {
-                        download.resume()
-                    }
-                }
-            }
-        }
+//~             Button {
+//~                 visible: incomplete && ! paused && ! error.visible
+//~                 text: i18n.tr("Pause")
+//~                 width: cancelButton.width
+//~                 iconName: "media-playback-pause"
+//~                 onClicked: {
+//~                     if (download) {
+//~                         download.pause()
+//~                     }
+//~                 }
+//~             }
+
+//~             Button {
+//~                 visible: incomplete && paused && ! error.visible
+//~                 text: i18n.tr("Resume")
+//~                 width: cancelButton.width
+//~                 onClicked: {
+//~                     if (download) {
+//~                         download.resume()
+//~                     }
+//~                 }
+//~             }
+//~         }
     }
 
     Icon {
@@ -213,7 +305,7 @@ ListItem {
         name: "private-browsing"
     }
 
-    leadingActions: error.visible || !incomplete ? deleteActionList : null
+    leadingActions: deleteActionList//error.visible || !incomplete ? deleteActionList : null
 
     ListItemActions {
         id: deleteActionList
@@ -222,10 +314,23 @@ ListItem {
                 objectName: "leadingAction.delete"
                 iconName: "delete"
                 enabled: error.visible || !incomplete
+                visible: enabled
                 onTriggered: {
 
                    cancelled()
 
+                }
+            },
+            Action {
+                objectName: "leadingAction.cancel"
+                iconName: "cancel"
+                enabled: incomplete && !error.visible
+                visible: enabled
+                onTriggered: {
+                    if (download) {
+                        download.cancel()
+                        cancelled()
+                    }
                 }
             }
         ]
