@@ -403,7 +403,7 @@ Common.BrowserPage {
                 verticalCenter: parent.verticalCenter
             }
 
-            strokeColor: theme.palette.normal.baseText
+            color: theme.palette.normal.base
 
             text: i18n.tr("Done")
 
