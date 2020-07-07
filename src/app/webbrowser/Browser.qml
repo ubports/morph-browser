@@ -986,6 +986,11 @@ Common.BrowserView {
         }
         visible: bottomEdgeHandle.enabled && !internal.hasMouse
         opacity: recentView.visible ? 0 : 1
+
+        function show() {
+            opacity = Qt.binding(function(){return recentView.visible ? 0 : 1})
+        }
+
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
@@ -998,6 +1003,31 @@ Common.BrowserView {
             color: theme.palette.normal.backgroundText
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        }
+
+        Timer {
+            id: autohideTimer
+            interval: 2000
+            onTriggered: {
+                bottomEdgeHint.opacity = 0
+            }
+        }
+        
+        Connections {
+            target: currentWebview ? currentWebview : null
+            onScrollPositionChanged: {
+                bottomEdgeHint.show()
+                autohideTimer.restart()
+            }
+        }
+        
+        Connections {
+            target: browser
+            
+            onCurrentWebviewChanged: {
+                autohideTimer.stop()
+                bottomEdgeHint.show()
+            }
         }
     }
 
