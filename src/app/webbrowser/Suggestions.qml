@@ -72,9 +72,9 @@ FocusScope {
             width: suggestionsList.width
             showDivider: index < model.length - 1
 
-            title: selected ? modelData.title : Highlight.highlightTerms(modelData.title, searchTerms, theme.palette.normal.activity)
+            title: selected ? modelData.title : Highlight.highlightTerms(modelData.title, searchTerms, UbuntuColors.orange)
             subtitle: modelData.displayUrl ? (selected ? modelData.url :
-                                                         Highlight.highlightTerms(modelData.url, searchTerms, theme.palette.normal.activity)) : ""
+                                                         Highlight.highlightTerms(modelData.url, searchTerms, UbuntuColors.orange)) : ""
             icon: modelData.icon || ""
             selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
