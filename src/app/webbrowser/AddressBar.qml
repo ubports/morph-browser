@@ -27,7 +27,7 @@ FocusScope {
 
     property alias icon: favicon.source
     property bool incognito: false
-    property alias text: textField.text
+    property string text
     property bool bookmarked: false
     signal toggleBookmark()
     property url requestedUrl
@@ -73,11 +73,19 @@ FocusScope {
         value: findInPageMode ? textField.text : ""
     }
 
+    Timer {
+        id: searchTextTimer
+        onTriggered: (addressbar.text = textField.text)
+        interval: 900
+    }
+
     TextField {
         id: textField
         objectName: "addressBarTextField"
 
         anchors.fill: parent
+
+        onTextChanged: searchTextTimer.restart()
 
         primaryItem: Item {
             id: icons
@@ -423,13 +431,14 @@ FocusScope {
         }
 
         function validate() {
-            var query = text.trim()
+            text = textField.text;
+            var query = text.trim();
             if (UrlUtils.looksLikeAUrl(query)) {
-                requestedUrl = UrlUtils.fixUrl(query)
+                requestedUrl = UrlUtils.fixUrl(query);
             } else {
-                requestedUrl = internal.buildSearchUrl(query)
+                requestedUrl = internal.buildSearchUrl(query);
             }
-            validated()
+            validated();
         }
 
         function simplifyUrl(url) {
@@ -471,68 +480,79 @@ FocusScope {
 
     onIncognitoChanged: {
         if (incognito) {
-            text = ""
-            internal.simplified = false
+            textField.text = "";
+            internal.simplified = false;
         }
     }
 
     onEditingChanged: {
-        if (findInPageMode) return
+        if (findInPageMode) {
+           return;
+        }
         if (editing && internal.simplified) {
-            text = actualUrl
-            internal.simplified = false
+            textField.text = actualUrl;
+            internal.simplified = false;
         } else if (!editing) {
             if (canSimplifyText && !loading && actualUrl.toString()) {
-                text = internal.simplifyUrl(actualUrl)
-                internal.simplified = true
+                textField.text = internal.simplifyUrl(actualUrl);
+                internal.simplified = true;
             } else {
-                text = actualUrl
-                internal.simplified = false
+                textField.text = actualUrl;
+                internal.simplified = false;
             }
         }
     }
 
     onCanSimplifyTextChanged: {
-        if (editing || findInPageMode) return
+        if (editing || findInPageMode) {
+           return;
+        }
         if (canSimplifyText && !loading && actualUrl.toString()) {
-            text = internal.simplifyUrl(actualUrl)
-            internal.simplified = true
+            textField.text = internal.simplifyUrl(actualUrl);
+            internal.simplified = true;
         } else if (!canSimplifyText && internal.simplified) {
-            text = actualUrl
-            internal.simplified = false
+            textField.text = actualUrl;
+            internal.simplified = false;
         }
     }
 
     onActualUrlChanged: {
-        if (editing || findInPageMode) return
+        if (editing || findInPageMode) {
+           return;
+        }
         if (canSimplifyText) {
-            text = internal.simplifyUrl(actualUrl)
-            internal.simplified = true
+            textField.text = internal.simplifyUrl(actualUrl);
+            internal.simplified = true;
         } else {
-            text = actualUrl
-            internal.simplified = false
+            textField.text = actualUrl;
+            internal.simplified = false;
         }
     }
 
     onRequestedUrlChanged: {
-        if (editing || findInPageMode) return
+        if (editing || findInPageMode) {
+           return;
+        }
         if (canSimplifyText) {
-            text = internal.simplifyUrl(requestedUrl)
-            internal.simplified = true
+            textField.text = internal.simplifyUrl(requestedUrl);
+            internal.simplified = true;
         } else {
-            text = requestedUrl
-            internal.simplified = false
+            textField.text = requestedUrl;
+            internal.simplified = false;
         }
     }
 
     onFindInPageModeChanged: {
-        if (findInPageMode) return
-        if (canSimplifyText) {
-            text = internal.simplifyUrl(actualUrl)
-            internal.simplified = true
+        if (findInPageMode) {
+            textField.text = "";
+        } else if (canSimplifyText) {
+            textField.text = internal.simplifyUrl(actualUrl);
+            addressBar.text = textField.text;
+            internal.simplified = true;
         } else {
-            text = actualUrl
-            internal.simplified = false
+            textField.text = actualUrl;
+            addressBar.text = textField.text;
+            internal.simplified = false;
         }
     }
 
