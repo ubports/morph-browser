@@ -38,6 +38,7 @@ FocusScope {
             color: theme.palette.normal.base
             width: 1
         }
+        color: theme.palette.normal.background
     }
 
     clip: true
