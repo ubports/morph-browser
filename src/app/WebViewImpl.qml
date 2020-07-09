@@ -447,90 +447,89 @@ WebView {
 
                 // text selection with <leafElementName> as starting point
                 function extendSelectionUpTheDom (leafElementName) {
-
                     var commandExtendSelection = "
-            var elementForTextSelection = %1;
-            var selectedLengthStart = window.getSelection().toString().length;
+                        var elementForTextSelection = %1;
+                        var selectedLengthStart = window.getSelection().toString().length;
 
-            var levelCounter = 0;
-            // go up the DOM until the selection is larger
-            while (elementForTextSelection.parentNode)
-            {
-                // select the current node
-                var range = document.createRange();
-                range.selectNode(elementForTextSelection);
-                window.getSelection().removeAllRanges();
-                window.getSelection().addRange(range);
+                        var levelCounter = 0;
+                        // go up the DOM until the selection is larger
+                        while (elementForTextSelection.parentNode)
+                        {
+                            // select the current node
+                            var range = document.createRange();
+                            range.selectNode(elementForTextSelection);
+                            window.getSelection().removeAllRanges();
+                            window.getSelection().addRange(range);
 
-                if (window.getSelection().toString().length > selectedLengthStart)
-                {
-                    break;
+                            if (window.getSelection().toString().length > selectedLengthStart)
+                            {
+                                break;
+                            }
+                            elementForTextSelection = elementForTextSelection.parentNode;
+                            levelCounter++;
+                        }
+
+                        // return array
+                        // [0] length of selection
+                        // [1] parent level at end
+                        // [2] isRootNode
+                        [window.getSelection().toString().length, levelCounter, elementForTextSelection.parentNode ? false : true]
+                    ".arg(leafElementName);
+
+                    webview.runJavaScript(commandExtendSelection,
+                        function(result) {
+                            console.log("[extendSelectionUpTheDom] java script function returned " + JSON.stringify(result))
+                            var selectedLength = result[0]
+                            var parentLevelAtEnd = result[1]
+                            var isRootNode = result[2]
+                            quickMenu.selectedTextLength = selectedLength
+                            while (quickMenu.textSelectionLevels.length > 0 && (parentLevelAtEnd <= quickMenu.textSelectionLevels[quickMenu.textSelectionLevels.length - 1] ))
+                            {
+                                quickMenu.textSelectionLevels.pop()
+                            }
+                            quickMenu.textSelectionLevels.push(parentLevelAtEnd)
+                            quickMenu.textSelectionLevelsChanged()
+                            console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
+                            quickMenu.textSelectionIsAtRootLevel = isRootNode
+                       });
                 }
-                elementForTextSelection = elementForTextSelection.parentNode;
-                levelCounter++;
-            }
 
-            // return array
-            // [0] length of selection
-            // [1] parent level at end
-            // [2] isRootNode
-            [window.getSelection().toString().length, levelCounter, elementForTextSelection.parentNode ? false : true]
-            ".arg(leafElementName);
-
-            webview.runJavaScript(commandExtendSelection,
-                                  function(result) {
-                                      console.log("[extendSelectionUpTheDom] java script function returned " + JSON.stringify(result))
-                                      var selectedLength = result[0]
-                                      var parentLevelAtEnd = result[1]
-                                      var isRootNode = result[2]
-                                      quickMenu.selectedTextLength = selectedLength
-                                      while (quickMenu.textSelectionLevels.length > 0 && (parentLevelAtEnd <= quickMenu.textSelectionLevels[quickMenu.textSelectionLevels.length - 1] ))
-                                      {
-                                          quickMenu.textSelectionLevels.pop()
-                                      }
-                                      quickMenu.textSelectionLevels.push(parentLevelAtEnd)
-                                      quickMenu.textSelectionLevelsChanged()
-                                      console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
-                                      quickMenu.textSelectionIsAtRootLevel = isRootNode
-                                 });
-            }
-
-            // <parentLevel> how many levels (.parentNode calls) to go up to reach the node with the text selection in the DOM
-            // <leafElementName> is the starting point (element the context menu was created for)
-            function setTextSelection (leafElementName, parentLevel) {
+                // <parentLevel> how many levels (.parentNode calls) to go up to reach the node with the text selection in the DOM
+                // <leafElementName> is the starting point (element the context menu was created for)
+                function setTextSelection (leafElementName, parentLevel) {
 
                     var commandSetTextSelection = "
-            var elementForTextSelection = %1;
-            var parentLevel = %2;
+                        var elementForTextSelection = %1;
+                        var parentLevel = %2;
 
-            var levelCounter = 0;
-            while (elementForTextSelection.parentNode && (levelCounter < parentLevel))
-            {
-                elementForTextSelection = elementForTextSelection.parentNode;
-                levelCounter++;
-            }
+                        var levelCounter = 0;
+                        while (elementForTextSelection.parentNode && (levelCounter < parentLevel))
+                        {
+                            elementForTextSelection = elementForTextSelection.parentNode;
+                            levelCounter++;
+                        }
 
-            var range = document.createRange();
-            range.selectNode(elementForTextSelection);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
+                        var range = document.createRange();
+                        range.selectNode(elementForTextSelection);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
 
-            // return length of selection
-            window.getSelection().toString().length
-            ".arg(leafElementName).arg(parentLevel);
+                        // return length of selection
+                        window.getSelection().toString().length
+                    ".arg(leafElementName).arg(parentLevel);
 
-            webview.runJavaScript(commandSetTextSelection,
-                                  function(result) {
-                                      console.log("the length of selection is now " + result)
-                                      quickMenu.selectedTextLength = result
-                                      quickMenu.textSelectionLevels.pop()
-                                      quickMenu.textSelectionLevelsChanged()
-                                      console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
-                                      quickMenu.textSelectionIsAtRootLevel = false
-                                  });
-            }
+                    webview.runJavaScript(commandSetTextSelection,
+                        function(result) {
+                            console.log("the length of selection is now " + result)
+                            quickMenu.selectedTextLength = result
+                            quickMenu.textSelectionLevels.pop()
+                            quickMenu.textSelectionLevelsChanged()
+                            console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
+                            quickMenu.textSelectionIsAtRootLevel = false
+                        });
+                }
 
-            Action {
+                Action {
                     name: "undo"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Undo")
                     iconName: "edit-undo"
