@@ -442,6 +442,38 @@ WebView {
                          : (fitsAbove && ! selectionVerticallyOutOfSight && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
                                      : (webview.height - height) / 2
 
+            MouseArea {
+                // without that MouseArea the user can click "through" actions with enabled=false (e.g. accidently change the text selection)
+                anchors.fill: touchSelectionActionsRow
+                onClicked: console.log("inactive touch selection item clicked.")
+            }
+
+            Row {
+                id: touchSelectionActionsRow
+                x: parent.padding
+                y: parent.padding
+                height: units.gu(6)
+
+                Repeater {
+                    model: touchSelectionActions.children
+                    AbstractButton {
+                        objectName: "touchSelectionAction_" + action.name
+                        anchors {
+                            top: touchSelectionActionsRow.top
+                            bottom: touchSelectionActionsRow.bottom
+                        }
+                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                        action: modelData
+                        styleName: "ToolbarButtonStyle"
+                        activeFocusOnPress: false
+                    }
+                }
+            }
+
+            /*
+             * ActionList is created later to workaround QObject children
+             * destruction order which destruct in creation order.
+             */
             ActionList {
                 id: touchSelectionActions
 
@@ -662,34 +694,6 @@ WebView {
                     visible: enabled
                     onTriggered: {
                         quickMenu.visible = false;
-                    }
-                }
-            }
-
-            MouseArea {
-                // without that MouseArea the user can click "through" actions with enabled=false (e.g. accidently change the text selection)
-                anchors.fill: touchSelectionActionsRow
-                onClicked: console.log("inactive touch selection item clicked.")
-            }
-
-            Row {
-                id: touchSelectionActionsRow
-                x: parent.padding
-                y: parent.padding
-                height: units.gu(6)
-
-                Repeater {
-                    model: touchSelectionActions.children
-                    AbstractButton {
-                        objectName: "touchSelectionAction_" + action.name
-                        anchors {
-                            top: touchSelectionActionsRow.top
-                            bottom: touchSelectionActionsRow.bottom
-                        }
-                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
-                        action: modelData
-                        styleName: "ToolbarButtonStyle"
-                        activeFocusOnPress: false
                     }
                 }
             }

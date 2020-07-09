@@ -329,6 +329,32 @@ FocusScope {
             onClicked: console.log("inactive part of address bar menu clicked.")
         }
 
+        Row {
+            id: addressBarActionsRow
+            x: parent.padding
+            y: parent.padding
+            height: units.gu(6)
+
+            Repeater {
+                model: addressBarActions.children
+                AbstractButton {
+                    objectName: "addressBarAction_" + action.name
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: Math.max(units.gu(4), implicitWidth) + units.gu(2)
+                    action: modelData
+                    styleName: "ToolbarButtonStyle"
+                    activeFocusOnPress: false
+                }
+            }
+        }
+
+        /*
+         * ActionList is created later to workaround QObject children
+         * destruction order which destruct in creation order.
+         */
         ActionList {
             id: addressBarActions
             Action {
@@ -373,28 +399,6 @@ FocusScope {
                 onTriggered: {
                     textField.text = Clipboard.data.text;
                     textField.accepted();
-                }
-            }
-        }
-
-        Row {
-            id: addressBarActionsRow
-            x: parent.padding
-            y: parent.padding
-            height: units.gu(6)
-
-            Repeater {
-                model: addressBarActions.children
-                AbstractButton {
-                    objectName: "addressBarAction_" + action.name
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                    }
-                    width: Math.max(units.gu(4), implicitWidth) + units.gu(2)
-                    action: modelData
-                    styleName: "ToolbarButtonStyle"
-                    activeFocusOnPress: false
                 }
             }
         }
