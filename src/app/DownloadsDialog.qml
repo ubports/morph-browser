@@ -33,28 +33,16 @@ Popover {
 
     property var downloadsList: []
     property bool isEmpty: downloadsListView.count === 0
-    property bool openDownloads: false
-//~     readonly property real controlsHeight: (downloadsDialogColumn.spacing * 2) + (downloadsDialogColumn.anchors.margins * 2) +  buttonsBar.height + titleLabel.height
+    readonly property real controlsHeight: (downloadsDialogColumn.spacing * (downloadsDialogColumn.children.length - 1)) 
+                                            + (downloadsDialogColumn.anchors.margins * 2) + buttonsBar.height + titleLabel.height
     property real maximumWidth: units.gu(60)
     property real preferredWidth: browser.width - units.gu(6)
     
     property real maximumHeight: browser.height - units.gu(6)
     property real preferredHeight:  downloadsDialogColumn.childrenRect.height + units.gu(2)
-//~     property real preferredHeight:  (downloadsListView.count * units.gu(8)) + units.gu(2) + buttonsBar.height //browser.height > maximumHeight ? browser.height / 2 : browser.height
-//~     property real preferredHeight: isEmpty ? controlsHeight: (downloadsListView.count * units.gu(7)) + controlsHeight //browser.height > maximumHeight ? browser.height / 2 : browser.height
-    
-//~     width: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
-//~     height: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
 
-
-    contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight //downloadsDialogColumn.childrenRect.height + units.gu(2)
-    contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth //browser.width - units.gu(4)
-
-    Component.onDestruction: {
-        if (openDownloads) {
-            showDownloadsPage()
-        }
-    }
+    contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
+    contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
     
     Loader {
         id: thumbnailLoader
@@ -69,7 +57,6 @@ Popover {
             left: parent.left
             right: parent.right
             margins: units.gu(1)
-//~             bottom: parent.bottom
         }
 
         spacing: units.gu(2)
@@ -78,7 +65,6 @@ Popover {
             id: titleLabel
 
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignTop
             font.bold: true
             text: i18n.tr("Recent Downloads")
         }
@@ -87,17 +73,14 @@ Popover {
             id: emptyLabel
             
             visible: isEmpty
-            implicitHeight: units.gu(10)
+            Layout.preferredHeight: units.gu(10)
+            Layout.minimumHeight: label.height
             color: "transparent"
             
             Layout.fillWidth: true
-//~             Layout.fillHeight: true
-//~             anchors {
-//~                 left: parent.left
-//~                 right: parent.right
-//~             }
             
             Label {
+                id: label
                 text: i18n.tr("No Recent Downloads")
                 anchors.centerIn: parent
             }
@@ -105,20 +88,12 @@ Popover {
 
         ListView {
             id: downloadsListView
-
-            visible: !isEmpty
-//~             anchors {
-//~                 left: parent.left
-//~                 right: parent.right
-//~             }
-            Layout.fillWidth: true
-//~             Layout.fillHeight: true
-            Layout.preferredHeight: downloadsListView.count * units.gu(7)
-            Layout.maximumHeight: browser.height// - units.gu(10)
-//~             Layout.alignment: Qt.AlignVCenter
             
-//~             height: downloadsList.length * units.gu(7)
-            focus: !exportPeerPicker.focus
+            visible: !isEmpty
+            Layout.fillWidth: true
+            Layout.preferredHeight: downloadsListView.count * units.gu(7)
+            Layout.maximumHeight: browser.height - controlsHeight - units.gu(7)
+            Layout.minimumHeight: units.gu(7)
             clip: true
 
             model: downloadsList
@@ -136,7 +111,7 @@ Popover {
                 divider.visible: false
                 
                 onClicked: {
-                    console.log("error: " + download.interruptReason + " - " + incomplete + " - "  + error )
+//~                     console.log("error: " + download.interruptReason + " - " + incomplete + " - "  + error )
                     if (!incomplete && !error) {
                         exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(download.mimeType)
                         contentPicker.open()
@@ -154,10 +129,6 @@ Popover {
                 
                 ListItemLayout {
                     title.text: FileUtils.getFilename(modelData.path)
-//~                     title.color: theme.palette.normal.backgroundText
-//~                     subtitle.text: (error ? cancelled ? i18n.tr("Cancelled") : modelData.interruptReasonString
-//~                                 : (incomplete ? i18n.tr("%1%").arg(progress) : i18n.tr("Completed")))
-//~                                 + " - " + FileUtils.formatBytes(download.receivedBytes)
                     subtitle.text: if (cancelled) {
                                         i18n.tr("Cancelled")
                                     } else {
@@ -230,8 +201,7 @@ Popover {
                         Action {
                             objectName: "leadingAction.remove"
                             iconName: "list-remove"
-//~                             enabled: !incomplete
-//~                             visible: enabled
+                            text: i18n.tr("Remove")
                             onTriggered: {
                                downloadsListView.removeItem(index)
                             }
@@ -239,6 +209,7 @@ Popover {
                         Action {
                             objectName: "leadingAction.cancel"
                             iconName: "cancel"
+                            text: i18n.tr("Cancel")
                             enabled: incomplete && !error
                             visible: enabled
                             onTriggered: {
@@ -257,9 +228,6 @@ Popover {
             }
             
             function removeItem(index) {
-//~                 var temp = downloadsList.slice()
-//~                 temp.splice(index, 1);
-//~                 downloadsList = temp.slice()
                 downloadsList.splice(index, 1);
                 model = downloadsList
                 forceLayout()
@@ -269,14 +237,7 @@ Popover {
         Item {
             id: buttonsBar
 
-            Layout.alignment: Qt.AlignBottom
             Layout.fillWidth: true
-//~             anchors {
-//~                 left: parent.left
-//~                 right: parent.right
-//~                 margins: units.gu(1)
-//~             }
-
             implicitHeight: clearButton.height
 
             Button {
@@ -285,8 +246,9 @@ Popover {
                 objectName: "downloadsDialog.clearButton"
                 text: i18n.tr("Clear")
                 onClicked: {
-//~                     internal.recentDownloads = []
-                    downloadsList = []
+                    downloadsList.splice(0,downloadsList.length)
+                    downloadsListView.model = downloadsList
+                    downloadsListView.forceLayout()
                 }
             }
 
@@ -297,11 +259,8 @@ Popover {
                 text: i18n.tr("View All")
                 color: theme.palette.normal.activity
                 onClicked: {
-                    openDownloads = true
                     downloadsDialog.destroy()
-    //~                     showDownloadsPage()
-    //~                     PopupUtils.close(downloadsDialog)
-    //~                     downloadsDialog.destroy()
+                    showDownloadsPage()
                 }
             }
         }

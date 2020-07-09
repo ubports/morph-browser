@@ -216,7 +216,7 @@ ListItem {
             implicitHeight: implicitWidth
             SlotsLayout.position: SlotsLayout.Trailing
             asynchronous: true
-            name: paused ? "media-preview-start" : "media-preview-pause" //"media-playback-start" : "media-playback-pause"
+            name: paused ? "media-preview-start" : "media-preview-pause"
             visible: incomplete && !error.visible
             color: theme.palette.normal.overlayText
         }
@@ -246,6 +246,7 @@ ListItem {
                 iconName: "delete"
                 enabled: error.visible || !incomplete
                 visible: enabled
+                text: i18n.tr("Delete")
                 onTriggered: {
                    removed()
                 }
@@ -255,6 +256,7 @@ ListItem {
                 iconName: "list-remove"
                 enabled: !incomplete && !error.visible
                 visible: enabled
+                text: i18n.tr("Remove")
                 onTriggered: {
                    cancelled()
                 }
@@ -264,6 +266,7 @@ ListItem {
                 iconName: "cancel"
                 enabled: incomplete && !error.visible
                 visible: enabled
+                text: i18n.tr("Cancel")
                 onTriggered: {
                     if (download) {
                         download.cancel()

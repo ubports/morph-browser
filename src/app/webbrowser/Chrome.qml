@@ -33,6 +33,8 @@ ChromeBase {
     signal closeTabRequested()
     signal toggleBookmark()
     signal toggleDownloads()
+    property bool showDownloadButton: false
+    property bool downloadNotify: false
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
@@ -114,6 +116,8 @@ ChromeBase {
             loading: chrome.loading
             fgColor: theme.palette.normal.backgroundText
             iconColor: (incognito && !showTabsBar) ? theme.palette.normal.background : fgColor
+            showDownloadButton: chrome.showDownloadButton
+            downloadNotify: chrome.downloadNotify
 
             focus: true
 

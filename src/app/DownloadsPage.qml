@@ -223,7 +223,7 @@ BrowserPage {
             }
 
             onClicked: {
-                console.log("selectMode: " + selectMode + " - " + paused + " - " + download)
+//~                 console.log("selectMode: " + selectMode + " - " + paused + " - " + download)
                 if (!selectMode) {
                     if (model.complete) {
                         exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)

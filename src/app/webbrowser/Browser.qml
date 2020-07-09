@@ -1506,15 +1506,19 @@ Common.BrowserView {
         property var recentDownloads: []
         property var currentDownloadsDialog: null
         function showDownloadsDialog(caller) {
-            if (caller === undefined) caller = chrome.downloadsButtonPlaceHolder
-            var properties = {"downloadsList": recentDownloads}
+            if (!internal.currentDownloadsDialog) {
+                chrome.downloadNotify = false
+                if (caller === undefined) caller = chrome.downloadsButtonPlaceHolder
+                var properties = {"downloadsList": recentDownloads}
             
-            internal.currentDownloadsDialog = PopupUtils.open(Qt.resolvedUrl("../DownloadsDialog.qml"),
-                                                           caller, properties)
+                internal.currentDownloadsDialog = PopupUtils.open(Qt.resolvedUrl("../DownloadsDialog.qml"),
+                                                               caller, properties)
+           }
         }
         
         function addNewDownload(download) {
             recentDownloads.unshift(download)
+            chrome.showDownloadButton = true
         }
     }
 
@@ -1807,10 +1811,14 @@ Common.BrowserView {
         {
           DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
         }
-
-        if (!downloadsViewLoader.active) {
-            internal.showDownloadsDialog()
+        
+        if (!internal.currentDownloadsDialog) {
+            chrome.downloadNotify = true
         }
+
+//~         if (!downloadsViewLoader.active) {
+//~             internal.showDownloadsDialog()
+//~         }
     }
 
     QQC2.Dialog {

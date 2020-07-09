@@ -32,6 +32,8 @@ FocusScope {
     signal closeTabRequested()
     signal toggleBookmark()
     signal toggleDownloads()
+    property bool showDownloadButton: false
+    property bool downloadNotify: false
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
@@ -231,14 +233,55 @@ FocusScope {
                 id: downloadsButton
                 objectName: "downloadsButton"
 
-                iconName: "save" //"save-to" "transfer-progress-download"
+                visible: showDownloadButton
+                iconName: "save-to" //"save-to" "transfer-progress-download"
                 iconSize: 0.5 * height
-                iconColor: root.iconColor
+                iconColor: downloadNotify ? theme.palette.normal.positive : root.iconColor
 
                 height: root.height
                 width: height * 0.8
 
                 anchors.verticalCenter: parent.verticalCenter
+                
+                Connections {
+                    target: root
+                    
+                    onDownloadNotifyChanged: {
+                        if (downloadNotify) {
+                            shakeAnimation.start()
+                        }
+                    }
+                }
+                
+                SequentialAnimation {
+                    id: shakeAnimation
+                    loops: 3
+                    
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Counterclockwise
+                        to: 355
+                        duration: UbuntuAnimation.SnapDuration
+                    }
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Clockwise
+                        to: 0
+                        duration: UbuntuAnimation.SnapDuration
+                    }
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Clockwise
+                        to: 5
+                        duration: UbuntuAnimation.SnapDuration
+                    }
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Counterclockwise
+                        to: 0
+                        duration: UbuntuAnimation.SnapDuration
+                    }
+                }
 
                 onTriggered: {
                     toggleDownloads()
