@@ -25,6 +25,8 @@ import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Content 1.3
+import QtQuick.Controls 2.2 as QQC2
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -698,6 +700,10 @@ Common.BrowserView {
             if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
             // QtWebEngine icons are provided as e.g. image://favicon/https://duckduckgo.com/favicon.ico
             else internal.addBookmark(tab.url, tab.title, (UrlUtils.schemeIs(tab.icon, "image") && UrlUtils.hostIs(tab.icon, "favicon")) ? tab.icon.toString().substring(("image://favicon/").length) : tab.icon)
+        }
+
+        onToggleDownloads: {
+            internal.showDownloadsDialog()
         }
         onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
         Connections {
@@ -1496,6 +1502,20 @@ Common.BrowserView {
             internal.currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
                                                            location, properties)
         }
+
+        property var recentDownloads: []
+        property var currentDownloadsDialog: null
+        function showDownloadsDialog(caller) {
+            if (caller === undefined) caller = chrome.downloadsButtonPlaceHolder
+            var properties = {"downloadsList": recentDownloads}
+            
+            internal.currentDownloadsDialog = PopupUtils.open(Qt.resolvedUrl("../DownloadsDialog.qml"),
+                                                           caller, properties)
+        }
+        
+        function addNewDownload(download) {
+            recentDownloads.unshift(download)
+        }
     }
 
     // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
@@ -1764,7 +1784,9 @@ Common.BrowserView {
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
         DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
-        downloadsViewLoader.active = true
+        //downloadsViewLoader.active = true
+        internal.addNewDownload(download)
+        internal.showDownloadsDialog()
     }
 
     function setDownloadComplete(download) {
@@ -1785,6 +1807,47 @@ Common.BrowserView {
         {
           DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
         }
+
+        if (!downloadsViewLoader.active) {
+            internal.showDownloadsDialog()
+        }
+    }
+
+    QQC2.Dialog {
+        id: contentPicker
+        
+        width: parent.width
+        height: parent.height
+        parent: browser
+        topPadding: 0
+        bottomPadding: 0
+        leftPadding: 0
+        rightPadding: 0
+
+        modal: true
+    
+        ContentPeerPicker {
+            id: exportPeerPicker
+            focus: visible
+            anchors.fill: parent
+            handler: ContentHandler.Destination
+            property string path
+            onPeerSelected: {
+                var transfer = peer.request()
+                if (transfer.state === ContentTransfer.InProgress) {
+                    transfer.items = [contentItemComponent.createObject(contentPicker, {"url": path})]
+                    transfer.state = ContentTransfer.Charged
+                }
+                contentPicker.close()
+            }
+            onCancelPressed: contentPicker.close()
+            Keys.onEscapePressed: contentPicker.close()
+        }
+        
+        Component {
+            id: contentItemComponent
+            ContentItem {}
+        }
     }
 
     Connections {
@@ -1795,14 +1858,14 @@ Common.BrowserView {
 
             console.log("a download was requested with path %1".arg(download.path))
             download.accept();
-            browser.showDownloadsPage();
+            //browser.showDownloadsPage();
             browser.startDownload(download);
         }
 
         onDownloadFinished: {
 
             console.log("a download was finished with path %1.".arg(download.path))
-            browser.showDownloadsPage()
+            //browser.showDownloadsPage()
             browser.setDownloadComplete(download)
         }
     }

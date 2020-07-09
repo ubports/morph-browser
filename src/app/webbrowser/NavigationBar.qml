@@ -31,6 +31,7 @@ FocusScope {
     property alias bookmarked: addressbar.bookmarked
     signal closeTabRequested()
     signal toggleBookmark()
+    signal toggleDownloads()
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
@@ -42,6 +43,7 @@ FocusScope {
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
+    readonly property alias downloadsButtonPlaceHolder: downloadsButton
     property color fgColor: theme.palette.normal.baseText
     property color iconColor: theme.palette.selected.base
     property real availableHeight
@@ -223,6 +225,24 @@ FocusScope {
                 visible: tabListMode
 
                 onTriggered: closeTabRequested()
+            }
+            
+            ChromeButton {
+                id: downloadsButton
+                objectName: "downloadsButton"
+
+                iconName: "save" //"save-to" "transfer-progress-download"
+                iconSize: 0.5 * height
+                iconColor: root.iconColor
+
+                height: root.height
+                width: height * 0.8
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                onTriggered: {
+                    toggleDownloads()
+                }
             }
 
             ChromeButton {

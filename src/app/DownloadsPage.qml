@@ -19,10 +19,12 @@
 import QtQuick 2.4
 import QtWebEngine 1.5
 import Ubuntu.Components 1.3
+import QtQuick.Controls 2.2 as QQC2
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
 
 import "MimeTypeMapper.js" as MimeTypeMapper
+import "FileUtils.js" as FileUtils
 
 BrowserPage {
     id: downloadsItem
@@ -192,7 +194,7 @@ BrowserPage {
         delegate: DownloadDelegate {
             download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
-            title: getDisplayPath(model.path)
+            title: FileUtils.getFilename(model.path) //getDisplayPath(model.path)
             url: model.url
             image: model.complete && thumbnailLoader.status == Loader.Ready 
                                   && (model.mimetype.indexOf("image") === 0 
@@ -221,15 +223,11 @@ BrowserPage {
             }
 
             onClicked: {
-//~                 if (model.complete && !selectMode) {
-//~                     exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-//~                     exportPeerPicker.visible = true
-//~                     exportPeerPicker.path = model.path
-//~                 }
+                console.log("selectMode: " + selectMode + " - " + paused + " - " + download)
                 if (!selectMode) {
                     if (model.complete) {
                         exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                        exportPeerPicker.visible = true
+                        contentPicker.open()
                         exportPeerPicker.path = model.path
                     } else {
                         if (download) {
@@ -240,10 +238,7 @@ BrowserPage {
                             }
                         }
                     }
-                }
-                
-
-                    
+                }  
             }
 
             onPressAndHold: {
@@ -300,24 +295,37 @@ BrowserPage {
         id: contentItemComponent
         ContentItem {}
     }
+    
+    QQC2.Dialog {
+        id: contentPicker
+        
+        width: parent.width
+        height: parent.height
+        parent: downloadsItem
+        topPadding: 0
+        bottomPadding: 0
+        leftPadding: 0
+        rightPadding: 0
 
-    ContentPeerPicker {
-        id: exportPeerPicker
-        visible: false
-        focus: visible
-        anchors.fill: parent
-        handler: ContentHandler.Destination
-        property string path
-        onPeerSelected: {
-            var transfer = peer.request()
-            if (transfer.state === ContentTransfer.InProgress) {
-                transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})]
-                transfer.state = ContentTransfer.Charged
+        modal: true
+    
+        ContentPeerPicker {
+            id: exportPeerPicker
+            focus: visible
+            anchors.fill: parent
+            handler: ContentHandler.Destination
+            property string path
+            onPeerSelected: {
+                var transfer = peer.request()
+                if (transfer.state === ContentTransfer.InProgress) {
+                    transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})]
+                    transfer.state = ContentTransfer.Charged
+                }
+                contentPicker.close()
             }
-            visible = false
+            onCancelPressed: contentPicker.close()
+            Keys.onEscapePressed: contentPicker.close()
         }
-        onCancelPressed: visible = false
-        Keys.onEscapePressed: visible = false
     }
 
 }
