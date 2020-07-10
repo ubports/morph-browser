@@ -91,7 +91,7 @@ WebEngineProfile {
             }
             if (temp !== null) {
                 console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-                var chromiumVersion = "65.0.3325.151" // TODO: find out how to get this from QtWebEngine
+                var chromiumVersion = __ua._chromiumVersion
                 var overrides = []
                 for (var o in temp.overrides) {
                     var override = temp.overrides[o]

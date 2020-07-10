@@ -17,6 +17,7 @@
  */
 
 import QtQml 2.0
+import QtWebEngine 1.9
 
 /*
  * Useful documentation:
@@ -54,13 +55,15 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    // https://github.com/qt/qtwebengine/blob/5.14.0/dist/changes-5.14.0
-    // Updated the Chromium version to ...
-    readonly property string _chromiumVersion: "77.0.3865.129"
+    readonly property string _chromiumVersion: getChromiumVersionOfDefaultProfile()
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
     readonly property string _more: ""
+
+    readonly property QtObject temporaryDefaultProfile: WebEngineProfile {
+        offTheRecord: true
+    }
 
     function setDesktopMode(val) {
         screenSize = val ? "large" : calcScreenSize()
@@ -68,6 +71,18 @@ QtObject {
 
     function calcScreenSize() {
         return (screenDiagonal === 0) ? "unknown" : (screenDiagonal > 0 && screenDiagonal < 190) ? "small" : "large"
+    }
+
+    function getChromiumVersionOfDefaultProfile() {
+
+        if (! temporaryDefaultProfile) {
+           console.warn("the temporary default profile does no longer exit");
+           return;
+        }
+        var regex = /(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/;
+        var chromiumVersion = temporaryDefaultProfile.httpUserAgent.match(regex)[3];
+        temporaryDefaultProfile.destroy();
+        return chromiumVersion;
     }
 
     property string defaultUA: {
