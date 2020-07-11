@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
+import QtQuick 2.9
 import QtWebEngine 1.5
 import Ubuntu.Components 1.3
-import QtQuick.Controls 2.2 as QQC2
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
 
@@ -152,7 +152,6 @@ BrowserPage {
     ListView {
         id: downloadsListView
         anchors.fill: parent
-        focus: !exportPeerPicker.focus
 
         model: SortFilterModel {
             model: SortFilterModel {
@@ -192,6 +191,8 @@ BrowserPage {
         }
 
         delegate: DownloadDelegate {
+            id: downloadDelegate
+            
             download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
             title: FileUtils.getFilename(model.path) //getDisplayPath(model.path)
@@ -206,6 +207,7 @@ BrowserPage {
             errorMessage: model.error
             paused: download ? download.isPaused : false
             incognito: model.incognito
+
 
             function getDisplayPath(path)
             {
@@ -223,12 +225,10 @@ BrowserPage {
             }
 
             onClicked: {
-//~                 console.log("selectMode: " + selectMode + " - " + paused + " - " + download)
                 if (!selectMode) {
                     if (model.complete) {
-                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                        contentPicker.open()
-                        exportPeerPicker.path = model.path
+                        var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype)}
+                        PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
                     } else {
                         if (download) {
                             if (paused) {
@@ -290,42 +290,4 @@ BrowserPage {
         horizontalAlignment: Text.AlignHCenter
         text: i18n.tr("No downloads available")
     }
-
-    Component {
-        id: contentItemComponent
-        ContentItem {}
-    }
-    
-    QQC2.Dialog {
-        id: contentPicker
-        
-        width: parent.width
-        height: parent.height
-        parent: downloadsItem
-        topPadding: 0
-        bottomPadding: 0
-        leftPadding: 0
-        rightPadding: 0
-
-        modal: true
-    
-        ContentPeerPicker {
-            id: exportPeerPicker
-            focus: visible
-            anchors.fill: parent
-            handler: ContentHandler.Destination
-            property string path
-            onPeerSelected: {
-                var transfer = peer.request()
-                if (transfer.state === ContentTransfer.InProgress) {
-                    transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})]
-                    transfer.state = ContentTransfer.Charged
-                }
-                contentPicker.close()
-            }
-            onCancelPressed: contentPicker.close()
-            Keys.onEscapePressed: contentPicker.close()
-        }
-    }
-
 }

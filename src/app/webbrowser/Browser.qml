@@ -1519,7 +1519,16 @@ Common.BrowserView {
         function addNewDownload(download) {
             recentDownloads.unshift(download)
             chrome.showDownloadButton = true
+            if (internal.currentDownloadsDialog) {
+                internal.currentDownloadsDialog.downloadsList = recentDownloads
+            }
         }
+    }
+    
+    Connections {
+        target: internal.currentDownloadsDialog
+        
+        onShowDownloadsPage: showDownloadsPage()
     }
 
     // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
@@ -1788,7 +1797,7 @@ Common.BrowserView {
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
         DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, incognito)
-        //downloadsViewLoader.active = true
+
         internal.addNewDownload(download)
         internal.showDownloadsDialog()
     }
@@ -1815,47 +1824,6 @@ Common.BrowserView {
         if (!internal.currentDownloadsDialog) {
             chrome.downloadNotify = true
         }
-
-//~         if (!downloadsViewLoader.active) {
-//~             internal.showDownloadsDialog()
-//~         }
-    }
-
-    QQC2.Dialog {
-        id: contentPicker
-        
-        width: parent.width
-        height: parent.height
-        parent: browser
-        topPadding: 0
-        bottomPadding: 0
-        leftPadding: 0
-        rightPadding: 0
-
-        modal: true
-    
-        ContentPeerPicker {
-            id: exportPeerPicker
-            focus: visible
-            anchors.fill: parent
-            handler: ContentHandler.Destination
-            property string path
-            onPeerSelected: {
-                var transfer = peer.request()
-                if (transfer.state === ContentTransfer.InProgress) {
-                    transfer.items = [contentItemComponent.createObject(contentPicker, {"url": path})]
-                    transfer.state = ContentTransfer.Charged
-                }
-                contentPicker.close()
-            }
-            onCancelPressed: contentPicker.close()
-            Keys.onEscapePressed: contentPicker.close()
-        }
-        
-        Component {
-            id: contentItemComponent
-            ContentItem {}
-        }
     }
 
     Connections {
@@ -1866,14 +1834,12 @@ Common.BrowserView {
 
             console.log("a download was requested with path %1".arg(download.path))
             download.accept();
-            //browser.showDownloadsPage();
             browser.startDownload(download);
         }
 
         onDownloadFinished: {
 
             console.log("a download was finished with path %1.".arg(download.path))
-            //browser.showDownloadsPage()
             browser.setDownloadComplete(download)
         }
     }

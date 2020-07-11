@@ -68,6 +68,7 @@ ListItem {
         ColumnLayout {
             SlotsLayout.position: SlotsLayout.Leading
             spacing: units.gu(1)
+
             Item {
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: units.gu(3)
@@ -193,7 +194,6 @@ ListItem {
                     Label {
                         horizontalAlignment: Text.AlignHCenter
                         textSize: Label.Small
-                        // TRANSLATORS: %1 is the percentage of the download completed so far
                         text: download ? FileUtils.formatBytes(download.receivedBytes) + " / " + FileUtils.formatBytes(download.totalBytes) : i18n.tr("Unknown")
                         opacity: paused ? 0.5 : 1
                     }

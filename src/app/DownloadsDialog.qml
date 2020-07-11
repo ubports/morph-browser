@@ -16,11 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
-import QtWebEngine 1.5
+import QtQuick 2.9
+import QtWebEngine 1.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtQuick.Controls 2.2 as QQC2
 import QtQuick.Layouts 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
@@ -40,14 +39,11 @@ Popover {
     
     property real maximumHeight: browser.height - units.gu(6)
     property real preferredHeight:  downloadsDialogColumn.childrenRect.height + units.gu(2)
+    
+    signal showDownloadsPage()
 
     contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
-    
-    Loader {
-        id: thumbnailLoader
-        source: "Thumbnailer.qml"
-    }
 
     ColumnLayout {
         id: downloadsDialogColumn
@@ -73,10 +69,10 @@ Popover {
             id: emptyLabel
             
             visible: isEmpty
+            color: "transparent"
+
             Layout.preferredHeight: units.gu(10)
             Layout.minimumHeight: label.height
-            color: "transparent"
-            
             Layout.fillWidth: true
             
             Label {
@@ -100,22 +96,26 @@ Popover {
 
             property int selectedIndex: -1
             
-            delegate: ListItem {
-                property var download: modelData
-                property bool incomplete: !download.isFinished
-                property bool error: download.interruptReason > WebEngineDownloadItem.NoReason
-                property bool cancelled: download.interruptReason == WebEngineDownloadItem.UserCanceled
-                property bool paused: download.isPaused
-                readonly property int progress: download ? 100 * (download.receivedBytes / download.totalBytes) : -1
-                
-                divider.visible: false
+            delegate: SimpleDownloadDelegate {
+                download: modelData
+                title.text: FileUtils.getFilename(modelData.path)
+                subtitle.text: if (cancelled) {
+                            i18n.tr("Cancelled")
+                        } else {
+                            (error ? modelData.interruptReasonString : (incomplete ? i18n.tr("%1%").arg(progress) : i18n.tr("Completed")))
+                            + " - " + FileUtils.formatBytes(download.receivedBytes)
+                        }
+                        
+                image: !incomplete && thumbnailLoader.status == Loader.Ready 
+                              && (modelData.mimeType.indexOf("image") === 0 
+                                  || modelData.mimeType.indexOf("video") === 0)
+                              ? "image://thumbnailer/file://" + modelData.path : ""
+                icon: MimeDatabase.iconForMimetype(modelData.mimeType)
                 
                 onClicked: {
-//~                     console.log("error: " + download.interruptReason + " - " + incomplete + " - "  + error )
                     if (!incomplete && !error) {
-                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(download.mimeType)
-                        contentPicker.open()
-                        exportPeerPicker.path = download.path
+                        var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType)}
+                        PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
                     } else {
                         if (download) {
                             if (paused) {
@@ -127,100 +127,8 @@ Popover {
                     }
                 }
                 
-                ListItemLayout {
-                    title.text: FileUtils.getFilename(modelData.path)
-                    subtitle.text: if (cancelled) {
-                                        i18n.tr("Cancelled")
-                                    } else {
-                                        (error ? modelData.interruptReasonString : (incomplete ? i18n.tr("%1%").arg(progress) : i18n.tr("Completed")))
-                                        + " - " + FileUtils.formatBytes(download.receivedBytes)
-                                    }
-                                
-                    subtitle.opacity: paused && !cancelled && !error ? 0.5 : 1
-
-                    Item {
-                    
-                        SlotsLayout.position: SlotsLayout.Leading
-                        implicitWidth: units.gu(3)
-                        implicitHeight: implicitWidth
-
-                        Image {
-                            id: thumbimage
-                            
-                            asynchronous: true
-                            anchors.fill: parent
-                            fillMode: Image.PreserveAspectFit
-                            sourceSize.width: width
-                            sourceSize.height: height
-                            source: !incomplete && thumbnailLoader.status == Loader.Ready 
-                                          && (modelData.mimeType.indexOf("image") === 0 
-                                              || modelData.mimeType.indexOf("video") === 0)
-                                          ? "image://thumbnailer/file://" + modelData.path : ""
-                        }
-                        
-                        Icon {
-                            id: icon
-                            
-                            visible: thumbimage.status !== Image.Ready
-                            anchors.fill: parent
-                            name: MimeDatabase.iconForMimetype(modelData.mimeType)
-                            color: theme.palette.normal.backgroundText
-                        }
-                    }
-                    
-                    Icon {
-                        id: iconError
-
-                        implicitWidth: units.gu(4)
-                        implicitHeight: implicitWidth
-                        SlotsLayout.position: SlotsLayout.Last
-                        asynchronous: true
-                        name: "dialog-warning-symbolic"
-                        visible: error && !cancelled
-                        color: theme.palette.normal.negative
-                    }
-
-                    Icon {
-                        id: iconPauseResume
-
-                        implicitWidth: units.gu(4)
-                        implicitHeight: implicitWidth
-                        SlotsLayout.position: SlotsLayout.Trailing
-                        asynchronous: true
-                        name: paused ? "media-preview-start" : "media-preview-pause"
-                        visible: incomplete && !error
-                        color: theme.palette.normal.backgroundText
-                    }
-                }
-                
-                leadingActions: deleteActionList
-
-                ListItemActions {
-                    id: deleteActionList
-                    actions: [
-                        Action {
-                            objectName: "leadingAction.remove"
-                            iconName: "list-remove"
-                            text: i18n.tr("Remove")
-                            onTriggered: {
-                               downloadsListView.removeItem(index)
-                            }
-                        },
-                        Action {
-                            objectName: "leadingAction.cancel"
-                            iconName: "cancel"
-                            text: i18n.tr("Cancel")
-                            enabled: incomplete && !error
-                            visible: enabled
-                            onTriggered: {
-                                if (download) {
-                                    download.cancel()
-                                    DownloadsModel.cancelDownload(download.id)
-                                }
-                            }
-                        }
-                    ]
-                }
+                onRemove: downloadsListView.removeItem(index)
+                onCancel: DownloadsModel.cancelDownload(download.id)
             }
 
             Keys.onDeletePressed: {
@@ -259,11 +167,16 @@ Popover {
                 text: i18n.tr("View All")
                 color: theme.palette.normal.activity
                 onClicked: {
-                    downloadsDialog.destroy()
                     showDownloadsPage()
+                    downloadsDialog.destroy()
                 }
             }
         }
+    }
+    
+    Loader {
+        id: thumbnailLoader
+        source: "Thumbnailer.qml"
     }
 }
 

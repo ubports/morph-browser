@@ -233,7 +233,7 @@ FocusScope {
                 id: downloadsButton
                 objectName: "downloadsButton"
 
-                visible: showDownloadButton
+                visible: showDownloadButton && !tabListMode
                 iconName: "save-to" //"save-to" "transfer-progress-download"
                 iconSize: 0.5 * height
                 iconColor: downloadNotify ? theme.palette.normal.positive : root.iconColor
@@ -253,33 +253,34 @@ FocusScope {
                     }
                 }
                 
+                Behavior on iconColor {
+                    ColorAnimation { duration: UbuntuAnimation.BriskDuration  }
+                }
+                
                 SequentialAnimation {
                     id: shakeAnimation
-                    loops: 3
+                    
+                    loops: 4
                     
                     RotationAnimation {
                         target: downloadsButton
                         direction: RotationAnimation.Counterclockwise
-                        to: 355
-                        duration: UbuntuAnimation.SnapDuration
+                        to: 350
+                        duration: 50 //UbuntuAnimation.SnapDuration
                     }
+
                     RotationAnimation {
                         target: downloadsButton
                         direction: RotationAnimation.Clockwise
-                        to: 0
-                        duration: UbuntuAnimation.SnapDuration
+                        to: 10
+                        duration: 50 //UbuntuAnimation.SnapDuration
                     }
-                    RotationAnimation {
-                        target: downloadsButton
-                        direction: RotationAnimation.Clockwise
-                        to: 5
-                        duration: UbuntuAnimation.SnapDuration
-                    }
+
                     RotationAnimation {
                         target: downloadsButton
                         direction: RotationAnimation.Counterclockwise
                         to: 0
-                        duration: UbuntuAnimation.SnapDuration
+                        duration: 50 //UbuntuAnimation.SnapDuration
                     }
                 }
 
