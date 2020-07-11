@@ -29,11 +29,11 @@ Popover {
     property alias path: exportPeerPicker.path
     property alias contentType: exportPeerPicker.contentType
     
-    property real maximumWidth: units.gu(50)
+    property real maximumWidth: units.gu(70)
     property real preferredWidth: caller ? caller.width * 0.9 : units.gu(40)
     
-    property real maximumHeight: units.gu(60)
-    property real preferredHeight: caller.height > maximumHeight ? caller.height * 0.8 : caller.height - units.gu(5)
+    property real maximumHeight: units.gu(80)
+    property real preferredHeight: caller ? caller.height > maximumHeight ? caller.height * 0.8 : caller.height - units.gu(5) : units.gu(40)
     
     contentHeight: exportPeerPicker.height
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth

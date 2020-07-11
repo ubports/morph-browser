@@ -234,9 +234,9 @@ FocusScope {
                 objectName: "downloadsButton"
 
                 visible: showDownloadButton && !tabListMode
-                iconName: "save-to" //"save-to" "transfer-progress-download"
+                iconName: "save"
                 iconSize: 0.5 * height
-                iconColor: downloadNotify ? theme.palette.normal.positive : root.iconColor
+                iconColor: downloadNotify ? theme.palette.normal.focus : root.iconColor
 
                 height: root.height
                 width: height * 0.8
@@ -266,21 +266,21 @@ FocusScope {
                         target: downloadsButton
                         direction: RotationAnimation.Counterclockwise
                         to: 350
-                        duration: 50 //UbuntuAnimation.SnapDuration
+                        duration: 50
                     }
 
                     RotationAnimation {
                         target: downloadsButton
                         direction: RotationAnimation.Clockwise
                         to: 10
-                        duration: 50 //UbuntuAnimation.SnapDuration
+                        duration: 50
                     }
 
                     RotationAnimation {
                         target: downloadsButton
                         direction: RotationAnimation.Counterclockwise
                         to: 0
-                        duration: 50 //UbuntuAnimation.SnapDuration
+                        duration: 50
                     }
                 }
 

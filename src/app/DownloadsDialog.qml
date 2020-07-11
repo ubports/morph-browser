@@ -38,12 +38,14 @@ Popover {
     property real preferredWidth: browser.width - units.gu(6)
     
     property real maximumHeight: browser.height - units.gu(6)
-    property real preferredHeight:  downloadsDialogColumn.childrenRect.height + units.gu(2)
+    property real preferredHeight:  downloadsDialogColumn.height + units.gu(2)
     
     signal showDownloadsPage()
 
     contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
+    
+    grabDismissAreaEvents: true
 
     ColumnLayout {
         id: downloadsDialogColumn
@@ -140,6 +142,12 @@ Popover {
                 model = downloadsList
                 forceLayout()
             }
+            
+            function clear() {
+                downloadsList.splice(0, downloadsList.length);
+                model = downloadsList
+                forceLayout()
+            }
         }
         
         Item {
@@ -154,9 +162,7 @@ Popover {
                 objectName: "downloadsDialog.clearButton"
                 text: i18n.tr("Clear")
                 onClicked: {
-                    downloadsList.splice(0,downloadsList.length)
-                    downloadsListView.model = downloadsList
-                    downloadsListView.forceLayout()
+                    downloadsListView.clear()
                 }
             }
 

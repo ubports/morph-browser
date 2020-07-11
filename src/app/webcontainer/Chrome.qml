@@ -44,7 +44,7 @@ ChromeBase {
         settingsButton.iconColor = color;
         accountsButton.iconColor = color;
         
-        downloadsButton.iconColor = Qt.binding(function(){ return downloadNotify ? theme.palette.normal.positive : color})
+        downloadsButton.iconColor = Qt.binding(function(){ return downloadNotify ? theme.palette.normal.focus : color})
     }
 
     signal chooseAccount()
@@ -160,7 +160,7 @@ ChromeBase {
             objectName: "downloadsButton"
 
             visible: chrome.navigationButtonsVisible && showDownloadButton
-            iconName: "save-to"
+            iconName: "save"
             iconSize: 0.6 * height
 
             height: parent.height
