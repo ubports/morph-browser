@@ -434,7 +434,7 @@ FocusScope {
 
         function simplifyUrl(url) {
             var urlString = url.toString()
-            if (urlString === "about:blank" || urlString.match(/^data:/i)) {
+            if (urlString === "about:blank" || urlString.match(/^data:/i) || urlString.match(/^chrome-extension:/i)) {
                 return url
             }
             var hasProtocol = urlString.indexOf("://") !== -1
