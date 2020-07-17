@@ -162,10 +162,10 @@ void WebbrowserApp::onNewInstanceLaunched(const QStringList& arguments) const
 int main(int argc, char** argv)
 {
     qputenv("QTWEBENGINE_DISABLE_SANDBOX","1");
-    // disable gpu
+    // disable gpu and viz display compositor
     if (qgetenv("QTWEBENGINE_CHROMIUM_FLAGS") == QString())
     {
-        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu");
+        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --disable-viz-display-compositor");
     }
     qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
 
