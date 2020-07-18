@@ -175,7 +175,7 @@ Common.BrowserView {
 
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, false)
+        DownloadsModel.add(downloadIdDataBase, download.url, download.path, download.mimeType, false)
         downloadsViewLoader.active = true
     }
 
@@ -354,6 +354,10 @@ Common.BrowserView {
             Connections {
                 target: downloadsViewLoader.item
                 onDone: downloadsViewLoader.active = false
+                onPreview: {
+                    downloadsViewLoader.active = false;
+                    webapp.currentWebview.url = url;
+                }
             }
         }
 
