@@ -4,6 +4,7 @@ Lightweight web browser tailored for Ubuntu,
 based on the Qt WebEngine  and using the Ubuntu UI components.
 It requires Qt 5.9 to build and run.
 
+Morph Icon is based on Origami Licensed CC-by Creative Mania from the Noun Project
 
 = Building =
 
