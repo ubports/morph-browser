@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" height="512" width="512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 135.46666 135.46666">
  <defs>
+  <style type="text/css">.fil0 {fill:black}</style>
   <linearGradient id="a" y2="396.5" gradientUnits="userSpaceOnUse" x2="177.5" gradientTransform="translate(-8.247e-7 -.000004510)" y1="263" x1="42.5">
    <stop stop-color="#0e8cba" offset="0"/>
    <stop stop-color="#0d7499" offset="1"/>
   </linearGradient>
  </defs>
-  <rect height="512" width="512" y="0" x="0" fill="url(#a)"/>
  <g transform="translate(-42.5 -261.8)">
-
-  <path stroke-linejoin="round" opacity=".1" d="m144.3 291-11.6 29-60.77 39.7 11.21-29.3z" stroke="#000" stroke-width="3.687"/>
-  <path stroke-linejoin="round" opacity=".1" d="m129.8 328.3-7.74 21.96-14.02-7.742z" stroke="#000" stroke-width="3.687"/>
-  <path stroke-linejoin="round" opacity=".1" d="m102.9 345.9 14.26 7.874-25.84 10.04-15.85 0.006z" stroke="#000" stroke-width="3.687"/>
-  <path stroke-linejoin="round" d="m67.41 372.7 15.99-0.006 2.146 14.27z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m88.83 372.7 1.266-0.00048 23.07 12.65-21.73 4.688z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m69.37 381.1 17.44 13.72 6.226 26.71-0.05686 0.0877-16.98-12.73z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m114.7 390.5-17.53 25.1-4.73-20.3z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m143.2 290-11.54 28.98-60.82 39.73 11.21-29.36z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m128.7 327.3-7.74 21.96-14.02-7.742z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m101.9 344.8 14.26 7.874-25.84 10.04-15.85 0.006z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m60.27 372.7-15.99-0.006-2.146 14.27z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m58.31 381.1-17.44 13.72-6.226 26.71 0.05686 0.0877 16.98-12.73z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m-15.54 290 11.54 28.98 60.82 39.73-11.21-29.36z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
-  <path stroke-linejoin="round" d="m25.83 344.8-14.26 7.874 25.84 10.04 15.85 0.006z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <rect style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;paint-order:normal;shape-rendering:auto;solid-color:#000000;image-rendering:auto" height="135.5" width="135.5" y="261.8" x="42.5" fill="url(#a)"/>
+  <path stroke-linejoin="round" opacity=".1" style="paint-order:normal" d="m144.3 291-11.6 29-60.77 39.7 11.21-29.3z" stroke="#000" stroke-width="3.687"/>
+  <path stroke-linejoin="round" opacity=".1" style="paint-order:normal" d="m129.8 328.3-7.74 21.96-14.02-7.742z" stroke="#000" stroke-width="3.687"/>
+  <path stroke-linejoin="round" opacity=".1" style="paint-order:normal" d="m102.9 345.9 14.26 7.874-25.84 10.04-15.85 0.006z" stroke="#000" stroke-width="3.687"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m67.41 372.7 15.99-0.006 2.146 14.27z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m88.83 372.7 1.266-0.00048 23.07 12.65-21.73 4.688z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m69.37 381.1 17.44 13.72 6.226 26.71-0.05686 0.0877-16.98-12.73z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m114.7 390.5-17.53 25.1-4.73-20.3z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" style="paint-order:normal" d="m143.2 290-11.54 28.98-60.82 39.73 11.21-29.36z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" style="paint-order:normal" d="m128.7 327.3-7.74 21.96-14.02-7.742z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" style="paint-order:normal" d="m101.9 344.8 14.26 7.874-25.84 10.04-15.85 0.006z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m60.27 372.7-15.99-0.006-2.146 14.27z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m58.31 381.1-17.44 13.72-6.226 26.71 0.05686 0.0877 16.98-12.73z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m-15.54 290 11.54 28.98 60.82 39.73-11.21-29.36z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
+  <path stroke-linejoin="round" opacity=".5" style="paint-order:normal" d="m25.83 344.8-14.26 7.874 25.84 10.04 15.85 0.006z" stroke="#fdfdfd" stroke-width="3.687" fill="#fdfdfd"/>
  </g>
+ <style type="text/css">.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.29914,4.29914;}
+	.st3{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.55123,3.55123;}
+		.st4{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:4;}
+	.st5{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.0599301,3.0599301;}
+	.st6{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:4;}
+	.st7{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.92136,2.94102;}
+	.st8{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;}
+	.st9{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.83215,2.87411;}
+	.st10{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.84396,2.8829701;}
+	.st11{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:4,3;}
+	.st12{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.92487,2.94365;}
+	.st13{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.9253099,2.94399;}
+	.st14{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.1062698,3.07971;}
+	.st15{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.03795,3.02846;}
+	.st16{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.88867,2.9165001;}
+	.st17{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.1986198,3.1489601;}
+	.st18{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.1739101,3.13043;}
+	.st19{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.8777399,2.9083099;}
+	.st20{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.0876398,3.0657301;}
+	.st21{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.98984,2.9923799;}
+	.st22{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.2437601,3.1828201;}
+	.st23{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.12289,3.09217;}
+	.st24{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.5942199,2.6956601;}
+	.st25{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4.2377601,3.1783199;}
+	.st26{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.79737,2.8480301;}
+	.st27{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:3.9105799,2.93294;}
+	.st28{fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st29{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st30{fill:#0D0E0F;}</style>
 </svg>
