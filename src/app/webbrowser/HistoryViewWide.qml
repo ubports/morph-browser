@@ -385,47 +385,6 @@ Common.BrowserPage {
         }
     }
 
-    Local.Toolbar {
-        id: bottomToolbar
-        height: units.gu(7)
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        Button {
-            objectName: "doneButton"
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-
-            strokeColor: theme.palette.normal.baseText
-
-            text: i18n.tr("Done")
-
-            onClicked: historyViewWide.done()
-        }
-
-        ToolbarAction {
-            objectName: "newTabButton"
-            anchors {
-                right: parent.right
-                rightMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-            height: parent.height - units.gu(2)
-
-            text: i18n.tr("New tab")
-            iconName: "tab-new"
-
-            onClicked: historyViewWide.newTabRequested()
-        }
-    }
-
     QtObject {
         id: internal
 
