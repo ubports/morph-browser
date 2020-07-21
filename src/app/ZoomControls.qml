@@ -173,11 +173,12 @@ UbuntuShape {
         // To keep webview.zoomFactor in sync with currentZoomFactor.
         onCurrentZoomFactorChanged: {
             //console.log("[ZC] controller.onCurrentZoomFactorChanged: %1".arg(controller.currentZoomFactor));
-            webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
+            internal.setWebviewZoomFactor(controller.currentZoomFactor * controller.scaleFactor)
         }
 
+
         onScaleFactorChanged: {
-            webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor
+           internal.setWebviewZoomFactor(controller.currentZoomFactor * controller.scaleFactor)
         }
     }
 
@@ -286,6 +287,16 @@ UbuntuShape {
             }
             //console.log("[ZC]   viewSpecificZoom: %1".arg(controller.viewSpecificZoom));
             //console.log("[ZC]   currentZoomFactor: %1".arg(controller.currentZoomFactor));
+	}
+
+        function etWebviewZoomFactor(newZoomFactor) {
+            if (Math.abs(webview.zoomFactor - newZoomFactor) > 0.01) {
+               //https://bugreports.qt.io/browse/QTBUG-84313
+               // zoom is not set reliably on the first chane
+               // set it twice so that changes are not ignored
+               webview.zoomFactor = newZoomFactor;
+               webview.zoomFactor = newZoomFactor;
+            }
         }
 
         function updateFitToWidth() {
@@ -317,7 +328,7 @@ UbuntuShape {
 
             //console.log("[ZC]   zooming to default and autofitting");
             // Automatic fit to width is done from defaultZoomFactor
-            webview.zoomFactor = controller.defaultZoomFactor * controller.scaleFactor;
+            internal.setWebviewZoomFactor(controller.defaultZoomFactor * controller.scaleFactor)
             // Wait, to be sure that any page layout change (css, js, ...) after previous zoom or width change takes effect.
             internal.updateFitToWidthTimer.restart();
         }
