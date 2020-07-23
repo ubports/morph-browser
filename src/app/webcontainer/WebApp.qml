@@ -22,6 +22,7 @@ import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
@@ -61,6 +62,9 @@ Common.BrowserView {
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible && !accountSwitcher
     readonly property real themeColorTextContrastFactor: 3.0
+    
+    property var recentDownloads: []
+    property var currentDownloadsDialog: null
 
     signal chooseAccount()
 
@@ -176,7 +180,14 @@ Common.BrowserView {
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
         DownloadsModel.add(downloadIdDataBase, download.url, download.path, download.mimeType, false)
-        downloadsViewLoader.active = true
+
+        addNewDownload(download)
+        
+        if (webapp.chromeless) {
+            showDownloadsDialog(anchorItem)
+        } else {
+            showDownloadsDialog()
+        }
     }
 
     function setDownloadComplete(download) {
@@ -197,6 +208,58 @@ Common.BrowserView {
         {
           DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
         }
+        
+        if (!currentDownloadsDialog && chromeLoader.item) {
+            if (!webapp.chromeless) {
+                chromeLoader.item.downloadNotify = true
+                
+                if (!chromeLoader.item.navigationButtonsVisible) {
+                    showDownloadsDialog()
+                }
+            } else {
+                showDownloadsDialog(anchorItem)
+            }
+        }
+    }
+    
+    function showDownloadsDialog(caller) {
+        if (!currentDownloadsDialog && chromeLoader.item) {
+            if (!webapp.chromeless) {
+                chromeLoader.item.downloadNotify = false
+                if (caller === undefined) caller = chromeLoader.item.downloadsButtonPlaceHolder
+            } else {
+                if (caller === undefined) caller = webapp
+            }
+            var properties = {"downloadsList": recentDownloads}  
+            currentDownloadsDialog = PopupUtils.open(Qt.resolvedUrl("../DownloadsDialog.qml"),
+                                                               caller, properties)
+        }
+    }
+    
+    function addNewDownload(download) {
+        recentDownloads.unshift(download)
+        if (chromeLoader.item && !webapp.chromeless) {
+            chromeLoader.item.showDownloadButton = true
+        }
+        if (currentDownloadsDialog) {
+            currentDownloadsDialog.downloadsList = recentDownloads
+        }
+    }
+    
+    Connections {
+        target: currentDownloadsDialog
+        onShowDownloadsPage: showDownloadsPage()
+    }
+    
+    /* Only used for anchoring the downloads dialog to the top when chromeless */
+    Item {
+        id: anchorItem
+        anchors {
+            top: parent.top
+            right: parent.right
+        }
+        height: units.gu(2)
+        width: height
     }
 
     Item {
@@ -212,6 +275,7 @@ Common.BrowserView {
                 left: parent.left
                 right: parent.right
                 top: chromeLoader.bottom
+                bottom: parent.bottom
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -307,6 +371,9 @@ Common.BrowserView {
                     y: webapp.currentWebview ? containerWebView.currentWebview.locationBarController.offset : 0
 
                     onChooseAccount: webapp.chooseAccount()
+                    onToggleDownloads: {
+                        webapp.showDownloadsDialog()
+                    }
                 }
             }
 
@@ -435,14 +502,12 @@ Common.BrowserView {
                console.log("a download was requested with path %1".arg(download.path))
 
                download.accept();
-               webapp.showDownloadsPage();
                webapp.startDownload(download);
            }
 
            onDownloadFinished: {
 
                console.log("a download was finished with path %1.".arg(download.path))
-               webapp.showDownloadsPage()
                webapp.setDownloadComplete(download)
            }
        }

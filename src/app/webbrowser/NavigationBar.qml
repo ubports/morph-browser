@@ -31,6 +31,9 @@ FocusScope {
     property alias bookmarked: addressbar.bookmarked
     signal closeTabRequested()
     signal toggleBookmark()
+    signal toggleDownloads()
+    property bool showDownloadButton: false
+    property bool downloadNotify: false
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
@@ -42,6 +45,7 @@ FocusScope {
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
+    readonly property alias downloadsButtonPlaceHolder: downloadsButton
     property color fgColor: theme.palette.normal.baseText
     property color iconColor: theme.palette.selected.base
     property real availableHeight
@@ -236,6 +240,66 @@ FocusScope {
                 visible: tabListMode
 
                 onTriggered: closeTabRequested()
+            }
+            
+            ChromeButton {
+                id: downloadsButton
+                objectName: "downloadsButton"
+
+                visible: showDownloadButton && !tabListMode
+                iconName: "save"
+                iconSize: 0.5 * height
+                iconColor: downloadNotify ? theme.palette.normal.focus : root.iconColor
+
+                height: root.height
+                width: height * 0.8
+
+                anchors.verticalCenter: parent.verticalCenter
+                
+                Connections {
+                    target: root
+                    
+                    onDownloadNotifyChanged: {
+                        if (downloadNotify) {
+                            shakeAnimation.start()
+                        }
+                    }
+                }
+                
+                Behavior on iconColor {
+                    ColorAnimation { duration: UbuntuAnimation.BriskDuration  }
+                }
+                
+                SequentialAnimation {
+                    id: shakeAnimation
+                    
+                    loops: 4
+                    
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Counterclockwise
+                        to: 350
+                        duration: 50
+                    }
+
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Clockwise
+                        to: 10
+                        duration: 50
+                    }
+
+                    RotationAnimation {
+                        target: downloadsButton
+                        direction: RotationAnimation.Counterclockwise
+                        to: 0
+                        duration: 50
+                    }
+                }
+
+                onTriggered: {
+                    toggleDownloads()
+                }
             }
 
             ChromeButton {
