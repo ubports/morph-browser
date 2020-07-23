@@ -213,7 +213,8 @@ Common.BrowserView {
                 right: parent.right
                 top: chromeLoader.bottom
             }
-            height: parent.height - osk.height
+            // make sure the height is an integer value, with high DPI scale enabled osk.height is not always an integer
+            height: Math.round(parent.height - osk.height - chromeLoader.item.height)
             developerExtrasEnabled: webapp.developerExtrasEnabled
 
             focus: true

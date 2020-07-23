@@ -360,7 +360,8 @@ Common.BrowserView {
                 right: parent.right
                 top: parent.top
             }
-            height: parent.height - osk.height - bottomEdgeBar.height
+            // make sure the height is an integer value, with high DPI scale enabled osk.height is not always an integer
+            height: Math.round(parent.height - osk.height - bottomEdgeBar.height)
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
