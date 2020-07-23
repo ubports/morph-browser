@@ -289,7 +289,7 @@ UbuntuShape {
             //console.log("[ZC]   currentZoomFactor: %1".arg(controller.currentZoomFactor));
 	}
 
-        function etWebviewZoomFactor(newZoomFactor) {
+        function setWebviewZoomFactor(newZoomFactor) {
             if (Math.abs(webview.zoomFactor - newZoomFactor) > 0.01) {
                //https://bugreports.qt.io/browse/QTBUG-84313
                // zoom is not set reliably on the first chane
@@ -349,7 +349,7 @@ UbuntuShape {
                     if (width === null || width <= 0) {
                         //console.log("[ZC]   no scrollWidth");
                         // Sync zoom factors in case they are out of sync.
-                        webview.zoomFactor = currentZoomFactor * controller.scaleFactor;
+                        internal.setWebviewZoomFactor(controller.currentZoomFactor * controller.scaleFactor);
                         return;
                     }
 
@@ -360,7 +360,7 @@ UbuntuShape {
                     if (Math.abs(controller.currentZoomFactor - controller.fitToWidthZoomFactor) < 0.1) {
                         //console.log("[ZC]   not autofitting, close to currentZoomFactor");
                         // Sync zoom factors in case they are out of sync.
-                        webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
+                        internal.setWebviewZoomFactor(controller.currentZoomFactor * controller.scaleFactor);
                         return;
                     }
 
@@ -416,7 +416,7 @@ UbuntuShape {
 
                 // This is a workaround, because sometimes a page is not zoomed after loading (happens after manual url change),
                 // although the webview.zoomFactor (and currentZoomFactor) is correctly set.
-                webview.zoomFactor = controller.currentZoomFactor * controller.scaleFactor;
+                internal.setWebviewZoomFactor(controller.currentZoomFactor * controller.scaleFactor);
                 // End of workaround.
 
                 if (webview.visible === false) {
