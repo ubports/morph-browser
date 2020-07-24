@@ -360,7 +360,9 @@ Common.BrowserView {
                 right: parent.right
                 top: parent.top
             }
-            height: parent.height - osk.height - bottomEdgeBar.height
+
+            // https://github.com/ubports/qtwebengine-opensource-src-packaging/issues/38
+            height: Math.round(parent.height - osk.height - bottomEdgeBar.height)
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
