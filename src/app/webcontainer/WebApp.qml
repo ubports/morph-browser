@@ -213,7 +213,8 @@ Common.BrowserView {
                 right: parent.right
                 top: chromeLoader.bottom
             }
-            height: parent.height - osk.height
+            // https://github.com/ubports/qtwebengine-opensource-src-packaging/issues/38
+            height: Math.round(parent.height - osk.height)
             developerExtrasEnabled: webapp.developerExtrasEnabled
 
             focus: true
