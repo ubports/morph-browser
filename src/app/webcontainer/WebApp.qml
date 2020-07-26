@@ -275,7 +275,6 @@ Common.BrowserView {
                 left: parent.left
                 right: parent.right
                 top: chromeLoader.bottom
-                bottom: parent.bottom
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
