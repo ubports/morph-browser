@@ -118,25 +118,11 @@ BrowserPage {
         },
         Action {
             iconName: "edit"
-            visible: !selectMode && !pickingMode && !exportPeerPicker.visible
+            visible: !selectMode && !pickingMode
             enabled: downloadsListView.count > 0
             onTriggered: {
                 selectMode = true
                 multiSelect = true
-            }
-        },
-        Action {
-            iconName: "external-link"
-            visible: exportPeerPicker.visible && (exportPeerPicker.downloadUrl !== "") && (exportPeerPicker.contentType !== ContentType.Unknown)
-            onTriggered: {
-                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + exportPeerPicker.downloadUrl : exportPeerPicker.downloadUrl);
-            }
-        },
-        Action {
-            iconName: "document-open"
-            visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown)
-            onTriggered: {
-                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(exportPeerPicker.path) : exportPeerPicker.path);
             }
         }
     ]
@@ -243,8 +229,9 @@ BrowserPage {
             onClicked: {
                 if (!selectMode) {
                     if (model.complete) {
-                        var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype)}
-                        PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
+                        var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype), "mimeType": model.mimetype, "downloadUrl": model.url}
+                        var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
+                        exportDialog.preview.connect(downloadsItem.preview)
                     } else {
                         if (download) {
                             if (paused) {
@@ -306,6 +293,4 @@ BrowserPage {
         horizontalAlignment: Text.AlignHCenter
         text: i18n.tr("No downloads available")
     }
-        property string mimeType
-        property string downloadUrl
 }
