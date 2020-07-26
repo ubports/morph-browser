@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.5
-import QtWebEngine 1.7
+import QtWebEngine 1.10
 import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
 import Morph.Web 0.1
@@ -179,7 +179,7 @@ Common.BrowserView {
 
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-        DownloadsModel.add(downloadIdDataBase, "", download.path, download.mimeType, false)
+        DownloadsModel.add(downloadIdDataBase, download.url, download.path, download.mimeType, false)
 
         addNewDownload(download)
         
@@ -275,7 +275,6 @@ Common.BrowserView {
                 left: parent.left
                 right: parent.right
                 top: chromeLoader.bottom
-                bottom: parent.bottom
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -421,6 +420,10 @@ Common.BrowserView {
             Connections {
                 target: downloadsViewLoader.item
                 onDone: downloadsViewLoader.active = false
+                onPreview: {
+                    downloadsViewLoader.active = false;
+                    webapp.currentWebview.url = url;
+                }
             }
         }
 
@@ -494,27 +497,6 @@ Common.BrowserView {
            target: webapp.currentWebview ? webapp.currentWebview.context : null
 
            onDownloadRequested: {
-
-               // with QtWebEngine 1.9 (Qt 5.13) the download folder is configurable, so the output file name
-               // will then be determined automatically. Here we determine the file in webapp.dataPath, because the webapp does
-               // not have access to the /home/phablet/Downloads folder
-               // see issue [https://github.com/ubports/morph-browser/issues/254]
-
-               // the respective line can be uncommented in webapp-container.qml, and the following lines can be removed:
-
-               // <<< begin only needed for QtWebEngine < 1.9
-               var baseName = FileOperations.baseName(download.path);
-               var extension = FileOperations.extension(download.path);
-
-               download.path = webapp.dataPath + "/Downloads/%1.%2".arg(baseName).arg(extension);
-
-               var i = 1;
-
-               while (FileOperations.exists(Qt.resolvedUrl(download.path))) {
-                   download.path = webapp.dataPath + "/Downloads/%1(%2).%3".arg(baseName).arg(i).arg(extension);
-                   i++;
-               }
-               // >>> end only needed for QtWebEngine < 1.9
 
                console.log("a download was requested with path %1".arg(download.path))
 

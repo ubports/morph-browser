@@ -22,24 +22,31 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 
+import "UrlUtils.js" as UrlUtils
+
 
 Popover {
     id: contentExportDialog
 
     property alias path: exportPeerPicker.path
     property alias contentType: exportPeerPicker.contentType
-    
+    property string mimeType
+    property string downloadUrl
+
     property real maximumWidth: units.gu(70)
     property real preferredWidth: caller ? caller.width * 0.9 : units.gu(40)
-    
+
     property real maximumHeight: units.gu(80)
     property real preferredHeight: caller ? caller.height > maximumHeight ? caller.height * 0.8 : caller.height - units.gu(5) : units.gu(40)
-    
-    contentHeight: exportPeerPicker.height
+
+    signal preview(string url)
+
+    contentHeight: exportPeerPicker.height + openInBrowserRow.height
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
 
     Item {
-        height: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
+        id: dialogItem
+        height: (preferredHeight > maximumHeight ? maximumHeight : preferredHeight) - openInBrowserRow.height
         
         anchors {
             top: parent.top
@@ -52,7 +59,6 @@ Popover {
             
             property string path
             focus: visible
-            anchors.fill: parent
             handler: ContentHandler.Destination
             
             onPeerSelected: {
@@ -67,7 +73,42 @@ Popover {
             Keys.onEscapePressed: PopupUtils.close(contentExportDialog)
         }
         
+        Row {
+            id: openInBrowserRow
+            anchors.top: dialogItem.bottom
+            anchors.right: parent.right
+            spacing: units.gu(1)
+            padding: units.gu(1)
+
+        Label {
+            id: labelOpenInBrowser
+            visible: openFileInBrowser.visible || openLinkInBrowser.visible
+            text: i18n.tr("open in browser")
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        IconLink {
+            id: openFileInBrowser
+            height: units.gu(3)
+            width: height
+            visible: (contentExportDialog.contentType !== ContentType.Unknown)
+            name: "document-open"
+            onClicked: {
+                preview((contentExportDialog.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(contentExportDialog.path) : contentExportDialog.path);
+            }
+        }
+        IconLink {
+            id: openLinkInBrowser
+            height: units.gu(3)
+            width: height
+            visible: (contentExportDialog.downloadUrl !== "") && (contentExportDialog.contentType !== ContentType.Unknown)
+            name: "external-link"
+            onClicked: {
+                preview((contentExportDialog.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + contentExportDialog.downloadUrl : contentExportDialog.downloadUrl);
+            }
+        }
         
+        }
+
     }
 
     Component {

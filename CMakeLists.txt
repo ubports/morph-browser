@@ -92,7 +92,6 @@ add_subdirectory(po)
 
 add_subdirectory(doc)
 
-install(FILES morph-browser.png screenshot.png
-DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
+install(FILES morph-browser.png DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
 
 add_subdirectory(click-hooks)

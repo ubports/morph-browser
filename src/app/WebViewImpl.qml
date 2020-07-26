@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.7
+import QtWebEngine 1.10
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
@@ -57,16 +57,12 @@ WebView {
 
     settings.unknownUrlSchemePolicy: WebEngineSettings.AllowAllUnknownUrlSchemes
 
+    // setting it to false, because "true" opens the PDF viewer extension but makes it difficult to download the pdf (only possible with context menu)
+    // furthermore pages saved as PDF would not be downloaded but only displayed as PDF
+    settings.pdfViewerEnabled: false
+
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
-
-    QtObject {
-        id: internal
-
-        readonly property var downloadMimeTypesBlacklist: [
-            "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
-        ]
-    }
 
       QtObject {
         id: findController
@@ -353,7 +349,6 @@ WebView {
             enabled: !isWebApp && contextMenuRequest &&
                        (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeImage) &&
                        contextMenuRequest.mediaUrl.toString()
-            //onTriggered: internal.openUrlInNewTab(contextModel.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.mediaUrl, false);
         }
         Actions.CopyImage {
@@ -377,7 +372,6 @@ WebView {
             enabled: !isWebApp && contextMenuRequest &&
                      (contextMenuRequest.mediaType === ContextMenuRequest.MediaTypeVideo) &&
                      contextMenuRequest.mediaUrl.toString()
-            //onTriggered: internal.openUrlInNewTab(contextMenuRequest.srcUrl, true, true, tabsModel.indexOf(browserTab) + 1)
             onTriggered: browser.openLinkInNewTabRequested(contextMenuRequest.mediaUrl, false);
         }
         Actions.SaveVideo {
@@ -442,95 +436,126 @@ WebView {
                          : (fitsAbove && ! selectionVerticallyOutOfSight && ! domElementOfContextMenu.isDocumentElement) ? (bounds.y - contextMenuStartScroll.y / scaleFactor - spacing - height - (webViewScrollPosition.y - contextMenuStartScroll.y) / scaleFactor)
                                      : (webview.height - height) / 2
 
+            MouseArea {
+                // without that MouseArea the user can click "through" actions with enabled=false (e.g. accidently change the text selection)
+                anchors.fill: touchSelectionActionsRow
+                onClicked: console.log("inactive touch selection item clicked.")
+            }
+
+            Row {
+                id: touchSelectionActionsRow
+                x: parent.padding
+                y: parent.padding
+                height: units.gu(6)
+
+                Repeater {
+                    model: touchSelectionActions.children
+                    AbstractButton {
+                        objectName: "touchSelectionAction_" + action.name
+                        anchors {
+                            top: touchSelectionActionsRow.top
+                            bottom: touchSelectionActionsRow.bottom
+                        }
+                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                        action: modelData
+                        styleName: "ToolbarButtonStyle"
+                        activeFocusOnPress: false
+                    }
+                }
+            }
+
+            /*
+             * ActionList is created later to workaround QObject children
+             * destruction order which destruct in creation order.
+             */
             ActionList {
                 id: touchSelectionActions
 
                 // text selection with <leafElementName> as starting point
                 function extendSelectionUpTheDom (leafElementName) {
-
                     var commandExtendSelection = "
-            var elementForTextSelection = %1;
-            var selectedLengthStart = window.getSelection().toString().length;
+                        var elementForTextSelection = %1;
+                        var selectedLengthStart = window.getSelection().toString().length;
 
-            var levelCounter = 0;
-            // go up the DOM until the selection is larger
-            while (elementForTextSelection.parentNode)
-            {
-                // select the current node
-                var range = document.createRange();
-                range.selectNode(elementForTextSelection);
-                window.getSelection().removeAllRanges();
-                window.getSelection().addRange(range);
+                        var levelCounter = 0;
+                        // go up the DOM until the selection is larger
+                        while (elementForTextSelection.parentNode)
+                        {
+                            // select the current node
+                            var range = document.createRange();
+                            range.selectNode(elementForTextSelection);
+                            window.getSelection().removeAllRanges();
+                            window.getSelection().addRange(range);
 
-                if (window.getSelection().toString().length > selectedLengthStart)
-                {
-                    break;
+                            if (window.getSelection().toString().length > selectedLengthStart)
+                            {
+                                break;
+                            }
+                            elementForTextSelection = elementForTextSelection.parentNode;
+                            levelCounter++;
+                        }
+
+                        // return array
+                        // [0] length of selection
+                        // [1] parent level at end
+                        // [2] isRootNode
+                        [window.getSelection().toString().length, levelCounter, elementForTextSelection.parentNode ? false : true]
+                    ".arg(leafElementName);
+
+                    webview.runJavaScript(commandExtendSelection,
+                        function(result) {
+                            console.log("[extendSelectionUpTheDom] java script function returned " + JSON.stringify(result))
+                            var selectedLength = result[0]
+                            var parentLevelAtEnd = result[1]
+                            var isRootNode = result[2]
+                            quickMenu.selectedTextLength = selectedLength
+                            while (quickMenu.textSelectionLevels.length > 0 && (parentLevelAtEnd <= quickMenu.textSelectionLevels[quickMenu.textSelectionLevels.length - 1] ))
+                            {
+                                quickMenu.textSelectionLevels.pop()
+                            }
+                            quickMenu.textSelectionLevels.push(parentLevelAtEnd)
+                            quickMenu.textSelectionLevelsChanged()
+                            console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
+                            quickMenu.textSelectionIsAtRootLevel = isRootNode
+                       });
                 }
-                elementForTextSelection = elementForTextSelection.parentNode;
-                levelCounter++;
-            }
 
-            // return array
-            // [0] length of selection
-            // [1] parent level at end
-            // [2] isRootNode
-            [window.getSelection().toString().length, levelCounter, elementForTextSelection.parentNode ? false : true]
-            ".arg(leafElementName);
-
-            webview.runJavaScript(commandExtendSelection,
-                                  function(result) {
-                                      console.log("[extendSelectionUpTheDom] java script function returned " + JSON.stringify(result))
-                                      var selectedLength = result[0]
-                                      var parentLevelAtEnd = result[1]
-                                      var isRootNode = result[2]
-                                      quickMenu.selectedTextLength = selectedLength
-                                      while (quickMenu.textSelectionLevels.length > 0 && (parentLevelAtEnd <= quickMenu.textSelectionLevels[quickMenu.textSelectionLevels.length - 1] ))
-                                      {
-                                          quickMenu.textSelectionLevels.pop()
-                                      }
-                                      quickMenu.textSelectionLevels.push(parentLevelAtEnd)
-                                      quickMenu.textSelectionLevelsChanged()
-                                      console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
-                                      quickMenu.textSelectionIsAtRootLevel = isRootNode
-                                 });
-            }
-
-            // <parentLevel> how many levels (.parentNode calls) to go up to reach the node with the text selection in the DOM
-            // <leafElementName> is the starting point (element the context menu was created for)
-            function setTextSelection (leafElementName, parentLevel) {
+                // <parentLevel> how many levels (.parentNode calls) to go up to reach the node with the text selection in the DOM
+                // <leafElementName> is the starting point (element the context menu was created for)
+                function setTextSelection (leafElementName, parentLevel) {
 
                     var commandSetTextSelection = "
-            var elementForTextSelection = %1;
-            var parentLevel = %2;
+                        var elementForTextSelection = %1;
+                        var parentLevel = %2;
 
-            var levelCounter = 0;
-            while (elementForTextSelection.parentNode && (levelCounter < parentLevel))
-            {
-                elementForTextSelection = elementForTextSelection.parentNode;
-                levelCounter++;
-            }
+                        var levelCounter = 0;
+                        while (elementForTextSelection.parentNode && (levelCounter < parentLevel))
+                        {
+                            elementForTextSelection = elementForTextSelection.parentNode;
+                            levelCounter++;
+                        }
 
-            var range = document.createRange();
-            range.selectNode(elementForTextSelection);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
+                        var range = document.createRange();
+                        range.selectNode(elementForTextSelection);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
 
-            // return length of selection
-            window.getSelection().toString().length
-            ".arg(leafElementName).arg(parentLevel);
+                        // return length of selection
+                        window.getSelection().toString().length
+                    ".arg(leafElementName).arg(parentLevel);
 
-            webview.runJavaScript(commandSetTextSelection,
-                                  function(result) {
-                                      console.log("the length of selection is now " + result)
-                                      quickMenu.selectedTextLength = result
-                                      quickMenu.textSelectionLevels.pop()
-                                      quickMenu.textSelectionLevelsChanged()
-                                      console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
-                                      quickMenu.textSelectionIsAtRootLevel = false
-                                  });
-            }
+                    webview.runJavaScript(commandSetTextSelection,
+                        function(result) {
+                            console.log("the length of selection is now " + result)
+                            quickMenu.selectedTextLength = result
+                            quickMenu.textSelectionLevels.pop()
+                            quickMenu.textSelectionLevelsChanged()
+                            console.log("quickMenu.textSelectionLevels is now " + JSON.stringify(quickMenu.textSelectionLevels))
+                            quickMenu.textSelectionIsAtRootLevel = false
+                        });
+                }
 
-            Action {
+                Action {
                     name: "undo"
                     text: i18n.dtr('ubuntu-ui-toolkit', "Undo")
                     iconName: "edit-undo"
@@ -666,34 +691,6 @@ WebView {
                     }
                 }
             }
-
-            MouseArea {
-                // without that MouseArea the user can click "through" actions with enabled=false (e.g. accidently change the text selection)
-                anchors.fill: touchSelectionActionsRow
-                onClicked: console.log("inactive touch selection item clicked.")
-            }
-
-            Row {
-                id: touchSelectionActionsRow
-                x: parent.padding
-                y: parent.padding
-                height: units.gu(6)
-
-                Repeater {
-                    model: touchSelectionActions.children
-                    AbstractButton {
-                        objectName: "touchSelectionAction_" + action.name
-                        anchors {
-                            top: touchSelectionActionsRow.top
-                            bottom: touchSelectionActionsRow.bottom
-                        }
-                        width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
-                        action: modelData
-                        styleName: "ToolbarButtonStyle"
-                        activeFocusOnPress: false
-                    }
-                }
-            }
         }
 
         // Creates and handles zoom menu, control and autofit logic.
@@ -715,6 +712,19 @@ WebView {
             // ToDo: Is there a way to not load the "blink error message" in the first place ?
             // we cannot change the url to "about:blank", because this would change the addressbar and remove the error state
             webview.runJavaScript("if (document.documentElement) {document.removeChild(document.documentElement);}")
+        }
+
+        if ((loadRequest.status === WebEngineLoadRequest.LoadSucceededStatus) && ! UrlUtils.isPdfViewerExtensionUrl(webview.url)) {
+           webview.runJavaScript("document.contentType", function(docContentType) {
+               if (docContentType === "application/pdf") {
+                   // ToDo: decide how we handle PDFs:
+                   // - ask the user if the file should be viewn / downloaded ?
+                   // - both download the PDF and show the preview ?
+                   // - create a user setting ?
+                   webview.goBack();
+                   browser.closeCurrentTab()
+               }
+           });
         }
     }
 

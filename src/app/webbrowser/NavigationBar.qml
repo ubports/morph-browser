@@ -96,6 +96,19 @@ FocusScope {
                 }
         }
 
+        Connections {
+            enabled: ! backButton.enabled
+            target: internal.webview
+
+            // normally the "canGoBack" should be automatically updated, but does not for webview.url changes.
+            // this is a workaround for https://github.com/ubports/morph-browser/issues/306
+            onLoadingChanged: {
+                if (loadRequest.status !== WebEngineLoadRequest.LoadStartedStatus) {
+                    internal.webview.onUrlChanged();
+                }
+            }
+        }
+
         ChromeButton {
             id: forwardButton
             objectName: "forwardButton"

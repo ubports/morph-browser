@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 UBports Foundation
+ * Copyright 2020 UBports
  *
  * This file is part of morph-browser.
  *
@@ -16,19 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __BROWSER_UTILS_H__
-#define __BROWSER_UTILS_H__
+import QtQuick 2.6
+import Ubuntu.Components 1.3
 
-#include <QtCore/QObject>
+Item {
+    id: iconLink
+    property string name
+    signal clicked()
 
-class BrowserUtils : public QObject
-{
-    Q_OBJECT
+    Icon {
+         id: icon
+         anchors.fill: parent
+         name: iconLink.name
 
-public:
-    explicit BrowserUtils(QObject* parent=0);
+         height: units.gu(2)
+         width: height
 
-    Q_INVOKABLE void deleteAllCookiesOfProfile(QObject * profileObject) const;
-};
-
-#endif // __BROWSER_UTILS_H__
+         MouseArea {
+            anchors.fill: parent
+            onClicked: iconLink.clicked()
+         }
+   }
+}

@@ -42,6 +42,7 @@ BrowserPage {
     property bool incognito: false
 
     signal done()
+    signal preview(string url)
 
     title: i18n.tr("Downloads")
 
@@ -62,22 +63,23 @@ BrowserPage {
             visible: pickingMode
             enabled: downloadsListView.ViewItems.selectedIndices.length > 0
             onTriggered: {
-                var results = []
+                var results = [];
+                var selectedDownload, i;
                 if (internalFilePicker) {
-                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                        results.push(selectedDownload.path)
+                    for (i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i]);
+                        results.push(selectedDownload.path);
                     }
-                    internalFilePicker.accept(results)
+                    internalFilePicker.accept(results);
                 } else {
-                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                        results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+                    for (i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i]);
+                        results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}));
                     }
-                    activeTransfer.items = results
-                    activeTransfer.state = ContentTransfer.Charged
+                    activeTransfer.items = results;
+                    activeTransfer.state = ContentTransfer.Charged;
                 }
-                downloadsItem.done()
+                downloadsItem.done();
             }
         },
         Action {
@@ -86,13 +88,13 @@ BrowserPage {
             visible: selectMode
             onTriggered: {
                 if (downloadsListView.ViewItems.selectedIndices.length === downloadsListView.count) {
-                    downloadsListView.ViewItems.selectedIndices = []
+                    downloadsListView.ViewItems.selectedIndices = [];
                 } else {
-                    var indices = []
+                    var indices = [];
                     for (var i = 0; i < downloadsListView.count; ++i) {
-                        indices.push(i)
+                        indices.push(i);
                     }
-                    downloadsListView.ViewItems.selectedIndices = indices
+                    downloadsListView.ViewItems.selectedIndices = indices;
                 }
             }
         },
@@ -227,8 +229,9 @@ BrowserPage {
             onClicked: {
                 if (!selectMode) {
                     if (model.complete) {
-                        var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype)}
-                        PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
+                        var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype), "mimeType": model.mimetype, "downloadUrl": model.url}
+                        var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
+                        exportDialog.preview.connect(downloadsItem.preview)
                     } else {
                         if (download) {
                             if (paused) {
