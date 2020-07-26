@@ -345,8 +345,8 @@ Common.BrowserPage {
                     property url siteUrl: model.url
 
                     icon: model.icon
-                    title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms, UbuntuColors.orange)
-                    url: Highlight.highlightTerms(model.url, searchQuery.terms, UbuntuColors.orange)
+                    title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms, theme.palette.normal.focus)
+                    url: Highlight.highlightTerms(model.url, searchQuery.terms, theme.palette.normal.focus)
 
                     headerComponent: Label {
                         text: Qt.formatTime(model.lastVisit)
