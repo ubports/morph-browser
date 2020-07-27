@@ -118,8 +118,8 @@ Popover {
                 onClicked: {
                     if (!incomplete && !error) {
                         var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType), "mimeType": download.mimeType, "downloadUrl": download.url}
-                        var dialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
-                        dialog.preview.connect(downloadsDialog.preview)
+                        var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
+                        exportDialog.preview.connect(downloadsDialog.preview)
                     } else {
                         if (download) {
                             if (paused) {

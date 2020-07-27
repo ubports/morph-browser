@@ -250,7 +250,7 @@ Common.BrowserView {
         target: currentDownloadsDialog
         onShowDownloadsPage: showDownloadsPage()
         onPreview: {
-                    PopupUtils.close(currentDownloadsDi$
+                    PopupUtils.close(currentDownloadsDialog);
                     webapp.currentWebview.url = url;
         }
     }
