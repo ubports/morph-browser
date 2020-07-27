@@ -111,7 +111,7 @@ UbuntuShape {
         readonly property real defaultZoomFactor: browser.settings ? browser.settings.zoomFactor : webapp.settings.zoomFactor
         readonly property real minZoomFactor: 0.25
         readonly property real maxZoomFactor: 5.0 / scaleFactor
-        readonly property real scaleFactor: screenScaleFactor
+        readonly property real scaleFactor: screenScaleFactor ? screenScaleFactor : 1.0
         readonly property alias currentZoomFactor: internal.currentZoomFactor
         readonly property alias viewSpecificZoom: internal.viewSpecificZoom
 
