@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.9
-import QtWebEngine 1.7
+import QtWebEngine 1.9
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QtQuick.Layouts 1.3
@@ -41,6 +41,7 @@ Popover {
     property real preferredHeight:  downloadsDialogColumn.height + units.gu(2)
     
     signal showDownloadsPage()
+    signal preview(string url)
 
     contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
@@ -116,8 +117,9 @@ Popover {
                 
                 onClicked: {
                     if (!incomplete && !error) {
-                        var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType)}
-                        PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
+                        var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType), "mimeType": download.mimeType, "downloadUrl": download.url}
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
+                        dialog.preview.connect(downloadsDialog.preview)
                     } else {
                         if (download) {
                             if (paused) {

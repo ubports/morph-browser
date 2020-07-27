@@ -1555,6 +1555,11 @@ Common.BrowserView {
         target: internal.currentDownloadsDialog
         
         onShowDownloadsPage: showDownloadsPage()
+
+        onPreview: {
+                    PopupUtils.close(internal.currentDownloadsDialog);
+                    currentWebview.url = url;
+       }
     }
 
     // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
