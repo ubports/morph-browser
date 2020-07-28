@@ -17,6 +17,7 @@
  */
 
 import QtQml 2.0
+import QtWebEngine 1.9
 
 /*
  * Useful documentation:
