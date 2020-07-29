@@ -29,6 +29,9 @@ import QtWebEngine 1.9
  */
 
 QtObject {
+    
+    id: userAgent
+    
     // Empirical value: screens smaller than 19cm are considered small enough that a
     // mobile UA string is used, screens bigger than that will get desktop content.
     property string screenSize: calcScreenSize()
@@ -61,10 +64,6 @@ QtObject {
 
     readonly property string _more: ""
 
-    readonly property QtObject temporaryDefaultProfile: WebEngineProfile {
-        offTheRecord: true
-    }
-
     function setDesktopMode(val) {
         screenSize = val ? "large" : calcScreenSize()
     }
@@ -74,11 +73,7 @@ QtObject {
     }
 
     function getChromiumVersionOfDefaultProfile() {
-
-        if (! temporaryDefaultProfile) {
-           console.warn("the temporary default profile does no longer exit");
-           return;
-        }
+        var temporaryDefaultProfile = Qt.createQmlObject("import QtWebEngine 1.9; WebEngineProfile {offTheRecord: true}", userAgent);
         var regex = /(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/;
         var chromiumVersion = temporaryDefaultProfile.httpUserAgent.match(regex)[3];
         temporaryDefaultProfile.destroy();
