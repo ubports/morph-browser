@@ -696,6 +696,7 @@ WebView {
         }
 
     onFullScreenRequested: function(request) {
+        webview.zoomFactor = 1.0;
         request.accept();
     }
 

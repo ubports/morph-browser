@@ -415,9 +415,10 @@ Common.BrowserView {
 
             onIsFullScreenChanged: {
                 if (webapp.currentWebview.isFullScreen) {
-                    chromeLoader.item.state = "hidden"
+                    chromeLoader.item.state = "hidden";
                 } else {
-                    chromeLoader.item.state === "shown"
+                    webapp.currentWebview.zoomController.refresh();
+                    chromeLoader.item.state === "shown";
                 }
             }
        }
