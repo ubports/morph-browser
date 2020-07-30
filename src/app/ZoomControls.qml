@@ -163,6 +163,10 @@ UbuntuShape {
             }
         }
 
+        function refresh() {
+            internal.setWebviewZoomFactor(controller.currentZoomFactor);
+        }
+
         // If current domain has changed, we have to forget about previous zoom factors and update page zoom.
         // This also means, that loading is in progress, fit to widt updates will be done there.
         onCurrentDomainChanged: {
