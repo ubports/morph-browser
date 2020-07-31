@@ -852,7 +852,7 @@ Common.BrowserView {
                 if (browser.currentWebview.loading && !recentView.visible) {
                     chrome.state = "shown";
                 } else if (browser.currentWebview.isFullScreen) {
-                    chrome.state = "hidden";
+                    chrome.state = "hidden"
                 }
             }
             onIsFullScreenChanged: {
