@@ -20,7 +20,7 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import QtSystemInfo 5.5
-import QtWebEngine 1.10
+import QtWebEngine 1.7
 import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
@@ -1791,7 +1791,7 @@ Common.BrowserView {
 
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
-        DownloadsModel.add(downloadIdDataBase, (download.url.toString().indexOf("file://%1/pdf_tmp".arg(cacheLocation)) === 0) ? "" : download.url, download.path, download.mimeType, incognito)
+        DownloadsModel.add(downloadIdDataBase, ((!download.url || download.url.toString().indexOf("file://%1/pdf_tmp".arg(cacheLocation)) === 0)) ? "" : download.url, download.path, download.mimeType, incognito)
         downloadsViewLoader.active = true
     }
 
@@ -1822,12 +1822,12 @@ Common.BrowserView {
         onDownloadRequested: {
 
             if (currentWebview.url.toString().match(/^view-source:/i)) {
-                console.log(incognito ? "a download was rejected" : "a download was rejected with url %1".arg(download.url));
+                console.log((incognito || !download.url) ? "a download was rejected" : "a download was rejected with url %1".arg(download.url));
                 return;
             }
 
             // already downloaded item
-            if ((download.url.toString().indexOf("file://%1".arg(currentWebview.profile.downloadPath)) === 0) && FileOperations.extension(download.path) !== "mhtml" ) {
+            if (download.url && (download.url.toString().indexOf("file://%1".arg(currentWebview.profile.downloadPath)) === 0) && FileOperations.extension(download.path) !== "mhtml" ) {
                console.log(incognito ? "download rejected (item has already been downloaded)" : "download rejected (%1 has already been downloaded)".arg(download.url));
                currentWebview.showMessage(i18n.tr("the file is already in the downloads folder."))
                return;
@@ -1845,10 +1845,23 @@ Common.BrowserView {
             browser.showDownloadsPage();
             browser.setDownloadComplete(download);
 
-            // delete pdf in cache / close the tab
-            if (download.url.toString().indexOf("file://%1/pdf_tmp".arg(cacheLocation)) === 0) {
-              FileOperations.remove(download.url);
-              internal.closeTabsWithUrl(download.url);
+            var temporaryPdfFolderUrl = "file://%1/pdf_tmp".arg(cacheLocation);
+
+            if (download.url) {
+                // delete pdf in cache / close the tab
+                if (download.url.toString().indexOf(temporaryPdfFolderUrl) === 0) {
+                  FileOperations.remove(download.url);
+                  internal.closeTabsWithUrl(download.url);
+                }
+            }
+            else {
+                // url property is not available for QtWebEngine 5.7 (Qt 5.11)
+                if (download.mimeType === "application/pdf") {
+                  var filesPdfTmpFolder = FileOperations.filesInDirectory(temporaryPdfFolderUrl, ["*"]);
+                  for (var i in filesPdfTmpFolder) {
+                    FileOperations.remove("%1/%2".arg(temporaryPdfFolderUrl).arg(encodeURIComponent(filesPdfTmpFolder[i])));
+                  }
+                }
             }
         }
     }

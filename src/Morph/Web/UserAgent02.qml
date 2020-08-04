@@ -17,7 +17,7 @@
  */
 
 import QtQml 2.0
-import QtWebEngine 1.9
+import QtWebEngine 1.7
 
 /*
  * Useful documentation:
@@ -73,7 +73,7 @@ QtObject {
     }
 
     function getChromiumVersionOfDefaultProfile() {
-        var temporaryDefaultProfile = Qt.createQmlObject("import QtWebEngine 1.9; WebEngineProfile {offTheRecord: true}", userAgent);
+        var temporaryDefaultProfile = Qt.createQmlObject("import QtWebEngine 1.7; WebEngineProfile {offTheRecord: true}", userAgent);
         var regex = /(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/;
         var chromiumVersion = temporaryDefaultProfile.httpUserAgent.match(regex)[3];
         temporaryDefaultProfile.destroy();

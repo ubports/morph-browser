@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import QtWebEngine 1.10
+import QtWebEngine 1.7
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
 import "actions" as Actions
@@ -59,7 +59,8 @@ WebView {
 
     // setting it to false, because "true" opens the PDF viewer extension but makes it difficult to download the pdf (only possible with context menu)
     // furthermore pages saved as PDF would not be downloaded but only displayed as PDF
-    settings.pdfViewerEnabled: false
+    // ToDo: uncomment the following line for QtWebEngine >= 1.9 (Qt 5.13)
+    //settings.pdfViewerEnabled: false
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/

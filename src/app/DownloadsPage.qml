@@ -133,7 +133,8 @@ BrowserPage {
         },
         Action {
             iconName: "document-open"
-            visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown)
+            // ToDo: make it visible for "application/pdf" for QtWebEngine 1.9 (Qt 5.13) or higher
+            visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown) && (exportPeerPicker.mimeType !== "application/pdf")
             onTriggered: {
                 preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(exportPeerPicker.path) : exportPeerPicker.path);
             }
