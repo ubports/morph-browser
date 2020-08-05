@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
+import QtQuick 2.9
 import QtWebEngine 1.5
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
 
 import "MimeTypeMapper.js" as MimeTypeMapper
-import "UrlUtils.js" as UrlUtils
+import "FileUtils.js" as FileUtils
 
 BrowserPage {
     id: downloadsItem
@@ -117,25 +118,11 @@ BrowserPage {
         },
         Action {
             iconName: "edit"
-            visible: !selectMode && !pickingMode && !exportPeerPicker.visible
+            visible: !selectMode && !pickingMode
             enabled: downloadsListView.count > 0
             onTriggered: {
                 selectMode = true
                 multiSelect = true
-            }
-        },
-        Action {
-            iconName: "external-link"
-            visible: exportPeerPicker.visible && (exportPeerPicker.downloadUrl !== "") && (exportPeerPicker.contentType !== ContentType.Unknown)
-            onTriggered: {
-                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + exportPeerPicker.downloadUrl : exportPeerPicker.downloadUrl);
-            }
-        },
-        Action {
-            iconName: "document-open"
-            visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown)
-            onTriggered: {
-                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(exportPeerPicker.path) : exportPeerPicker.path);
             }
         }
     ]
@@ -167,7 +154,6 @@ BrowserPage {
     ListView {
         id: downloadsListView
         anchors.fill: parent
-        focus: !exportPeerPicker.focus
 
         model: SortFilterModel {
             model: SortFilterModel {
@@ -207,9 +193,11 @@ BrowserPage {
         }
 
         delegate: DownloadDelegate {
+            id: downloadDelegate
+            
             download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
-            title: getDisplayPath(model.path)
+            title: FileUtils.getFilename(model.path) //getDisplayPath(model.path)
             url: model.url
             image: model.complete && thumbnailLoader.status == Loader.Ready 
                                   && (model.mimetype.indexOf("image") === 0 
@@ -221,6 +209,7 @@ BrowserPage {
             errorMessage: model.error
             paused: download ? download.isPaused : false
             incognito: model.incognito
+
 
             function getDisplayPath(path)
             {
@@ -238,13 +227,21 @@ BrowserPage {
             }
 
             onClicked: {
-                if (model.complete && !selectMode) {
-                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype);
-                    exportPeerPicker.visible = true;
-                    exportPeerPicker.path = model.path;
-                    exportPeerPicker.mimeType = model.mimetype;
-                    exportPeerPicker.downloadUrl = model.url;
-                }
+                if (!selectMode) {
+                    if (model.complete) {
+                        var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype), "mimeType": model.mimetype, "downloadUrl": model.url}
+                        var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
+                        exportDialog.preview.connect(downloadsItem.preview)
+                    } else {
+                        if (download) {
+                            if (paused) {
+                                download.resume()
+                            } else {
+                                download.pause()
+                            }
+                        }
+                    }
+                }  
             }
 
             onPressAndHold: {
@@ -296,31 +293,4 @@ BrowserPage {
         horizontalAlignment: Text.AlignHCenter
         text: i18n.tr("No downloads available")
     }
-
-    Component {
-        id: contentItemComponent
-        ContentItem {}
-    }
-
-    ContentPeerPicker {
-        id: exportPeerPicker
-        visible: false
-        focus: visible
-        anchors.fill: parent
-        handler: ContentHandler.Destination
-        property string path
-        property string mimeType
-        property string downloadUrl
-        onPeerSelected: {
-            var transfer = peer.request()
-            if (transfer.state === ContentTransfer.InProgress) {
-                transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})]
-                transfer.state = ContentTransfer.Charged
-            }
-            visible = false
-        }
-        onCancelPressed: visible = false
-        Keys.onEscapePressed: visible = false
-    }
-
 }
