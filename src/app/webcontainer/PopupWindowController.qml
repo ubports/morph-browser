@@ -223,8 +223,7 @@ Item {
         PopupWindowOverlay {
             id: overlay
 
-            // https://github.com/ubports/qtwebengine-opensource-src-packaging/issues/38
-            height: Math.round(parent.height)
+            height: parent.height
             width: parent.width
 
             wide: controller.wide
