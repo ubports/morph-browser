@@ -93,6 +93,7 @@ Popover {
             visible: (contentExportDialog.contentType !== ContentType.Unknown)
             name: "document-open"
             onClicked: {
+                PopupUtils.close(contentExportDialog);
                 preview((contentExportDialog.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(contentExportDialog.path) : contentExportDialog.path);
             }
         }
@@ -103,6 +104,7 @@ Popover {
             visible: (contentExportDialog.downloadUrl !== "") && (contentExportDialog.contentType !== ContentType.Unknown)
             name: "external-link"
             onClicked: {
+                PopupUtils.close(contentExportDialog);
                 preview((contentExportDialog.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + contentExportDialog.downloadUrl : contentExportDialog.downloadUrl);
             }
         }

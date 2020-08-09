@@ -249,6 +249,10 @@ Common.BrowserView {
     Connections {
         target: currentDownloadsDialog
         onShowDownloadsPage: showDownloadsPage()
+        onPreview: {
+                    PopupUtils.close(currentDownloadsDialog);
+                    webapp.currentWebview.url = url;
+        }
     }
     
     /* Only used for anchoring the downloads dialog to the top when chromeless */
