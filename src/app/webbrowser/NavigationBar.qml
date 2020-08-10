@@ -43,7 +43,7 @@ FocusScope {
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
     property color fgColor: theme.palette.normal.baseText
-    property color iconColor: theme.palette.selected.base
+    property color iconColor: theme.palette.normal.baseText
     property real availableHeight
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
