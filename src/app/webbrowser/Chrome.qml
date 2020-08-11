@@ -111,7 +111,7 @@ ChromeBase {
 
             loading: chrome.loading
             fgColor: theme.palette.normal.backgroundText
-            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.background : fgColor
+            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.baseText : fgColor
 
             focus: true
 
