@@ -106,7 +106,7 @@ Item {
 
                 sourceComponent: TabPreview {
                     title: delegate.title
-                    icon: delegate.icon
+                    tabIcon: delegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
 
