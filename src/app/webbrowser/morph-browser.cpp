@@ -167,8 +167,17 @@ int main(int argc, char** argv)
     {
         qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --disable-viz-display-compositor");
     }
-    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
-    qputenv("QT_SCALE_FACTOR", "2");
+
+    //Set the scale factor based on GRID_UNIT_PX
+    bool grid_unit_convert_ok = false;
+    int grid_unit_px = qgetenv("GRID_UNIT_PX").toInt(&grid_unit_convert_ok);
+    if (grid_unit_convert_ok) {
+        float scale_factor = grid_unit_px / 8.0f;
+        qputenv("GRID_UNIT_PX", "8");
+        qputenv("QT_SCALE_FACTOR", QByteArray().setNum(scale_factor));
+    } else {
+        qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
+    }
 
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
