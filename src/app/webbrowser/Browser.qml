@@ -1540,11 +1540,31 @@ Common.BrowserView {
                 internal.currentDownloadsDialog = PopupUtils.open(Qt.resolvedUrl("../DownloadsDialog.qml"),
                                                                caller, properties)
            }
+           console.log(recentDownloads)
         }
         
         function addNewDownload(download) {
             recentDownloads.unshift(download)
-            chrome.showDownloadButton = true
+            chrome.showDownloadButton = Qt.binding(
+                                        function(){
+                                            if (browser.wide) {
+                                                return true;
+                                            } else {
+                                                if (internal.currentDownloadsDialog) {
+                                                    if (internal.currentDownloadsDialog.isEmpty) {
+                                                        return false;
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                } else {
+                                                    if (recentDownloads.length > 0) {
+                                                        return true;
+                                                    } else {
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                        })
             if (internal.currentDownloadsDialog) {
                 internal.currentDownloadsDialog.downloadsList = recentDownloads
             }
