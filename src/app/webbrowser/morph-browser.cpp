@@ -167,6 +167,9 @@ int main(int argc, char** argv)
     {
         qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --disable-viz-display-compositor");
     }
+    
+    //hook into wayland shell integration, allows fullscreen that hides indicators
+    qputenv("QT_WAYLAND_SHELL_INTEGRATION", "wl-shell");
 
     //Set the scale factor based on GRID_UNIT_PX
     bool grid_unit_convert_ok = false;
