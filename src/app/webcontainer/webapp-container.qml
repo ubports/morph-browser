@@ -202,6 +202,12 @@ BrowserWindow {
 
             // create path for pages printed to PDF
             FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
+
+            // set appId for NotificationsProxy
+            NotificationsProxy.setAppId(unversionedAppId);
+
+            // update notifications count
+            NotificationsProxy.updateCount();
         }
 
         function loadCustomUserScripts() {
