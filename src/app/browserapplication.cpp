@@ -45,6 +45,7 @@
 #include "input-method-handler.h"
 #include "meminfo.h"
 #include "mime-database.h"
+#include "notifications-proxy.h"
 #include "session-storage.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
@@ -107,6 +108,7 @@ MAKE_SINGLETON_FACTORY(DownloadsModel)
 MAKE_SINGLETON_FACTORY(FileOperations)
 MAKE_SINGLETON_FACTORY(MemInfo)
 MAKE_SINGLETON_FACTORY(MimeDatabase)
+MAKE_SINGLETON_FACTORY(NotificationsProxy)
 MAKE_SINGLETON_FACTORY(UserAgentsModel)
 
 bool BrowserApplication::initialize(const QString& qmlFileSubPath
@@ -202,6 +204,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterSingletonType<MemInfo>(uri, 0, 1, "MemInfo", MemInfo_singleton_factory);
     qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
+    qmlRegisterSingletonType<NotificationsProxy>(uri, 0, 1, "NotificationsProxy", NotificationsProxy_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
     qmlRegisterSingletonType<UserAgentsModel>(uri, 0, 1, "UserAgentsModel", UserAgentsModel_singleton_factory);
 
