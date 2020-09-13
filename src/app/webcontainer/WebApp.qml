@@ -444,6 +444,10 @@ Common.BrowserView {
                webapp.showDownloadsPage()
                webapp.setDownloadComplete(download)
            }
+
+           onPresentNotification: {
+               NotificationsProxy.sendNotification(notification);
+           }
        }
 
        Connections {

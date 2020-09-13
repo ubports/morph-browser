@@ -1857,6 +1857,10 @@ Common.BrowserView {
               internal.closeTabsWithUrl(download.url);
             }
         }
+        
+        onPresentNotification: {
+            NotificationsProxy.sendNotification(notification);
+        }
     }
 
     Connections {

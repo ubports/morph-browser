@@ -221,6 +221,12 @@ WebView {
              mediaAccessDialog.origin = securityOrigin;
              mediaAccessDialog.feature = feature;
              break;
+             
+             case WebEngineView.Notifications:
+             var notificationsAccessDialog = PopupUtils.open(Qt.resolvedUrl("NotificationsAccessDialog.qml"), this);
+             notificationsAccessDialog.origin = securityOrigin;
+
+             break;
          }
     }
 

@@ -30,6 +30,8 @@ set(COMMONLIB_SRC
     input-method-handler.cpp
     meminfo.cpp
     mime-database.cpp
+    notifications-proxy.cpp
+    pushclient/pushclient.cpp
     session-storage.cpp
     single-instance-manager.cpp
 )
@@ -44,6 +46,7 @@ target_link_libraries(${COMMONLIB}
     Qt5::Qml
     Qt5::Quick
     Qt5::Widgets
+    Qt5DBus
     Qt5WebEngine
     Qt5WebEngineCore
     ${LIBAPPARMOR_LDFLAGS}
