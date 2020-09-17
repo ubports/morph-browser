@@ -107,10 +107,10 @@ Item {
             anchors {
                 left: parent.left
                 top: parent.top
+                right: parent.right
                 topMargin: -chrome.height
             }
-            height: sourceSize.height
-            fillMode: Image.Pad
+            fillMode: Image.PreserveAspectFit
             source: tabPreview.tab ? tabPreview.tab.preview : ""
             asynchronous: true
             cache: false
