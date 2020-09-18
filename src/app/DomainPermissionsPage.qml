@@ -41,7 +41,7 @@ FocusScope {
 
     property QtObject domainPermissionsObject
     property bool selectMode
-    property bool sortByLastRequested: false
+    property bool sortByLastRequested: true
 
     signal done()
     signal reload(string selectedDomain)
