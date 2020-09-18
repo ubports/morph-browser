@@ -57,6 +57,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 set(DESKTOP_FILE morph-browser.desktop)
+set(PUSH_HELPER_DIR "lib/ubuntu-push-client/legacy-helpers")
 
 # uninstall target
 configure_file(
@@ -94,4 +95,6 @@ add_subdirectory(doc)
 
 install(FILES morph-browser.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
 install(FILES morph-browser-splash.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/morph-browser)
+install(PROGRAMS push-helper/morph-browser-helper DESTINATION ${PUSH_HELPER_DIR} RENAME morph-browser)
+
 add_subdirectory(click-hooks)
