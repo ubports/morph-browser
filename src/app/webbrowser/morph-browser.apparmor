@@ -5,7 +5,8 @@
         "networking",
         "location",
         "content_exchange",
-        "keep-display-on"
+        "keep-display-on",
+        "push-notification-client"
     ],
     "policy_version": 16.04,
     "template": "unconfined"
