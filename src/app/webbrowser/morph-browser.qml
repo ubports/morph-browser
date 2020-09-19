@@ -119,55 +119,56 @@ QtObject {
 
             onActiveChanged: {
                 if (active) {
-                    var index = allWindows.indexOf(this)
+                    var index = allWindows.indexOf(this);
                     if (index > -1) {
-                        allWindows.push(allWindows.splice(index, 1)[0])
+                        allWindows.push(allWindows.splice(index, 1)[0]);
                     }
+                    NotificationsProxy.updateCount();
                 }
             }
 
             onClosing: {
                 if (allWindows.length == 1) {
                     if (tabsModel.count > 0) {
-                        session.save()
+                        session.save();
                     } else {
-                        session.clear()
+                        session.clear();
                     }
                 }
 
                 if (incognito && (allWindows.length > 1)) {
                     // If the last incognito window is being closed,
                     // prune incognito entries from the downloads model
-                    var incognitoWindows = 0
+                    var incognitoWindows = 0;
                     for (var w in allWindows) {
-                        var window = allWindows[w]
+                        var window = allWindows[w];
                         if ((window !== this) && window.incognito) {
-                            ++incognitoWindows
+                            ++incognitoWindows;
                         }
                     }
-                    if (incognitoWindows == 0) {
-                        DownloadsModel.pruneIncognitoDownloads()
+                    if (incognitoWindows === 0) {
+                        DownloadsModel.pruneIncognitoDownloads();
                     }
                 }
-
-
 
                 if (allWindows.length > 1)
                 {
                     for (var win in allWindows) {
                         if (this === allWindows[win]) {
-                            var tabs = allWindows[win].tabsModel
+                            var tabs = allWindows[win].tabsModel;
                             for (var t = tabs.count - 1; t >= 0; --t) {
-                                //console.log("remove tab with url " + tabs.get(t).url)
-                                tabs.removeTab(t)
+                                //console.log("remove tab with url " + tabs.get(t).url);
+                                tabs.removeTab(t);
                             }
-                            allWindows.splice(win, 1)
-                            return
+                            allWindows.splice(win, 1);
+                            return;
                         }
                     }
                 }
 
-                destroy()
+                NotificationsProxy.updateCount();
+
+                destroy();
             }
 
             Shortcut {
