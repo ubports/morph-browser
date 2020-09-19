@@ -43,7 +43,6 @@ PushClient::PushClient(QObject *parent) : QObject(parent),
 void PushClient::setAppId(const QString & appId)
 {
     m_appId = appId;
-    m_tags = getPersistent();
     updateCount();
 }
 
@@ -120,6 +119,9 @@ bool PushClient::updateCount(const QString &tag, const bool remove)
             qDebug() << "[COUNT] >> Removing tag from persistent list: " << tag;
             m_tags.removeAll(tag);
         }
+    }
+    else {
+      m_tags = getPersistent();
     }
 
     bool visible = m_tags.count() != 0;
