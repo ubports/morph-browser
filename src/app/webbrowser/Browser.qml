@@ -1859,6 +1859,7 @@ Common.BrowserView {
         }
         
         onPresentNotification: {
+            NotificationsProxy.updateCount();
             NotificationsProxy.sendNotification(notification);
         }
     }

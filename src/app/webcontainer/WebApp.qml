@@ -446,6 +446,7 @@ Common.BrowserView {
            }
 
            onPresentNotification: {
+               NotificationdProxy.updateCount();
                NotificationsProxy.sendNotification(notification);
            }
        }
