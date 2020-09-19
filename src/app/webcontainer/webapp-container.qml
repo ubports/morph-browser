@@ -63,6 +63,16 @@ BrowserWindow {
     // Used for testing
     signal schemeUriHandleFilterResult(string uri)
 
+    onActiveChanged: {
+      if (active) {
+        NotificationsProxy.updateCount();
+      }
+    }
+
+    onClosing: {
+      NotificationsProxy.updateCount();
+    }
+
     function getWindowTitle() {
         var webappViewTitle =
                 webappViewLoader.item
