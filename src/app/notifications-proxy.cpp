@@ -40,7 +40,8 @@ void NotificationsProxy::sendNotification(QObject * notificationObject) const
 {
     QWebEngineNotification * notification = qobject_cast<QWebEngineNotification *>(notificationObject);
     QJsonObject message = buildMessage(notification->tag(), notification->origin(), notification->title(), notification->message());
-    PushClient::instance()->send(message);
+    // send notification, update it if tag does already exist
+    PushClient::instance()->update(notification->tag(), message);
 }
 
 void NotificationsProxy::updateCount() const
