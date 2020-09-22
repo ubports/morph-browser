@@ -44,13 +44,8 @@ Item {
     }
 
     Rectangle {
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: invisibleTabChrome.height
-        color: theme.palette.normal.backgroundText
+        anchors.fill: parent
+        color: theme.palette.normal.base
     }
 
     Flickable {
@@ -74,7 +69,7 @@ Item {
 
                 width: flickable.contentWidth
 
-                height: (index == (repeater.model.count - 1)) ? flickable.height : delegateHeight
+                height: (index == (repeater.model.count - 1)) || index == 0 ? flickable.height : delegateHeight
                 Behavior on height {
                     UbuntuNumberAnimation {
                         duration: UbuntuAnimation.BriskDuration
@@ -108,8 +103,7 @@ Item {
                     icon: delegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
-                    showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
-                                 !(tab && tab.webview && tab.webview.visible)
+                    showContent: true
 
                   /*  Binding {
                         // Change the height of the location bar controller

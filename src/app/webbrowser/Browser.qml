@@ -556,9 +556,13 @@ Common.BrowserView {
             if (visible) {
                 currentWebview.hideContextMenu();
                 chrome.state = "hidden";
+                currentWebview.visible = false;
+                newTabViewLoader.visible = false;
             }
             else {
                 chrome.state = "shown";
+                currentWebview.visible = true;
+                newTabViewLoader.visible = true;
             }
         }
 
@@ -846,7 +850,7 @@ Common.BrowserView {
         Connections {
             target: browser.currentWebview
             onLoadingChanged: {
-                if (browser.currentWebview.loading) {
+                if (browser.currentWebview.loading && !recentView.visible) {
                     chrome.state = "shown"
                 } else if (browser.currentWebview.isFullScreen) {
                     chrome.state = "hidden"

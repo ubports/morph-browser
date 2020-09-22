@@ -197,7 +197,7 @@ FocusScope {
                 visible = false
 
                 PreviewManager.saveToDisk(result, url)
-            })
+            },Qt.size(webview.width*Screen.devicePixelRatio,webview.height*Screen.devicePixelRatio));
         }
     }
 
@@ -208,21 +208,24 @@ FocusScope {
         id: delayedCapture
         interval: 500
         onTriggered: {
+            if (recentView.visible)
+                return
             if (webview && current && visible && !internal.hiding) {
                 webview.grabToImage(function(result) {
                     PreviewManager.saveToDisk(result, url)
-                })
+                },Qt.size(webview.width*Screen.devicePixelRatio,webview.height*Screen.devicePixelRatio))
             }
         }
     }
     Connections {
         target: incognito ? null : webview
-//        onLoadEvent: {
-//            if ((event.type == Oxide.LoadEvent.TypeSucceeded) ||
-//                (event.type == Oxide.LoadEvent.TypeFailed)) {
-//                delayedCapture.restart()
-//            }
-//        }
+        onLoadingChanged: {
+            if (!webview.loading)
+                delayedCapture.restart()
+        }
+        //onScrollPositionChanged: {
+        //    delayedCapture.restart()
+        //}
     }
 
     onAboutToShow: {
