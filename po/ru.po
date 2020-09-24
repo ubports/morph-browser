@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-06-24 10:05+0000\n"
-"Last-Translator: Eugene Markoff <uralhistory@gmail.com>\n"
-"Language-Team: Russian <https://translate.ubports.com/projects/ubports/morph-"
-"browser/ru/>\n"
+"PO-Revision-Date: 2020-09-04 18:18+0000\n"
+"Last-Translator: Dmitriy Krivtsov <dmitrek@mail.ru>\n"
+"Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
@@ -47,7 +47,7 @@ msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
-"Этот URL  будет открыт через системное приложение, если это возможно. Вы "
+"Этот URL будет открыт через системное приложение, если это возможно. Вы "
 "хотите продолжить?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
@@ -1064,21 +1064,15 @@ msgid "Camera & microphone"
 msgstr "Камера и микрофон"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Очистить историю"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Очистить историю?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Очистить кэш"
 
@@ -1091,17 +1085,13 @@ msgstr "Очистить кэш?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Очистить кэш"
+msgstr "Очистить куки"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Очистить кэш?"
+msgstr "Очистить куки?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1147,16 +1137,15 @@ msgstr "Удалить"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Ubuntu Веб-Браузер"
+msgstr "%1 - Morph Веб-Браузер"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Веб-браузер"
+msgstr "Morph веб-браузер"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""

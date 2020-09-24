@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-04-23 15:23+0000\n"
-"Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
+"PO-Revision-Date: 2020-08-08 07:21+0000\n"
+"Last-Translator: Adria <adriamartinmor@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/sc/>\n"
 "Language: sc\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -291,7 +291,7 @@ msgstr "Perunu iscarrigamentu a disponimentu"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Faddina de su tzertificadu"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -499,7 +499,7 @@ msgstr "Reseta"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "adata"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
@@ -515,30 +515,24 @@ msgid "Current Zoom"
 msgstr "Ingrandimentu presente"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Agiunghe domìniu"
+msgstr "domìniu"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Predefinidu"
+msgstr "predefinidu"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "adatamentu automàticu"
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Sarva s'immàgine"
+msgstr "Sarva s'ingrandimentu"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "perunu"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -546,15 +540,20 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"ingrandimentu de su domìniu (immoe %1, podet èssere cantzelladu cun su "
+"butone de resetamentu o pro mèdiu de is paràmetros ispetzìficos de su "
+"domìniu in sa cunfiguratzione de riservadesa)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " e reseta s'ingrandimentu de su domìniu"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
+"ingrandimentu predefinidu (immoe %1%, podet èssere modificadu dae su menù de "
+"cunfiguratzione%2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
@@ -563,25 +562,19 @@ msgstr "s'aplicatzione web presente"
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "S'ingrandimentu atuale (%1%) podet èssere sarvadu pro %2 comente . "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Àteru"
+msgstr "o"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Sarva in"
+msgstr "Sarva pro su domìniu"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Sarva comente PDF"
+msgstr "Sarva comente predefinidu"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -986,10 +979,8 @@ msgstr "Motore de chirca"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Ischeda noa"
+msgstr "Pàgina de ischeda noa"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -998,6 +989,7 @@ msgstr "Recùpera s'ùrtima sessione in s'aviu"
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
 msgstr ""
+"no a disponimentu proite ca s'aviu est cunfiguradu in modalidade privada"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1006,12 +998,12 @@ msgstr "Modalidade de iscrivania"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Adata a sa larghesa in automàticu"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Adata sa larghesa de su situ web a sa ventana"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1031,7 +1023,7 @@ msgstr "Reseta sa cunfiguratzione de su navigadore"
 
 #: src/app/webbrowser/SettingsPage.qml:314
 msgid "Start in private mode"
-msgstr ""
+msgstr "Avia in modalidade privada"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1044,44 +1036,32 @@ msgid "Camera & microphone"
 msgstr "Càmera e micròfonu"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Lìmpia sa cronologia de navigatzione"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Boles limpiare sa cronologia de navigatzione?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Isbòida sa memòria temporànea"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Boles isboidare sa memòria temporànea?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Isbòida sa memòria temporànea"
+msgstr "Lìmpia totu is boboetos"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Boles isboidare sa memòria temporànea?"
+msgstr "Boles isboidare totu is boboetos?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1089,10 +1069,8 @@ msgid "Clear"
 msgstr "Lìmpia"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Ischemas personalizados pro URL"
+msgstr "Pàgina printzipale personalizada"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"

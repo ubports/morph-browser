@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2013-09-21 06:33+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Indonesian <id@li.org>\n"
+"PO-Revision-Date: 2020-08-08 18:44+0000\n"
+"Last-Translator: satriocode <satrioismail52@gmail.com>\n"
+"Language-Team: Indonesian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -444,11 +445,11 @@ msgstr "Perbolehkan domain ini untuk mengakses mikrophon anda?"
 
 #: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
-msgstr "Ya"
+msgstr "Iya"
 
 #: src/app/MediaAccessDialog.qml:85
 msgid "No"
-msgstr "Tidak"
+msgstr "Batal"
 
 #: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
@@ -700,7 +701,7 @@ msgstr "Tempel"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "Ulangi"
+msgstr "Lakukan lagi (Redo)"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -731,7 +732,7 @@ msgstr "Berbagi"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "Kembalikan"
+msgstr "Batal (undo)"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
@@ -961,7 +962,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr "Bawaan"
+msgstr "Bawaan (Default)"
 
 #: src/app/webbrowser/SettingsPage.qml:74
 #: src/app/webbrowser/SettingsPage.qml:257

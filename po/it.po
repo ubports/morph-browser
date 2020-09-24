@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-05-14 16:24+0000\n"
-"Last-Translator: Mike <miguel2000@livecom.it>\n"
-"Language-Team: Italian <https://translate.ubports.com/projects/ubports/morph-"
-"browser/it/>\n"
+"PO-Revision-Date: 2020-08-18 13:56+0000\n"
+"Last-Translator: Irio Bartolomei <irio92@gmail.com>\n"
+"Language-Team: Italian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -292,7 +292,7 @@ msgstr "Nessuno scaricamento disponibile"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Errore del certificato"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -499,7 +499,7 @@ msgstr "Reset"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "adatta"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
@@ -515,30 +515,24 @@ msgid "Current Zoom"
 msgstr "Zoom attuale"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Aggiungi dominio"
+msgstr "dominio"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Predefinito"
+msgstr "predefinito"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "adatta automaticamente"
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Salva immagine"
+msgstr "Salva Zoom"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "nessuno"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -546,15 +540,20 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"zoom del dominio (attualmente %1 e può essere rimosso tramite il pulsante di "
+"reset o dalle configurazioni del dominio tramite le impostazioni della "
+"privacy)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " e ripristina lo zoom del dominio"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
+"zoom predefinito (attuale %1, può essere modificato dal menù delle "
+"impostazioni %2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
@@ -563,25 +562,19 @@ msgstr "Web app attuale"
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Zoom corrente (%1%) può essere salvato per %2 come "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Altro"
+msgstr "oppure"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Salva in"
+msgstr "Salva per il dominio"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Salva come PDF"
+msgstr "Salva come predefinito"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -986,8 +979,6 @@ msgstr "Motore di ricerca"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
 msgstr "Nuova scheda"
 
@@ -997,7 +988,7 @@ msgstr "Ripristina ultima sessione all'avvio"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "non disponibile nella modalità in incognito"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1006,12 +997,12 @@ msgstr "Imposta la modalità Desktop"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Adatta automaticamente alla larghezza"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Adatta la larghezza alla finestra"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1030,10 +1021,8 @@ msgid "Reset browser settings"
 msgstr "Ripristina le impostazioni del browser"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Esci dalla modalità privata"
+msgstr "Avvia la modalità in incognito"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1046,44 +1035,32 @@ msgid "Camera & microphone"
 msgstr "Fotocamera e microfono"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Cancella cronologia di navigazione"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
-msgstr "Pulire la cronologia di navigazione?"
+msgstr "Cancellare la cronologia di navigazione?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Cancella cache"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
-msgstr "Pulire la cache?"
+msgstr "Cancellare la cache?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Cancella cache"
+msgstr "Cancella tutti i cookies"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Pulire la cache?"
+msgstr "Cancellare tutti i cookies?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1091,10 +1068,8 @@ msgid "Clear"
 msgstr "Pulisci"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Schemi URL personalizzati"
+msgstr "Pagina iniziale personalizzata"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
