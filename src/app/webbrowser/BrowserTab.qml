@@ -223,9 +223,12 @@ FocusScope {
             if (!webview.loading)
                 delayedCapture.restart()
         }
-        //onScrollPositionChanged: {
-        //    delayedCapture.restart()
-        //}
+        onScrollPositionChanged: {
+            delayedCapture.restart()
+        }
+        onWidthChanged: {
+            delayedCapture.restart()
+        }
     }
 
     onAboutToShow: {

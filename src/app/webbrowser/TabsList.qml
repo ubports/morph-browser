@@ -69,7 +69,8 @@ Item {
 
                 width: flickable.contentWidth
 
-                height: (index == (repeater.model.count - 1)) || index == 0 ? flickable.height : delegateHeight
+                height: (index == (repeater.model.count - 1)) || index == 0 || (animating && index == selectedAnimation.index)
+                        ? flickable.height : delegateHeight
                 Behavior on height {
                     UbuntuNumberAnimation {
                         duration: UbuntuAnimation.BriskDuration
@@ -126,7 +127,7 @@ Item {
             property int index: 0
             target: flickable
             property: "contentY"
-            to: index * delegateHeight - chromeHeight + invisibleTabChrome.height
+            to: index * delegateHeight
             duration: UbuntuAnimation.FastDuration
             onStopped: {
                 // Delay switching the tab until after the animation has completed.

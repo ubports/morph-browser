@@ -40,6 +40,11 @@ Common.BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
+    TabChrome {
+        id: invisibleTabChrome
+        visible: false
+    }
+
     property bool incognito: false
 
     property var tabsModel: TabsModel {
@@ -692,8 +697,8 @@ Common.BrowserView {
         property bool hidden: false
 
         Behavior on y {
-            enabled: recentView.visible
             NumberAnimation {
+                from: -chrome.height + invisibleTabChrome.height
                 duration: UbuntuAnimation.FastDuration
             }
         }
