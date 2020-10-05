@@ -51,8 +51,17 @@ Item {
         anchors.fill: parent
         anchors.rightMargin: tabItem.rightMargin
         color: theme.palette.normal.background
-        border.color: theme.palette.normal.base
+        border.color: theme.palette.normal.background
         radius: units.gu(0.5)
+
+        Rectangle {
+            height: tabImage.radius
+            anchors.bottom: tabImage.bottom
+            anchors.left: tabImage.left
+            anchors.right: tabImage.right
+            color: theme.palette.normal.background
+            z:1
+        }
 
         Favicon {
             id: favicon
