@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-07-26 19:48+0000\n"
-"Last-Translator: Florian Leeber <flori@bin.org.in>\n"
+"PO-Revision-Date: 2020-09-14 18:57+0000\n"
+"Last-Translator: Daniel Frost <one@frostinfo.de>\n"
 "Language-Team: German <https://translate.ubports.com/projects/ubports/"
 "morph-browser/de/>\n"
 "Language: de\n"
@@ -293,7 +293,7 @@ msgstr "Keine Downloads verfügbar"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Zertifikatsfehler"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -303,7 +303,7 @@ msgstr "Netzwerkfehler"
 #: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Anscheinend gibt es Probleme beim Anzeigen von %1."
+msgstr "Anscheinend gibt es Probleme beim Anzeigen: %1."
 
 #: src/app/ErrorSheet.qml:56
 #, qt-format
@@ -317,8 +317,8 @@ msgstr "Zurück zu sicherer Internetseite"
 #: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Bitte überprüfen Sie Ihre Netzwerkeinstellungen und versuchen die Seite "
-"neuzuladen."
+"Bitte überprüfen Sie Ihre Netzwerkeinstellungen und versuchen Sie, die Seite "
+"neu zu laden."
 
 #: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
@@ -496,7 +496,7 @@ msgstr "Zoom"
 
 #: src/app/ZoomControls.qml:36
 msgid "Zoom Out"
-msgstr "Rauszoomen"
+msgstr "Verkleinern"
 
 #: src/app/ZoomControls.qml:43
 msgid "Reset"
@@ -504,7 +504,7 @@ msgstr "Zurücksetzen"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "einpassen"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
@@ -520,30 +520,24 @@ msgid "Current Zoom"
 msgstr "Aktueller Zoom"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Domain hinzufügen"
+msgstr "Domain"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
 msgstr "Standard"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "Auto-Breite"
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Bild speichern"
+msgstr "Zoomfaktor speichern"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "keiner"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -551,15 +545,18 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"Domain-Zoom (aktuell %1 und kann mit dem Zurücksetzen-Button oder über die "
+"domainspezifischen Einstellungen in den Privatsphäreeinstellungen gelöscht "
+"werden)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " und setzt Domain-Zoom zurück"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
-msgstr ""
+msgstr "Standardzoomfaktor (aktuell %1, einstellbar im Einstellungsmenü %2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
@@ -568,25 +565,19 @@ msgstr "Die aktuelle Web-App"
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Aktueller Zoom (%1 %) kann als %2 gespeichert werden für "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Mehr"
+msgstr "oder"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Speichern unter"
+msgstr "Speichern für Domain"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Als PDF speichern"
+msgstr "Als Standard speichern"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -990,10 +981,8 @@ msgstr "Suchmaschine"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Neuer Reiter"
+msgstr "Neue Reiter Seite"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -1001,7 +990,7 @@ msgstr "Vorige Sitzung beim Start wiederherstellen"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "nicht verfügbar da im privaten Modus gestartet"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1010,12 +999,12 @@ msgstr "Desktop-Modus einstellen"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Automatisch an Breite anpassen"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Passt die breite der Webseite an das Fenster an"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1034,10 +1023,8 @@ msgid "Reset browser settings"
 msgstr "Browsereinstellungen zurücksetzen"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Privaten Modus verlassen"
+msgstr "Im privaten Modus starten"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1050,44 +1037,32 @@ msgid "Camera & microphone"
 msgstr "Kamera & Mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Browserverlauf löschen"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Browserverlauf löschen?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
-msgstr "Puffer leeren"
+msgstr "Cache leeren"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Cache leeren?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Puffer leeren"
+msgstr "Alle Cookies löschen"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Cache leeren?"
+msgstr "Alle Cookies löschen?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1095,10 +1070,8 @@ msgid "Clear"
 msgstr "Leeren"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Benutzerdefinierte URL-Schemen"
+msgstr "Benutzerdefinierte Startseite"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"

@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-06-05 14:24+0000\n"
-"Last-Translator: Abuabdellah <abuabdellah.abdurahman@gmail.com>\n"
-"Language-Team: Arabic <https://translate.ubports.com/projects/ubports/morph-"
-"browser/ar/>\n"
+"PO-Revision-Date: 2020-09-05 00:01+0000\n"
+"Last-Translator: tamer dab <dabsantamer@yahoo.com>\n"
+"Language-Team: Arabic <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -889,7 +889,7 @@ msgstr "آخر زيارة"
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
-msgstr "أمس"
+msgstr "في الامس"
 
 #: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
