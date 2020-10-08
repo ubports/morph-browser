@@ -163,6 +163,9 @@ int main(int argc, char** argv)
 {
     qputenv("QTWEBENGINE_DISABLE_SANDBOX","1");
 
+    //hook into wayland shell integration, allows fullscreen that hides indicators
+    qputenv("QT_WAYLAND_SHELL_INTEGRATION", "wl-shell");
+
     //Set the scale factor based on GRID_UNIT_PX
     bool grid_unit_convert_ok = false;
     int grid_unit_px = qgetenv("GRID_UNIT_PX").toInt(&grid_unit_convert_ok);
