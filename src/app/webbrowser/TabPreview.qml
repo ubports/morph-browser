@@ -106,13 +106,12 @@ Item {
             visible: showContent && source.toString() && (status == Image.Ready)
             anchors {
                 left: parent.left
+                right: parent.right
                 top: parent.top
-                topMargin: -chrome.height
             }
             height: sourceSize.height
-            fillMode: Image.Pad
+            fillMode: Image.PreserveAspectFit
             source: tabPreview.tab ? tabPreview.tab.preview : ""
-            asynchronous: true
             cache: false
             onStatusChanged: {
                 if (status == Image.Error) {
