@@ -170,7 +170,7 @@ int main(int argc, char** argv)
     qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
 
     QByteArrayList args = QByteArrayList()
-            << QByteArrayLiteral("--enable-embedded-switches")
+            << QByteArrayLiteral("--enable-embedded-switches");
     const int count = args.size() + argc;
     QVector<char*> qargv(count);
 
