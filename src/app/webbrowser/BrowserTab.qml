@@ -201,33 +201,15 @@ FocusScope {
         }
     }
 
-    // Take a capture of the current page shortly after it has finished
-    // loading to give rendering an opportunity to complete. There is
-    // unfortunately no signal to notify us when rendering has completed.
-    Timer {
-        id: delayedCapture
-        interval: 500
-        onTriggered: {
-            if (recentView.visible)
-                return
-            if (webview && current && visible && !internal.hiding) {
+    Connections {
+        target: recentView
+        onVisibleChanged: {
+            if(visible && current && !empty && !webview.incognito) {
+                preview = ""
                 webview.grabToImage(function(result) {
                     PreviewManager.saveToDisk(result, url)
-                },Qt.size(webview.width*Screen.devicePixelRatio,webview.height*Screen.devicePixelRatio))
+                },Qt.size(webview.width*Screen.devicePixelRatio,webview.height*Screen.devicePixelRatio));
             }
-        }
-    }
-    Connections {
-        target: incognito ? null : webview
-        onLoadingChanged: {
-            if (!webview.loading)
-                delayedCapture.restart()
-        }
-        onScrollPositionChanged: {
-            delayedCapture.restart()
-        }
-        onWidthChanged: {
-            delayedCapture.restart()
         }
     }
 
