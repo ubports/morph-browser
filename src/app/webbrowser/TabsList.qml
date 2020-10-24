@@ -46,6 +46,18 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: theme.palette.normal.base
+        PropertyAnimation {
+            id: dk
+            target: parent
+            duration: UbuntuAnimation.SnapDuration
+            property: "opacity"
+            from: 0
+            to: 1
+        }
+    }
+    onVisibleChanged: {
+        if (visible)
+            dk.start()
     }
 
     Flickable {

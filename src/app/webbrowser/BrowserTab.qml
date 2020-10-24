@@ -45,6 +45,7 @@ FocusScope {
     property bool incognito
     readonly property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
     visible: false
+    property bool loading: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
     // invoke this on a tab shortly before it is set current.
@@ -206,9 +207,10 @@ FocusScope {
         onVisibleChanged: {
             if(visible && current && !empty && !webview.incognito) {
                 preview = ""
+                loading = true
                 webview.grabToImage(function(result) {
                     PreviewManager.saveToDisk(result, url)
-                },Qt.size(webview.width*Screen.devicePixelRatio,webview.height*Screen.devicePixelRatio));
+                },Qt.size(webview.width*Math.max(Screen.devicePixelRatio/1.5,1),webview.height*Math.max(Screen.devicePixelRatio/1.5,1)));
             }
         }
     }

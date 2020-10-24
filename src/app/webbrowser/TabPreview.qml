@@ -75,6 +75,7 @@ QQC2.SwipeDelegate {
                 left: parent.left
                 right: parent.right
             }
+            visible: !tab.loading
             height: parent.height
             clip: true
 
@@ -136,7 +137,10 @@ QQC2.SwipeDelegate {
                     if (status == Image.Error) {
                         // The cached preview doesn’t exist any longer
                         tabPreview.tab.preview = ""
+                        tab.loading = false
                     }
+                    else if (status == Image.Ready)
+                        tab.loading = false
                 }
             }
         }
