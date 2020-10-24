@@ -44,8 +44,19 @@ Item {
     }
 
     Rectangle {
-        anchors.fill: parent
+        id: backrect
+        width: parent.width
+        height: dealayBackground.running ? invisibleTabChrome.height : parent.height
         color: theme.palette.normal.base
+    }
+    onVisibleChanged: {
+        if (visible)
+            dealayBackground.start()
+    }
+
+    Timer {
+        id: dealayBackground
+        interval: 300
     }
 
     Flickable {
