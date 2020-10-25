@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2015-05-19 19:42+0000\n"
-"Last-Translator: B. W. Knight <kbd0651@gmail.com>\n"
-"Language-Team: Korean <ko@li.org>\n"
+"PO-Revision-Date: 2020-07-31 10:50+0000\n"
+"Last-Translator: Young Kim <rsyh93@gmail.com>\n"
+"Language-Team: Korean <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -129,7 +130,7 @@ msgstr "계속하기"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "이 연결을 신뢰할 수 없습니다."
+msgstr "이 연결을 신뢰할 수 없습니다"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -261,7 +262,7 @@ msgstr "%1%"
 
 #: src/app/DownloadDelegate.qml:180
 msgid "Pause"
-msgstr ""
+msgstr "일시 중지"
 
 #: src/app/DownloadDelegate.qml:191
 msgid "Resume"
@@ -297,7 +298,7 @@ msgstr "%1에 접속하는데 문제가 있는 것 같습니다."
 #: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "오류: %1"
 
 #: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
@@ -447,7 +448,7 @@ msgstr "예"
 
 #: src/app/MediaAccessDialog.qml:85
 msgid "No"
-msgstr "아니요"
+msgstr "아니오"
 
 #: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
@@ -469,11 +470,11 @@ msgstr ""
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "HTML으로 저장하기"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "PDF로 저장하기"
 
 #: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
 msgid "Zoom"
@@ -498,7 +499,7 @@ msgstr ""
 #: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
-msgstr "저장하기"
+msgstr "저장"
 
 #: src/app/ZoomControls.qml:97
 msgid "Current Zoom"
@@ -635,7 +636,7 @@ msgstr "페이지에서 찾기"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "앞으로"
+msgstr "전달"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -742,7 +743,7 @@ msgstr "검색할 단어나 주소를 입력하십시오."
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "붙여놓고 바로 가기"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -1070,7 +1071,7 @@ msgstr "캐시를 지우시겠습니다?"
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
 msgid "Clear"
-msgstr "지우기"
+msgstr "초기화"
 
 #: src/app/webbrowser/SettingsPage.qml:496
 msgid "Custom hompage"

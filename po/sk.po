@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-02-25 20:21+0000\n"
+"PO-Revision-Date: 2020-08-05 18:43+0000\n"
 "Last-Translator: dano6 <dano.kutka@gmail.com>\n"
-"Language-Team: Slovak <https://translate.ubports.com/projects/ubports/morph-"
-"browser/sk/>\n"
+"Language-Team: Slovak <https://translate.ubports.com/projects/ubports/"
+"morph-browser/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -131,7 +131,7 @@ msgstr "Potvrdiť navigáciu"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Leave"
-msgstr "Opustiť chat"
+msgstr "Opustiť"
 
 #: src/app/BeforeUnloadDialog.qml:41
 msgid "Stay"
@@ -290,7 +290,7 @@ msgstr "Žiadne stiahnuté súbory"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Chyba certifikátu"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -497,7 +497,7 @@ msgstr "Obnoviť"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "prispôsobiť"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
@@ -513,30 +513,24 @@ msgid "Current Zoom"
 msgstr "Aktuálne priblíženie"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Pridať doménu"
+msgstr "doména"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Predvolený"
+msgstr "predvolený"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "autom. prizp."
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Uložiť obrázok"
+msgstr "Uložiť veľkosť"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "žiadne"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -544,15 +538,17 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"pre doménu (aktuálne %1, môže byť zrušená tlačidlom Obnoviť alebo v "
+"Špecifických nastaveniach domény v ponuke Súkromie a oprávnenia)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " a zruší uloženie pre doménu"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
-msgstr ""
+msgstr "ako predvolený (aktuálne %1%, môže byť zmenená v ponuke Nastavenia%2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
@@ -561,25 +557,19 @@ msgstr "aktuálna web app"
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Súčasná veľkosť stránky (%1%) môže byť pre %2 uložená "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Viac"
+msgstr "alebo"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Uložiť do"
+msgstr "Uložiť pre doménu"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Uložiť ako PDF"
+msgstr "Uložiť ako predvolené"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -984,10 +974,8 @@ msgstr "Vyhľadávač"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Nová karta"
+msgstr "Nové okno"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -995,7 +983,7 @@ msgstr "Pri štarte obnoviť predchádzajúce sedenie"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "nie je k dispozícii pri spustení v súkromnom režime"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1004,12 +992,12 @@ msgstr "Spustiť Desktop režim"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Automaticky prispôsobiť šírke"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Nastaví šírku stránky podľa veľkosti okna"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1028,10 +1016,8 @@ msgid "Reset browser settings"
 msgstr "Obnovenie nastavení prehliadača"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Opustiť súkromné prehliadanie"
+msgstr "Spustiť v súkromnom režime"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1044,44 +1030,32 @@ msgid "Camera & microphone"
 msgstr "Fotoaparát a mikrofón"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Vymazať históriu prehliadania"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Vymazať históriu prehliadania?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Vyčistiť vyrovnávaciu pamäť"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Vyčistiť vyrovnávaciu pamäť?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Vyčistiť vyrovnávaciu pamäť"
+msgstr "Zmazať všetky cookies"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Vyčistiť vyrovnávaciu pamäť?"
+msgstr "Zmazať všetky cookies?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1089,10 +1063,8 @@ msgid "Clear"
 msgstr "Vyčistiť"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Vlastné URL objekty"
+msgstr "Vlastná domovská stránka"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
