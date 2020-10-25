@@ -32,6 +32,9 @@ ChromeBase {
     property alias bookmarked: navigationBar.bookmarked
     signal closeTabRequested()
     signal toggleBookmark()
+    signal toggleDownloads()
+    property bool showDownloadButton: false
+    property bool downloadNotify: false
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
@@ -45,6 +48,7 @@ ChromeBase {
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     property alias availableHeight: navigationBar.availableHeight
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
+    readonly property alias downloadsButtonPlaceHolder: navigationBar.downloadsButtonPlaceHolder
     property bool touchEnabled: true
     readonly property real tabsBarHeight: tabsBar.height + tabsBar.anchors.topMargin + content.anchors.topMargin
     property BrowserWindow thisWindow
@@ -112,6 +116,8 @@ ChromeBase {
             loading: chrome.loading
             fgColor: theme.palette.normal.backgroundText
             iconColor: (incognito && !showTabsBar) ? theme.palette.normal.background : fgColor
+            showDownloadButton: chrome.showDownloadButton
+            downloadNotify: chrome.downloadNotify
 
             focus: true
 
@@ -124,6 +130,7 @@ ChromeBase {
 
             onCloseTabRequested: chrome.closeTabRequested()
             onToggleBookmark: chrome.toggleBookmark()
+            onToggleDownloads: chrome.toggleDownloads()
         }
     }
 
