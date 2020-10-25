@@ -23,7 +23,7 @@ AbstractButton {
     id: toolbarAction
 
     property alias iconName: icon.name
-    property color color: theme.palette.normal.baseText
+    property color color: theme.palette.normal.foregroundText
     property alias text: label.text
 
     opacity: enabled ? 1.0 : 0.3

@@ -629,7 +629,7 @@ Common.BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: browser.incognito? theme.palette.normal.foreground : theme.palette.selected.base
+                color: browser.incognito ? theme.palette.normal.base : theme.palette.normal.base
 
                 text: i18n.tr("Done")
 
@@ -648,7 +648,7 @@ Common.BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? theme.palette.normal.foreground : theme.palette.selected.base
+                color: browser.incognito ? theme.palette.selected.baseText : theme.palette.normal.foregroundText
 
                 onClicked: {
                     recentView.reset()
