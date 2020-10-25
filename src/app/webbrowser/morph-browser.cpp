@@ -169,9 +169,22 @@ int main(int argc, char** argv)
     }
     qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
 
+    QByteArrayList args = QByteArrayList()
+            << QByteArrayLiteral("--enable-embedded-switches");
+    const int count = args.size() + argc;
+    QVector<char*> qargv(count);
+
+    qargv[0] = argv[0];
+    for (int i = 0; i < args.size(); ++i)
+        qargv[i + 1] = args[i].data();
+    for (int i = args.size() + 1; i < count; ++i)
+        qargv[i] = argv[i - args.size()];
+
+    int qAppArgCount = qargv.size();
+
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    WebbrowserApp app(argc, argv);
+    WebbrowserApp app(qAppArgCount, qargv.data());
     if (app.initialize()) {
         return app.run();
     } else {
