@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-10-18 18:59+0000\n"
+"PO-Revision-Date: 2020-10-26 21:27+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
 "morph-browser/nl/>\n"
@@ -74,7 +74,7 @@ msgstr "Toestaan"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
-msgstr "Afbreken"
+msgstr "Annuleren"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
