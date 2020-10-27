@@ -44,9 +44,8 @@ FocusScope {
     readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
     readonly property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
+    property bool loadingPreview: false
     visible: false
-    property bool loading: false
-
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
     // invoke this on a tab shortly before it is set current.
     signal aboutToShow()
@@ -198,7 +197,7 @@ FocusScope {
                 visible = false
 
                 PreviewManager.saveToDisk(result, url)
-            },Qt.size(webview.width*Screen.devicePixelRatio,webview.height*Screen.devicePixelRatio));
+            },Qt.size(webview.width*Math.max(Screen.devicePixelRatio/2,1),webview.height*Math.max(Screen.devicePixelRatio/2,1)));
         }
     }
 
@@ -207,10 +206,11 @@ FocusScope {
         onVisibleChanged: {
             if(visible && current && !empty && !webview.incognito) {
                 preview = ""
-                loading = true
+                loadingPreview = true
                 webview.grabToImage(function(result) {
                     PreviewManager.saveToDisk(result, url)
-                },Qt.size(webview.width*Math.max(Screen.devicePixelRatio/1.5,1),webview.height*Math.max(Screen.devicePixelRatio/1.5,1)));
+                },Qt.size(webview.width*Math.max(Screen.devicePixelRatio/2,1),webview.height*Math.max(Screen.devicePixelRatio/2,1)));
+                loadingPreview = false
             }
         }
     }

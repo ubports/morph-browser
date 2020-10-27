@@ -75,7 +75,22 @@ QQC2.SwipeDelegate {
                 left: parent.left
                 right: parent.right
             }
-            visible: !tab.loading
+
+            onVisibleChanged: {
+                if (visible && tab.current)
+                    tabShowing.start()
+            }
+
+            PropertyAnimation {
+                id: tabShowing
+                target: parent
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: UbuntuAnimation.FastDuration
+            }
+
+            visible: !tab.loadingPreview
             height: parent.height
             clip: true
 
@@ -122,15 +137,6 @@ QQC2.SwipeDelegate {
                 source: tabPreview.tab ? tabPreview.tab.preview : ""
                 asynchronous: true
                 cache: false
-                onStatusChanged: {
-                    if (status == Image.Error) {
-                        // The cached preview doesn’t exist any longer
-                        tabPreview.tab.preview = ""
-                        tab.loading = false
-                    }
-                    else if (status == Image.Ready)
-                        tab.loading = false
-                }
             }
         }
     }
