@@ -45,6 +45,8 @@ FocusScope {
     property bool incognito
     readonly property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
     property bool loadingPreview: false
+    readonly property size previewSize: Qt.size(webview.width*Math.max(Screen.devicePixelRatio/2,1),
+                                                webview.height*Math.max(Screen.devicePixelRatio/2,1))
     visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
@@ -198,7 +200,7 @@ FocusScope {
                 visible = false
 
                 PreviewManager.saveToDisk(result, url)
-            },Qt.size(webview.width*Math.max(Screen.devicePixelRatio/2,1),webview.height*Math.max(Screen.devicePixelRatio/2,1)));
+            },previewSize);
         }
     }
 
@@ -210,7 +212,7 @@ FocusScope {
                 loadingPreview = true
                 webview.grabToImage(function(result) {
                     PreviewManager.saveToDisk(result, url)
-                },Qt.size(webview.width*Math.max(Screen.devicePixelRatio/2,1),webview.height*Math.max(Screen.devicePixelRatio/2,1)));
+                },previewSize);
                 loadingPreview = false
             }
         }

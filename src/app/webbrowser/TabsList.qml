@@ -115,7 +115,6 @@ Item {
                     icon: delegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
-                    showContent: true
 
                   /*  Binding {
                         // Change the height of the location bar controller

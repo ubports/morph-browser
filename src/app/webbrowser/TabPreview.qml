@@ -44,11 +44,6 @@ QQC2.SwipeDelegate {
     swipe.onCompleted: closed()
     onClicked: tabPreview.selected()
 
-    // The first preview in the tabs list is a special case.
-    // Since it’s the current tab, instead of displaying a
-    // capture, the webview below it is displayed.
-    property bool showContent: true
-
     signal selected()
     signal closed()
 
@@ -98,11 +93,10 @@ QQC2.SwipeDelegate {
             Rectangle {
                 anchors.fill: parent
                 color: theme.palette.normal.foreground
-                visible: showContent
             }
 
             Image {
-                visible: showContent && !previewContainer.visible
+                visible: !previewContainer.visible
                 source: "assets/tab-artwork.png"
                 asynchronous: true
                 fillMode: Image.PreserveAspectFit
@@ -128,7 +122,7 @@ QQC2.SwipeDelegate {
             }
 
             Label {
-                visible: showContent && !previewContainer.visible
+                visible: !previewContainer.visible
                 text: i18n.tr("Tap to view")
                 anchors {
                     centerIn: parent
@@ -138,7 +132,7 @@ QQC2.SwipeDelegate {
 
             Image {
                 id: previewContainer
-                visible: showContent && source.toString() && (status == Image.Ready)
+                visible: source.toString() && (status == Image.Ready)
                 anchors {
                     left: parent.left
                     top: parent.top
