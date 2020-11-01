@@ -125,7 +125,7 @@ msgstr "Όνομα χρήστη"
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:60
 msgid "Password"
-msgstr "Κωδικός"
+msgstr "Συνθηματικό"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
