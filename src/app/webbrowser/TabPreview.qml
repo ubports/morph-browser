@@ -70,19 +70,6 @@ QQC2.SwipeDelegate {
                 left: parent.left
                 right: parent.right
             }
-            onVisibleChanged: {
-                if (visible && tab.current)
-                    tabShowing.start()
-            }
-
-            PropertyAnimation {
-                id: tabShowing
-                target: parent
-                property: "opacity"
-                from: 0
-                to: 1
-                duration: UbuntuAnimation.FastDuration
-            }
 
 
 
@@ -143,6 +130,11 @@ QQC2.SwipeDelegate {
                 source: tabPreview.tab ? tabPreview.tab.preview : ""
                 asynchronous: true
                 cache: false
+                onStatusChanged: {
+                    if (status != Image.Loading) {
+                        tab.loadingPreview = false
+                    }
+                }
             }
         }
     }
