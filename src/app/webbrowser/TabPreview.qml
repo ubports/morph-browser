@@ -99,8 +99,9 @@ QQC2.SwipeDelegate {
                 visible: !previewContainer.visible
                 text: i18n.tr("Tap to view")
                 anchors {
-                    centerIn: parent
-                    verticalCenterOffset: units.gu(-2)
+                    top: parent.top
+                    topMargin: units.gu(16)
+                    horizontalCenter: parent.horizontalCenter
                 }
             }
 
