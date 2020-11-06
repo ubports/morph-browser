@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-09-05 00:01+0000\n"
-"Last-Translator: tamer dab <dabsantamer@yahoo.com>\n"
+"PO-Revision-Date: 2020-11-06 11:55+0000\n"
+"Last-Translator: abidin <abidin24@tutanota.com>\n"
 "Language-Team: Arabic <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ar/>\n"
 "Language: ar\n"
@@ -30,7 +30,7 @@ msgstr "تنبيه جافا سكريبت"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "حسنا"
+msgstr "موافق"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
@@ -72,7 +72,7 @@ msgstr "اسمح"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
-msgstr "إلغاء"
+msgstr "ألغ"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
@@ -170,7 +170,7 @@ msgstr "اختيار الكل"
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
 #: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
 msgid "Delete"
-msgstr "حذف"
+msgstr "احذف"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
@@ -485,7 +485,7 @@ msgstr ""
 
 #: src/app/ZoomControls.qml:43
 msgid "Reset"
-msgstr ""
+msgstr "صفِّر"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
@@ -889,7 +889,7 @@ msgstr "آخر زيارة"
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:252
 msgid "Yesterday"
-msgstr "في الامس"
+msgstr "أمس"
 
 #: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
