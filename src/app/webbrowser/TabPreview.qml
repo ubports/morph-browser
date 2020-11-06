@@ -120,12 +120,9 @@ QQC2.SwipeDelegate {
             Image {
                 id: previewContainer
                 visible: source.toString() && (status == Image.Ready)
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    topMargin: units.dp(1)
-                    right: parent.right
-                }
+                anchors.fill: parent
+                anchors.topMargin: units.dp(1)
+                verticalAlignment: Image.AlignTop
                 fillMode: Image.PreserveAspectFit
                 source: tabPreview.tab ? tabPreview.tab.preview : ""
                 asynchronous: true

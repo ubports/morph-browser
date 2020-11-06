@@ -47,8 +47,8 @@ FocusScope {
     property bool loadingPreview: false
     readonly property size previewSize: Qt.size(webview.width*Screen.devicePixelRatio,
                                                 webview.height*Screen.devicePixelRatio)
-    readonly property size previewThumbnailSize: Qt.size(webview.width/2,
-                                                         webview.height/2)
+    readonly property size previewThumbnailSize: Qt.size(webview.width/1.5,
+                                                         webview.height/1.5)
     //store reference to preview to avoid clearing by garbage collector
     property var previewCache
     visible: false
