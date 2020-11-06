@@ -80,13 +80,7 @@ Item {
 
                 width: flickable.contentWidth
 
-                height: (index == (repeater.model.count - 1)) || index == 0 || (animating && index == selectedAnimation.index)
-                        ? flickable.height : delegateHeight
-                Behavior on height {
-                    UbuntuNumberAnimation {
-                        duration: UbuntuAnimation.BriskDuration
-                    }
-                }
+                height: flickable.height
 
                 y: Math.max(flickable.contentY, index * delegateHeight)
                 Behavior on y {

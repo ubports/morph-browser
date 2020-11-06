@@ -112,20 +112,18 @@ QQC2.SwipeDelegate {
                 visible: !previewContainer.visible
                 text: i18n.tr("Tap to view")
                 anchors {
-                    centerIn: parent
-                    verticalCenterOffset: units.gu(-2)
+                    top: parent.top
+                    topMargin: units.gu(16)
+                    horizontalCenter: parent.horizontalCenter
                 }
             }
 
             Image {
                 id: previewContainer
                 visible: source.toString() && (status == Image.Ready)
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    topMargin: units.dp(1)
-                    right: parent.right
-                }
+                anchors.fill: parent
+                anchors.topMargin: units.dp(1)
+                verticalAlignment: Image.AlignTop
                 fillMode: Image.PreserveAspectFit
                 source: tabPreview.tab ? tabPreview.tab.preview : ""
                 asynchronous: true
