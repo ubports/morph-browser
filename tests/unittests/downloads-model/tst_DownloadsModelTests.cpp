@@ -72,7 +72,7 @@ private Q_SLOTS:
     void shouldContainAddedEntries()
     {
         QVERIFY(!model->contains(QStringLiteral("testid")));
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/html"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""),  QStringLiteral("text/html"), false);
         QVERIFY(model->contains(QStringLiteral("testid")));
     }
 
@@ -80,7 +80,7 @@ private Q_SLOTS:
     {
         QSignalSpy spy(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
 
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(spy.count(), 1);
         QVariantList args = spy.takeFirst();
@@ -90,7 +90,7 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0), DownloadsModel::Url).toUrl(), QUrl(QStringLiteral("http://example.org/")));
         QCOMPARE(model->data(model->index(0), DownloadsModel::Mimetype).toString(), QStringLiteral("text/plain"));
 
-        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral("application/pdf"), false);
+        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
@@ -103,9 +103,9 @@ private Q_SLOTS:
 
     void shouldRemoveCancelled()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
-        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral("application/pdf"), false);
-        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("https://example.org/secure.png")), QStringLiteral("image/png"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
+        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("https://example.org/secure.png")), QStringLiteral(""), QStringLiteral("image/png"), false);
         QCOMPARE(model->rowCount(), 3);
 
         model->cancelDownload(QStringLiteral("testid2"));
@@ -117,7 +117,7 @@ private Q_SLOTS:
 
     void shouldCompleteDownloads()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Complete).toBool());
         QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
 
@@ -148,7 +148,7 @@ private Q_SLOTS:
 
     void shouldSetError()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QVERIFY(model->data(model->index(0, 0), DownloadsModel::Error).toString().isEmpty());
         QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
 
@@ -179,7 +179,7 @@ private Q_SLOTS:
 
     void shouldPauseAndResumeDownload()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QVERIFY(!model->data(model->index(0, 0), DownloadsModel::Paused).toBool());
         QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
 
@@ -210,9 +210,9 @@ private Q_SLOTS:
 
     void shouldKeepEntriesSortedChronologically()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
-        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral("application/pdf"), false);
-        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("https://example.org/secure.png")), QStringLiteral("image/png"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
+        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("https://example.org/secure.png")), QStringLiteral(""), QStringLiteral("image/png"), false);
 
         QCOMPARE(model->data(model->index(0, 0), DownloadsModel::DownloadId).toString(), QStringLiteral("testid3"));
         QCOMPARE(model->data(model->index(1, 0), DownloadsModel::DownloadId).toString(), QStringLiteral("testid2"));
@@ -221,7 +221,7 @@ private Q_SLOTS:
 
     void shouldReturnData()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QVERIFY(!model->data(QModelIndex(), DownloadsModel::DownloadId).isValid());
         QVERIFY(!model->data(model->index(-1, 0), DownloadsModel::DownloadId).isValid());
         QVERIFY(!model->data(model->index(3, 0), DownloadsModel::DownloadId).isValid());
@@ -262,9 +262,9 @@ private Q_SLOTS:
         delete model;
         model = new DownloadsModel;
         model->setDatabasePath(fileName);
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
-        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral("application/pdf"), false);
-        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("http://example.org/incognito.pdf")), QStringLiteral("application/pdf"), true);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
+        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("http://example.org/incognito.pdf")), QStringLiteral(""), QStringLiteral("application/pdf"), true);
         QCOMPARE(model->rowCount(), 3);
         delete model;
         model = new DownloadsModel;
@@ -277,23 +277,23 @@ private Q_SLOTS:
     {
         QCOMPARE(model->property("count").toInt(), 0);
         QCOMPARE(model->rowCount(), 0);
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QCOMPARE(model->property("count").toInt(), 1);
         QCOMPARE(model->rowCount(), 1);
-        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral("application/pdf"), false);
+        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/pdf")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
         QCOMPARE(model->property("count").toInt(), 2);
         QCOMPARE(model->rowCount(), 2);
-        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("https://example.org/secure.png")), QStringLiteral("image/png"), false);
+        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("https://example.org/secure.png")), QStringLiteral(""), QStringLiteral("image/png"), false);
         QCOMPARE(model->property("count").toInt(), 3);
         QCOMPARE(model->rowCount(), 3);
     }
 
     void shouldPruneIncognitoDownloads()
     {
-        model->add(QStringLiteral("testid1"), QUrl(QStringLiteral("http://example.org/1")), QStringLiteral("text/plain"), false);
-        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/2")), QStringLiteral("text/plain"), true);
-        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("http://example.org/3")), QStringLiteral("text/plain"), false);
-        model->add(QStringLiteral("testid4"), QUrl(QStringLiteral("http://example.org/4")), QStringLiteral("text/plain"), true);
+        model->add(QStringLiteral("testid1"), QUrl(QStringLiteral("http://example.org/1")), QStringLiteral(""), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid2"), QUrl(QStringLiteral("http://example.org/2")), QStringLiteral(""), QStringLiteral("text/plain"), true);
+        model->add(QStringLiteral("testid3"), QUrl(QStringLiteral("http://example.org/3")), QStringLiteral(""), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid4"), QUrl(QStringLiteral("http://example.org/4")), QStringLiteral(""), QStringLiteral("text/plain"), true);
         QCOMPARE(model->rowCount(), 4);
         QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
         QSignalSpy spyRowCountChanged(model, SIGNAL(rowCountChanged()));
@@ -307,7 +307,7 @@ private Q_SLOTS:
 
     void shouldFailToMoveInvalidDownload()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QTemporaryFile tempFile;
         tempFile.open();
         QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
@@ -317,7 +317,7 @@ private Q_SLOTS:
 
     void shouldFailToMoveNonExistentFile()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QTemporaryFile tempFile;
         tempFile.open();
         QString fileName = tempFile.fileName();
@@ -330,7 +330,7 @@ private Q_SLOTS:
 
     void shouldMoveFile()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("application/pdf"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
         QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
         tempFile.open();
         tempFile.write(QByteArray("foo bar baz"));
@@ -355,7 +355,7 @@ private Q_SLOTS:
 
     void shouldRenameFileToAvoidFilenameCollision()
     {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
         tempFile.open();
         tempFile.write(QByteArray("foo"));
@@ -387,7 +387,7 @@ private Q_SLOTS:
     void shouldDeleteDownload()
     {
         // Need a file saved on disk to allow deleting it
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral("text/plain"), false);
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
         QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
         tempFile.open();
         tempFile.write(QByteArray("foo bar baz"));
