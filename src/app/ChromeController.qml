@@ -33,9 +33,9 @@ Item {
     QtObject {
         id: internal
 
-        readonly property int modeAuto: 0//Oxide.LocationBarController.ModeAuto
-        readonly property int modeShown: 2//Oxide.LocationBarController.ModeShown
-        readonly property int modeHidden: 3//Oxide.LocationBarController.ModeHidden
+        readonly property int modeAuto: 0
+        readonly property int modeShown: 2
+        readonly property int modeHidden: 3
 
         function updateVisibility() {
             if (!webview) {
@@ -47,7 +47,7 @@ Item {
                 webview.locationBarController.mode = internal.modeHidden
             } else if (forceShow) {
                 webview.locationBarController.mode = internal.modeShown
-            } else if (!webview.fullscreen) {
+            } else if (!webview.isFullScreen) {
                 webview.locationBarController.mode = defaultMode
                 if (webview.locationBarController.mode == internal.modeAuto) {
                     webview.locationBarController.show(false)
@@ -88,7 +88,7 @@ Item {
                 webview.locationBarController.mode = defaultMode
             }
 
-            if (webview.loading && !webview.fullscreen && !forceHide && !forceShow &&
+            if (webview.loading && !webview.isFullScreen && !forceHide && !forceShow &&
                 (webview.locationBarController.mode == internal.modeAuto)) {
                 webview.locationBarController.show(true)
             }

@@ -30,8 +30,6 @@ FocusScope {
     property url initialUrl
     property string initialTitle
     property url initialIcon
-    property string restoreState
-    property int restoreType
     property var request
     property Component webviewComponent
     readonly property var webview: webviewContainer.webview
@@ -43,7 +41,7 @@ FocusScope {
     property bool current: false
     readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
-    readonly property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
+    readonly property bool empty: !url.toString() && !initialUrl.toString() && !request
     visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
@@ -78,13 +76,7 @@ FocusScope {
 
     function load() {
         if (!webview && !internal.incubator) {
-            var properties = {'tab': tab, 'incognito': incognito}
-            if (restoreState) {
-                properties['restoreState'] = restoreState
-                properties['restoreType'] = restoreType
-            } else {
-                properties['url'] = initialUrl
-            }
+            var properties = {'tab': tab, 'incognito': incognito, 'url': initialUrl}
             var incubator = webviewComponent.incubateObject(webviewContainer, properties)
             if (incubator === null) {
                 console.warn("Webview incubator failed to initialize")

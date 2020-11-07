@@ -83,22 +83,20 @@ Common.BrowserView {
     property Component windowFactory
 
     function serializeTabState(tab) {
-        var state = {}
-        state.uniqueId = tab.uniqueId
-        state.url = tab.url.toString()
-        state.title = tab.title
-        state.icon = tab.icon.toString()
-        state.preview = tab.preview.toString()
-        state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
-        return state
+        var state = {};
+        state.uniqueId = tab.uniqueId;
+        state.url = tab.url.toString();
+        state.title = tab.title;
+        state.icon = tab.icon.toString();
+        state.preview = tab.preview.toString();
+        return state;
     }
 
     function restoreTabState(state) {
         var properties = {'initialUrl': state.url, 'initialTitle': state.title,
                           'uniqueId': state.uniqueId, 'initialIcon': state.icon,
-                          'preview': state.preview, 'restoreState': state.savedState}
-                      //    'restoreType': Oxide.WebView.RestoreLastSessionExitedCleanly}
-        return createTab(properties)
+                          'preview': state.preview};
+        return createTab(properties);
     }
 
     function createTab(properties) {

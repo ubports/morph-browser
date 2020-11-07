@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtTest 1.0
 import Ubuntu.Test 1.0
 import Ubuntu.Components 1.3
-import Ubuntu.Web 0.2
+import Morph.Web 0.1
 
 Item {
     id: root
@@ -46,7 +46,7 @@ Item {
     }
 
     WebbrowserTestCase {
-        name: "UbuntuWebView02"
+        name: "MorphWebView"
         when: windowShown
 
         property var webview: null

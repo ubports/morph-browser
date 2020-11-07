@@ -39,7 +39,6 @@ Item {
                 property string title
                 property url icon
                 property var request
-                property string currentState
                 property bool incognito: tab.incognito
                 property int reloaded: 0
                 property bool loadingState: false
@@ -86,12 +85,10 @@ Item {
 
             tab.webview.url = "http://ubuntu.com"
             tab.webview.title = "Ubuntu"
-            tab.webview.currentState = "foobar"
             tab.unload()
             tryCompare(tab, 'webviewPresent', false)
             compare(tab.initialUrl, "http://ubuntu.com")
             compare(tab.initialTitle, "Ubuntu")
-            compare(tab.restoreState, "foobar")
 
             tab.destroy()
         }
