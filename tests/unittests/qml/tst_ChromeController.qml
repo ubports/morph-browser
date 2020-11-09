@@ -26,7 +26,6 @@ ChromeController {
 
     Item {
         id: webviewMock
-        property bool loading: false
         property bool isFullScreen: false
         property var locationBarController: QtObject {
             property bool animated: false
@@ -55,7 +54,6 @@ ChromeController {
             controller.forceHide = false
             controller.forceShow = false
             controller.defaultMode = modeAuto
-            webviewMock.loading = false
             webviewMock.isFullScreen = false
             webviewMock.locationBarController.animated = false
             webviewMock.locationBarController.mode = controller.defaultMode
@@ -218,11 +216,11 @@ ChromeController {
             webviewMock.isFullScreen = data.isFullScreen
             webviewMock.locationBarController.mode = data.mode
             showSpy.clear()
-            webviewMock.loading = true
+            webviewMock.onLoadingChanged({status: WebEngineLoadRequest.LoadStartedStatus});
             compare(showSpy.count, data.shown ? 1 : 0)
             compare(webviewMock.locationBarController.mode, data.mode)
             showSpy.clear()
-            webviewMock.loading = false
+            webviewMock.onLoadingChanged({status: WebEngineLoadRequest.LoadSucceededStatus});
             compare(showSpy.count, 0)
             compare(webviewMock.locationBarController.mode, data.mode)
         }
@@ -258,7 +256,7 @@ ChromeController {
 
             function test_sequence(sequence, modes) {
                 for (var i in sequence) {
-                    webviewMock.loadingChanged({status: sequence[i]})
+                    webviewMock.onLoadingChanged({status: sequence[i]})
                     if (data.forceHide || data.forceShow) {
                         compare(webviewMock.locationBarController.mode, data.initialMode)
                     } else {

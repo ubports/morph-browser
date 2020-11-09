@@ -87,11 +87,6 @@ Item {
                        (loadRequest.status == WebEngineLoadRequest.LoadFailedStatus)) {
                 webview.locationBarController.mode = defaultMode
             }
-
-            if (webview.loading && !webview.isFullScreen && !forceHide && !forceShow &&
-                (webview.locationBarController.mode == internal.modeAuto)) {
-                webview.locationBarController.show(true)
-            }
         }
     }
 }

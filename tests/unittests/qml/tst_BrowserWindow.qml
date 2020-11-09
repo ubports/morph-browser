@@ -95,10 +95,10 @@ Item {
             currentWindow.forceFullscreen = data.forceFullscreen
             currentWindow.visibility = data.state
             visibilitySpy.clear()
-            currentWindow.setIsFullScreen(true)
+            currentWindow.setFullscreen(true)
             tryCompare(visibilitySpy, "count", data.forceFullscreen ? 0 : 1)
             compare(currentWindow.visibility, Window.FullScreen)
-            currentWindow.setIsFullScreen(false)
+            currentWindow.setFullscreen(false)
             tryCompare(visibilitySpy, "count", data.forceFullscreen ? 0 : 2)
             compare(currentWindow.visibility, data.state)
         }

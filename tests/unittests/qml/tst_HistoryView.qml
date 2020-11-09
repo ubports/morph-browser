@@ -150,6 +150,7 @@ FocusScope {
 
             var deleteButton = findChild(historyView, "delete_button")
             clickItem(deleteButton)
+            first = domains[0]
             tryCompare(first, "selectMode", false)
             tryCompare(HistoryModel, "count", 1)
         }
