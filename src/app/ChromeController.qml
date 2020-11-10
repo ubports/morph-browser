@@ -60,21 +60,19 @@ Item {
     Connections {
         target: webview
 
-        onFullScreenRequested: {
-          if (!forceHide) {
-              if (forceShow) {
-                  webview.locationBarController.mode = internal.modeShown
-              } else {
-                  webview.locationBarController.mode = defaultMode
-                  if (webview.locationBarController.mode == internal.modeAuto) {
-                      webview.locationBarController.show(true)
-                  }
-              }
-          }
-        }
-
-        onFullScreenCancelled: {
-          webview.locationBarController.mode = internal.modeHidden
+        onIsFullScreenChanged: {
+            if (webview.isFullScreen) {
+                webview.locationBarController.mode = internal.modeHidden
+            } else if (!forceHide) {
+                if (forceShow) {
+                    webview.locationBarController.mode = internal.modeShown
+                } else {
+                    webview.locationBarController.mode = defaultMode
+                    if (webview.locationBarController.mode === internal.modeAuto) {
+                        webview.locationBarController.show(true)
+                    }
+                }
+            }
         }
 
         onLoadingChanged: {

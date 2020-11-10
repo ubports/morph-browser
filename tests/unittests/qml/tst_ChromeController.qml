@@ -105,7 +105,7 @@ ChromeController {
 
         function test_change_forceHide(data) {
             controller.forceShow = data.forceShow
-            webviewMock.isFullscreen = data.isFullScreen
+            webviewMock.isFullScreen = data.isFullScreen
             showSpy.clear()
             controller.forceHide = false
             compare(webviewMock.locationBarController.mode, data.modes[0])
@@ -216,11 +216,11 @@ ChromeController {
             webviewMock.isFullScreen = data.isFullScreen
             webviewMock.locationBarController.mode = data.mode
             showSpy.clear()
-            webviewMock.onLoadingChanged({status: WebEngineLoadRequest.LoadStartedStatus});
+            webviewMock.loadingChanged({status: WebEngineLoadRequest.LoadStartedStatus});
             compare(showSpy.count, data.shown ? 1 : 0)
             compare(webviewMock.locationBarController.mode, data.mode)
             showSpy.clear()
-            webviewMock.onLoadingChanged({status: WebEngineLoadRequest.LoadSucceededStatus});
+            webviewMock.loadingChanged({status: WebEngineLoadRequest.LoadSucceededStatus});
             compare(showSpy.count, 0)
             compare(webviewMock.locationBarController.mode, data.mode)
         }
@@ -256,7 +256,7 @@ ChromeController {
 
             function test_sequence(sequence, modes) {
                 for (var i in sequence) {
-                    webviewMock.onLoadingChanged({status: sequence[i]})
+                    webviewMock.loadingChanged({status: sequence[i]})
                     if (data.forceHide || data.forceShow) {
                         compare(webviewMock.locationBarController.mode, data.initialMode)
                     } else {

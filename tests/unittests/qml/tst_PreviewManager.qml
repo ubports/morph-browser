@@ -82,7 +82,7 @@ Item {
             populate(11, true)
             for (var i = 0; i < 11; i++) {
                 var url = baseUrl + i
-                PreviewManager.checkDelete(url)
+                PreviewManager.checkDelete(Qt.resolvedUrl(url))
                 var path = Qt.resolvedUrl(PreviewManager.previewPathFromUrl(url))
 
                 // verify that only the item that is outside of the top 10 list

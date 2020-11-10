@@ -53,7 +53,7 @@ WebProcessMonitor {
             monitor.webview = webviewMock
             compare(monitor.killedRetries, 0)
 
-            webviewMock.onRenderProcessTerminated(WebEngineView.KilledTerminationStatus)
+            webviewMock.renderProcessTerminated(WebEngineView.KilledTerminationStatus)
             verify(monitor.killed)
             verify(!monitor.crashed)
             tryCompare(monitor, "killedRetries", 1)
@@ -62,7 +62,7 @@ WebProcessMonitor {
             verify(!monitor.crashed)
             compare(monitor.killedRetries, 1)
 
-            webviewMock.onRenderProcessTerminated(WebEngineView.KilledTerminationStatus)
+            webviewMock.renderProcessTerminated(WebEngineView.KilledTerminationStatus)
             verify(monitor.killed)
             verify(!monitor.crashed)
             compare(monitor.killedRetries, 1)
@@ -73,13 +73,13 @@ WebProcessMonitor {
             monitor.webview = webviewMock
             compare(monitor.killedRetries, 0)
 
-            webviewMock.onRenderProcessTerminated(WebEngineView.CrashedTerminationStatus)
+            webviewMock.renderProcessTerminated(WebEngineView.CrashedTerminationStatus)
             verify(!monitor.killed)
             verify(monitor.crashed)
             compare(monitor.killedRetries, 0)
             compare(webviewMock.reloadCalled, 0)
 
-            webviewMock.onLoadingChanged({status: WebEngineLoadRequest.LoadSucceededStatus})
+            webviewMock.loadingChanged({status: WebEngineLoadRequest.LoadSucceededStatus})
             verify(!monitor.killed)
             verify(!monitor.crashed)
             compare(monitor.killedRetries, 0)
@@ -92,7 +92,7 @@ WebProcessMonitor {
             verify(!monitor.killed)
             verify(!monitor.crashed)
 
-            webviewMock.onRenderProcessTerminated(WebEngineView.KilledTerminationStatus)
+            webviewMock.renderProcessTerminated(WebEngineView.KilledTerminationStatus)
             verify(monitor.killed)
             verify(!monitor.crashed)
             tryCompare(monitor, "killedRetries", 1)
