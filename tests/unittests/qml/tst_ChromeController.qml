@@ -47,8 +47,8 @@ ChromeController {
         name: "ChromeController"
 
         readonly property int modeAuto: 0
-        readonly property int modeShown: 2
-        readonly property int modeHidden: 3
+        readonly property int modeShown: 1
+        readonly property int modeHidden: 2
 
         function init() {
             controller.forceHide = false

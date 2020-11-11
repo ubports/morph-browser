@@ -34,14 +34,14 @@ Item {
         id: internal
 
         readonly property int modeAuto: 0
-        readonly property int modeShown: 2
-        readonly property int modeHidden: 3
+        readonly property int modeShown: 1
+        readonly property int modeHidden: 2
 
         function updateVisibility() {
-            if (!webview) {
+            if (!webview || !webview.locationBarController) {
                 return
             }
-            return
+
             webview.locationBarController.animated = false
             if (forceHide) {
                 webview.locationBarController.mode = internal.modeHidden
