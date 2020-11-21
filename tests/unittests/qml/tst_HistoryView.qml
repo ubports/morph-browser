@@ -150,8 +150,8 @@ FocusScope {
 
             var deleteButton = findChild(historyView, "delete_button")
             clickItem(deleteButton)
-            //TODO: why does this remain true ?
-            //tryCompare(first, "selectMode", false)
+            wait(500)
+            tryCompare(first, "selectMode", false)
             tryCompare(HistoryModel, "count", 1)
         }
 

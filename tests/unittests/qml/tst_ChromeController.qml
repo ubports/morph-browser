@@ -185,56 +185,22 @@ ChromeController {
             compare(showSpy.count, data.shown ? 1 : 0)
         }
 
-        function test_loading_state_changed_data() {
-            return [
-                {forceHide: false, forceShow: false, isFullScreen: false,
-                 mode: modeAuto, shown: true},
-                {forceHide: false, forceShow: false, isFullScreen: false,
-                 mode: modeShown, shown: false},
-                {forceHide: false, forceShow: false, isFullScreen: false,
-                 mode: modeHidden, shown: false},
-                {forceHide: true, forceShow: false, isFullScreen: false,
-                 mode: modeHidden, shown: false},
-                {forceHide: false, forceShow: true, isFullScreen: false,
-                 mode: modeShown, shown: false},
-                {forceHide: false, forceShow: false, isFullScreen: true,
-                 mode: modeHidden, shown: false},
-                {forceHide: true, forceShow: true, isFullScreen: false,
-                 mode: modeHidden, shown: false},
-                {forceHide: true, forceShow: false, isFullScreen: true,
-                 mode: modeHidden, shown: false},
-                {forceHide: false, forceShow: true, isFullScreen: true,
-                 mode: modeShown, shown: false},
-                {forceHide: true, forceShow: true, isFullScreen: true,
-                 mode: modeHidden, shown: false},
-            ]
-        }
-
-        function test_loading_state_changed(data) {
-            controller.forceHide = data.forceHide
-            controller.forceShow = data.forceShow
-            webviewMock.isFullScreen = data.isFullScreen
-            webviewMock.locationBarController.mode = data.mode
-            showSpy.clear()
-            webviewMock.loadingChanged({status: WebEngineLoadRequest.LoadStartedStatus});
-            compare(showSpy.count, data.shown ? 1 : 0)
-            compare(webviewMock.locationBarController.mode, data.mode)
-            showSpy.clear()
-            webviewMock.loadingChanged({status: WebEngineLoadRequest.LoadSucceededStatus});
-            compare(showSpy.count, 0)
-            compare(webviewMock.locationBarController.mode, data.mode)
-        }
-
         function test_load_event_data() {
             var data = []
-            var booleanValues = [false, true]
-            var modeValues = [modeAuto, modeHidden, modeShown]
-            for (var i in booleanValues) {
-                for (var j in booleanValues) {
-                    for (var k in modeValues) {
-                        for (var l in modeValues) {
-                            data.push({forceHide: booleanValues[i], forceShow: booleanValues[j],
-                                       initialMode: modeValues[k], defaultMode: modeValues[l]})
+            var forceHideValues = [false, true];
+            var forceShowValues = [false, true];
+            var initialḾodeValues = [modeAuto, modeHidden, modeShown];
+            var defaultḾodeValues = [modeAuto, modeHidden, modeShown];
+            var isFullScreenValues = [false, true];
+
+            for (var i in forceHideValues) {
+                for (var j in forceShowValues) {
+                    for (var k in initialḾodeValues) {
+                        for (var l in defaultḾodeValues) {
+                            for (var m in isFullScreenValues) {
+                                data.push({forceHide: forceHideValues[i], forceShow: forceShowValues[j], initialMode: initialḾodeValues[k], 
+                                           defaultMode: defaultḾodeValues[l], isFullScreen: isFullScreenValues[m]});
+                            }
                         }
                     }
                 }
@@ -244,35 +210,44 @@ ChromeController {
 
         function test_load_event(data) {
             // WebEngineLoadRequest status enum
-            var started = WebEngineLoadRequest.LoadStartedStatus
-            var succeeded = WebEngineLoadRequest.LoadSucceededStatus
-            var failed = WebEngineLoadRequest.LoadFailedStatus
+            var started = WebEngineLoadRequest.LoadStartedStatus;
+            var succeeded = WebEngineLoadRequest.LoadSucceededStatus;
+            var failed = WebEngineLoadRequest.LoadFailedStatus;
 
-            controller.forceHide = data.forceHide
-            controller.forceShow = data.forceShow
-            controller.defaultMode = data.defaultMode
-            webviewMock.locationBarController.mode = data.initialMode
-            showSpy.clear()
+            controller.forceHide = data.forceHide;
+            controller.forceShow = data.forceShow;
+            controller.defaultMode = data.defaultMode;
+            webviewMock.locationBarController.mode = data.initialMode;
+            webviewMock.isFullScreen = data.isFullScreen;
 
             function test_sequence(sequence, modes) {
-                for (var i in sequence) {
-                    webviewMock.loadingChanged({status: sequence[i]})
+                 for (var i in sequence) {
+                    showSpy.clear();
+                    webviewMock.loadingChanged({status: sequence[i]});
+                    
+                    // check the mode
                     if (data.forceHide || data.forceShow) {
-                        compare(webviewMock.locationBarController.mode, data.initialMode)
+                        compare(webviewMock.locationBarController.mode, data.initialMode);
                     } else {
-                        compare(webviewMock.locationBarController.mode, modes[i])
+                        compare(webviewMock.locationBarController.mode, modes[i]);
                     }
-                    compare(showSpy.count, 0)
+                    
+                    // check the show() call count
+                    if ((sequence[i] === started) && !data.forceHide && !data.forceShow && !data.isFullScreen && (webviewMock.locationBarController.mode === modeAuto) ) {
+                        compare(showSpy.count, 1);
+                    } else {
+                        compare(showSpy.count, 0);
+                    }
                 }
             }
 
-            var sequence = [started, succeeded]
-            var modes = [modeShown, data.defaultMode]
-            test_sequence(sequence, modes)
+            var sequence = [started, succeeded];
+            var modes = [modeShown, data.defaultMode];
+            test_sequence(sequence, modes);
 
-            sequence = [started, failed]
-            modes = [modeShown, data.defaultMode]
-            test_sequence(sequence, modes)
+            sequence = [started, failed];
+            modes = [modeShown, data.defaultMode];
+            test_sequence(sequence, modes);
         }
     }
 }

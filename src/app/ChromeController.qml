@@ -80,6 +80,9 @@ Item {
             // to work around https://launchpad.net/bugs/1453908.
             if (forceHide || forceShow) return
             if (loadRequest.status == WebEngineLoadRequest.LoadStartedStatus) {
+                if (!webview.fullscreen && (webview.locationBarController.mode == internal.modeAuto)) {
+                    webview.locationBarController.show(true)
+                }
                 webview.locationBarController.mode = internal.modeShown
             } else if ((loadRequest.status == WebEngineLoadRequest.LoadSucceededStatus) ||
                        (loadRequest.status == WebEngineLoadRequest.LoadFailedStatus)) {
