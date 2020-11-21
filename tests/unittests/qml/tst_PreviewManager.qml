@@ -85,6 +85,8 @@ Item {
                 PreviewManager.checkDelete(Qt.resolvedUrl(url))
                 var path = Qt.resolvedUrl(PreviewManager.previewPathFromUrl(url))
 
+                wait(500)
+                
                 // verify that only the item that is outside of the top 10 list
                 // gets deleted
                 if (i < 10) verify(FileOperations.exists(path))

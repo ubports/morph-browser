@@ -219,10 +219,11 @@ ChromeController {
             controller.defaultMode = data.defaultMode;
             webviewMock.locationBarController.mode = data.initialMode;
             webviewMock.isFullScreen = data.isFullScreen;
+            showSpy.clear();
 
             function test_sequence(sequence, modes) {
                  for (var i in sequence) {
-                    showSpy.clear();
+                    
                     webviewMock.loadingChanged({status: sequence[i]});
                     
                     // check the mode
@@ -238,6 +239,7 @@ ChromeController {
                     } else {
                         compare(showSpy.count, 0);
                     }
+                    showSpy.clear();
                 }
             }
 
