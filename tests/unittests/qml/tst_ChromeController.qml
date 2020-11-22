@@ -224,7 +224,7 @@ ChromeController {
                  for (var i in sequence) {
                     
                     console.log("data: " + JSON.stringify(data))
-                    var previousMode = webviewMode.locationBarController.mode;
+                    var previousMode = webviewMock.locationBarController.mode;
                     showSpy.clear();
                     webviewMock.loadingChanged({status: sequence[i]});
                     
