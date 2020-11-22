@@ -224,6 +224,7 @@ ChromeController {
                  for (var i in sequence) {
                     
                     console.log("data: " + JSON.stringify(data))
+                    var previousMode = webviewMode.locationBarController.mode;
                     showSpy.clear();
                     webviewMock.loadingChanged({status: sequence[i]});
                     
@@ -235,7 +236,7 @@ ChromeController {
                     }
                     
                     // check the show() call count
-                    if ((sequence[i] === started) && !data.forceHide && !data.forceShow && !data.isFullScreen && (webviewMock.locationBarController.mode === modeAuto) ) {
+                    if ((sequence[i] === started) && !data.forceHide && !data.forceShow && !data.isFullScreen && (previousMode === modeAuto) ) {
                         compare(showSpy.count, 1);
                     } else {
                         compare(showSpy.count, 0);
