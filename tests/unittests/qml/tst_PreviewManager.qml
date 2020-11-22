@@ -82,11 +82,14 @@ Item {
             populate(11, true)
             for (var i = 0; i < 11; i++) {
                 var url = baseUrl + i
-                PreviewManager.checkDelete(Qt.resolvedUrl(url))
-                var path = Qt.resolvedUrl(PreviewManager.previewPathFromUrl(url))
-
-                wait(500)
                 
+                console.log("checkDelete of " + Qt.resolvedUrl(url) + ", i=" + i)
+                PreviewManager.checkDelete(Qt.resolvedUrl(url))
+                wait(500)
+                var path = Qt.resolvedUrl(PreviewManager.previewPathFromUrl(url))
+                console.log("check that path exist: " + path)
+                console.log(FileOperations.exists(path) ? "it does exist" : "it does not exist")          
+ 
                 // verify that only the item that is outside of the top 10 list
                 // gets deleted
                 if (i < 10) verify(FileOperations.exists(path))

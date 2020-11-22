@@ -219,16 +219,17 @@ ChromeController {
             controller.defaultMode = data.defaultMode;
             webviewMock.locationBarController.mode = data.initialMode;
             webviewMock.isFullScreen = data.isFullScreen;
-            showSpy.clear();
 
             function test_sequence(sequence, modes) {
                  for (var i in sequence) {
                     
+                    console.log("data: " + JSON.stringify(data))
+                    showSpy.clear();
                     webviewMock.loadingChanged({status: sequence[i]});
                     
                     // check the mode
                     if (data.forceHide || data.forceShow) {
-                        compare(webviewMock.locationBarController.mode, data.initialMode);
+                        compare(webviewMock.locationBarController.mode, data.isFullScreen ? modeHidden : data.initialMode);
                     } else {
                         compare(webviewMock.locationBarController.mode, modes[i]);
                     }
@@ -239,7 +240,7 @@ ChromeController {
                     } else {
                         compare(showSpy.count, 0);
                     }
-                    showSpy.clear();
+
                 }
             }
 
