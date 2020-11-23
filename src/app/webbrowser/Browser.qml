@@ -607,7 +607,7 @@ Common.BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? theme.palette.selected.base : theme.palette.normal.foreground
+            color: browser.incognito ? theme.palette.normal.base : theme.palette.normal.foreground
 
             Button {
                 objectName: "doneButton"
@@ -616,8 +616,6 @@ Common.BrowserView {
                     leftMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-
-                strokeColor: browser.incognito? theme.palette.normal.foreground : theme.palette.selected.base
 
                 text: i18n.tr("Done")
 
@@ -636,7 +634,7 @@ Common.BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? theme.palette.normal.foreground : theme.palette.selected.base
+                color: theme.palette.normal.foregroundText
 
                 onClicked: {
                     recentView.reset()
