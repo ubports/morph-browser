@@ -61,6 +61,9 @@ WebView {
     // furthermore pages saved as PDF would not be downloaded but only displayed as PDF
     settings.pdfViewerEnabled: false
 
+    // allow pasting to clipboard from javascript
+    settings.javascriptCanAccessClipboard: true
+
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
 
