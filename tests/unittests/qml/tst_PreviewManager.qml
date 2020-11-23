@@ -20,7 +20,7 @@ import QtQuick 2.4
 import QtTest 1.0
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
-import webbrowserapp.private 0.1
+import webbrowsercommon.private 0.1
 import webbrowsertest.private 0.1
 
 Item {
