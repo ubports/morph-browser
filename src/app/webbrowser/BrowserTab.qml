@@ -45,10 +45,10 @@ FocusScope {
     property bool incognito
     readonly property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
     property bool loadingPreview: false
-    readonly property size previewSize: Qt.size(webview.width*Screen.devicePixelRatio,
-                                                webview.height*Screen.devicePixelRatio)
-    readonly property size previewThumbnailSize: Qt.size(webview.width/1.5,
-                                                         webview.height/1.5)
+    readonly property size previewSize: webview ? Qt.size(webview.width*Screen.devicePixelRatio,
+                                                webview.height*Screen.devicePixelRatio) : Qt.size(0,0)
+    readonly property size previewThumbnailSize: webview ? Qt.size(webview.width/1.5,
+                                                         webview.height/1.5) : Qt.size(0,0)
     //store reference to preview to avoid clearing by garbage collector
     property var previewCache
     visible: false

@@ -30,7 +30,6 @@ QQC2.SwipeDelegate {
     readonly property url url: tab ? tab.url : ""
 
     background: Rectangle {
-        anchors.fill: parent
         color: "transparent"
     }
     padding: 0
