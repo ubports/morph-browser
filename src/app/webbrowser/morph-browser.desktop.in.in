@@ -6,7 +6,7 @@ _Comment=Browse the World Wide Web using QtWebEngine
 _Keywords=Internet;WWW;Browser;Web;Explorer
 Type=Application
 Icon=@CMAKE_INSTALL_FULL_DATADIR@/morph-browser/morph-browser.png
-Exec=morph-browser %u
+Exec=morph-browser %u --enable-embeded-switches
 Terminal=false
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
@@ -19,8 +19,8 @@ Actions=new-window;Incognito;
 
 [Desktop Action new-window]
 _Name=New Window
-Exec=morph-browser --new-window
+Exec=morph-browser --new-window --enable-embeded-switches
 
 [Desktop Action Incognito]
 _Name=New Private Window
-Exec=morph-browser --incognito
+Exec=morph-browser --incognito --enable-embeded-switches
