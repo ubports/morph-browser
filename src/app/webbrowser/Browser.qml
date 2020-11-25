@@ -40,6 +40,11 @@ Common.BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
+    TabChrome {
+        id: invisibleTabChrome
+        visible: false
+    }
+
     property bool incognito: false
 
     property var tabsModel: TabsModel {
@@ -88,7 +93,7 @@ Common.BrowserView {
         state.url = tab.url.toString()
         state.title = tab.title
         state.icon = tab.icon.toString()
-        state.preview = tab.preview.toString()
+        state.preview =  Qt.resolvedUrl(PreviewManager.previewPathFromUrl(tab.url))
         state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
         return state
     }
@@ -552,9 +557,13 @@ Common.BrowserView {
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
         onVisibleChanged: {
-            if (visible)
-            {
-                currentWebview.hideContextMenu()
+            if (visible) {
+
+                currentWebview.hideContextMenu();
+                chrome.state = "hidden";
+            }
+            else {
+                chrome.state = "shown";
             }
         }
 
@@ -682,8 +691,8 @@ Common.BrowserView {
         property bool hidden: false
 
         Behavior on y {
-            enabled: recentView.visible
             NumberAnimation {
+                from: -chrome.height + invisibleTabChrome.height
                 duration: UbuntuAnimation.FastDuration
             }
         }
@@ -840,7 +849,7 @@ Common.BrowserView {
         Connections {
             target: browser.currentWebview
             onLoadingChanged: {
-                if (browser.currentWebview.loading) {
+                if (browser.currentWebview.loading && !recentView.visible) {
                     chrome.state = "shown"
                 } else if (browser.currentWebview.isFullScreen) {
                     chrome.state = "hidden"
