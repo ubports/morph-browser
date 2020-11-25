@@ -83,7 +83,7 @@ Popover {
         Label {
             id: labelOpenInBrowser
             visible: openFileInBrowser.visible || openLinkInBrowser.visible
-            text: i18n.tr("open in browser")
+            text: i18n.tr("Open in browser")
             anchors.verticalCenter: parent.verticalCenter
         }
         IconLink {
