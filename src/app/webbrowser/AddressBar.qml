@@ -547,11 +547,11 @@ FocusScope {
             textField.text = "";
         } else if (canSimplifyText) {
             textField.text = internal.simplifyUrl(actualUrl);
-            addressBar.text = textField.text;
+            addressbar.text = textField.text;
             internal.simplified = true;
         } else {
             textField.text = actualUrl;
-            addressBar.text = textField.text;
+            addressbar.text = textField.text;
             internal.simplified = false;
         }
     }
