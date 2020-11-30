@@ -643,7 +643,7 @@ Common.BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: theme.palette.normal.foregroundText
+                color: browser.incognito ? theme.palette.selected.baseText : theme.palette.normal.foregroundText
 
                 onClicked: {
                     recentView.reset()
