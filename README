@@ -2,6 +2,7 @@ webbrowser-app is a lightweight web browser tailored for Ubuntu,
 based on the Oxide web engine and using the Ubuntu UI components.
 It requires Qt 5.5 to build and run.
 
+Morph Icon is based on Origami Licensed CC-by Creative Mania from the Noun Project
 
 = Building =
 
