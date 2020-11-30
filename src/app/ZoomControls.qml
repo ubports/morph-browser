@@ -29,6 +29,32 @@ UbuntuShape {
         anchors.fill: menu
     }
 
+    Row {
+        id: zoomActionsRow
+        x: parent.padding
+        y: parent.padding
+        height: units.gu(6)
+
+        Repeater {
+            model: zoomActions.children
+            AbstractButton {
+                objectName: "pageAction_" + action.name
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
+                action: modelData
+                styleName: "ToolbarButtonStyle"
+                activeFocusOnPress: false
+            }
+        }
+    }
+
+    /*
+     * ActionList is created later to workaround QObject children
+     * destruction order which destruct in creation order.
+     */
     ActionList {
         id: zoomActions
         Action {
@@ -65,28 +91,6 @@ UbuntuShape {
             iconName: "close"
             enabled: true
             onTriggered: menu.visible = false
-        }
-    }
-
-    Row {
-        id: zoomActionsRow
-        x: parent.padding
-        y: parent.padding
-        height: units.gu(6)
-
-        Repeater {
-            model: zoomActions.children
-            AbstractButton {
-                objectName: "pageAction_" + action.name
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: Math.max(units.gu(4), implicitWidth) + units.gu(1)
-                action: modelData
-                styleName: "ToolbarButtonStyle"
-                activeFocusOnPress: false
-            }
         }
     }
 

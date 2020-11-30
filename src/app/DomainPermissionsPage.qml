@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Chris Clime
+ * Copyright 2020 UBports Foundation
  *
  * This file is part of morph-browser.
  *
@@ -41,7 +41,7 @@ FocusScope {
 
     property QtObject domainPermissionsObject
     property bool selectMode
-    property bool sortByLastRequested: false
+    property bool sortByLastRequested: true
 
     signal done()
     signal reload(string selectedDomain)

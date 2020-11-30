@@ -329,6 +329,32 @@ FocusScope {
             onClicked: console.log("inactive part of address bar menu clicked.")
         }
 
+        Row {
+            id: addressBarActionsRow
+            x: parent.padding
+            y: parent.padding
+            height: units.gu(6)
+
+            Repeater {
+                model: addressBarActions.children
+                AbstractButton {
+                    objectName: "addressBarAction_" + action.name
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: Math.max(units.gu(4), implicitWidth) + units.gu(2)
+                    action: modelData
+                    styleName: "ToolbarButtonStyle"
+                    activeFocusOnPress: false
+                }
+            }
+        }
+
+        /*
+         * ActionList is created later to workaround QObject children
+         * destruction order which destruct in creation order.
+         */
         ActionList {
             id: addressBarActions
             Action {
@@ -376,28 +402,6 @@ FocusScope {
                 }
             }
         }
-
-        Row {
-            id: addressBarActionsRow
-            x: parent.padding
-            y: parent.padding
-            height: units.gu(6)
-
-            Repeater {
-                model: addressBarActions.children
-                AbstractButton {
-                    objectName: "addressBarAction_" + action.name
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                    }
-                    width: Math.max(units.gu(4), implicitWidth) + units.gu(2)
-                    action: modelData
-                    styleName: "ToolbarButtonStyle"
-                    activeFocusOnPress: false
-                }
-            }
-        }
     }
 
     QtObject {
@@ -430,7 +434,7 @@ FocusScope {
 
         function simplifyUrl(url) {
             var urlString = url.toString()
-            if (urlString === "about:blank" || urlString.match(/^data:/i)) {
+            if (urlString === "about:blank" || urlString.match(/^data:/i) || urlString.match(/^chrome-extension:/i)) {
                 return url
             }
             var hasProtocol = urlString.indexOf("://") !== -1

@@ -28,6 +28,8 @@ WebEngineProfile {
     property alias incognito: oxideContext.offTheRecord
     readonly property string defaultUserAgent: __ua.defaultUA
 
+    offTheRecord: false
+
     dataPath: dataLocation
 
     cachePath: cacheLocation
@@ -50,7 +52,7 @@ WebEngineProfile {
         },
         WebEngineScript {
             name: "oxide://scrollbar-theme/"
-            injectionPoint: WebEngineScript.DocumentCreation
+            injectionPoint: WebEngineScript.DocumentReady
             worldId: WebEngineScript.MainWorld
             sourceUrl: Qt.resolvedUrl("scrollbar-theme.js")
             runOnSubframes: true
@@ -91,7 +93,7 @@ WebEngineProfile {
             }
             if (temp !== null) {
                 console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-                var chromiumVersion = "65.0.3325.151" // TODO: find out how to get this from QtWebEngine
+                var chromiumVersion = __ua._chromiumVersion
                 var overrides = []
                 for (var o in temp.overrides) {
                     var override = temp.overrides[o]

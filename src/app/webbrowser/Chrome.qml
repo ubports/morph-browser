@@ -71,7 +71,7 @@ ChromeBase {
 
         Rectangle {
             anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.selected.base
+            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.normal.base
         }
 
         Loader {
@@ -111,7 +111,7 @@ ChromeBase {
 
             loading: chrome.loading
             fgColor: theme.palette.normal.backgroundText
-            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.background : fgColor
+            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.baseText : fgColor
 
             focus: true
 

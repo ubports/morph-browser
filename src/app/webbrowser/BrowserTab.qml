@@ -44,24 +44,18 @@ FocusScope {
     readonly property real lastCurrent: internal.lastCurrent
     property bool incognito
     readonly property bool empty: !url.toString() && !initialUrl.toString() && !restoreState && !request
+    property bool loadingPreview: false
+    readonly property size previewSize: webview ? Qt.size(webview.width*Screen.devicePixelRatio,
+                                                webview.height*Screen.devicePixelRatio) : Qt.size(0,0)
+    readonly property size previewThumbnailSize: webview ? Qt.size(webview.width/1.5,
+                                                         webview.height/1.5) : Qt.size(0,0)
+    //store reference to preview to avoid clearing by garbage collector
+    property var previewCache
     visible: false
 
     // Used as a workaround for https://launchpad.net/bugs/1502675 :
     // invoke this on a tab shortly before it is set current.
     signal aboutToShow()
-
-    Connections {
-        target: PreviewManager
-        onPreviewSaved: {
-            if (pageUrl !== url) return
-            if (preview == previewUrl) {
-                // Ensure that the preview URL actually changes,
-                // for the image to be reloaded
-                preview = ""
-            }
-            preview = previewUrl
-        }
-    }
 
     FaviconFetcher {
         id: faviconFetcher
@@ -190,39 +184,35 @@ FocusScope {
 
             internal.hiding = true
             webview.grabToImage(function(result) {
-                if (!internal.hiding) {
-                    return
-                }
-                internal.hiding = false
                 visible = false
+                preview = result.url
+                previewCache = result
+            },previewSize);
 
+            //save previews to disk for newtabpage and tab during grabbing
+            webview.grabToImage(function(result) {
+                internal.hiding = false
                 PreviewManager.saveToDisk(result, url)
-            })
+            },previewThumbnailSize);
         }
     }
 
-    // Take a capture of the current page shortly after it has finished
-    // loading to give rendering an opportunity to complete. There is
-    // unfortunately no signal to notify us when rendering has completed.
-    Timer {
-        id: delayedCapture
-        interval: 500
-        onTriggered: {
-            if (webview && current && visible && !internal.hiding) {
+    Connections {
+        target: recentView
+        onVisibleChanged: {
+            if(visible && current && !empty && !webview.incognito) {
+                preview = ""
+                loadingPreview = true
+                webview.grabToImage(function(result) {
+                    preview = result.url
+                    previewCache = result
+                },previewSize);
+
                 webview.grabToImage(function(result) {
                     PreviewManager.saveToDisk(result, url)
-                })
+                },previewThumbnailSize);
             }
         }
-    }
-    Connections {
-        target: incognito ? null : webview
-//        onLoadEvent: {
-//            if ((event.type == Oxide.LoadEvent.TypeSucceeded) ||
-//                (event.type == Oxide.LoadEvent.TypeFailed)) {
-//                delayedCapture.restart()
-//            }
-//        }
     }
 
     onAboutToShow: {

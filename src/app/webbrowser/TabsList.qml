@@ -44,13 +44,19 @@ Item {
     }
 
     Rectangle {
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: invisibleTabChrome.height
-        color: theme.palette.normal.backgroundText
+        id: backrect
+        width: parent.width
+        height: dealayBackground.running ? invisibleTabChrome.height : parent.height
+        color: theme.palette.normal.base
+    }
+    onVisibleChanged: {
+        if (visible)
+            dealayBackground.start()
+    }
+
+    Timer {
+        id: dealayBackground
+        interval: 300
     }
 
     Flickable {
@@ -74,12 +80,7 @@ Item {
 
                 width: flickable.contentWidth
 
-                height: (index == (repeater.model.count - 1)) ? flickable.height : delegateHeight
-                Behavior on height {
-                    UbuntuNumberAnimation {
-                        duration: UbuntuAnimation.BriskDuration
-                    }
-                }
+                height: flickable.height
 
                 y: Math.max(flickable.contentY, index * delegateHeight)
                 Behavior on y {
@@ -108,8 +109,6 @@ Item {
                     icon: delegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
-                    showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
-                                 !(tab && tab.webview && tab.webview.visible)
 
                   /*  Binding {
                         // Change the height of the location bar controller
@@ -132,7 +131,7 @@ Item {
             property int index: 0
             target: flickable
             property: "contentY"
-            to: index * delegateHeight - chromeHeight + invisibleTabChrome.height
+            to: index * delegateHeight
             duration: UbuntuAnimation.FastDuration
             onStopped: {
                 // Delay switching the tab until after the animation has completed.
