@@ -252,17 +252,17 @@ FocusScope {
                                 enabled: UserAgentsModel.count > 0
                                 checked: model.userAgentId > 0
                                 onTriggered: {
-                                    optSelect.selectedIndex = -1;
+                                    userAgentSelect.currentIndex = -1;
 
                                     if (checked) {
-                                        if( UserAgentsModel.count === 1)
+                                        if(UserAgentsModel.count === 1)
                                         {
-                                            optSelect.selectedIndex = 0;
-                                            DomainSettingsModel.setUserAgentId(item.domain, optSelect.model.get(optSelect.selectedIndex).id);
+                                            userAgentSelect.currentIndex = 0;
+                                            DomainSettingsModel.setUserAgentId(item.domain, userAgentSelect.model.get(userAgentSelect.currentIndex).id);
                                         }
                                         else
                                         {
-                                            optSelect.currentlyExpanded = true;
+                                            userAgentSelect.onPressedChanged();
                                         }
                                     }
                                     else  {
@@ -273,13 +273,9 @@ FocusScope {
                             }
                         }
 
-                        /* ToDo: Can we do sth. about the following log messages ?
-                               file:///usr/lib/arm-linux-gnueabihf/qt5/qml/Ubuntu/Components/1.3/OptionSelector.qml:330:13:
-                               QML ListView: Binding loop detected for property "itemHeight"
-                            */
-                        OptionSelector {
+                        ComboBox {
 
-                            id: optSelect
+                            id: userAgentSelect
                             visible: customUserAgentCheckbox.checked
                             enabled: (UserAgentsModel.count > 1)
 
@@ -289,15 +285,14 @@ FocusScope {
                                 sort.property: "name"
                                 sort.order: Qt.AscendingOrder
                             }
-                            delegate: OptionSelectorDelegate {
-                                text: model.name
-                            }
-
+                            
+                            textRole: "name"
+                            
                             function updateIndex() {
                                 for (var i = 0; i < model.count; ++i) {
                                     if (item.userAgentId === model.get(i).id)
                                     {
-                                        selectedIndex = i;
+                                        currentIndex = i;
                                     }
                                 }
                             }
@@ -307,14 +302,12 @@ FocusScope {
 
                                 onIsCurrentItemChanged: {
                                     if (item.isCurrentItem && (item.userAgentId > 0)) {
-                                        optSelect.updateIndex();
+                                        userAgentSelect.updateIndex();
                                     }
                                 }
                             }
-
-                            onDelegateClicked: {
-                                DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
-                            }
+                            
+                            onActivated: DomainSettingsModel.setUserAgentId(item.domain, model.get(index).id);
                         }
 
                         Row {
@@ -367,13 +360,6 @@ FocusScope {
             horizontalAlignment: Text.AlignHCenter
             text: i18n.tr("No domain specific settings available")
         }
-
-        Connections {
-            target: UserAgentsModel
-            enabled: ! customUserAgentsViewLoader.active
-            // the OptionSelector does not properly update the model (duplicate entries instead of new user agents)
-            onRowCountChanged: reload()
-        }
     }
 
     Loader {
@@ -395,10 +381,6 @@ FocusScope {
             onReload: {
                 customUserAgentsViewLoader.active = false;
                 customUserAgentsViewLoader.active = true;
-
-                if (selectedUserAgent) {
-                    customUserAgentsViewLoader.item.setUserAgentAsCurrentItem(selectedUserAgent)
-                }
             }
         }
     }
