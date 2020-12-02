@@ -125,20 +125,6 @@ BrowserPage {
                 selectMode = true
                 multiSelect = true
             }
-        },
-        Action {
-            iconName: "external-link"
-            visible: exportPeerPicker.visible && (exportPeerPicker.downloadUrl !== "") && (exportPeerPicker.contentType !== ContentType.Unknown)
-            onTriggered: {
-                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + exportPeerPicker.downloadUrl : exportPeerPicker.downloadUrl);
-            }
-        },
-        Action {
-            iconName: "document-open"
-            visible: exportPeerPicker.visible && (exportPeerPicker.contentType !== ContentType.Unknown)
-            onTriggered: {
-                preview((exportPeerPicker.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(exportPeerPicker.path) : exportPeerPicker.path);
-            }
         }
     ]
 
@@ -169,7 +155,6 @@ BrowserPage {
     ListView {
         id: downloadsListView
         anchors.fill: parent
-        focus: !exportPeerPicker.focus
 
         model: SortFilterModel {
             model: SortFilterModel {
@@ -242,20 +227,16 @@ BrowserPage {
             }
 
             onClicked: {
-                if (!selectMode) {
-                    if (model.complete) {
-                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype);
-                        exportPeerPicker.visible = true;
-                        exportPeerPicker.path = model.path;
-                        exportPeerPicker.mimeType = model.mimetype;
-                        exportPeerPicker.downloadUrl = model.url;
-                    } else {
-                        if (download) {
-                            if (paused) {
-                                download.resume()
-                            } else {
-                                download.pause()
-                            }
+                if (model.complete && !selectMode) {
+                    var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype), "mimeType": model.mimetype, "downloadUrl": model.url}
+                    var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
+                    exportDialog.preview.connect(downloadsItem.preview)
+                } else {
+                    if (download) {
+                        if (paused) {
+                            download.resume()
+                        } else {
+                            download.pause()
                         }
                     }
                 }
@@ -315,26 +296,4 @@ BrowserPage {
         id: contentItemComponent
         ContentItem {}
     }
-
-    ContentPeerPicker {
-        id: exportPeerPicker
-        visible: false
-        focus: visible
-        anchors.fill: parent
-        handler: ContentHandler.Destination
-        property string path
-        property string mimeType
-        property string downloadUrl
-        onPeerSelected: {
-            var transfer = peer.request()
-            if (transfer.state === ContentTransfer.InProgress) {
-                transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})]
-                transfer.state = ContentTransfer.Charged
-            }
-            visible = false
-        }
-        onCancelPressed: visible = false
-        Keys.onEscapePressed: visible = false
-    }
-
 }
