@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
-import QtWebEngine 1.5
+import QtQuick 2.9
+import QtWebEngine 1.10
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
 import webbrowsercommon.private 0.1
 
 import "MimeTypeMapper.js" as MimeTypeMapper
-import "UrlUtils.js" as UrlUtils
+import "FileUtils.js" as FileUtils
 
 BrowserPage {
     id: downloadsItem
@@ -117,7 +118,7 @@ BrowserPage {
         },
         Action {
             iconName: "edit"
-            visible: !selectMode && !pickingMode && !exportPeerPicker.visible
+            visible: !selectMode && !pickingMode
             enabled: downloadsListView.count > 0
             onTriggered: {
                 selectMode = true
@@ -207,9 +208,11 @@ BrowserPage {
         }
 
         delegate: DownloadDelegate {
+            id: downloadDelegate
+                         
             download: ActiveDownloadsSingleton.currentDownloads[model.downloadId]
             downloadId: model.downloadId
-            title: getDisplayPath(model.path)
+            title: FileUtils.getFilename(model.path)
             url: model.url
             image: model.complete && thumbnailLoader.status == Loader.Ready 
                                   && (model.mimetype.indexOf("image") === 0 
@@ -238,12 +241,22 @@ BrowserPage {
             }
 
             onClicked: {
-                if (model.complete && !selectMode) {
-                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype);
-                    exportPeerPicker.visible = true;
-                    exportPeerPicker.path = model.path;
-                    exportPeerPicker.mimeType = model.mimetype;
-                    exportPeerPicker.downloadUrl = model.url;
+                if (!selectMode) {
+                    if (model.complete) {
+                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype);
+                        exportPeerPicker.visible = true;
+                        exportPeerPicker.path = model.path;
+                        exportPeerPicker.mimeType = model.mimetype;
+                        exportPeerPicker.downloadUrl = model.url;
+                    } else {
+                        if (download) {
+                            if (paused) {
+                                download.resume()
+                            } else {
+                                download.pause()
+                            }
+                        }
+                    }
                 }
             }
 

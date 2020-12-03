@@ -18,7 +18,9 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtQuick.Layouts 1.3
 import ".."
+import "FileUtils.js" as FileUtils
 
 ListItem {
     id: downloadDelegate
@@ -31,6 +33,7 @@ ListItem {
     property string downloadId
     property var download
     readonly property int progress: download ? 100 * (download.receivedBytes / download.totalBytes) : -1
+    property real speed: 0
     property bool paused: download.isPaused
     property alias incognito: incognitoIcon.visible
 
@@ -40,31 +43,67 @@ ListItem {
     signal cancelled()
 
     height: visible ? layout.height : 0
+    
+    Timer {
+        id: speedTimer
+
+        property real prevBytes: 0
+
+        interval: 1000
+        running: download && !paused? true : false
+        repeat: true
+        onTriggered: {
+            if (download) {
+                speed = download.receivedBytes - prevBytes
+                prevBytes = download.receivedBytes
+            }
+        }
+    }
+    
+    MimeData {
+        id: linkMimeData
+        
+        text: model ? model.url : ""
+    }
 
     SlotsLayout {
         id: layout
 
-        Item {
+        ColumnLayout {
             SlotsLayout.position: SlotsLayout.Leading
-            width: units.gu(3)
-            height: units.gu(3)
+            spacing: units.gu(1)
 
-            Image {
-                id: thumbimage
-                asynchronous: true
-                anchors.fill: parent
-                fillMode: Image.PreserveAspectFit
-                sourceSize.width: width
-                sourceSize.height: height
+            Item {
+                Layout.alignment: Qt.AlignHCenter
+                implicitWidth: units.gu(3)
+                implicitHeight: units.gu(3)
+
+                Image {
+                    id: thumbimage
+                    asynchronous: true
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    sourceSize.width: width
+                    sourceSize.height: height
+                }
+
+                Image {
+                    asynchronous: true
+                    anchors.fill: parent
+                    anchors.margins: units.gu(0.2)
+                    source: "image://theme/%1".arg(downloadDelegate.icon || "save")
+                    visible: thumbimage.status !== Image.Ready
+                    cache: true
+                }
             }
 
-            Image {
-                asynchronous: true
-                anchors.fill: parent
-                anchors.margins: units.gu(0.2)
-                source: "image://theme/%1".arg(downloadDelegate.icon || "save")
-                visible: thumbimage.status !== Image.Ready
-                cache: true
+            Label {
+                Layout.alignment: Qt.AlignHCenter
+                visible: !progressBar.indeterminateProgress && incomplete
+                horizontalAlignment: Text.AlignHCenter
+                // TRANSLATORS: %1 is the percentage of the download completed so far
+                text: i18n.tr("%1%").arg(progressBar.progress)
+                opacity: paused ? 0.5 : 1
             }
         }
 
@@ -133,69 +172,54 @@ ListItem {
                 }
             }
 
-            IndeterminateProgressBar {
-                id: progressBar
+            ColumnLayout {
+                visible: incomplete && !error.visible
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
-                height: units.gu(0.5)
-                visible: incomplete && !error.visible
-                progress: downloadDelegate.progress
-                // Work around UDM bug #1450144
-                indeterminateProgress: progress < 0 || progress > 100
-                opacity: paused ? 0.5 : 1
+
+                IndeterminateProgressBar {
+                    id: progressBar
+                    Layout.fillWidth: true
+                    implicitHeight: units.gu(0.5)
+                    progress: downloadDelegate.progress
+                    // Work around UDM bug #1450144
+                    indeterminateProgress: progress < 0 || progress > 100
+                    opacity: paused ? 0.5 : 1
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    implicitHeight: units.gu(4)
+
+                    Label {
+                        horizontalAlignment: Text.AlignHCenter
+                        textSize: Label.Small
+                        text: download ? FileUtils.formatBytes(download.receivedBytes) + " / " + FileUtils.formatBytes(download.totalBytes) : i18n.tr("Unknown")
+                        opacity: paused ? 0.5 : 1
+                    }
+
+                    Label {
+                        horizontalAlignment: Text.AlignHCenter
+                        textSize: Label.Small
+                        // TRANSLATORS: %1 is the number of bytes i.e. 2bytes, 5KB, 1MB
+                        text: "(" + i18n.tr("%1/s").arg(FileUtils.formatBytes(downloadDelegate.speed)) + ")"
+                        opacity: paused ? 0.5 : 1
+                    }
+                }
             }
         }
+        Icon {
+            id: iconPauseResume
 
-        Column {
+            implicitWidth: units.gu(4)
+            implicitHeight: implicitWidth
             SlotsLayout.position: SlotsLayout.Trailing
-            spacing: units.gu(1)
-            width: (incomplete && !error.visible) ? cancelButton.width : 0
-
-            Button {
-                id: cancelButton
-                visible: incomplete && !error.visible
-                text: i18n.tr("Cancel")
-                onClicked: {
-                    if (download) {
-                        download.cancel()
-                        cancelled()
-                    }
-                }
-            }
-
-            Label {
-                visible: !progressBar.indeterminateProgress && incomplete && !error.visible
-                width: cancelButton.width
-                horizontalAlignment: Text.AlignHCenter
-                textSize: Label.Small
-                // TRANSLATORS: %1 is the percentage of the download completed so far
-                text: i18n.tr("%1%").arg(progressBar.progress)
-                opacity: paused ? 0.5 : 1
-            }
-
-            Button {
-                visible: incomplete && ! paused && ! error.visible
-                text: i18n.tr("Pause")
-                width: cancelButton.width
-                onClicked: {
-                    if (download) {
-                        download.pause()
-                    }
-                }
-            }
-
-            Button {
-                visible: incomplete && paused && ! error.visible
-                text: i18n.tr("Resume")
-                width: cancelButton.width
-                onClicked: {
-                    if (download) {
-                        download.resume()
-                    }
-                }
-            }
+            asynchronous: true
+            name: paused ? "media-preview-start" : "media-preview-pause"
+            visible: incomplete && !error.visible
+            color: theme.palette.normal.overlayText
         }
     }
 
@@ -213,7 +237,8 @@ ListItem {
         name: "private-browsing"
     }
 
-    leadingActions: error.visible || !incomplete ? deleteActionList : null
+    leadingActions: deleteActionList
+    trailingActions: trailingActionList
 
     ListItemActions {
         id: deleteActionList
@@ -222,10 +247,49 @@ ListItem {
                 objectName: "leadingAction.delete"
                 iconName: "delete"
                 enabled: error.visible || !incomplete
+                visible: enabled
+                text: i18n.tr("Delete File")
                 onTriggered: {
-
+                   removed()
+                }
+            },
+            Action {
+                objectName: "leadingAction.remove"
+                iconName: "list-remove"
+                enabled: !incomplete && !error.visible
+                visible: enabled
+                text: i18n.tr("Remove from History")
+                onTriggered: {
                    cancelled()
+                }
+            },
+            Action {
+                objectName: "leadingAction.cancel"
+                iconName: "cancel"
+                enabled: incomplete && !error.visible
+                visible: enabled
+                text: i18n.tr("Cancel")
+                onTriggered: {
+                    if (download) {
+                        download.cancel()
+                        cancelled()
+                    }
+                }
+            }
+        ]
+    }
 
+    ListItemActions {
+        id: trailingActionList
+        actions: [
+            Action {
+                objectName: "trailingAction.CopyLink"
+                iconName: "edit-copy"
+                enabled: model.url != "" ? true : false
+                visible: enabled
+                text: i18n.tr("Copy Download Link")
+                onTriggered: {
+                   Clipboard.push(linkMimeData)
                 }
             }
         ]
