@@ -23,7 +23,6 @@ import webbrowsercommon.private 0.1
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
-import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
 import ".." as Common
 import "ColorUtils.js" as ColorUtils
@@ -241,7 +240,7 @@ Common.BrowserView {
              * the fact that a webapp 'name' can come from a webapp-properties.json file w/o
              * being explictly defined here.
              */
-            webappName: webapp.webappName === "" ? unityWebapps.name : webapp.webappName
+            webappName: webapp.webappName
 
             Loader {
                 anchors {
@@ -459,24 +458,6 @@ Common.BrowserView {
         //    defaultMode: webapp.hasTouchScreen
         //                     ? Oxide.LocationBarController.ModeAuto
         //                     : Oxide.LocationBarController.ModeShown
-        }
-    }
-
-    UnityWebApps.UnityWebApps {
-        id: unityWebapps
-        name: webappName
-        bindee: containerWebView.currentWebview
-        actionsContext: actionManager.globalContext
-        model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
-        injectExtraUbuntuApis: runningLocalApplication
-        injectExtraContentShareCapabilities: !runningLocalApplication
-
-        Component.onCompleted: {
-            // Delay bind the property to add a bit of backward compatibility with
-            // other unity-webapps-qml modules
-            if (unityWebapps.embeddedUiComponentParent !== undefined) {
-                unityWebapps.embeddedUiComponentParent = webapp
-            }
         }
     }
 
