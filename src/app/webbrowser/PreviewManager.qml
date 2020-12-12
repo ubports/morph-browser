@@ -36,7 +36,7 @@ Item {
         }
         function contains(url) {
             for (var i = 0; i < topSites.count; i++) {
-                if (topSites.get(i).url === Qt.resolvedUrl(url)) return true
+                if (topSites.get(i).url == url) return true
             }
             return false
         }
@@ -67,9 +67,9 @@ Item {
 
 
     function checkDelete(url) {
-        //if (!topSites.contains(url)) {
-        //    FileOperations.remove(Qt.resolvedUrl(previewPathFromUrl(url)))
-        //}
+        if (!topSites.contains(url)) {
+            FileOperations.remove(Qt.resolvedUrl(previewPathFromUrl(url)))
+        }
     }
 
     // Remove all previews stored on disk that are not part of the top sites
