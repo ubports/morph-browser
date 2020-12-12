@@ -70,7 +70,7 @@ Item {
                 HistoryModel.add(url, "Example Com" + i, "")
                 if (createPreviewFiles) {
                     var path = PreviewManager.previewPathFromUrl(url)
-                    console.log("the preview path " + path + " for url " + url + "is created.")
+                    console.log("the preview path " + path + " for url " + url + " is created.")
                     TestContext.createFile(path)
                     verify(FileOperations.exists(Qt.resolvedUrl(path)))
                 }
@@ -89,14 +89,14 @@ Item {
                 console.log("checkDelete of " + Qt.resolvedUrl(url) + ", i=" + i)
                 PreviewManager.checkDelete(Qt.resolvedUrl(url))
                 wait(500)
-                var path = Qt.resolvedUrl(PreviewManager.previewPathFromUrl(url))
-                console.log("check that path exist: " + path)
-                console.log(FileOperations.exists(path) ? "it does exist" : "it does not exist")          
+                var path = PreviewManager.previewPathFromUrl(url)
+                console.log("check that path exists: " + Qt.resolvedUrl(path))
+                console.log(FileOperations.exists(Qt.resolvedUrl(path)) ? "it does exist" : "it does not exist")          
  
                 // verify that only the item that is outside of the top 10 list
                 // gets deleted
-                if (i < 10) verify(FileOperations.exists(path))
-                else verify(!FileOperations.exists(path))
+                if (i < 10) verify(FileOperations.exists(Qt.resolvedUrl(path)))
+                else verify(!FileOperations.exists(Qt.resolvedUrl(path)))
             }
         }
 
