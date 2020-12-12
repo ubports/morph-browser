@@ -18,9 +18,10 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QStandardPaths>
+#include <QtTest/QSignalSpy>
 #include <QtCore/QTemporaryDir>
 #include <QtCore/QTemporaryFile>
-#include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
 #include "downloads-model.h"
 
