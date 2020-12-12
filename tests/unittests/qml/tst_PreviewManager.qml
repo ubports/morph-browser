@@ -72,6 +72,7 @@ Item {
                     var path = PreviewManager.previewPathFromUrl(url)
                     console.log("the preview path " + path + " for url " + url + "is created.")
                     TestContext.createFile(path)
+                    verify(FileOperations.exists(Qt.resolvedUrl(path)))
                 }
             }
         }
