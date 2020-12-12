@@ -35,6 +35,7 @@ private:
 private Q_SLOTS:
     void init()
     {
+        QStandardPaths::setTestModeEnabled();
         // QStandardPaths::setTestModeEnabled() doesn't affect
         // QStandardPaths::DownloadLocation, so we must override $HOME to
         // ensure the test won't write data to the user's home directory.
