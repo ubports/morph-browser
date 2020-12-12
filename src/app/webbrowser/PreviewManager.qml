@@ -67,9 +67,9 @@ Item {
 
 
     function checkDelete(url) {
-        if (!topSites.contains(url)) {
-            FileOperations.remove(Qt.resolvedUrl(previewPathFromUrl(url)))
-        }
+        //if (!topSites.contains(url)) {
+        //    FileOperations.remove(Qt.resolvedUrl(previewPathFromUrl(url)))
+        //}
     }
 
     // Remove all previews stored on disk that are not part of the top sites
