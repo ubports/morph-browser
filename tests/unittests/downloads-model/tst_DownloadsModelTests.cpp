@@ -18,7 +18,6 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
 #include <QtTest/QSignalSpy>
 #include <QtCore/QTemporaryDir>
 #include <QtCore/QTemporaryFile>
@@ -36,11 +35,6 @@ private:
 private Q_SLOTS:
     void init()
     {
-        QStandardPaths::setTestModeEnabled(true);
-        // QStandardPaths::setTestModeEnabled() doesn't affect
-        // QStandardPaths::DownloadLocation, so we must override $HOME to
-        // ensure the test won't write data to the user's home directory.
-        qputenv("HOME", homeDir.path().toUtf8());
         model = new DownloadsModel;
         model->setDatabasePath(":memory:");
     }
@@ -48,7 +42,6 @@ private Q_SLOTS:
     void cleanup()
     {
         delete model;
-        qunsetenv("HOME");
     }
 
     void shouldBeInitiallyEmpty()
