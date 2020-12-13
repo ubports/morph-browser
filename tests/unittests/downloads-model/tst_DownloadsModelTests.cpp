@@ -303,13 +303,13 @@ private Q_SLOTS:
     void shouldDeleteDownload()
     {
         // Need a file saved on disk to allow deleting it
-        QString filePath = tempFile.fileName();
-        QString fileName = QFileInfo(filePath).fileName();
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), filePath, QStringLiteral("text/plain"), false);
         QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
         tempFile.open();
         tempFile.write(QByteArray("foo bar baz"));
         tempFile.close();
+        QString filePath = tempFile.fileName();
+        QString fileName = QFileInfo(filePath).fileName();
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), filePath, QStringLiteral("text/plain"), false);
         QString path = model->data(model->index(0), DownloadsModel::Path).toString();
         QVERIFY(QFile::exists(path));
 
