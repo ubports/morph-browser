@@ -300,96 +300,16 @@ private Q_SLOTS:
         QCOMPARE(spyRowCountChanged.count(), 2);
     }
 
-    void shouldFailToMoveInvalidDownload()
-    {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
-        QTemporaryFile tempFile;
-        tempFile.open();
-        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-        model->moveToDownloads(QStringLiteral("foobar"), tempFile.fileName());
-        QVERIFY(spy.isEmpty());
-    }
-
-    void shouldFailToMoveNonExistentFile()
-    {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
-        QTemporaryFile tempFile;
-        tempFile.open();
-        QString fileName = tempFile.fileName();
-        tempFile.remove();
-        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-        QTest::ignoreMessage(QtWarningMsg, QString("Download not found: \"%1\"").arg(fileName).toUtf8().constData());
-        model->moveToDownloads(QStringLiteral("testid"), fileName);
-        QVERIFY(spy.isEmpty());
-    }
-
-    void shouldMoveFile()
-    {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("application/pdf"), false);
-        QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
-        tempFile.open();
-        tempFile.write(QByteArray("foo bar baz"));
-        tempFile.close();
-        QString filePath = tempFile.fileName();
-        QString fileName = QFileInfo(filePath).fileName();
-        QVERIFY(QFile::exists(filePath));
-        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-        model->moveToDownloads(QStringLiteral("testid"), filePath);
-        QCOMPARE(spy.count(), 1);
-        QVariantList args = spy.takeFirst();
-        QCOMPARE(args.at(0).toModelIndex().row(), 0);
-        QCOMPARE(args.at(1).toModelIndex().row(), 0);
-        QVector<int> roles = args.at(2).value<QVector<int> >();
-        QCOMPARE(roles.size(), 2);
-        QVERIFY(roles.contains(DownloadsModel::Mimetype));
-        QVERIFY(roles.contains(DownloadsModel::Path));
-        QCOMPARE(model->data(model->index(0), DownloadsModel::Mimetype).toString(), QStringLiteral("text/plain"));
-        QCOMPARE(model->data(model->index(0), DownloadsModel::Path).toString(), QString("%1/Downloads/%2").arg(homeDir.path(), fileName));
-        QVERIFY(!QFile::exists(filePath));
-    }
-
-    void shouldRenameFileToAvoidFilenameCollision()
-    {
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
-        QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
-        tempFile.open();
-        tempFile.write(QByteArray("foo"));
-        tempFile.close();
-        QString filePath = tempFile.fileName();
-        QString fileName = QFileInfo(filePath).fileName();
-        QVERIFY(QFile::exists(filePath));
-        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-        QString path = QString("%1/Downloads/%2").arg(homeDir.path(), fileName);
-        QFile file(path);
-        QVERIFY(file.open(QIODevice::WriteOnly));
-        QVERIFY(file.write("bar") != -1);
-        file.close();
-        model->moveToDownloads(QStringLiteral("testid"), filePath);
-        QString otherPath = QString("%1/Downloads/%2").arg(homeDir.path(), fileName.replace(QStringLiteral("."), QStringLiteral(".1.")));
-        QCOMPARE(model->data(model->index(0), DownloadsModel::Path).toString(), otherPath);
-        QVERIFY(!QFile::exists(filePath));
-        QVERIFY(QFile::exists(path));
-        QVERIFY(QFile::exists(otherPath));
-        QVERIFY(file.open(QIODevice::ReadOnly));
-        QCOMPARE(file.readAll(), QByteArray("bar"));
-        file.close();
-        QFile file2(otherPath);
-        QVERIFY(file2.open(QIODevice::ReadOnly));
-        QCOMPARE(file2.readAll(), QByteArray("foo"));
-        file2.close();
-    }
-
     void shouldDeleteDownload()
     {
         // Need a file saved on disk to allow deleting it
-        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), QStringLiteral(""), QStringLiteral("text/plain"), false);
+        QString filePath = tempFile.fileName();
+        QString fileName = QFileInfo(filePath).fileName();
+        model->add(QStringLiteral("testid"), QUrl(QStringLiteral("http://example.org/")), filePath, QStringLiteral("text/plain"), false);
         QTemporaryFile tempFile(QStringLiteral("XXXXXX.txt"));
         tempFile.open();
         tempFile.write(QByteArray("foo bar baz"));
         tempFile.close();
-        QString filePath = tempFile.fileName();
-        QString fileName = QFileInfo(filePath).fileName();
-        model->moveToDownloads(QStringLiteral("testid"), filePath);
         QString path = model->data(model->index(0), DownloadsModel::Path).toString();
         QVERIFY(QFile::exists(path));
 
