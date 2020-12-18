@@ -224,7 +224,7 @@ ListItem {
                 enabled: error.visible || !incomplete
                 onTriggered: {
 
-                   cancelled()
+                   removed()
 
                 }
             }
