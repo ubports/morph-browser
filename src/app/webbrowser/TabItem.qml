@@ -82,7 +82,7 @@ Item {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 clip: true
-                fontSize: "small"
+                textSize: Label.Medium
                 color: tabItem.fgColor
             }
 

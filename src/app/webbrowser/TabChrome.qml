@@ -29,7 +29,7 @@ Item {
     signal selected()
     signal closed()
 
-    height: units.gu(4)
+    height: units.gu(5)
 
     Image {
         anchors {
