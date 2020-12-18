@@ -51,7 +51,7 @@ QtObject {
     //   difference in the content served by certain sites (e.g. gmail.com)
     readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chrome/%5 %6Safari/%7%8"
 
-    readonly property string _attributes: screenSize === "small" ? "like Android 4.4" : ""
+    readonly property string _attributes: screenSize === "small" ? "like Android 9" : ""
 
     readonly property string _hardwareID: ""
 
