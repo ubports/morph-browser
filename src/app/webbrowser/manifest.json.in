@@ -6,7 +6,7 @@
     "title": "Morph Browser",
     "icon": "@CMAKE_INSTALL_DATADIR@/morph-browser/morph-browser.svg",
     "hooks": {
-        "clock": {
+        "morph-browser": {
             "apparmor": "morph-browser.apparmor",
             "desktop": "@CMAKE_INSTALL_DATADIR@/applications/morph-browser.desktop",
             "urls": "@CMAKE_INSTALL_DATADIR@/url-dispatcher/urls/morph-browser.url-dispatcher"
