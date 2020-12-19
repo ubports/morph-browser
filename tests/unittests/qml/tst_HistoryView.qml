@@ -151,7 +151,6 @@ FocusScope {
             verify(deleteButton.enabled)
             
             clickItem(deleteButton)
-            wait(5000)
             // ToDo: why does the select mode keep true ?
             //tryCompare(first, "selectMode", false)
             tryCompare(HistoryModel, "count", 1)
