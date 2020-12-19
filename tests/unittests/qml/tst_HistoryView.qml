@@ -136,19 +136,20 @@ FocusScope {
         function test_delete_multiple_domains() {
             var listview = findChild(historyView, "domainsListView")
             var domains = getListItems(listview, "historyViewDomainDelegate")
-            var first = domains[0]
+            var first = domains[0], third = domains[2]
             verify(!first.selectMode)
 
             longPressItem(first)
             tryCompare(first, "selectMode", true)
             tryCompare(first, "selected", true)
-            var third = domains[2]
             verify(!third.selected)
 
             clickItem(third)
             tryCompare(third, "selected", true)
 
             var deleteButton = findChild(historyView, "delete_button")
+            verify(deleteButton.enabled)
+            
             clickItem(deleteButton)
             // ToDo: why does the selct mode keep true ?
             //tryCompare(first, "selectMode", false)
