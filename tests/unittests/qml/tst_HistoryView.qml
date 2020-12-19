@@ -150,7 +150,6 @@ FocusScope {
 
             var deleteButton = findChild(historyView, "delete_button")
             clickItem(deleteButton)
-            wait(500)
             // ToDo: why does the selct mode keep true ?
             //tryCompare(first, "selectMode", false)
             tryCompare(HistoryModel, "count", 1)
