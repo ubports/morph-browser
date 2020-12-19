@@ -1,9 +1,13 @@
 {
-  "clickable_minimum_required": "6.12.2",
+  "clickable_minimum_required": "6.20.1",
   "builder": "cmake",
   "kill": "morph-browser",
   "build_args": "-DCLICK_MODE=ON",
+  "dependencies_host": [
+    "qdoc-qt5"
+  ],
   "dependencies_target": [
     "qtwebengine5-dev"
-  ]
+  ],
+  "qt_version": "5.12"
 }

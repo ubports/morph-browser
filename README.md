@@ -25,6 +25,10 @@ Simply use [clickable](http://clickable.bhdouglass.com/en/latest/) command line
 
 	$ clickable
 
+For a Qt 5.12 based build run
+
+	$ clickable -c clickable-qt-5.12.json
+
 = Running =
 
 webbrowser-app can be run from the development branch without the need to
