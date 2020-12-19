@@ -58,6 +58,7 @@ private Q_SLOTS:
         matches->setSourceModel(QVariant::fromValue(model));
         QVERIFY(spy.isEmpty());
         HistoryModel* model2 = new HistoryModel;
+        model2->setDatabasePath(":memory:");
         matches->setSourceModel(QVariant::fromValue(model2));
         QCOMPARE(spy.count(), 1);
         QCOMPARE(matches->sourceModel(), QVariant::fromValue(model2));
