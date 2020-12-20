@@ -173,6 +173,7 @@ FocusScope {
 
             var selectAllButton = findChild(historyView, "selectAll_button")
             clickItem(selectAllButton)
+            wait(50)
             tryCompare(first, "selected", true)
             tryCompare(second, "selected", true)
             tryCompare(third, "selected", true)
