@@ -318,7 +318,7 @@ FocusScope {
 
             // background
             Rectangle {
-                anchors.fill: historyItemsList
+                anchors.fill: sessionHistoryContainer
                 color: theme.palette.normal.background
 
                 // border right
@@ -338,7 +338,6 @@ FocusScope {
                 anchors {
                     left: parent.left
                     right: parent.right
-                    bottomMargin: units.gu(2)
                 }
                 height: Math.min(_contentHeight, availableHeight)
                 // avoid a binding loop
