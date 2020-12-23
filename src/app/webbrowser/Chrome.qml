@@ -54,6 +54,7 @@ ChromeBase {
     signal switchToTab(int index)
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index, bool moving)
+    signal openRecentView
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : theme.palette.normal.background
 
@@ -103,6 +104,7 @@ ChromeBase {
 
                 onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
                 onTabClosed: chrome.tabClosed(index, moving)
+                onOpenRecentView: chrome.openRecentView()
             }
         }
 

@@ -52,6 +52,7 @@ Extras.TabsBar {
 
     signal requestNewTab(int index, bool makeCurrent)
     signal tabClosed(int index, bool moving)
+    signal openRecentView
 
     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
 
@@ -65,6 +66,11 @@ Extras.TabsBar {
     }
 
     actions: [
+        Action {
+            iconName: "search"
+            objectName: "searchTabButton"
+            onTriggered: tabsBar.openRecentView()
+        },
         Action {
             // FIXME: icon from theme is fuzzy at many GUs
 //                     iconSource: Qt.resolvedUrl("Tabs/tab_add.png")
