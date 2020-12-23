@@ -78,6 +78,13 @@ FocusScope {
             }
 
             enabled: findInPageMode || (internal.webview ? internal.webview.canGoBack : false)
+            onPressAndHold: {
+                if (!internal.openSessionHistory) {
+                    internal.openSessionHistory = sessionHistoryComponent.createObject(chrome)
+                    internal.openSessionHistory.opened = true
+                }
+
+            }
             onTriggered: {
                 if (findInPageMode) {
                     findInPageMode = false
@@ -264,6 +271,7 @@ FocusScope {
     QtObject {
         id: internal
         property var openDrawer: null
+        property var openSessionHistory: null
         readonly property var webview: tab ? tab.webview : null
     }
 
@@ -275,6 +283,130 @@ FocusScope {
             }
         } else {
             addressbar.actualUrl = ""
+        }
+    }
+
+    Component {
+        id: sessionHistoryComponent
+
+        Item {
+            id:sessionHistoryContainer
+            objectName: "sessionHistoryContainer"
+
+            property bool opened: false
+            property bool closing: false
+
+            onOpenedChanged: {
+                if (!opened) {
+                    closing = true
+                }
+            }
+
+            InverseMouseArea {
+                anchors.fill: parent
+                enabled: sessionHistoryContainer.opened
+                onPressed: sessionHistoryContainer.opened = false
+            }
+
+            anchors {
+                top: parent.bottom
+                left: parent.left
+            }
+            width: units.gu(24)
+            height: historyItemsList.height + units.gu(2)
+            clip: historyItemsList.y != 0
+
+            // background
+            Rectangle {
+                anchors.fill: historyItemsList
+                color: theme.palette.normal.background
+
+                // border right
+                Rectangle {
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: units.dp(1)
+                    color: theme.palette.normal.base
+                }
+            }
+
+            ListView {
+                id: historyItemsList
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottomMargin: units.gu(2)
+                }
+                height: Math.min(_contentHeight, availableHeight)
+                // avoid a binding loop
+                property real _contentHeight: 0
+                onContentHeightChanged: _contentHeight = contentHeight
+
+                y: sessionHistoryContainer.opened ? 0 : -height
+                Behavior on y { UbuntuNumberAnimation {} }
+                onYChanged: {
+                    if (sessionHistoryContainer.closing && (y == -height)) {
+                        sessionHistoryContainer.destroy()
+                    }
+                }
+
+                clip: true
+                model: webview.navigationHistory.items
+                delegate: AbstractButton {
+                    objectName: "url-history"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    height: units.gu(6)
+
+                    onClicked: {
+                        sessionHistoryContainer.opened = false
+                        webview.goBackOrForward(model.offset)
+                    }
+
+                    Rectangle {
+                        anchors.fill: parent
+                        color: theme.palette.selected.background
+                        visible: parent.pressed
+                    }
+
+                    Label {
+                        id:title
+                        anchors {
+                            left: parent.left
+                            verticalCenter: parent.verticalCenter
+                            right: parent.right
+                            leftMargin: units.gu(1)
+                        }
+                        text: model.title
+                        fontSize: "medium"
+                        color: root.fgColor
+                        elide: Text.ElideRight
+                    }
+
+                    Label {
+                        anchors {
+                            top: title.bottom
+                            left: parent.left
+                            right: parent.right
+                            leftMargin: units.gu(1)
+                        }
+                        text: model.url
+                        fontSize: "small"
+                        font.bold: true
+                        color: root.fgColor
+                        elide: Text.ElideRight
+                    }
+
+                }
+
+            }
+
         }
     }
 
