@@ -94,7 +94,7 @@ Item {
     Loader {
         id: dragLoader
 
-        readonly property real dragThreshold: units.gu(10)
+        readonly property real dragThreshold: units.gu(15)
 
         active: tabslist.view && !browser.wide
         asynchronous: true
@@ -102,7 +102,7 @@ Item {
             target: tabslist.view
 
             onVerticalOvershootChanged: {
-                if(target.verticalOvershoot < 0){
+                if(target.verticalOvershoot < 0 && target.dragging){
                     if(-target.verticalOvershoot >= dragThreshold){
                         tabslist.searchMode = true
                         tabslist.focusInput()
@@ -123,7 +123,7 @@ Item {
 
         height: units.gu(6)
         color: browser.wide ? "transparent" : theme.palette.normal.background
-        opacity: tabslist.searchMode ? 1 : tabslist.view.verticalOvershoot < 0 ? -tabslist.view.verticalOvershoot / height : 0
+        opacity: tabslist.searchMode ? 1 : tabslist.view.verticalOvershoot < 0 ? -tabslist.view.verticalOvershoot / dragLoader.dragThreshold : 0
         Behavior on opacity {
             UbuntuNumberAnimation {
                 duration: UbuntuAnimation.FastDuration
