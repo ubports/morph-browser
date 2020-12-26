@@ -95,7 +95,7 @@ Common.BrowserView {
         state.url = tab.url.toString();
         state.title = tab.title;
         state.icon = tab.icon.toString();
-        state.preview =  Qt.resolvedUrl(PreviewManager.previewPathFromUrl(tab.url));
+        state.preview = PreviewManager.previewPathFromUrl(tab.url);
         return state;
     }
 
