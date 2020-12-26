@@ -251,13 +251,30 @@ void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
         if (entry.complete == complete) {
             return;
         }
+        QVector<int> updatedRoles;
+        
         entry.complete = complete;
-        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << Complete);
+        updatedRoles.append(Complete);
+
+        // Override reported mimetype from server with detected mimetype from file once downloaded
+        if (complete && QFile::exists(entry.path))
+        {
+            QFileInfo fi(entry.path);
+            QMimeDatabase mimeDatabase;
+            QString mimetype = mimeDatabase.mimeTypeForFile(fi).name();
+            if (mimetype != entry.mimetype) {
+                entry.mimetype = mimetype;
+                updatedRoles.append(Mimetype);
+            }
+        }
+        
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << updatedRoles);
         if (!entry.incognito) {
             QSqlQuery query(m_database);
-            static QString updateStatement = QLatin1String("UPDATE downloads SET complete=? WHERE downloadId=?;");
+            static QString updateStatement = QLatin1String("UPDATE downloads SET complete=?, mimetype=? WHERE downloadId=?;");
             query.prepare(updateStatement);
-            query.addBindValue(complete);
+            query.addBindValue(entry.complete);
+            query.addBindValue(entry.mimetype);
             query.addBindValue(downloadId);
             query.exec();
         }
