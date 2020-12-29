@@ -621,6 +621,7 @@ Common.BrowserView {
             anchors.fill: parent
             color: UbuntuColors.jet
             opacity: 0.5
+            visible: browser.wide
 
             MouseArea {
                 anchors.fill: parent
