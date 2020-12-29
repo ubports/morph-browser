@@ -25,6 +25,7 @@ Item {
 
     property real delegateHeight
     property real chromeHeight
+    property real tabChromeHeight: units.gu(5)
     property alias model: filteredModel.model
     readonly property int count: model.count
     property alias searchText: searchField.text
@@ -248,14 +249,21 @@ Item {
                 clip: true
                 
                 TabPreview {
+                    property real horizontalMargin: units.gu(1)
+                    property real verticalMargin: horizontalMargin * ((gridDelegate.height - tabslist.tabChromeHeight) / gridDelegate.width)
+
                     title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
                     icon: model.icon
                     incognito: tabslist.incognito
                     tab: model.tab
+                    chromeHeight: tabslist.tabChromeHeight
 
                     anchors {
                         fill: parent
-                        margins: units.gu(1)
+                        leftMargin: horizontalMargin
+                        rightMargin: horizontalMargin
+                        topMargin: verticalMargin
+                        bottomMargin: verticalMargin
                     }
                     
                     onSelected: tabslist.tabSelected(index)
@@ -297,6 +305,7 @@ Item {
                     icon: listDelegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
+                    chromeHeight: tabslist.tabChromeHeight
 
                   /*  Binding {
                         // Change the height of the location bar controller
@@ -336,7 +345,7 @@ Item {
             clip: true
             model: filteredModel.parts.grid
             cellWidth: (tabslist.width) / columnCount
-            cellHeight: cellWidth * (tabslist.height / tabslist.width)
+            cellHeight: ((cellWidth * (browser.height - tabslist.chromeHeight)) / browser.width) + tabslist.tabChromeHeight
             highlight: Component {
                 Item {
                     z: 10
