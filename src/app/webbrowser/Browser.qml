@@ -560,7 +560,6 @@ Common.BrowserView {
             if (visible) {
 
                 currentWebview.hideContextMenu();
-                chrome.state = "hidden";
             }
             else {
                 chrome.state = "shown";
@@ -569,6 +568,12 @@ Common.BrowserView {
 
         states: State {
             name: "shown"
+        }
+        
+        onStateChanged: {
+            if (state === "shown") {
+                chrome.state = "hidden";
+            }
         }
 
         function closeAndSwitchToTab(index) {
@@ -584,16 +589,20 @@ Common.BrowserView {
             model: tabsModel
             readonly property real delegateMinHeight: units.gu(20)
             delegateHeight: {
-                if (recentView.state == "shown") {
-                    return Math.max(height / 3, delegateMinHeight)
-                } else if (bottomEdgeHandle.stage == 0) {
-                    return height
-                } else if (bottomEdgeHandle.stage == 1) {
-                    return (1 - 1.8 * bottomEdgeHandle.dragFraction) * height
-                } else if (bottomEdgeHandle.stage >= 2) {
-                    return Math.max(height / 3, delegateMinHeight)
+                if (recentView.visible) {
+                    if (recentView.state == "shown") {
+                        return Math.max(height / 3, delegateMinHeight)
+                    } else if (bottomEdgeHandle.stage == 0) {
+                        return height
+                    } else if (bottomEdgeHandle.stage == 1) {
+                        return (1 - 1.8 * bottomEdgeHandle.dragFraction) * height
+                    } else if (bottomEdgeHandle.stage >= 2) {
+                        return Math.max(height / 3, delegateMinHeight)
+                    } else {
+                        return delegateMinHeight
+                    }
                 } else {
-                    return delegateMinHeight
+                    return height
                 }
             }
             chromeHeight: chrome.height
