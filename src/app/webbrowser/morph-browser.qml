@@ -235,17 +235,6 @@ QtObject {
                     window.requestActivate()
                 }
 
-                onOpenLinkInNewTabRequested: {
-
-                    window.addTab(url);
-
-                    if (! background)
-                    {
-                        window.tabsModel.currentIndex = window.tabsModel.count - 1
-                        window.tabsModel.currentTab.load()
-                    }
-                }
-
                 // Not handled as a window-level shortcut as it would take
                 // precedence over key events in web content.
                 Keys.onEscapePressed: {
