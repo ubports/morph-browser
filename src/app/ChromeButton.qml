@@ -23,11 +23,23 @@ AbstractButton {
     property real iconSize: width
     property alias iconName: icon.name
     property alias iconColor: icon.color
+    property bool enableContextMenu: false
+    property var contextMenu: null
+    property bool pressedState: false
+
+    signal showContextMenu
+
+    onShowContextMenu: pressedState = true
+
+    Connections {
+        target: contextMenu
+        onVisibleChanged: if (!target.visible) pressedState = false
+    }
 
     Rectangle {
         anchors.fill: parent
         color: theme.palette.selected.background
-        visible: parent.pressed
+        visible: parent.pressed || pressedState
     }
 
     Icon {
@@ -43,4 +55,12 @@ AbstractButton {
     Behavior on width {
         UbuntuNumberAnimation {}
     }
+
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+        onClicked: if (enableContextMenu) showContextMenu()
+    }
+
+    onPressAndHold: if (enableContextMenu) showContextMenu()
 }
