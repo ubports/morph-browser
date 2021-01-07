@@ -18,37 +18,53 @@
 
 import QtQuick 2.9
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import QtQuick.Controls 2.2 as QQC2
 
-Popover {
-    id: navHistoryDialog
+QQC2.Popup {
+    id: navHistoryPopup
 
     property alias model: historyListView.model
 
     property bool incognito: false
-    property real availableHeight
-    property real availableWidth
+    property real availHeight
+    property real availWidth
     property real maximumWidth: units.gu(70)
-    property real preferredWidth: availableWidth - units.gu(4)
+    property real preferredWidth: availWidth - units.gu(4)
 
     signal navigate(int offset)
 
-    contentWidth: Math.min(preferredWidth, maximumWidth)
+    width: Math.min(preferredWidth, maximumWidth)
+    height: scrollView.height
+    modal: true
+    leftPadding: 0
+    rightPadding: 0
+    topPadding: 0
+    bottomPadding: 0
 
-    grabDismissAreaEvents: true
+    function show(caller){
+        var mapped = caller.mapToItem(root, 0, 0)
+        x = Qt.binding(function(){
+                if (width == maximumWidth) {
+                    return mapped.x
+                } else {
+                    return (availWidth - width) / 2
+                }
+            })
+        y = mapped.y + caller.height
+        open()
+    }
 
-    onVisibleChanged: if (visible) historyListView.forceActiveFocus()
-
-    Rectangle {
-        id: bgRec
-        
-        color: theme.palette.normal.foreground
-        anchors.fill: parent
-        z: -1
+    onVisibleChanged: {
+        if (visible) {
+            historyListView.forceActiveFocus()
+            historyListView.currentIndex = -1
+        }
     }
 
     ScrollView {
-        property real maximumHeight: navHistoryDialog.availableHeight
+        id: scrollView
+
+        property real maximumHeight: navHistoryPopup.availHeight - units.gu(2)
         property real preferredHeight:  historyListView.contentItem.height
 
         anchors {
@@ -56,19 +72,24 @@ Popover {
             top: parent.top
             right: parent.right
         }
+
         height: Math.min(preferredHeight, maximumHeight)
 
         UbuntuListView {
             id: historyListView
 
             anchors.fill: parent
-            currentIndex: -1
-            clip: true
 
             delegate: ListItem {
-                height: layout.height + (divider.visible ? divider.height : 0)
+                id: listItem
 
-                onClicked: navigate(model.offset)
+                height: layout.height + (divider.visible ? divider.height : 0)
+                divider.visible: false
+
+                onClicked: {
+                    close()
+                    navigate(model.offset)
+                }
 
                 MouseArea {
                     id: hover
@@ -81,12 +102,12 @@ Popover {
                 Rectangle {
                     id: hoverBg
 
-                    z: -1
                     anchors.fill: parent
                     opacity: 0.2
-                    visible: hover.containsMouse
+                    visible: hover.containsMouse && !listItem.ListView.isCurrentItem
                     color: theme.palette.normal.focus
                 }
+
                 ListItemLayout {
                     id: layout
 
@@ -98,7 +119,7 @@ Popover {
                         
                         source: model.icon
                         SlotsLayout.position: SlotsLayout.Leading;
-                        shouldCache: !navHistoryDialog.incognito
+                        shouldCache: !navHistoryPopup.incognito
 
                         height: width
                         width: units.gu(2)

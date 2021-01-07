@@ -18,7 +18,6 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 import QtWebEngine 1.7
 import ".."
 
@@ -55,16 +54,18 @@ FocusScope {
     }
 
     function showNavHistory(model, caller) {
-        if (caller === undefined) caller = root
-        var properties = {"model": model
-                ,"incognito": incognito
-                ,"availableHeight": availableHeight
-                ,"availableWidth": width
-            }
+        navHistPopup.model = model
+        navHistPopup.show(caller)
+    }
 
-        var navHistory = PopupUtils.open(Qt.resolvedUrl("../NavHistoryDialog.qml"),
-                                                       caller, properties)
-        return navHistory
+    NavHistoryPopup {
+        id: navHistPopup
+        
+        availHeight: root.availableHeight
+        availWidth: root.width
+        onNavigate: {
+            internal.webview.goBackOrForward(offset)
+        }
     }
 
     FocusScope {
@@ -87,6 +88,7 @@ FocusScope {
             width: height * 0.8
 
             enableContextMenu: true
+            contextMenu: navHistPopup
 
             anchors {
                 left: parent.left
@@ -105,15 +107,7 @@ FocusScope {
                 }
             }
 
-            onShowContextMenu: contextMenu = showNavHistory(internal.webview.navigationHistory.backItems, backButton)
-            
-            Connections {
-                target: backButton.contextMenu
-                onNavigate: {
-                    internal.webview.goBackOrForward(offset)
-                    PopupUtils.close(target)
-                }
-            }
+            onShowContextMenu: showNavHistory(internal.webview.navigationHistory.backItems, backButton)
         }
 
         Connections {
@@ -142,6 +136,7 @@ FocusScope {
             width: visible ? height * 0.8 : 0
 
             enableContextMenu: true
+            contextMenu: navHistPopup
 
             anchors {
                 left: backButton.right
@@ -158,15 +153,7 @@ FocusScope {
                 internal.webview.goForward()
             }
 
-            onShowContextMenu: contextMenu = showNavHistory(internal.webview.navigationHistory.forwardItems, forwardButton)
-
-            Connections {
-                target: forwardButton.contextMenu
-                onNavigate: {
-                    internal.webview.goBackOrForward(offset)
-                    PopupUtils.close(target)
-                }
-            }
+            onShowContextMenu: showNavHistory(internal.webview.navigationHistory.forwardItems, forwardButton)
         }
 
         AddressBar {
