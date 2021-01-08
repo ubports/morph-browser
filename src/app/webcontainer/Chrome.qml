@@ -26,6 +26,7 @@ ChromeBase {
     property var webview: null
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
+    property real availableHeight
 
     loading: webview && webview.loading && webview.loadProgress !== 100
     loadProgress: loading ? webview.loadProgress : 0
@@ -41,7 +42,22 @@ ChromeBase {
         accountsButton.iconColor = color;
     }
 
+    function showNavHistory(model, caller) {
+        navHistPopup.model = model
+        navHistPopup.show(caller)
+    }
+
     signal chooseAccount()
+
+    NavHistoryPopup {
+        id: navHistPopup
+
+        availHeight: chrome.availableHeight
+        availWidth: chrome.width
+        onNavigate: {
+            chrome.webview.goBackOrForward(offset)
+        }
+    }
 
     FocusScope {
         anchors {
@@ -62,6 +78,9 @@ ChromeBase {
             visible: chrome.navigationButtonsVisible
             width: visible ? height : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
@@ -74,6 +93,8 @@ ChromeBase {
                 }
                 chrome.webview.goBack()
             }
+
+            onShowContextMenu: showNavHistory(chrome.webview.navigationHistory.backItems, backButton)
         }
 
         ChromeButton {
@@ -87,6 +108,9 @@ ChromeBase {
             visible: chrome.navigationButtonsVisible && enabled
             width: visible ? height : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: backButton.right
                 verticalCenter: parent.verticalCenter
@@ -99,6 +123,8 @@ ChromeBase {
                 }
                 chrome.webview.goForward()
             }
+
+            onShowContextMenu: showNavHistory(chrome.webview.navigationHistory.forwardItems, forwardButton)
         }
 
         Item {

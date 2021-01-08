@@ -42,7 +42,7 @@ QQC2.Popup {
     bottomPadding: 0
 
     function show(caller){
-        var mapped = caller.mapToItem(root, 0, 0)
+        var mapped = caller.mapToItem(parent, 0, 0)
         x = Qt.binding(function(){
                 if (width == maximumWidth) {
                     return mapped.x
