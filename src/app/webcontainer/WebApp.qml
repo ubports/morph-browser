@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.5
+import QtQuick 2.7
 import QtWebEngine 1.10
 import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
