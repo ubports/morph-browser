@@ -48,18 +48,18 @@ ListItem {
 
         Loader {
             id: headerComponentLoader
-            anchors.verticalCenter: parent.verticalCenter
+            Layout.alignment: Qt.AlignVCenter
             visible: status == Loader.Ready
         }
 
         Favicon {
             id: icon
-            anchors.verticalCenter: parent.verticalCenter
+            Layout.alignment: Qt.AlignVCenter
         }
 
         Column {
             Layout.fillWidth: true
-            anchors.verticalCenter: parent.verticalCenter
+            Layout.alignment: Qt.AlignVCenter
 
             Label {
                 id: title

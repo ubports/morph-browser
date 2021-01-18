@@ -156,16 +156,6 @@ Popover {
             }
 
             Button {
-                objectName: "newFolderDialog.cancelButton"
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                text: i18n.tr("Cancel")
-                onClicked: PopupUtils.close(dialogue)
-            }
-
-            Button {
                 objectName: "newFolderDialog.saveButton"
                 anchors {
                     left: parent.left
@@ -181,6 +171,16 @@ Popover {
                 // See: http://pad.lv/1415023
                 activeFocusOnPress: false
                 onClicked: createNewFolder(folderTextField.text)
+            }
+
+            Button {
+                objectName: "newFolderDialog.cancelButton"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogue)
             }
         }
     }

@@ -33,13 +33,13 @@ Item {
         height: width
 
         name: "private-browsing"
-    }    
+    }
 
     Label {
         id: titleLabel
         anchors.centerIn: parent
         text: i18n.tr("This is a private tab")
-        color: theme.palette.selected.base
+        color: theme.palette.normal.baseText
         fontSize: "medium"
     }
 
@@ -54,7 +54,7 @@ Item {
         wrapMode: Text.WordWrap
         horizontalAlignment: Text.AlignHCenter
         text: i18n.tr("Pages that you view in this tab won't appear in your browser history.\nBookmarks you create will be preserved, however.")
-        color: theme.palette.selected.base
+        color: theme.palette.normal.baseText
         fontSize: "x-small"
     }
 }

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-02-11 14:21+0000\n"
-"Last-Translator: Eugene <uralhistory@gmail.com>\n"
+"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"PO-Revision-Date: 2020-09-04 18:18+0000\n"
+"Last-Translator: Dmitriy Krivtsov <dmitrek@mail.ru>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -47,7 +47,7 @@ msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
-"Этот URL  будет открыт через системное приложение, если это возможно. Вы "
+"Этот URL будет открыт через системное приложение, если это возможно. Вы "
 "хотите продолжить?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
@@ -62,17 +62,18 @@ msgstr "Разрешить"
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
-#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
-#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
+#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
-#: src/app/webbrowser/DownloadDelegate.qml:181
-#: src/app/webbrowser/SettingsPage.qml:369
-#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webbrowser/SettingsPage.qml:438
+#: src/app/webbrowser/SettingsPage.qml:554
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
-#: src/app/webcontainer/WebappSettingsPage.qml:226
+#: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -156,11 +157,6 @@ msgstr ""
 msgid "Proceed anyway"
 msgstr "Всё равно продолжить"
 
-#: src/app/CertificateVerificationDialog.qml:46
-#: src/app/InvalidCertificateErrorSheet.qml:173
-msgid "Back to safety"
-msgstr "Вернуться к безопасному режиму"
-
 #: src/app/ColorSelectDialog.qml:25
 #, fuzzy
 msgid "Select Color"
@@ -175,13 +171,13 @@ msgid "Custom User Agents"
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
-#: src/app/webbrowser/DownloadsPage.qml:86
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Выделить всё"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
 msgid "Delete"
 msgstr "Удалить"
 
@@ -191,7 +187,7 @@ msgstr "Новый User Agent"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "Ведите название нового \"user agent\""
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
@@ -272,26 +268,65 @@ msgstr "не задано"
 msgid "No domain specific settings available"
 msgstr "Не заданы настройки для домена"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/DownloadDelegate.qml:131
+msgid "Download failed"
+msgstr "Сбой при загрузке"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/DownloadDelegate.qml:174
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
+
+#: src/app/DownloadDelegate.qml:180
+msgid "Pause"
+msgstr "Пауза"
+
+#: src/app/DownloadDelegate.qml:191
+msgid "Resume"
+msgstr "Возобновить"
+
+#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/webcontainer/WebappSettingsPage.qml:117
+msgid "Downloads"
+msgstr "Загрузки"
+
+#: src/app/DownloadsPage.qml:58
+msgid "Confirm selection"
+msgstr "Подтвердить выбор"
+
+#: src/app/DownloadsPage.qml:277
+msgid "No downloads available"
+msgstr "Нет доступных загрузок"
+
+#: src/app/ErrorSheet.qml:42
+msgid "Certificate Error"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:42
 msgid "Network Error"
 msgstr "Ошибка сети"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:45
+#: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Похоже, возникли проблемы с просмотром: %1."
 
-#: src/app/ErrorSheet.qml:52
+#: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
 msgstr "Ошибка: %1"
 
-#: src/app/ErrorSheet.qml:59
+#: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "Вернуться к безопасному режиму"
+
+#: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr "Проверьте настройки сети и обновите страницу."
 
-#: src/app/ErrorSheet.qml:65
+#: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
 msgstr "Обновить страницу"
 
@@ -459,47 +494,106 @@ msgstr "Сохранить как HTML"
 msgid "Save as PDF"
 msgstr "Сохранить как PDF"
 
-#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
-#: src/app/webcontainer/WebappSettingsPage.qml:55
+#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
 #, fuzzy
-msgid "Default Zoom"
-msgstr "По умолчанию"
-
-#: src/app/WebViewImpl.qml:106
-msgid "the current web app"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:106
-#, qt-format
-msgid ""
-"Set current zoom as default zoom for %1 ? (You can change it in the settings "
-"menu)"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
 msgid "Zoom"
-msgstr ""
+msgstr "Масштаб"
 
-#: src/app/WebViewImpl.qml:801
+#: src/app/ZoomControls.qml:36
+#, fuzzy
 msgid "Zoom Out"
-msgstr ""
+msgstr "Уменьшить"
 
-#: src/app/WebViewImpl.qml:808
+#: src/app/ZoomControls.qml:43
 msgid "Reset"
+msgstr "Сбросить"
+
+#: src/app/ZoomControls.qml:43
+msgid "fit"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:815
+#: src/app/ZoomControls.qml:50
 msgid "Zoom In"
-msgstr ""
+msgstr "Увеличить"
 
-#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:433
+#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/app/WebViewImpl.qml:861
+#: src/app/ZoomControls.qml:97
+#, fuzzy
 msgid "Current Zoom"
+msgstr "Текущий масштаб"
+
+#: src/app/ZoomControls.qml:98
+#, fuzzy
+#| msgid "Add domain"
+msgid "domain"
+msgstr "Добавить домен"
+
+#: src/app/ZoomControls.qml:98
+#, fuzzy
+#| msgid "Default"
+msgid "default"
+msgstr "По умолчанию"
+
+#: src/app/ZoomControls.qml:98
+msgid "auto-fit"
 msgstr ""
+
+#: src/app/ZoomControls.qml:183
+#, fuzzy
+#| msgid "Save image"
+msgid "Save Zoom"
+msgstr "Сохранить изображение"
+
+#: src/app/ZoomControls.qml:184
+msgid "none"
+msgstr ""
+
+#: src/app/ZoomControls.qml:184
+#, qt-format
+msgid ""
+"domain zoom (currently %1 and can be removed with reset button or from "
+"domain specific settings in privacy settings)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:185
+msgid " and resets domain zoom"
+msgstr ""
+
+#: src/app/ZoomControls.qml:185
+#, qt-format
+msgid "default zoom (currently %1%, can be changed from settings menu%2)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:186
+msgid "the current web app"
+msgstr "текущее веб-приложение"
+
+#: src/app/ZoomControls.qml:186
+#, qt-format
+msgid "Current zoom (%1%) can be saved for %2 as "
+msgstr ""
+
+#: src/app/ZoomControls.qml:188
+#, fuzzy
+#| msgid "More"
+msgid "or"
+msgstr "Ещё"
+
+#: src/app/ZoomControls.qml:194
+#, fuzzy
+#| msgid "Save in"
+msgid "Save for domain"
+msgstr "Сохранить в"
+
+#: src/app/ZoomControls.qml:207
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save as default"
+msgstr "Сохранить как PDF"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -555,7 +649,7 @@ msgstr "Вырезать"
 msgid "Erase"
 msgstr "Удалить"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:761
 msgid "Find in page"
 msgstr "Найти на странице"
 
@@ -585,7 +679,7 @@ msgstr "Перейти к"
 msgid "Address;URL;www"
 msgstr "Адрес;URL;www;ссылка"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:635
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "Новая вкладка"
@@ -656,12 +750,11 @@ msgstr "Сохранить ссылку"
 msgid "Save video"
 msgstr "Сохранить видео"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
 msgstr "Поделиться"
 
 #: src/app/actions/Undo.qml:22
-#, fuzzy
 msgid "Undo"
 msgstr "Отменить предыдущее действие"
 
@@ -708,21 +801,21 @@ msgstr "Создать новую папку"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
-#: src/app/webbrowser/SettingsPage.qml:397
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:90
+#: src/app/webbrowser/SettingsPage.qml:466
 msgid "Homepage"
 msgstr "Домашняя страница"
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
-#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:749 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Закладки"
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
-#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/Browser.qml:621 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "Готово"
@@ -735,24 +828,24 @@ msgstr "Готово"
 msgid "New tab"
 msgstr "Новая вкладка"
 
-#: src/app/webbrowser/Browser.qml:229
+#: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 #, fuzzy
 msgid "Blocked domain"
 msgstr "Заблокированный домен"
 
-#: src/app/webbrowser/Browser.qml:230
+#: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
-#, qt-format
+#, fuzzy, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Заблокирован запрос к домену %1."
 
-#: src/app/webbrowser/Browser.qml:256
+#: src/app/webbrowser/Browser.qml:249
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Домен из списка разрешенных адресов"
 
-#: src/app/webbrowser/Browser.qml:257
+#: src/app/webbrowser/Browser.qml:250
 #, fuzzy, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
@@ -760,37 +853,33 @@ msgstr ""
 "домен %1 теперь находится в списке разрешённых адресов, он станет доступным "
 "при перезагрузке страницы"
 
-#: src/app/webbrowser/Browser.qml:734
+#: src/app/webbrowser/Browser.qml:729
 msgid "New window"
 msgstr "Новое окно"
 
-#: src/app/webbrowser/Browser.qml:740
+#: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
 msgstr "Новое приватное окно"
 
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "История"
 
-#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
-msgid "Downloads"
-msgstr "Загрузки"
-
-#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
+#: src/app/webbrowser/Browser.qml:775 src/app/webbrowser/SettingsPage.qml:45
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:781
 msgid "View source"
 msgstr "Просмотр кода страницы"
 
-#: src/app/webbrowser/Browser.qml:793
+#: src/app/webbrowser/Browser.qml:788
 msgid "Save as HTML / PDF"
 msgstr "Сохранить как HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
+#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -809,32 +898,6 @@ msgstr "Выберите приложение"
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
 msgstr "Загрузка"
-
-#: src/app/webbrowser/DownloadDelegate.qml:153
-msgid "Download failed"
-msgstr "Сбой при загрузке"
-
-#. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:196
-#, qt-format
-msgid "%1%"
-msgstr "%1%"
-
-#: src/app/webbrowser/DownloadDelegate.qml:202
-msgid "Pause"
-msgstr ""
-
-#: src/app/webbrowser/DownloadDelegate.qml:213
-msgid "Resume"
-msgstr "Возобновить"
-
-#: src/app/webbrowser/DownloadsPage.qml:62
-msgid "Confirm selection"
-msgstr "Подтвердить выбор"
-
-#: src/app/webbrowser/DownloadsPage.qml:268
-msgid "No downloads available"
-msgstr "Нет доступных загрузок"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -888,12 +951,12 @@ msgstr ""
 msgid "More"
 msgstr "Ещё"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:327
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Популярные сайты"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:358
 msgid "You haven't visited any site yet"
 msgstr "Посещённые веб-сайты отсутствуют"
 
@@ -925,74 +988,125 @@ msgstr "Подлинность данного сайта не была подт�
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Соединение к %1 через HTTPS. Сертификат действительный."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
 msgstr "По умолчанию"
 
-#: src/app/webbrowser/SettingsPage.qml:72
-#: src/app/webbrowser/SettingsPage.qml:223
+#: src/app/webbrowser/SettingsPage.qml:74
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Search engine"
 msgstr "Поисковая система"
 
-#: src/app/webbrowser/SettingsPage.qml:98
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:484
+#, fuzzy
+#| msgid "New Tab"
+msgid "New Tab Page"
+msgstr "Новая вкладка"
+
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
 msgstr "Восстановить предыдущий сеанс при запуске"
 
-#: src/app/webbrowser/SettingsPage.qml:117
-msgid "Set Desktop mode"
+#: src/app/webbrowser/SettingsPage.qml:120
+msgid "not available because of startup in private mode"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:184
-#: src/app/webbrowser/SettingsPage.qml:266
-#: src/app/webcontainer/WebappSettingsPage.qml:103
-#: src/app/webcontainer/WebappSettingsPage.qml:143
+#: src/app/webbrowser/SettingsPage.qml:140
+#, fuzzy
+msgid "Set Desktop mode"
+msgstr "Включить режим \"десктоп\""
+
+#: src/app/webbrowser/SettingsPage.qml:159
+#: src/app/webcontainer/WebappSettingsPage.qml:58
+msgid "Automatic fit to width"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:160
+#: src/app/webcontainer/WebappSettingsPage.qml:59
+msgid "Adjusts the width of the website to the window"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:179
+#: src/app/webcontainer/WebappSettingsPage.qml:78
+#, fuzzy
+msgid "Default Zoom"
+msgstr "По умолчанию"
+
+#: src/app/webbrowser/SettingsPage.qml:218
+#: src/app/webbrowser/SettingsPage.qml:300
+#: src/app/webcontainer/WebappSettingsPage.qml:131
+#: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
 msgstr "Конфиденциальность и разрешения"
 
-#: src/app/webbrowser/SettingsPage.qml:195
+#: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
 msgstr "Сбросить настройки браузера"
 
-#: src/app/webbrowser/SettingsPage.qml:280
-#: src/app/webcontainer/WebappSettingsPage.qml:157
-msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+#: src/app/webbrowser/SettingsPage.qml:314
+#, fuzzy
+#| msgid "Leave Private Mode"
+msgid "Start in private mode"
+msgstr "Выйти из режима инкогнито"
 
-#: src/app/webbrowser/SettingsPage.qml:320
-#: src/app/webbrowser/SettingsPage.qml:453
+#: src/app/webbrowser/SettingsPage.qml:338
+#: src/app/webcontainer/WebappSettingsPage.qml:186
+#, fuzzy
+msgid "Only allow browsing to whitelisted websites"
+msgstr "Разрешить просмотр страниц только из списка разрешенных сайтов"
+
+#: src/app/webbrowser/SettingsPage.qml:378
+#: src/app/webbrowser/SettingsPage.qml:569
 msgid "Camera & microphone"
 msgstr "Камера и микрофон"
 
-#: src/app/webbrowser/SettingsPage.qml:329
-msgid "Clear Browsing History"
+#: src/app/webbrowser/SettingsPage.qml:387
+msgid "Clear browsing history"
 msgstr "Очистить историю"
 
-#: src/app/webbrowser/SettingsPage.qml:333
-msgid "Clear Browsing History?"
+#: src/app/webbrowser/SettingsPage.qml:391
+msgid "Clear browsing history?"
 msgstr "Очистить историю?"
 
-#: src/app/webbrowser/SettingsPage.qml:341
-#: src/app/webcontainer/WebappSettingsPage.qml:198
-msgid "Clear Cache"
+#: src/app/webbrowser/SettingsPage.qml:399
+#: src/app/webcontainer/WebappSettingsPage.qml:227
+msgid "Clear cache"
 msgstr "Очистить кэш"
 
-#: src/app/webbrowser/SettingsPage.qml:344
-#: src/app/webcontainer/WebappSettingsPage.qml:201
-msgid "Clear Cache?"
+#: src/app/webbrowser/SettingsPage.qml:402
+#: src/app/webcontainer/WebappSettingsPage.qml:230
+#, fuzzy
+#| msgid "Clear Cache?"
+msgid "Clear cache?"
 msgstr "Очистить кэш?"
 
-#: src/app/webbrowser/SettingsPage.qml:376
-#: src/app/webcontainer/WebappSettingsPage.qml:233
+#: src/app/webbrowser/SettingsPage.qml:410
+#: src/app/webcontainer/WebappSettingsPage.qml:238
+msgid "Clear all cookies"
+msgstr "Очистить куки"
+
+#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webcontainer/WebappSettingsPage.qml:241
+msgid "Clear all Cookies?"
+msgstr "Очистить куки?"
+
+#: src/app/webbrowser/SettingsPage.qml:445
+#: src/app/webcontainer/WebappSettingsPage.qml:273
 msgid "Clear"
 msgstr "Очистить"
 
-#: src/app/webbrowser/SettingsPage.qml:465
+#: src/app/webbrowser/SettingsPage.qml:496
+msgid "Custom hompage"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
 msgstr "Микрофон"
 
-#: src/app/webbrowser/SettingsPage.qml:486
+#: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
 msgstr "Камера"
 
@@ -1023,16 +1137,15 @@ msgstr "Удалить"
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Ubuntu Веб-Браузер"
+msgstr "%1 - Morph Веб-Браузер"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "Веб-браузер"
+msgstr "Morph веб-браузер"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1110,12 +1223,14 @@ msgstr "Упс, что-то пошло не так."
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr ""
+"Домен %1 теперь находится в списке разрешенных к посещению ресурсов. "
+"Пожалуйста, перезагрузите страницу."
 
-#: src/app/webcontainer/WebappSettingsPage.qml:35
+#: src/app/webcontainer/WebappSettingsPage.qml:38
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "Настройки WebappContainer"
 
-#: src/app/webcontainer/WebappSettingsPage.qml:114
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 #, fuzzy
 msgid "Reset webapp settings"
 msgstr "Сбросить настройки браузера"
@@ -1290,9 +1405,6 @@ msgstr "Новое приватное окно"
 
 #~ msgid "Private Mode"
 #~ msgstr "Режим инкогнито"
-
-#~ msgid "Leave Private Mode"
-#~ msgstr "Выйти из режима инкогнито"
 
 #~ msgid "Going to public mode will close all private tabs"
 #~ msgstr ""

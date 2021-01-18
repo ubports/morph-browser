@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2019-05-14 09:02+0000\n"
-"Last-Translator: Eran <etherpulse@gmail.com>\n"
-"Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/morph-"
-"browser/he/>\n"
+"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"PO-Revision-Date: 2020-09-05 20:02+0000\n"
+"Last-Translator: tamer dab <dabsantamer@yahoo.com>\n"
+"Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/"
+"morph-browser/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 3.6.1\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -33,23 +33,25 @@ msgstr "אישור"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "תוכניות כתובות אתרים מותאמות אישית"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr ""
+msgstr "האתר '%1' מנסה לפתוח את כתובת האתר הבאה באמצעות ערכת התאמה אישית:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
+"פעולה זו תנסה להעביר כתובת אתר זו לאפליקציית מערכת במידת האפשר. האם אתה רוצה "
+"להמשיך?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "זכור החלטה"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -58,24 +60,25 @@ msgstr "אישור"
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
-#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
-#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
+#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
-#: src/app/webbrowser/DownloadDelegate.qml:181
-#: src/app/webbrowser/SettingsPage.qml:369
-#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webbrowser/SettingsPage.qml:438
+#: src/app/webbrowser/SettingsPage.qml:554
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
-#: src/app/webcontainer/WebappSettingsPage.qml:226
+#: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
-msgstr "ביטול"
+msgstr "בטול"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "חסום דומיין"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -84,6 +87,8 @@ msgid ""
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
 msgstr ""
+"אתה מנסה לגשת ל-%1 אך הוא לא נמצא ברשימת ההיתרים המאושרת של הדומיין שלך. האם "
+"ברצונך להמשיך לחסום את הדומיין, לאפשר גלישה לדומיין או לחזור אחורה?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -92,10 +97,13 @@ msgid ""
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
 msgstr ""
+"%1 מנסה לגשת ל-%2 אך הוא לא נמצא ברשימת ההיתרים המאושרת של הדומיין שלך. האם "
+"ברצונך להמשיך לחסום את הדומיין, לאפשר טעינת נתונים מהדומיין או פשוט להתעלם "
+"מבקשה זו?"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "אפשר דומיין"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -133,26 +141,22 @@ msgstr "חיבור זה אינו מאובטח"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
-msgstr "ניסית לגשת אל %1 באופן מאובטח, אך אישור האבטחה של אתר זה אינו מהימן."
+msgstr ""
+"ניסית להגיע בצורה מאובטחת ל-%1, אך אישור האבטחה של אתר זה אינו מהימן. הסיבה: "
+"%2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "להמשיך בכל זאת"
 
-#: src/app/CertificateVerificationDialog.qml:46
-#: src/app/InvalidCertificateErrorSheet.qml:173
-msgid "Back to safety"
-msgstr "חזרה לחוף מבטחים"
-
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "בחירת הכול"
+msgstr "בחר צבע"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -160,118 +164,155 @@ msgstr "אישור JavaScript"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "סוכני משתמשים בהתאמה אישית"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
-#: src/app/webbrowser/DownloadsPage.qml:86
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "בחירת הכול"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
 msgid "Delete"
 msgstr "מחק"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
-msgstr ""
+msgstr "סוכן משתמשים חדש"
 
 #: src/app/CustomUserAgentsPage.qml:105
 msgid "Add the name for the new user agent"
-msgstr ""
+msgstr "הוסף את השם של סוכן המשתמש החדש"
 
 #: src/app/CustomUserAgentsPage.qml:207
 msgid "enter user agent string..."
-msgstr ""
+msgstr "הזן מחרוזת סוכן משתמש ..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "אין הורדות זמינות"
+msgstr "אין סוכני משתמשים מותאמים אישית זמינים"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "רשימה שחורה/היתרים של הדומיין"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "הוסף דומיין"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
-msgstr ""
+msgstr "הזן את שם הדומיין, למשל. example.com (תת-דומיינים יוסרו)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "לא מוגדר"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "לעולם אל תאפשר גישה"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "אפשר תמיד גישה"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "לאף אתרים לא הוענקו הרשאות מיוחדות"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
-msgstr ""
+msgstr "הגדרות ספציפיות לתחום"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "הזן את שם הדומיין, למשל. m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "מותר להפעיל אפליקציות אחרות"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "לאפשר למתחם זה לגשת למצלמה שלך?"
+msgstr "מורשה לגשת למיקום שלך"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "סוכן משתמש מותאם אישית"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "תקריב: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "לא מוגדר"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "אין הגדרות דומיין ספציפיות קיימות"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/DownloadDelegate.qml:131
+msgid "Download failed"
+msgstr "ההורדה נכשלה"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/DownloadDelegate.qml:174
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
+
+#: src/app/DownloadDelegate.qml:180
+msgid "Pause"
+msgstr "השהייה"
+
+#: src/app/DownloadDelegate.qml:191
+msgid "Resume"
+msgstr "להמשיך"
+
+#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/webcontainer/WebappSettingsPage.qml:117
+msgid "Downloads"
+msgstr "הורדות"
+
+#: src/app/DownloadsPage.qml:58
+msgid "Confirm selection"
+msgstr "אישור הבחירה"
+
+#: src/app/DownloadsPage.qml:277
+msgid "No downloads available"
+msgstr "אין הורדות זמינות"
+
+#: src/app/ErrorSheet.qml:42
+msgid "Certificate Error"
+msgstr "שגיאת תעודה"
+
+#: src/app/ErrorSheet.qml:42
 msgid "Network Error"
 msgstr "שגיאת רשת"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:45
+#: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "מסתבר כי התעוררה בעייה בהצגה: %1."
 
-#: src/app/ErrorSheet.qml:52
+#: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "שגיאה: %1"
 
-#: src/app/ErrorSheet.qml:59
+#: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "חזרה לחוף מבטחים"
+
+#: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr "נא לבדוק את הגדרות הרשת שלך ולאחר מכן לרענן את העמוד."
 
-#: src/app/ErrorSheet.qml:65
+#: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
 msgstr "רענון העמוד"
 
@@ -281,7 +322,7 @@ msgstr "בקשת הרשאה"
 
 #: src/app/GeolocationPermissionRequest.qml:30
 msgid "This page wants to know your device’s location."
-msgstr "עמוד זה רוצה לדעת את מיקום המכשיר שלך"
+msgstr "דף זה רוצה לדעת את מיקום המכשיר שלך."
 
 #: src/app/GeolocationPermissionRequest.qml:55
 msgid "Deny"
@@ -427,57 +468,103 @@ msgstr "האתר %1:%2 דורש אימות."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "שמור דף כ- HTML / PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr ""
+msgstr "שמור כ- HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr ""
+msgstr "שמור כקובץ PDF"
 
-#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
-#: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
-msgid "Default Zoom"
+#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+msgid "Zoom"
+msgstr "תקריב"
+
+#: src/app/ZoomControls.qml:36
+msgid "Zoom Out"
+msgstr "להקטין את התצוגה"
+
+#: src/app/ZoomControls.qml:43
+msgid "Reset"
+msgstr "איפוס"
+
+#: src/app/ZoomControls.qml:43
+msgid "fit"
+msgstr "התאם"
+
+#: src/app/ZoomControls.qml:50
+msgid "Zoom In"
+msgstr "להתמקד"
+
+#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:530
+msgid "Save"
+msgstr "שמור"
+
+#: src/app/ZoomControls.qml:97
+msgid "Current Zoom"
+msgstr "זום נוכחי"
+
+#: src/app/ZoomControls.qml:98
+msgid "domain"
+msgstr "דומיין"
+
+#: src/app/ZoomControls.qml:98
+msgid "default"
 msgstr "בררת מחדל"
 
-#: src/app/WebViewImpl.qml:106
-msgid "the current web app"
-msgstr ""
+#: src/app/ZoomControls.qml:98
+msgid "auto-fit"
+msgstr "התאמה אוטומטית"
 
-#: src/app/WebViewImpl.qml:106
+#: src/app/ZoomControls.qml:183
+msgid "Save Zoom"
+msgstr "שמור זום"
+
+#: src/app/ZoomControls.qml:184
+msgid "none"
+msgstr "אף אחד"
+
+#: src/app/ZoomControls.qml:184
 #, qt-format
 msgid ""
-"Set current zoom as default zoom for %1 ? (You can change it in the settings "
-"menu)"
+"domain zoom (currently %1 and can be removed with reset button or from "
+"domain specific settings in privacy settings)"
 msgstr ""
+"זום דומיין (כרגע %1 וניתן להסיר אותו באמצעות כפתור האיפוס או מהגדרות "
+"ספציפיות לתחום בהגדרות הפרטיות)"
 
-#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
-msgid "Zoom"
-msgstr ""
+#: src/app/ZoomControls.qml:185
+msgid " and resets domain zoom"
+msgstr " ומאפס את זום הדומיין"
 
-#: src/app/WebViewImpl.qml:801
-msgid "Zoom Out"
-msgstr ""
+#: src/app/ZoomControls.qml:185
+#, qt-format
+msgid "default zoom (currently %1%, can be changed from settings menu%2)"
+msgstr "זום ברירת מחדל (כרגע %1%, ניתן לשנות מתפריט ההגדרות %2)"
 
-#: src/app/WebViewImpl.qml:808
-msgid "Reset"
-msgstr ""
+#: src/app/ZoomControls.qml:186
+msgid "the current web app"
+msgstr "אפליקציית האינטרנט הנוכחית"
 
-#: src/app/WebViewImpl.qml:815
-msgid "Zoom In"
-msgstr ""
+#: src/app/ZoomControls.qml:186
+#, qt-format
+msgid "Current zoom (%1%) can be saved for %2 as "
+msgstr "ניתן לשמור את הזום הנוכחי (%1%) עבור %2 כ- "
 
-#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:433
-msgid "Save"
-msgstr "שמירה"
+#: src/app/ZoomControls.qml:188
+msgid "or"
+msgstr "אוֹ"
 
-#: src/app/WebViewImpl.qml:861
-msgid "Current Zoom"
-msgstr ""
+#: src/app/ZoomControls.qml:194
+msgid "Save for domain"
+msgstr "שמור לדומיין"
+
+#: src/app/ZoomControls.qml:207
+msgid "Save as default"
+msgstr "שמור כברירת מחדל"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -515,7 +602,7 @@ msgstr "מחיקת היסטוריית הניווט"
 
 #: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
-msgstr "העתקה"
+msgstr "העתק"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -533,7 +620,7 @@ msgstr "גזירה"
 msgid "Erase"
 msgstr "מחיקה"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:761
 msgid "Find in page"
 msgstr "איתור בעמוד"
 
@@ -563,7 +650,7 @@ msgstr "גישה"
 msgid "Address;URL;www"
 msgstr "כתובת;URL;www;דפדפן"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:635
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "לשונית חדשה"
@@ -587,9 +674,8 @@ msgid "Open link in new background tab"
 msgstr "פתיחת קישור בלשונית רקע חדשה"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
-msgstr "פתיחת קישור בחלון פרטי"
+msgstr "פתח קישור בחלון פרטי חדש"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -609,7 +695,7 @@ msgstr "הדבקה"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "ביצוע חוזר"
+msgstr "בצע שוב"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:76
 #: src/app/webbrowser/TabsBar.qml:93 src/app/webcontainer/SadPage.qml:51
@@ -634,13 +720,13 @@ msgstr "שמירת קישור"
 msgid "Save video"
 msgstr "שמירת הסרטון"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
 msgstr "שיתוף"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "ביטול"
+msgstr "החזרה"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
@@ -652,7 +738,7 @@ msgstr "ניתן לחפש או להזין כתובת"
 
 #: src/app/webbrowser/AddressBar.qml:369
 msgid "Paste and Go"
-msgstr ""
+msgstr "הדבק והמשך"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -685,21 +771,21 @@ msgstr "יצירת תיקייה חדשה"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
-#: src/app/webbrowser/SettingsPage.qml:397
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:90
+#: src/app/webbrowser/SettingsPage.qml:466
 msgid "Homepage"
 msgstr "דף הבית"
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
-#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:749 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "סימניות"
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
-#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/Browser.qml:621 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "בוצע"
@@ -710,61 +796,58 @@ msgstr "בוצע"
 #: src/app/webbrowser/HistoryViewWide.qml:422 src/app/webbrowser/TabsBar.qml:64
 #: src/app/webbrowser/TabsList.qml:99
 msgid "New tab"
-msgstr "לשונית חדשה"
+msgstr "כרטיסייה חדשה"
 
-#: src/app/webbrowser/Browser.qml:229
+#: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "דומיין חסום"
 
-#: src/app/webbrowser/Browser.qml:230
+#: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "בקשת ניווט חסומה לדומיין %1."
 
-#: src/app/webbrowser/Browser.qml:256
+#: src/app/webbrowser/Browser.qml:249
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "דומיין ברשימת ההיתרים"
 
-#: src/app/webbrowser/Browser.qml:257
+#: src/app/webbrowser/Browser.qml:250
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"דומיין %1 נמצא כעת ברשימת ההיתרים, הוא יהיה פעיל בטעינה מחדש של הדף הבא."
 
-#: src/app/webbrowser/Browser.qml:734
+#: src/app/webbrowser/Browser.qml:729
 msgid "New window"
 msgstr "חלון חדש"
 
-#: src/app/webbrowser/Browser.qml:740
+#: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
 msgstr "חלון פרטי חדש"
 
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "היסטוריה"
 
-#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
-msgid "Downloads"
-msgstr "הורדות"
-
-#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
+#: src/app/webbrowser/Browser.qml:775 src/app/webbrowser/SettingsPage.qml:45
 msgid "Settings"
 msgstr "הגדרות"
 
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:781
 msgid "View source"
-msgstr ""
+msgstr "ראה מקור"
 
-#: src/app/webbrowser/Browser.qml:793
+#: src/app/webbrowser/Browser.qml:788
 msgid "Save as HTML / PDF"
-msgstr ""
+msgstr "שמור כ- HTML / PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
+#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
@@ -781,32 +864,6 @@ msgstr "בחירת יישום"
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
 msgstr "הורדה"
-
-#: src/app/webbrowser/DownloadDelegate.qml:153
-msgid "Download failed"
-msgstr "ההורדה נכשלה"
-
-#. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:196
-#, qt-format
-msgid "%1%"
-msgstr "%1%"
-
-#: src/app/webbrowser/DownloadDelegate.qml:202
-msgid "Pause"
-msgstr ""
-
-#: src/app/webbrowser/DownloadDelegate.qml:213
-msgid "Resume"
-msgstr "להמשיך"
-
-#: src/app/webbrowser/DownloadsPage.qml:62
-msgid "Confirm selection"
-msgstr "אישור הבחירה"
-
-#: src/app/webbrowser/DownloadsPage.qml:268
-msgid "No downloads available"
-msgstr "אין הורדות זמינות"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -858,12 +915,12 @@ msgstr ""
 msgid "More"
 msgstr "פרטים נוספים"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:327
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "אתרים מובילים"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:358
 msgid "You haven't visited any site yet"
 msgstr "לא ביקרת באף אתר עדיין"
 
@@ -895,74 +952,116 @@ msgstr "הזהות של אתר זה לא אומתה."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "אתה מחובר ל- %1 באמצעות HTTPS. האישור תקף."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr "בררת מחדל"
+msgstr "ברירת מחדל"
 
-#: src/app/webbrowser/SettingsPage.qml:72
-#: src/app/webbrowser/SettingsPage.qml:223
+#: src/app/webbrowser/SettingsPage.qml:74
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Search engine"
 msgstr "מנוע חיפוש"
 
-#: src/app/webbrowser/SettingsPage.qml:98
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:484
+msgid "New Tab Page"
+msgstr "דף כרטיסייה חדשה"
+
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
 msgstr "שחזור ההפעלה הקודמת עם ההפעלה"
 
-#: src/app/webbrowser/SettingsPage.qml:117
-msgid "Set Desktop mode"
-msgstr ""
+#: src/app/webbrowser/SettingsPage.qml:120
+msgid "not available because of startup in private mode"
+msgstr "לא זמין בגלל הפעלה במצב פרטי"
 
-#: src/app/webbrowser/SettingsPage.qml:184
-#: src/app/webbrowser/SettingsPage.qml:266
-#: src/app/webcontainer/WebappSettingsPage.qml:103
-#: src/app/webcontainer/WebappSettingsPage.qml:143
+#: src/app/webbrowser/SettingsPage.qml:140
+msgid "Set Desktop mode"
+msgstr "הגדר מצב שולחן עבודה"
+
+#: src/app/webbrowser/SettingsPage.qml:159
+#: src/app/webcontainer/WebappSettingsPage.qml:58
+msgid "Automatic fit to width"
+msgstr "התאמה אוטומטית לרוחב"
+
+#: src/app/webbrowser/SettingsPage.qml:160
+#: src/app/webcontainer/WebappSettingsPage.qml:59
+msgid "Adjusts the width of the website to the window"
+msgstr "מתאים את רוחב האתר לחלון"
+
+#: src/app/webbrowser/SettingsPage.qml:179
+#: src/app/webcontainer/WebappSettingsPage.qml:78
+msgid "Default Zoom"
+msgstr "זום ברירת מחדל"
+
+#: src/app/webbrowser/SettingsPage.qml:218
+#: src/app/webbrowser/SettingsPage.qml:300
+#: src/app/webcontainer/WebappSettingsPage.qml:131
+#: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
 msgstr "פרטיות והרשאות"
 
-#: src/app/webbrowser/SettingsPage.qml:195
+#: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
 msgstr "איפוס הגדרות הדפדפן"
 
-#: src/app/webbrowser/SettingsPage.qml:280
-#: src/app/webcontainer/WebappSettingsPage.qml:157
-msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+#: src/app/webbrowser/SettingsPage.qml:314
+msgid "Start in private mode"
+msgstr "התחל במצב פרטי"
 
-#: src/app/webbrowser/SettingsPage.qml:320
-#: src/app/webbrowser/SettingsPage.qml:453
+#: src/app/webbrowser/SettingsPage.qml:338
+#: src/app/webcontainer/WebappSettingsPage.qml:186
+msgid "Only allow browsing to whitelisted websites"
+msgstr "אפשר גלישה רק לאתרים שמופיעים ברשימת ההיתרים"
+
+#: src/app/webbrowser/SettingsPage.qml:378
+#: src/app/webbrowser/SettingsPage.qml:569
 msgid "Camera & microphone"
 msgstr "מצלמה ומיקרופון"
 
-#: src/app/webbrowser/SettingsPage.qml:329
-msgid "Clear Browsing History"
-msgstr "מחיקת היסטוריית הגלישה"
+#: src/app/webbrowser/SettingsPage.qml:387
+msgid "Clear browsing history"
+msgstr "נקה היסטוריית גלישה"
 
-#: src/app/webbrowser/SettingsPage.qml:333
-msgid "Clear Browsing History?"
+#: src/app/webbrowser/SettingsPage.qml:391
+msgid "Clear browsing history?"
 msgstr "למחוק את היסטוריית הגלישה?"
 
-#: src/app/webbrowser/SettingsPage.qml:341
-#: src/app/webcontainer/WebappSettingsPage.qml:198
-msgid "Clear Cache"
-msgstr "מחיקת המטמון"
+#: src/app/webbrowser/SettingsPage.qml:399
+#: src/app/webcontainer/WebappSettingsPage.qml:227
+msgid "Clear cache"
+msgstr "נקה מטמון"
 
-#: src/app/webbrowser/SettingsPage.qml:344
-#: src/app/webcontainer/WebappSettingsPage.qml:201
-msgid "Clear Cache?"
+#: src/app/webbrowser/SettingsPage.qml:402
+#: src/app/webcontainer/WebappSettingsPage.qml:230
+msgid "Clear cache?"
 msgstr "למחוק את המטמון?"
 
-#: src/app/webbrowser/SettingsPage.qml:376
-#: src/app/webcontainer/WebappSettingsPage.qml:233
+#: src/app/webbrowser/SettingsPage.qml:410
+#: src/app/webcontainer/WebappSettingsPage.qml:238
+msgid "Clear all cookies"
+msgstr "נקה את כל העוגיות"
+
+#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webcontainer/WebappSettingsPage.qml:241
+msgid "Clear all Cookies?"
+msgstr "למחוק את כל העוגיות?"
+
+#: src/app/webbrowser/SettingsPage.qml:445
+#: src/app/webcontainer/WebappSettingsPage.qml:273
 msgid "Clear"
 msgstr "ניקוי"
 
-#: src/app/webbrowser/SettingsPage.qml:465
-msgid "Microphone"
-msgstr "מיקרופון"
+#: src/app/webbrowser/SettingsPage.qml:496
+msgid "Custom hompage"
+msgstr "דף הבית המותאם אישית"
 
-#: src/app/webbrowser/SettingsPage.qml:486
+#: src/app/webbrowser/SettingsPage.qml:581
+msgid "Microphone"
+msgstr "מִיקרוֹפוֹן"
+
+#: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
 msgstr "מצלמה"
 
@@ -988,21 +1087,20 @@ msgstr "סגירת הלשונית"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr "הסרה"
+msgstr "הסר"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
 #: src/app/webcontainer/webapp-container.qml:76
-#, fuzzy, qt-format
+#, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - דפדפן האינטרנט של אובונטו"
+msgstr "%1 - דפדפן האינטרנט של מורף"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
-#, fuzzy
 msgid "Morph Web Browser"
-msgstr "דפדפן"
+msgstr "דפדפן האינטרנט של מורף"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1026,7 +1124,7 @@ msgstr "שגיאת חשבון"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr "סגירה"
+msgstr "סגור"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -1063,11 +1161,11 @@ msgstr "סגירת יישום זה"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "דילוג"
+msgstr "דלג"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr "בחירה בחשבון"
+msgstr "בחר חשבון"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
@@ -1076,26 +1174,23 @@ msgstr "אופס, משהו השתבש."
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
-msgstr ""
+msgstr "הדומיין %1 נמצא כעת ברשימת ההיתרים, טען מחדש את הדף."
 
-#: src/app/webcontainer/WebappSettingsPage.qml:35
+#: src/app/webcontainer/WebappSettingsPage.qml:38
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "הגדרות WebappContainer"
 
-#: src/app/webcontainer/WebappSettingsPage.qml:114
-#, fuzzy
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Reset webapp settings"
-msgstr "איפוס הגדרות הדפדפן"
+msgstr "אפס את הגדרות ה- webapp"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "דפדפן"
+msgstr "דפדפן מורף"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "גלישה ברשת האינטרנט"
+msgstr "גלוש באינטרנט באמצעות QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
@@ -1103,11 +1198,11 @@ msgstr "אינטרנט;רשת;דפדפן;מרשתת;נווט;סייר"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "חלון חדש"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "חלון פרטי חדש"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "
@@ -1238,9 +1333,6 @@ msgstr ""
 
 #~ msgid "Private Mode"
 #~ msgstr "מצב פרטי"
-
-#~ msgid "Leave Private Mode"
-#~ msgstr "יציאה ממצב פרטי"
 
 #~ msgid "Going to public mode will close all private tabs"
 #~ msgstr "מעבר למצב ציבורי תסגור את כל הלשוניות הפרטיות"

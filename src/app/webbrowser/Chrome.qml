@@ -71,7 +71,7 @@ ChromeBase {
 
         Rectangle {
             anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.selected.base
+            color: (showTabsBar || !incognito) ? theme.palette.normal.background : theme.palette.normal.base
         }
 
         Loader {
@@ -82,7 +82,7 @@ ChromeBase {
                 top: parent.top
             }
             asynchronous: true
-            height: active ? units.gu(3) : 0
+            height: active ? units.gu(4) : 0
 
             Component.onCompleted: {
                 setSource(
@@ -111,7 +111,7 @@ ChromeBase {
 
             loading: chrome.loading
             fgColor: theme.palette.normal.backgroundText
-            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.background : fgColor
+            iconColor: (incognito && !showTabsBar) ? theme.palette.normal.baseText : fgColor
 
             focus: true
 

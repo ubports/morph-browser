@@ -40,6 +40,11 @@ Common.BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
+    TabChrome {
+        id: invisibleTabChrome
+        visible: false
+    }
+
     property bool incognito: false
 
     property var tabsModel: TabsModel {
@@ -88,7 +93,7 @@ Common.BrowserView {
         state.url = tab.url.toString()
         state.title = tab.title
         state.icon = tab.icon.toString()
-        state.preview = tab.preview.toString()
+        state.preview =  Qt.resolvedUrl(PreviewManager.previewPathFromUrl(tab.url))
         state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
         return state
     }
@@ -360,6 +365,7 @@ Common.BrowserView {
                 right: parent.right
                 top: parent.top
             }
+
             height: parent.height - osk.height - bottomEdgeBar.height
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
@@ -551,9 +557,13 @@ Common.BrowserView {
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
         onVisibleChanged: {
-            if (visible)
-            {
-                currentWebview.hideContextMenu()
+            if (visible) {
+
+                currentWebview.hideContextMenu();
+                chrome.state = "hidden";
+            }
+            else {
+                chrome.state = "shown";
             }
         }
 
@@ -606,7 +616,7 @@ Common.BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? theme.palette.selected.base : theme.palette.normal.foreground
+            color: browser.incognito ? theme.palette.normal.base : theme.palette.normal.foreground
 
             Button {
                 objectName: "doneButton"
@@ -615,8 +625,6 @@ Common.BrowserView {
                     leftMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-
-                strokeColor: browser.incognito? theme.palette.normal.foreground : theme.palette.selected.base
 
                 text: i18n.tr("Done")
 
@@ -635,7 +643,7 @@ Common.BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? theme.palette.normal.foreground : theme.palette.selected.base
+                color: theme.palette.normal.foregroundText
 
                 onClicked: {
                     recentView.reset()
@@ -683,8 +691,8 @@ Common.BrowserView {
         property bool hidden: false
 
         Behavior on y {
-            enabled: recentView.visible
             NumberAnimation {
+                from: -chrome.height + invisibleTabChrome.height
                 duration: UbuntuAnimation.FastDuration
             }
         }
@@ -841,7 +849,7 @@ Common.BrowserView {
         Connections {
             target: browser.currentWebview
             onLoadingChanged: {
-                if (browser.currentWebview.loading) {
+                if (browser.currentWebview.loading && !recentView.visible) {
                     chrome.state = "shown"
                 } else if (browser.currentWebview.isFullScreen) {
                     chrome.state = "hidden"

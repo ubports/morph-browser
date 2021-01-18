@@ -28,6 +28,8 @@ WebEngineProfile {
     property alias incognito: oxideContext.offTheRecord
     readonly property string defaultUserAgent: __ua.defaultUA
 
+    offTheRecord: false
+
     dataPath: dataLocation
 
     cachePath: cacheLocation
