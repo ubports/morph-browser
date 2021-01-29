@@ -29,7 +29,6 @@ Window {
     property var currentWebview: null
     property bool hasTouchScreen: false
 
-    contentOrientation: Screen.orientation
 
     minimumWidth: units.gu(40)
     minimumHeight: units.gu(20)
