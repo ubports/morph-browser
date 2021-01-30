@@ -19,7 +19,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Qt.labs.settings 1.0
-import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.10
 import Morph.Web 0.1
 import webcontainer.private 0.1
@@ -157,20 +156,6 @@ BrowserWindow {
         return ""
     }
 
-    UnityWebApps.UnityWebappsAppModel {
-        id: webappModel
-        searchPath: root.webappModelSearchPath
-
-        onModelContentChanged: {
-            var name = getWebappName()
-            if (name && root.url.length === 0) {
-                var idx = webappModel.getWebappIndex(name)
-                root.url = webappModel.data(
-                            idx, UnityWebApps.UnityWebappsAppModel.Homepage)
-            }
-        }
-    }
-
     // Because of https://launchpad.net/bugs/1398046, it's important that this
     // is the first child
     Loader {
@@ -209,8 +194,7 @@ BrowserWindow {
             var scripts = [];
 
             // app specific user scripts
-            var idx = webappModel.getWebappIndex(getWebappName());
-            var customScripts = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Scripts);
+            var customScripts = []
 
             if ((typeof customScripts === "undefined") || (customScripts.length === 0))
             {
@@ -316,7 +300,6 @@ BrowserWindow {
 
     function startBrowsing() {
         console.log("Start browsing")
-        // This will activate the UnityWebApp element used in WebApp.qml
         webappViewLoader.item.webappName = root.webappName
 
         // As we use StateSaver to restore the URL, we need to check first if

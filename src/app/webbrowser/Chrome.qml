@@ -86,7 +86,7 @@ ChromeBase {
                 top: parent.top
             }
             asynchronous: true
-            height: active ? units.gu(3) : 0
+            height: active ? units.gu(4) : 0
 
             Component.onCompleted: {
                 setSource(

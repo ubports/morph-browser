@@ -260,7 +260,7 @@ ListItem {
                 visible: enabled
                 text: i18n.tr("Remove from History")
                 onTriggered: {
-                   cancelled()
+                   removed()
                 }
             },
             Action {
