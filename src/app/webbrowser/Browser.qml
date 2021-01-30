@@ -628,24 +628,54 @@ Common.BrowserView {
 
                 onClicked: recentView.closeAndSwitchToTab(0)
             }
+            
+            Row {
+                id: rightActionsRow
 
-            ToolbarAction {
-                objectName: "newTabButton"
+                spacing: units.gu(2)
+                height: parent.height - units.gu(2)
+
                 anchors {
                     right: parent.right
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-                height: parent.height - units.gu(2)
 
-                text: i18n.tr("New Tab")
+                ToolbarAction {
+                    objectName: "reopenTabButton"
+                    visible: !incognito && internal.closedTabHistory.length > 0
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
 
-                iconName: browser.incognito ? "private-tab-new" : "add"
-                color: theme.palette.normal.foregroundText
+                    text: i18n.tr("Reopen Tab")
 
-                onClicked: {
-                    recentView.reset()
-                    internal.openUrlInNewTab("", true)
+                    iconName: "undo"
+                    color: theme.palette.normal.foregroundText
+
+                    onClicked: {
+                        recentView.reset()
+                        internal.undoCloseTab()
+                    }
+                }
+
+                ToolbarAction {
+                    objectName: "newTabButton"
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+
+                    text: i18n.tr("New Tab")
+
+                    iconName: browser.incognito ? "private-tab-new" : "add"
+                    color: theme.palette.normal.foregroundText
+
+                    onClicked: {
+                        recentView.reset()
+                        internal.openUrlInNewTab("", true)
+                    }
                 }
             }
         }
@@ -848,16 +878,16 @@ Common.BrowserView {
             target: browser.currentWebview
             onLoadingChanged: {
                 if (browser.currentWebview.loading && !recentView.visible) {
-                    chrome.state = "shown"
+                    chrome.state = "shown";
                 } else if (browser.currentWebview.isFullScreen) {
                     chrome.state = "hidden"
                 }
             }
             onIsFullScreenChanged: {
                 if (browser.currentWebview.isFullScreen) {
-                    chrome.state = "hidden"
+                    chrome.state = "hidden";
                 } else {
-                    chrome.state = "shown"
+                    chrome.state = "shown";
                 }
             }
         }
@@ -1341,10 +1371,14 @@ Common.BrowserView {
 
             if (tab) {
                 if (!incognito && tab.url.toString().length > 0) {
-                    closedTabHistory.push({
+                    
+                    // For triggering property change on closedTabHistory
+                    var temp = closedTabHistory.slice()
+                    temp.push({
                         state: serializeTabState(tab),
                         index: index
                     })
+                    closedTabHistory = temp.slice()
                 }
 
                 // When moving a tab between windows don't close the tab as it has been moved
@@ -1377,7 +1411,10 @@ Common.BrowserView {
 
         function undoCloseTab() {
             if (!incognito && closedTabHistory.length > 0) {
-                var tabInfo = closedTabHistory.pop()
+                // For triggering property change on closedTabHistory
+                var temp = closedTabHistory.slice()
+                var tabInfo = temp.pop()
+                closedTabHistory = temp.slice()
                 var tab = restoreTabState(tabInfo.state)
                 addTab(tab, true, tabInfo.index)
                 tab.load()

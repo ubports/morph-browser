@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QtSql/QSqlQuery>
 #include <QUrl>
+#include <cmath>
 
 #define CONNECTION_NAME "morph-browser-domainsettings"
 
