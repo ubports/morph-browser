@@ -85,7 +85,12 @@ FocusScope {
 
         anchors.fill: parent
 
-        onTextChanged: searchTextTimer.restart()
+        onTextChanged: {
+           if (editing) {
+             addressbar.text = "";
+             searchTextTimer.restart();
+           }
+        }
 
         primaryItem: Item {
             id: icons
