@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.5
+import QtQuick 2.7
 import QtWebEngine 1.10
 import Qt.labs.settings 1.0
 import webbrowsercommon.private 0.1
@@ -418,9 +418,9 @@ Common.BrowserView {
 
             onIsFullScreenChanged: {
                 if (webapp.currentWebview.isFullScreen) {
-                    chromeLoader.item.state = "hidden"
+                    chromeLoader.item.state = "hidden";
                 } else {
-                    chromeLoader.item.state === "shown"
+                    chromeLoader.item.state === "shown";
                 }
             }
        }

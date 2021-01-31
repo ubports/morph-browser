@@ -302,7 +302,7 @@ Item {
 
                 sourceComponent: TabPreview {
                     title: listDelegate.title
-                    icon: listDelegate.icon
+                    tabIcon: listDelegate.icon
                     incognito: tabslist.incognito
                     tab: model.tab
                     chromeHeight: tabslist.tabChromeHeight

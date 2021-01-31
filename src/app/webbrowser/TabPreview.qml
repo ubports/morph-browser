@@ -24,7 +24,7 @@ QQC2.SwipeDelegate {
     id: tabPreview
 
     property alias title: chrome.title
-    property alias icon: chrome.icon
+    property alias tabIcon: chrome.icon
     property alias incognito: chrome.incognito
     property real chromeHeight
     property var tab
