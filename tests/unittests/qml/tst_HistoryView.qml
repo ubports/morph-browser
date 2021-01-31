@@ -132,9 +132,9 @@ FocusScope {
             clickItem(closeButton)
             tryCompare(first, "selectMode", false)
         }
-        // FIXME: does not work reliably on server builds
-        /*
+
         function test_delete_multiple_domains() {
+            skip("does not work reliably on server builds")
             var listview = findChild(historyView, "domainsListView")
             var domains = getListItems(listview, "historyViewDomainDelegate")
             var first = domains[0], third = domains[2]
@@ -155,7 +155,6 @@ FocusScope {
             tryCompare(first, "selectMode", false)
             tryCompare(HistoryModel, "count", 1)
         }
-        */
 
         function test_select_all() {
             var listview = findChild(historyView, "domainsListView")
@@ -173,7 +172,6 @@ FocusScope {
 
             var selectAllButton = findChild(historyView, "selectAll_button")
             clickItem(selectAllButton)
-            wait(300)
             tryCompare(first, "selected", true)
             tryCompare(second, "selected", true)
             tryCompare(third, "selected", true)
