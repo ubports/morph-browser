@@ -145,6 +145,7 @@ Item {
             var list = findChild(view, "topSitesList")
             list.currentIndex = 0
             keyClick(Qt.Key_Right)
+            wait(100)
             compare(list.currentIndex, 1)
             keyClick(Qt.Key_Right)
             compare(list.currentIndex, 2)
