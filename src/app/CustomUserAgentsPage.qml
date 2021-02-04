@@ -28,21 +28,11 @@ BrowserPage {
 
     property bool selectMode
     signal done()
-    signal reload(string selectedUserAgent)
+    signal reload()
 
     title: i18n.tr("Custom User Agents")
 
     showBackAction: !selectMode
-
-    function setUserAgentAsCurrentItem(userAgentName) {
-        for (var index = 0; index < customUserAgentsListView.count; index++) {
-            var userAgent = customUserAgentsListView.model.get(index);
-            if (userAgent.name === userAgentName) {
-                customUserAgentsListView.currentIndex = index;
-                return;
-            }
-        }
-    }
 
     leadingActions: [
         Action {
@@ -100,20 +90,11 @@ BrowserPage {
             iconName: "add"
             visible: !selectMode
             onTriggered: {
-                var promptDialog = PopupUtils.open(Qt.resolvedUrl("PromptDialog.qml"), customUserAgentsPage);
-                promptDialog.title = i18n.tr("New User Agent")
-                promptDialog.message = i18n.tr("Add the name for the new user agent")
-                promptDialog.accept.connect(function(text) {
-                    if (text !== "") {
-                        if (UserAgentsModel.contains(text)) {
-                            customUserAgentsPage.setUserAgentAsCurrentItem(text);
-                        }
-                        else {
-                            customUserAgentsListView.currentIndex = -1;
-                            UserAgentsModel.insertEntry(text, "");
-                            reload(text);
-                        }
-                    }
+                var addDialog = PopupUtils.open(Qt.resolvedUrl("EditCustomUserAgentDialog.qml"), customUserAgentsPage);
+                addDialog.title = i18n.tr("New User Agent");
+                addDialog.accept.connect(function(userAgentName, userAgentString) {
+                            UserAgentsModel.insertEntry(userAgentName, userAgentString);
+                            reload();
                 });
             }
         }
@@ -140,80 +121,14 @@ BrowserPage {
 
         delegate: ListItem {
             id: item
-            readonly property bool isCurrentItem: item.ListView.isCurrentItem
-            //height: isCurrentItem ? layout.height : units.gu(5)
-            height: layout.height
-            color: isCurrentItem ? theme.palette.selected.base : theme.palette.normal.background
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: customUserAgentsListView.currentIndex = index
+            Label {
+                id: userAgentLabel
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                height: units.gu(1)
+                text: model.name
             }
-
-            SlotsLayout {
-                id: layout
-                width: parent.width
-
-                mainSlot:
-
-                    Column {
-
-                    spacing: units.gu(2)
-
-                    Row {
-                        spacing: units.gu(1.5)
-                        height: item.ListView.isCurrentItem ? units.gu(2) : units.gu(1)
-                        width: parent.width
-
-                        Icon {
-                            anchors.verticalCenter: userAgentName.verticalCenter
-                            visible: item.ListView.isCurrentItem
-                            name: "avatar-default-symbolic"
-                            height: units.gu(2)
-                            width: height
-                        }
-
-                        Label {
-                            id: userAgentLabel
-                            anchors.verticalCenter: parent.verticalCenter
-                            visible: ! item.ListView.isCurrentItem
-                            width: parent.width
-                            height: units.gu(1)
-                            text: model.name
-                        }
-
-                        TextField {
-                            id: userAgentName
-                            visible: item.ListView.isCurrentItem
-                            text: model.name
-                            onFocusChanged: {
-                                if (!focus) {
-                                    if (text === "") {
-                                    text = model.name;
-                                    }
-                                    else {
-                                    UserAgentsModel.setUserAgentName(model.id, text);
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-
-                    TextArea {
-                        visible: item.ListView.isCurrentItem
-                        width: parent.width
-                        text: model.userAgentString
-                        placeholderText: i18n.tr("enter user agent string...")
-                        onFocusChanged: {
-                            if (! focus) {
-                                UserAgentsModel.setUserAgentString(model.id, text);
-                            }
-                        }
-                    }
-                }
-            }
-
 
             leadingActions: deleteActionList
 
@@ -227,6 +142,30 @@ BrowserPage {
                         onTriggered: {
                             DomainSettingsModel.removeUserAgentIdFromAllDomains(model.id)
                             UserAgentsModel.removeEntry(model.id)
+                        }
+                    }
+                ]
+            }
+
+            trailingActions: trailingActionList
+
+            ListItemActions {
+                id: trailingActionList
+                actions: [
+                    Action {
+                        objectName: "trailingActionList.edit"
+                        iconName: "edit"
+                        enabled: true
+                        onTriggered: {
+                            var editDialog = PopupUtils.open(Qt.resolvedUrl("EditCustomUserAgentDialog.qml"), customUserAgentsPage);
+                            editDialog.title = i18n.tr("Edit User Agent");
+                            editDialog.previousUserAgentName = model.name;
+                            editDialog.userAgentName = model.name;
+                            editDialog.userAgentString = model.userAgentString;
+                            editDialog.accept.connect(function(userAgentName, userAgentString) {
+                                UserAgentsModel.setUserAgentString(model.id, userAgentString);
+                                UserAgentsModel.setUserAgentName(model.id, userAgentName);
+                            });
                         }
                     }
                 ]
