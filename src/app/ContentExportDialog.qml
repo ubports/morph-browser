@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Canonical Ltd.
+ * Copyright 2021 UBports Foundation
  *
  * This file is part of morph-browser.
  *
@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 
 import QtQuick 2.9
 import Ubuntu.Components 1.3

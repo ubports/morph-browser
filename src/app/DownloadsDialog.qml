@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Canonical Ltd.
+ * Copyright 2021 UBports Foundation
  *
  * This file is part of morph-browser.
  *
@@ -117,20 +117,19 @@ Popover {
                 icon: MimeDatabase.iconForMimetype(modelData.mimeType)
                 
                 onClicked: {
-                    /* TODO: Enable once content picker in a popover is merged  */
-                    /*if (!incomplete && !error) {
+                    if (!incomplete && !error) {
                         var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType), "mimeType": download.mimeType, "downloadUrl": download.url}
                         var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
                         exportDialog.preview.connect(downloadsDialog.preview)
-                    } else {*/
-                    if (download) {
-                        if (paused) {
-                            download.resume()
-                        } else {
-                            download.pause()
+                    } else {
+                        if (download) {
+                            if (paused) {
+                                download.resume()
+                            } else {
+                                download.pause()
+                            }
                         }
                     }
-                    //}
                 }
                 
                 onRemove: downloadsListView.removeItem(index)
