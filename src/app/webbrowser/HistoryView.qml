@@ -51,12 +51,7 @@ Common.BrowserPage {
         focus: true
         currentIndex: 0
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: toolbar.top
-        }
+        anchors.fill: parent
 
         model: HistoryDomainListModel {
             id: historyDomainListModel
