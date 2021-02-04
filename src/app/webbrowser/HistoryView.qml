@@ -32,7 +32,7 @@ Common.BrowserPage {
 
     showBackAction: !domainsListView.ViewItems.selectMode
     leadingActions: [closeAction]
-    trailingActions: domainsListView.ViewItems.selectMode ? [selectAllAction, deleteAction] : []
+    trailingActions: domainsListView.ViewItems.selectMode ? [selectAllAction, deleteAction] : [editAction]
 
     Timer {
         // Set the model asynchronously to ensure
