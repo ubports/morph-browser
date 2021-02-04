@@ -24,7 +24,7 @@ QQC2.SwipeDelegate {
     id: tabPreview
 
     property alias title: chrome.title
-    property alias icon: chrome.icon
+    property alias tabIcon: chrome.icon
     property alias incognito: chrome.incognito
     property var tab
     readonly property url url: tab ? tab.url : ""
@@ -32,7 +32,10 @@ QQC2.SwipeDelegate {
     background: Rectangle {
         color: "transparent"
     }
-    padding: 0
+    leftPadding: 0
+    rightPadding: 0
+    topPadding: 0
+    bottomPadding: 0
     swipe.enabled: true
     swipe.behind: Rectangle {
         width: tabPreview.width

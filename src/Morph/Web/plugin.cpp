@@ -232,6 +232,7 @@ void MorphBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 void MorphBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Morph.Web"));
+    qmlRegisterModule(uri, 0, 1);
 }
 
 #include "plugin.moc"

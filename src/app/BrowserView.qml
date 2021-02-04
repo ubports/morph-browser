@@ -52,6 +52,8 @@ FocusScope {
     OrientationHelper {
         id: contentsItem
 
+        automaticOrientation: false
+
         KeyboardRectangle {
             id: _osk
         }
