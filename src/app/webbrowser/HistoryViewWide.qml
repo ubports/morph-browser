@@ -179,7 +179,7 @@ Common.BrowserPage {
         anchors {
             top: parent.top
             left: parent.left
-            bottom: bottomToolbar.top
+            bottom: parent.bottom
             leftMargin: units.gu(2)
             rightMargin: units.gu(2)
         }
