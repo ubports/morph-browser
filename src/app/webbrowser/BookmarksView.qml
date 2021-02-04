@@ -35,12 +35,7 @@ Common.BrowserPage {
     BookmarksFoldersView {
         id: bookmarksFoldersView
 
-        anchors {
-            top: parent.top
-            bottom: toolbar.top
-            left: parent.left
-            right: parent.right
-        }
+        anchors.fill: parent
 
         interactive: true
         focus: true
