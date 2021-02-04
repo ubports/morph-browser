@@ -91,7 +91,7 @@ Item {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 clip: true
-                fontSize: "small"
+                textSize: Label.Medium
                 color: tabItem.fgColor
             }
 
@@ -124,15 +124,13 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             acceptedButtons: Qt.AllButtons
-            onPressed: {
+
+            onClicked: {
                 if (mouse.button === Qt.LeftButton) {
                     tabItem.selected()
                 } else if (mouse.button === Qt.RightButton) {
                     tabItem.contextMenu()
-                }
-            }
-            onClicked: {
-                if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
+                } else if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
                     tabItem.closed()
                 }
             }

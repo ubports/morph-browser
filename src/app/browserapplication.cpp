@@ -185,6 +185,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
         qputenv("UBUNTU_WEBVIEW_DEVTOOLS_HOST", devtoolsHost.toUtf8());
         qputenv("UBUNTU_WEBVIEW_DEVTOOLS_PORT", devtoolsPort.toUtf8());
     }
+    
+    // set suru style
+    if (qgetenv("QT_QUICK_CONTROLS_STYLE") == QString())
+    {
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Suru");
+    }
 
     const char* uri = "webbrowsercommon.private";
     qmlRegisterSingletonType<BrowserUtils>(uri, 0, 1, "BrowserUtils", BrowserUtils_singleton_factory);
@@ -228,12 +234,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
         }
     }
     QQmlProperty::write(m_object, QStringLiteral("hasTouchScreen"), hasTouchScreen);
-
-    // set suru style
-    if (qgetenv("QT_QUICK_CONTROLS_STYLE") == QString())
-    {
-        qputenv("QT_QUICK_CONTROLS_STYLE", "Suru");
-    }
 
     inputMethodHandler * handler = new inputMethodHandler();
     this->installEventFilter(handler);

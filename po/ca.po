@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-07-01 05:29+0000\n"
-"Last-Translator: Marc Riera <marcriera@softcatala.org>\n"
-"Language-Team: Catalan <https://translate.ubports.com/projects/ubports/morph-"
-"browser/ca/>\n"
+"PO-Revision-Date: 2020-10-26 23:24+0000\n"
+"Last-Translator: Joan CiberSheep <cibersheep@gmail.com>\n"
+"Language-Team: Catalan <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr "Alerta del JavaScript"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "D'acord"
+msgstr "d'acord"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
@@ -215,11 +215,11 @@ msgstr "Sense configurar"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr "No permetre mai l'accés"
+msgstr "No permetis mai l'accés"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr "Permetre sempre l'accés"
+msgstr "Permet sempre l'accés"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
@@ -235,11 +235,11 @@ msgstr "Inseriu un nom de domini, p. ex: m.exemple.cat"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr "pot llençar altres apps"
+msgstr "pot iniciar altres aplicacions"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
-msgstr "pot accedir a la vostra situació"
+msgstr "pot conèixer la vostra ubicació"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
@@ -247,7 +247,7 @@ msgstr "agent d'usuari personalitzat"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr "Zoom: "
+msgstr "Ampliació: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
@@ -255,7 +255,7 @@ msgstr "sense configurar"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr "Sense paràmetres específic de domini disponibles"
+msgstr "Cap paràmetre específic de domini disponible"
 
 #: src/app/DownloadDelegate.qml:131
 msgid "Download failed"
@@ -290,7 +290,7 @@ msgstr "No hi ha cap baixada disponible"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Error amb el certificat"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -300,7 +300,7 @@ msgstr "Error de xarxa"
 #: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Sembla ser que teniu problemes per mostrar: %1."
+msgstr "Sembla ser que teniu problemes per a veure: %1."
 
 #: src/app/ErrorSheet.qml:56
 #, qt-format
@@ -474,19 +474,19 @@ msgstr "El lloc web %1:%2 requereix autentificació."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr "Desa la pàgina com html o pdf"
+msgstr "Desa la pàgina com a HTML o PDF"
 
 #: src/app/SavePageDialog.qml:35
 msgid "Save as HTML"
-msgstr "Desa com html"
+msgstr "Desa com a HTML"
 
 #: src/app/SavePageDialog.qml:44
 msgid "Save as PDF"
-msgstr "Desa com pdf"
+msgstr "Desa com a PDF"
 
 #: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
 msgid "Zoom"
-msgstr "Zoom"
+msgstr "Ampliació"
 
 #: src/app/ZoomControls.qml:36
 msgid "Zoom Out"
@@ -498,7 +498,7 @@ msgstr "Reinicialitza"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "ajusta"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
@@ -511,33 +511,27 @@ msgstr "Desa"
 
 #: src/app/ZoomControls.qml:97
 msgid "Current Zoom"
-msgstr "Zoom actual"
+msgstr "Ampliació actual"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Afegeix domini"
+msgstr "domini"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Predeterminat"
+msgstr "per defecte"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "ajustament automàtic"
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Desa la imatge"
+msgstr "Desa l'ampliació"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "cap"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -545,42 +539,41 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"ampliació del domini (actualment %1 i es pot suprimir amb el botó "
+"Reinicialitza o via els paràmetres específics del domini a la configuració "
+"de privadesa)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " i reinicialitza l'ampliació del domini"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
+"ampliació per defecte (actualment %1%; pot canviar-se al menú de "
+"configuració%2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
-msgstr "l'app web actual"
+msgstr "l'apli web actual"
 
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "L'ampliació actual (%1%) pot desar-se per a %2 com "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Més"
+msgstr "o bé"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Desa-la a"
+msgstr "Desa per al domini"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Desa com pdf"
+msgstr "Desa com a per defecte"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -976,7 +969,7 @@ msgstr "Us heu connectat a %1 via https. El certificat és vàlid."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr "Predeterminat"
+msgstr "Per defecte"
 
 #: src/app/webbrowser/SettingsPage.qml:74
 #: src/app/webbrowser/SettingsPage.qml:257
@@ -985,10 +978,8 @@ msgstr "Motor de cerca"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Pestanya nova"
+msgstr "Pàgina de pestanya nova"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -996,7 +987,7 @@ msgstr "Recupera la sessió anterior a l'inici"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "no disponible perquè s'inicia amb el mode privat"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1005,17 +996,17 @@ msgstr "Mode d'escriptori"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Ajusta a l'amplada automàticament"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Ajusta l'amplada del lloc web a la finestra"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
 msgid "Default Zoom"
-msgstr "Zoom predeterminat"
+msgstr "Ampliació per defecte"
 
 #: src/app/webbrowser/SettingsPage.qml:218
 #: src/app/webbrowser/SettingsPage.qml:300
@@ -1029,10 +1020,8 @@ msgid "Reset browser settings"
 msgstr "Restableix la configuració del navegador"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Surt del mode privat"
+msgstr "Inicia en mode privat"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1045,44 +1034,32 @@ msgid "Camera & microphone"
 msgstr "Càmera i micròfon"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Neteja l'historial de navegació"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
-msgstr "Voleu suprimir l'historial de navegació?"
+msgstr "Voleu netejar l'historial de navegació?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Neteja la memòria cau"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Voleu netejar la memòria cau?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Neteja la memòria cau"
+msgstr "Neteja totes les galetes"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Voleu netejar la memòria cau?"
+msgstr "Voleu netejar totes les galetes?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1090,10 +1067,8 @@ msgid "Clear"
 msgstr "Neteja-ho"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Esquemes personalitzats per URL"
+msgstr "Pàgina d'inici personalitzada"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
@@ -1125,7 +1100,7 @@ msgstr "Tanca la pestanya"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr "Suprimeix"
+msgstr "Elimina"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105

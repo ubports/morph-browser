@@ -30,8 +30,8 @@ StyledItem {
 
     property alias backgroundColor: backgroundRect.color
 
-    property alias loading: progressBar.visible
-    property alias loadProgress: progressBar.value
+    property bool loading: false
+    property real loadProgress: 0.0
 
     states: [
         State {
@@ -70,6 +70,9 @@ StyledItem {
 
     ThinProgressBar {
         id: progressBar
+
+        visible: chrome.loading
+        value: chrome.loadProgress
 
         anchors {
             left: parent.left

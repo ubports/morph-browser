@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-07-07 16:32+0000\n"
+"PO-Revision-Date: 2020-10-26 21:27+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch <https://translate.ubports.com/projects/ubports/morph-"
-"browser/nl/>\n"
+"Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
+"morph-browser/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +74,7 @@ msgstr "Toestaan"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
-msgstr "Afbreken"
+msgstr "Annuleren"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
@@ -138,7 +138,7 @@ msgstr "Blijven"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Deze verbinding is niet vertrouwd"
+msgstr "Deze verbinding wordt niet vertrouwd"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -290,7 +290,7 @@ msgstr "Er zijn geen downloads beschikbaar"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Certificaatfout"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -498,7 +498,7 @@ msgstr "Standaardwaarden"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "passend"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
@@ -514,30 +514,24 @@ msgid "Current Zoom"
 msgstr "Huidig zoomniveau"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Domein toevoegen"
+msgstr "domein"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Standaard"
+msgstr "standaard"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "automatisch inpassen"
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Afbeelding opslaan"
+msgstr "Zoomniveau onthouden"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "geen"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -545,15 +539,19 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"zoomniveau op domein (momenteel %1 en kan worden verwijderd middels de "
+"standaardwaardenknop of in de privacy-instellingen)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " en herstelt het zoomniveau op het domein"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
+"standaard zoomniveau (momenteel %1% - dit kan worden aangepast in de "
+"instellingen%2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
@@ -562,25 +560,19 @@ msgstr "de huidige webapp"
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Het huidige zoomniveau (%1%) van %2 kan worden opgeslagen als "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Meer"
+msgstr "of"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Opslaan in"
+msgstr "Onthouden voor domein"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Opslaan als PDF"
+msgstr "Onthouden"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -984,10 +976,8 @@ msgstr "Zoekmachine"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Nieuw tabblad"
+msgstr "Nieuwe tabblad-pagina"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -995,7 +985,7 @@ msgstr "Vorige sessie herstellen bij opstarten"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "niet beschikbaar omdat je je in de privémodus bevindt"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1004,12 +994,12 @@ msgstr "Volledige website tonen"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Automatisch aanpassen aan breedte"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Past de breedte van de website aan om binnen het venster te passen"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1028,10 +1018,8 @@ msgid "Reset browser settings"
 msgstr "Standaardwaarden herstellen"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Privémodus verlaten"
+msgstr "Opstarten in privémodus"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1044,44 +1032,32 @@ msgid "Camera & microphone"
 msgstr "Camera en microfoon"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Navigatiegeschiedenis wissen"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Wil je de navigatiegeschiedenis wissen?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Buffergeheugen wissen"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Wil je het buffergeheugen wissen?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Buffergeheugen wissen"
+msgstr "Alle cookies wissen"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Wil je het buffergeheugen wissen?"
+msgstr "Wil je alle cookies wissen?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1089,10 +1065,8 @@ msgid "Clear"
 msgstr "Wissen"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Aangepaste url-schema's"
+msgstr "Aangepaste startpagina"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"

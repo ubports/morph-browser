@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-06-18 18:25+0000\n"
-"Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
-"Language-Team: Czech <https://translate.ubports.com/projects/ubports/morph-"
-"browser/cs/>\n"
+"PO-Revision-Date: 2020-11-01 22:39+0000\n"
+"Last-Translator: c4pp4 <c4pp4@seznam.cz>\n"
+"Language-Team: Czech <https://translate.ubports.com/projects/ubports/"
+"morph-browser/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr "Varování ohledně JavaScript"
+msgstr "Varování JavaScript"
 
 #: src/app/AlertDialog.qml:31 src/app/AuthenticationDialog.qml:47
 #: src/app/ColorSelectDialog.qml:73 src/app/ConfirmDialog.qml:33
@@ -76,7 +76,7 @@ msgstr "Umožnit"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
-msgstr "Storno"
+msgstr "Zrušit"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
@@ -216,11 +216,11 @@ msgstr "Bez nastavení"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr "Nikdy nepovolit přístup"
+msgstr "Vždy zakázat přístup"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr "Vždy povolit přstup"
+msgstr "Vždy povolit přístup"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
@@ -248,7 +248,7 @@ msgstr "vlastní uživatelský agent"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr "Přiblížit: "
+msgstr "Velikost stránky: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
@@ -287,11 +287,11 @@ msgstr "Potvrdit výběr"
 
 #: src/app/DownloadsPage.qml:277
 msgid "No downloads available"
-msgstr "Stahování je nedostupné"
+msgstr "Žádná stahování"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Chyba certifikátu"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -486,23 +486,23 @@ msgstr "Uložit jako PDF"
 
 #: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
 msgid "Zoom"
-msgstr "Přiblížení"
+msgstr "Velikost stránky"
 
 #: src/app/ZoomControls.qml:36
 msgid "Zoom Out"
-msgstr "Oddálit"
+msgstr "Zmenšit"
 
 #: src/app/ZoomControls.qml:43
 msgid "Reset"
-msgstr "Resetovat"
+msgstr "Obnovit"
 
 #: src/app/ZoomControls.qml:43
 msgid "fit"
-msgstr ""
+msgstr "přizpůsobit"
 
 #: src/app/ZoomControls.qml:50
 msgid "Zoom In"
-msgstr "Přiblížit"
+msgstr "Zvětšit"
 
 #: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
@@ -511,33 +511,27 @@ msgstr "Uložit"
 
 #: src/app/ZoomControls.qml:97
 msgid "Current Zoom"
-msgstr "Stávající přiblížení"
+msgstr "Stávající velikost"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Přidat doménu"
+msgstr "doména"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Výchozí"
+msgstr "výchozí"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
-msgstr ""
+msgstr "autom. přizp."
 
 #: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Uložit obrázek"
+msgstr "Uložit velikost"
 
 #: src/app/ZoomControls.qml:184
 msgid "none"
-msgstr ""
+msgstr "žádné"
 
 #: src/app/ZoomControls.qml:184
 #, qt-format
@@ -545,15 +539,17 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"pro doménu (aktuálně %1, může být zrušena tlačítkem Obnovit nebo ve "
+"Specifických nastaveních domény v nabídce Soukromí a oprávnění)"
 
 #: src/app/ZoomControls.qml:185
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " a zruší uložení pro doménu"
 
 #: src/app/ZoomControls.qml:185
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
-msgstr ""
+msgstr "jako výchozí (aktuálně %1%, může být změněna v nabídce Nastavení%2)"
 
 #: src/app/ZoomControls.qml:186
 msgid "the current web app"
@@ -562,25 +558,19 @@ msgstr "stávající webová aplikace"
 #: src/app/ZoomControls.qml:186
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Stávající velikost stránky (%1%) může být pro %2 uložena "
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Více"
+msgstr "nebo"
 
 #: src/app/ZoomControls.qml:194
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Uložit v"
+msgstr "Uložit pro doménu"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Uložit jako PDF"
+msgstr "Uložit jako výchozí"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -842,7 +832,7 @@ msgstr "Nové okno"
 
 #: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
-msgstr "Nové soukromé okno"
+msgstr "Nové anonymní okno"
 
 #: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
@@ -919,7 +909,7 @@ msgstr "Dnes"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "Toto je anonymní záložka"
+msgstr "Toto je anonymní panel"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -983,8 +973,6 @@ msgstr "Vyhledávač"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
 msgstr "Nový panel"
 
@@ -994,7 +982,7 @@ msgstr "Při spuštění obnovit předchozí otevřené stránky"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "není k dispozici při spouštění v anonymním režimu"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1003,17 +991,17 @@ msgstr "Spustit Desktop režim"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Automaticky přizpůsobit šířce"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Nastaví šířku stránky podle velikosti okna"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
 msgid "Default Zoom"
-msgstr "Výchozí přiblížení"
+msgstr "Výchozí velikost stránky"
 
 #: src/app/webbrowser/SettingsPage.qml:218
 #: src/app/webbrowser/SettingsPage.qml:300
@@ -1024,13 +1012,11 @@ msgstr "Soukromí a oprávnění"
 
 #: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
-msgstr "Vrátit nastavení prohlížeče na výchozí hodnoty"
+msgstr "Obnovit nastavení prohlížeče"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Opustit anonymní režim"
+msgstr "Spouštět v anonymním režimu"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1043,44 +1029,32 @@ msgid "Camera & microphone"
 msgstr "Kamera a mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Smazat historii prohlížení"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Smazat historii prohlížení?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
-msgstr "Vyčistit vyrovnávací paměť"
+msgstr "Smazat mezipaměť"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
-msgstr "Vyčistit vyrovnávací paměť?"
+msgstr "Smazat mezipaměť?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Vyčistit vyrovnávací paměť"
+msgstr "Smazat všechny cookies"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Vyčistit vyrovnávací paměť?"
+msgstr "Smazat všechny cookies?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1088,10 +1062,8 @@ msgid "Clear"
 msgstr "Vyčistit"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Uživatelsky určené URL schémata"
+msgstr "Vlastní stránka"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"

@@ -8,17 +8,18 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2015-09-04 16:19+0000\n"
-"Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
-"Language-Team: Romanian <ro@li.org>\n"
+"PO-Revision-Date: 2020-11-04 10:38+0000\n"
+"Last-Translator: Mihai <michael.mozart@protonmail.com>\n"
+"Language-Team: Romanian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
-"== 0) && (n != 0))) ? 2: 1));\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -29,11 +30,11 @@ msgstr "Alertă JavaScript"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "În regulă"
+msgstr "Ok"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "URL personalizat"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
@@ -49,7 +50,7 @@ msgstr ""
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
 msgid "Remember decision"
-msgstr ""
+msgstr "Reține selecția"
 
 #: src/app/AllowCustomSchemesDialog.qml:50
 #: src/app/GeolocationPermissionRequest.qml:49
@@ -76,7 +77,7 @@ msgstr "Anulează"
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
 msgid "Block domain"
-msgstr ""
+msgstr "Blochează domeniul"
 
 #: src/app/AllowOrBlockDomainDialog.qml:30
 #, qt-format
@@ -96,7 +97,7 @@ msgstr ""
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
-msgstr ""
+msgstr "Permite domeniului"
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
@@ -148,9 +149,8 @@ msgid "Proceed anyway"
 msgstr "Accesează oricum"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Selectați tot"
+msgstr "Selectați culoarea"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -169,7 +169,7 @@ msgstr "Selectați tot"
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
 #: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
 msgid "Delete"
-msgstr "Ştergeţi"
+msgstr "Șterge"
 
 #: src/app/CustomUserAgentsPage.qml:104
 msgid "New User Agent"
@@ -189,44 +189,46 @@ msgstr ""
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
-msgstr ""
+msgstr "Listă domenii blocate/permise"
 
 #: src/app/DomainPermissionsPage.qml:114 src/app/DomainSettingsPage.qml:113
 msgid "Add domain"
-msgstr ""
+msgstr "Adaugă domeniu"
 
 #: src/app/DomainPermissionsPage.qml:115
 msgid ""
 "Enter the name of the domain, e.g. example.com (subdomains will be removed)."
 msgstr ""
+"Introdu numele de domeniu ex: exemplu.ro (subdomeniile vor fii îndepărtate)."
 
 #: src/app/DomainPermissionsPage.qml:223
 msgid "Not Set"
-msgstr ""
+msgstr "Nu este setat"
 
 #: src/app/DomainPermissionsPage.qml:233
 msgid "Never allow access"
-msgstr ""
+msgstr "Nu permite accesul"
 
 #: src/app/DomainPermissionsPage.qml:244
 msgid "Always allow access"
-msgstr ""
+msgstr "Permite accesul"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr ""
+msgstr "Niciun site nu are permisiuni speciale"
 
 #: src/app/DomainSettingsPage.qml:52
+#, fuzzy
 msgid "Domain specific settings"
-msgstr ""
+msgstr "Setari pe domenii"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Introduceți numele domeniului, ex: m.exemplu.ro"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "permiteți lansarea altor aplicații"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
@@ -238,19 +240,19 @@ msgstr ""
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Zoom: "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "nu este setat"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Nu exista setari specifice domeniului"
 
 #: src/app/DownloadDelegate.qml:131
 msgid "Download failed"
-msgstr ""
+msgstr "Descărcarea a eșuat"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/DownloadDelegate.qml:174
@@ -497,7 +499,7 @@ msgstr ""
 #: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
-msgstr "Salvați"
+msgstr "Salvează"
 
 #: src/app/ZoomControls.qml:97
 msgid "Current Zoom"
@@ -723,7 +725,7 @@ msgstr ""
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
-msgstr "Partajare"
+msgstr "Partajează"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
@@ -823,7 +825,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:729
 msgid "New window"
-msgstr ""
+msgstr "Fereastră nouă"
 
 #: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
@@ -836,7 +838,7 @@ msgstr "Istoric"
 
 #: src/app/webbrowser/Browser.qml:775 src/app/webbrowser/SettingsPage.qml:45
 msgid "Settings"
-msgstr "Configurări"
+msgstr "Setări"
 
 #: src/app/webbrowser/Browser.qml:781
 msgid "View source"
@@ -1105,7 +1107,7 @@ msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr ""
+msgstr "Elimină"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
@@ -1143,7 +1145,7 @@ msgstr "Eroare de cont"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr "Închideți"
+msgstr "închide"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""

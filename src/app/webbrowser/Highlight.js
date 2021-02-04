@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function highlightTerms(text, terms) {
+function highlightTerms(text, terms, color) {
+    var highlightColor = color ? color : "#752571"
     var termsRe
-    var highlight = '<font color="#752571">$&</font>'
+    var highlight = '<b><font color="' + highlightColor + '">$&</font></b>'
     var searchTerms = []
 
     function escapeTerm(term) {

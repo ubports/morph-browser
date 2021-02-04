@@ -25,6 +25,8 @@ import Qt.labs.settings 1.0
 import Morph.Web 0.1
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Content 1.3
+import QtQuick.Controls 2.2 as QQC2
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -39,6 +41,11 @@ Common.BrowserView {
     property var bookmarksModel: BookmarksModel
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
+
+    TabChrome {
+        id: invisibleTabChrome
+        visible: false
+    }
 
     property bool incognito: false
 
@@ -88,7 +95,7 @@ Common.BrowserView {
         state.url = tab.url.toString()
         state.title = tab.title
         state.icon = tab.icon.toString()
-        state.preview = tab.preview.toString()
+        state.preview =  Qt.resolvedUrl(PreviewManager.previewPathFromUrl(tab.url))
         state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
         return state
     }
@@ -261,11 +268,27 @@ Common.BrowserView {
             // handle user agents
             if (isMainFrame)
             {
-                currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
-                console.log("user agent: " + currentWebview.context.httpUserAgent);
-            }
+                currentWebview.hideContextMenu();
+                var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
 
-            //currentWebview.showMessage(url)
+                // change of the custom user agent
+                if (newUserAgentId !== currentWebview.context.userAgentId)
+                {
+                    currentWebview.context.userAgentId = newUserAgentId;
+                    currentWebview.context.customUserAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId) : "";
+
+		    // for some reason when letting through the request, another navigation request will take us back to the
+                    // to the previous page. Therefore we block it first and navigate to the new url with the correct user agent.
+                    request.action = WebEngineNavigationRequest.IgnoreRequest;
+                    currentWebview.url = url;
+                    return;
+                }
+                else
+                {
+                    currentWebview.context.__ua.setDesktopMode(browser.settings ? browser.settings.setDesktopMode : false);
+                    console.log("user agent: " + currentWebview.context.httpUserAgent);
+                }
+            }
         }
     }
 
@@ -361,8 +384,7 @@ Common.BrowserView {
                 top: parent.top
             }
 
-            // https://github.com/ubports/qtwebengine-opensource-src-packaging/issues/38
-            height: Math.round(parent.height - osk.height - bottomEdgeBar.height)
+            height: parent.height - osk.height - bottomEdgeBar.height
             // disable when newTabView is shown otherwise webview can capture drag events
             // do not use visible otherwise when a new tab is opened the locationBarController.offset
             // doesn't get updated, causing the Chrome to disappear
@@ -553,9 +575,13 @@ Common.BrowserView {
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
         onVisibleChanged: {
-            if (visible)
-            {
-                currentWebview.hideContextMenu()
+            if (visible) {
+
+                currentWebview.hideContextMenu();
+                chrome.state = "hidden";
+            }
+            else {
+                chrome.state = "shown";
             }
         }
 
@@ -608,7 +634,7 @@ Common.BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? theme.palette.selected.base : theme.palette.normal.foreground
+            color: browser.incognito ? theme.palette.normal.base : theme.palette.normal.foreground
 
             Button {
                 objectName: "doneButton"
@@ -618,30 +644,58 @@ Common.BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: browser.incognito? theme.palette.normal.foreground : theme.palette.selected.base
-
                 text: i18n.tr("Done")
 
                 onClicked: recentView.closeAndSwitchToTab(0)
             }
+            
+            Row {
+                id: rightActionsRow
 
-            ToolbarAction {
-                objectName: "newTabButton"
+                spacing: units.gu(2)
+                height: parent.height - units.gu(2)
+
                 anchors {
                     right: parent.right
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-                height: parent.height - units.gu(2)
 
-                text: i18n.tr("New Tab")
+                ToolbarAction {
+                    objectName: "reopenTabButton"
+                    visible: !incognito && internal.closedTabHistory.length > 0
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
 
-                iconName: browser.incognito ? "private-tab-new" : "add"
-                color: browser.incognito ? theme.palette.normal.foreground : theme.palette.selected.base
+                    text: i18n.tr("Reopen Tab")
 
-                onClicked: {
-                    recentView.reset()
-                    internal.openUrlInNewTab("", true)
+                    iconName: "undo"
+                    color: theme.palette.normal.foregroundText
+
+                    onClicked: {
+                        recentView.reset()
+                        internal.undoCloseTab()
+                    }
+                }
+
+                ToolbarAction {
+                    objectName: "newTabButton"
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+
+                    text: i18n.tr("New Tab")
+
+                    iconName: browser.incognito ? "private-tab-new" : "add"
+                    color: theme.palette.normal.foregroundText
+
+                    onClicked: {
+                        recentView.reset()
+                        internal.openUrlInNewTab("", true)
+                    }
                 }
             }
         }
@@ -685,8 +739,8 @@ Common.BrowserView {
         property bool hidden: false
 
         Behavior on y {
-            enabled: recentView.visible
             NumberAnimation {
+                from: -chrome.height + invisibleTabChrome.height
                 duration: UbuntuAnimation.FastDuration
             }
         }
@@ -700,6 +754,9 @@ Common.BrowserView {
             if (isCurrentUrlBookmarked()) BookmarksModel.remove(tab.url)
             // QtWebEngine icons are provided as e.g. image://favicon/https://duckduckgo.com/favicon.ico
             else internal.addBookmark(tab.url, tab.title, (UrlUtils.schemeIs(tab.icon, "image") && UrlUtils.hostIs(tab.icon, "favicon")) ? tab.icon.toString().substring(("image://favicon/").length) : tab.icon)
+        }
+        onToggleDownloads: {
+            internal.showDownloadsDialog()
         }
         onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
         Connections {
@@ -843,17 +900,17 @@ Common.BrowserView {
         Connections {
             target: browser.currentWebview
             onLoadingChanged: {
-                if (browser.currentWebview.loading) {
-                    chrome.state = "shown"
+                if (browser.currentWebview.loading && !recentView.visible) {
+                    chrome.state = "shown";
                 } else if (browser.currentWebview.isFullScreen) {
                     chrome.state = "hidden"
                 }
             }
             onIsFullScreenChanged: {
                 if (browser.currentWebview.isFullScreen) {
-                    chrome.state = "hidden"
+                    chrome.state = "hidden";
                 } else {
-                    chrome.state = "shown"
+                    chrome.state = "shown";
                 }
             }
         }
@@ -1337,10 +1394,14 @@ Common.BrowserView {
 
             if (tab) {
                 if (!incognito && tab.url.toString().length > 0) {
-                    closedTabHistory.push({
+                    
+                    // For triggering property change on closedTabHistory
+                    var temp = closedTabHistory.slice()
+                    temp.push({
                         state: serializeTabState(tab),
                         index: index
                     })
+                    closedTabHistory = temp.slice()
                 }
 
                 // When moving a tab between windows don't close the tab as it has been moved
@@ -1373,7 +1434,10 @@ Common.BrowserView {
 
         function undoCloseTab() {
             if (!incognito && closedTabHistory.length > 0) {
-                var tabInfo = closedTabHistory.pop()
+                // For triggering property change on closedTabHistory
+                var temp = closedTabHistory.slice()
+                var tabInfo = temp.pop()
+                closedTabHistory = temp.slice()
                 var tab = restoreTabState(tabInfo.state)
                 addTab(tab, true, tabInfo.index)
                 tab.load()
@@ -1523,6 +1587,57 @@ Common.BrowserView {
             var properties = {"bookmarkUrl": url, "bookmarkTitle": title}
             internal.currentBookmarkOptionsDialog = PopupUtils.open(Qt.resolvedUrl("BookmarkOptions.qml"),
                                                            location, properties)
+        }
+        
+        property var recentDownloads: []
+        property var currentDownloadsDialog: null
+        function showDownloadsDialog(caller) {
+            if (!internal.currentDownloadsDialog) {
+                chrome.downloadNotify = false
+                if (caller === undefined) caller = chrome.downloadsButtonPlaceHolder
+                var properties = {"downloadsList": recentDownloads}
+
+                internal.currentDownloadsDialog = PopupUtils.open(Qt.resolvedUrl("../DownloadsDialog.qml"),
+                                                               caller, properties)
+           }
+        }
+
+        function addNewDownload(download) {
+            recentDownloads.unshift(download)
+            chrome.showDownloadButton = Qt.binding(
+                                        function(){
+                                            if (browser.wide) {
+                                                return true;
+                                            } else {
+                                                if (internal.currentDownloadsDialog) {
+                                                    if (internal.currentDownloadsDialog.isEmpty) {
+                                                        return false;
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                } else {
+                                                    if (recentDownloads.length > 0) {
+                                                        return true;
+                                                    } else {
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                        })
+            if (internal.currentDownloadsDialog) {
+                internal.currentDownloadsDialog.downloadsList = recentDownloads
+            }
+        }
+    }
+
+    Connections {
+        target: internal.currentDownloadsDialog
+
+        onShowDownloadsPage: showDownloadsPage()
+
+        onPreview: {
+                    PopupUtils.close(internal.currentDownloadsDialog);
+                    currentWebview.url = url;
         }
     }
 
@@ -1792,7 +1907,9 @@ Common.BrowserView {
         console.log("adding download with id " + downloadIdDataBase)
         Common.ActiveDownloadsSingleton.currentDownloads[downloadIdDataBase] = download
         DownloadsModel.add(downloadIdDataBase, (download.url.toString().indexOf("file://%1/pdf_tmp".arg(cacheLocation)) === 0) ? "" : download.url, download.path, download.mimeType, incognito)
-        downloadsViewLoader.active = true
+
+        internal.addNewDownload(download)
+        internal.showDownloadsDialog()
     }
 
     function setDownloadComplete(download) {
@@ -1812,6 +1929,10 @@ Common.BrowserView {
         if ((download.state === WebEngineDownloadItem.DownloadCancelled) || (download.state === WebEngineDownloadItem.DownloadInterrupted))
         {
           DownloadsModel.setError(downloadIdDataBase, download.interruptReasonString)
+        }
+
+        if (!internal.currentDownloadsDialog) {
+            chrome.downloadNotify = true
         }
     }
 
@@ -1835,14 +1956,12 @@ Common.BrowserView {
 
             console.log("a download was requested with path %1".arg(download.path))
             download.accept();
-            browser.showDownloadsPage();
             browser.startDownload(download);
         }
 
         onDownloadFinished: {
 
             console.log(incognito? "download finished" : "a download was finished with path %1.".arg(download.path));
-            browser.showDownloadsPage();
             browser.setDownloadComplete(download);
 
             // delete pdf in cache / close the tab

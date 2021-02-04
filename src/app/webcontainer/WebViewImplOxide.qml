@@ -20,7 +20,6 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import QtWebEngine 1.7
 import Morph.Web 0.1
 import webbrowsercommon.private 0.1
@@ -181,17 +180,7 @@ WebappWebview {
     }
 
     function shouldAllowNavigationTo(url) {
-        // The list of url patterns defined by the webapp takes precedence over command line
-        if (isRunningAsANamedWebapp()) {
-            if (unityWebapps.model.exists(unityWebapps.name) &&
-                unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
-                return true;
-            }
-        }
-
-        // We still take the possible additional patterns specified in the command line
-        // (the in the case of finer grained ones specifically for the container and not
-        // as an 'install source' for the webapp).
+        // Check if URL requested matches against provided patterns
         if (haveValidUrlPatterns()) {
             for (var i = 0; i < webappUrlPatterns.length; ++i) {
                 var pattern = webappUrlPatterns[i]
@@ -346,6 +335,30 @@ WebappWebview {
             return;
         }
 
+        // handle user agents
+        if (isMainFrame)
+        {
+          var newUserAgentId = (UserAgentsModel.count > 0) ? DomainSettingsModel.getUserAgentId(requestDomain) : 0;
+
+          // change of the custom user agent
+          if (newUserAgentId !== webview.context.userAgentId)
+          {
+            webview.context.userAgentId = newUserAgentId;
+            webview.context.userAgent = (newUserAgentId > 0) ? UserAgentsModel.getUserAgentString(newUserAgentId)
+                                                             : localUserAgentOverride ? localUserAgentOverride : webview.context.defaultUserAgent;
+
+            // for some reason when letting through the request, another navigation request will take us back to the
+            // to the previous page. Therefore we block it first and navigate to the new url with the correct user agent.
+            request.action = WebEngineNavigationRequest.IgnoreRequest;
+            webview.url = url;
+            return;
+          }
+          else
+          {
+              console.log("user agent: " + webview.context.httpUserAgent);
+          }
+        }
+
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = WebEngineNavigationRequest.IgnoreRequest;
             openUrlExternally(url, true);
@@ -406,20 +419,6 @@ WebappWebview {
                 console.debug('ignored request of current page to %1.'.arg(url));
             }
       }
-    }
-
-    // Small shim needed when running as a webapp to wire-up connections
-    // with the webview (message received, etc…).
-    // This is being called (and expected) internally by the webapps
-    // component as a way to bind to a webview lookalike without
-    // reaching out directly to its internals (see it as an interface).
-    function getUnityWebappsProxies() {
-        var eventHandlers = {
-            onAppRaised: function () {
-                window.raise();
-            }
-        };
-        return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
     }
 
     function handlePageMetadata(metadata) {
