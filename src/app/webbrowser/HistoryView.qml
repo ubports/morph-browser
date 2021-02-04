@@ -101,6 +101,14 @@ Common.BrowserPage {
         iconName: "close"
         onTriggered: domainsListView.ViewItems.selectMode = false
     }
+    
+    
+    Action {
+        id: editAction
+        objectName: "edit"
+        iconName: "edit"
+        onTriggered: domainsListView.ViewItems.selectMode = true
+    }
 
     Action {
         id: selectAllAction
