@@ -1013,7 +1013,8 @@ Common.BrowserView {
         }
         height: units.gu(2)
 
-        enabled: !browser.wide && (recentView.state == "") &&
+        enabled: (!browser.wide || (browser.currentWebview && browser.currentWebview.isFullScreen)) 
+                 && (recentView.state == "") &&
                  browser.currentWebview &&
                  (Screen.orientation == Screen.primaryOrientation)
 

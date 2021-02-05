@@ -226,8 +226,8 @@ Component {
 
                     anchors {
                         horizontalCenter: parent.horizontalCenter
-                        top: parent.top
-                        topMargin : units.gu(5)
+                        bottom: parent.bottom
+                        bottomMargin : units.gu(5)
                     }
                     height: units.gu(6)
                     width: Math.min(units.gu(50), parent.width - units.gu(12))
@@ -258,10 +258,18 @@ Component {
                     Label {
                         color: theme.palette.normal.background
                         font.weight: Font.Light
+                        fontSizeMode: Text.HorizontalFit
+                        minimumPixelSize: Label.XSmall
                         textSize: Label.Large
-                        anchors.centerIn: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors {
+                            fill: parent
+                            leftMargin: units.gu(2)
+                            rightMargin: units.gu(2)
+                        }
                         text: bottomEdgeHandle.enabled && !internal.hasKeyboard
-                              ? i18n.tr("Swipe Up To Exit Full Screen")
+                              ? i18n.tr("Swipe From The Bottom Edge To Exit Full Screen")
                               : i18n.tr("Press ESC To Exit Full Screen")
                     }
 
