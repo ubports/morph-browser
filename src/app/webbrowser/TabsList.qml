@@ -44,6 +44,13 @@ Item {
 
     readonly property bool animating: selectedAnimation.running
 
+    Connections {
+        // WORKAROUND: Repeater items in listNarrowComponent stay hidden when switching from wide to narrow layout
+        // if the model is direcly assigned in its definition. This solves that issue.
+        target: browser
+        onWideChanged: if (!target.wide) searchText = " "
+    }
+
     TabChrome {
         id: invisibleTabChrome
         visible: false
@@ -140,8 +147,8 @@ Item {
                 right: parent.right
                 margins: units.gu(1)
             }
-
             placeholderText: i18n.tr("Search Tabs")
+            inputMethodHints: Qt.ImhNoPredictiveText
             primaryItem: Icon {
                 height: parent.height * 0.5
                 width: height
@@ -184,6 +191,7 @@ Item {
         sourceComponent: browser.wide ? listWideComponent : listNarrowComponent
 
         Behavior on anchors.topMargin {
+            enabled: !browser.wide
             UbuntuNumberAnimation {
                 duration: UbuntuAnimation.SnapDuration
             }
@@ -253,7 +261,7 @@ Item {
                     property real verticalMargin: horizontalMargin * ((gridDelegate.height - tabslist.tabChromeHeight) / gridDelegate.width)
 
                     title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                    icon: model.icon
+                    tabIcon: model.icon
                     incognito: tabslist.incognito
                     tab: model.tab
                     chromeHeight: tabslist.tabChromeHeight
@@ -379,16 +387,10 @@ Item {
             contentWidth: width
             contentHeight: filteredModel ? (filteredModel.count - 1) * delegateHeight + height : 0
 
-            onVisibleChanged: {
-                // WORKAROUND: Repeater items stay hidden when switching from wide to narrow layout
-                // only if the model is direcly assigned. This solves that issue.
-                if (visible) {
-                    repeater.model = filteredModel.parts.list
-                }
-            }
-
             Repeater {
                 id: repeater
+
+                model: filteredModel.parts.list
             }
         }
     }
