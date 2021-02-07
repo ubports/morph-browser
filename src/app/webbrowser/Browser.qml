@@ -1970,6 +1970,11 @@ Common.BrowserView {
               internal.closeTabsWithUrl(download.url);
             }
         }
+        
+        onPresentNotification: {
+            NotificationsProxy.updateCount();
+            NotificationsProxy.sendNotification(notification);
+        }
     }
 
     Connections {

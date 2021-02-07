@@ -26,7 +26,7 @@
       ],
       "template_variables": {
         "APP_ID_DBUS": "morph_2dbrowser",
-        "APP_PKGNAME_DBUS": "morph_2dbrowser",
+        "APP_PKGNAME_DBUS": "_",
         "APP_PKGNAME": "morph-browser",
         "CLICK_DIR": "/usr/share/morph-browser"
       },

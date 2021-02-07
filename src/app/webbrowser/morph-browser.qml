@@ -61,6 +61,12 @@ QtObject {
 
         // create path for pages printed to PDF
         FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
+
+        // set appId of NotificationsProxy
+        NotificationsProxy.setAppId("_morph-browser");
+
+        // update notification count
+        NotificationsProxy.updateCount();
     }
 
     // Array of all windows, sorted chronologically (most recently active last)
@@ -119,6 +125,7 @@ QtObject {
                     if (index > -1) {
                         allWindows.push(allWindows.splice(index, 1)[0]);
                     }
+                    NotificationsProxy.updateCount();
                 }
             }
 
@@ -160,6 +167,8 @@ QtObject {
                         }
                     }
                 }
+
+                NotificationsProxy.updateCount();
 
                 destroy();
             }

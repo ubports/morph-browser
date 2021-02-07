@@ -63,6 +63,16 @@ BrowserWindow {
     // Used for testing
     signal schemeUriHandleFilterResult(string uri)
 
+    onActiveChanged: {
+      if (active) {
+        NotificationsProxy.updateCount();
+      }
+    }
+
+    onClosing: {
+      NotificationsProxy.updateCount();
+    }
+
     function getWindowTitle() {
         var webappViewTitle =
                 webappViewLoader.item
@@ -187,6 +197,12 @@ BrowserWindow {
 
             // create path for pages printed to PDF
             FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
+
+            // set appId for NotificationsProxy
+            NotificationsProxy.setAppId(unversionedAppId);
+
+            // update notifications count
+            NotificationsProxy.updateCount();
         }
 
         function loadCustomUserScripts() {
