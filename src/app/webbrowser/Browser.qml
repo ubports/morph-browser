@@ -1975,11 +1975,6 @@ Common.BrowserView {
             NotificationsProxy.updateCount();
             NotificationsProxy.sendNotification(notification);
         }
-        
-        onPresentNotification: {
-            NotificationsProxy.updateCount();
-            NotificationsProxy.sendNotification(notification);
-        }
     }
 
     Connections {
