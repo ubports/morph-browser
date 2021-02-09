@@ -114,7 +114,7 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS domainsettings "
-                                  "(domain VARCHAR NOT NULL UNIQUE, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation INTEGER, allowNotifications INTEGER"
+                                  "(domain VARCHAR NOT NULL UNIQUE, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation INTEGER, allowNotifications INTEGER, "
                                   "userAgentId INTEGER, zoomFactor REAL, PRIMARY KEY(domain), FOREIGN KEY(userAgentId) REFERENCES useragents(id)); ");
     createQuery.prepare(query);
     createQuery.exec();
@@ -416,7 +416,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
 
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, allowNotifications, userAgentId, zoomFactor)"
-                                                   " VALUES (?, ?, ?, ?, ?, ?);");
+                                                   " VALUES (?, ?, ?, ?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.domain);
     query.addBindValue(entry.domainWithoutSubdomain);
