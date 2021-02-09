@@ -17,79 +17,45 @@
  */
 
 import QtQuick 2.4
-import QtWebEngine 1.5
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 
 Dialog {
-    property url origin
+    id: dialog
+    
+    property string securityOrigin
+    property bool showRememberDecisionCheckBox
     modal: true
+
+    title: i18n.tr("Permission Request")
+    text: securityOrigin + "<br>" + i18n.tr("This page wants to know create notifications.")
     
-    signal accept()
+    signal allow()
+    signal allowPermanently()
     signal reject()
+    signal rejectPermanently()
     
-    onAccept: { hide(); grantFeaturePermission(origin, WebEngineView.Notifications, true); }
-    onReject: { hide(); grantFeaturePermission(origin, WebEngineView.Notifications, false); }
+    onAllow: { PopupUtils.close(dialog); }
+    onAllowPermanently: { PopupUtils.close(dialog); }
+    onReject: { PopupUtils.close(dialog); }
+    onRejectPermanently: { PopupUtils.close(dialog); }
 
-    Label {
-        elide: Text.ElideRight
-        textSize: Label.Large
-        color: theme.palette.normal.overlayText
-        text: i18n.tr("Permission")
+    ListItemLayout {
+        visible: showRememberDecisionCheckBox
+        title.text: i18n.tr("Remember decision")
+        CheckBox {
+            id: rememberDecisionCheckBox
+         }
     }
-
-    Label {
-        color: theme.palette.normal.baseText
-        wrapMode: Text.Wrap
-        text: i18n.tr("Allow this domain to create notifications?")
+    Button {
+        objectName: "allow"
+        text: i18n.tr("Allow")
+        color: theme.palette.normal.positive
+        onClicked: rememberDecisionCheckBox.checked ? allowPermanently() : allow()
     }
-
-    Label {
-        color: theme.palette.normal.baseText
-        wrapMode: Text.Wrap
-        text: origin
-    }
-
-    Item {
-        height: units.gu(2)
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            height: units.dp(1)
-            color: theme.palette.normal.base
-        }
-    }
-
-    Row {
-        height: units.gu(4)
-        spacing: units.gu(2)
-        layoutDirection: Qt.RightToLeft
-
-        Button {
-            objectName: "notificationsAccessDialog.allowButton"
-            text: i18n.tr("Yes")
-            color: theme.palette.normal.positive
-            width: units.gu(10)
-            onClicked: accept()
-        }
-
-        Button {
-            objectName: "notificationsAccessDialog.denyButton"
-            text: i18n.tr("No")
-            width: units.gu(10)
-            onClicked: reject()
-        }
-    }
-
-    // adjust default dialog visuals to custom design requirements
-    // (should not be needed when updated dialog implementation lands in UITK)
-    Binding {
-        target: __foreground
-        property: "margins"
-        value: units.gu(2)
+    Button {
+        objectName: "deny"
+        text: i18n.tr("Deny")
+        onClicked: rememberDecisionCheckBox.checked ? rejectPermanently() : reject()
     }
 }
- 

@@ -171,6 +171,7 @@ FocusScope {
                 readonly property string domain: model.domain
                 readonly property int userAgentId: model.userAgentId
                 readonly property int locationPreference: model.allowLocation
+                readonly property int notificationsPreference: model.allowNotifications
                 height: isCurrentItem ? layout.height : units.gu(5)
                 color: isCurrentItem ? ((theme.palette.selected.background.hslLightness > 0.5) ? Qt.darker(theme.palette.selected.background, 1.05) : Qt.lighter(theme.palette.selected.background, 1.5)) : theme.palette.normal.background
 
@@ -215,7 +216,6 @@ FocusScope {
                             }
                         }
 
-
                         Row {
                             spacing: units.gu(1.5)
                             height: units.gu(1)
@@ -231,6 +231,25 @@ FocusScope {
                                model: [ i18n.tr("Ask each time"), i18n.tr("Allowed"), i18n.tr("Denied") ]
                                currentIndex: item.locationPreference
                                onCurrentIndexChanged: DomainSettingsModel.setLocationPreference(item.domain, currentIndex)
+                               anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                        
+                        Row {
+                            spacing: units.gu(1.5)
+                            height: units.gu(1)
+                            visible: item.ListView.isCurrentItem
+
+                            Label  {
+                                width: parent.width * 0.5
+                                text: i18n.tr("send notifications")
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            ComboBox {
+                               model: [ i18n.tr("Ask each time"), i18n.tr("Allowed"), i18n.tr("Denied") ]
+                               currentIndex: item.notificationsPreference
+                               onCurrentIndexChanged: DomainSettingsModel.setNotificationsPreference(item.domain, currentIndex)
                                anchors.verticalCenter: parent.verticalCenter
                             }
                         }
