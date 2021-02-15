@@ -248,7 +248,7 @@ FocusScope {
 
                 visible: showDownloadButton && !tabListMode
                 iconName: "save"
-                iconSize: 0.5 * height
+                iconSize: 0.35 * height
                 iconColor: downloadNotify ? theme.palette.normal.focus : root.iconColor
 
                 height: root.height
