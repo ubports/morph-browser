@@ -29,6 +29,12 @@ WebEngineView {
     property alias context: _webview.profile
     property var incognito: false
 
+    /**
+     * TODO: Make contextualActions work again - for compatibility to allow
+     * some apps to still run
+     **/
+    property ActionList contextualActions
+
     property var locationBarController: QtObject {
         readonly property int modeAuto: 0
         readonly property int modeShown: 1
