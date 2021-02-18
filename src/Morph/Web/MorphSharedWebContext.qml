@@ -19,16 +19,17 @@
 pragma Singleton
 
 import QtQml 2.0
+import Morph.Web 0.1 as Morph
 
 QtObject {
     property alias customUA: context.userAgent
 
-    property QtObject sharedContext: MorphWebContext {
+    property QtObject sharedContext: Morph.WebContext {
         id: context
         offTheRecord: false
     }
 
-    property QtObject sharedIncognitoContext: MorphWebContext {
+    property QtObject sharedIncognitoContext: Morph.WebContext {
         id: incognitoContext
         offTheRecord: true
     }
