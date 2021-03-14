@@ -36,7 +36,6 @@ set(COMMONLIB_SRC
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-include_directories(${LIBAPPARMOR_INCLUDE_DIRS})
 target_link_libraries(${COMMONLIB}
     Qt5::Core
     Qt5::Gui
@@ -46,7 +45,6 @@ target_link_libraries(${COMMONLIB}
     Qt5::Widgets
     Qt5WebEngine
     Qt5WebEngineCore
-    ${LIBAPPARMOR_LDFLAGS}
 )
 
 file(GLOB QML_FILES *.qml qmldir)

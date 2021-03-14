@@ -24,7 +24,6 @@ RUN apt-get update && \
     qt5-doc \
     language-pack-en \
     click \
-    libapparmor-dev \
     # testing QT with python
     xvfb \
     python3-autopilot \
