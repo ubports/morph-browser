@@ -29,7 +29,6 @@ FocusScope {
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
-    signal closeTabRequested()
     signal toggleBookmark()
     signal toggleDownloads()
     property bool showDownloadButton: false
@@ -222,24 +221,6 @@ FocusScope {
                 visible: findInPageMode
                 enabled: internal.webview && internal.webview.findController && internal.webview.findController.foundMatch
                 onTriggered: internal.webview.findController.next()
-            }
-
-            ChromeButton {
-                id: closeButton
-                objectName: "closeButton"
-
-                iconName: "close"
-                iconSize: 0.3 * height
-                iconColor: root.iconColor
-
-                height: root.height
-                width: height * 0.8
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                visible: tabListMode
-
-                onTriggered: closeTabRequested()
             }
             
             ChromeButton {
