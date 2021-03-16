@@ -19,6 +19,7 @@
 // system
 #include <cerrno>
 #include <cstring>
+#include <sys/apparmor.h>
 
 // Qtlangc
 #include <QtCore/QMetaObject>
@@ -166,7 +167,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     bool runningConfined = true;
     char* label;
     char* mode;
-    /*
     if (aa_getcon(&label, &mode) != -1) {
         if (strcmp(label, "unconfined") == 0) {
             runningConfined = false;
@@ -175,8 +175,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     } else if (errno == EINVAL) {
         runningConfined = false;
     }
-    */
-    runningConfined = false;
 
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();
