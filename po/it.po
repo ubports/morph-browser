@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-08-18 13:56+0000\n"
-"Last-Translator: Irio Bartolomei <irio92@gmail.com>\n"
+"PO-Revision-Date: 2020-11-23 18:30+0000\n"
+"Last-Translator: Mike <miguel2000@livecom.it>\n"
 "Language-Team: Italian <https://translate.ubports.com/projects/ubports/"
 "morph-browser/it/>\n"
 "Language: it\n"
@@ -970,7 +970,7 @@ msgstr "La connessione a %1 è di tipo HTTPS. Il certificato è valido."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
-msgstr "Predefinito"
+msgstr "Predefinita"
 
 #: src/app/webbrowser/SettingsPage.qml:74
 #: src/app/webbrowser/SettingsPage.qml:257

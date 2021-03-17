@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-11-06 11:55+0000\n"
+"PO-Revision-Date: 2020-11-15 22:03+0000\n"
 "Last-Translator: abidin <abidin24@tutanota.com>\n"
 "Language-Team: Arabic <https://translate.ubports.com/projects/ubports/"
 "morph-browser/ar/>\n"
@@ -262,11 +262,11 @@ msgstr ""
 
 #: src/app/DownloadDelegate.qml:180
 msgid "Pause"
-msgstr ""
+msgstr "ألبث"
 
 #: src/app/DownloadDelegate.qml:191
 msgid "Resume"
-msgstr ""
+msgstr "استأنف"
 
 #: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
@@ -498,7 +498,7 @@ msgstr ""
 #: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
-msgstr "حفظ"
+msgstr "احفظ"
 
 #: src/app/ZoomControls.qml:97
 msgid "Current Zoom"
@@ -569,7 +569,7 @@ msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "عودة"
+msgstr "للخلف"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -603,7 +603,7 @@ msgstr "مسح تأريخ التنقل"
 
 #: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
 msgid "Copy"
-msgstr "نسخ"
+msgstr "ناسخ"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -724,7 +724,7 @@ msgstr ""
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
-msgstr "مشاركة"
+msgstr "شارك"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
@@ -864,7 +864,7 @@ msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:102
 msgid "Download"
-msgstr ""
+msgstr "نزّل"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1072,7 +1072,7 @@ msgstr "مسح المخبأية؟"
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
 msgid "Clear"
-msgstr "مسح"
+msgstr "امسح"
 
 #: src/app/webbrowser/SettingsPage.qml:496
 msgid "Custom hompage"
@@ -1080,7 +1080,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
-msgstr "الميكروفون"
+msgstr "مِكروفون"
 
 #: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
@@ -1108,7 +1108,7 @@ msgstr "إغلاق اللسان"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
-msgstr "إزالة"
+msgstr "أزل"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/morph-browser.qml:105
@@ -1144,7 +1144,7 @@ msgstr "خطأ في الحساب"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr "إغلاق"
+msgstr "أغلق"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -1181,7 +1181,7 @@ msgstr "إغلاق التطبيق"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "تخطّي"
+msgstr "تخطى"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
