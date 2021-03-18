@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
 "PO-Revision-Date: 2020-11-15 03:56+0000\n"
 "Last-Translator: Vladimir <kerneltestuser@gmail.com>\n"
-"Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
-"morph-browser/ru/>\n"
+"Language-Team: Russian <https://translate.ubports.com/projects/ubports/morph-"
+"browser/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
@@ -65,8 +65,8 @@ msgstr "Разрешить"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -171,13 +171,13 @@ msgid "Custom User Agents"
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Выделить всё"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "Удалить"
 
@@ -286,16 +286,16 @@ msgstr "Пауза"
 msgid "Resume"
 msgstr "Возобновить"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
 msgstr "Загрузки"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Подтвердить выбор"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
 msgstr "Нет доступных загрузок"
 
@@ -486,110 +486,120 @@ msgstr "Сайт %1:%2 требует аутентификацию."
 msgid "Save page as HTML / PDF"
 msgstr "Сохранить страницу как HTML / PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+msgid "No save actions are available"
+msgstr "Нет доступных загрузок"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "Сохранить как HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "Загрузка"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "Сохранить как PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 #, fuzzy
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 #, fuzzy
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "Сбросить"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
 msgstr ""
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr "Увеличить"
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 #, fuzzy
 msgid "Current Zoom"
 msgstr "Текущий масштаб"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 #, fuzzy
 #| msgid "Add domain"
 msgid "domain"
 msgstr "Добавить домен"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 #, fuzzy
 #| msgid "Default"
 msgid "default"
 msgstr "По умолчанию"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
 msgstr ""
 
-#: src/app/ZoomControls.qml:183
+#: src/app/ZoomControls.qml:187
 #, fuzzy
 #| msgid "Save image"
 msgid "Save Zoom"
 msgstr "Сохранить изображение"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
 msgstr ""
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
 msgstr ""
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
 msgstr "текущее веб-приложение"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr ""
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 #, fuzzy
 #| msgid "More"
 msgid "or"
 msgstr "Ещё"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 #, fuzzy
 #| msgid "Save in"
 msgid "Save for domain"
 msgstr "Сохранить в"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 #, fuzzy
 #| msgid "Save as PDF"
 msgid "Save as default"
@@ -629,7 +639,7 @@ msgstr "Очистить историю"
 msgid "Clear Navigation History"
 msgstr "Удалить историю просмотров"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "Копировать"
 
@@ -641,7 +651,7 @@ msgstr "Копировать изображение"
 msgid "Copy link"
 msgstr "Копировать ссылку"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "Вырезать"
 
@@ -719,7 +729,7 @@ msgstr "Открыть ссылку в новом окне"
 msgid "Open video in new tab"
 msgstr "Открыть видео в новой вкладке"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "Вставить"
 
@@ -766,7 +776,7 @@ msgstr "найти на странице"
 msgid "search or enter an address"
 msgstr "Введите поисковый запрос или адрес"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "Вставить из буфера обмена и перейти"
 
@@ -874,15 +884,26 @@ msgstr "Настройки"
 msgid "View source"
 msgstr "Просмотр кода страницы"
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
-msgstr "Сохранить как HTML / PDF"
+#: src/app/webbrowser/Browser.qml:794
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save / Print to PDF"
+msgstr "Сохранить как PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr ""
+"Выберите приложение, чтобы открыть данный файл или добавить его в папку "
+"загрузок."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -894,10 +915,6 @@ msgstr ""
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Выберите приложение"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "Загрузка"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1118,7 +1135,7 @@ msgstr "Смахните вверх для выхода из полноэкра�
 msgid "Press ESC To Exit Full Screen"
 msgstr "Нажмите ESC для выхода из полноэкранного режима"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "Нажать для просмотра"
 
@@ -1135,13 +1152,13 @@ msgid "Remove"
 msgstr "Удалить"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Morph Веб-Браузер"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
@@ -1257,6 +1274,9 @@ msgstr "Новое окно"
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr "Новое приватное окно"
+
+#~ msgid "Save as HTML / PDF"
+#~ msgstr "Сохранить как HTML / PDF"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "

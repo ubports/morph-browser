@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
 "PO-Revision-Date: 2020-07-01 05:29+0000\n"
 "Last-Translator: PPNplus <ppnplus@protonmail.com>\n"
 "Language-Team: Thai <https://translate.ubports.com/projects/ubports/morph-"
@@ -61,8 +61,8 @@ msgstr "อนุญาต"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -160,13 +160,13 @@ msgid "Custom User Agents"
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "เลือกทั้งหมด"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "ลบ"
 
@@ -265,16 +265,16 @@ msgstr "หยุดชั่วคราว"
 msgid "Resume"
 msgstr "ทำต่อ"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
 msgstr "ดาวน์โหลด"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "ยืนยันการเลือก"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
 msgstr "ไม่มีดาวน์โหลด"
 
@@ -463,107 +463,118 @@ msgstr "เว็บไซต์ %1:%2 ต้องการการยืน�
 msgid "Save page as HTML / PDF"
 msgstr "บันทึกหน้าเป็น HTML/PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+#| msgid "No custom user agents available"
+msgid "No save actions are available"
+msgstr "ไม่มี user agent แบบกำหนดเองที่ใช้ได้"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "บันทึกหน้าเป็น HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "ดาวน์โหลด"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "บันทึกเป็น PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr ""
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr ""
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr ""
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
 msgstr ""
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr ""
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "บันทึก"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
 msgstr ""
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 #, fuzzy
 #| msgid "Block domain"
 msgid "domain"
 msgstr "บล็อกโดเมน"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 #, fuzzy
 #| msgid "Default"
 msgid "default"
 msgstr "ค่าปริยาย"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
 msgstr ""
 
-#: src/app/ZoomControls.qml:183
+#: src/app/ZoomControls.qml:187
 #, fuzzy
 #| msgid "Save image"
 msgid "Save Zoom"
 msgstr "บันทึกรูปภาพ"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
 msgstr ""
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
 msgstr ""
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
 msgstr "เว็บแอปปัจจุบัน"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr ""
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 #, fuzzy
 #| msgid "More"
 msgid "or"
 msgstr "เพิ่มเติม"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 #, fuzzy
 #| msgid "Save in"
 msgid "Save for domain"
 msgstr "บันทึกใน"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 #, fuzzy
 #| msgid "Save as PDF"
 msgid "Save as default"
@@ -603,7 +614,7 @@ msgstr "ล้างประวัติ"
 msgid "Clear Navigation History"
 msgstr "ล้างประวัติการนำทาง"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "คัดลอก"
 
@@ -615,7 +626,7 @@ msgstr "คัดลอกรูปภาพ"
 msgid "Copy link"
 msgstr "คัดลอกลิงก์"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "ตัด"
 
@@ -692,7 +703,7 @@ msgstr "เปิดลิงก์ในหน้าต่างใหม่"
 msgid "Open video in new tab"
 msgstr "เปิดวิดีโอในแท็บใหม่"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "วาง"
 
@@ -739,7 +750,7 @@ msgstr "ค้นหาในหน้า"
 msgid "search or enter an address"
 msgstr "ค้นหาหรือป้อนที่อยู่"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "วางและไปยังเว็บไซต์"
 
@@ -844,15 +855,24 @@ msgstr "ตั้งค่า"
 msgid "View source"
 msgstr "ดูต้นฉบับ"
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
-msgstr ""
+#: src/app/webbrowser/Browser.qml:794
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save / Print to PDF"
+msgstr "บันทึกเป็น PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr "เลือกแอปพลิเคชั่นที่จะเปิดแฟ้มนี้หรือเพิ่มลงในโฟลเดอร์ดาวน์โหลด"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -862,10 +882,6 @@ msgstr "เลือกแอปพลิเคชั่นที่จะเป
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "เลือกแอปพลิเคชั่น"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "ดาวน์โหลด"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1089,7 +1105,7 @@ msgstr "เลื่อนขึ้นเพื่อออกจากโหม
 msgid "Press ESC To Exit Full Screen"
 msgstr "กด ESC เพื่อออกจากโหมดเต็มหน้าจอ"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "แตะเพื่อดู"
 
@@ -1106,13 +1122,13 @@ msgid "Remove"
 msgstr "ลบ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - เว็บเบราว์เซอร์ Morph"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"

@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
 "PO-Revision-Date: 2020-10-29 01:02+0000\n"
 "Last-Translator: George Kitsopoulos <gkitsopoulos@tutanota.com>\n"
-"Language-Team: Greek <https://translate.ubports.com/projects/ubports/"
-"morph-browser/el/>\n"
+"Language-Team: Greek <https://translate.ubports.com/projects/ubports/morph-"
+"browser/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,8 +65,8 @@ msgstr "Να επιτρέπεται"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -171,13 +171,13 @@ msgid "Custom User Agents"
 msgstr "Προσαρμοσμένοι πράκτορες χρήστη"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Επιλογή όλων"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -278,16 +278,16 @@ msgstr "Παύση"
 msgid "Resume"
 msgstr "Συνέχιση"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
 msgstr "Λήψεις"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Επιβεβαίωση επιλογής"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
 msgstr "Δεν υπάρχουν διαθέσιμες λήψεις"
 
@@ -482,64 +482,75 @@ msgstr "Η ιστοσελίδα %1:%2 απαιτεί εξουσιοδότηση.
 msgid "Save page as HTML / PDF"
 msgstr "Αποθήκευση ως HTML / PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+#| msgid "No custom user agents available"
+msgid "No save actions are available"
+msgstr "Δεν υπάρχουν διαθέσιμοι πράκτορες χρήστη"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "Αποθήκευση ως HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "Λήψη"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "Αποθήκευση ως PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr "Εστίαση"
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr "Σμίκρυνση"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "Επαναφορά"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
 msgstr "προσαρμόζω"
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr "Μεγέθυνση"
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
 msgstr "Τρέχουσα εστίαση"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "domain"
 msgstr "τομέας"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "default"
 msgstr "προεπιλογή"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
 msgstr "αυτόματη-προσαρμογή"
 
-#: src/app/ZoomControls.qml:183
+#: src/app/ZoomControls.qml:187
 msgid "Save Zoom"
 msgstr "Αποθήκευση εστίασης"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
 msgstr "ουδέν"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
@@ -548,35 +559,35 @@ msgstr ""
 "εστίαση τομέα (επί του παρόντος %1 και μπορεί να αφαιρεθεί με κουμπί "
 "επαναφοράς ή από ρυθμίσεις συγκεκριμένου τομέα στις ρυθμίσεις απορρήτου)"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
 msgstr " και επαναφέρει την εστίαση τομέα"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
 "η προεπιλεγμένη εστίαση (επί του παρόντος %1%, μπορεί να αλλάξει από το "
 "μενού ρυθμίσεων %2)"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
 msgstr "η τρέχουσα εφαρμογή ιστού"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr "Η τρέχουσα εστίαση (%1%) μπορεί να αποθηκευτεί για %2 ως "
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 msgid "or"
 msgstr "ή"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 msgid "Save for domain"
 msgstr "Αποθήκευση για τον τομέα"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 msgid "Save as default"
 msgstr "Αποθήκευση ως προεπιλογής"
 
@@ -614,7 +625,7 @@ msgstr "Εκκαθάριση ιστορικού"
 msgid "Clear Navigation History"
 msgstr "Εκκαθάριση ιστορικού περιήγησης"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "Αντιγραφή"
 
@@ -626,7 +637,7 @@ msgstr "Αντιγραφή εικόνας"
 msgid "Copy link"
 msgstr "Αντιγραφή συνδέσμου"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "Αποκοπή"
 
@@ -703,7 +714,7 @@ msgstr "Άνοιγμα συνδέσμου σε νέο παράθυρο"
 msgid "Open video in new tab"
 msgstr "Άνοιγμα βίντεο σε νέα καρτέλα"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "Επικόλληση"
 
@@ -750,7 +761,7 @@ msgstr "εύρεση στη σελίδα"
 msgid "search or enter an address"
 msgstr "αναζήτηση ή εισαγωγή διεύθυνσης"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "Επικόλληση και μετάβαση"
 
@@ -857,15 +868,26 @@ msgstr "Ρυθμίσεις"
 msgid "View source"
 msgstr "Προβολή πηγής"
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
-msgstr "Αποθήκευση ως HTML / PDF"
+#: src/app/webbrowser/Browser.qml:794
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save / Print to PDF"
+msgstr "Αποθήκευση ως PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr ""
+"Επιλέξτε μια εφαρμογή για να ανοίξετε αυτό το αρχείο ή προσθέστε το στον "
+"φάκελο λήψεις."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -877,10 +899,6 @@ msgstr ""
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Επιλέξτε μια εφαρμογή"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "Λήψη"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1093,7 +1111,7 @@ msgstr "Σύρετε προς τα πάνω για Έξοδο από Πλήρη 
 msgid "Press ESC To Exit Full Screen"
 msgstr "Πατήστε ESC για έξοδο από Πλήρη οθόνη"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "Πατήστε για εμφάνιση"
 
@@ -1110,13 +1128,13 @@ msgid "Remove"
 msgstr "Αφαίρεση"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Περιηγητής ιστού του Morph"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
@@ -1228,6 +1246,9 @@ msgstr "Νέο παράθυρο"
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr "Νέο ιδιωτικό παράθυρο"
+
+#~ msgid "Save as HTML / PDF"
+#~ msgstr "Αποθήκευση ως HTML / PDF"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "

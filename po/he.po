@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
 "PO-Revision-Date: 2020-09-05 20:02+0000\n"
 "Last-Translator: tamer dab <dabsantamer@yahoo.com>\n"
-"Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/"
-"morph-browser/he/>\n"
+"Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/morph-"
+"browser/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,8 +63,8 @@ msgstr "אישור"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -167,13 +167,13 @@ msgid "Custom User Agents"
 msgstr "סוכני משתמשים בהתאמה אישית"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "בחירת הכול"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "מחק"
 
@@ -272,16 +272,16 @@ msgstr "השהייה"
 msgid "Resume"
 msgstr "להמשיך"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
 msgstr "הורדות"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "אישור הבחירה"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
 msgstr "אין הורדות זמינות"
 
@@ -470,64 +470,75 @@ msgstr "האתר %1:%2 דורש אימות."
 msgid "Save page as HTML / PDF"
 msgstr "שמור דף כ- HTML / PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+#| msgid "No custom user agents available"
+msgid "No save actions are available"
+msgstr "אין סוכני משתמשים מותאמים אישית זמינים"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "שמור כ- HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "הורדה"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "שמור כקובץ PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr "תקריב"
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr "להקטין את התצוגה"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "איפוס"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
 msgstr "התאם"
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr "להתמקד"
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "שמור"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
 msgstr "זום נוכחי"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "domain"
 msgstr "דומיין"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "default"
 msgstr "בררת מחדל"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
 msgstr "התאמה אוטומטית"
 
-#: src/app/ZoomControls.qml:183
+#: src/app/ZoomControls.qml:187
 msgid "Save Zoom"
 msgstr "שמור זום"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
 msgstr "אף אחד"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
@@ -536,33 +547,33 @@ msgstr ""
 "זום דומיין (כרגע %1 וניתן להסיר אותו באמצעות כפתור האיפוס או מהגדרות "
 "ספציפיות לתחום בהגדרות הפרטיות)"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
 msgstr " ומאפס את זום הדומיין"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr "זום ברירת מחדל (כרגע %1%, ניתן לשנות מתפריט ההגדרות %2)"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
 msgstr "אפליקציית האינטרנט הנוכחית"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr "ניתן לשמור את הזום הנוכחי (%1%) עבור %2 כ- "
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 msgid "or"
 msgstr "אוֹ"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 msgid "Save for domain"
 msgstr "שמור לדומיין"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 msgid "Save as default"
 msgstr "שמור כברירת מחדל"
 
@@ -600,7 +611,7 @@ msgstr "מחיקת ההיסטוריה"
 msgid "Clear Navigation History"
 msgstr "מחיקת היסטוריית הניווט"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "העתק"
 
@@ -612,7 +623,7 @@ msgstr "העתקת תמונה"
 msgid "Copy link"
 msgstr "העתקת קישור"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "גזירה"
 
@@ -689,7 +700,7 @@ msgstr "פתיחת קישור בחלון חדש"
 msgid "Open video in new tab"
 msgstr "פתיחת סרטון בלשונית חדשה"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "הדבקה"
 
@@ -736,7 +747,7 @@ msgstr "חיפוש בעמוד"
 msgid "search or enter an address"
 msgstr "ניתן לחפש או להזין כתובת"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "הדבק והמשך"
 
@@ -842,15 +853,24 @@ msgstr "הגדרות"
 msgid "View source"
 msgstr "ראה מקור"
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
-msgstr "שמור כ- HTML / PDF"
+#: src/app/webbrowser/Browser.qml:794
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save / Print to PDF"
+msgstr "שמור כקובץ PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr "יש לבחור ביישום לפתיחת הקובץ הזה או להוסיף אותו לתיקיית ההורדות."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -860,10 +880,6 @@ msgstr "יש לבחור ביישום לפתיחת הקובץ הזה או להו�
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "בחירת יישום"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "הורדה"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1073,7 +1089,7 @@ msgstr "יש לגרור כלפי מעלה כדי לצאת ממסך מלא"
 msgid "Press ESC To Exit Full Screen"
 msgstr "יש ללחוץ על ESC כדי לצאת ממסך מלא"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "יש לגעת כדי לצפות"
 
@@ -1090,13 +1106,13 @@ msgid "Remove"
 msgstr "הסר"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - דפדפן האינטרנט של מורף"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
@@ -1203,6 +1219,9 @@ msgstr "חלון חדש"
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr "חלון פרטי חדש"
+
+#~ msgid "Save as HTML / PDF"
+#~ msgstr "שמור כ- HTML / PDF"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "
