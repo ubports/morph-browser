@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-06-07 17:24+0000\n"
-"Last-Translator: Pekka Kärkkäinen <pakarkka@gmail.com>\n"
-"Language-Team: Finnish <https://translate.ubports.com/projects/ubports/morph-"
-"browser/fi/>\n"
+"PO-Revision-Date: 2020-11-23 18:30+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"Language-Team: Finnish <https://translate.ubports.com/projects/ubports/"
+"morph-browser/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -33,12 +33,12 @@ msgstr "Selvä"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr "Mukautetut URL skeemat"
+msgstr "Mukautetut URL-skeemat"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
-msgstr "Sivusto %1 yrittää avata seuraavaa URL:a mukautetulla skeemalla:"
+msgstr "Sivusto %1 yrittää avata seuraavaa URL:ia mukautetulla skeemalla:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
 msgid ""
@@ -73,7 +73,7 @@ msgstr "Salli"
 #: src/app/webcontainer/ContextMenuMobile.qml:143
 #: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
-msgstr "Keskeytä"
+msgstr "Peru"
 
 #: src/app/AllowOrBlockDomainDialog.qml:25
 #: src/app/AllowOrBlockDomainDialog.qml:41
@@ -290,7 +290,7 @@ msgstr "Ei latauksia"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Varmennevirhe"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -515,16 +515,12 @@ msgid "Current Zoom"
 msgstr "Nykyinen suurennos"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Lisää verkkotunnus"
+msgstr "verkkotunnus"
 
 #: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "Oletus"
+msgstr "oletus"
 
 #: src/app/ZoomControls.qml:98
 msgid "auto-fit"
@@ -566,10 +562,8 @@ msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr ""
 
 #: src/app/ZoomControls.qml:188
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Enemmän"
+msgstr "tai"
 
 #: src/app/ZoomControls.qml:194
 #, fuzzy
@@ -578,14 +572,12 @@ msgid "Save for domain"
 msgstr "Tallennuskohde"
 
 #: src/app/ZoomControls.qml:207
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Tallenna PDF:nä"
+msgstr "Tallenna oletukseksi"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Palaa"
+msgstr "Takaisin"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -984,10 +976,8 @@ msgstr "Hakukone"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Uusi välilehti"
+msgstr "Uusi välilehti -sivu"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -1004,12 +994,12 @@ msgstr "Aseta työpöytätila"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Autom. sovitus leveyteen"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Asettaa sivuston leveyden ikkunaan sopivaksi"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1028,10 +1018,8 @@ msgid "Reset browser settings"
 msgstr "Palauta selaimen oletusasetukset"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Poistu yksityisestä tilasta"
+msgstr "Käynnistä yksityisessä tilassa"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1044,44 +1032,32 @@ msgid "Camera & microphone"
 msgstr "Kamera ja mikrofoni"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Tyhjennä selaushistoria"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "Tyhjennetäänkö selaushistoria?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Tyhjennä välimuisti"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Tyhjennetäänkö välimuisti?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Tyhjennä välimuisti"
+msgstr "Tyhjennä kaikki evästeet"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "Tyhjennetäänkö välimuisti?"
+msgstr "Tyhjennetäänkö kaikki evästeet?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1131,13 +1107,13 @@ msgstr "Poista"
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
-msgstr "%1 - Morph- verkkoselain"
+msgstr "%1 - Morph-verkkoselain"
 
 #: src/app/webbrowser/morph-browser.qml:107
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
-msgstr "Morph- verkkoselain"
+msgstr "Morph-verkkoselain"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
@@ -1224,7 +1200,7 @@ msgstr "Palauta verkkosovellusten oletusasetukset"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
 msgid "Morph Browser"
-msgstr "Morph selain"
+msgstr "Morph-selain"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
 msgid "Browse the World Wide Web using QtWebEngine"
