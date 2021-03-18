@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-05-26 23:24+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
+"PO-Revision-Date: 2021-03-18 16:26+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -64,8 +64,8 @@ msgstr "Permettre"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -169,13 +169,13 @@ msgid "Custom User Agents"
 msgstr "Agents utilisateur personnalisés"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Tout sélectionner"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -232,35 +232,35 @@ msgstr "Paramètres spécifiques au domaine"
 
 #: src/app/DomainSettingsPage.qml:114
 msgid "Enter the name of the domain, e.g. m.example.com"
-msgstr ""
+msgstr "Saisissez le nom du domaine, par exemple m.domaine.com"
 
 #: src/app/DomainSettingsPage.qml:206
 msgid "allowed to launch other apps"
-msgstr ""
+msgstr "Autorisé à lancer d'autres applications"
 
 #: src/app/DomainSettingsPage.qml:223
 msgid "allowed to access your location"
-msgstr ""
+msgstr "Autorisé à accéder à votre position"
 
 #: src/app/DomainSettingsPage.qml:239
 msgid "custom user agent"
-msgstr ""
+msgstr "Agent utilisateur personnalisé"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
 msgid "Zoom: "
-msgstr ""
+msgstr "Zoom : "
 
 #: src/app/DomainSettingsPage.qml:320
 msgid "not set"
-msgstr ""
+msgstr "non défini"
 
 #: src/app/DomainSettingsPage.qml:354
 msgid "No domain specific settings available"
-msgstr ""
+msgstr "Aucun paramètre spécifique au domaine disponible"
 
 #: src/app/DownloadDelegate.qml:131
 msgid "Download failed"
-msgstr ""
+msgstr "Échec du téléchargement"
 
 #. TRANSLATORS: %1 is the percentage of the download completed so far
 #: src/app/DownloadDelegate.qml:174
@@ -276,22 +276,22 @@ msgstr "Pause"
 msgid "Resume"
 msgstr "Reprendre"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
-msgstr ""
+msgstr "Téléchargements"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
-msgstr ""
+msgstr "Confirmer la sélection"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
-msgstr ""
+msgstr "Aucun téléchargement disponible"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Erreur de certificat"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -306,7 +306,7 @@ msgstr "Il semblerait que vous ayez des problèmes à visualiser : %1."
 #: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Erreur : %1"
 
 #: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
@@ -315,6 +315,8 @@ msgstr "Retour vers la sécurité"
 #: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
+"Veuillez vérifier vos paramètres de réseau et essayer de réactualiser la "
+"page."
 
 #: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
@@ -337,6 +339,8 @@ msgstr "Refuser"
 #, qt-format
 msgid "The website at %1 requires authentication. The website says \"%2\""
 msgstr ""
+"Le site internet %1 demande une authentification. Voilà ce que dit le site : "
+"\"%2\""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -436,15 +440,15 @@ msgstr ""
 
 #: src/app/MediaAccessDialog.qml:39
 msgid "Permission"
-msgstr ""
+msgstr "Autorisation"
 
 #: src/app/MediaAccessDialog.qml:46
 msgid "Allow this domain to access your camera and microphone?"
-msgstr ""
+msgstr "Autoriser ce domaine à accéder à votre caméra et à votre micro?"
 
 #: src/app/MediaAccessDialog.qml:47
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Autoriser ce domaine à accéder à votre caméra?"
 
 #: src/app/MediaAccessDialog.qml:48
 msgid "Allow this domain to access your microphone?"
@@ -476,105 +480,115 @@ msgstr "Le site Web %1:%2 exige l'authentification."
 msgid "Save page as HTML / PDF"
 msgstr ""
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+#| msgid "No custom user agents available"
+msgid "No save actions are available"
+msgstr "Aucun agent utilisateur personnalisé disponible"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
-msgstr ""
+msgstr "Enregistrer en HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "Télécharger"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
-msgstr ""
+msgstr "Enregistrer en PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
-msgstr ""
+msgstr "Dézoomer"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
-msgstr ""
+msgstr "ajuster"
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoomer"
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
-msgstr ""
+msgstr "Zoom actuel"
 
-#: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Add domain"
+#: src/app/ZoomControls.qml:102
 msgid "domain"
-msgstr "Ajouter un domaine"
+msgstr "domaine"
 
-#: src/app/ZoomControls.qml:98
-#, fuzzy
-#| msgid "Default"
+#: src/app/ZoomControls.qml:102
 msgid "default"
-msgstr "Par défaut"
+msgstr "défaut"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
-msgstr ""
+msgstr "auto-ajustement"
 
-#: src/app/ZoomControls.qml:183
-#, fuzzy
-#| msgid "Save image"
+#: src/app/ZoomControls.qml:187
 msgid "Save Zoom"
-msgstr "Enregistrer l'image"
+msgstr "Enregistrer le zoom"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
-msgstr ""
+msgstr "aucun"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"zoom du domaine (actuellement %1 et peut être supprimé avec le bouton de "
+"réinitialisation ou à partir des paramètres spécifiques du domaine dans les "
+"paramètres de confidentialité)"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " et réinitialise le zoom du domaine"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
+"zoom par défaut (actuellement %1%, peut être modifié à partir du menu des "
+"paramètres %2)"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
-msgstr ""
+msgstr "l`application Web actuelle"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Le zoom actuel (%1%) peut être enregistré pour %2 comme "
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 msgid "or"
-msgstr ""
+msgstr "ou"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 msgid "Save for domain"
-msgstr ""
+msgstr "Enregistrer pour le domaine"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 msgid "Save as default"
-msgstr ""
+msgstr "Enregistrer par défaut"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -610,7 +624,7 @@ msgstr "Effacer l'historique"
 msgid "Clear Navigation History"
 msgstr "Effacer l'historique de navigation"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "Copier"
 
@@ -622,23 +636,23 @@ msgstr "Copier l'image"
 msgid "Copy link"
 msgstr "Copier le lien"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "Couper"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Effacer"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:761
 msgid "Find in page"
-msgstr ""
+msgstr "Trouver sur la page"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Rechercher sur la page"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -677,7 +691,7 @@ msgstr "Ouvrir l'image dans un nouvel onglet"
 
 #: src/app/actions/OpenLinkInBrowser.qml:22
 msgid "Open link in default browser"
-msgstr ""
+msgstr "Ouvrir le lien dans le navigateur par défaut"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
@@ -693,13 +707,13 @@ msgstr "Ouvrir le lien dans un nouvel onglet"
 
 #: src/app/actions/OpenLinkInNewWindow.qml:22
 msgid "Open link in new window"
-msgstr ""
+msgstr "Ouvrir le lien dans une nouvelle fenêtre"
 
 #: src/app/actions/OpenVideoInNewTab.qml:22
 msgid "Open video in new tab"
-msgstr ""
+msgstr "Ouvrir la vidéo dans un nouvel onglet"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "Coller"
 
@@ -724,11 +738,11 @@ msgstr "Enregistrer l'image"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Enregistrer le lien"
 
 #: src/app/actions/SaveVideo.qml:22
 msgid "Save video"
-msgstr ""
+msgstr "Enregistrer la vidéo"
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
@@ -740,13 +754,13 @@ msgstr "Annuler"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
-msgstr ""
+msgstr "trouver sur la page"
 
 #: src/app/webbrowser/AddressBar.qml:243
 msgid "search or enter an address"
 msgstr "rechercher ou saisir une adresse"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr ""
 
@@ -851,15 +865,19 @@ msgstr "Paramètres"
 msgid "View source"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
+#: src/app/webbrowser/Browser.qml:794
+msgid "Save / Print to PDF"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+msgid "the file is already in the downloads folder."
+msgstr ""
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -869,10 +887,6 @@ msgstr ""
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr ""
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "Télécharger"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1094,7 +1108,7 @@ msgstr ""
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "Toucher pour voir"
 
@@ -1111,13 +1125,13 @@ msgid "Remove"
 msgstr "Supprimer"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Navigateur Web Morph"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
 "PO-Revision-Date: 2020-04-12 09:23+0000\n"
 "Last-Translator: Neutrum N <neutro@tutanota.com>\n"
 "Language-Team: Galician <https://translate.ubports.com/projects/ubports/"
@@ -65,8 +65,8 @@ msgstr "Permitir"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -170,13 +170,13 @@ msgid "Custom User Agents"
 msgstr "Axentes de usuario personalizados"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Seleccionar todo"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -276,16 +276,16 @@ msgstr "Pausar"
 msgid "Resume"
 msgstr "Continuar"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
 msgstr "Descargas"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Confirmar selección"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
 msgstr "Non hai descargas dispoñíbeis"
 
@@ -476,107 +476,118 @@ msgstr "O sitio web %1:%2 require autenticación."
 msgid "Save page as HTML / PDF"
 msgstr "Gardar a páxina como HTML / PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+#| msgid "No custom user agents available"
+msgid "No save actions are available"
+msgstr "Non hai axentes de usuario personalizados dispoñíbeis"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "Gardar como HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "Descargar"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "Gardar como PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr "Zoom"
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr "Apartar"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "Restabelecer"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
 msgstr ""
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr "Achegar"
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Gardar"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
 msgstr "Zoom actual"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 #, fuzzy
 #| msgid "Add domain"
 msgid "domain"
 msgstr "Engadir dominio"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 #, fuzzy
 #| msgid "Default"
 msgid "default"
 msgstr "Predeterminado"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
 msgstr ""
 
-#: src/app/ZoomControls.qml:183
+#: src/app/ZoomControls.qml:187
 #, fuzzy
 #| msgid "Save image"
 msgid "Save Zoom"
 msgstr "Gardar a imaxe"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
 msgstr ""
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
 msgstr ""
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
 msgstr "o aplicativo web actual"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr ""
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 #, fuzzy
 #| msgid "More"
 msgid "or"
 msgstr "Máis"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 #, fuzzy
 #| msgid "Save in"
 msgid "Save for domain"
 msgstr "Gardar en"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 #, fuzzy
 #| msgid "Save as PDF"
 msgid "Save as default"
@@ -616,7 +627,7 @@ msgstr "Borrar o historial"
 msgid "Clear Navigation History"
 msgstr "Borrar o historial de navegación"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "Copiar"
 
@@ -628,7 +639,7 @@ msgstr "Copiar a imaxe"
 msgid "Copy link"
 msgstr "Copiar a ligazón"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "Cortar"
 
@@ -705,7 +716,7 @@ msgstr "Abrir a ligazón nunha xanela nova"
 msgid "Open video in new tab"
 msgstr "Abrir o vídeo nunha lapela nova"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "Pegar"
 
@@ -752,7 +763,7 @@ msgstr "buscar na páxina"
 msgid "search or enter an address"
 msgstr "buscar ou introducir un enderezo"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "Pegar e ir"
 
@@ -859,15 +870,26 @@ msgstr "Axustes"
 msgid "View source"
 msgstr "Ver fonte"
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
-msgstr "Gardar HTML / PDF"
+#: src/app/webbrowser/Browser.qml:794
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save / Print to PDF"
+msgstr "Gardar como PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr ""
+"Escoller un aplicativo para abrir este ficheiro ou engadilo ao cartafol de "
+"descargas."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -879,10 +901,6 @@ msgstr ""
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Escoller un aplicativo"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "Descargar"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1110,7 +1128,7 @@ msgstr "Esvare cara arriba para saír da pantalla completa"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Prema ESC para saír da pantalla completa"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "Toque para ver"
 
@@ -1127,13 +1145,13 @@ msgid "Remove"
 msgstr "Eliminar"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Navegador web Morph"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
@@ -1242,6 +1260,9 @@ msgstr "Xanela nova"
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr "Xanela privada nova"
+
+#~ msgid "Save as HTML / PDF"
+#~ msgstr "Gardar HTML / PDF"
 
 #~ msgid ""
 #~ "Set current zoom as default zoom for %1 ? (You can change it in the "

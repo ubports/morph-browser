@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 13:28+0000\n"
-"PO-Revision-Date: 2020-11-12 14:00+0000\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
+"PO-Revision-Date: 2021-03-18 16:26+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/"
 "morph-browser/nl/>\n"
@@ -64,8 +64,8 @@ msgstr "Toestaan"
 #: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
 #: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
-#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:52
-#: src/app/ZoomControls.qml:225 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
 #: src/app/webbrowser/SettingsPage.qml:438
@@ -168,13 +168,13 @@ msgid "Custom User Agents"
 msgstr "Aangepaste gebruikersagenten"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:82
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
 #: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Alles selecteren"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:98
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -223,7 +223,7 @@ msgstr "Altijd toestaan"
 
 #: src/app/DomainPermissionsPage.qml:284
 msgid "No sites have been granted special permissions"
-msgstr "Er zijn geen sites met speciale machtigingen"
+msgstr "Er zijn geen sites met speciale bevoegdheden"
 
 #: src/app/DomainSettingsPage.qml:52
 msgid "Domain specific settings"
@@ -275,16 +275,16 @@ msgstr "Onderbreken"
 msgid "Resume"
 msgstr "Hervatten"
 
-#: src/app/DownloadsPage.qml:44 src/app/webbrowser/Browser.qml:768
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
 msgid "Downloads"
 msgstr "Downloads"
 
-#: src/app/DownloadsPage.qml:58
+#: src/app/DownloadsPage.qml:60
 msgid "Confirm selection"
 msgstr "Selectie bevestigen"
 
-#: src/app/DownloadsPage.qml:277
+#: src/app/DownloadsPage.qml:297
 msgid "No downloads available"
 msgstr "Er zijn geen downloads beschikbaar"
 
@@ -476,64 +476,73 @@ msgstr "De website '%1:%2' vereist authenticatie."
 msgid "Save page as HTML / PDF"
 msgstr "Pagina opslaan als HTML/PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+msgid "No save actions are available"
+msgstr "Er zijn geen acties omtrent opslaan beschikbaar"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "Opslaan als HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "Downloaden"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "Opslaan als PDF"
 
-#: src/app/WebViewImpl.qml:640 src/app/webbrowser/Browser.qml:801
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr "Zoomniveau"
 
-#: src/app/ZoomControls.qml:36
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr "Uitzoomen"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "Standaardwaarden"
 
-#: src/app/ZoomControls.qml:43
+#: src/app/ZoomControls.qml:69
 msgid "fit"
 msgstr "passend"
 
-#: src/app/ZoomControls.qml:50
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr "Inzoomen"
 
-#: src/app/ZoomControls.qml:57 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
 #: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Opslaan"
 
-#: src/app/ZoomControls.qml:97
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
 msgstr "Huidig zoomniveau"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "domain"
 msgstr "domein"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "default"
 msgstr "standaard"
 
-#: src/app/ZoomControls.qml:98
+#: src/app/ZoomControls.qml:102
 msgid "auto-fit"
 msgstr "automatisch inpassen"
 
-#: src/app/ZoomControls.qml:183
+#: src/app/ZoomControls.qml:187
 msgid "Save Zoom"
 msgstr "Zoomniveau onthouden"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 msgid "none"
 msgstr "geen"
 
-#: src/app/ZoomControls.qml:184
+#: src/app/ZoomControls.qml:188
 #, qt-format
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
@@ -542,35 +551,35 @@ msgstr ""
 "zoomniveau op domein (momenteel %1 en kan worden verwijderd middels de "
 "standaardwaardenknop of in de privacy-instellingen)"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
 msgstr " en herstelt het zoomniveau op het domein"
 
-#: src/app/ZoomControls.qml:185
+#: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
 "standaard zoomniveau (momenteel %1% - dit kan worden aangepast in de "
 "instellingen%2)"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 msgid "the current web app"
 msgstr "de huidige webapp"
 
-#: src/app/ZoomControls.qml:186
+#: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr "Het huidige zoomniveau (%1%) van %2 kan worden opgeslagen als "
 
-#: src/app/ZoomControls.qml:188
+#: src/app/ZoomControls.qml:192
 msgid "or"
 msgstr "of"
 
-#: src/app/ZoomControls.qml:194
+#: src/app/ZoomControls.qml:198
 msgid "Save for domain"
 msgstr "Onthouden voor domein"
 
-#: src/app/ZoomControls.qml:207
+#: src/app/ZoomControls.qml:211
 msgid "Save as default"
 msgstr "Onthouden"
 
@@ -608,7 +617,7 @@ msgstr "Geschiedenis wissen"
 msgid "Clear Navigation History"
 msgstr "Navigatiegeschiedenis wissen"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "Kopiëren"
 
@@ -620,7 +629,7 @@ msgstr "Afbeelding kopiëren"
 msgid "Copy link"
 msgstr "Link kopiëren"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "Knippen"
 
@@ -697,7 +706,7 @@ msgstr "Link openen in nieuw venster"
 msgid "Open video in new tab"
 msgstr "Video openen op nieuw tabblad"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "Plakken"
 
@@ -744,7 +753,7 @@ msgstr "zoeken op pagina"
 msgid "search or enter an address"
 msgstr "Voer een zoekterm of adres in"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "Plakken en gaan"
 
@@ -851,15 +860,19 @@ msgstr "Instellingen"
 msgid "View source"
 msgstr "Broncode tonen"
 
-#: src/app/webbrowser/Browser.qml:788
-msgid "Save as HTML / PDF"
-msgstr "Opslaan als HTML/PDF"
+#: src/app/webbrowser/Browser.qml:794
+msgid "Save / Print to PDF"
+msgstr "Opslaan als/Afdrukken naar pdf"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1000 src/app/webbrowser/Browser.qml:1038
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+msgid "the file is already in the downloads folder."
+msgstr "Dit bestand is al opgeslagen in de map 'Downloads'."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -870,10 +883,6 @@ msgstr ""
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Kies een app"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "Downloaden"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -1011,7 +1020,7 @@ msgstr "Standaard zoomniveau"
 #: src/app/webcontainer/WebappSettingsPage.qml:131
 #: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
-msgstr "Privacy en machtigingen"
+msgstr "Privacy en bevoegdheden"
 
 #: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
@@ -1084,7 +1093,7 @@ msgstr "Veeg omhoog om de beeldvullende modus te verlaten"
 msgid "Press ESC To Exit Full Screen"
 msgstr "Druk op ESC om de beeldvullende modus te verlaten"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "Druk om te bekijken"
 
@@ -1101,13 +1110,13 @@ msgid "Remove"
 msgstr "Verwijderen"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Morph-webbrowser"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
@@ -1215,6 +1224,9 @@ msgstr "Nieuw venster"
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr "Nieuw privévenster"
+
+#~ msgid "Save as HTML / PDF"
+#~ msgstr "Opslaan als HTML/PDF"
 
 #~ msgid ""
 #~ "Set current zoom as default zoom for %1 ? (You can change it in the "
