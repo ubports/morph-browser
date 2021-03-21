@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2021-03-18 16:26+0000\n"
+"PO-Revision-Date: 2021-03-18 20:10+0000\n"
 "Last-Translator: Ryan Argente <rargente@lonerider.one>\n"
 "Language-Team: French (Canada) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/fr_CA/>\n"
@@ -452,7 +452,7 @@ msgstr "Autoriser ce domaine à accéder à votre caméra?"
 
 #: src/app/MediaAccessDialog.qml:48
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Autoriser ce domaine à accéder à votre micro?"
 
 #: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
@@ -478,13 +478,11 @@ msgstr "Le site Web %1:%2 exige l'authentification."
 
 #: src/app/SavePageDialog.qml:24
 msgid "Save page as HTML / PDF"
-msgstr ""
+msgstr "Enregistrer la page en HTML / PDF"
 
 #: src/app/SavePageDialog.qml:41
-#, fuzzy
-#| msgid "No custom user agents available"
 msgid "No save actions are available"
-msgstr "Aucun agent utilisateur personnalisé disponible"
+msgstr "Aucune action d'enregistrement disponible"
 
 #: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
@@ -571,7 +569,7 @@ msgstr ""
 
 #: src/app/ZoomControls.qml:190
 msgid "the current web app"
-msgstr "l`application Web actuelle"
+msgstr "l'application Web actuelle"
 
 #: src/app/ZoomControls.qml:190
 #, qt-format
@@ -762,11 +760,11 @@ msgstr "rechercher ou saisir une adresse"
 
 #: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
-msgstr ""
+msgstr "Coller et ouvrir"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Marque-page créé"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:71
@@ -776,22 +774,22 @@ msgstr "Nom"
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:89
 msgid "Save in"
-msgstr ""
+msgstr "Enregistrer dans"
 
 #: src/app/webbrowser/BookmarkOptions.qml:96
 #: src/app/webbrowser/BookmarksFoldersView.qml:133
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:105
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Tous les marque-pages"
 
 #: src/app/webbrowser/BookmarkOptions.qml:114
 #: src/app/webbrowser/BookmarkOptions.qml:154
 msgid "New Folder"
-msgstr ""
+msgstr "Nouveau dossier"
 
 #: src/app/webbrowser/BookmarkOptions.qml:136
 msgid "Create new folder"
-msgstr ""
+msgstr "Créer un nouveau dossier"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
@@ -825,32 +823,34 @@ msgstr "Nouvel onglet"
 #: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
-msgstr ""
+msgstr "Domaine bloqué"
 
 #: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
-msgstr ""
+msgstr "Demande de navigation vers le domaine %1 bloquée."
 
 #: src/app/webbrowser/Browser.qml:249
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
-msgstr ""
+msgstr "Domaine en liste blanche"
 
 #: src/app/webbrowser/Browser.qml:250
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
+"Le domaine %1 est désormais ajouté à la liste blanche. Ceci sera pris en "
+"compte au prochain chargement de la page."
 
 #: src/app/webbrowser/Browser.qml:729
 msgid "New window"
-msgstr ""
+msgstr "Nouvelle fenêtre"
 
 #: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
-msgstr ""
+msgstr "Nouvelle fenêtre de navigation privée"
 
 #: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
@@ -863,11 +863,11 @@ msgstr "Paramètres"
 
 #: src/app/webbrowser/Browser.qml:781
 msgid "View source"
-msgstr ""
+msgstr "Afficher le code source"
 
 #: src/app/webbrowser/Browser.qml:794
 msgid "Save / Print to PDF"
-msgstr ""
+msgstr "Enregistrer / Imprimer en PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
@@ -877,16 +877,18 @@ msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1830
 msgid "the file is already in the downloads folder."
-msgstr ""
+msgstr "le fichier existe encore dans le dossier de téléchargements."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Choisissez une application pour ouvrir ce fichier ou ajoutez-le dans le "
+"dossier des téléchargements."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
-msgstr ""
+msgstr "Choisir une application"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -911,11 +913,11 @@ msgstr "Hier"
 
 #: src/app/webbrowser/HistoryViewWide.qml:161
 msgid "search history"
-msgstr ""
+msgstr "Chercher dans l'historique"
 
 #: src/app/webbrowser/HistoryViewWide.qml:236
 msgid "All History"
-msgstr ""
+msgstr "Tout l'historique"
 
 #: src/app/webbrowser/HistoryViewWide.qml:250
 #: src/app/webbrowser/HistoryViewWide.qml:337
@@ -924,17 +926,20 @@ msgstr "Aujourd'hui"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Ceci est un onglet privé"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Les pages que vous consultez dans cet onglet n'apparaîtront pas dans "
+"l'historique de votre navigateur.\n"
+"Les marques-pages que vous créerez seront toutefois conservés."
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "More"
-msgstr ""
+msgstr "Plus"
 
 #: src/app/webbrowser/NewTabView.qml:327
 #: src/app/webbrowser/NewTabViewWide.qml:138
@@ -943,20 +948,20 @@ msgstr "Sites populaires"
 
 #: src/app/webbrowser/NewTabView.qml:358
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Vous n'avez pas encore visité de site"
 
 #: src/app/webbrowser/SadTab.qml:47
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Le processus de rendu a été fermé pour cet onglet."
 
 #: src/app/webbrowser/SadTab.qml:60
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Un problème est survenu lors de l'affichage de %1."
 
 #: src/app/webbrowser/SadTab.qml:70
 msgid "Close tab"
-msgstr ""
+msgstr "Fermer l'onglet"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "This site has insecure content"
@@ -973,7 +978,7 @@ msgstr "L'identité de ce site Web n'a pas été vérifiée."
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "Vous êtes connecté à %1 en HTTPS. Le certificat est valide."
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
@@ -986,10 +991,8 @@ msgstr "Moteur de recherche"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "Nouvel onglet"
+msgstr "Page de nouvel onglet"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -997,33 +1000,33 @@ msgstr "Restaurer la session précédente au démarrage"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "indisponible en raison du démarrage en mode privé"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
-msgstr ""
+msgstr "Activer le mode ordinateur"
 
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Ajustement automatique à la largeur"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Ajuste la largeur du site internet à la fenêtre"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
 msgid "Default Zoom"
-msgstr ""
+msgstr "Zoom par défaut"
 
 #: src/app/webbrowser/SettingsPage.qml:218
 #: src/app/webbrowser/SettingsPage.qml:300
 #: src/app/webcontainer/WebappSettingsPage.qml:131
 #: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Vie privée & autorisations"
 
 #: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
@@ -1031,55 +1034,45 @@ msgstr "Réinitialiser les paramètres du navigateur"
 
 #: src/app/webbrowser/SettingsPage.qml:314
 msgid "Start in private mode"
-msgstr ""
+msgstr "Démarrer en mode privé"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
 msgid "Only allow browsing to whitelisted websites"
-msgstr ""
+msgstr "Autoriser uniquement la navigation vers les sites en liste blanche"
 
 #: src/app/webbrowser/SettingsPage.qml:378
 #: src/app/webbrowser/SettingsPage.qml:569
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Caméra & micro"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "Effacer l’historique de navigation"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history?"
-msgstr "Effacer l’historique de navigation"
+msgstr "Effacer l’historique de navigation?"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "Vider le cache"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache?"
-msgstr "Vider le cache"
+msgstr "Vider le cache?"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "Vider le cache"
+msgstr "Effacer tous les cookies"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
 msgid "Clear all Cookies?"
-msgstr ""
+msgstr "Effacer tous les cookies?"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1087,14 +1080,12 @@ msgid "Clear"
 msgstr "Effacer"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "Schémas d'URL personnalisés"
+msgstr "Page d'accueil personnalisée"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
-msgstr "Microphone"
+msgstr "Micro"
 
 #: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
@@ -1102,11 +1093,11 @@ msgstr "Caméra"
 
 #: src/app/webbrowser/TabComponent.qml:258
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Faites glisser vers le haut pour sortir du plein écran"
 
 #: src/app/webbrowser/TabComponent.qml:259
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Appuyez sur échapp. pour sortir du plein écran"
 
 #: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
@@ -1114,11 +1105,11 @@ msgstr "Toucher pour voir"
 
 #: src/app/webbrowser/TabsBar.qml:99
 msgid "Move to New Window"
-msgstr ""
+msgstr "Déplacer vers une nouvelle fenêtre"
 
 #: src/app/webbrowser/TabsBar.qml:116
 msgid "Close Tab"
-msgstr ""
+msgstr "Fermer l'onglet"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:138
 msgid "Remove"
@@ -1142,6 +1133,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Aucun compte n’a été associé à cette application Web. Cliquez ci-dessous "
+"pour ajouter un compte."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -1149,11 +1142,11 @@ msgstr "Ajouter un compte"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Ne pas utiliser de compte"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Erreur de compte"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -1164,6 +1157,9 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"La fenêtre des comptes n’a pas pu être ouverte. Il n’est possible de créer "
+"qu’un seul compte à la fois. Veuillez essayer à nouveau après avoir fermé "
+"les autres fenêtres de comptes."
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
@@ -1173,22 +1169,24 @@ msgstr "Échec lors de l'authentification"
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> a besoin d’accéder à votre compte %2."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> souhaite accéder à votre compte %2."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Choisissez un compte maintenant ou ignorez cette étape pour choisir un "
+"compte plus tard."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Fermer l’application"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
@@ -1196,20 +1194,21 @@ msgstr "Ignorer"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Choisissez un compte"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Oups, une erreur s'est produite."
 
 #: src/app/webcontainer/WebViewImplOxide.qml:338
 #, qt-format
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr ""
+"Le domaine %1 est désormais en liste blanche. Veuillez recharger la page."
 
 #: src/app/webcontainer/WebappSettingsPage.qml:38
 msgid "WebappContainer Settings"
-msgstr ""
+msgstr "Paramètres de WebappContainer"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Reset webapp settings"
@@ -1229,11 +1228,11 @@ msgstr "Internet;WWW;Navigateur;Web;Fureteur"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:5
 msgid "New Window"
-msgstr ""
+msgstr "Nouvelle fenêtre"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
-msgstr ""
+msgstr "Nouvelle fenêtre de navigation privée"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "
