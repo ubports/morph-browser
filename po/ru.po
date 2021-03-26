@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2020-11-15 03:56+0000\n"
-"Last-Translator: Vladimir <kerneltestuser@gmail.com>\n"
-"Language-Team: Russian <https://translate.ubports.com/projects/ubports/morph-"
-"browser/ru/>\n"
+"PO-Revision-Date: 2021-03-26 09:20+0000\n"
+"Last-Translator: vokaliz <vokaliz@protonmail.com>\n"
+"Language-Team: Russian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
@@ -30,25 +30,25 @@ msgstr "Оповещение JavaScript"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "Хорошо"
+msgstr "Да"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
-msgstr ""
+msgstr "Пользовательские URL-ссылки"
 
 #: src/app/AllowCustomSchemesDialog.qml:30
 #, qt-format
 msgid "The site '%1' is trying to open the following URL with a custom scheme:"
 msgstr ""
+"Сайт '%1' пытается открыть следующий URL-адрес с пользовательской схемой:"
 
 #: src/app/AllowCustomSchemesDialog.qml:32
-#, fuzzy
 msgid ""
 "This will try to dispatch this url to a system app if possible. Do you want "
 "to proceed?"
 msgstr ""
-"Этот URL будет открыт через системное приложение, если это возможно. Вы "
-"хотите продолжить?"
+"Этот URL-адрес будет открыт через системное приложение, если это возможно. "
+"Вы хотите продолжить?"
 
 #: src/app/AllowCustomSchemesDialog.qml:44
 #: src/app/GeolocationPermissionRequest.qml:42
@@ -144,13 +144,13 @@ msgstr "Это соединение не защищено"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted. Reason: %2"
 msgstr ""
 "Вы пытаетесь зайти на защищенный сайт %1, но сертификат безопасности этого "
-"сайта не подтвержден."
+"сайта не подтвержден: %2"
 
 #: src/app/CertificateVerificationDialog.qml:39
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -158,9 +158,8 @@ msgid "Proceed anyway"
 msgstr "Всё равно продолжить"
 
 #: src/app/ColorSelectDialog.qml:25
-#, fuzzy
 msgid "Select Color"
-msgstr "Выделить всё"
+msgstr "Выделить цветом"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -168,7 +167,7 @@ msgstr "Подтверждение действий JavaScript"
 
 #: src/app/CustomUserAgentsPage.qml:33 src/app/DomainSettingsPage.qml:150
 msgid "Custom User Agents"
-msgstr ""
+msgstr "Пользовательские агенты"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
 #: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
@@ -194,9 +193,8 @@ msgid "enter user agent string..."
 msgstr "Введите значение для user agent..."
 
 #: src/app/CustomUserAgentsPage.qml:248
-#, fuzzy
 msgid "No custom user agents available"
-msgstr "Нет доступных загрузок"
+msgstr "Нет доступных пользовательских агентов"
 
 #: src/app/DomainPermissionsPage.qml:55
 msgid "Domain blacklist/whitelist"
@@ -212,12 +210,10 @@ msgid ""
 msgstr "Введите имя домена. Например, example.com (субдомены будут удалены)."
 
 #: src/app/DomainPermissionsPage.qml:223
-#, fuzzy
 msgid "Not Set"
 msgstr "Не установлено"
 
 #: src/app/DomainPermissionsPage.qml:233
-#, fuzzy
 msgid "Never allow access"
 msgstr "Никогда не разрешать доступ"
 
@@ -226,7 +222,6 @@ msgid "Always allow access"
 msgstr "Всегда разрешать доступ"
 
 #: src/app/DomainPermissionsPage.qml:284
-#, fuzzy
 msgid "No sites have been granted special permissions"
 msgstr "Ни один сайт не получил специальных полномочий"
 
@@ -239,32 +234,26 @@ msgid "Enter the name of the domain, e.g. m.example.com"
 msgstr "Введите имя домена. Например, m.example.com"
 
 #: src/app/DomainSettingsPage.qml:206
-#, fuzzy
 msgid "allowed to launch other apps"
-msgstr "разрешить запускать другие приложения?"
+msgstr "разрешить запускать другие приложения"
 
 #: src/app/DomainSettingsPage.qml:223
-#, fuzzy
 msgid "allowed to access your location"
-msgstr "Разрешить домену узнать Ваше местоположение?"
+msgstr "разрешить домену узнать Ваше местоположение"
 
 #: src/app/DomainSettingsPage.qml:239
-#, fuzzy
 msgid "custom user agent"
-msgstr "настраиваемый user-agent"
+msgstr "настраиваемый пользовательский агент"
 
 #: src/app/DomainSettingsPage.qml:315 src/app/DomainSettingsPage.qml:320
-#, fuzzy
 msgid "Zoom: "
 msgstr "Увеличение: "
 
 #: src/app/DomainSettingsPage.qml:320
-#, fuzzy
 msgid "not set"
 msgstr "не задано"
 
 #: src/app/DomainSettingsPage.qml:354
-#, fuzzy
 msgid "No domain specific settings available"
 msgstr "Не заданы настройки для домена"
 
@@ -284,7 +273,7 @@ msgstr "Пауза"
 
 #: src/app/DownloadDelegate.qml:191
 msgid "Resume"
-msgstr "Возобновить"
+msgstr "Продолжить"
 
 #: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
 #: src/app/webcontainer/WebappSettingsPage.qml:117
@@ -301,7 +290,7 @@ msgstr "Нет доступных загрузок"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "Ошибка сертификата"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -487,9 +476,8 @@ msgid "Save page as HTML / PDF"
 msgstr "Сохранить страницу как HTML / PDF"
 
 #: src/app/SavePageDialog.qml:41
-#, fuzzy
 msgid "No save actions are available"
-msgstr "Нет доступных загрузок"
+msgstr "Действия по сохранению недоступны"
 
 #: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
@@ -505,12 +493,10 @@ msgid "Save as PDF"
 msgstr "Сохранить как PDF"
 
 #: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
-#, fuzzy
 msgid "Zoom"
-msgstr "Масштаб"
+msgstr "Увеличить"
 
 #: src/app/ZoomControls.qml:62
-#, fuzzy
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
@@ -520,7 +506,7 @@ msgstr "Сбросить"
 
 #: src/app/ZoomControls.qml:69
 msgid "fit"
-msgstr ""
+msgstr "уместить"
 
 #: src/app/ZoomControls.qml:76
 msgid "Zoom In"
@@ -532,35 +518,28 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: src/app/ZoomControls.qml:101
-#, fuzzy
 msgid "Current Zoom"
 msgstr "Текущий масштаб"
 
 #: src/app/ZoomControls.qml:102
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
-msgstr "Добавить домен"
+msgstr "домен"
 
 #: src/app/ZoomControls.qml:102
-#, fuzzy
-#| msgid "Default"
 msgid "default"
-msgstr "По умолчанию"
+msgstr "по умолчанию"
 
 #: src/app/ZoomControls.qml:102
 msgid "auto-fit"
-msgstr ""
+msgstr "авто-подгонка"
 
 #: src/app/ZoomControls.qml:187
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "Сохранить изображение"
+msgstr "Сохранить масштаб"
 
 #: src/app/ZoomControls.qml:188
 msgid "none"
-msgstr ""
+msgstr "нет"
 
 #: src/app/ZoomControls.qml:188
 #, qt-format
@@ -568,15 +547,19 @@ msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
 msgstr ""
+"масштабирование домена (в настоящее время %1 и может быть удалено с помощью "
+"кнопки сброса или из настроек домена в настройках конфиденциальности)"
 
 #: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
-msgstr ""
+msgstr " и сбрасывает масштаб домена"
 
 #: src/app/ZoomControls.qml:189
 #, qt-format
 msgid "default zoom (currently %1%, can be changed from settings menu%2)"
 msgstr ""
+"масштаб по умолчанию (в настоящее время %1%, можно изменить в меню "
+"настроек%2)"
 
 #: src/app/ZoomControls.qml:190
 msgid "the current web app"
@@ -585,25 +568,19 @@ msgstr "текущее веб-приложение"
 #: src/app/ZoomControls.qml:190
 #, qt-format
 msgid "Current zoom (%1%) can be saved for %2 as "
-msgstr ""
+msgstr "Текущий масштаб (%1%) не может быть сохранен для %2 как "
 
 #: src/app/ZoomControls.qml:192
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "Ещё"
+msgstr "или"
 
 #: src/app/ZoomControls.qml:198
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "Сохранить в"
+msgstr "Сохранить для домена"
 
 #: src/app/ZoomControls.qml:211
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "Сохранить как PDF"
+msgstr "Сохранить по умолчанию"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -713,7 +690,6 @@ msgid "Open link in new background tab"
 msgstr "Открыть ссылку в новой вкладке"
 
 #: src/app/actions/OpenLinkInNewPrivateWindow.qml:22
-#, fuzzy
 msgid "Open link in new private window"
 msgstr "Открыть ссылку в приватном окне"
 
@@ -766,7 +742,7 @@ msgstr "Поделиться"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "Отменить предыдущее действие"
+msgstr "Отменить"
 
 #: src/app/webbrowser/AddressBar.qml:242
 msgid "find in page"
@@ -828,7 +804,7 @@ msgstr "Закладки"
 #: src/app/webbrowser/Browser.qml:621 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
-msgstr "Готово"
+msgstr "Сделано"
 
 #: src/app/webbrowser/BookmarksView.qml:91
 #: src/app/webbrowser/BookmarksViewWide.qml:90
@@ -840,13 +816,12 @@ msgstr "Новая вкладка"
 
 #: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
-#, fuzzy
 msgid "Blocked domain"
 msgstr "Заблокированный домен"
 
 #: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
-#, fuzzy, qt-format
+#, qt-format
 msgid "Blocked navigation request to domain %1."
 msgstr "Заблокирован запрос к домену %1."
 
@@ -856,12 +831,12 @@ msgid "Whitelisted domain"
 msgstr "Домен из списка разрешенных адресов"
 
 #: src/app/webbrowser/Browser.qml:250
-#, fuzzy, qt-format
+#, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
 "домен %1 теперь находится в списке разрешённых адресов, он станет доступным "
-"при перезагрузке страницы"
+"при перезагрузке страницы."
 
 #: src/app/webbrowser/Browser.qml:729
 msgid "New window"
@@ -885,10 +860,8 @@ msgid "View source"
 msgstr "Просмотр кода страницы"
 
 #: src/app/webbrowser/Browser.qml:794
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save / Print to PDF"
-msgstr "Сохранить как PDF"
+msgstr "Сохранить / Распечатать в PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
@@ -897,13 +870,8 @@ msgid "(%1)"
 msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1830
-#, fuzzy
-#| msgid ""
-#| "Choose an application to open this file or add it to the downloads folder."
 msgid "the file is already in the downloads folder."
-msgstr ""
-"Выберите приложение, чтобы открыть данный файл или добавить его в папку "
-"загрузок."
+msgstr "файл уже находится в папке загрузок."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -1018,8 +986,6 @@ msgstr "Поисковая система"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
 msgstr "Новая вкладка"
 
@@ -1029,28 +995,26 @@ msgstr "Восстановить предыдущий сеанс при запу
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "недоступно из-за запуска в приватном режиме"
 
 #: src/app/webbrowser/SettingsPage.qml:140
-#, fuzzy
 msgid "Set Desktop mode"
 msgstr "Включить режим \"десктоп\""
 
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "Автоматическая подгонка по ширине"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "Регулирует ширину веб-сайта под размер окна"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
-#, fuzzy
 msgid "Default Zoom"
-msgstr "По умолчанию"
+msgstr "Масштаб по умолчанию"
 
 #: src/app/webbrowser/SettingsPage.qml:218
 #: src/app/webbrowser/SettingsPage.qml:300
@@ -1064,14 +1028,11 @@ msgid "Reset browser settings"
 msgstr "Сбросить настройки браузера"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "Выйти из режима инкогнито"
+msgstr "Начать в приватном режиме"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
-#, fuzzy
 msgid "Only allow browsing to whitelisted websites"
 msgstr "Разрешить просмотр страниц только из списка разрешенных сайтов"
 
@@ -1095,8 +1056,6 @@ msgstr "Очистить кэш"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "Очистить кэш?"
 
@@ -1117,7 +1076,7 @@ msgstr "Очистить"
 
 #: src/app/webbrowser/SettingsPage.qml:496
 msgid "Custom hompage"
-msgstr ""
+msgstr "Пользовательская домашняя страница"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
@@ -1185,7 +1144,6 @@ msgid "Account error"
 msgstr "Ошибка учётной записи"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
-#, fuzzy
 msgid "Close"
 msgstr "Закрыть"
 
@@ -1249,19 +1207,16 @@ msgid "WebappContainer Settings"
 msgstr "Настройки WebappContainer"
 
 #: src/app/webcontainer/WebappSettingsPage.qml:143
-#, fuzzy
 msgid "Reset webapp settings"
-msgstr "Сбросить настройки браузера"
+msgstr "Сбросить настройки веб-приложения"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:1
-#, fuzzy
 msgid "Morph Browser"
-msgstr "Браузер"
+msgstr "Интернет Браузер"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:3
-#, fuzzy
 msgid "Browse the World Wide Web using QtWebEngine"
-msgstr "Навигация по сети Интернет"
+msgstr "Просмотр интернет сети с помощью QtWebEngine"
 
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
