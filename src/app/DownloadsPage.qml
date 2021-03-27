@@ -43,7 +43,6 @@ BrowserPage {
     property bool incognito: false
 
     signal done()
-    signal preview(string url)
 
     title: i18n.tr("Downloads")
 
@@ -228,9 +227,7 @@ BrowserPage {
 
             onClicked: {
                 if (model.complete && !selectMode) {
-                    var properties = {"path": model.path, "contentType": MimeTypeMapper.mimeTypeToContentType(model.mimetype), "mimeType": model.mimetype, "downloadUrl": model.url}
-                    var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsItem, properties)
-                    exportDialog.preview.connect(downloadsItem.preview)
+                    contentExportLoader.item.openDialog(model.path, MimeTypeMapper.mimeTypeToContentType(model.mimetype), model.mimetype, model.url, title)
                 } else {
                     if (download) {
                         if (paused) {

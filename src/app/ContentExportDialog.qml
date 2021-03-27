@@ -18,58 +18,80 @@
 
 import QtQuick 2.9
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.3
+import QtQuick.Controls 2.5 as QQC2
+import QtQuick.Controls.Suru 2.2
 
 import "UrlUtils.js" as UrlUtils
 
-
-Popover {
+QQC2.Dialog {
     id: contentExportDialog
+
+    objectName: "contentExportDialog"
 
     property alias path: exportPeerPicker.path
     property alias contentType: exportPeerPicker.contentType
     property string mimeType
     property string downloadUrl
+    property string fileName
 
-    property real maximumWidth: units.gu(70)
-    property real preferredWidth: caller ? caller.width * 0.9 : units.gu(40)
+    property real maximumWidth: units.gu(90)
+    property real preferredWidth: parent.width
 
     property real maximumHeight: units.gu(80)
-    property real preferredHeight: caller ? caller.height > maximumHeight ? caller.height * 0.8 : caller.height - units.gu(5) : units.gu(40)
+    property real preferredHeight: parent.height > maximumHeight ? parent.height * 0.7 : parent.height
 
     signal preview(string url)
 
-    contentHeight: dialogItem.height
-    contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
+    width: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
+    height: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
+    x: (parent.width - width) / 2
+    parent: QQC2.Overlay.overlay
+    topPadding: units.gu(0.2)
+    leftPadding: units.gu(0.2)
+    rightPadding: units.gu(0.2)
+    bottomPadding: units.gu(0.2)
+    closePolicy: QQC2.Popup.CloseOnEscape | QQC2.Popup.CloseOnPressOutside
+    modal: true
+
+    QQC2.Overlay.modal: Rectangle {
+        color: Suru.overlayColor
+        Behavior on opacity { NumberAnimation { duration: Suru.animations.FastDuration } }
+    }
+
+    function openDialog(_downloadPath, _contentType, _mimeType, _downloadURL, _fileName){
+        path = _downloadPath
+        contentType = _contentType
+        mimeType = _mimeType
+        downloadUrl = _downloadURL
+        fileName = _fileName
+        y = Qt.binding(function(){return parent.width >= units.gu(90) ? (parent.height - height) / 2 : (parent.height - height)})
+        open()
+    }
 
     Item {
-        id: dialogItem
-        height: (preferredHeight > maximumHeight ? maximumHeight : preferredHeight)
-        
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
+        anchors.fill: parent
 
         PageHeader {
             id: header
+
             title: i18n.tr("Open with")
+            subtitle: i18n.tr("File name: %1").arg(contentExportDialog.fileName)
+
             anchors {
-                top: dialogItem.top
+                top: parent.top
                 left: parent.left
                 right: parent.right
             }
-            
+
             leadingActionBar.actions: [
                 Action {
                     iconName: "close"
                     text: i18n.tr("Close")
-                    onTriggered: PopupUtils.close(contentExportDialog)
+                    onTriggered: contentExportDialog.close()
                 }
             ]
-            
+
             trailingActionBar {
                 actions: [
                     Action {
@@ -77,7 +99,7 @@ Popover {
                         text: i18n.tr("Open link in browser")
                         visible: (contentExportDialog.downloadUrl !== "") && (contentExportDialog.contentType !== ContentType.Unknown)
                         onTriggered: {
-                            PopupUtils.close(contentExportDialog);
+                            contentExportDialog.close()
                             preview((contentExportDialog.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + contentExportDialog.downloadUrl : contentExportDialog.downloadUrl);
                         }
                     },
@@ -86,46 +108,45 @@ Popover {
                         text: i18n.tr("Open file in browser")
                         visible: (contentExportDialog.contentType !== ContentType.Unknown)
                         onTriggered: {
-                            PopupUtils.close(contentExportDialog);
+                            contentExportDialog.close()
                             preview((contentExportDialog.mimeType === "application/pdf") ? UrlUtils.getPdfViewerExtensionUrlPrefix() + "file://%1".arg(contentExportDialog.path) : contentExportDialog.path);
                         }
                     }
                ]
             }
         }
-        
+
         Item {
             id: contentPickerItem
 
-            height: (preferredHeight > maximumHeight ? maximumHeight : preferredHeight)  - header.height
-            
             anchors {
                 top: header.bottom
                 left: parent.left
                 right: parent.right
+                bottom: parent.bottom
             }
-            
+
             ContentPeerPicker {
                 id: exportPeerPicker
-                
+
                 property string path
+
                 focus: visible
                 handler: ContentHandler.Destination
                 showTitle: false
-                
+
                 onPeerSelected: {
                     var transfer = peer.request()
                     if (transfer.state === ContentTransfer.InProgress) {
                         transfer.items = [contentItemComponent.createObject(contentExportDialog, {"url": path})]
                         transfer.state = ContentTransfer.Charged
                     }
-                    PopupUtils.close(contentExportDialog)
+                    contentExportDialog.close()
                 }
-                onCancelPressed: PopupUtils.close(contentExportDialog)
-                Keys.onEscapePressed: PopupUtils.close(contentExportDialog)
+                onCancelPressed: contentExportDialog.close()
+                Keys.onEscapePressed: contentExportDialog.close()
             }
         }
-
     }
 
     Component {

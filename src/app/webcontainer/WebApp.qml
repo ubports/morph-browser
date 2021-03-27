@@ -248,10 +248,6 @@ Common.BrowserView {
     Connections {
         target: currentDownloadsDialog
         onShowDownloadsPage: showDownloadsPage()
-        onPreview: {
-                    PopupUtils.close(currentDownloadsDialog);
-                    webapp.currentWebview.url = url;
-        }
     }
 
     /* Only used for anchoring the downloads dialog to the top when chromeless */
@@ -423,10 +419,21 @@ Common.BrowserView {
             Connections {
                 target: downloadsViewLoader.item
                 onDone: downloadsViewLoader.active = false
-                onPreview: {
-                    downloadsViewLoader.active = false;
-                    webapp.currentWebview.url = url;
-                }
+            }
+        }
+
+        Loader {
+            id: contentExportLoader
+            source: "../ContentExportDialog.qml"
+            asynchronous: true
+        }
+
+        Connections {
+            target: contentExportLoader.item
+
+            onPreview: {
+                downloadsViewLoader.active = false
+                webapp.currentWebview.url = url;
             }
         }
 

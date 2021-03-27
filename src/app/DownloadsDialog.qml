@@ -41,7 +41,6 @@ Popover {
     property real preferredHeight:  downloadsDialogColumn.height + units.gu(2)
     
     signal showDownloadsPage()
-    signal preview(string url)
 
     contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
@@ -118,9 +117,7 @@ Popover {
                 
                 onClicked: {
                     if (!incomplete && !error) {
-                        var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType), "mimeType": download.mimeType, "downloadUrl": download.url}
-                        var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
-                        exportDialog.preview.connect(downloadsDialog.preview)
+                        contentExportLoader.item.openDialog(download.path, MimeTypeMapper.mimeTypeToContentType(download.mimeType), download.mimeType, download.url, title.text)
                     } else {
                         if (download) {
                             if (paused) {
