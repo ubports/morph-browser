@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2020-10-15 04:07+0000\n"
-"Last-Translator: P.-H. Lin <cypressyew@gmail.com>\n"
+"PO-Revision-Date: 2021-04-09 16:19+0000\n"
+"Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -555,10 +555,8 @@ msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr ""
 
 #: src/app/ZoomControls.qml:192
-#, fuzzy
-#| msgid "More"
 msgid "or"
-msgstr "更多"
+msgstr "或者"
 
 #: src/app/ZoomControls.qml:198
 #, fuzzy
@@ -567,10 +565,8 @@ msgid "Save for domain"
 msgstr "儲存到"
 
 #: src/app/ZoomControls.qml:211
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "另存為 PDF"
+msgstr "另存為預設值"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -848,10 +844,8 @@ msgid "View source"
 msgstr "查看資料"
 
 #: src/app/webbrowser/Browser.qml:794
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save / Print to PDF"
-msgstr "另存為 PDF"
+msgstr "另存 / 列印為 PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
@@ -974,8 +968,6 @@ msgstr "搜尋引擎"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
 msgstr "新分頁"
 
@@ -994,7 +986,7 @@ msgstr "設定桌面模式"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "自動調整寬度"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
@@ -1018,10 +1010,8 @@ msgid "Reset browser settings"
 msgstr "重設瀏覽器設定"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "離開私密模式"
+msgstr "開啟在私密模式"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1034,44 +1024,32 @@ msgid "Camera & microphone"
 msgstr "攝影機及麥克風"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "清除瀏覽歷史"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "是否清除瀏覽歷史？"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "清除快取"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "是否清除網頁快取？"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "清除快取"
+msgstr "清除所有快取"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "是否清除網頁快取？"
+msgstr "是否清除所有網頁快取？"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1079,10 +1057,8 @@ msgid "Clear"
 msgstr "清除"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "自訂 URL 主題"
+msgstr "自訂首頁"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
