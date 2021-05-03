@@ -1853,7 +1853,7 @@ Common.BrowserView {
         onActivated: currentWebview.zoomController.resetSaveFit()
     }
 
-    // Ctrl+W: Open and search tabs list
+    // Ctrl+Space: Open and search tabs list
     Shortcut {
         sequence: "Ctrl+Space"
         enabled: currentWebview || recentView.visible
