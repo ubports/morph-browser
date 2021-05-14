@@ -35,12 +35,7 @@ Common.BrowserPage {
     BookmarksFoldersView {
         id: bookmarksFoldersView
 
-        anchors {
-            top: parent.top
-            bottom: toolbar.top
-            left: parent.left
-            right: parent.right
-        }
+        anchors.fill: parent
 
         interactive: true
         focus: true
@@ -51,47 +46,6 @@ Common.BrowserPage {
                 bookmarksView.back()
             }
             BookmarksModel.remove(url)
-        }
-    }
-
-    Local.Toolbar {
-        id: toolbar
-        height: units.gu(7)
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        Button {
-            objectName: "doneButton"
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-
-            activeFocusOnPress: false
-            color: theme.palette.normal.base
-            text: i18n.tr("Done")
-
-            onClicked: bookmarksView.back()
-        }
-
-        ToolbarAction {
-            objectName: "newTabAction"
-            anchors {
-                right: parent.right
-                rightMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-            height: parent.height - units.gu(2)
-
-            text: i18n.tr("New tab")
-            iconName: "tab-new"
-
-            onClicked: bookmarksView.newTabClicked()
         }
     }
 }

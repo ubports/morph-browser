@@ -32,7 +32,7 @@ Common.BrowserPage {
 
     showBackAction: !domainsListView.ViewItems.selectMode
     leadingActions: [closeAction]
-    trailingActions: domainsListView.ViewItems.selectMode ? [selectAllAction, deleteAction] : []
+    trailingActions: domainsListView.ViewItems.selectMode ? [selectAllAction, deleteAction] : [editAction]
 
     Timer {
         // Set the model asynchronously to ensure
@@ -51,12 +51,7 @@ Common.BrowserPage {
         focus: true
         currentIndex: 0
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: toolbar.top
-        }
+        anchors.fill: parent
 
         model: HistoryDomainListModel {
             id: historyDomainListModel
@@ -100,55 +95,19 @@ Common.BrowserPage {
         Keys.onDeletePressed: currentItem.removed()
     }
 
-    Local.Toolbar {
-        id: toolbar
-        height: units.gu(7)
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        Button {
-            objectName: "doneButton"
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-
-            color: theme.palette.normal.base
-
-            text: i18n.tr("Done")
-
-            onClicked: historyView.back()
-        }
-
-        ToolbarAction {
-            objectName: "newTabAction"
-            anchors {
-                right: parent.right
-                rightMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-            height: parent.height - units.gu(2)
-
-            text: i18n.tr("New tab")
-            iconName: "tab-new"
-
-            onClicked: {
-                historyView.newTabRequested()
-                historyView.back()
-            }
-        }
-    }
-
     Action {
         id: closeAction
         objectName: "close"
         iconName: "close"
         onTriggered: domainsListView.ViewItems.selectMode = false
+    }
+    
+    
+    Action {
+        id: editAction
+        objectName: "edit"
+        iconName: "edit"
+        onTriggered: domainsListView.ViewItems.selectMode = true
     }
 
     Action {
