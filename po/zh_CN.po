@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2020-01-19 19:39+0000\n"
-"Last-Translator: Sam Zhang <sammyok@163.com>\n"
+"PO-Revision-Date: 2021-05-17 09:38+0000\n"
+"Last-Translator: Florian Leeber <flori@bin.org.in>\n"
 "Language-Team: Chinese (Simplified) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -282,7 +282,7 @@ msgstr "没有可用的下载"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Certificate Error"
-msgstr ""
+msgstr "证书错误"
 
 #: src/app/ErrorSheet.qml:42
 msgid "Network Error"
@@ -441,7 +441,7 @@ msgstr "是否允许这个网域使用本机的麦克风？"
 
 #: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
-msgstr "同意"
+msgstr "是"
 
 #: src/app/MediaAccessDialog.qml:85
 msgid "No"
@@ -466,10 +466,8 @@ msgid "Save page as HTML / PDF"
 msgstr "保存页面为 HTML/PDF"
 
 #: src/app/SavePageDialog.qml:41
-#, fuzzy
-#| msgid "No custom user agents available"
 msgid "No save actions are available"
-msgstr "没有自定义用户标识"
+msgstr "没有可用的保存操作"
 
 #: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
@@ -514,30 +512,24 @@ msgid "Current Zoom"
 msgstr "当前缩放"
 
 #: src/app/ZoomControls.qml:102
-#, fuzzy
-#| msgid "Add domain"
 msgid "domain"
 msgstr "添加域名"
 
 #: src/app/ZoomControls.qml:102
-#, fuzzy
-#| msgid "Default"
 msgid "default"
 msgstr "默认"
 
 #: src/app/ZoomControls.qml:102
 msgid "auto-fit"
-msgstr ""
+msgstr "自动适应"
 
 #: src/app/ZoomControls.qml:187
-#, fuzzy
-#| msgid "Save image"
 msgid "Save Zoom"
-msgstr "保存图像"
+msgstr "保存缩放"
 
 #: src/app/ZoomControls.qml:188
 msgid "none"
-msgstr ""
+msgstr "无"
 
 #: src/app/ZoomControls.qml:188
 #, qt-format
@@ -565,26 +557,20 @@ msgid "Current zoom (%1%) can be saved for %2 as "
 msgstr ""
 
 #: src/app/ZoomControls.qml:192
-#, fuzzy
-#| msgid "More"
 msgid "or"
 msgstr "更多"
 
 #: src/app/ZoomControls.qml:198
-#, fuzzy
-#| msgid "Save in"
 msgid "Save for domain"
-msgstr "保存在"
+msgstr "保存域名"
 
 #: src/app/ZoomControls.qml:211
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save as default"
-msgstr "保存为PDF"
+msgstr "保存为默认"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "返回"
+msgstr "上一步"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -858,10 +844,8 @@ msgid "View source"
 msgstr "查看源代码"
 
 #: src/app/webbrowser/Browser.qml:794
-#, fuzzy
-#| msgid "Save as PDF"
 msgid "Save / Print to PDF"
-msgstr "保存为PDF"
+msgstr "保存/打印为PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
@@ -870,11 +854,8 @@ msgid "(%1)"
 msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1830
-#, fuzzy
-#| msgid ""
-#| "Choose an application to open this file or add it to the downloads folder."
 msgid "the file is already in the downloads folder."
-msgstr "选择一个应用来打开这个文件或者将它添加到下载文件夹中。"
+msgstr "文件已经在下载目录了。"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -984,10 +965,8 @@ msgstr "搜索引擎"
 
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:484
-#, fuzzy
-#| msgid "New Tab"
 msgid "New Tab Page"
-msgstr "新标签"
+msgstr "新标签页"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
@@ -995,7 +974,7 @@ msgstr "在启动时恢复上次会话"
 
 #: src/app/webbrowser/SettingsPage.qml:120
 msgid "not available because of startup in private mode"
-msgstr ""
+msgstr "以隐私模式启动而不可使用"
 
 #: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
@@ -1004,12 +983,12 @@ msgstr "电脑模式"
 #: src/app/webbrowser/SettingsPage.qml:159
 #: src/app/webcontainer/WebappSettingsPage.qml:58
 msgid "Automatic fit to width"
-msgstr ""
+msgstr "自动适应宽度"
 
 #: src/app/webbrowser/SettingsPage.qml:160
 #: src/app/webcontainer/WebappSettingsPage.qml:59
 msgid "Adjusts the width of the website to the window"
-msgstr ""
+msgstr "调整网站的窗口宽度"
 
 #: src/app/webbrowser/SettingsPage.qml:179
 #: src/app/webcontainer/WebappSettingsPage.qml:78
@@ -1028,10 +1007,8 @@ msgid "Reset browser settings"
 msgstr "重置浏览器设置"
 
 #: src/app/webbrowser/SettingsPage.qml:314
-#, fuzzy
-#| msgid "Leave Private Mode"
 msgid "Start in private mode"
-msgstr "退出匿名模式"
+msgstr "进入匿名模式"
 
 #: src/app/webbrowser/SettingsPage.qml:338
 #: src/app/webcontainer/WebappSettingsPage.qml:186
@@ -1044,44 +1021,32 @@ msgid "Camera & microphone"
 msgstr "相机与麦克风"
 
 #: src/app/webbrowser/SettingsPage.qml:387
-#, fuzzy
-#| msgid "Clear Browsing History"
 msgid "Clear browsing history"
 msgstr "清除浏览历史"
 
 #: src/app/webbrowser/SettingsPage.qml:391
-#, fuzzy
-#| msgid "Clear Browsing History?"
 msgid "Clear browsing history?"
 msgstr "清除浏览历史？"
 
 #: src/app/webbrowser/SettingsPage.qml:399
 #: src/app/webcontainer/WebappSettingsPage.qml:227
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear cache"
 msgstr "清除缓存"
 
 #: src/app/webbrowser/SettingsPage.qml:402
 #: src/app/webcontainer/WebappSettingsPage.qml:230
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear cache?"
 msgstr "清除缓存？"
 
 #: src/app/webbrowser/SettingsPage.qml:410
 #: src/app/webcontainer/WebappSettingsPage.qml:238
-#, fuzzy
-#| msgid "Clear Cache"
 msgid "Clear all cookies"
-msgstr "清除缓存"
+msgstr "清除所有cookies"
 
 #: src/app/webbrowser/SettingsPage.qml:413
 #: src/app/webcontainer/WebappSettingsPage.qml:241
-#, fuzzy
-#| msgid "Clear Cache?"
 msgid "Clear all Cookies?"
-msgstr "清除缓存？"
+msgstr "清除所有cookies？"
 
 #: src/app/webbrowser/SettingsPage.qml:445
 #: src/app/webcontainer/WebappSettingsPage.qml:273
@@ -1089,10 +1054,8 @@ msgid "Clear"
 msgstr "清除"
 
 #: src/app/webbrowser/SettingsPage.qml:496
-#, fuzzy
-#| msgid "Custom URL schemes"
 msgid "Custom hompage"
-msgstr "自定义URL路径"
+msgstr "自定义主页"
 
 #: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
