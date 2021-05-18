@@ -81,6 +81,17 @@ QQC2.SwipeDelegate {
                 anchors.fill: parent
                 color: theme.palette.normal.foreground
             }
+            
+            Rectangle {
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+                height: units.dp(1)
+
+                color: theme.palette.normal.base
+            }
 
             Image {
                 visible: !previewContainer.visible
