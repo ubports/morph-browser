@@ -49,7 +49,6 @@ FocusScope {
 
         anchors {
             top: header.bottom
-            topMargin: units.gu(1.5)
             bottom: parent.bottom
             bottomMargin: units.gu(1.5)
             left: parent.left
@@ -126,8 +125,7 @@ FocusScope {
         }
         UrlDelegate {
             anchors {
-                left: doneButton.left
-                right: parent.left
+                left: doneButton.right
                 leftMargin: units.gu(4)
                 top: parent.top
                 topMargin: -units.gu(0.7)
