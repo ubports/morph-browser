@@ -73,8 +73,6 @@ QQC2.SwipeDelegate {
                 right: parent.right
             }
 
-
-
             visible: !tab.loadingPreview
             height: parent.height
             clip: true
@@ -82,6 +80,17 @@ QQC2.SwipeDelegate {
             Rectangle {
                 anchors.fill: parent
                 color: theme.palette.normal.foreground
+            }
+            
+            Rectangle {
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+                height: units.dp(1)
+
+                color: theme.palette.normal.base
             }
 
             Image {
@@ -97,17 +106,6 @@ QQC2.SwipeDelegate {
                     bottom: parent.bottom
                     bottomMargin: -height / 10
                 }
-            }
-
-            Rectangle {
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-                height: units.dp(1)
-
-                color: theme.palette.normal.base
             }
 
             Label {
