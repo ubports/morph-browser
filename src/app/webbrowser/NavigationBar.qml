@@ -57,6 +57,21 @@ FocusScope {
         addressbar.selectAll()
     }
 
+    function showNavHistory(model, caller) {
+        navHistPopup.model = model
+        navHistPopup.show(caller)
+    }
+
+    NavHistoryPopup {
+        id: navHistPopup
+        
+        availHeight: root.availableHeight
+        availWidth: root.width
+        onNavigate: {
+            internal.webview.goBackOrForward(offset)
+        }
+    }
+
     FocusScope {
         anchors {
             fill: parent
@@ -76,6 +91,9 @@ FocusScope {
             height: root.height
             width: height * 0.8
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
@@ -85,15 +103,15 @@ FocusScope {
             onTriggered: {
                 if (findInPageMode) {
                     findInPageMode = false
-                }
-                else {
-                    if (internal.webview.loading)
-                    {
+                } else {
+                    if (internal.webview.loading) {
                         internal.webview.stop()
                     }
                     internal.webview.goBack()
-                    }
                 }
+            }
+
+            onShowContextMenu: showNavHistory(internal.webview.navigationHistory.backItems, backButton)
         }
 
         Connections {
@@ -121,6 +139,9 @@ FocusScope {
             visible: enabled
             width: visible ? height * 0.8 : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: backButton.right
                 verticalCenter: parent.verticalCenter
@@ -135,6 +156,8 @@ FocusScope {
                 }
                 internal.webview.goForward()
             }
+
+            onShowContextMenu: showNavHistory(internal.webview.navigationHistory.forwardItems, forwardButton)
         }
 
         AddressBar {

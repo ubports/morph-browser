@@ -371,6 +371,7 @@ Common.BrowserView {
                     }
                     height: (state === "hidden") ? 0 : units.gu(6)
                     y: webapp.currentWebview ? containerWebView.currentWebview.locationBarController.offset : 0
+                    availableHeight: containerWebView.height
 
                     onChooseAccount: webapp.chooseAccount()
                     onToggleDownloads: {

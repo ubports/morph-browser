@@ -26,6 +26,7 @@ ChromeBase {
     property var webview: null
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
+    property real availableHeight
     signal toggleDownloads()
     property bool showDownloadButton: false
     property bool downloadNotify: false
@@ -47,7 +48,22 @@ ChromeBase {
         downloadsButton.iconColor = Qt.binding(function(){ return downloadNotify ? theme.palette.normal.focus : color})
     }
 
+    function showNavHistory(model, caller) {
+        navHistPopup.model = model
+        navHistPopup.show(caller)
+    }
+
     signal chooseAccount()
+
+    NavHistoryPopup {
+        id: navHistPopup
+
+        availHeight: chrome.availableHeight
+        availWidth: chrome.width
+        onNavigate: {
+            chrome.webview.goBackOrForward(offset)
+        }
+    }
 
     FocusScope {
         anchors {
@@ -68,6 +84,9 @@ ChromeBase {
             visible: chrome.navigationButtonsVisible
             width: visible ? height : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
@@ -80,6 +99,8 @@ ChromeBase {
                 }
                 chrome.webview.goBack()
             }
+
+            onShowContextMenu: showNavHistory(chrome.webview.navigationHistory.backItems, backButton)
         }
 
         ChromeButton {
@@ -93,6 +114,9 @@ ChromeBase {
             visible: chrome.navigationButtonsVisible && enabled
             width: visible ? height : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: backButton.right
                 verticalCenter: parent.verticalCenter
@@ -105,6 +129,8 @@ ChromeBase {
                 }
                 chrome.webview.goForward()
             }
+
+            onShowContextMenu: showNavHistory(chrome.webview.navigationHistory.forwardItems, forwardButton)
         }
 
         Item {
