@@ -55,7 +55,6 @@ QJsonObject NotificationsProxy::buildMessage(const QString & tag, const QUrl & o
     notification["tag"] = tag;
     notification["card"] = buildCard(origin, title, body);
     notification["sound"] = false;
-    //notification["vibrate"] = vibrate();
     QJsonObject message;
     message["notification"] = notification;
     return message;
