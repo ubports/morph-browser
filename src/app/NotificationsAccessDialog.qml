@@ -28,7 +28,7 @@ Dialog {
     modal: true
 
     title: i18n.tr("Permission Request")
-    text: securityOrigin + "<br>" + i18n.tr("This page wants to know create notifications.")
+    text: securityOrigin + "<br>" + i18n.tr("This page wants to create notifications.")
     
     signal allow()
     signal allowPermanently()
