@@ -27,7 +27,7 @@ QtObject {
     property QtObject sharedContext: Morph.WebContext {
         id: context
         offTheRecord: false
-        storageName: "MorphSharedWebContext"
+        storageName: "Default"
     }
 
     property QtObject sharedIncognitoContext: Morph.WebContext {
