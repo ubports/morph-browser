@@ -170,7 +170,7 @@ BrowserWindow {
         onLoaded: {
             var context = item.currentWebview.context;
             context.offTheRecord = false;
-            context.storageName = "WebappContainerContext";
+            context.storageName = "Default";
             onlineAccountsController.setupWebcontextForAccount(context);
             item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls;
 
