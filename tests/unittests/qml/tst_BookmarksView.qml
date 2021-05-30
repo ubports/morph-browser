@@ -51,7 +51,6 @@ FocusScope {
             populate()
             verify(view.activeFocus)
             compare(bookmarkEntryClickedSpy.count, 0)
-            compare(newTabClickedSpy.count, 0)
         }
 
         function populate() {
