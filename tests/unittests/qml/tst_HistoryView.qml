@@ -47,18 +47,6 @@ FocusScope {
         signalName: "seeMoreEntriesClicked"
     }
 
-    SignalSpy {
-        id: newTabRequestedSpy
-        target: historyView
-        signalName: "newTabRequested"
-    }
-
-    SignalSpy {
-        id: backSpy
-        target: historyView
-        signalName: "back"
-    }
-
     WebbrowserTestCase {
         name: "HistoryView"
         when: windowShown
@@ -74,7 +62,6 @@ FocusScope {
             waitForRendering(domainsList)
             tryCompare(domainsList, "count", 3)
             compare(seeMoreEntriesClickedSpy.count, 0)
-            compare(backSpy.count, 0)
         }
 
         function populate() {
@@ -88,20 +75,6 @@ FocusScope {
             historyViewLoader.active = false
             HistoryModel.databasePath = ""
             seeMoreEntriesClickedSpy.clear()
-            backSpy.clear()
-        }
-
-        function test_back() {
-            var button = findChild(historyView, "doneButton")
-            clickItem(button)
-            compare(backSpy.count, 1)
-        }
-
-        function test_new_tab() {
-            var action = findChild(historyView, "newTabAction")
-            clickItem(action)
-            compare(newTabRequestedSpy.count, 1)
-            compare(backSpy.count, 1)
         }
 
         function test_see_more_entries() {

@@ -48,18 +48,6 @@ Item {
     }
 
     SignalSpy {
-        id: doneSpy
-        target: historyViewWide
-        signalName: "done"
-    }
-
-    SignalSpy {
-        id: newTabRequestedSpy
-        target: historyViewWide
-        signalName: "newTabRequested"
-    }
-
-    SignalSpy {
         id: historyEntryClickedSpy
         target: historyViewWide
         signalName: "historyEntryClicked"
@@ -96,23 +84,6 @@ Item {
             HistoryModel.clearAll()
             historyViewWideLoader.active = false
             ctrlFCaptured = 0
-        }
-
-        function test_done_button() {
-            var doneButton = findChild(historyViewWide, "doneButton")
-            verify(doneButton != null)
-            doneSpy.clear()
-            clickItem(doneButton)
-            compare(doneSpy.count, 1)
-        }
-
-        function test_new_tab_button() {
-            var newTabButton = findChild(historyViewWide, "newTabButton")
-            verify(newTabButton != null)
-            doneSpy.clear()
-            newTabRequestedSpy.clear()
-            clickItem(newTabButton)
-            compare(newTabRequestedSpy.count, 1)
         }
 
         function test_history_entry_clicked() {
