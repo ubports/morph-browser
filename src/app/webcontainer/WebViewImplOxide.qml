@@ -215,35 +215,6 @@ WebappWebview {
         currentWebview.runJavaScript("window.location.href = '%1';".arg(targetUrl));
     }
 
-    // domains the user has allowed custom protocols for this (incognito) session
-    property var domainsWithCustomUrlSchemesAllowed: []
-
-    function allowCustomUrlSchemes(domain, allowPermanently) {
-       domainsWithCustomUrlSchemesAllowed.push(domain);
-
-       if (allowPermanently)
-       {
-            DomainSettingsModel.allowCustomUrlSchemes(domain, true);
-       }
-    }
-
-    function areCustomUrlSchemesAllowed(domain) {
-
-        for (var i in domainsWithCustomUrlSchemesAllowed) {
-            if (domain === domainsWithCustomUrlSchemesAllowed[i]) {
-                return true;
-            }
-        }
-
-        if (DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
-        {
-            domainsWithCustomUrlSchemesAllowed.push(domain);
-            return true;
-        }
-
-        return false;
-    }
-
     function navigationRequestedDelegate(request) {
 
         var url = request.url.toString();
@@ -255,7 +226,7 @@ WebappWebview {
         // handle custom schemes
         if (UrlUtils.hasCustomScheme(url))
         {
-            if (! areCustomUrlSchemesAllowed(currentDomain))
+            if (! DomainSettingsModel.areCustomUrlSchemesAllowed(currentDomain))
             {
               request.action = WebEngineNavigationRequest.IgnoreRequest;
 
@@ -263,14 +234,14 @@ WebappWebview {
               allowCustomSchemesDialog.url = url;
               allowCustomSchemesDialog.domain = currentDomain;
               allowCustomSchemesDialog.showAllowPermanentlyCheckBox = true;
-              allowCustomSchemesDialog.allow.connect(function() {allowCustomUrlSchemes(currentDomain, false);
-                                                                 navigateToUrlAsync(url);
-                                                                }
-                                                    );
-              allowCustomSchemesDialog.allowPermanently.connect(function() {allowCustomUrlSchemes(currentDomain, true);
-                                                                            navigateToUrlAsync(url);
-                                                                           }
-                                                               );
+              allowCustomSchemesDialog.allow.connect(function() {
+                  DomainSettingsModel.allowCustomUrlSchemes(currentDomain, true, true);
+                  navigateToUrlAsync(url);
+              });
+              allowCustomSchemesDialog.allowPermanently.connect(function() {
+                  DomainSettingsModel.allowCustomUrlSchemes(currentDomain, true, false);
+                  navigateToUrlAsync(url);
+              });
             }
             return;
         }

@@ -252,14 +252,22 @@ WebView {
              var notificationsAccessDialog = PopupUtils.open(Qt.resolvedUrl("NotificationsAccessDialog.qml"), this);
              notificationsAccessDialog.securityOrigin = securityOrigin;
              notificationsAccessDialog.showRememberDecisionCheckBox = (domain !== "") && ! incognito
-             notificationsAccessDialog.allow.connect(function() { grantFeaturePermission(securityOrigin, feature, true); });
-             notificationsAccessDialog.allowPermanently.connect(function() { grantFeaturePermission(securityOrigin, feature, true);
-                                                                       DomainSettingsModel.setNotificationsPreference(domain, DomainSettingsModel.AllowNotificationsAccess);
-                                                                     });
-             notificationsAccessDialog.reject.connect(function() { grantFeaturePermission(securityOrigin, feature, false); });
-             notificationsAccessDialog.rejectPermanently.connect(function() { grantFeaturePermission(securityOrigin, feature, false);
-                                                                       DomainSettingsModel.setNotificationsPreference(domain, DomainSettingsModel.DenyNotificationsAccess);
-                                                                     });
+             notificationsAccessDialog.allow.connect(function() {
+                 grantFeaturePermission(securityOrigin, feature, true);
+                 DomainSettingsModel.setNotificationsPreference(domain, DomainSettingsModel.AllowNotificationsAccess, true);
+             });
+             notificationsAccessDialog.allowPermanently.connect(function() {
+                 grantFeaturePermission(securityOrigin, feature, true);
+                 DomainSettingsModel.setNotificationsPreference(domain, DomainSettingsModel.AllowNotificationsAccess, false);
+             });
+             notificationsAccessDialog.reject.connect(function() {
+                 grantFeaturePermission(securityOrigin, feature, false);
+                 DomainSettingsModel.setNotificationsPreference(domain, DomainSettingsModel.DenyNotificationsAccess, true);
+             });
+             notificationsAccessDialog.rejectPermanently.connect(function() {
+                 grantFeaturePermission(securityOrigin, feature, false);
+                 DomainSettingsModel.setNotificationsPreference(domain, DomainSettingsModel.DenyNotificationsAccess, false);
+             });
              break;
          }
     }

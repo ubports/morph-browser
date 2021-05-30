@@ -211,7 +211,7 @@ FocusScope {
 
                             CheckBox {
                                 checked: model.allowCustomUrlSchemes
-                                onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked)
+                                onTriggered: DomainSettingsModel.allowCustomUrlSchemes(model.domain, checked, false)
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                         }
@@ -249,7 +249,7 @@ FocusScope {
                             ComboBox {
                                model: [ i18n.tr("Ask each time"), i18n.tr("Allowed"), i18n.tr("Denied") ]
                                currentIndex: item.notificationsPreference
-                               onCurrentIndexChanged: DomainSettingsModel.setNotificationsPreference(item.domain, currentIndex)
+                               onCurrentIndexChanged: DomainSettingsModel.setNotificationsPreference(item.domain, currentIndex, false)
                                anchors.verticalCenter: parent.verticalCenter
                             }
                         }

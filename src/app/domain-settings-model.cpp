@@ -222,9 +222,9 @@ bool DomainSettingsModel::areCustomUrlSchemesAllowed(const QString& domain)
     return m_entries[index].allowCustomUrlSchemes;
 }
 
-void DomainSettingsModel::allowCustomUrlSchemes(const QString& domain, bool allow)
+void DomainSettingsModel::allowCustomUrlSchemes(const QString& domain, bool allow, bool incognito)
 {
-    insertEntry(domain);
+    insertEntry(domain, incognito);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
@@ -234,12 +234,15 @@ void DomainSettingsModel::allowCustomUrlSchemes(const QString& domain, bool allo
         }
         entry.allowCustomUrlSchemes = allow;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << AllowCustomUrlSchemes);
-        QSqlQuery query(m_database);
-        static QString updateStatement = QLatin1String("UPDATE domainsettings SET allowCustomUrlSchemes=? WHERE domain=?;");
-        query.prepare(updateStatement);
-        query.addBindValue(allow);
-        query.addBindValue(domain);
-        query.exec();
+        if (!incognito)
+        {
+            QSqlQuery query(m_database);
+            static QString updateStatement = QLatin1String("UPDATE domainsettings SET allowCustomUrlSchemes=? WHERE domain=?;");
+            query.prepare(updateStatement);
+            query.addBindValue(allow);
+            query.addBindValue(domain);
+            query.exec();
+        }
     }
 }
 
@@ -256,7 +259,7 @@ DomainSettingsModel::AllowLocationPreference DomainSettingsModel::getLocationPre
 
 void DomainSettingsModel::setLocationPreference(const QString& domain, DomainSettingsModel::AllowLocationPreference preference)
 {
-    insertEntry(domain);
+    insertEntry(domain, false);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
@@ -286,9 +289,9 @@ DomainSettingsModel::NotificationsPreference DomainSettingsModel::getNotificatio
     return m_entries[index].allowNotifications;
 }
 
-void DomainSettingsModel::setNotificationsPreference(const QString& domain, DomainSettingsModel::NotificationsPreference preference)
+void DomainSettingsModel::setNotificationsPreference(const QString& domain, DomainSettingsModel::NotificationsPreference preference, bool incognito)
 {
-    insertEntry(domain);
+    insertEntry(domain, incognito);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
@@ -298,12 +301,16 @@ void DomainSettingsModel::setNotificationsPreference(const QString& domain, Doma
         }
         entry.allowNotifications = preference;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << AllowNotifications);
-        QSqlQuery query(m_database);
-        static QString updateStatement = QLatin1String("UPDATE domainsettings SET allowNotifications=? WHERE domain=?;");
-        query.prepare(updateStatement);
-        query.addBindValue(entry.allowNotifications);
-        query.addBindValue(domain);
-        query.exec();
+
+        if (!incognito)
+        {
+            QSqlQuery query(m_database);
+            static QString updateStatement = QLatin1String("UPDATE domainsettings SET allowNotifications=? WHERE domain=?;");
+            query.prepare(updateStatement);
+            query.addBindValue(entry.allowNotifications);
+            query.addBindValue(domain);
+            query.exec();
+        }
     }
 }
 
@@ -320,7 +327,7 @@ int DomainSettingsModel::getUserAgentId(const QString& domain) const
 
 void DomainSettingsModel::setUserAgentId(const QString& domain, int userAgentId)
 {
-    insertEntry(domain);
+    insertEntry(domain, false);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
@@ -374,7 +381,7 @@ double DomainSettingsModel::getZoomFactor(const QString& domain) const
 
 void DomainSettingsModel::setZoomFactor(const QString& domain, double zoomFactor)
 {
-    insertEntry(domain);
+    insertEntry(domain, false);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
@@ -394,7 +401,7 @@ void DomainSettingsModel::setZoomFactor(const QString& domain, double zoomFactor
     }
 }
 
-void DomainSettingsModel::insertEntry(const QString &domain)
+void DomainSettingsModel::insertEntry(const QString &domain, bool incognito)
 {
     if (contains(domain))
     {
@@ -414,18 +421,21 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     endInsertRows();
     Q_EMIT rowCountChanged();
 
-    QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, allowNotifications, userAgentId, zoomFactor)"
-                                                   " VALUES (?, ?, ?, ?, ?, ?, ?);");
-    query.prepare(insertStatement);
-    query.addBindValue(entry.domain);
-    query.addBindValue(entry.domainWithoutSubdomain);
-    query.addBindValue(entry.allowCustomUrlSchemes);
-    query.addBindValue(entry.allowLocation);
-    query.addBindValue(entry.allowNotifications);
-    query.addBindValue((entry.userAgentId > 0) ? entry.userAgentId : QVariant());
-    query.addBindValue(entry.zoomFactor);
-    query.exec();
+    if (!incognito)
+    {
+        QSqlQuery query(m_database);
+        static QString insertStatement = QLatin1String("INSERT INTO domainsettings (domain, domainWithoutSubdomain, allowCustomUrlSchemes, allowLocation, allowNotifications, userAgentId, zoomFactor)"
+                                                       " VALUES (?, ?, ?, ?, ?, ?, ?);");
+        query.prepare(insertStatement);
+        query.addBindValue(entry.domain);
+        query.addBindValue(entry.domainWithoutSubdomain);
+        query.addBindValue(entry.allowCustomUrlSchemes);
+        query.addBindValue(entry.allowLocation);
+        query.addBindValue(entry.allowNotifications);
+        query.addBindValue((entry.userAgentId > 0) ? entry.userAgentId : QVariant());
+        query.addBindValue(entry.zoomFactor);
+        query.exec();
+    }
 }
 
 void DomainSettingsModel::removeEntry(const QString &domain)
