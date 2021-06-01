@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2020-08-26 00:00+0000\n"
-"Last-Translator: Arvid Brodin <arvidb@fripost.org>\n"
-"Language-Team: Swedish <https://translate.ubports.com/projects/ubports/morph-"
-"browser/sv/>\n"
+"PO-Revision-Date: 2021-06-01 23:45+0000\n"
+"Last-Translator: Marcus Fredlund <marcus.karlson@gmail.com>\n"
+"Language-Team: Swedish <https://translate.ubports.com/projects/ubports/"
+"morph-browser/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1174,7 +1174,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Misslyckades med autentiseringen"
+msgstr "Autentiseringen misslyckades"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
