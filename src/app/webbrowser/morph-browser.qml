@@ -58,6 +58,9 @@ QtObject {
         DomainSettingsModel.defaultZoomFactor = settings.zoomFactor;
         DomainSettingsModel.databasePath = dataLocation + "/domainsettings.sqlite";
         UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
+
+        // create path for pages printed to PDF
+        FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
     }
 
     // Array of all windows, sorted chronologically (most recently active last)
@@ -92,6 +95,8 @@ QtObject {
     property var windowFactory: Component {
         BrowserWindow {
             id: window
+
+            color: "#111111"
 
             property alias incognito: browser.incognito
             readonly property alias model: browser.tabsModel
@@ -228,17 +233,6 @@ QtObject {
                     window.tabsModel.currentTab.load()
                     window.show()
                     window.requestActivate()
-                }
-
-                onOpenLinkInNewTabRequested: {
-
-                    window.addTab(url);
-
-                    if (! background)
-                    {
-                        window.tabsModel.currentIndex = window.tabsModel.count - 1
-                        window.tabsModel.currentTab.load()
-                    }
                 }
 
                 // Not handled as a window-level shortcut as it would take

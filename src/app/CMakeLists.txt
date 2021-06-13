@@ -9,6 +9,7 @@ find_package(Qt5Widgets REQUIRED)
 #find_package(Qt5WebEngine REQUIRED)
 
 include(FindPkgConfig)
+pkg_check_modules(LIBAPPARMOR libapparmor REQUIRED)
 
 configure_file(
     config.h.in

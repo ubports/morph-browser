@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Chris Clime
+ * Copyright 2020 UBports Foundation
  *
  * This file is part of morph-browser.
  *
@@ -23,6 +23,7 @@
 #include <QString>
 #include <QtSql/QSqlDatabase>
 
+
 class DomainSettingsModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -31,11 +32,18 @@ class DomainSettingsModel : public QAbstractListModel
     Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
     Q_PROPERTY(double defaultZoomFactor READ defaultZoomFactor WRITE setDefaultZoomFactor)
 
+    Q_ENUMS(AllowLocationPreference)
     Q_ENUMS(Roles)
 
 public:
     DomainSettingsModel(QObject* parent=0);
     ~DomainSettingsModel();
+
+    enum AllowLocationPreference {
+     AskForLocationAccess = 0,
+     AllowLocationAccess = 1,
+     DenyLocationAccess = 2
+    };
 
     enum Roles {
         Domain = Qt::UserRole + 1,
@@ -61,8 +69,8 @@ public:
     Q_INVOKABLE void deleteAndResetDataBase();
     Q_INVOKABLE bool areCustomUrlSchemesAllowed(const QString& domain);
     Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow);
-    Q_INVOKABLE bool isLocationAllowed(const QString& domain) const;
-    Q_INVOKABLE void allowLocation(const QString& domain, bool allow);
+    Q_INVOKABLE AllowLocationPreference getLocationPreference(const QString& domain) const;
+    Q_INVOKABLE void setLocationPreference(const QString& domain, AllowLocationPreference preference);
     Q_INVOKABLE int getUserAgentId(const QString& domain) const;
     Q_INVOKABLE void setUserAgentId(const QString& domain, int userAgentId);
     Q_INVOKABLE void removeUserAgentIdFromAllDomains(int userAgentId);
@@ -84,7 +92,7 @@ private:
         QString domain;
         QString domainWithoutSubdomain;
         bool allowCustomUrlSchemes;
-        bool allowLocation;
+        AllowLocationPreference allowLocation;
         int userAgentId;
         double zoomFactor;
     };

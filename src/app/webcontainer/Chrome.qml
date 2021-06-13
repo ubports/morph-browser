@@ -26,6 +26,11 @@ ChromeBase {
     property var webview: null
     property bool navigationButtonsVisible: false
     property bool accountSwitcher: false
+    property real availableHeight
+    signal toggleDownloads()
+    property bool showDownloadButton: false
+    property bool downloadNotify: false
+    readonly property alias downloadsButtonPlaceHolder: downloadsButton
 
     loading: webview && webview.loading && webview.loadProgress !== 100
     loadProgress: loading ? webview.loadProgress : 0
@@ -39,9 +44,26 @@ ChromeBase {
         reloadButton.iconColor = color;
         settingsButton.iconColor = color;
         accountsButton.iconColor = color;
+
+        downloadsButton.iconColor = Qt.binding(function(){ return downloadNotify ? theme.palette.normal.focus : color})
+    }
+
+    function showNavHistory(model, caller) {
+        navHistPopup.model = model
+        navHistPopup.show(caller)
     }
 
     signal chooseAccount()
+
+    NavHistoryPopup {
+        id: navHistPopup
+
+        availHeight: chrome.availableHeight
+        availWidth: chrome.width
+        onNavigate: {
+            chrome.webview.goBackOrForward(offset)
+        }
+    }
 
     FocusScope {
         anchors {
@@ -62,6 +84,9 @@ ChromeBase {
             visible: chrome.navigationButtonsVisible
             width: visible ? height : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
@@ -74,6 +99,8 @@ ChromeBase {
                 }
                 chrome.webview.goBack()
             }
+
+            onShowContextMenu: showNavHistory(chrome.webview.navigationHistory.backItems, backButton)
         }
 
         ChromeButton {
@@ -87,6 +114,9 @@ ChromeBase {
             visible: chrome.navigationButtonsVisible && enabled
             width: visible ? height : 0
 
+            enableContextMenu: true
+            contextMenu: navHistPopup
+
             anchors {
                 left: backButton.right
                 verticalCenter: parent.verticalCenter
@@ -99,6 +129,8 @@ ChromeBase {
                 }
                 chrome.webview.goForward()
             }
+
+            onShowContextMenu: showNavHistory(chrome.webview.navigationHistory.forwardItems, forwardButton)
         }
 
         Item {
@@ -141,12 +173,74 @@ ChromeBase {
             width: visible ? height : 0
 
             anchors {
-                right: settingsButton.left
+                right: downloadsButton.left
                 verticalCenter: parent.verticalCenter
             }
 
             enabled: chrome.webview.url && chrome.webview.url !== ""
             onTriggered: chrome.webview.reload()
+        }
+
+        ChromeButton {
+            id: downloadsButton
+            objectName: "downloadsButton"
+
+            visible: chrome.navigationButtonsVisible && showDownloadButton
+            iconName: "save"
+            iconSize: 0.6 * height
+
+            height: parent.height
+            width: visible ? height : 0
+
+            anchors {
+                right: settingsButton.left
+                verticalCenter: parent.verticalCenter
+            }
+
+            Connections {
+                target: root
+
+                onDownloadNotifyChanged: {
+                    if (downloadNotify) {
+                        shakeAnimation.start()
+                    }
+                }
+            }
+
+            Behavior on iconColor {
+                ColorAnimation { duration: UbuntuAnimation.BriskDuration  }
+            }
+
+            SequentialAnimation {
+                id: shakeAnimation
+
+                loops: 4
+
+                RotationAnimation {
+                    target: downloadsButton
+                    direction: RotationAnimation.Counterclockwise
+                    to: 350
+                    duration: 50
+                }
+
+                RotationAnimation {
+                    target: downloadsButton
+                    direction: RotationAnimation.Clockwise
+                    to: 10
+                    duration: 50
+                }
+
+                RotationAnimation {
+                    target: downloadsButton
+                    direction: RotationAnimation.Counterclockwise
+                    to: 0
+                    duration: 50
+                }
+            }
+
+            onTriggered: {
+                toggleDownloads()
+            }
         }
 
         ChromeButton {

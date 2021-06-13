@@ -18,131 +18,119 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import QtQuick.Controls 2.2 as QQC2
 
-Item {
+QQC2.SwipeDelegate {
     id: tabPreview
 
     property alias title: chrome.title
-    property alias icon: chrome.icon
+    property alias tabIcon: chrome.icon
     property alias incognito: chrome.incognito
     property var tab
     readonly property url url: tab ? tab.url : ""
 
-    // The first preview in the tabs list is a special case.
-    // Since it’s the current tab, instead of displaying a
-    // capture, the webview below it is displayed.
-    property bool showContent: true
+    background: Rectangle {
+        color: "transparent"
+    }
+    leftPadding: 0
+    rightPadding: 0
+    topPadding: 0
+    bottomPadding: 0
+    swipe.enabled: true
+    swipe.behind: Rectangle {
+        width: tabPreview.width
+        height: tabPreview.height
+        color: "transparent"
+    }
+
+    swipe.onCompleted: closed()
+    onClicked: tabPreview.selected()
 
     signal selected()
     signal closed()
 
-    TabChrome {
-        id: chrome
+    contentItem: Item {
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        tabWidth: units.gu(26)
+        TabChrome {
+            id: chrome
 
-        onSelected: tabPreview.selected()
-        onClosed: tabPreview.closed()
-    }
-
-    Item {
-        anchors {
-            top: chrome.bottom
-            topMargin: units.dp(-1)
-            left: parent.left
-            right: parent.right
-        }
-        height: parent.height
-        clip: true
-
-        Rectangle {
-            anchors.fill: parent
-            color: theme.palette.normal.foreground
-            visible: showContent
-        }
-
-        Image {
-            visible: showContent && !previewContainer.visible
-            source: "assets/tab-artwork.png"
-            asynchronous: true
-            fillMode: Image.PreserveAspectFit
-            width: parent.width / 5
-            height: width
-            anchors {
-                right: parent.right
-                rightMargin: -width / 5
-                bottom: parent.bottom
-                bottomMargin: -height / 10
-            }
-        }
-
-        Rectangle {
             anchors {
                 top: parent.top
                 left: parent.left
                 right: parent.right
             }
-            height: units.dp(1)
+            tabWidth: units.gu(26)
 
-            color: theme.palette.normal.base
+            onSelected: tabPreview.selected()
+            onClosed: tabPreview.closed()
         }
 
-        Label {
-            visible: showContent && !previewContainer.visible
-            text: i18n.tr("Tap to view")
+        Item {
             anchors {
-                centerIn: parent
-                verticalCenterOffset: units.gu(-2)
-            }
-        }
-
-        Image {
-            id: previewContainer
-            visible: showContent && source.toString() && (status == Image.Ready)
-            anchors {
+                top: chrome.bottom
+                topMargin: units.dp(-1)
                 left: parent.left
-                top: parent.top
-                topMargin: -chrome.height
+                right: parent.right
             }
-            height: sourceSize.height
-            fillMode: Image.Pad
-            source: tabPreview.tab ? tabPreview.tab.preview : ""
-            asynchronous: true
-            cache: false
-            onStatusChanged: {
-                if (status == Image.Error) {
-                    // The cached preview doesn’t exist any longer
-                    tabPreview.tab.preview = ""
+
+            visible: !tab.loadingPreview
+            height: parent.height
+            clip: true
+
+            Rectangle {
+                anchors.fill: parent
+                color: theme.palette.normal.foreground
+            }
+            
+            Rectangle {
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+                height: units.dp(1)
+
+                color: theme.palette.normal.base
+            }
+
+            Image {
+                visible: !previewContainer.visible
+                source: "assets/tab-artwork.png"
+                asynchronous: true
+                fillMode: Image.PreserveAspectFit
+                width: parent.width / 5
+                height: width
+                anchors {
+                    right: parent.right
+                    rightMargin: -width / 5
+                    bottom: parent.bottom
+                    bottomMargin: -height / 10
                 }
             }
-        }
 
-        MouseArea {
-            objectName: "selectArea"
-            anchors.fill: parent
-            acceptedButtons: Qt.AllButtons
-
-            // 'clicked' events are emitted even if the cursor has been dragged
-            // (http://doc.qt.io/qt-5/qml-qtquick-mousearea.html#clicked-signal),
-            // but we don’t want a drag gesture to select the tab (when e.g. the
-            // user has reached the top/bottom of the tabs view and starts another
-            // gesture to drag further beyond the boundaries of the view).
-            property point pos
-            onPressed: {
-                if (mouse.button == Qt.LeftButton) {
-                    pos = Qt.point(mouse.x, mouse.y)
+            Label {
+                visible: !previewContainer.visible
+                text: i18n.tr("Tap to view")
+                anchors {
+                    top: parent.top
+                    topMargin: units.gu(12)
+                    horizontalCenter: parent.horizontalCenter
                 }
             }
-            onReleased: {
-                if (mouse.button == Qt.LeftButton) {
-                    var d = Math.sqrt(Math.pow(mouse.x - pos.x, 2) + Math.pow(mouse.y - pos.y, 2))
-                    if (d < units.gu(1)) {
-                        tabPreview.selected()
+
+            Image {
+                id: previewContainer
+                visible: source.toString() && (status == Image.Ready)
+                anchors.fill: parent
+                anchors.topMargin: units.dp(1)
+                verticalAlignment: Image.AlignTop
+                fillMode: Image.PreserveAspectFit
+                source: tabPreview.tab ? tabPreview.tab.preview : ""
+                asynchronous: true
+                cache: false
+                onStatusChanged: {
+                    if (status != Image.Loading) {
+                        tab.loadingPreview = false
                     }
                 }
             }

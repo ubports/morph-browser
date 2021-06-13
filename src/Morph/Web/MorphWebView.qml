@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import QtWebEngine 1.5
+import QtWebEngine 1.10
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
@@ -28,6 +28,12 @@ WebEngineView {
 
     property alias context: _webview.profile
     property var incognito: false
+
+    /**
+     * TODO: Make contextualActions work again - for compatibility to allow
+     * some apps to still run
+     **/
+    property ActionList contextualActions
 
     property var locationBarController: QtObject {
         readonly property int modeAuto: 0

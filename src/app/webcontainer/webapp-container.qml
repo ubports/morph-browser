@@ -19,8 +19,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Qt.labs.settings 1.0
-import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import QtWebEngine 1.7
+import QtWebEngine 1.10
 import Morph.Web 0.1
 import webcontainer.private 0.1
 import webbrowsercommon.private 0.1
@@ -157,20 +156,6 @@ BrowserWindow {
         return ""
     }
 
-    UnityWebApps.UnityWebappsAppModel {
-        id: webappModel
-        searchPath: root.webappModelSearchPath
-
-        onModelContentChanged: {
-            var name = getWebappName()
-            if (name && root.url.length === 0) {
-                var idx = webappModel.getWebappIndex(name)
-                root.url = webappModel.data(
-                            idx, UnityWebApps.UnityWebappsAppModel.Homepage)
-            }
-        }
-    }
-
     // Because of https://launchpad.net/bugs/1398046, it's important that this
     // is the first child
     Loader {
@@ -184,6 +169,8 @@ BrowserWindow {
 
         onLoaded: {
             var context = item.currentWebview.context;
+            context.offTheRecord = false;
+            context.storageName = "Default";
             onlineAccountsController.setupWebcontextForAccount(context);
             item.currentWebview.settings.localContentCanAccessRemoteUrls = localContentCanAccessRemoteUrls;
 
@@ -195,11 +182,12 @@ BrowserWindow {
             DownloadsModel.databasePath = webappDataLocation + "/downloads.sqlite";
             UserAgentsModel.databasePath = DomainSettingsModel.databasePath;
 
-            // this can be set from QtWebEngine version 1.9 (Qt 5.13)
-            // see issue [https://github.com/ubports/morph-browser/issues/254]
-            // --> uncomment the following line for QtWebEngine >= 1.9, and remove the marked code for this issue in WebApp.qml
-            //item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
+            // create downloads path
+            item.currentWebview.profile.downloadPath = webappDataLocation + "/Downloads";
             FileOperations.mkpath(webappDataLocation + "/Downloads");
+
+            // create path for pages printed to PDF
+            FileOperations.mkpath(Qt.resolvedUrl(cacheLocation) + "/pdf_tmp");
         }
 
         function loadCustomUserScripts() {
@@ -207,8 +195,7 @@ BrowserWindow {
             var scripts = [];
 
             // app specific user scripts
-            var idx = webappModel.getWebappIndex(getWebappName());
-            var customScripts = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Scripts);
+            var customScripts = []
 
             if ((typeof customScripts === "undefined") || (customScripts.length === 0))
             {
@@ -218,7 +205,7 @@ BrowserWindow {
             var i;
             for (i = 0; i < customScripts.length; i++)
             {
-              var script = Qt.createQmlObject('import QtWebEngine 1.7; WebEngineScript {}', webappViewLoader);
+              var script = Qt.createQmlObject('import QtWebEngine 1.10; WebEngineScript {}', webappViewLoader);
               script.sourceUrl = customScripts[i];
               script.injectionPoint = WebEngineScript.DocumentCreation;
               script.worldId = WebEngineScript.MainWorld;
@@ -314,7 +301,6 @@ BrowserWindow {
 
     function startBrowsing() {
         console.log("Start browsing")
-        // This will activate the UnityWebApp element used in WebApp.qml
         webappViewLoader.item.webappName = root.webappName
 
         // As we use StateSaver to restore the URL, we need to check first if
@@ -408,5 +394,10 @@ BrowserWindow {
 
         root.url = requestedUrl
         root.currentWebview.url = requestedUrl
+    }
+
+    property var openUrlsHandler: Connections {
+        target: UriHandler
+        onOpened: root.openUrls(uris)
     }
 }

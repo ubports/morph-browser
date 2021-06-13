@@ -51,8 +51,17 @@ Item {
         anchors.fill: parent
         anchors.rightMargin: tabItem.rightMargin
         color: theme.palette.normal.background
-        border.color: theme.palette.normal.base
+        border.color: theme.palette.normal.background
         radius: units.gu(0.5)
+
+        Rectangle {
+            height: tabImage.radius
+            anchors.bottom: tabImage.bottom
+            anchors.left: tabImage.left
+            anchors.right: tabImage.right
+            color: theme.palette.normal.background
+            z:1
+        }
 
         Favicon {
             id: favicon
@@ -82,7 +91,7 @@ Item {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 clip: true
-                fontSize: "small"
+                textSize: Label.Medium
                 color: tabItem.fgColor
             }
 
@@ -115,15 +124,13 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             acceptedButtons: Qt.AllButtons
-            onPressed: {
+
+            onClicked: {
                 if (mouse.button === Qt.LeftButton) {
                     tabItem.selected()
                 } else if (mouse.button === Qt.RightButton) {
                     tabItem.contextMenu()
-                }
-            }
-            onClicked: {
-                if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
+                } else if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
                     tabItem.closed()
                 }
             }

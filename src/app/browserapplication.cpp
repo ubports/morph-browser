@@ -19,6 +19,7 @@
 // system
 #include <cerrno>
 #include <cstring>
+#include <sys/apparmor.h>
 
 // Qtlangc
 #include <QtCore/QMetaObject>
@@ -166,7 +167,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     bool runningConfined = true;
     char* label;
     char* mode;
-    /*
     if (aa_getcon(&label, &mode) != -1) {
         if (strcmp(label, "unconfined") == 0) {
             runningConfined = false;
@@ -175,8 +175,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     } else if (errno == EINVAL) {
         runningConfined = false;
     }
-    */
-    runningConfined = false;
 
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();
@@ -184,6 +182,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
     if (inspectorEnabled) {
         qputenv("UBUNTU_WEBVIEW_DEVTOOLS_HOST", devtoolsHost.toUtf8());
         qputenv("UBUNTU_WEBVIEW_DEVTOOLS_PORT", devtoolsPort.toUtf8());
+    }
+    
+    // set suru style
+    if (qgetenv("QT_QUICK_CONTROLS_STYLE") == QString())
+    {
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Suru");
     }
 
     const char* uri = "webbrowsercommon.private";
@@ -228,12 +232,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath
         }
     }
     QQmlProperty::write(m_object, QStringLiteral("hasTouchScreen"), hasTouchScreen);
-
-    // set suru style
-    if (qgetenv("QT_QUICK_CONTROLS_STYLE") == QString())
-    {
-        qputenv("QT_QUICK_CONTROLS_STYLE", "Suru");
-    }
 
     inputMethodHandler * handler = new inputMethodHandler();
     this->installEventFilter(handler);

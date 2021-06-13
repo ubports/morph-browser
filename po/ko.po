@@ -7,17 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2015-05-19 19:42+0000\n"
-"Last-Translator: B. W. Knight <kbd0651@gmail.com>\n"
-"Language-Team: Korean <ko@li.org>\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
+"PO-Revision-Date: 2020-07-31 10:50+0000\n"
+"Last-Translator: Young Kim <rsyh93@gmail.com>\n"
+"Language-Team: Korean <https://translate.ubports.com/projects/ubports/morph-"
+"browser/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -57,17 +58,18 @@ msgstr "허용"
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
-#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
-#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
-#: src/app/webbrowser/DownloadDelegate.qml:181
-#: src/app/webbrowser/SettingsPage.qml:369
-#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webbrowser/SettingsPage.qml:438
+#: src/app/webbrowser/SettingsPage.qml:554
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
-#: src/app/webcontainer/WebappSettingsPage.qml:226
+#: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
 msgstr "취소"
 
@@ -128,7 +130,7 @@ msgstr "계속하기"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "이 연결을 신뢰할 수 없습니다."
+msgstr "이 연결을 신뢰할 수 없습니다"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -145,11 +147,6 @@ msgstr ""
 msgid "Proceed anyway"
 msgstr "무시하고 계속하기"
 
-#: src/app/CertificateVerificationDialog.qml:46
-#: src/app/InvalidCertificateErrorSheet.qml:173
-msgid "Back to safety"
-msgstr "안전 페이지로 돌아가기"
-
 #: src/app/ColorSelectDialog.qml:25
 #, fuzzy
 msgid "Select Color"
@@ -164,13 +161,13 @@ msgid "Custom User Agents"
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
-#: src/app/webbrowser/DownloadsPage.qml:86
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
+#: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "모두 선택"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "삭제"
 
@@ -253,26 +250,65 @@ msgstr ""
 msgid "No domain specific settings available"
 msgstr ""
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/DownloadDelegate.qml:131
+msgid "Download failed"
+msgstr "다운로드 실패"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/DownloadDelegate.qml:174
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
+
+#: src/app/DownloadDelegate.qml:180
+msgid "Pause"
+msgstr "일시 중지"
+
+#: src/app/DownloadDelegate.qml:191
+msgid "Resume"
+msgstr "계속"
+
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
+#: src/app/webcontainer/WebappSettingsPage.qml:117
+msgid "Downloads"
+msgstr "다운로드"
+
+#: src/app/DownloadsPage.qml:60
+msgid "Confirm selection"
+msgstr "선택 확인"
+
+#: src/app/DownloadsPage.qml:297
+msgid "No downloads available"
+msgstr "다운로드할 수 있는 항목 없음"
+
+#: src/app/ErrorSheet.qml:42
+msgid "Certificate Error"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:42
 msgid "Network Error"
 msgstr "네트워크가 잘못됨"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:45
+#: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "%1에 접속하는데 문제가 있는 것 같습니다."
 
-#: src/app/ErrorSheet.qml:52
+#: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
-msgstr ""
+msgstr "오류: %1"
 
-#: src/app/ErrorSheet.qml:59
+#: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "안전 페이지로 돌아가기"
+
+#: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr "네트워크 설정을 확인한 후 페이지를 다시 읽어주십시오."
 
-#: src/app/ErrorSheet.qml:65
+#: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
 msgstr "페이지 새로고침"
 
@@ -412,7 +448,7 @@ msgstr "예"
 
 #: src/app/MediaAccessDialog.qml:85
 msgid "No"
-msgstr "아니요"
+msgstr "아니오"
 
 #: src/app/PromptDialog.qml:25
 msgid "JavaScript Prompt"
@@ -432,54 +468,116 @@ msgstr "%1:%2 웹페이지는 인증을 요구합니다."
 msgid "Save page as HTML / PDF"
 msgstr ""
 
-#: src/app/SavePageDialog.qml:35
-msgid "Save as HTML"
-msgstr ""
-
-#: src/app/SavePageDialog.qml:44
-msgid "Save as PDF"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
-#: src/app/webcontainer/WebappSettingsPage.qml:55
+#: src/app/SavePageDialog.qml:41
 #, fuzzy
-msgid "Default Zoom"
-msgstr "기본"
+msgid "No save actions are available"
+msgstr "다운로드할 수 있는 항목 없음"
 
-#: src/app/WebViewImpl.qml:106
-msgid "the current web app"
-msgstr ""
+#: src/app/SavePageDialog.qml:46
+msgid "Save as HTML"
+msgstr "HTML으로 저장하기"
 
-#: src/app/WebViewImpl.qml:106
-#, qt-format
-msgid ""
-"Set current zoom as default zoom for %1 ? (You can change it in the settings "
-"menu)"
-msgstr ""
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "다운로드"
 
-#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
+#: src/app/SavePageDialog.qml:64
+msgid "Save as PDF"
+msgstr "PDF로 저장하기"
+
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:801
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:808
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:815
+#: src/app/ZoomControls.qml:69
+msgid "fit"
+msgstr ""
+
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:433
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
-msgstr "저장하기"
+msgstr "저장"
 
-#: src/app/WebViewImpl.qml:861
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
+msgstr ""
+
+#: src/app/ZoomControls.qml:102
+msgid "domain"
+msgstr ""
+
+#: src/app/ZoomControls.qml:102
+#, fuzzy
+#| msgid "Default"
+msgid "default"
+msgstr "기본"
+
+#: src/app/ZoomControls.qml:102
+msgid "auto-fit"
+msgstr ""
+
+#: src/app/ZoomControls.qml:187
+#, fuzzy
+#| msgid "Save image"
+msgid "Save Zoom"
+msgstr "이미지 저장"
+
+#: src/app/ZoomControls.qml:188
+msgid "none"
+msgstr ""
+
+#: src/app/ZoomControls.qml:188
+#, qt-format
+msgid ""
+"domain zoom (currently %1 and can be removed with reset button or from "
+"domain specific settings in privacy settings)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:189
+msgid " and resets domain zoom"
+msgstr ""
+
+#: src/app/ZoomControls.qml:189
+#, qt-format
+msgid "default zoom (currently %1%, can be changed from settings menu%2)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:190
+msgid "the current web app"
+msgstr ""
+
+#: src/app/ZoomControls.qml:190
+#, qt-format
+msgid "Current zoom (%1%) can be saved for %2 as "
+msgstr ""
+
+#: src/app/ZoomControls.qml:192
+#, fuzzy
+#| msgid "More"
+msgid "or"
+msgstr "더 보기"
+
+#: src/app/ZoomControls.qml:198
+#, fuzzy
+#| msgid "Save in"
+msgid "Save for domain"
+msgstr "다음 위치에 저장"
+
+#: src/app/ZoomControls.qml:211
+msgid "Save as default"
 msgstr ""
 
 #: src/app/actions/Back.qml:23
@@ -516,7 +614,7 @@ msgstr "사용 기록 지우기"
 msgid "Clear Navigation History"
 msgstr "탐색 기록 모두 지우기"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "복사"
 
@@ -528,7 +626,7 @@ msgstr "이미지 복사"
 msgid "Copy link"
 msgstr "링크 복사"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "잘라내기"
 
@@ -536,7 +634,7 @@ msgstr "잘라내기"
 msgid "Erase"
 msgstr "지우기"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:761
 msgid "Find in page"
 msgstr "페이지에서 찾기"
 
@@ -548,7 +646,7 @@ msgstr "페이지에서 찾기"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "앞으로"
+msgstr "전달"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -566,7 +664,7 @@ msgstr "가기"
 msgid "Address;URL;www"
 msgstr "주소"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:635
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "새 탭"
@@ -606,7 +704,7 @@ msgstr "새 창에 링크 열기"
 msgid "Open video in new tab"
 msgstr "새 탭에 동영상 열기"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "붙여넣기"
 
@@ -637,7 +735,7 @@ msgstr "링크 저장"
 msgid "Save video"
 msgstr "동영상 저장"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
 msgstr "공유"
 
@@ -653,9 +751,9 @@ msgstr "페이지에서 찾기"
 msgid "search or enter an address"
 msgstr "검색할 단어나 주소를 입력하십시오."
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
-msgstr ""
+msgstr "붙여놓고 바로 가기"
 
 #: src/app/webbrowser/BookmarkOptions.qml:66
 msgid "Bookmark Added"
@@ -688,21 +786,21 @@ msgstr "새 폴더 만들기"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
-#: src/app/webbrowser/SettingsPage.qml:397
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:90
+#: src/app/webbrowser/SettingsPage.qml:466
 msgid "Homepage"
 msgstr "홈페이지"
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
-#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:749 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "책갈피"
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
-#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/Browser.qml:621 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "완료"
@@ -715,62 +813,67 @@ msgstr "완료"
 msgid "New tab"
 msgstr "새 탭"
 
-#: src/app/webbrowser/Browser.qml:229
+#: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:230
+#: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:256
+#: src/app/webbrowser/Browser.qml:249
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:257
+#: src/app/webbrowser/Browser.qml:250
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:734
+#: src/app/webbrowser/Browser.qml:729
 msgid "New window"
 msgstr "새 창"
 
-#: src/app/webbrowser/Browser.qml:740
+#: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
 msgstr "새 사생활 보호 모드 창"
 
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "기록"
 
-#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
-msgid "Downloads"
-msgstr "다운로드"
-
-#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
+#: src/app/webbrowser/Browser.qml:775 src/app/webbrowser/SettingsPage.qml:45
 msgid "Settings"
 msgstr "설정"
 
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:781
 msgid "View source"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:793
-msgid "Save as HTML / PDF"
-msgstr ""
+#: src/app/webbrowser/Browser.qml:794
+#, fuzzy
+#| msgid "Save as PDF"
+msgid "Save / Print to PDF"
+msgstr "PDF로 저장하기"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr "이 파일을 열 프로그램을 선택하거나 다운로드 폴더에 추가합니다."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -780,36 +883,6 @@ msgstr "이 파일을 열 프로그램을 선택하거나 다운로드 폴더에
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "프로그램 선택"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "다운로드"
-
-#: src/app/webbrowser/DownloadDelegate.qml:153
-msgid "Download failed"
-msgstr "다운로드 실패"
-
-#. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:196
-#, qt-format
-msgid "%1%"
-msgstr "%1%"
-
-#: src/app/webbrowser/DownloadDelegate.qml:202
-msgid "Pause"
-msgstr ""
-
-#: src/app/webbrowser/DownloadDelegate.qml:213
-msgid "Resume"
-msgstr "계속"
-
-#: src/app/webbrowser/DownloadsPage.qml:62
-msgid "Confirm selection"
-msgstr "선택 확인"
-
-#: src/app/webbrowser/DownloadsPage.qml:268
-msgid "No downloads available"
-msgstr "다운로드할 수 있는 항목 없음"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -860,12 +933,12 @@ msgstr ""
 msgid "More"
 msgstr "더 보기"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:327
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "상위 사이트"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:358
 msgid "You haven't visited any site yet"
 msgstr "아직 어떤 사이트도 방문하지 않았습니다."
 
@@ -903,68 +976,127 @@ msgstr ""
 msgid "Default"
 msgstr "기본"
 
-#: src/app/webbrowser/SettingsPage.qml:72
-#: src/app/webbrowser/SettingsPage.qml:223
+#: src/app/webbrowser/SettingsPage.qml:74
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Search engine"
 msgstr "검색 엔진"
 
-#: src/app/webbrowser/SettingsPage.qml:98
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:484
+#, fuzzy
+#| msgid "New Tab"
+msgid "New Tab Page"
+msgstr "새 탭"
+
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
 msgstr "시작할 때 이전 세션 복구하기"
 
-#: src/app/webbrowser/SettingsPage.qml:117
+#: src/app/webbrowser/SettingsPage.qml:120
+msgid "not available because of startup in private mode"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:184
-#: src/app/webbrowser/SettingsPage.qml:266
-#: src/app/webcontainer/WebappSettingsPage.qml:103
-#: src/app/webcontainer/WebappSettingsPage.qml:143
+#: src/app/webbrowser/SettingsPage.qml:159
+#: src/app/webcontainer/WebappSettingsPage.qml:58
+msgid "Automatic fit to width"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:160
+#: src/app/webcontainer/WebappSettingsPage.qml:59
+msgid "Adjusts the width of the website to the window"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:179
+#: src/app/webcontainer/WebappSettingsPage.qml:78
+#, fuzzy
+msgid "Default Zoom"
+msgstr "기본"
+
+#: src/app/webbrowser/SettingsPage.qml:218
+#: src/app/webbrowser/SettingsPage.qml:300
+#: src/app/webcontainer/WebappSettingsPage.qml:131
+#: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
 msgstr "사생활과 권한 설정"
 
-#: src/app/webbrowser/SettingsPage.qml:195
+#: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
 msgstr "브라우저 설정 초기화하기"
 
-#: src/app/webbrowser/SettingsPage.qml:280
-#: src/app/webcontainer/WebappSettingsPage.qml:157
+#: src/app/webbrowser/SettingsPage.qml:314
+#, fuzzy
+#| msgid "Leave Private Mode"
+msgid "Start in private mode"
+msgstr "사생활 보호 모드 떠나기"
+
+#: src/app/webbrowser/SettingsPage.qml:338
+#: src/app/webcontainer/WebappSettingsPage.qml:186
 msgid "Only allow browsing to whitelisted websites"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:320
-#: src/app/webbrowser/SettingsPage.qml:453
+#: src/app/webbrowser/SettingsPage.qml:378
+#: src/app/webbrowser/SettingsPage.qml:569
 msgid "Camera & microphone"
 msgstr "카메라와 마이크 설정"
 
-#: src/app/webbrowser/SettingsPage.qml:329
-msgid "Clear Browsing History"
+#: src/app/webbrowser/SettingsPage.qml:387
+#, fuzzy
+#| msgid "Clear Browsing History"
+msgid "Clear browsing history"
 msgstr "검색 기록 삭제하기"
 
-#: src/app/webbrowser/SettingsPage.qml:333
-msgid "Clear Browsing History?"
+#: src/app/webbrowser/SettingsPage.qml:391
+#, fuzzy
+#| msgid "Clear Browsing History?"
+msgid "Clear browsing history?"
 msgstr "브라우저 사용 기록을 지우시겠습니까?"
 
-#: src/app/webbrowser/SettingsPage.qml:341
-#: src/app/webcontainer/WebappSettingsPage.qml:198
-msgid "Clear Cache"
+#: src/app/webbrowser/SettingsPage.qml:399
+#: src/app/webcontainer/WebappSettingsPage.qml:227
+#, fuzzy
+#| msgid "Clear Cache"
+msgid "Clear cache"
 msgstr "캐시 삭제하기"
 
-#: src/app/webbrowser/SettingsPage.qml:344
-#: src/app/webcontainer/WebappSettingsPage.qml:201
-msgid "Clear Cache?"
+#: src/app/webbrowser/SettingsPage.qml:402
+#: src/app/webcontainer/WebappSettingsPage.qml:230
+#, fuzzy
+#| msgid "Clear Cache?"
+msgid "Clear cache?"
 msgstr "캐시를 지우시겠습니다?"
 
-#: src/app/webbrowser/SettingsPage.qml:376
-#: src/app/webcontainer/WebappSettingsPage.qml:233
-msgid "Clear"
-msgstr "지우기"
+#: src/app/webbrowser/SettingsPage.qml:410
+#: src/app/webcontainer/WebappSettingsPage.qml:238
+#, fuzzy
+#| msgid "Clear Cache"
+msgid "Clear all cookies"
+msgstr "캐시 삭제하기"
 
-#: src/app/webbrowser/SettingsPage.qml:465
+#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webcontainer/WebappSettingsPage.qml:241
+#, fuzzy
+#| msgid "Clear Cache?"
+msgid "Clear all Cookies?"
+msgstr "캐시를 지우시겠습니다?"
+
+#: src/app/webbrowser/SettingsPage.qml:445
+#: src/app/webcontainer/WebappSettingsPage.qml:273
+msgid "Clear"
+msgstr "초기화"
+
+#: src/app/webbrowser/SettingsPage.qml:496
+msgid "Custom hompage"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
 msgstr "마이크"
 
-#: src/app/webbrowser/SettingsPage.qml:486
+#: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
 msgstr "카메라"
 
@@ -976,7 +1108,7 @@ msgstr "위로 쓸어 올리셔서 전체 화면을 종료하십시오"
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "볼 탭"
 
@@ -993,13 +1125,13 @@ msgid "Remove"
 msgstr "제거"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, fuzzy, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - 우분투 웹 브라우저"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 #, fuzzy
@@ -1081,11 +1213,11 @@ msgstr "문제가 발생했습니다."
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr ""
 
-#: src/app/webcontainer/WebappSettingsPage.qml:35
+#: src/app/webcontainer/WebappSettingsPage.qml:38
 msgid "WebappContainer Settings"
 msgstr ""
 
-#: src/app/webcontainer/WebappSettingsPage.qml:114
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 #, fuzzy
 msgid "Reset webapp settings"
 msgstr "브라우저 설정 초기화하기"
@@ -1262,9 +1394,6 @@ msgstr ""
 
 #~ msgid "Private Mode"
 #~ msgstr "사생활 보호 모드"
-
-#~ msgid "Leave Private Mode"
-#~ msgstr "사생활 보호 모드 떠나기"
 
 #~ msgid "Open a New Private Window"
 #~ msgstr "사생활 보호 모드 창 열기"

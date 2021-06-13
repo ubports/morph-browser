@@ -17,6 +17,7 @@
  */
 
 import QtQml 2.0
+import QtWebEngine 1.9
 
 /*
  * Useful documentation:
@@ -28,6 +29,9 @@ import QtQml 2.0
  */
 
 QtObject {
+    
+    id: userAgent
+    
     // Empirical value: screens smaller than 19cm are considered small enough that a
     // mobile UA string is used, screens bigger than that will get desktop content.
     property string screenSize: calcScreenSize()
@@ -47,14 +51,14 @@ QtObject {
     //   difference in the content served by certain sites (e.g. gmail.com)
     readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chrome/%5 %6Safari/%7%8"
 
-    readonly property string _attributes: screenSize === "small" ? "like Android 4.4" : ""
+    readonly property string _attributes: screenSize === "small" ? "like Android 9" : ""
 
     readonly property string _hardwareID: ""
 
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    readonly property string _chromiumVersion: "65.0.3325.151" // TODO figure out how to get this
+    readonly property string _chromiumVersion: getChromiumVersionOfDefaultProfile()
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 
@@ -66,6 +70,14 @@ QtObject {
 
     function calcScreenSize() {
         return (screenDiagonal === 0) ? "unknown" : (screenDiagonal > 0 && screenDiagonal < 190) ? "small" : "large"
+    }
+
+    function getChromiumVersionOfDefaultProfile() {
+        var temporaryDefaultProfile = Qt.createQmlObject("import QtWebEngine 1.9; WebEngineProfile {offTheRecord: true}", userAgent);
+        var regex = /(^| )(Chrome|Chromium)\/([0-9.]*)( |$)/;
+        var chromiumVersion = temporaryDefaultProfile.httpUserAgent.match(regex)[3];
+        temporaryDefaultProfile.destroy();
+        return chromiumVersion;
     }
 
     property string defaultUA: {

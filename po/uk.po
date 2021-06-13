@@ -7,18 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2015-07-03 18:15+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
-"Language-Team: Ukrainian <uk@li.org>\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
+"PO-Revision-Date: 2020-07-03 12:43+0000\n"
+"Last-Translator: Stoian Minaiev <stoyan.minaev@gmail.com>\n"
+"Language-Team: Ukrainian <https://translate.ubports.com/projects/ubports/"
+"morph-browser/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
-"X-Generator: Launchpad (build 18335)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -29,7 +30,7 @@ msgstr "Сповіщення JavaScript"
 #: src/app/HttpAuthenticationDialog.qml:70 src/app/PromptDialog.qml:50
 #: src/app/webbrowser/BookmarkOptions.qml:122
 msgid "OK"
-msgstr "Гаразд"
+msgstr "Добре"
 
 #: src/app/AllowCustomSchemesDialog.qml:24
 msgid "Custom URL schemes"
@@ -58,17 +59,18 @@ msgstr "Дозволити"
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
-#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
-#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
-#: src/app/webbrowser/DownloadDelegate.qml:181
-#: src/app/webbrowser/SettingsPage.qml:369
-#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webbrowser/SettingsPage.qml:438
+#: src/app/webbrowser/SettingsPage.qml:554
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
-#: src/app/webcontainer/WebappSettingsPage.qml:226
+#: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -146,11 +148,6 @@ msgstr ""
 msgid "Proceed anyway"
 msgstr "Продовжити"
 
-#: src/app/CertificateVerificationDialog.qml:46
-#: src/app/InvalidCertificateErrorSheet.qml:173
-msgid "Back to safety"
-msgstr "Повернутися до безпечного режиму"
-
 #: src/app/ColorSelectDialog.qml:25
 #, fuzzy
 msgid "Select Color"
@@ -165,13 +162,13 @@ msgid "Custom User Agents"
 msgstr ""
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
-#: src/app/webbrowser/DownloadsPage.qml:86
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
+#: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "Позначити все"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "Вилучити"
 
@@ -254,28 +251,67 @@ msgstr ""
 msgid "No domain specific settings available"
 msgstr ""
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/DownloadDelegate.qml:131
+msgid "Download failed"
+msgstr "Не вдалося завантажити"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/DownloadDelegate.qml:174
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
+
+#: src/app/DownloadDelegate.qml:180
+msgid "Pause"
+msgstr ""
+
+#: src/app/DownloadDelegate.qml:191
+msgid "Resume"
+msgstr "Поновити"
+
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
+#: src/app/webcontainer/WebappSettingsPage.qml:117
+msgid "Downloads"
+msgstr "Отримані"
+
+#: src/app/DownloadsPage.qml:60
+msgid "Confirm selection"
+msgstr "Підтвердьте вибір"
+
+#: src/app/DownloadsPage.qml:297
+msgid "No downloads available"
+msgstr "Немає доступних завантажень"
+
+#: src/app/ErrorSheet.qml:42
+msgid "Certificate Error"
+msgstr ""
+
+#: src/app/ErrorSheet.qml:42
 msgid "Network Error"
 msgstr "Помилка мережі"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:45
+#: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Здається, з переглядом %1 виникли проблеми."
 
-#: src/app/ErrorSheet.qml:52
+#: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
 msgstr ""
 
-#: src/app/ErrorSheet.qml:59
+#: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "Повернутися до безпечного режиму"
+
+#: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
 "Перевірте, чи правильно налаштовано мережу, і спробуйте перезавантажити "
 "сторінку."
 
-#: src/app/ErrorSheet.qml:65
+#: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
 msgstr "Перезавантажити"
 
@@ -436,54 +472,116 @@ msgstr "Для доступу до сайта %1:%2 слід пройти роз
 msgid "Save page as HTML / PDF"
 msgstr ""
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+#, fuzzy
+msgid "No save actions are available"
+msgstr "Немає доступних завантажень"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr ""
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "Отримати"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
-#: src/app/webcontainer/WebappSettingsPage.qml:55
-#, fuzzy
-msgid "Default Zoom"
-msgstr "Типовий"
-
-#: src/app/WebViewImpl.qml:106
-msgid "the current web app"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:106
-#, qt-format
-msgid ""
-"Set current zoom as default zoom for %1 ? (You can change it in the settings "
-"menu)"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:801
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:808
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:815
+#: src/app/ZoomControls.qml:69
+msgid "fit"
+msgstr ""
+
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr ""
 
-#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:433
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/app/WebViewImpl.qml:861
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
+msgstr ""
+
+#: src/app/ZoomControls.qml:102
+msgid "domain"
+msgstr ""
+
+#: src/app/ZoomControls.qml:102
+#, fuzzy
+#| msgid "Default"
+msgid "default"
+msgstr "Типовий"
+
+#: src/app/ZoomControls.qml:102
+msgid "auto-fit"
+msgstr ""
+
+#: src/app/ZoomControls.qml:187
+#, fuzzy
+#| msgid "Save image"
+msgid "Save Zoom"
+msgstr "Зберегти зображення"
+
+#: src/app/ZoomControls.qml:188
+msgid "none"
+msgstr ""
+
+#: src/app/ZoomControls.qml:188
+#, qt-format
+msgid ""
+"domain zoom (currently %1 and can be removed with reset button or from "
+"domain specific settings in privacy settings)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:189
+msgid " and resets domain zoom"
+msgstr ""
+
+#: src/app/ZoomControls.qml:189
+#, qt-format
+msgid "default zoom (currently %1%, can be changed from settings menu%2)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:190
+msgid "the current web app"
+msgstr ""
+
+#: src/app/ZoomControls.qml:190
+#, qt-format
+msgid "Current zoom (%1%) can be saved for %2 as "
+msgstr ""
+
+#: src/app/ZoomControls.qml:192
+#, fuzzy
+#| msgid "More"
+msgid "or"
+msgstr "Більше"
+
+#: src/app/ZoomControls.qml:198
+#, fuzzy
+#| msgid "Save in"
+msgid "Save for domain"
+msgstr "Зберегти до"
+
+#: src/app/ZoomControls.qml:211
+msgid "Save as default"
 msgstr ""
 
 #: src/app/actions/Back.qml:23
@@ -520,7 +618,7 @@ msgstr "Спорожнити журнал"
 msgid "Clear Navigation History"
 msgstr "спорожнити;журнал;навігація;clear"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "Копіювати"
 
@@ -532,15 +630,15 @@ msgstr "Копіювати зображення"
 msgid "Copy link"
 msgstr "Копіювати адресу посилання"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
-msgstr "Вирізати"
+msgstr "Вилучити"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
 msgstr "Витерти"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:761
 msgid "Find in page"
 msgstr "Знайти на сторінці"
 
@@ -570,7 +668,7 @@ msgstr "Перейти"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;адрес;інтернет"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:635
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "Нова вкладка"
@@ -610,7 +708,7 @@ msgstr "Відкрити посилання у новому вікні"
 msgid "Open video in new tab"
 msgstr "Відкрити відео у новій вкладці"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "Вставити"
 
@@ -641,7 +739,7 @@ msgstr "Зберегти посилання"
 msgid "Save video"
 msgstr "Зберегти відео"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
 msgstr "Поділитися"
 
@@ -657,7 +755,7 @@ msgstr "знайти на сторінці"
 msgid "search or enter an address"
 msgstr "пошук або введення адреси"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr ""
 
@@ -692,21 +790,21 @@ msgstr "Створити нову теку"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
-#: src/app/webbrowser/SettingsPage.qml:397
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:90
+#: src/app/webbrowser/SettingsPage.qml:466
 msgid "Homepage"
 msgstr "Домашня сторінка"
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
-#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:749 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "Закладки"
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
-#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/Browser.qml:621 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "Завершено"
@@ -719,62 +817,67 @@ msgstr "Завершено"
 msgid "New tab"
 msgstr "Нова вкладка"
 
-#: src/app/webbrowser/Browser.qml:229
+#: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:230
+#: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:256
+#: src/app/webbrowser/Browser.qml:249
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:257
+#: src/app/webbrowser/Browser.qml:250
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:734
+#: src/app/webbrowser/Browser.qml:729
 msgid "New window"
 msgstr "Нове вікно"
 
-#: src/app/webbrowser/Browser.qml:740
+#: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
 msgstr "Нове конфіденційне вікно"
 
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "Журнал"
 
-#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
-msgid "Downloads"
-msgstr "Отримані"
-
-#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
+#: src/app/webbrowser/Browser.qml:775 src/app/webbrowser/SettingsPage.qml:45
 msgid "Settings"
 msgstr "Параметри"
 
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:781
 msgid "View source"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:793
-msgid "Save as HTML / PDF"
+#: src/app/webbrowser/Browser.qml:794
+msgid "Save / Print to PDF"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+#, fuzzy
+#| msgid ""
+#| "Choose an application to open this file or add it to the downloads folder."
+msgid "the file is already in the downloads folder."
+msgstr ""
+"Виберіть програму для відкриття цього файла або додайте його до теки "
+"отриманих файлів."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -786,36 +889,6 @@ msgstr ""
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "Виберіть проґраму"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "Отримати"
-
-#: src/app/webbrowser/DownloadDelegate.qml:153
-msgid "Download failed"
-msgstr "Не вдалося завантажити"
-
-#. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:196
-#, qt-format
-msgid "%1%"
-msgstr "%1%"
-
-#: src/app/webbrowser/DownloadDelegate.qml:202
-msgid "Pause"
-msgstr ""
-
-#: src/app/webbrowser/DownloadDelegate.qml:213
-msgid "Resume"
-msgstr "Поновити"
-
-#: src/app/webbrowser/DownloadsPage.qml:62
-msgid "Confirm selection"
-msgstr "Підтвердьте вибір"
-
-#: src/app/webbrowser/DownloadsPage.qml:268
-msgid "No downloads available"
-msgstr "Немає доступних завантажень"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -869,12 +942,12 @@ msgstr ""
 msgid "More"
 msgstr "Більше"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:327
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "Найпопулярніші сайти"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:358
 msgid "You haven't visited any site yet"
 msgstr "Ви ще не відвідали жодного сайта"
 
@@ -912,68 +985,127 @@ msgstr ""
 msgid "Default"
 msgstr "Типовий"
 
-#: src/app/webbrowser/SettingsPage.qml:72
-#: src/app/webbrowser/SettingsPage.qml:223
+#: src/app/webbrowser/SettingsPage.qml:74
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Search engine"
 msgstr "Рушій пошуку"
 
-#: src/app/webbrowser/SettingsPage.qml:98
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:484
+#, fuzzy
+#| msgid "New Tab"
+msgid "New Tab Page"
+msgstr "Нова вкладка"
+
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
 msgstr "Відновлювати попередній сеанс під час запуску"
 
-#: src/app/webbrowser/SettingsPage.qml:117
+#: src/app/webbrowser/SettingsPage.qml:120
+msgid "not available because of startup in private mode"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:184
-#: src/app/webbrowser/SettingsPage.qml:266
-#: src/app/webcontainer/WebappSettingsPage.qml:103
-#: src/app/webcontainer/WebappSettingsPage.qml:143
+#: src/app/webbrowser/SettingsPage.qml:159
+#: src/app/webcontainer/WebappSettingsPage.qml:58
+msgid "Automatic fit to width"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:160
+#: src/app/webcontainer/WebappSettingsPage.qml:59
+msgid "Adjusts the width of the website to the window"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:179
+#: src/app/webcontainer/WebappSettingsPage.qml:78
+#, fuzzy
+msgid "Default Zoom"
+msgstr "Типовий"
+
+#: src/app/webbrowser/SettingsPage.qml:218
+#: src/app/webbrowser/SettingsPage.qml:300
+#: src/app/webcontainer/WebappSettingsPage.qml:131
+#: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
 msgstr "Конфіденційність і права доступу"
 
-#: src/app/webbrowser/SettingsPage.qml:195
+#: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
 msgstr "Скинути налаштування веб-переглядача"
 
-#: src/app/webbrowser/SettingsPage.qml:280
-#: src/app/webcontainer/WebappSettingsPage.qml:157
+#: src/app/webbrowser/SettingsPage.qml:314
+#, fuzzy
+#| msgid "Leave Private Mode"
+msgid "Start in private mode"
+msgstr "Вийти з конфіденційного режиму"
+
+#: src/app/webbrowser/SettingsPage.qml:338
+#: src/app/webcontainer/WebappSettingsPage.qml:186
 msgid "Only allow browsing to whitelisted websites"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:320
-#: src/app/webbrowser/SettingsPage.qml:453
+#: src/app/webbrowser/SettingsPage.qml:378
+#: src/app/webbrowser/SettingsPage.qml:569
 msgid "Camera & microphone"
 msgstr "Відеокамера і мікрофон"
 
-#: src/app/webbrowser/SettingsPage.qml:329
-msgid "Clear Browsing History"
+#: src/app/webbrowser/SettingsPage.qml:387
+#, fuzzy
+#| msgid "Clear Browsing History"
+msgid "Clear browsing history"
 msgstr "Спорожнити журнал перегляду"
 
-#: src/app/webbrowser/SettingsPage.qml:333
-msgid "Clear Browsing History?"
+#: src/app/webbrowser/SettingsPage.qml:391
+#, fuzzy
+#| msgid "Clear Browsing History?"
+msgid "Clear browsing history?"
 msgstr "Очистити історію перегляду сайтів?"
 
-#: src/app/webbrowser/SettingsPage.qml:341
-#: src/app/webcontainer/WebappSettingsPage.qml:198
-msgid "Clear Cache"
+#: src/app/webbrowser/SettingsPage.qml:399
+#: src/app/webcontainer/WebappSettingsPage.qml:227
+#, fuzzy
+#| msgid "Clear Cache"
+msgid "Clear cache"
 msgstr "Спорожнити кеш"
 
-#: src/app/webbrowser/SettingsPage.qml:344
-#: src/app/webcontainer/WebappSettingsPage.qml:201
-msgid "Clear Cache?"
+#: src/app/webbrowser/SettingsPage.qml:402
+#: src/app/webcontainer/WebappSettingsPage.qml:230
+#, fuzzy
+#| msgid "Clear Cache?"
+msgid "Clear cache?"
 msgstr "Очистити кеш?"
 
-#: src/app/webbrowser/SettingsPage.qml:376
-#: src/app/webcontainer/WebappSettingsPage.qml:233
+#: src/app/webbrowser/SettingsPage.qml:410
+#: src/app/webcontainer/WebappSettingsPage.qml:238
+#, fuzzy
+#| msgid "Clear Cache"
+msgid "Clear all cookies"
+msgstr "Спорожнити кеш"
+
+#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webcontainer/WebappSettingsPage.qml:241
+#, fuzzy
+#| msgid "Clear Cache?"
+msgid "Clear all Cookies?"
+msgstr "Очистити кеш?"
+
+#: src/app/webbrowser/SettingsPage.qml:445
+#: src/app/webcontainer/WebappSettingsPage.qml:273
 msgid "Clear"
 msgstr "Спорожнити"
 
-#: src/app/webbrowser/SettingsPage.qml:465
+#: src/app/webbrowser/SettingsPage.qml:496
+msgid "Custom hompage"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
 msgstr "Мікрофон"
 
-#: src/app/webbrowser/SettingsPage.qml:486
+#: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
 msgstr "Відеокамера"
 
@@ -985,7 +1117,7 @@ msgstr "Проведіть пальцем вгору, щоб вийти з по�
 msgid "Press ESC To Exit Full Screen"
 msgstr "Натисніть клавішу Esc, щоб вийти з повноекранного режиму"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "Натисніть, щоб переглянути"
 
@@ -1002,13 +1134,13 @@ msgid "Remove"
 msgstr "Вилучити"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, fuzzy, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 — Переглядач Ubuntu"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 #, fuzzy
@@ -1050,7 +1182,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:214
 msgid "Authentication failed"
-msgstr "Не вдалося пройти розпізнавання"
+msgstr "Помилка аутентифікації"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
@@ -1092,11 +1224,11 @@ msgstr "На жаль, сталася помилка."
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr ""
 
-#: src/app/webcontainer/WebappSettingsPage.qml:35
+#: src/app/webcontainer/WebappSettingsPage.qml:38
 msgid "WebappContainer Settings"
 msgstr ""
 
-#: src/app/webcontainer/WebappSettingsPage.qml:114
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 #, fuzzy
 msgid "Reset webapp settings"
 msgstr "Скинути налаштування веб-переглядача"
@@ -1280,9 +1412,6 @@ msgstr ""
 
 #~ msgid "Private Mode"
 #~ msgstr "Конфіденційний режим"
-
-#~ msgid "Leave Private Mode"
-#~ msgstr "Вийти з конфіденційного режиму"
 
 #~ msgid "Open a New Private Window"
 #~ msgstr "Відкрити нове вікно конфіденційного перегляду"

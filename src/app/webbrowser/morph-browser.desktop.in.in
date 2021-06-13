@@ -5,7 +5,7 @@ _GenericName=Morph Web Browser
 _Comment=Browse the World Wide Web using QtWebEngine
 _Keywords=Internet;WWW;Browser;Web;Explorer
 Type=Application
-Icon=@CMAKE_INSTALL_FULL_DATADIR@/morph-browser/morph-browser.png
+Icon=@CMAKE_INSTALL_FULL_DATADIR@/morph-browser/morph-browser.svg
 Exec=morph-browser %u
 Terminal=false
 Categories=Network;WebBrowser;
@@ -14,8 +14,8 @@ X-Ubuntu-Touch=true
 X-Ubuntu-Gettext-Domain=morph-browser
 X-Ubuntu-Single-Instance=true
 X-Ubuntu-Default-Department-ID=web-browsers
-X-Screenshot=@CMAKE_INSTALL_FULL_DATADIR@/morph-browser/screenshot.png
-X-Ubuntu-Splash-Color=#FFFFFF
+X-Ubuntu-Splash-Color=#0D7499
+X-Ubuntu-Splash-Image=@CMAKE_INSTALL_FULL_DATADIR@/morph-browser/morph-browser-splash.svg
 Actions=new-window;Incognito;
 
 [Desktop Action new-window]

@@ -179,7 +179,7 @@ Common.BrowserPage {
         anchors {
             top: parent.top
             left: parent.left
-            bottom: bottomToolbar.top
+            bottom: parent.bottom
             leftMargin: units.gu(2)
             rightMargin: units.gu(2)
         }
@@ -345,8 +345,8 @@ Common.BrowserPage {
                     property url siteUrl: model.url
 
                     icon: model.icon
-                    title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms)
-                    url: Highlight.highlightTerms(model.url, searchQuery.terms)
+                    title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms, theme.palette.normal.focus)
+                    url: Highlight.highlightTerms(model.url, searchQuery.terms, theme.palette.normal.focus)
 
                     headerComponent: Label {
                         text: Qt.formatTime(model.lastVisit)
@@ -382,47 +382,6 @@ Common.BrowserPage {
                 flickableItem: urlsListView
                 align: Qt.AlignTrailing
             }
-        }
-    }
-
-    Local.Toolbar {
-        id: bottomToolbar
-        height: units.gu(7)
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        Button {
-            objectName: "doneButton"
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-
-            strokeColor: theme.palette.normal.baseText
-
-            text: i18n.tr("Done")
-
-            onClicked: historyViewWide.done()
-        }
-
-        ToolbarAction {
-            objectName: "newTabButton"
-            anchors {
-                right: parent.right
-                rightMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-            height: parent.height - units.gu(2)
-
-            text: i18n.tr("New tab")
-            iconName: "tab-new"
-
-            onClicked: historyViewWide.newTabRequested()
         }
     }
 

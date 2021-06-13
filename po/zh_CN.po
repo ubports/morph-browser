@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-20 21:38+0000\n"
-"PO-Revision-Date: 2020-01-19 19:39+0000\n"
-"Last-Translator: Sam Zhang <sammyok@163.com>\n"
+"POT-Creation-Date: 2020-07-18 19:58+0000\n"
+"PO-Revision-Date: 2021-05-17 09:38+0000\n"
+"Last-Translator: Florian Leeber <flori@bin.org.in>\n"
 "Language-Team: Chinese (Simplified) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.11.3\n"
 "X-Launchpad-Export-Date: 2017-04-05 07:15+0000\n"
 
 #: src/app/AlertDialog.qml:24
@@ -58,17 +58,18 @@ msgstr "允许"
 
 #: src/app/AllowCustomSchemesDialog.qml:57
 #: src/app/AllowOrBlockDomainDialog.qml:53 src/app/AuthenticationDialog.qml:53
+#: src/app/CertificateVerificationDialog.qml:46
 #: src/app/ColorSelectDialog.qml:84 src/app/ConfirmDialog.qml:41
-#: src/app/HttpAuthenticationDialog.qml:80 src/app/PromptDialog.qml:61
-#: src/app/SavePageDialog.qml:52 src/app/webbrowser/BookmarkOptions.qml:164
+#: src/app/DownloadDelegate.qml:159 src/app/HttpAuthenticationDialog.qml:80
+#: src/app/PromptDialog.qml:61 src/app/SavePageDialog.qml:73
+#: src/app/ZoomControls.qml:229 src/app/webbrowser/BookmarkOptions.qml:164
 #: src/app/webbrowser/ContentDownloadDialog.qml:114
 #: src/app/webbrowser/ContextMenuMobile.qml:143
-#: src/app/webbrowser/DownloadDelegate.qml:181
-#: src/app/webbrowser/SettingsPage.qml:369
-#: src/app/webbrowser/SettingsPage.qml:423
+#: src/app/webbrowser/SettingsPage.qml:438
+#: src/app/webbrowser/SettingsPage.qml:554
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 #: src/app/webcontainer/ContextMenuMobile.qml:143
-#: src/app/webcontainer/WebappSettingsPage.qml:226
+#: src/app/webcontainer/WebappSettingsPage.qml:266
 msgid "Cancel"
 msgstr "取消"
 
@@ -83,7 +84,9 @@ msgid ""
 "You're trying to access %1 but it is not on your approved domain whitelist. "
 "Would you like to continue to block the domain, allow browsing to the "
 "domain, or go back?"
-msgstr "你正尝试访问的 %1 不 在你允许的域名白名单，你要继续阻止此域名，允许访问此域名，或者返回？"
+msgstr ""
+"你正尝试访问的 %1 不 在你允许的域名白名单，你要继续阻止此域名，允许访问此域"
+"名，或者返回？"
 
 #: src/app/AllowOrBlockDomainDialog.qml:31
 #, qt-format
@@ -91,7 +94,9 @@ msgid ""
 "%1 is trying to access %2 but it is not on your approved domain whitelist. "
 "Would you like to continue to block the domain, allow loading data from the "
 "domain, or just ignore this request ?"
-msgstr "%1 正尝试访问的 %2 不 在你允许的域名白名单，你要继续阻止此域名，允许从这个域名载入数据，或者忽略这个请求？"
+msgstr ""
+"%1 正尝试访问的 %2 不 在你允许的域名白名单，你要继续阻止此域名，允许从这个域"
+"名载入数据，或者忽略这个请求？"
 
 #: src/app/AllowOrBlockDomainDialog.qml:47
 msgid "Allow domain"
@@ -144,11 +149,6 @@ msgstr "你正试图打开安全网页 %1，但此网站的安全证书不受信
 msgid "Proceed anyway"
 msgstr "仍然继续"
 
-#: src/app/CertificateVerificationDialog.qml:46
-#: src/app/InvalidCertificateErrorSheet.qml:173
-msgid "Back to safety"
-msgstr "返回安全连接"
-
 #: src/app/ColorSelectDialog.qml:25
 msgid "Select Color"
 msgstr "选择颜色"
@@ -162,13 +162,13 @@ msgid "Custom User Agents"
 msgstr "自定义用户标识"
 
 #: src/app/CustomUserAgentsPage.qml:57 src/app/DomainPermissionsPage.qml:69
-#: src/app/DomainSettingsPage.qml:66 src/app/actions/SelectAll.qml:22
-#: src/app/webbrowser/DownloadsPage.qml:86
+#: src/app/DomainSettingsPage.qml:66 src/app/DownloadsPage.qml:85
+#: src/app/actions/SelectAll.qml:22
 msgid "Select all"
 msgstr "全选"
 
 #: src/app/CustomUserAgentsPage.qml:73 src/app/DomainPermissionsPage.qml:85
-#: src/app/DomainSettingsPage.qml:82 src/app/webbrowser/DownloadsPage.qml:102
+#: src/app/DomainSettingsPage.qml:82 src/app/DownloadsPage.qml:101
 msgid "Delete"
 msgstr "删除"
 
@@ -249,26 +249,65 @@ msgstr "未设置"
 msgid "No domain specific settings available"
 msgstr "没有域名的特殊配置"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/DownloadDelegate.qml:131
+msgid "Download failed"
+msgstr "下载失败"
+
+#. TRANSLATORS: %1 is the percentage of the download completed so far
+#: src/app/DownloadDelegate.qml:174
+#, qt-format
+msgid "%1%"
+msgstr "%1%"
+
+#: src/app/DownloadDelegate.qml:180
+msgid "Pause"
+msgstr "暂停"
+
+#: src/app/DownloadDelegate.qml:191
+msgid "Resume"
+msgstr "继续"
+
+#: src/app/DownloadsPage.qml:46 src/app/webbrowser/Browser.qml:768
+#: src/app/webcontainer/WebappSettingsPage.qml:117
+msgid "Downloads"
+msgstr "下载"
+
+#: src/app/DownloadsPage.qml:60
+msgid "Confirm selection"
+msgstr "确定选择"
+
+#: src/app/DownloadsPage.qml:297
+msgid "No downloads available"
+msgstr "没有可用的下载"
+
+#: src/app/ErrorSheet.qml:42
+msgid "Certificate Error"
+msgstr "证书错误"
+
+#: src/app/ErrorSheet.qml:42
 msgid "Network Error"
 msgstr "网络错误"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:45
+#: src/app/ErrorSheet.qml:49
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "浏览时可能遇到麻烦：%1。"
 
-#: src/app/ErrorSheet.qml:52
+#: src/app/ErrorSheet.qml:56
 #, qt-format
 msgid "Error: %1"
 msgstr "错误：%1"
 
-#: src/app/ErrorSheet.qml:59
+#: src/app/ErrorSheet.qml:62 src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "返回安全连接"
+
+#: src/app/ErrorSheet.qml:70
 msgid "Please check your network settings and try refreshing the page."
 msgstr "请检查你的网络设置，并试着刷新本页面。"
 
-#: src/app/ErrorSheet.qml:65
+#: src/app/ErrorSheet.qml:77
 msgid "Refresh page"
 msgstr "刷新页面"
 
@@ -402,7 +441,7 @@ msgstr "是否允许这个网域使用本机的麦克风？"
 
 #: src/app/MediaAccessDialog.qml:77
 msgid "Yes"
-msgstr "同意"
+msgstr "是"
 
 #: src/app/MediaAccessDialog.qml:85
 msgid "No"
@@ -426,58 +465,112 @@ msgstr "网站 %1:%2 需要身份认证。"
 msgid "Save page as HTML / PDF"
 msgstr "保存页面为 HTML/PDF"
 
-#: src/app/SavePageDialog.qml:35
+#: src/app/SavePageDialog.qml:41
+msgid "No save actions are available"
+msgstr "没有可用的保存操作"
+
+#: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
 msgstr "保存为HTML"
 
-#: src/app/SavePageDialog.qml:44
+#: src/app/SavePageDialog.qml:54
+#: src/app/webbrowser/ContentDownloadDialog.qml:102
+msgid "Download"
+msgstr "下载"
+
+#: src/app/SavePageDialog.qml:64
 msgid "Save as PDF"
 msgstr "保存为PDF"
 
-#: src/app/WebViewImpl.qml:105 src/app/webbrowser/SettingsPage.qml:136
-#: src/app/webcontainer/WebappSettingsPage.qml:55
-msgid "Default Zoom"
-msgstr "默认"
-
-#: src/app/WebViewImpl.qml:106
-msgid "the current web app"
-msgstr "当前web应用"
-
-#: src/app/WebViewImpl.qml:106
-#, qt-format
-msgid ""
-"Set current zoom as default zoom for %1 ? (You can change it in the settings "
-"menu)"
-msgstr "设置当前缩放为 %1 的默认缩放？（你可以在配置菜单种进行修改）"
-
-#: src/app/WebViewImpl.qml:719 src/app/webbrowser/Browser.qml:806
+#: src/app/WebViewImpl.qml:667 src/app/webbrowser/Browser.qml:815
 msgid "Zoom"
 msgstr "缩放"
 
-#: src/app/WebViewImpl.qml:801
+#: src/app/ZoomControls.qml:62
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: src/app/WebViewImpl.qml:808
+#: src/app/ZoomControls.qml:69
 msgid "Reset"
 msgstr "重置"
 
-#: src/app/WebViewImpl.qml:815
+#: src/app/ZoomControls.qml:69
+msgid "fit"
+msgstr ""
+
+#: src/app/ZoomControls.qml:76
 msgid "Zoom In"
 msgstr "放大"
 
-#: src/app/WebViewImpl.qml:822 src/app/webbrowser/BookmarkOptions.qml:174
-#: src/app/webbrowser/SettingsPage.qml:433
+#: src/app/ZoomControls.qml:83 src/app/webbrowser/BookmarkOptions.qml:174
+#: src/app/webbrowser/SettingsPage.qml:530
 msgid "Save"
 msgstr "保存"
 
-#: src/app/WebViewImpl.qml:861
+#: src/app/ZoomControls.qml:101
 msgid "Current Zoom"
 msgstr "当前缩放"
 
+#: src/app/ZoomControls.qml:102
+msgid "domain"
+msgstr "添加域名"
+
+#: src/app/ZoomControls.qml:102
+msgid "default"
+msgstr "默认"
+
+#: src/app/ZoomControls.qml:102
+msgid "auto-fit"
+msgstr "自动适应"
+
+#: src/app/ZoomControls.qml:187
+msgid "Save Zoom"
+msgstr "保存缩放"
+
+#: src/app/ZoomControls.qml:188
+msgid "none"
+msgstr "无"
+
+#: src/app/ZoomControls.qml:188
+#, qt-format
+msgid ""
+"domain zoom (currently %1 and can be removed with reset button or from "
+"domain specific settings in privacy settings)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:189
+msgid " and resets domain zoom"
+msgstr ""
+
+#: src/app/ZoomControls.qml:189
+#, qt-format
+msgid "default zoom (currently %1%, can be changed from settings menu%2)"
+msgstr ""
+
+#: src/app/ZoomControls.qml:190
+msgid "the current web app"
+msgstr "当前web应用"
+
+#: src/app/ZoomControls.qml:190
+#, qt-format
+msgid "Current zoom (%1%) can be saved for %2 as "
+msgstr ""
+
+#: src/app/ZoomControls.qml:192
+msgid "or"
+msgstr "更多"
+
+#: src/app/ZoomControls.qml:198
+msgid "Save for domain"
+msgstr "保存域名"
+
+#: src/app/ZoomControls.qml:211
+msgid "Save as default"
+msgstr "保存为默认"
+
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "返回"
+msgstr "上一步"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -509,7 +602,7 @@ msgstr "清除历史记录"
 msgid "Clear Navigation History"
 msgstr "清空浏览历史记录"
 
-#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:347
+#: src/app/actions/Copy.qml:22 src/app/webbrowser/AddressBar.qml:373
 msgid "Copy"
 msgstr "复制"
 
@@ -521,7 +614,7 @@ msgstr "复制图像"
 msgid "Copy link"
 msgstr "复制链接"
 
-#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:336
+#: src/app/actions/Cut.qml:22 src/app/webbrowser/AddressBar.qml:362
 msgid "Cut"
 msgstr "剪切"
 
@@ -529,7 +622,7 @@ msgstr "剪切"
 msgid "Erase"
 msgstr "清除"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:766
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:761
 msgid "Find in page"
 msgstr "在页面中查找"
 
@@ -559,7 +652,7 @@ msgstr "转到"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;地址"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:640
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:635
 #: src/app/webbrowser/TabsBar.qml:88
 msgid "New Tab"
 msgstr "新标签"
@@ -598,7 +691,7 @@ msgstr "在新窗口中打开链接"
 msgid "Open video in new tab"
 msgstr "在新标签页打开视频"
 
-#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:358
+#: src/app/actions/Paste.qml:22 src/app/webbrowser/AddressBar.qml:384
 msgid "Paste"
 msgstr "粘贴"
 
@@ -629,7 +722,7 @@ msgstr "保存链接"
 msgid "Save video"
 msgstr "保存视频"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:746
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:741
 msgid "Share"
 msgstr "分享"
 
@@ -645,7 +738,7 @@ msgstr "在页面中查找"
 msgid "search or enter an address"
 msgstr "搜索或输入一个地址"
 
-#: src/app/webbrowser/AddressBar.qml:369
+#: src/app/webbrowser/AddressBar.qml:395
 msgid "Paste and Go"
 msgstr "粘贴并继续"
 
@@ -680,21 +773,21 @@ msgstr "创建新文件夹"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:191
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:148
-#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:87
-#: src/app/webbrowser/SettingsPage.qml:397
+#: src/app/webbrowser/NewTabView.qml:253 src/app/webbrowser/SettingsPage.qml:90
+#: src/app/webbrowser/SettingsPage.qml:466
 msgid "Homepage"
 msgstr "主页"
 
 #: src/app/webbrowser/BookmarksView.qml:33
 #: src/app/webbrowser/BookmarksViewWide.qml:33
-#: src/app/webbrowser/Browser.qml:754 src/app/webbrowser/NewTabView.qml:130
+#: src/app/webbrowser/Browser.qml:749 src/app/webbrowser/NewTabView.qml:130
 #: src/app/webbrowser/NewTabViewWide.qml:139
 msgid "Bookmarks"
 msgstr "书签"
 
 #: src/app/webbrowser/BookmarksView.qml:77
 #: src/app/webbrowser/BookmarksViewWide.qml:76
-#: src/app/webbrowser/Browser.qml:626 src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/Browser.qml:621 src/app/webbrowser/HistoryView.qml:123
 #: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Done"
 msgstr "完成"
@@ -707,62 +800,62 @@ msgstr "完成"
 msgid "New tab"
 msgstr "新建标签"
 
-#: src/app/webbrowser/Browser.qml:229
+#: src/app/webbrowser/Browser.qml:222
 #: src/app/webcontainer/WebViewImplOxide.qml:310
 msgid "Blocked domain"
 msgstr "阻止域名"
 
-#: src/app/webbrowser/Browser.qml:230
+#: src/app/webbrowser/Browser.qml:223
 #: src/app/webcontainer/WebViewImplOxide.qml:311
 #, qt-format
 msgid "Blocked navigation request to domain %1."
 msgstr "阻止浏览请求到域名 %1 。"
 
-#: src/app/webbrowser/Browser.qml:256
+#: src/app/webbrowser/Browser.qml:249
 #: src/app/webcontainer/WebViewImplOxide.qml:337
 msgid "Whitelisted domain"
 msgstr "域名白名单"
 
-#: src/app/webbrowser/Browser.qml:257
+#: src/app/webbrowser/Browser.qml:250
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
 msgstr "域名 %1 现在不在白名单，这个操作将会在页面重新载入后生效。"
 
-#: src/app/webbrowser/Browser.qml:734
+#: src/app/webbrowser/Browser.qml:729
 msgid "New window"
 msgstr "新窗口"
 
-#: src/app/webbrowser/Browser.qml:740
+#: src/app/webbrowser/Browser.qml:735
 msgid "New private window"
 msgstr "新建隐私窗口"
 
-#: src/app/webbrowser/Browser.qml:760 src/app/webbrowser/HistoryView.qml:31
+#: src/app/webbrowser/Browser.qml:755 src/app/webbrowser/HistoryView.qml:31
 #: src/app/webbrowser/HistoryViewWide.qml:36
 msgid "History"
 msgstr "历史"
 
-#: src/app/webbrowser/Browser.qml:773 src/app/webbrowser/DownloadsPage.qml:48
-msgid "Downloads"
-msgstr "下载"
-
-#: src/app/webbrowser/Browser.qml:780 src/app/webbrowser/SettingsPage.qml:43
+#: src/app/webbrowser/Browser.qml:775 src/app/webbrowser/SettingsPage.qml:45
 msgid "Settings"
 msgstr "设置"
 
-#: src/app/webbrowser/Browser.qml:786
+#: src/app/webbrowser/Browser.qml:781
 msgid "View source"
 msgstr "查看源代码"
 
-#: src/app/webbrowser/Browser.qml:793
-msgid "Save as HTML / PDF"
-msgstr "保存为 HTML/ PDF"
+#: src/app/webbrowser/Browser.qml:794
+msgid "Save / Print to PDF"
+msgstr "保存/打印为PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:1007 src/app/webbrowser/Browser.qml:1045
+#: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1830
+msgid "the file is already in the downloads folder."
+msgstr "文件已经在下载目录了。"
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
@@ -772,36 +865,6 @@ msgstr "选择一个应用来打开这个文件或者将它添加到下载文件
 #: src/app/webbrowser/ContentDownloadDialog.qml:89
 msgid "Choose an application"
 msgstr "选择一个应用程序"
-
-#: src/app/webbrowser/ContentDownloadDialog.qml:102
-msgid "Download"
-msgstr "下载"
-
-#: src/app/webbrowser/DownloadDelegate.qml:153
-msgid "Download failed"
-msgstr "下载失败"
-
-#. TRANSLATORS: %1 is the percentage of the download completed so far
-#: src/app/webbrowser/DownloadDelegate.qml:196
-#, qt-format
-msgid "%1%"
-msgstr "%1%"
-
-#: src/app/webbrowser/DownloadDelegate.qml:202
-msgid "Pause"
-msgstr "暂停"
-
-#: src/app/webbrowser/DownloadDelegate.qml:213
-msgid "Resume"
-msgstr "继续"
-
-#: src/app/webbrowser/DownloadsPage.qml:62
-msgid "Confirm selection"
-msgstr "确定选择"
-
-#: src/app/webbrowser/DownloadsPage.qml:268
-msgid "No downloads available"
-msgstr "没有可用的下载"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:117
 #, qt-format
@@ -852,12 +915,12 @@ msgstr ""
 msgid "More"
 msgstr "更多"
 
-#: src/app/webbrowser/NewTabView.qml:326
+#: src/app/webbrowser/NewTabView.qml:327
 #: src/app/webbrowser/NewTabViewWide.qml:138
 msgid "Top sites"
 msgstr "热门网站"
 
-#: src/app/webbrowser/NewTabView.qml:357
+#: src/app/webbrowser/NewTabView.qml:358
 msgid "You haven't visited any site yet"
 msgstr "您尚未访问任何站点"
 
@@ -895,68 +958,110 @@ msgstr "你通过HTTPS连接到 %1，证书有效。"
 msgid "Default"
 msgstr "默认"
 
-#: src/app/webbrowser/SettingsPage.qml:72
-#: src/app/webbrowser/SettingsPage.qml:223
+#: src/app/webbrowser/SettingsPage.qml:74
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Search engine"
 msgstr "搜索引擎"
 
-#: src/app/webbrowser/SettingsPage.qml:98
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:484
+msgid "New Tab Page"
+msgstr "新标签页"
+
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Restore previous session at startup"
 msgstr "在启动时恢复上次会话"
 
-#: src/app/webbrowser/SettingsPage.qml:117
+#: src/app/webbrowser/SettingsPage.qml:120
+msgid "not available because of startup in private mode"
+msgstr "以隐私模式启动而不可使用"
+
+#: src/app/webbrowser/SettingsPage.qml:140
 msgid "Set Desktop mode"
 msgstr "电脑模式"
 
-#: src/app/webbrowser/SettingsPage.qml:184
-#: src/app/webbrowser/SettingsPage.qml:266
-#: src/app/webcontainer/WebappSettingsPage.qml:103
-#: src/app/webcontainer/WebappSettingsPage.qml:143
+#: src/app/webbrowser/SettingsPage.qml:159
+#: src/app/webcontainer/WebappSettingsPage.qml:58
+msgid "Automatic fit to width"
+msgstr "自动适应宽度"
+
+#: src/app/webbrowser/SettingsPage.qml:160
+#: src/app/webcontainer/WebappSettingsPage.qml:59
+msgid "Adjusts the width of the website to the window"
+msgstr "调整网站的窗口宽度"
+
+#: src/app/webbrowser/SettingsPage.qml:179
+#: src/app/webcontainer/WebappSettingsPage.qml:78
+msgid "Default Zoom"
+msgstr "默认"
+
+#: src/app/webbrowser/SettingsPage.qml:218
+#: src/app/webbrowser/SettingsPage.qml:300
+#: src/app/webcontainer/WebappSettingsPage.qml:131
+#: src/app/webcontainer/WebappSettingsPage.qml:172
 msgid "Privacy & permissions"
 msgstr "隐私与许可"
 
-#: src/app/webbrowser/SettingsPage.qml:195
+#: src/app/webbrowser/SettingsPage.qml:229
 msgid "Reset browser settings"
 msgstr "重置浏览器设置"
 
-#: src/app/webbrowser/SettingsPage.qml:280
-#: src/app/webcontainer/WebappSettingsPage.qml:157
+#: src/app/webbrowser/SettingsPage.qml:314
+msgid "Start in private mode"
+msgstr "进入匿名模式"
+
+#: src/app/webbrowser/SettingsPage.qml:338
+#: src/app/webcontainer/WebappSettingsPage.qml:186
 msgid "Only allow browsing to whitelisted websites"
 msgstr "仅允许浏览在白名单里的网站"
 
-#: src/app/webbrowser/SettingsPage.qml:320
-#: src/app/webbrowser/SettingsPage.qml:453
+#: src/app/webbrowser/SettingsPage.qml:378
+#: src/app/webbrowser/SettingsPage.qml:569
 msgid "Camera & microphone"
 msgstr "相机与麦克风"
 
-#: src/app/webbrowser/SettingsPage.qml:329
-msgid "Clear Browsing History"
+#: src/app/webbrowser/SettingsPage.qml:387
+msgid "Clear browsing history"
 msgstr "清除浏览历史"
 
-#: src/app/webbrowser/SettingsPage.qml:333
-msgid "Clear Browsing History?"
+#: src/app/webbrowser/SettingsPage.qml:391
+msgid "Clear browsing history?"
 msgstr "清除浏览历史？"
 
-#: src/app/webbrowser/SettingsPage.qml:341
-#: src/app/webcontainer/WebappSettingsPage.qml:198
-msgid "Clear Cache"
+#: src/app/webbrowser/SettingsPage.qml:399
+#: src/app/webcontainer/WebappSettingsPage.qml:227
+msgid "Clear cache"
 msgstr "清除缓存"
 
-#: src/app/webbrowser/SettingsPage.qml:344
-#: src/app/webcontainer/WebappSettingsPage.qml:201
-msgid "Clear Cache?"
+#: src/app/webbrowser/SettingsPage.qml:402
+#: src/app/webcontainer/WebappSettingsPage.qml:230
+msgid "Clear cache?"
 msgstr "清除缓存？"
 
-#: src/app/webbrowser/SettingsPage.qml:376
-#: src/app/webcontainer/WebappSettingsPage.qml:233
+#: src/app/webbrowser/SettingsPage.qml:410
+#: src/app/webcontainer/WebappSettingsPage.qml:238
+msgid "Clear all cookies"
+msgstr "清除所有cookies"
+
+#: src/app/webbrowser/SettingsPage.qml:413
+#: src/app/webcontainer/WebappSettingsPage.qml:241
+msgid "Clear all Cookies?"
+msgstr "清除所有cookies？"
+
+#: src/app/webbrowser/SettingsPage.qml:445
+#: src/app/webcontainer/WebappSettingsPage.qml:273
 msgid "Clear"
 msgstr "清除"
 
-#: src/app/webbrowser/SettingsPage.qml:465
+#: src/app/webbrowser/SettingsPage.qml:496
+msgid "Custom hompage"
+msgstr "自定义主页"
+
+#: src/app/webbrowser/SettingsPage.qml:581
 msgid "Microphone"
 msgstr "麦克风"
 
-#: src/app/webbrowser/SettingsPage.qml:486
+#: src/app/webbrowser/SettingsPage.qml:602
 msgid "Camera"
 msgstr "相机"
 
@@ -968,7 +1073,7 @@ msgstr "上划以退出全屏"
 msgid "Press ESC To Exit Full Screen"
 msgstr "按ESC退出全屏"
 
-#: src/app/webbrowser/TabPreview.qml:86
+#: src/app/webbrowser/TabPreview.qml:97
 msgid "Tap to view"
 msgstr "点击查看"
 
@@ -985,13 +1090,13 @@ msgid "Remove"
 msgstr "移除"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/morph-browser.qml:105
+#: src/app/webbrowser/morph-browser.qml:108
 #: src/app/webcontainer/webapp-container.qml:76
 #, qt-format
 msgid "%1 - Morph Web Browser"
 msgstr "%1 - Morph网页浏览器"
 
-#: src/app/webbrowser/morph-browser.qml:107
+#: src/app/webbrowser/morph-browser.qml:110
 #: src/app/webcontainer/webapp-container.qml:78
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:2
 msgid "Morph Web Browser"
@@ -1068,11 +1173,11 @@ msgstr "糟糕，出了点问题。"
 msgid "domain %1 is now whitelisted, please reload the page."
 msgstr "域名 %1 已加入白名单，请重新载入此页面。"
 
-#: src/app/webcontainer/WebappSettingsPage.qml:35
+#: src/app/webcontainer/WebappSettingsPage.qml:38
 msgid "WebappContainer Settings"
 msgstr "Web应用容器配置"
 
-#: src/app/webcontainer/WebappSettingsPage.qml:114
+#: src/app/webcontainer/WebappSettingsPage.qml:143
 msgid "Reset webapp settings"
 msgstr "重置web应用设置"
 
@@ -1095,6 +1200,14 @@ msgstr "新建窗口"
 #: po/src/app/webbrowser/morph-browser.desktop.in.in.h:6
 msgid "New Private Window"
 msgstr "新建隐私窗口"
+
+#~ msgid "Save as HTML / PDF"
+#~ msgstr "保存为 HTML/ PDF"
+
+#~ msgid ""
+#~ "Set current zoom as default zoom for %1 ? (You can change it in the "
+#~ "settings menu)"
+#~ msgstr "设置当前缩放为 %1 的默认缩放？（你可以在配置菜单种进行修改）"
 
 #~ msgid ""
 #~ "You attempted to reach %1 but the server presented a security certificate "
@@ -1211,9 +1324,6 @@ msgstr "新建隐私窗口"
 
 #~ msgid "Private Mode"
 #~ msgstr "匿名模式"
-
-#~ msgid "Leave Private Mode"
-#~ msgstr "退出匿名模式"
 
 #~ msgid "Going to public mode will close all private tabs"
 #~ msgstr "使用公开模式将关闭所有匿名标签"

@@ -49,7 +49,6 @@ FocusScope {
 
         anchors {
             top: header.bottom
-            topMargin: units.gu(1.5)
             bottom: parent.bottom
             bottomMargin: units.gu(1.5)
             left: parent.left
@@ -92,7 +91,7 @@ FocusScope {
             left: parent.left
             right: parent.right
         }
-        height: units.gu(8)
+        height: units.gu(6)
 
         Rectangle {
             anchors {
@@ -103,12 +102,31 @@ FocusScope {
             height: units.dp(1)
             color: theme.palette.normal.base
         }
-
-        UrlDelegate {
+        Item {
+            id: doneButton
             anchors {
                 left: parent.left
-                right: doneButton.left
-                rightMargin: units.gu(1)
+                verticalCenter: parent.verticalCenter
+            }
+            Action {
+                id: close1
+                onTriggered: expandedHistoryView.done()
+                iconName: "close"
+            }
+            Button {
+                width: units.gu(5)
+                anchors {
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                }
+                action: close1
+                strokeColor: theme.palette.normal.foreground
+            }
+        }
+        UrlDelegate {
+            anchors {
+                left: doneButton.right
+                leftMargin: units.gu(4)
                 top: parent.top
                 topMargin: -units.gu(0.7)
             }
@@ -116,22 +134,6 @@ FocusScope {
             title: model ? model.domain : ""
             url: i18n.tr("%1 page", "%1 pages", entriesListView.count).arg(entriesListView.count)
             enabled: false
-        }
-
-        Button {
-            id: doneButton
-
-            strokeColor: theme.palette.selected.base
-
-            anchors {
-                right: parent.right
-                rightMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-
-            text: i18n.tr("Less")
-
-            onClicked: expandedHistoryView.done()
         }
     }
 }

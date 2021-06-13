@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Chris Clime
+ * Copyright 2020 UBports Foundation
  *
  * This file is part of morph-browser.
  *
@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QtSql/QSqlQuery>
 #include <QUrl>
+#include <cmath>
 
 #define CONNECTION_NAME "morph-browser-domainsettings"
 
@@ -110,7 +111,7 @@ void DomainSettingsModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS domainsettings "
-                                  "(domain VARCHAR NOT NULL UNIQUE, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation BOOL, "
+                                  "(domain VARCHAR NOT NULL UNIQUE, domainWithoutSubdomain VARCHAR, allowCustomUrlSchemes BOOL, allowLocation INTEGER, "
                                   "userAgentId INTEGER, zoomFactor REAL, PRIMARY KEY(domain), FOREIGN KEY(userAgentId) REFERENCES useragents(id)); ");
     createQuery.prepare(query);
     createQuery.exec();
@@ -129,7 +130,7 @@ void DomainSettingsModel::populateFromDatabase()
         entry.domain = populateQuery.value("domain").toString();
         entry.domainWithoutSubdomain = populateQuery.value("domainWithoutSubdomain").toString();
         entry.allowCustomUrlSchemes = populateQuery.value("allowCustomUrlSchemes").toBool();
-        entry.allowLocation = populateQuery.value("allowLocation").toBool();
+        entry.allowLocation = static_cast<AllowLocationPreference>(populateQuery.value("allowLocation").toInt());
         entry.userAgentId = populateQuery.value("userAgentId").toInt();
         entry.zoomFactor =  populateQuery.value("zoomFactor").isNull() ? std::numeric_limits<double>::quiet_NaN()
                                                                        : populateQuery.value("zoomFactor").toDouble();
@@ -214,33 +215,33 @@ void DomainSettingsModel::allowCustomUrlSchemes(const QString& domain, bool allo
     }
 }
 
-bool DomainSettingsModel::isLocationAllowed(const QString& domain) const
+DomainSettingsModel::AllowLocationPreference DomainSettingsModel::getLocationPreference(const QString& domain) const
 {
     int index = getIndexForDomain(domain);
     if (index == -1)
     {
-        return false;
+        return AllowLocationPreference::AskForLocationAccess;
     }
 
     return m_entries[index].allowLocation;
 }
 
-void DomainSettingsModel::allowLocation(const QString& domain, bool allow)
+void DomainSettingsModel::setLocationPreference(const QString& domain, DomainSettingsModel::AllowLocationPreference preference)
 {
     insertEntry(domain);
 
     int index = getIndexForDomain(domain);
     if (index != -1) {
         DomainSetting& entry = m_entries[index];
-        if (entry.allowLocation == allow) {
+        if (entry.allowLocation == preference) {
             return;
         }
-        entry.allowLocation = allow;
+        entry.allowLocation = preference;
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << AllowLocation);
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE domainsettings SET allowLocation=? WHERE domain=?;");
         query.prepare(updateStatement);
-        query.addBindValue(allow);
+        query.addBindValue(entry.allowLocation);
         query.addBindValue(domain);
         query.exec();
     }
@@ -345,7 +346,7 @@ void DomainSettingsModel::insertEntry(const QString &domain)
     entry.domain = domain;
     entry.domainWithoutSubdomain = DomainUtils::getDomainWithoutSubdomain(domain);
     entry.allowCustomUrlSchemes = false;
-    entry.allowLocation = false;
+    entry.allowLocation = AllowLocationPreference::AskForLocationAccess;
     entry.userAgentId = 0;
     entry.zoomFactor = std::numeric_limits<double>::quiet_NaN();
     m_entries.append(entry);
