@@ -41,7 +41,7 @@ Item {
     }
 
     Connections {
-        target: scrollTracker.active && !header.moving && !scrollTracker.webview.loading ? scrollTracker.webview : null
+        target: scrollTracker.active && !header.moving ? scrollTracker.webview : null
         onScrollPositionChanged: {
 
             if (scrollTracker.webview.scrollPosition.y === internal.previousScrollPositionY) {

@@ -25,7 +25,7 @@ import QtQuick 2.4
 ScrollTracker {
     id: chromeStateTracker
 
-    active: webview && !webview.fullscreen
+    active: webview && !webview.fullscreen && !webview.loading
 
     onScrolledUp: {
         if (chromeStateChangeTimer.settled) {
