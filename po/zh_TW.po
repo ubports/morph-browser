@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2021-04-22 10:44+0000\n"
-"Last-Translator: louies0623 <louies0623@gmail.com>\n"
+"PO-Revision-Date: 2021-06-14 20:29+0000\n"
+"Last-Translator: Ito Rimai <ItoRimai@foxmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -492,7 +492,7 @@ msgstr "重設"
 
 #: src/app/ZoomControls.qml:69
 msgid "fit"
-msgstr "符合大小"
+msgstr "重置縮放"
 
 #: src/app/ZoomControls.qml:76
 msgid "Zoom In"
