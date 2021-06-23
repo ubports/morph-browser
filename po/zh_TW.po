@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2021-06-14 20:29+0000\n"
-"Last-Translator: Ito Rimai <ItoRimai@foxmail.com>\n"
+"PO-Revision-Date: 2021-06-22 20:16+0000\n"
+"Last-Translator: louies0623 <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/morph-browser/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -532,7 +532,7 @@ msgstr "無"
 msgid ""
 "domain zoom (currently %1 and can be removed with reset button or from "
 "domain specific settings in privacy settings)"
-msgstr ""
+msgstr "‎網域縮放（目前 %1 ‎可以使用重置按鈕或從隱私設置裡的網域特定設定中移除）‎"
 
 #: src/app/ZoomControls.qml:189
 msgid " and resets domain zoom"
@@ -816,7 +816,7 @@ msgstr "網域白名單"
 #, qt-format
 msgid ""
 "domain %1 is now whitelisted, it will be active on the next page reload."
-msgstr ""
+msgstr "‎網域 ‎%1‎ 現在已經被列入白名單，將會在下一頁重新載入。‎"
 
 #: src/app/webbrowser/Browser.qml:729
 msgid "New window"
@@ -948,7 +948,7 @@ msgstr "此網站的身份尚未經驗證。"
 #: src/app/webbrowser/SecurityCertificatePopover.qml:109
 #, qt-format
 msgid "You are connected to %1 via HTTPS. The certificate is valid."
-msgstr ""
+msgstr "您透過 HTTPS 連線到 %1。該憑證有效。"
 
 #: src/app/webbrowser/SettingsDeviceSelector.qml:42
 msgid "Default"
