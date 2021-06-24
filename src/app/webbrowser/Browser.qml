@@ -580,7 +580,6 @@ Common.BrowserView {
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
         onVisibleChanged: {
             if (visible) {
-
                 currentWebview.hideContextMenu();
                 chrome.state = "hidden";
             }

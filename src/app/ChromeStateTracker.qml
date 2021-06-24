@@ -25,16 +25,16 @@ import QtQuick 2.4
 ScrollTracker {
     id: chromeStateTracker
 
-    active: webview && !webview.fullscreen
+    active: webview && !webview.fullscreen && !webview.loading
 
     onScrolledUp: {
-        if (!header.moving && chromeStateChangeTimer.settled) {
+        if (chromeStateChangeTimer.settled) {
             delayedAutoHideTimer.up = true
             delayedAutoHideTimer.restart()
         }
     }
     onScrolledDown: {
-        if (!header.moving && chromeStateChangeTimer.settled) {
+        if (chromeStateChangeTimer.settled) {
             delayedAutoHideTimer.up = false
             delayedAutoHideTimer.restart()
         }
@@ -69,14 +69,16 @@ ScrollTracker {
     // See https://bugs.launchpad.net/morph-browser/+bug/1354700.
     Timer {
         id: chromeStateChangeTimer
-        interval: 50
-        running: !chromeStateTracker.header.moving
+        interval: 150
         onTriggered: settled = true
         property bool settled: true
     }
 
     Connections {
         target: chromeStateTracker.header
-        onMovingChanged: chromeStateChangeTimer.settled = false
+        onStateChanged: {
+            chromeStateChangeTimer.settled = false;
+            chromeStateChangeTimer.restart();
+        }
     }
 }

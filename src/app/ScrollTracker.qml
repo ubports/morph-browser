@@ -24,8 +24,8 @@ Item {
     property var webview
     property var header
 
-    readonly property bool nearTop: webview ? webview.contentY < (internal.headerHeight / internal.contentRatio) : false
-    readonly property bool nearBottom: webview ? (webview.contentY + internal.viewportHeight + internal.headerHeight / internal.contentRatio) > internal.contentHeight : false
+    readonly property bool nearTop: webview ? (webview.scrollPosition.y / webview.scaleFactor) < units.gu(4) : false
+    readonly property bool nearBottom: webview ? ((webview.contentsSize.height - webview.scrollPosition.y) / webview.scaleFactor - webview.height) < units.gu(4) : false
 
     property bool active: true
 
@@ -37,29 +37,28 @@ Item {
 
     QtObject {
         id: internal
-
-        readonly property real headerHeight: scrollTracker.header ? scrollTracker.header.height : 0
-        readonly property real headerVisibleHeight: scrollTracker.header ? scrollTracker.header.visibleHeight : 0
-
-        readonly property real contentHeight: scrollTracker.webview ? scrollTracker.webview.contentHeight + headerVisibleHeight : 0.0
-        readonly property real viewportHeight: scrollTracker.webview ? scrollTracker.webview.viewportHeight + headerVisibleHeight : 0.0
-        readonly property real maxContentY: scrollTracker.webview ? scrollTracker.webview.contentHeight - scrollTracker.webview.viewportHeight : 0.0
-
-        readonly property real contentRatio: scrollTracker.webview ? scrollTracker.webview.viewportHeight / scrollTracker.webview.contentHeight : 1.0
-
-        readonly property real currentScrollFraction: (maxContentY == 0.0) ? 0.0 : (scrollTracker.webview.contentY / maxContentY)
-        property real previousScrollFraction: 0.0
+        property real previousScrollPositionY: 0.0
     }
 
     Connections {
         target: scrollTracker.active ? scrollTracker.webview : null
-        onContentYChanged: {
-            var old = internal.previousScrollFraction
-            internal.previousScrollFraction = internal.currentScrollFraction
-            if (internal.currentScrollFraction < old) {
-                scrollTracker.scrolledUp()
-            } else if (internal.currentScrollFraction > old) {
-                scrollTracker.scrolledDown()
+        onScrollPositionChanged: {
+
+            if (header.moving) {
+                return;
+            }
+
+            if (scrollTracker.webview.scrollPosition.y === internal.previousScrollPositionY) {
+                return;
+            }
+
+            var oldScrollPosition = internal.previousScrollPositionY;
+            internal.previousScrollPositionY = scrollTracker.webview.scrollPosition.y;
+
+            if (internal.previousScrollPositionY < oldScrollPosition) {
+                 scrollTracker.scrolledUp()
+            } else if (internal.previousScrollPositionY > oldScrollPosition) {
+                 scrollTracker.scrolledDown()
             }
         }
     }
