@@ -33,6 +33,7 @@ class DomainSettingsModel : public QAbstractListModel
     Q_PROPERTY(double defaultZoomFactor READ defaultZoomFactor WRITE setDefaultZoomFactor)
 
     Q_ENUMS(AllowLocationPreference)
+    Q_ENUMS(NotificationsPreference)
     Q_ENUMS(Roles)
 
 public:
@@ -45,11 +46,18 @@ public:
      DenyLocationAccess = 2
     };
 
+    enum NotificationsPreference {
+     AskForNotificationsAccess = 0,
+     AllowNotificationsAccess = 1,
+     DenyNotificationsAccess = 2
+    };
+
     enum Roles {
         Domain = Qt::UserRole + 1,
         DomainWithoutSubdomain,
         AllowCustomUrlSchemes,
         AllowLocation,
+        AllowNotifications,
         UserAgentId,
         ZoomFactor
     };
@@ -68,15 +76,17 @@ public:
     Q_INVOKABLE bool contains(const QString& domain) const;
     Q_INVOKABLE void deleteAndResetDataBase();
     Q_INVOKABLE bool areCustomUrlSchemesAllowed(const QString& domain);
-    Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow);
+    Q_INVOKABLE void allowCustomUrlSchemes(const QString& domain, bool allow, bool incognito);
     Q_INVOKABLE AllowLocationPreference getLocationPreference(const QString& domain) const;
     Q_INVOKABLE void setLocationPreference(const QString& domain, AllowLocationPreference preference);
+    Q_INVOKABLE NotificationsPreference getNotificationsPreference(const QString& domain) const;
+    Q_INVOKABLE void setNotificationsPreference(const QString& domain, NotificationsPreference, bool incognito);
     Q_INVOKABLE int getUserAgentId(const QString& domain) const;
     Q_INVOKABLE void setUserAgentId(const QString& domain, int userAgentId);
     Q_INVOKABLE void removeUserAgentIdFromAllDomains(int userAgentId);
     Q_INVOKABLE double getZoomFactor(const QString& domain) const;
     Q_INVOKABLE void setZoomFactor(const QString& domain, double zoomFactor);
-    Q_INVOKABLE void insertEntry(const QString& domain);
+    Q_INVOKABLE void insertEntry(const QString& domain, bool incognito);
     Q_INVOKABLE void removeEntry(const QString& domain);
 
 Q_SIGNALS:
@@ -93,6 +103,7 @@ private:
         QString domainWithoutSubdomain;
         bool allowCustomUrlSchemes;
         AllowLocationPreference allowLocation;
+        NotificationsPreference allowNotifications;
         int userAgentId;
         double zoomFactor;
     };

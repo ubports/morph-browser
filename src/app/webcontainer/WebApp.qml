@@ -513,6 +513,11 @@ Common.BrowserView {
                console.log("a download was finished with path %1.".arg(download.path))
                webapp.setDownloadComplete(download)
            }
+
+           onPresentNotification: {
+               NotificationsProxy.updateCount();
+               NotificationsProxy.sendNotification(notification);
+           }
        }
 
        Connections {

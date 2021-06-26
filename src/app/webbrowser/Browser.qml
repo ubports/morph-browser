@@ -189,7 +189,7 @@ Common.BrowserView {
             // handle custom schemes
             if (UrlUtils.hasCustomScheme(url))
             {
-                if (! internal.areCustomUrlSchemesAllowed(currentDomain))
+                if (! DomainSettingsModel.areCustomUrlSchemesAllowed(currentDomain))
                 {
                   request.action = WebEngineNavigationRequest.IgnoreRequest;
 
@@ -197,14 +197,14 @@ Common.BrowserView {
                   allowCustomSchemesDialog.url = url;
                   allowCustomSchemesDialog.domain = currentDomain;
                   allowCustomSchemesDialog.showAllowPermanentlyCheckBox = ! browser.incognito;
-                  allowCustomSchemesDialog.allow.connect(function() {internal.allowCustomUrlSchemes(currentDomain, false);
-                                                                     internal.navigateToUrlAsync(url);
-                                                                   }
-                                                      );
-                  allowCustomSchemesDialog.allowPermanently.connect(function() {internal.allowCustomUrlSchemes(currentDomain, true);
-                                                                                internal.navigateToUrlAsync(url);
-                                                                               }
-                                                                   );
+                  allowCustomSchemesDialog.allow.connect(function() {
+                      DomainSettingsModel.allowCustomUrlSchemes(currentDomain, true, true);
+                      internal.navigateToUrlAsync(url);
+                  });
+                  allowCustomSchemesDialog.allowPermanently.connect(function() {
+                      DomainSettingsModel.allowCustomUrlSchemes(currentDomain, true, false);
+                      internal.navigateToUrlAsync(url);
+                  });
                 }
                 return;
             }
@@ -1527,35 +1527,6 @@ Common.BrowserView {
             return false
         }
 
-        // domains the user has allowed custom protocols for this (incognito) session
-        property var domainsWithCustomUrlSchemesAllowed: []
-
-        function allowCustomUrlSchemes(domain, allowPermanently) {
-           domainsWithCustomUrlSchemesAllowed.push(domain);
-
-           if (allowPermanently)
-           {
-                DomainSettingsModel.allowCustomUrlSchemes(domain, true);
-           }
-        }
-
-        function areCustomUrlSchemesAllowed(domain) {
-
-            for (var i in domainsWithCustomUrlSchemesAllowed) {
-                if (domain === domainsWithCustomUrlSchemesAllowed[i]) {
-                    return true;
-                }
-            }
-
-            if (DomainSettingsModel.areCustomUrlSchemesAllowed(domain))
-            {
-                domainsWithCustomUrlSchemesAllowed.push(domain);
-                return true;
-            }
-
-            return false;
-        }
-
         function historyGoBack() {
             if (currentWebview && currentWebview.canGoBack) {
                 internal.resetFocus()
@@ -1965,6 +1936,11 @@ Common.BrowserView {
               FileOperations.remove(download.url);
               internal.closeTabsWithUrl(download.url);
             }
+        }
+        
+        onPresentNotification: {
+            NotificationsProxy.updateCount();
+            NotificationsProxy.sendNotification(notification);
         }
     }
 

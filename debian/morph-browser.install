@@ -1,4 +1,5 @@
 usr/bin/morph-browser
+usr/lib/ubuntu-push-client/legacy-helpers
 usr/share/morph-browser/*.qml
 usr/share/morph-browser/qmldir
 usr/share/morph-browser/*.js
