@@ -26,6 +26,7 @@ QQC2.SwipeDelegate {
     property alias title: chrome.title
     property alias tabIcon: chrome.icon
     property alias incognito: chrome.incognito
+    property real chromeHeight
     property var tab
     readonly property url url: tab ? tab.url : ""
 
@@ -60,6 +61,7 @@ QQC2.SwipeDelegate {
                 right: parent.right
             }
             tabWidth: units.gu(26)
+            height: tabPreview.chromeHeight
 
             onSelected: tabPreview.selected()
             onClosed: tabPreview.closed()
@@ -74,7 +76,7 @@ QQC2.SwipeDelegate {
             }
 
             visible: !tab.loadingPreview
-            height: parent.height
+            height: parent.height - chrome.height
             clip: true
 
             Rectangle {
