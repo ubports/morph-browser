@@ -879,6 +879,14 @@ Common.BrowserView {
                 iconName: "zoom-in"
                 enabled: currentWebview && (currentWebview.url.toString() !== "")
                 onTriggered: currentWebview.showZoomMenu()
+            },
+            Action {
+                objectName: "desktopmode"
+                text: i18n.tr("Set Desktop mode")
+                iconName: "computer"
+                checkable: true
+                checked: settings.setDesktopMode
+                onToggled: settings.setDesktopMode = checked
             }
 
         ]
