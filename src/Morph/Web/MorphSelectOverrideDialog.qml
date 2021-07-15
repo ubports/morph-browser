@@ -27,7 +27,7 @@ Popups.Dialog {
     objectName: "selectOverrideDialog"
     modal: true
 
-    __dimBackground: false //avoid default opaque background
+    //__dimBackground: false //avoid default opaque background
     grabDismissAreaEvents: false //allow this component to handle the click on the background
 
     property string options: ""
