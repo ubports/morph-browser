@@ -248,24 +248,6 @@ FocusScope {
             }
 
             ChromeButton {
-                id: closeButton
-                objectName: "closeButton"
-
-                iconName: "close"
-                iconSize: 0.3 * height
-                iconColor: root.iconColor
-
-                height: root.height
-                width: height * 0.8
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                visible: tabListMode
-
-                onTriggered: closeTabRequested()
-            }
-            
-            ChromeButton {
                 id: downloadsButton
                 objectName: "downloadsButton"
 
