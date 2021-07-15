@@ -1287,10 +1287,6 @@ Common.BrowserView {
         Connections {
             target: downloadsViewLoader.item
             onDone: downloadsViewLoader.active = false
-            onPreview: {
-                    downloadsViewLoader.active = false
-                    currentWebview.url = url;
-            }
         }
 
         onStatusChanged: {
@@ -1630,11 +1626,6 @@ Common.BrowserView {
         target: internal.currentDownloadsDialog
 
         onShowDownloadsPage: showDownloadsPage()
-
-        onPreview: {
-                    PopupUtils.close(internal.currentDownloadsDialog);
-                    currentWebview.url = url;
-        }
     }
 
     // Work around https://launchpad.net/bugs/1502675 by delaying the switch to
@@ -1875,6 +1866,21 @@ Common.BrowserView {
             downloadsViewLoader.item.activeTransfer = transfer
             downloadsViewLoader.item.multiSelect = multiSelect
             downloadsViewLoader.item.pickingMode = true
+        }
+    }
+
+    Loader {
+        id: contentExportLoader
+        source: "../ContentExportDialog.qml"
+        asynchronous: true
+    }
+
+    Connections {
+        target: contentExportLoader.item
+
+        onPreview: {
+            downloadsViewLoader.active = false
+            currentWebview.url = url;
         }
     }
 

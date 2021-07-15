@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Canonical Ltd.
+ * Copyright 2021 UBports Foundation
  *
  * This file is part of morph-browser.
  *
@@ -41,7 +41,6 @@ Popover {
     property real preferredHeight:  downloadsDialogColumn.height + units.gu(2)
     
     signal showDownloadsPage()
-    signal preview(string url)
 
     contentHeight: preferredHeight > maximumHeight ? maximumHeight : preferredHeight
     contentWidth: preferredWidth > maximumWidth ? maximumWidth : preferredWidth
@@ -117,20 +116,17 @@ Popover {
                 icon: MimeDatabase.iconForMimetype(modelData.mimeType)
                 
                 onClicked: {
-                    /* TODO: Enable once content picker in a popover is merged  */
-                    /*if (!incomplete && !error) {
-                        var properties = {"path": download.path, "contentType": MimeTypeMapper.mimeTypeToContentType(download.mimeType), "mimeType": download.mimeType, "downloadUrl": download.url}
-                        var exportDialog = PopupUtils.open(Qt.resolvedUrl("ContentExportDialog.qml"), downloadsDialog.parent, properties)
-                        exportDialog.preview.connect(downloadsDialog.preview)
-                    } else {*/
-                    if (download) {
-                        if (paused) {
-                            download.resume()
-                        } else {
-                            download.pause()
+                    if (!incomplete && !error) {
+                        contentExportLoader.item.openDialog(download.path, MimeTypeMapper.mimeTypeToContentType(download.mimeType), download.mimeType, download.url, title.text)
+                    } else {
+                        if (download) {
+                            if (paused) {
+                                download.resume()
+                            } else {
+                                download.pause()
+                            }
                         }
                     }
-                    //}
                 }
                 
                 onRemove: downloadsListView.removeItem(index)

@@ -1,6 +1,7 @@
 {
   "template": "cmake",
   "kill": "morph-browser",
+  "qt_version": "5.12",
   "build_args": "-DCLICK_MODE=ON",
   "dependencies_target": [
     "qtwebengine5-dev"
