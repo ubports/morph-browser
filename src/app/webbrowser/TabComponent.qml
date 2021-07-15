@@ -209,13 +209,14 @@ Component {
                     error.onCancelled.connect(webviewimpl.resetCertificateError)
                 }
             }
-
-            //onFullscreenChanged: {
-            //    if (fullscreen) {
-            //        fullscreenExitHintComponent.createObject(webviewimpl)
-            //    }
-            //}
             */
+
+            onIsFullScreenChanged: {
+                if (isFullScreen) {
+                    fullscreenExitHintComponent.createObject(webviewimpl)
+                }
+            }
+
             Component {
                 id: fullscreenExitHintComponent
 
@@ -223,7 +224,11 @@ Component {
                     id: fullscreenExitHint
                     objectName: "fullscreenExitHint"
 
-                    anchors.centerIn: parent
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        bottom: parent.bottom
+                        bottomMargin : units.gu(5)
+                    }
                     height: units.gu(6)
                     width: Math.min(units.gu(50), parent.width - units.gu(12))
                     radius: units.gu(1)
@@ -253,9 +258,18 @@ Component {
                     Label {
                         color: theme.palette.normal.background
                         font.weight: Font.Light
-                        anchors.centerIn: parent
-                        text: bottomEdgeHandle.enabled
-                              ? i18n.tr("Swipe Up To Exit Full Screen")
+                        fontSizeMode: Text.HorizontalFit
+                        minimumPixelSize: Label.XSmall
+                        textSize: Label.Large
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors {
+                            fill: parent
+                            leftMargin: units.gu(2)
+                            rightMargin: units.gu(2)
+                        }
+                        text: bottomEdgeHandle.enabled && !internal.hasKeyboard
+                              ? i18n.tr("Swipe From The Bottom Edge To Exit Full Screen")
                               : i18n.tr("Press ESC To Exit Full Screen")
                     }
 
@@ -267,15 +281,12 @@ Component {
 
                     Connections {
                         target: webviewimpl
-                      //  onFullscreenChanged: {
-                      //      if (!webviewimpl.fullscreen) {
-                      //          fullscreenExitHint.destroy()
-                      //      }
-                      //  }
+                        onIsFullScreenChanged: {
+                            if (!target.isFullScreen) {
+                                fullscreenExitHint.destroy()
+                            }
+                        }
                     }
-
-                    Component.onCompleted: bottomEdgeHint.forceShow = true
-                    Component.onDestruction: bottomEdgeHint.forceShow = false
                 }
             }
         }
