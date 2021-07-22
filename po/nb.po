@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: morph-browser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 19:58+0000\n"
-"PO-Revision-Date: 2020-10-08 20:16+0000\n"
-"Last-Translator: Ari Börde Kröyer <ari.kroyer@online.no>\n"
+"PO-Revision-Date: 2021-07-22 23:44+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://translate.ubports.com/projects/"
 "ubports/morph-browser/nb/>\n"
 "Language: nb\n"
@@ -476,10 +476,8 @@ msgid "Save page as HTML / PDF"
 msgstr "Lagre side som HTML / PDF"
 
 #: src/app/SavePageDialog.qml:41
-#, fuzzy
-#| msgid "No custom user agents available"
 msgid "No save actions are available"
-msgstr "Ingen tilpassede brukeragenter foreligger"
+msgstr "Ingen lagringshandlinger er tilgjengelige"
 
 #: src/app/SavePageDialog.qml:46
 msgid "Save as HTML"
@@ -863,7 +861,7 @@ msgstr "Vis kilde"
 #, fuzzy
 #| msgid "Save as PDF"
 msgid "Save / Print to PDF"
-msgstr "Lagre som PDF"
+msgstr "Lagre eler skriv ut som PDF"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:1014 src/app/webbrowser/Browser.qml:1052
@@ -872,12 +870,8 @@ msgid "(%1)"
 msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1830
-#, fuzzy
-#| msgid ""
-#| "Choose an application to open this file or add it to the downloads folder."
 msgid "the file is already in the downloads folder."
-msgstr ""
-"Velg et program som fila skal åpnes i, eller lagre den i nedlastingsmappa."
+msgstr "filen er allerede å finne i nedlastingsmappen."
 
 #: src/app/webbrowser/ContentDownloadDialog.qml:83
 msgid ""
